@@ -1,0 +1,10 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "^5.3",
+        "phpoffice/phpspreadsheet": "^1.17"
+    },
+    "config": {
+        "platform-check": false
+    }
+
+}

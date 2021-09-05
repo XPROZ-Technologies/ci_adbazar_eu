@@ -1,0 +1,13 @@
+.dateDropdown select {
+    width: 100px;
+}
+
+.dateDropdown {
+    display: flex;
+    margin-left: -15px;
+    align-items: center;
+}
+
+.dateDropdown select {
+    margin-left: 15px;
+}

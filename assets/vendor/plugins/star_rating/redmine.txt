@@ -1,0 +1,2 @@
+https://github.com/nashio/star-rating-svg
+https://ourcodeworld.com/articles/read/498/top-7-best-jquery-javascript-star-rating-plugins

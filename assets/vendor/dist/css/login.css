@@ -1,0 +1,145 @@
+
+.login-page, .register-page {
+        background: url('../img/background.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+	.login-box-body{
+        -webkit-box-shadow: 7px 8px 33px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 7px 8px 33px 0px rgba(0,0,0,0.75);
+        box-shadow: 7px 8px 33px 0px rgba(0,0,0,0.75);
+        min-width: 380px !important;
+	}
+    .canhvang{position: absolute; top:20px; left: 80px;}
+    .login-box-body, .register-box-body {
+        position: fixed;
+        background: #1e242ccc;
+        padding: 40px 40px;
+        border-top: 0;
+        color: #666;
+        min-width: 400px;
+        top: 15%;
+    }
+    .input-field{
+        height: 55px;
+    }
+    .custom-ip input.material::-webkit-input-placeholder
+    {
+        font-style: italic;
+    }
+    .custom-ip input.material {
+      background: none;
+      border: 0;
+      border-bottom: 1px solid #159b95;
+      padding: 10px 10px 2px 5px;
+      display: block;
+      width: 100%;
+      font-family: sans-serif;
+      color:#fff;
+      padding-left: 100px;
+          
+    }
+    .custom-ip input.material:focus {
+      outline: none;
+    }
+    .custom-ip input.material:focus ~ label {
+      top: -3rem;
+      font-size: 14px;
+      /*left: -0.5rem;*/
+      color: #159b95;
+    }
+    .custom-ip input.material:focus ~ .bottom::before,
+    .custom-ip input.material:focus ~ .bottom::after {
+      width: 50%;
+    }
+    .custom-ip label {
+      color: #159b95;
+      font-size: 14pt;
+      font-weight: normal;
+      position: relative;
+      pointer-events: none;
+      left: 0.2rem;
+      top: -25px;
+      transition: 0.2s ease;
+    }
+    .custom-ip .bottom {
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+    .custom-ip .bottom::before, .custom-ip .bottom::after {
+      content: "";
+      height: 2px;
+      width: 0;
+      bottom: 1px;
+      position: absolute;
+      background: #159b95;
+      transition: 0.2s ease;
+    }
+    .custom-ip .bottom::before {
+      left: 50%;
+    }
+    .custom-ip .bottom::after {
+      right: 50%;
+    }
+    .yl-title{
+        text-align: center;
+        color:#fdf7d1;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .btn-gr{
+        background: #159b95;
+        color:#fff;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        border-radius: 3px !important:;
+    }
+    .btn-or{
+        background: #c17317;
+        color:#fff;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        border-radius: 3px !important:;
+    }
+    .btn-dk{
+        color:#159b95;
+        display: inline-block;
+        margin-top: 5px;
+    }
+.pgbp{
+	font-size: 16px;
+	color:#d0d0d0;
+	margin-left: 10px;
+}
+.ps-rl{
+	position: relative;
+	display: inline-block;
+	margin:0 auto;
+}
+.ps-rl img{
+	position: absolute;
+	left: -30px;
+	width: 30px;
+	top:-2px;
+}
+.mb-20{
+	margin-bottom: 20px;
+}
+.mobile-icon{
+	top:-30px !important;
+}
+.mobile-icon i{
+	font-size: 24px;
+}
+.custom-ip input.material:focus ~ .mobile-icon {
+          top: -4rem !important;
+          font-size: 14px;
+          color: #159b95;
+}
+.custom-ip input.material:focus ~ .mobile-icon i{
+	font-size: 20px;
+}
+.mgr-5{
+  margin-right: 5px
+}

@@ -1,0 +1,125 @@
+.none-display {
+  display: none !important;
+}
+.er{
+  color: red;
+  font-style: italic;
+}
+.block-display {
+  display: block !important;
+}
+
+.btn-disable {
+  cursor: no-drop !important;
+  background: #EEEEEE !important;
+  border-color: #ddd !important;
+  &:hover {
+    background: #EEEEEE !important;
+  }
+}
+
+#container-filters {
+  margin: 0px !important;
+  padding: 0px !important;
+  list-style-type: none;
+  .item {
+    display: inline-block;
+    margin: 0px 5px;
+    button {
+
+      background-color: #e2ff90 !important;
+      border-color: #cbdbee !important;
+      padding: 3px 8px !important;
+      color: #707070 !important;
+      &:first-child {
+        border-top-left-radius: 3px !important;
+        border-bottom-left-radius: 3px !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-right: 0 !important;
+      }
+      &:last-child {
+        border-top-right-radius: 3px !important;
+        border-bottom-right-radius: 3px !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        color: #44494e !important;
+      }
+      &:hover {
+        background: #00a65a !important;
+        color: white !important;
+        border-color: #00a65a !important;;
+      }
+    }
+
+  }
+}
+
+//css cho table-data
+#table-data {
+  .paginate_table {
+    &:hover {
+      background: white;
+    }
+    ul {
+      margin: 0px !important;
+      padding: 0px !important;
+      list-style-type: none;
+      display: block;
+      .total-row {
+        padding: 0px 20px;
+      }
+      li {
+        &:last-child {
+          a {
+            border-right: 1px solid #eeeeee;
+          }
+        }
+        .active {
+          background: #428bca !important;
+          border: 1px solid #428bca !important;
+          color: white !important;
+          &:hover {
+            background: #428bca !important;
+          }
+        }
+        .disable {
+          cursor: no-drop;
+          background: #EEEEEE;
+          border-color: #ddd;
+          &:hover {
+            background: #EEEEEE;
+          }
+        }
+        .none-event {
+          cursor: default !important;;
+        }
+        display: inline-block;
+        .first-page {
+          display: block;
+          border-right: none;
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+        }
+        .last-page {
+          display: block;
+          border-right: 1px solid #eeeeee;
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+        }
+
+        a {
+          border: 1px solid #eeeeee;
+          border-right: none;
+          display: block;
+          padding: 6px 12px;
+          color: #428bca;
+          &:hover {
+            background: #e2ff90;
+          }
+        }
+      }
+    }
+  }
+
+}
