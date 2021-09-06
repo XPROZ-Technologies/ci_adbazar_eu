@@ -9,6 +9,6 @@ class Dashboard extends MY_Controller {
             'Dashboard',
             array('scriptFooter' => array('js' => ''))
         );
-        $this->load->view('dashboard/dashboard', $data);
+        $this->load->view('backend/dashboard/dashboard', $data);
     }
 }

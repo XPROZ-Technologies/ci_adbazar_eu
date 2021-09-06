@@ -30,8 +30,8 @@ class Mconstants extends CI_Model {
     );
 
     public $languageIds = array(
-        1 => 'Tiếng Việt',
-        2 => 'Tiếng Anh'
+        1 => 'English',
+        2 => 'Czech republic'
     );
 
     // loại hình ảnh trong slider

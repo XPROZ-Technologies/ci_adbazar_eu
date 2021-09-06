@@ -17,6 +17,7 @@ abstract class MY_Controller extends CI_Controller {
         return $data;
     }
 
+    // check login phía quản trị
     protected function checkUserLogin($isApi = false){
         $user = $this->rsession->get('user');
         if($user){
@@ -38,6 +39,25 @@ abstract class MY_Controller extends CI_Controller {
             else redirect('admin?redirectUrl='.current_url());
             die();
         }
+    }
+
+    // check ngôn ngữ và login phía customer (end user)
+    protected function checkLoginCustomer() {
+        $this->load->helper('cookie');
+        $customers = json_decode($this->input->cookie('customer', true), true);
+        if (isset($customers) && $customers['id'] > 0) {
+            // check login customer
+        } else {
+            // customer not login
+            if (empty($customers) || $customers == NULL) {
+                // nếu customer ko chọn ngôn ngữ sẽ gán ngôn ngữ tiếng anh
+                $customers = json_encode(array('language_id' => 1, 'language_name' => 'english', 'id' => 0));
+            } else {
+                $customers = json_encode(array('language_id' => $customers['language_id'], 'language_name' => $customers['language_name'], 'id' => 0));
+            }
+        }
+        $this->input->set_cookie($this->configValueCookie('customer', $customers));
+        return json_decode($customers, true);
     }
 
     protected function loadModel($models = array()){
@@ -89,6 +109,15 @@ abstract class MY_Controller extends CI_Controller {
         log_message('error', $this->router->fetch_class().'/'.$this->router->fetch_method().': Server: '.json_encode($_SERVER));
         log_message('error', $this->router->fetch_class().'/'.$this->router->fetch_method().': Input: '.file_get_contents('php://input'));
         log_message('error', '=======================================');
+    }
+
+    protected function configValueCookie($name = 'customer', $value = '') {
+        return array(
+            'name'   => $name,
+            'value'  => $value , //json_encode(array('language_id' => $languageId, 'language_name' => $language, 'id' => 0)),                            
+            'expire' => '7200'
+
+        );
     }
 
 
