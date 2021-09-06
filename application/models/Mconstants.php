@@ -7,8 +7,6 @@ class Mconstants extends CI_Model {
         parent::__construct();
     }
 
-    public $keyMap =  'AIzaSyBy8Nn3utEHcAyEkA5gkrlIEKQt3EHsJRU';
-
     public $roles = array(
         1 => 'Admin'
     );
@@ -34,24 +32,6 @@ class Mconstants extends CI_Model {
         2 => 'Czech republic'
     );
 
-    // loại hình ảnh trong slider
-    public $sliderKindIds = array(
-        1 => 'Ảnh chính',
-        2 => 'Ảnh phụ'
-    );
-
-    // Loại hình phục vụ
-    public $typeIds = array(
-        1 => 'Hotel',
-        2 => 'Flight'
-    );
-
-    // Loại danh mục bài viết
-    public $categoryTypeIds = array(
-        1 => 'Danh mục bài viết cho Hotel',
-        2 => 'Danh mục bài viết cho Flight',
-    );
-
     public $labelCss = array(
         1 => 'label label-default',
         2 => 'label label-success',
@@ -67,54 +47,6 @@ class Mconstants extends CI_Model {
         12 => 'label label-danger'
     );
 
-    public $isHome = array(
-        0 => 'Không hiển thị',
-        1 => 'Hiển thị'
-    );
-
-    public $airlineStatus = array(
-        1 => 'Ngừng hợp tác',
-        2 => 'Hoạt động'
-    );
-
-    public $orderStatus = array(
-        0 => 'Nháp',
-        1 => 'Đang Xử Lý',
-        2 => 'Đã Book',
-        3 => 'Đã Xuất Vé',
-        4 => 'Đã Huỷ',
-        5 => 'Hoàn Thành',
-        6 => 'Thất Bại'
-    );
-    public $orderPaymentStatus = array(
-        0 => 'Chưa Thanh Toán',
-        1 => 'Đã Thanh Toán',
-        2 => 'Thanh Toán Thất Bại',
-        3 => 'Hết Hạn Thanh Toán',
-        4 => 'Đang Hoàn Huỷ',
-        5 => 'Đã Hoàn Tiền',
-    );
-
-    public $hfStatus = array(
-        1 => 'Ngừng kích hoạt',
-        2 => 'Kích hoạt'
-    );
-
-    public $hotelVendorID = array(
-        1 => 'Travel Port',
-        2 => 'EzCloud'
-    );
-
-    public $customerType = array(
-        1 => 'Website',
-        2 => 'Facebook',
-        3 => 'Google'
-    );
-
-    public $discountType = array(
-        1 => 'Giảm theo %',
-        2 => 'Giảm theo tiền'
-    );
 
     public function selectConstants($key, $selectName, $itemId = 0, $isAll = false, $txtAll = 'Tất cả', $selectClass = '', $attrSelect = ''){
         $obj = $this->$key;
