@@ -7,11 +7,11 @@ class Action extends MY_Controller {
 		$user = $this->checkUserLogin(); 
 		$data = $this->commonData($user,
 			'Menu hệ thống nội bộ',
-			array('scriptFooter' => array('js' => 'js/setting/action.js'))
+			array('scriptFooter' => array('js' => 'js/backend/setting/action.js'))
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'action')) {
 			$data['listActiveActions'] = $this->Mactions->getHierachy();
-			$this->load->view('setting/action', $data);
+			$this->load->view('backend/setting/action', $data);
 		}
 		else $this->load->view('user/permission', $data);
 	}

@@ -2,10 +2,10 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 25, 2021 lúc 11:12 AM
--- Phiên bản máy phục vụ: 10.4.19-MariaDB
--- Phiên bản PHP: 7.4.19
+-- Host: localhost:8889
+-- Generation Time: Sep 06, 2021 at 05:58 PM
+-- Server version: 5.7.32
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `ci_genie_transport`
+-- Database: `ci_adbazar_eu`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `actions`
+-- Table structure for table `actions`
 --
 
 CREATE TABLE `actions` (
@@ -45,7 +45,57 @@ CREATE TABLE `actions` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `configs`
+-- Table structure for table `business_payments`
+--
+
+CREATE TABLE `business_payments` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `payment_gateway_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1: paypal, 2:...',
+  `payment_amount` float DEFAULT '0',
+  `payment_currency` varchar(10) NOT NULL,
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `delete_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_profiles`
+--
+
+CREATE TABLE `business_profiles` (
+  `id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  `service_id` int(10) NOT NULL,
+  `business_name` varchar(250) NOT NULL,
+  `business_email` varchar(250) NOT NULL,
+  `business_address` varchar(250) NOT NULL,
+  `business_whatsapp` varchar(100) NOT NULL,
+  `business_url` text NOT NULL,
+  `business_phone` varchar(100) NOT NULL,
+  `business_description` text NOT NULL,
+  `business_avatar` text NOT NULL,
+  `business_image_cover` text NOT NULL,
+  `is_annual_payment` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1: annual, 0: one time',
+  `expired_date` datetime NOT NULL,
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `busines_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `updated_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `delete_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `configs`
 --
 
 CREATE TABLE `configs` (
@@ -53,7 +103,7 @@ CREATE TABLE `configs` (
   `config_code` varchar(45) NOT NULL,
   `config_name` varchar(100) NOT NULL,
   `config_value` text NOT NULL,
-  `config_value_en` text DEFAULT NULL,
+  `config_value_en` text,
   `auto_load` tinyint(4) NOT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -61,10 +111,23 @@ CREATE TABLE `configs` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `configs`
+--
+
+INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `config_value_en`, `auto_load`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
+(1, 'COUPON_IMAGE', 'Coupon Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
+(2, 'EVENT_IMAGE', 'Event Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
+(3, 'VIDEO_URL', 'Video URL', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
+(4, 'ABOUT_US_IMAGE', 'About Us Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
+(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
+(6, 'FACEBOOK_URL', 'Facebook URL', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
+(7, 'YOUTUBE_URL', 'Youtube URL', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40');
+
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `countries`
+-- Table structure for table `countries`
 --
 
 CREATE TABLE `countries` (
@@ -83,7 +146,7 @@ CREATE TABLE `countries` (
   `capital` varchar(50) DEFAULT NULL,
   `time_zone_in_capital` varchar(200) DEFAULT NULL,
   `currency` varchar(50) DEFAULT NULL,
-  `flag` longtext DEFAULT NULL,
+  `flag` longtext,
   `created_by` int(10) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` int(10) NOT NULL,
@@ -91,7 +154,7 @@ CREATE TABLE `countries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `countries`
+-- Dumping data for table `countries`
 --
 
 INSERT INTO `countries` (`id`, `country_name_vn`, `country_name_en`, `iso2`, `iso3`, `top_level_domain`, `fips`, `iso_numeric`, `geo_name_id`, `e_164`, `phone_code`, `continent`, `capital`, `time_zone_in_capital`, `currency`, `flag`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
@@ -339,7 +402,33 @@ INSERT INTO `countries` (`id`, `country_name_vn`, `country_name_en`, `iso2`, `is
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `districts`
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` int(10) NOT NULL,
+  `customer_email` varchar(250) NOT NULL,
+  `customer_password` varchar(250) NOT NULL,
+  `customer_first_name` varchar(250) NOT NULL,
+  `customer_last_name` varchar(250) NOT NULL,
+  `customer_birthday` datetime NOT NULL,
+  `customer_gender_id` tinyint(4) NOT NULL,
+  `customer_phone` varchar(50) NOT NULL,
+  `customer_occupation` varchar(250) NOT NULL,
+  `customer_address` varchar(250) NOT NULL,
+  `free_trial` tinyint(4) NOT NULL DEFAULT '0',
+  `customer_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(10) NOT NULL,
+  `delete_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `districts`
 --
 
 CREATE TABLE `districts` (
@@ -354,7 +443,7 @@ CREATE TABLE `districts` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `districts`
+-- Dumping data for table `districts`
 --
 
 INSERT INTO `districts` (`id`, `district_name`, `province_id`, `display_order`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
@@ -1100,7 +1189,7 @@ INSERT INTO `districts` (`id`, `district_name`, `province_id`, `display_order`, 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `files`
+-- Table structure for table `files`
 --
 
 CREATE TABLE `files` (
@@ -1117,7 +1206,7 @@ CREATE TABLE `files` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `filters`
+-- Table structure for table `filters`
 --
 
 CREATE TABLE `filters` (
@@ -1137,7 +1226,7 @@ CREATE TABLE `filters` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `itemfiles`
+-- Table structure for table `itemfiles`
 --
 
 CREATE TABLE `itemfiles` (
@@ -1154,7 +1243,7 @@ CREATE TABLE `itemfiles` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `itemtags`
+-- Table structure for table `itemtags`
 --
 
 CREATE TABLE `itemtags` (
@@ -1171,7 +1260,46 @@ CREATE TABLE `itemtags` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `provinces`
+-- Table structure for table `locations`
+--
+
+CREATE TABLE `locations` (
+  `id` int(10) NOT NULL,
+  `location_name` varchar(250) NOT NULL,
+  `lat` varchar(250) NOT NULL,
+  `lng` varchar(250) NOT NULL,
+  `location_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `delete_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opening_hours`
+--
+
+CREATE TABLE `opening_hours` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `day_id` tinyint(4) NOT NULL,
+  `start_time` varchar(50) NOT NULL,
+  `end_time` varchar(50) NOT NULL,
+  `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `delete_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `provinces`
 --
 
 CREATE TABLE `provinces` (
@@ -1186,7 +1314,7 @@ CREATE TABLE `provinces` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `provinces`
+-- Dumping data for table `provinces`
 --
 
 INSERT INTO `provinces` (`id`, `province_name`, `country_id`, `display_order`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
@@ -1257,7 +1385,7 @@ INSERT INTO `provinces` (`id`, `province_name`, `country_id`, `display_order`, `
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `roleactions`
+-- Table structure for table `roleactions`
 --
 
 CREATE TABLE `roleactions` (
@@ -1273,7 +1401,45 @@ CREATE TABLE `roleactions` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tags`
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `id` int(10) NOT NULL,
+  `service_name` varchar(250) NOT NULL,
+  `service_image` text NOT NULL,
+  `service_status_id` tinyint(4) NOT NULL,
+  `display_order` int(10) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `delete_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sliders`
+--
+
+CREATE TABLE `sliders` (
+  `id` int(10) NOT NULL,
+  `slider_image` text NOT NULL,
+  `slider_url` text NOT NULL,
+  `slider_status_id` tinyint(4) NOT NULL,
+  `display_order` int(10) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(10) NOT NULL,
+  `delete_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tags`
 --
 
 CREATE TABLE `tags` (
@@ -1290,7 +1456,7 @@ CREATE TABLE `tags` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -1317,7 +1483,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `user_name`, `user_pass`, `full_name`, `email`, `gender_id`, `role_id`, `status_id`, `province_id`, `district_id`, `ward_id`, `address`, `birth_day`, `phone_number`, `avatar`, `token`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
@@ -1326,7 +1492,7 @@ INSERT INTO `users` (`id`, `user_name`, `user_pass`, `full_name`, `email`, `gend
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wards`
+-- Table structure for table `wards`
 --
 
 CREATE TABLE `wards` (
@@ -1343,7 +1509,7 @@ CREATE TABLE `wards` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `wards`
+-- Dumping data for table `wards`
 --
 
 INSERT INTO `wards` (`id`, `ward_name`, `province_id`, `district_id`, `display_order`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`) VALUES
@@ -12558,148 +12724,232 @@ INSERT INTO `wards` (`id`, `ward_name`, `province_id`, `district_id`, `display_o
 (32281, 'Huyện Tân Bình', 46, 795, 0, 0, '2021-06-17 16:41:14', 0, NULL, NULL);
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `actions`
+-- Indexes for table `actions`
 --
 ALTER TABLE `actions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `configs`
+-- Indexes for table `business_payments`
+--
+ALTER TABLE `business_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `business_profiles`
+--
+ALTER TABLE `business_profiles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `configs`
 --
 ALTER TABLE `configs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `countries`
+-- Indexes for table `countries`
 --
 ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`),
   ADD KEY `CountryId` (`id`);
 
 --
--- Chỉ mục cho bảng `districts`
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `districts`
 --
 ALTER TABLE `districts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `files`
+-- Indexes for table `files`
 --
 ALTER TABLE `files`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `filters`
+-- Indexes for table `filters`
 --
 ALTER TABLE `filters`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `itemfiles`
+-- Indexes for table `itemfiles`
 --
 ALTER TABLE `itemfiles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `itemtags`
+-- Indexes for table `itemtags`
 --
 ALTER TABLE `itemtags`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `provinces`
+-- Indexes for table `locations`
+--
+ALTER TABLE `locations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opening_hours`
+--
+ALTER TABLE `opening_hours`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `provinces`
 --
 ALTER TABLE `provinces`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `roleactions`
+-- Indexes for table `roleactions`
 --
 ALTER TABLE `roleactions`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `tags`
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sliders`
+--
+ALTER TABLE `sliders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tags`
 --
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `wards`
+-- Indexes for table `wards`
 --
 ALTER TABLE `wards`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `actions`
+-- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `countries`
+-- AUTO_INCREMENT for table `business_payments`
+--
+ALTER TABLE `business_payments`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `business_profiles`
+--
+ALTER TABLE `business_profiles`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
--- AUTO_INCREMENT cho bảng `files`
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `filters`
+-- AUTO_INCREMENT for table `filters`
 --
 ALTER TABLE `filters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `itemfiles`
+-- AUTO_INCREMENT for table `itemfiles`
 --
 ALTER TABLE `itemfiles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `itemtags`
+-- AUTO_INCREMENT for table `itemtags`
 --
 ALTER TABLE `itemtags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `provinces`
+-- AUTO_INCREMENT for table `locations`
+--
+ALTER TABLE `locations`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opening_hours`
+--
+ALTER TABLE `opening_hours`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `provinces`
 --
 ALTER TABLE `provinces`
   MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
--- AUTO_INCREMENT cho bảng `roleactions`
+-- AUTO_INCREMENT for table `roleactions`
 --
 ALTER TABLE `roleactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `tags`
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sliders`
+--
+ALTER TABLE `sliders`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
