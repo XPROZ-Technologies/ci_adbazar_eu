@@ -65,10 +65,6 @@ class Musers extends MY_Model {
         return false;
     }
 
-    public function getUserCode($userId, $isCustomer = false){
-        return ($isCustomer ? 'KH' : 'NV').'-'.(10000 + $userId);
-    }
-
     public function getCount($postData){
         $query = "status_id > 0" . $this->buildQuery($postData);
         return $this->countRows($query);
@@ -85,7 +81,8 @@ class Musers extends MY_Model {
 
     private function buildQuery($postData){
         $query = '';
-        if(isset($postData['search_text']) && !empty($postData['search_text'])) $query.=" AND ( `user_name` LIKE '%{$postData['user_name']}%' OR full_name LIKE '%{$postData['full_name']}%' OR email LIKE '%{$postData['email']}%' OR phone_number LIKE '%{$postData['phone_number']}%')";
+        if(isset($postData['search_text']) && !empty($postData['search_text'])) $query.=" AND ( `user_name` LIKE '%{$postData['user_name']}%' OR full_name LIKE '%{$postData['full_name']}%' OR email LIKE '%{$postData['email']}%' OR phone_number LIKE '%{$postData['phone_number']}%' OR `address` LIKE '%{$postData['address']}%')";
+        if(isset($postData['status_id']) && $postData['status_id'] > 0) $query .= " AND status_id = ".$postData['status_id'];
         return $query;
     }
 

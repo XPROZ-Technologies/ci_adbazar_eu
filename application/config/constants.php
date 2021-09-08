@@ -86,21 +86,19 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 //common
 define('STATUS_ACTIVED', 2);
-define('NO_IMAGE', 'assets/vendor/dist/imgno_image.png');
+define('NO_IMAGE', 'no_image.png');
 define('DEFAULT_LIMIT', 20);
 //define('API_VERSION', '1.0');
 //message
-define('ERROR_COMMON_MESSAGE', 'Có lỗi xảy ra trong quá trình thực hiện');
+define('ERROR_COMMON_MESSAGE', 'An error occurred during execution');
+define('ERROR_NO_DATA', 'Data does not exist');
 //path
 define('ROOT_PATH', dirname($_SERVER['SCRIPT_NAME']) . '/');
 define('USER_PATH', 'assets/uploads/users/');
 define('IMAGE_PATH', 'assets/uploads/images/');
 define('FILE_PATH', 'assets/uploads/files/');
-define('ARTICLE_PATH', 'assets/uploads/articles/');
 define('SLIDER_PATH', 'assets/uploads/sliders/');
-define('PARTNER_PATH', 'assets/uploads/partners/');
 define('CONFIG_PATH', 'assets/uploads/configs/');
-define('AIRLINE_PATH', 'assets/uploads/airlines/');
 
 
 // item type id to controller

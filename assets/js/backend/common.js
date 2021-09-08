@@ -136,7 +136,7 @@ function validateEmpty(container) {
     var flag = true;
     $(container + ' .hmdrequired').each(function () {
         if ($(this).val().trim() == '') {
-            showNotification($(this).attr('data-field') + ' không được bỏ trống', 0);
+            showNotification($(this).attr('data-field') + ' not be empty', 0);
             $(this).focus();
             flag = false;
             return false;
@@ -147,7 +147,7 @@ function validateEmpty(container) {
 
 function validateNumber(container, isInt, msg) {
     if(typeof(container) == 'undefined') container = 'body';
-    if(typeof(msg) == 'undefined') msg = ' không được bé hơn 0';
+    if(typeof(msg) == 'undefined') msg = " can't be smaller 0";
     var flag = true;
     var value = 0;
     $(container + ' .hmdrequiredNumber').each(function () {
@@ -265,58 +265,6 @@ function chooseFile(inputFileImage, fileProgress, fileTypeId, fnSuccess) {
     });
 }
 
-
-function province(provinceIdStr, districtIdStr, wardIdStr) {
-    if(typeof(provinceIdStr) == 'undefined'){
-        provinceIdStr = 'province_id';
-        districtIdStr = 'district_id';
-        wardIdStr = 'ward_id';
-    }
-    var selPro = $('select#' + provinceIdStr);
-    if (selPro.length > 0) {
-        var selDistrict = $('select#' + districtIdStr);
-        var selWard = $('select#' + wardIdStr);
-        selDistrict.find('option').hide();
-        selDistrict.find('option[value="0"]').show();
-        var provinceId = selPro.val();
-        if (provinceId != '0') selDistrict.find('option[data-id="' + provinceId + '"]').show();
-        selPro.change(function () {
-            selDistrict.find('option').hide();
-            provinceId = $(this).val();
-            if (provinceId != '0') selDistrict.find('option[data-id="' + provinceId + '"]').show();
-            selDistrict.val('0');
-            //selWard.val('0');
-            selWard.html('<option value="0">--Chọn--</option>');
-        });
-        var districtId = selDistrict.val();
-        console.log(districtId)
-        if (districtId != '0') getListWard(districtId, selWard, selWard.attr('data-id'));
-        selDistrict.change(function () {
-            districtId = $(this).val();
-            if (districtId != '0') getListWard(districtId, selWard, 0);
-        });
-    }
-}
-
-function getListWard(districtId, selWard, wardId){
-    
-    $.ajax({
-        type: "POST",
-        url: $('input#getListWardUrl').val(),
-        data: {
-            district_id: districtId
-        },
-        success: function (response) {
-            var data = $.parseJSON(response);
-            var html = '<option value="0">--Chọn--</option>';
-            for(var i = 0; i < data.length; i++) html += '<option value="' + data[i].id + '">' + data[i].ward_name + '</option>';
-            selWard.html(html).val(wardId);
-        },
-        error: function (response) {
-            selWard.html('<option value="0">--Chọn--</option>');
-        }
-    });
-}
 
 function checkPhoneNumber(phone) {
     var flag = false;

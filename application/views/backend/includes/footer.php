@@ -29,7 +29,7 @@ if($user){ ?>
     <input type="text" hidden="hidden" id="avatarLoginId" value="<?php echo NO_IMAGE; ?>">
     <input type="text" hidden="hidden" id="roleId" value="0">
 <?php } ?>
-<noscript><meta http-equiv="refresh" content="0;" url="<?php echo base_url('user/permission'); ?>" /></noscript>
+<noscript><meta http-equiv="refresh" content="0;" url="<?php echo base_url('backend/user/permission'); ?>" /></noscript>
 <script src="assets/vendor/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/vendor/plugins/pace/pace.min.js"></script>
@@ -39,7 +39,7 @@ if($user){ ?>
 <script src="assets/vendor/plugins/pnotify/pnotify.custom.min.js"></script>
 <script src="assets/vendor/plugins/select2/select2.full.min.js"></script>
 <script src="assets/vendor/plugins/iCheck/icheck.min.js"></script>
-<script type="text/javascript" src="assets/js/common.js"></script>
+<script type="text/javascript" src="assets/js/backend/common.js"></script>
 <?php if(isset($scriptFooter)) outputScript($scriptFooter); ?>
 </body>
 </html>

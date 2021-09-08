@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title><?php echo $title; ?></title>
     <base href="<?php echo base_url(); ?>" id="baseUrl"/>
-    <?php $this->load->view('includes/favicon'); ?>
+    <?php $this->load->view('backend/includes/favicon'); ?>
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/vendor/plugins/pnotify/pnotify.custom.min.css"/>
