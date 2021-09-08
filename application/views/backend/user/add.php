@@ -5,7 +5,7 @@
                 <h1><?php echo $title; ?></h1>
                 <ul class="list-inline">
                     <li><button class="btn btn-primary submit">Save</button></li>
-                    <li><a href="<?php echo base_url('backend/user'); ?>" class="btn btn-default">Cancel</a></li>
+                    <li><a href="<?php echo base_url('backend/user/staff'); ?>" class="btn btn-default">Cancel</a></li>
                 </ul>
             </section>
             <section class="content">
@@ -127,7 +127,7 @@
                 </div>
                 <ul class="list-inline pull-right margin-right-10">
                     <li><button class="btn btn-primary submit" type="button">Save</button></li>
-                    <li><a href="<?php echo base_url('backend/user'); ?>" class="btn btn-default" id="btnCancel">Cancel</a></li>
+                    <li><a href="<?php echo base_url('backend/user/staff'); ?>" class="btn btn-default" id="btnCancel">Cancel</a></li>
                     <input type="text" hidden="hidden" name="id" value="0">
                 </ul>
                 <?php echo form_close(); ?>

@@ -6,7 +6,7 @@ abstract class MY_Controller extends CI_Controller {
     public function __construct(){
         parent::__construct();
         if(function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Bangkok');
-        $user = $this->Musers->get(1); $this->session->set_userdata('user', $user);
+        // $user = $this->Musers->get(1); $this->session->set_userdata('user', $user);
       
     }
 

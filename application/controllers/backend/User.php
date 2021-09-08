@@ -4,6 +4,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends MY_Controller { 
 
     public function index(){
+		if(!$this->session->userdata('user')){
+			$data = array('title' => 'Login');
+			if ($this->session->flashdata('txtSuccess')) $data['txtSuccess'] = $this->session->flashdata('txtSuccess');
+			$this->load->helper('cookie');
+			$data['userName'] = $this->input->cookie('userName', true);
+			$data['userPass'] = $this->input->cookie('userPass', true);
+			$this->load->view('backend/user/login', $data);
+		}
+		else redirect('dashboard');
+	}
+
+    public function checkLogin(){
+        // header('Access-Control-Allow-Origin: *');
+		// header('Content-Type: application/json');
+		$postData = $this->arrayFromPost(array('user_name', 'user_pass', 'is_remember', 'is_get_configs'));
+		$userName = $postData['user_name'];
+		$userPass = $postData['user_pass'];
+		if(!empty($userName) && !empty($userPass)) {
+			$configs = array();
+			$user = $this->Musers->login($userName, $userPass);
+			if ($user) {
+				if(empty($user['avatar'])) $user['avatar'] = NO_IMAGE;
+				$this->session->set_userdata('user', $user);
+				if ($postData['is_get_configs'] == 1) {
+					$this->load->model('Mconfigs');
+					$configs = $this->Mconfigs->getListMap();
+					$this->session->set_userdata('configs', $configs);
+				}
+				if ($postData['is_remember'] == 'on') {
+					$this->load->helper('cookie');
+					$this->input->set_cookie(array('name' => 'userName', 'value' => $userName, 'expire' => '86400'));
+					$this->input->set_cookie(array('name' => 'userPass', 'value' => $userPass, 'expire' => '86400'));
+				}
+				else {
+                    $this->input->set_cookie(array('name' => 'userName', 'value' => '', 'expire' => '-3600'));
+                    $this->input->set_cookie(array('name' => 'userPass', 'value' => '', 'expire' => '-3600'));
+                }
+                $user['SessionId'] = uniqid();
+				echo json_encode(array('code' => 1, 'message' => "Logged in successfully", 'data' => array('User' => $user, 'Configs' => $configs, 'message' => "Logged in successfully")));
+			}
+			else echo json_encode(array('code' => 0, 'message' => "Login failed"));
+		}
+		else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+	}
+
+    public function logout(){
+		$fields = array('user', 'configs');
+		foreach($fields as $field) $this->session->unset_userdata($field);
+		redirect('backend/user');
+	}
+
+    public function staff(){
 		$user = $this->checkUserLogin(); 
 		$data = $this->commonData($user,
 			'List staff',
@@ -64,7 +116,7 @@ class User extends MY_Controller {
             }
             else $this->load->view('backend/user/permission', $data);
         }
-        else redirect('backend/user');
+        else redirect('backend/user/staff');
 	}
 
     public function update(){
