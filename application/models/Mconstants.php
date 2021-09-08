@@ -23,7 +23,9 @@ class Mconstants extends CI_Model {
 
     public $languageIds = array(
         1 => 'English',
-        2 => 'Czech republic'
+        2 => 'Czech republic',
+        3 => 'Germany',
+        4 => 'Viet Nam'
     );
 
     public $labelCss = array(

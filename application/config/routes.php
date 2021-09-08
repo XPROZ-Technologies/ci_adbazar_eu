@@ -53,4 +53,12 @@ $route['default_controller'] = 'backend/user';
 $route['404_override'] = '';//'user/permission';
 $route['translate_uri_dashes'] = FALSE;
 //===============================================================
+/**
+ * BACK-END ROUTES
+ */
 $route['admin'] = 'backend/user';
+
+
+/**
+ * FRONT-END ROUTES
+ */

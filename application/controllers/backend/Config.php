@@ -6,7 +6,7 @@ class Config extends MY_Controller{
     public function index(){
 		$user = $this->checkUserLogin();
 		$data = $this->commonData($user,
-			'Cấu hình chung',
+			'Configs',
 			array('scriptFooter' => array('js' => array('js/backend/config/config.js')))
 		);
 		if($this->Mactions->checkAccess($data['listActions'], 'config')) {

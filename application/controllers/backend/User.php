@@ -12,7 +12,7 @@ class User extends MY_Controller {
 			$data['userPass'] = $this->input->cookie('userPass', true);
 			$this->load->view('backend/user/login', $data);
 		}
-		else redirect('dashboard');
+		else redirect('admin/dashboard');
 	}
 
     public function checkLogin(){
