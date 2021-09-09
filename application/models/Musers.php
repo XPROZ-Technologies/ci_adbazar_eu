@@ -81,7 +81,7 @@ class Musers extends MY_Model {
 
     private function buildQuery($postData){
         $query = '';
-        if(isset($postData['search_text']) && !empty($postData['search_text'])) $query.=" AND ( `user_name` LIKE '%{$postData['user_name']}%' OR full_name LIKE '%{$postData['full_name']}%' OR email LIKE '%{$postData['email']}%' OR phone_number LIKE '%{$postData['phone_number']}%' OR `address` LIKE '%{$postData['address']}%')";
+        if(isset($postData['search_text']) && !empty($postData['search_text'])) $query.=" AND ( `user_name` LIKE '%{$postData['search_text']}%' OR full_name LIKE '%{$postData['search_text']}%' OR email LIKE '%{$postData['search_text']}%' OR phone_number LIKE '%{$postData['search_text']}%' OR `address` LIKE '%{$postData['search_text']}%')";
         if(isset($postData['status_id']) && $postData['status_id'] > 0) $query .= " AND status_id = ".$postData['status_id'];
         return $query;
     }
