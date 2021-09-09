@@ -131,11 +131,12 @@ function scrollTo(eleId) {
 }
 
 //validate
-function validateEmpty(container) {
+function validateEmpty(container, btn = '.submit') {
     if(typeof(container) == 'undefined') container = 'body';
     var flag = true;
     $(container + ' .hmdrequired').each(function () {
         if ($(this).val().trim() == '') {
+            $(btn).prop('disabled', false);
             showNotification($(this).attr('data-field') + ' not be empty', 0);
             $(this).focus();
             flag = false;
