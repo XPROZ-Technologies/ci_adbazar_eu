@@ -85,7 +85,9 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 //common
+define('STATUS_FREE_TRIAL', 0);
 define('STATUS_ACTIVED', 2);
+define('STATUS_WAITING_ACTIVE', 1);
 define('NO_IMAGE', 'no_image.png');
 define('DEFAULT_LIMIT', 20);
 //define('API_VERSION', '1.0');
