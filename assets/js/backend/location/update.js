@@ -59,7 +59,9 @@ function initMap() {
     // Create the initial InfoWindow.
     let marker = new google.maps.Marker({
         position: myLatlng,
-        map
+        map,
+        draggable:true,
+        animation: google.maps.Animation.DROP,
     });
     let infoWindow = new google.maps.InfoWindow({
         content: JSON.stringify(myLatlng, null, 2),
@@ -67,7 +69,7 @@ function initMap() {
     });
 
     infoWindow.open(map, marker);
-
+    
     // Configure the click listener.
     map.addListener("click", (mapsMouseEvent) => {
         // Close the current InfoWindow.
@@ -76,11 +78,12 @@ function initMap() {
         
         marker = new google.maps.Marker({
             position: mapsMouseEvent.latLng,
-            map
+            map,
+            draggable:true,
+            animation: google.maps.Animation.DROP,
         });
     
         // Create a new InfoWindow.
-    console.log(mapsMouseEvent.latLng.lat)
         infoWindow = new google.maps.InfoWindow({
             position: mapsMouseEvent.latLng,
         });
@@ -91,10 +94,18 @@ function initMap() {
         $("input[name='lat']").val(mapsMouseEvent.latLng.lat());
         $("input[name='lng']").val(mapsMouseEvent.latLng.lng());
         infoWindow.open(map, marker);
-       
     });
 
+    google.maps.event.addListener(marker, 'dragend', function(event) { 
+        infoWindow.setContent(
+            JSON.stringify(event.latLng.toJSON(), null, 2)
+        );
+        $("input[name='lat']").val(event.latLng.lat());
+        $("input[name='lng']").val(event.latLng.lng());
+     } );
+
 }
+
 
 // function geocodePlaceId(geocoder, map, infowindow) {
 //     const placeId ='ChIJd8BlQ2BZwokRAFUEcm_qrcA';

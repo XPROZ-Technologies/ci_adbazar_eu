@@ -50,4 +50,4 @@
     
     </div>
 <?php $this->load->view('backend/includes/footer'); ?>
-<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly&channel=2" async></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
