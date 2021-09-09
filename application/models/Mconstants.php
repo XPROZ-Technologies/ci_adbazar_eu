@@ -12,24 +12,20 @@ class Mconstants extends CI_Model {
     );
 
     public $status = array(
-        2 => 'Đã duyệt',
-        1 => 'Chưa duyệt',
-        3 => 'Không được duyệt',
-    );
-
-    public $userStatus = array(
-        2 => 'Hoạt động',
-        1 => 'Khóa',
+        1 => 'Deactive',
+        2 => 'Active',
     );
 
     public $genders = array(
-        1 => 'Nam',
-        2 => 'Nữ'
+        1 => 'Male',
+        2 => 'Female'
     );
 
     public $languageIds = array(
         1 => 'English',
-        2 => 'Czech republic'
+        2 => 'Czech republic',
+        3 => 'Germany',
+        4 => 'Viet Nam'
     );
 
     public $labelCss = array(
@@ -48,7 +44,7 @@ class Mconstants extends CI_Model {
     );
 
 
-    public function selectConstants($key, $selectName, $itemId = 0, $isAll = false, $txtAll = 'Tất cả', $selectClass = '', $attrSelect = ''){
+    public function selectConstants($key, $selectName, $itemId = 0, $isAll = false, $txtAll = 'All', $selectClass = '', $attrSelect = ''){
         $obj = $this->$key;
         if($obj) {
             echo '<select class="form-control'.$selectClass.'" name="'.$selectName.'" id="'.lcfirst($selectName).'"'.$attrSelect.'>';
@@ -62,7 +58,7 @@ class Mconstants extends CI_Model {
         }
     }
 
-    public function selectObject($listObj, $objKey, $objValue, $selectName, $objId = 0, $isAll = false, $txtAll = "Tất cả", $selectClass = '', $attrSelect = ''){
+    public function selectObject($listObj, $objKey, $objValue, $selectName, $objId = 0, $isAll = false, $txtAll = "All", $selectClass = '', $attrSelect = ''){
         $id = str_replace('[]', '', lcfirst($selectName));
         echo '<select class="form-control'.$selectClass.'" name="'.$selectName.'" id="'.$id.'"'.$attrSelect.'>';
         if($isAll) echo '<option value="0">'.$txtAll.'</option>';

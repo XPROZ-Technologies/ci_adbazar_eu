@@ -85,53 +85,26 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 //common
+define('STATUS_FREE_TRIAL', 0);
 define('STATUS_ACTIVED', 2);
-define('NO_IMAGE', 'assets/vendor/dist/imgno_image.png');
+define('STATUS_WAITING_ACTIVE', 1);
+define('NO_IMAGE', 'no_image.png');
 define('DEFAULT_LIMIT', 20);
 //define('API_VERSION', '1.0');
 //message
-define('ERROR_COMMON_MESSAGE', 'Có lỗi xảy ra trong quá trình thực hiện');
+define('ERROR_COMMON_MESSAGE', 'An error occurred during execution');
+define('ERROR_NO_DATA', 'Data does not exist');
 //path
 define('ROOT_PATH', dirname($_SERVER['SCRIPT_NAME']) . '/');
 define('USER_PATH', 'assets/uploads/users/');
 define('IMAGE_PATH', 'assets/uploads/images/');
 define('FILE_PATH', 'assets/uploads/files/');
-define('ARTICLE_PATH', 'assets/uploads/articles/');
 define('SLIDER_PATH', 'assets/uploads/sliders/');
-define('PARTNER_PATH', 'assets/uploads/partners/');
 define('CONFIG_PATH', 'assets/uploads/configs/');
-define('AIRLINE_PATH', 'assets/uploads/airlines/');
 
+define('DEFAULT_IMG', '');
 
-// item type id to controller
-define('ARTICLE', 1);
-define('USER', 2);
-define('CATEGORY', 3);
-define('ACTION', 4);
-define('FILE', 5);
-define('ROLE_ACTION', 6);
-define('SLIDER', 7);
-define('PARTNER', 8);
-define('CONFIG', 9);
-define('AIRLINE', 10);
+define('URL_API', '');
 
-
-// item type id to filter
-
-define('STAFF_FILTER_ID', 1);
-define('ARTICLE_FILTER_ID', 2);
-define('CUSTOMER_FILTER_ID', 3);
-
-define('FRONT_URL', getenv('FRONT_URL'));
-
-define('DEFAULT_IMG', 'https://via.placeholder.com/300');
-
-
-define('TVP_USERNAME', getenv('TVP_USERNAME'));
-define('TVP_PASSWORD', getenv('TVP_PASSWORD'));
-define('TVP_BRANCHCODE', getenv('TVP_BRANCHCODE'));
-define('TVP_PROVIDER', getenv('TVP_PROVIDER'));
-define('TVP_COMMON_VERSION', getenv('TVP_COMMON_VERSION'));
-define('TVP_APIURL', getenv('TVP_APIURL'));
-
-define('URL_API', 'https://heyotrip-api.xproz.com/');
+// key api
+define('KEY_GOOGLE_MAP', 'AIzaSyD53XNjfZqrg7twWutFv3rIgnhGvT_Exik');

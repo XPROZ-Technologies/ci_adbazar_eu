@@ -1,4 +1,4 @@
-<?php $this->load->view('includes/header'); ?>
+<?php $this->load->view('backend/includes/header'); ?>
     <div class="content-wrapper">
         <div class="container-fluid">
             <section class="content">
@@ -65,6 +65,6 @@
     </div>
 
     <script>
-        var text_empty_name = "Tên menu không được bỏ trống";
+        var text_empty_name = "Menu name cannot be left blank";
     </script>
-<?php $this->load->view('includes/footer'); ?>
+<?php $this->load->view('backend/includes/footer'); ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 06, 2021 at 05:58 PM
+-- Generation Time: Sep 09, 2021 at 02:12 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.16
 
@@ -57,9 +57,9 @@ CREATE TABLE `business_payments` (
   `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `delete_at` datetime NOT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -87,9 +87,41 @@ CREATE TABLE `business_profiles` (
   `busines_status_id` tinyint(4) NOT NULL DEFAULT '0',
   `updated_by` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
-  `created_by` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `delete_at` datetime NOT NULL
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_profile_locations`
+--
+
+CREATE TABLE `business_profile_locations` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `location_id` int(10) NOT NULL,
+  `expired_date` datetime NOT NULL,
+  `payment_status_id` tinyint(4) NOT NULL,
+  `business_profile_location_status_id` tinyint(4) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_service_type`
+--
+
+CREATE TABLE `business_service_type` (
+  `id` int(11) NOT NULL,
+  `business_profile_id` int(11) NOT NULL,
+  `service_type_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -116,13 +148,14 @@ CREATE TABLE `configs` (
 --
 
 INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `config_value_en`, `auto_load`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 'COUPON_IMAGE', 'Coupon Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(2, 'EVENT_IMAGE', 'Event Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(3, 'VIDEO_URL', 'Video URL', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(4, 'ABOUT_US_IMAGE', 'About Us Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(6, 'FACEBOOK_URL', 'Facebook URL', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(7, 'YOUTUBE_URL', 'Youtube URL', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40');
+(1, 'COUPON_IMAGE', 'Coupon Image', '2021-09-08/6138c9416d8d2.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(3, 'VIDEO_URL', 'Video URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(4, 'ABOUT_US_IMAGE', 'About Us Image', '2021-09-08/6138c94711abb.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '2021-09-08/6138c94bc7a97.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(6, 'FACEBOOK_URL', 'Facebook URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(7, 'YOUTUBE_URL', 'Youtube URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-08/6138c9391df99.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41');
 
 -- --------------------------------------------------------
 
@@ -402,6 +435,30 @@ INSERT INTO `countries` (`id`, `country_name_vn`, `country_name_en`, `iso2`, `is
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `coupon_code` varchar(50) NOT NULL,
+  `coupon_subject` varchar(250) NOT NULL,
+  `coupon_image` text NOT NULL,
+  `coupon_amount` int(10) NOT NULL,
+  `coupon_description` text NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `coupon_status_id` tinyint(4) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(10) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `customers`
 --
 
@@ -411,6 +468,7 @@ CREATE TABLE `customers` (
   `customer_password` varchar(250) NOT NULL,
   `customer_first_name` varchar(250) NOT NULL,
   `customer_last_name` varchar(250) NOT NULL,
+  `customer_avatar` text,
   `customer_birthday` datetime NOT NULL,
   `customer_gender_id` tinyint(4) NOT NULL,
   `customer_phone` varchar(50) NOT NULL,
@@ -420,9 +478,53 @@ CREATE TABLE `customers` (
   `customer_status_id` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` int(10) NOT NULL,
-  `delete_at` datetime NOT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(6, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, '2021-09-09 01:44:48', 0, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_coupons`
+--
+
+CREATE TABLE `customer_coupons` (
+  `id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  `coupon_id` int(10) NOT NULL,
+  `customer_coupon_code` varchar(50) NOT NULL,
+  `customer_coupon_status_id` tinyint(4) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(10) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_events`
+--
+
+CREATE TABLE `customer_events` (
+  `id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  `event_id` int(10) NOT NULL,
+  `customer_evnent_status_id` tinyint(4) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(10) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1189,6 +1291,30 @@ INSERT INTO `districts` (`id`, `district_name`, `province_id`, `display_order`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `events`
+--
+
+CREATE TABLE `events` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `event_subject` varchar(250) NOT NULL,
+  `event_image` text NOT NULL,
+  `start_date` datetime NOT NULL,
+  `start_time` varchar(50) NOT NULL,
+  `end_date` datetime NOT NULL,
+  `end_time` varchar(50) NOT NULL,
+  `event_description` tinyint(4) NOT NULL,
+  `event_status_id` tinyint(4) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(10) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `files`
 --
 
@@ -1271,9 +1397,9 @@ CREATE TABLE `locations` (
   `location_status_id` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `delete_at` datetime NOT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1291,9 +1417,9 @@ CREATE TABLE `opening_hours` (
   `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `delete_at` datetime NOT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1412,9 +1538,27 @@ CREATE TABLE `services` (
   `display_order` int(10) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `delete_at` datetime NOT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_types`
+--
+
+CREATE TABLE `service_types` (
+  `id` int(10) NOT NULL,
+  `service_id` int(10) NOT NULL,
+  `service_type_name` varchar(255) NOT NULL,
+  `display_order` int(10) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1431,9 +1575,9 @@ CREATE TABLE `sliders` (
   `display_order` int(10) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` int(10) NOT NULL,
-  `delete_at` datetime NOT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1468,9 +1612,6 @@ CREATE TABLE `users` (
   `gender_id` tinyint(4) NOT NULL,
   `role_id` tinyint(4) NOT NULL,
   `status_id` tinyint(4) NOT NULL,
-  `province_id` tinyint(4) NOT NULL,
-  `district_id` smallint(6) NOT NULL,
-  `ward_id` smallint(6) NOT NULL,
   `address` varchar(250) NOT NULL,
   `birth_day` datetime NOT NULL,
   `phone_number` varchar(15) NOT NULL,
@@ -1478,16 +1619,17 @@ CREATE TABLE `users` (
   `token` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `user_name`, `user_pass`, `full_name`, `email`, `gender_id`, `role_id`, `status_id`, `province_id`, `district_id`, `ward_id`, `address`, `birth_day`, `phone_number`, `avatar`, `token`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', 1, 1, 2, 63, 0, 0, '', '2020-04-15 00:00:00', '0123456789', 'no_image.jpg', NULL, 1, '2020-03-01 00:00:00', 1, '2020-04-15 20:10:27');
+INSERT INTO `users` (`id`, `user_name`, `user_pass`, `full_name`, `email`, `gender_id`, `role_id`, `status_id`, `address`, `birth_day`, `phone_number`, `avatar`, `token`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`) VALUES
+(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', 1, 1, 2, '', '2020-04-15 00:00:00', '0123456789', 'no_image.jpg', NULL, 1, '2020-03-01 00:00:00', 1, '2020-04-15 20:10:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -12746,6 +12888,12 @@ ALTER TABLE `business_profiles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `business_profile_locations`
+--
+ALTER TABLE `business_profile_locations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `configs`
 --
 ALTER TABLE `configs`
@@ -12759,15 +12907,39 @@ ALTER TABLE `countries`
   ADD KEY `CountryId` (`id`);
 
 --
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customer_coupons`
+--
+ALTER TABLE `customer_coupons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customer_events`
+--
+ALTER TABLE `customer_events`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -12825,6 +12997,12 @@ ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `service_types`
+--
+ALTER TABLE `service_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sliders`
 --
 ALTER TABLE `sliders`
@@ -12871,15 +13049,45 @@ ALTER TABLE `business_profiles`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `business_profile_locations`
+--
+ALTER TABLE `business_profile_locations`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `customer_coupons`
+--
+ALTER TABLE `customer_coupons`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `customer_events`
+--
+ALTER TABLE `customer_events`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
@@ -12934,6 +13142,12 @@ ALTER TABLE `roleactions`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `service_types`
+--
+ALTER TABLE `service_types`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --

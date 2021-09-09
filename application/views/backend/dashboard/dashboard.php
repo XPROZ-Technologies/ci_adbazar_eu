@@ -1,6 +1,6 @@
-<?php $this->load->view('includes/header'); ?>
+<?php $this->load->view('backend/includes/header'); ?>
 <div class="content-wrapper">
     <div class="container-fluid">
     </div>
 </div>
-<?php $this->load->view('includes/footer'); ?>
+<?php $this->load->view('backend/includes/footer'); ?>

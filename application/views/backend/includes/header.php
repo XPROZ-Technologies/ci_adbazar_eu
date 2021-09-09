@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title><?php echo $title; ?></title>
     <base href="<?php echo base_url(); ?>" id="baseUrl"/>
-    <?php $this->load->view('includes/favicon'); ?>
+    <?php $this->load->view('backend/includes/favicon'); ?>
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/vendor/plugins/pnotify/pnotify.custom.min.css"/>
@@ -62,10 +62,10 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                            <a href="<?php echo base_url('user/edit/'.$user['id']); ?>" class="btn btn-default btn-flat">Thông tin cá nhân</a>
+                            <a href="<?php echo base_url('backend/user/edit/'.$user['id']); ?>" class="btn btn-default btn-flat">Thông tin cá nhân</a>
                             </div>
                             <div class="pull-right">
-                            <a href="<?php echo base_url('user/logout'); ?>" class="btn btn-default btn-flat">Thoát tài khoản</a>
+                            <a href="<?php echo base_url('backend/user/logout'); ?>" class="btn btn-default btn-flat">Thoát tài khoản</a>
                             </div>
                         </li>
                         </ul>

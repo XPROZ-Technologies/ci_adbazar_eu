@@ -88,11 +88,12 @@ class MY_Model extends CI_Model {
         }
     }
 
-    public function changeStatus($statusId, $id, $fieldName = 'status_id', $updateUserId = 0){
+    public function changeStatus($statusId, $id, $fieldName = 'status_id', $updateUserId = 0, $deleteAt = 0){
         $retVal = false;
         if($statusId >= 0 && $id > 0){
             if(empty($fieldName)) $fieldName = 'status_id';
             if($updateUserId > 0) $id =  $this->save(array($fieldName => $statusId, 'updated_by' => $updateUserId, 'updated_at' => getCurentDateTime()), $id);
+            if($deleteAt > 0) $id =  $this->save(array($fieldName => $statusId, 'updated_by' => $updateUserId, 'deleted_at' => getCurentDateTime()), $id);
             else $id = $this->save(array($fieldName => $statusId), $id);
             $retVal = $id > 0;
         }
