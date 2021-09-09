@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 08, 2021 at 06:46 PM
+-- Generation Time: Sep 09, 2021 at 01:53 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.16
 
@@ -136,15 +136,14 @@ CREATE TABLE `configs` (
 --
 
 INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `config_value_en`, `auto_load`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 'COUPON_IMAGE', 'Coupon Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(3, 'VIDEO_URL', 'Video URL', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(4, 'ABOUT_US_IMAGE', 'About Us Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(6, 'FACEBOOK_URL', 'Facebook URL', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(7, 'YOUTUBE_URL', 'Youtube URL', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(8, 'LOGO_IMAGE', 'Logo Image', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(9, 'TEXT_LOGO_HEADER', 'Text Logo Header', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40'),
-(10, 'LOGO_IMAGE_HEADER', 'Logo Image Header', '', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-06 17:04:40');
+(1, 'COUPON_IMAGE', 'Coupon Image', '2021-09-08/6138c9416d8d2.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(3, 'VIDEO_URL', 'Video URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(4, 'ABOUT_US_IMAGE', 'About Us Image', '2021-09-08/6138c94711abb.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '2021-09-08/6138c94bc7a97.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(6, 'FACEBOOK_URL', 'Facebook URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(7, 'YOUTUBE_URL', 'Youtube URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-08/6138c9391df99.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41');
 
 -- --------------------------------------------------------
 
@@ -1535,6 +1534,24 @@ CREATE TABLE `services` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `service_types`
+--
+
+CREATE TABLE `service_types` (
+  `id` int(10) NOT NULL,
+  `service_id` int(10) NOT NULL,
+  `service_type_name` varchar(255) NOT NULL,
+  `display_order` int(10) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sliders`
 --
 
@@ -1590,8 +1607,8 @@ CREATE TABLE `users` (
   `token` varchar(15) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -12968,6 +12985,12 @@ ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `service_types`
+--
+ALTER TABLE `service_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sliders`
 --
 ALTER TABLE `sliders`
@@ -13107,6 +13130,12 @@ ALTER TABLE `roleactions`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `service_types`
+--
+ALTER TABLE `service_types`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --

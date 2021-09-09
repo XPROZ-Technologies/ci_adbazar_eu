@@ -58,6 +58,7 @@ $route['translate_uri_dashes'] = FALSE;
  */
 $route['admin'] = 'backend/user';
 
+$route['systemadministrator/location/add'] = 'backend/location/add';
 
 /**
  * FRONT-END ROUTES
