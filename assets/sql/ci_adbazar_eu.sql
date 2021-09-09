@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 09, 2021 at 01:53 PM
+-- Generation Time: Sep 09, 2021 at 02:12 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.16
 
@@ -110,6 +110,18 @@ CREATE TABLE `business_profile_locations` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_service_type`
+--
+
+CREATE TABLE `business_service_type` (
+  `id` int(11) NOT NULL,
+  `business_profile_id` int(11) NOT NULL,
+  `service_type_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
