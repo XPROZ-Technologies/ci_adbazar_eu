@@ -38,6 +38,15 @@ $(document).ready(function(){
             $('img#imgContactUs').attr('src', fileUrl).show();
         });
 
+        $('#btnMarkerMap').click(function(){
+            $('#logoFileMarkerMap').trigger('click');
+        });
+    
+        chooseFile($('#logoFileMarkerMap'), $('#fileProgress'), 5, function(fileUrl){
+            $('input#logoImageMarkerMap').val(fileUrl);
+            $('img#imgMarkerMap').attr('src', fileUrl).show();
+        });
+
         $('.submit').click(function(){
             if(validateEmpty('#configForm')) {
                 // $('.submit').prop('disabled', true);

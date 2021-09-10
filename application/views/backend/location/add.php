@@ -49,5 +49,10 @@
         </div>
     
     </div>
-<?php $this->load->view('backend/includes/footer'); ?>
+<?php $this->load->view('backend/includes/footer'); 
+$configs = $this->session->userdata('configs');
+?>
+<script>
+    var iconMarker = "<?php echo base_url(CONFIG_PATH.$configs['MARKER_MAP_IMAGE']) ?>";
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>

@@ -16,6 +16,7 @@ class File extends MY_Controller {
 	        elseif($fileTypeId == 3) $dir = IMAGE_PATH;
             elseif($fileTypeId == 4) $dir = SLIDER_PATH;
             elseif($fileTypeId == 5) $dir = CONFIG_PATH;
+            elseif($fileTypeId == 6) $dir = SERVICE_PATH;
 	        /*elseif($fileTypeId == 4){
 	            $dir = FILE_PATH;
 	            $fileExt = trim($this->input->post('FileExt'));

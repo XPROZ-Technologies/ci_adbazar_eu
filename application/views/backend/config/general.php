@@ -134,6 +134,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="box box-default padding15">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Icon map</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label" style="width: 100%;">Marker Image<button type="button" class="btn btn-box-tool" id="btnMarkerMap"><i class="fa fa-upload"></i> Choose image</button></label>
+                                            <img src="<?php echo CONFIG_PATH.$listConfigs['MARKER_MAP_IMAGE']; ?>" id="imgMarkerMap" style="width: 20%;">
+                                            <input type="text" hidden="hidden" id="logoImageMarkerMap" name="MARKER_MAP_IMAGE" value="<?php echo $listConfigs['MARKER_MAP_IMAGE']; ?>">
+                                            <input type="file" style="display: none;" id="logoFileMarkerMap">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <ul class="list-inline pull-right margin-right-10">
                         <li><input class="btn btn-primary submit" type="submit" name="submit" value="Update"></li>
                         <input type="text" hidden="hidden" id="autoLoad" value="1">
