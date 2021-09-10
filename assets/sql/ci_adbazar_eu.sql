@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 09, 2021 at 02:12 PM
+-- Generation Time: Sep 10, 2021 at 10:41 AM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.16
 
@@ -115,10 +115,10 @@ CREATE TABLE `business_profile_locations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `business_service_type`
+-- Table structure for table `business_service_types`
 --
 
-CREATE TABLE `business_service_type` (
+CREATE TABLE `business_service_types` (
   `id` int(11) NOT NULL,
   `business_profile_id` int(11) NOT NULL,
   `service_type_id` int(11) NOT NULL
@@ -155,7 +155,8 @@ INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `conf
 (6, 'FACEBOOK_URL', 'Facebook URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
 (7, 'YOUTUBE_URL', 'Youtube URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
 (8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-08/6138c9391df99.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41');
+(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(10, 'MARKER_MAP_IMAGE', 'Marker map image', '2021-09-10/613ac1a82062a.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-10 09:23:38');
 
 -- --------------------------------------------------------
 
