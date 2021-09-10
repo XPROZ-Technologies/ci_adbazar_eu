@@ -29,7 +29,8 @@ class Config extends MY_Controller{
         $param = $this->input->post();
         foreach($listConfigs as $c){
             $configValue = isset($param[$c['config_code']]) ? trim($param[$c['config_code']]) : '';
-            if($c['config_code'] == 'LOGO_IMAGE_HEADER' || $c['config_code'] == 'COUPON_IMAGE' || $c['config_code'] == 'ABOUT_US_IMAGE' || $c['config_code'] == 'CONTACT_US_IMAGE') $configValue = replaceFileUrl($configValue, CONFIG_PATH);
+            $arrImg = array('MARKER_MAP_IMAGE', 'LOGO_IMAGE_HEADER', 'COUPON_IMAGE', 'ABOUT_US_IMAGE', 'CONTACT_US_IMAGE');
+            if(in_array($c['config_code'], $arrImg)) $configValue = replaceFileUrl($configValue, CONFIG_PATH);
             // else if($c['config_code'] == 'PAY_IMAGES' || $c['config_code'] == 'ICON_PAYMENT_UNIT') {
             //     $images = json_decode($configValue, true);
             //     $arrImg = [];
@@ -49,13 +50,15 @@ class Config extends MY_Controller{
         }
         $flag = $this->Mconfigs->updateBatch($valueData);
         if($flag){
+            $configs = $this->Mconfigs->getListMap();
+			$this->session->set_userdata('configs', $configs);
             echo json_encode(array('code' => 1, 'message' => 'Update successful'));
         }
         else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
     }
 
     public function updateItem(){
-        $user = $this->checkUserLogin(true);
+        $user = $this->checkUserLogin();
         $configCode = trim($this->input->post('config_code'));
         $configValue = trim($this->input->post('config_value'));
         if(!empty($configCode) && !empty($configValue)){

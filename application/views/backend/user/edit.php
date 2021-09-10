@@ -133,7 +133,7 @@
                 </ul>
                 <?php echo form_close(); ?>
             <?php } else { ?> 
-                <?php $this->load->view('includes/notice'); ?>
+                <?php $this->load->view('backend/includes/notice'); ?>
             <?php } ?>
             </section>
         </div>
