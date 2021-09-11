@@ -53,7 +53,9 @@
         </div>
     
     </div>
-<?php $this->load->view('backend/includes/footer'); ?>
+<?php $this->load->view('backend/includes/footer'); 
+$configs = $this->session->userdata('configs');
+?>
 <?php if($id > 0){ ?>
 <script>
     var iconMarker = "<?php echo base_url(CONFIG_PATH.$configs['MARKER_MAP_IMAGE']) ?>";

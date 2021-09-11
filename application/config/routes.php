@@ -56,9 +56,27 @@ $route['translate_uri_dashes'] = FALSE;
 /**
  * BACK-END ROUTES
  */
-$route['admin'] = 'backend/user';
+$route['sys-admin'] = 'backend/user';
 
-$route['systemadministrator/location/add'] = 'backend/location/add';
+$route['sys-admin/action'] = 'backend/action';
+
+$route['sys-admin/config'] = 'backend/config';
+
+$route['sys-admin/dashboard'] = 'backend/dashboard';
+
+$route['sys-admin/service'] = 'backend/service';
+$route['sys-admin/service-create'] = 'backend/service/add';
+$route['sys-admin/service-update'] = 'backend/service/edit';
+
+$route['sys-admin/location'] = 'backend/location';
+$route['sys-admin/location-create'] = 'backend/location/add';
+$route['sys-admin/location-update'] = 'backend/location/edit';
+
+$route['sys-admin/sider'] = 'backend/sider';
+
+$route['sys-admin/staff'] = 'backend/user/staff';
+$route['sys-admin/staff-create'] = 'backend/user/add';
+$route['sys-admin/staff-update'] = 'backend/user/edit';
 
 /**
  * FRONT-END ROUTES
