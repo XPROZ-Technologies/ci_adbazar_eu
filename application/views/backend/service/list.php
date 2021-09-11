@@ -4,7 +4,7 @@
             <section class="content-header">
                 <h1><?php echo $title; ?></h1>
                 <ul class="list-inline">
-                    <li><a href="<?php echo base_url('backend/user/add'); ?>" class="btn btn-primary">Add staff</a></li>
+                    <li><a href="<?php echo base_url('backend/service/add'); ?>" class="btn btn-primary">Add service</a></li>
                 </ul>
             </section>
             <section class="content">
