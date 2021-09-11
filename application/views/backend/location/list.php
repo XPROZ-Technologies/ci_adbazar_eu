@@ -36,11 +36,13 @@
                                 <th>Location name</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
-                                <th style="width:200px;">Action</th>
+                                <th style="width:120px;">Status</th>
+                                <th style="width:250px;">Action</th>
                             </tr>
                             </thead>
                             <tbody id="tbodyLocation">
                             <?php $i = 0;
+                            $labelCss = $this->Mconstants->labelCss;
                             foreach($lisLocations as $s){
                                 $i++; ?>
                                 <tr id="location_<?php echo $s['id']; ?>">
@@ -48,8 +50,16 @@
                                     <td><a href="<?php echo base_url('backend/location/edit/'.$s['id']); ?>"><?php echo $s['location_name']; ?></a></td>
                                     <td><?php echo $s['lat']; ?></td>
                                     <td><?php echo $s['lng']; ?></td>
+                                    <td><span class="<?php echo $labelCss[$s['location_status_id']]; ?>"><?php echo $this->Mconstants->status[$s['location_status_id']]; ?></span></td>
                                     <td class="actions">
                                         <a href="javascript:void(0)" class="link_delete btn btn-xs btn-default" data-id="<?php echo $s['id']; ?>" status-id="0" title="Remove">Remove</a>
+                                        <?php if($s['location_status_id'] == STATUS_ACTIVED){ 
+                                        ?> 
+                                            <a href="javascript:void(0)" class="link_deactive btn btn-xs btn-danger" data-id="<?php echo $s['id']; ?>" status-id="1" title="Deactive">Deactive</a>
+                                        <?php } else { ?> 
+                                            <a href="javascript:void(0)" class="link_active btn btn-xs btn-success" data-id="<?php echo $s['id']; ?>" status-id="2" title="Active">Active</a>
+                                        <?php } ?>
+                                        <input type="checkbox" value="<?php echo $s['is_hot']; ?>"  data-id="<?php echo $s['id']; ?>" class="js-switch"<?php if($s['is_hot'] == 'ON') echo ' checked'; ?>/>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -62,7 +72,10 @@
         </div>
     </div>
     <input type="text" hidden="hidden" id="changeStatusUrl" value="<?php echo base_url('backend/location/changeStatus'); ?>">
+    <input type="text" hidden="hidden" id="updateIsHotUrl" value="<?php echo base_url('backend/location/isHot'); ?>">
 <?php $this->load->view('backend/includes/footer'); ?>
 <script>
-    var removeText = "<?php echo 'Do you really want to delete ?' ?>";
+    var removeText = "<?php echo 'Do you really want to delete?' ?>";
+    var deactiveText = "<?php echo 'You want to lock this location?' ?>";
+    var activeText = "<?php echo 'You want to activate this location?' ?>";
 </script>

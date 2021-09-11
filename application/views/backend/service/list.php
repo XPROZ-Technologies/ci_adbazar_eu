@@ -39,7 +39,7 @@
                                 <th style="width:120px;">Service Image</th>
                                 <th>Service Name</th>
                                 <th style="width:120px;">Status</th>
-                                <th style="width:200px;">Action</th>
+                                <th style="width:250px;">Action</th>
                             </tr>
                             </thead>
                             <tbody id="tbodyService">
@@ -60,6 +60,7 @@
                                         <?php } else { ?> 
                                             <a href="javascript:void(0)" class="link_active btn btn-xs btn-success" data-id="<?php echo $s['id']; ?>" status-id="2" title="Active">Active</a>
                                         <?php } ?>
+                                        <input type="checkbox" value="<?php echo $s['is_hot']; ?>"  data-id="<?php echo $s['id']; ?>" class="js-switch"<?php if($s['is_hot'] == 'ON') echo ' checked'; ?>/>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -72,6 +73,7 @@
         </div>
     </div>
     <input type="text" hidden="hidden" id="changeStatusUrl" value="<?php echo base_url('backend/service/changeStatus'); ?>">
+    <input type="text" hidden="hidden" id="updateIsHotUrl" value="<?php echo base_url('backend/service/isHot'); ?>">
 <?php $this->load->view('backend/includes/footer'); ?>
 <script>
     var removeText = "<?php echo 'Do you really want to delete ?' ?>";

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var aboundId = parseInt($('input#autoLoad').val());
     if($('input#autoLoad').val() == '1') {
 
         $('#btnUpLogoHeader').click(function(){
@@ -55,23 +56,27 @@ $(document).ready(function(){
             $('input#logoImageLogoFooter').val(fileUrl);
             $('img#imgLogoFooter').attr('src', fileUrl).show();
         });
+        if(aboundId == 0) {
+            CKEDITOR.replace('TERM_OF_USE', {
+                language: 'en',
+                toolbar : 'ShortToolbar',
+                height: 200
+            });
 
-        CKEDITOR.replace('TERM_OF_USE', {
-            language: 'en',
-            toolbar : 'ShortToolbar',
-            height: 200
-        });
-
-        CKEDITOR.replace('PRIVACY_POLICY', {
-            language: 'en',
-            toolbar : 'ShortToolbar',
-            height: 200
-        });
+            CKEDITOR.replace('PRIVACY_POLICY', {
+                language: 'en',
+                toolbar : 'ShortToolbar',
+                height: 200
+            });
+        } 
+        
 
         $('.submit').click(function(){
             if(validateEmpty('#configForm')) {
-                CKEDITOR.instances['TERM_OF_USE'].updateElement();
-                CKEDITOR.instances['PRIVACY_POLICY'].updateElement();
+                if(aboundId == 0) {
+                    CKEDITOR.instances['TERM_OF_USE'].updateElement();
+                    CKEDITOR.instances['PRIVACY_POLICY'].updateElement();
+                }
                 // $('.submit').prop('disabled', true);
                
                 var form = $('#configForm');

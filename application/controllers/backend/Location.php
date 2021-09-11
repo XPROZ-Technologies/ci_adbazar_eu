@@ -7,7 +7,10 @@ class Location extends MY_Controller {
 		$user = $this->checkUserLogin(); 
 		$data = $this->commonData($user,
 			'List location',
-			array('scriptFooter' => array('js' => 'js/backend/location/list.js'))
+			array(
+                'scriptHeader' => array('css' => 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css'),
+                'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/location/list.js'))
+            )
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'location')) {
             $postData = $this->arrayFromPost(array('search_text'));
@@ -102,12 +105,37 @@ class Location extends MY_Controller {
 
 	public function changeStatus(){
 		$user = $this->checkUserLogin();
-		$userId = $this->input->post('id');
-		if($userId > 0) {
+		$locationId = $this->input->post('id');
+		$statusId = $this->input->post('location_status_id');
+		if($locationId > 0) {
             $deleteAt = 1;
-            $message = 'Delete employee successfully.';
+            $message = 'Deleting the service successfully';
+            if($statusId == 1) {
+                $message = 'Location lock successful';
+                $deleteAt = 0;
+            } else if($statusId == 2) {
+                $message = 'Location activation successful';
+                $deleteAt = 0;
+            }
 			$this->load->model('Mlocations');
-			$flag = $this->Mlocations->changeStatus(0, $userId, 'location_status_id', $user['id'], $deleteAt);
+			$flag = $this->Mlocations->changeStatus($statusId, $locationId, 'location_status_id', $user['id'], $deleteAt);
+			if($flag) {
+				echo json_encode(array('code' => 1, 'message' => $message));
+			}
+			else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+		}
+		else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+	}
+
+	public function isHot() {
+		$user = $this->checkUserLogin();
+		$locationId = $this->input->post('id');
+		$isHot = $this->input->post('is_hot');
+		if($locationId > 0) {
+			$this->load->model('Mlocations');
+			$flag = $this->Mlocations->changeIsHot($isHot, $locationId, '', $user['id']);
+			$message = 'Activation of featured position successfully';
+			if($isHot == 'OFF') $message = 'Successfully Hide Featured Location';
 			if($flag) {
 				echo json_encode(array('code' => 1, 'message' => $message));
 			}

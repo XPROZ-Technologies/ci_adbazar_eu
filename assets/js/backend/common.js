@@ -108,7 +108,7 @@ function showNotification(msg, type) {
     var typeText = 'error';
     if (type == 1 || type == 200) typeText = 'success';
     var notice = new PNotify({
-        title: 'Thông báo',
+        title: 'Notification',
         text: msg,
         type: typeText,
         delay: 2000,

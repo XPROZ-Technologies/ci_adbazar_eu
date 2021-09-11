@@ -29,7 +29,15 @@ $configs = $this->Mconfigs->getListMap();
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 <script>
-    console.log(locations)
+    var myStyles =[
+    {
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+              { visibility: "off" }
+        ]
+    }
+];
     function initMap() {
     latitude = latMapAdmin;
     longitude = lngMapAdmin;
@@ -40,6 +48,7 @@ $configs = $this->Mconfigs->getListMap();
     const map = new google.maps.Map(document.getElementById("mapLocation"), {
         zoom: zoomMapAdmin,
         center: myLatlng,
+        styles: myStyles 
     });
 
     // Create the initial InfoWindow.

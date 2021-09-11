@@ -7,7 +7,10 @@ class Service extends MY_Controller {
 		$user = $this->checkUserLogin(); 
 		$data = $this->commonData($user,
 			'List Service',
-			array('scriptFooter' => array('js' => 'js/backend/service/list.js'))
+            array(
+                'scriptHeader' => array('css' => 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css'),
+                'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/service/list.js'))
+            )
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'service')) {
             $postData = $this->arrayFromPost(array('search_text', 'service_status_id'));
@@ -104,9 +107,9 @@ class Service extends MY_Controller {
 
     public function changeStatus(){
 		$user = $this->checkUserLogin();
-		$userId = $this->input->post('id');
+		$serviceId = $this->input->post('id');
         $statusId = $this->input->post('service_status_id');
-		if($userId > 0) {
+		if($serviceId > 0) {
             $deleteAt = 1;
             $message = 'Deleting the service successfully';
             if($statusId == 1) {
@@ -117,7 +120,24 @@ class Service extends MY_Controller {
                 $deleteAt = 0;
             }
             $this->load->model('Mservices');
-			$flag = $this->Mservices->changeStatus($statusId, $userId, 'service_status_id', $user['id'], $deleteAt);
+			$flag = $this->Mservices->changeStatus($statusId, $serviceId, 'service_status_id', $user['id'], $deleteAt);
+			if($flag) {
+				echo json_encode(array('code' => 1, 'message' => $message));
+			}
+			else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+		}
+		else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+	}
+
+    public function isHot() {
+		$user = $this->checkUserLogin();
+		$serviceId = $this->input->post('id');
+		$isHot = $this->input->post('is_hot');
+		if($serviceId > 0) {
+			$this->load->model('Mservices');
+			$flag = $this->Mservices->changeIsHot($isHot, $serviceId, '', $user['id']);
+			$message = 'Activation of featured position successfully';
+			if($isHot == 'OFF') $message = 'Successfully Hide Featured Location';
 			if($flag) {
 				echo json_encode(array('code' => 1, 'message' => $message));
 			}

@@ -95,27 +95,8 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="box box-default padding15">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Content ABOUT US</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="control-label" style="width: 100%;">ABOUT US Image<button type="button" class="btn btn-box-tool" id="btnAboutUs"><i class="fa fa-upload"></i> Choose image</button></label>
-                                                    <img src="<?php echo CONFIG_PATH.$listConfigs['ABOUT_US_IMAGE']; ?>" id="imgAboutUs" style="width: 50%;">
-                                                    <input type="text" hidden="hidden" id="logoImageAboutUs" name="ABOUT_US_IMAGE" value="<?php echo $listConfigs['ABOUT_US_IMAGE']; ?>">
-                                                    <input type="file" style="display: none;" id="logoFileAboutUs">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="box box-default padding15">
+                            <div class="col-sm-12">
+                                <div class="box box-default padding15" style="height: 461px;">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Content Contact Us</h3>
                                     </div>
@@ -124,7 +105,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label class="control-label" style="width: 100%;">ABOUT US Image<button type="button" class="btn btn-box-tool" id="btnContactUs"><i class="fa fa-upload"></i> Choose image</button></label>
-                                                    <img src="<?php echo CONFIG_PATH.$listConfigs['CONTACT_US_IMAGE']; ?>" id="imgContactUs" style="width: 50%;">
+                                                    <img src="<?php echo CONFIG_PATH.$listConfigs['CONTACT_US_IMAGE']; ?>" id="imgContactUs" style="width: 280px;">
                                                     <input type="text" hidden="hidden" id="logoImageContactUs" name="CONTACT_US_IMAGE" value="<?php echo $listConfigs['CONTACT_US_IMAGE']; ?>">
                                                     <input type="file" style="display: none;" id="logoFileContactUs">
                                                 </div>
@@ -236,6 +217,7 @@
                         <li><input class="btn btn-primary submit" type="submit" name="submit" value="Update"></li>
                         <input type="text" hidden="hidden" id="autoLoad" value="1">
                         <input type="text" hidden="hidden" id="uploadFileUrl" value="<?php echo base_url('common/file/upload'); ?>">
+                        <input type="text" hidden="hidden" id="aboundId" value="0">
                     </ul>
                 </div>
                 <?php echo form_close(); ?>
