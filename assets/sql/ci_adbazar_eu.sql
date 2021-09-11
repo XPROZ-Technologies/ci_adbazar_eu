@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Sep 10, 2021 at 10:41 AM
--- Server version: 5.7.32
--- PHP Version: 7.4.16
+-- Host: localhost
+-- Generation Time: Sep 12, 2021 at 05:32 AM
+-- Server version: 10.3.22-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ci_adbazar_eu`
+-- Database: `adb`
 --
 
 -- --------------------------------------------------------
@@ -42,6 +43,17 @@ CREATE TABLE `actions` (
   `updated_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `actions`
+--
+
+INSERT INTO `actions` (`id`, `action_name`, `action_url`, `parent_action_id`, `display_order`, `font_awesome`, `action_level`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'Service', 'sys-admin/service', 0, 1, '', 1, 2, '2021-09-12 02:37:42', '2021-09-12 02:37:42', 1, 1),
+(2, 'Location', 'sys-admin/location', 0, 2, '', 1, 2, '2021-09-12 02:41:57', '2021-09-12 02:41:57', 1, 1),
+(3, 'Slider', 'sys-admin/sider', 4, 2, '', 2, 2, '2021-09-12 02:41:48', '2021-09-12 02:41:48', 1, 1),
+(4, 'Manager', '', 0, 3, '', 1, 2, '2021-09-12 02:42:00', '2021-09-12 02:42:00', 1, 1),
+(5, 'Employee', 'sys-admin/staff', 4, 1, '', 2, 2, '2021-09-12 02:41:36', '2021-09-12 02:41:36', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -51,10 +63,10 @@ CREATE TABLE `actions` (
 CREATE TABLE `business_payments` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
-  `payment_gateway_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1: paypal, 2:...',
-  `payment_amount` float DEFAULT '0',
+  `payment_gateway_id` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1: paypal, 2:...',
+  `payment_amount` float DEFAULT 0,
   `payment_currency` varchar(10) NOT NULL,
-  `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -81,10 +93,11 @@ CREATE TABLE `business_profiles` (
   `business_description` text NOT NULL,
   `business_avatar` text NOT NULL,
   `business_image_cover` text NOT NULL,
-  `is_annual_payment` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1: annual, 0: one time',
+  `is_annual_payment` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1: annual, 0: one time',
   `expired_date` datetime NOT NULL,
-  `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
-  `busines_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
+  `busines_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `updated_by` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -135,7 +148,7 @@ CREATE TABLE `configs` (
   `config_code` varchar(45) NOT NULL,
   `config_name` varchar(100) NOT NULL,
   `config_value` text NOT NULL,
-  `config_value_en` text,
+  `config_value_en` text DEFAULT NULL,
   `auto_load` tinyint(4) NOT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -149,14 +162,23 @@ CREATE TABLE `configs` (
 
 INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `config_value_en`, `auto_load`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
 (1, 'COUPON_IMAGE', 'Coupon Image', '2021-09-08/6138c9416d8d2.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(3, 'VIDEO_URL', 'Video URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(4, 'ABOUT_US_IMAGE', 'About Us Image', '2021-09-08/6138c94711abb.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '2021-09-08/6138c94bc7a97.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(3, 'VIDEO_URL', 'Video URL', 'https://www.youtube.com/watch?v=48AtOasmT_c&t=24s', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:29:06'),
+(4, 'ABOUT_US_IMAGE', 'About Us Image', '2021-09-12/613d02f26693b.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:27:37'),
+(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '2021-09-12/613d02f47e135.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:27:37'),
 (6, 'FACEBOOK_URL', 'Facebook URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(7, 'YOUTUBE_URL', 'Youtube URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-08/6138c9391df99.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(10, 'MARKER_MAP_IMAGE', 'Marker map image', '2021-09-10/613ac1a82062a.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-10 09:23:38');
+(7, 'INSTAGRAM_URL', 'Instagram Url', 'https://www.instagram.com/', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:27:37'),
+(8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-12/613d02c1ef985.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:27:37'),
+(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo header', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:29:06'),
+(10, 'MARKER_MAP_IMAGE', 'Marker map image', '2021-09-12/613d02eaa20a9.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:27:37'),
+(11, 'TIKTOK_URL', 'Tiktok Url', 'https://www.tiktok.com/vi-VN/', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:27:37'),
+(12, 'TWITTER_URL', 'Twitter Url', 'https://twitter.com/?lang=vi', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:27:37'),
+(13, 'PINTEREST_URL', 'Pinterest Url', 'https://www.pinterest.com/', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:27:37'),
+(14, 'PHONE_NUMBER_FOOTER', 'Phone number', '+420 938 934 389', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:29:06'),
+(15, 'EMAIL_FOOTER', 'Email', 'asiadragonbazar@adbazar.eu', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:29:06'),
+(16, 'LOGO_FOOTER_IMAGE', 'Logo footer', '2021-09-12/613d032f6b44e.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:29:06'),
+(17, 'ADDRESS_FOOTER', 'Address', 'Svatý Kříž 281, 35002 Cheb, Czech Republic', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-12 02:29:06'),
+(18, 'TERM_OF_USE', 'Term of use', '<h2 id=\"Terms_Of_Use_Your_Questions_Answered\">Terms of Use: Your Questions Answered</h2>\r\n\r\n<p>Before we look at what to include in your Terms of Use agreement, let&#39;s answer some common questions about&nbsp;<strong>what this agreement is and how it can help&nbsp;<em>you</em></strong>.</p>\r\n\r\n<h3 id=\"What_Is_A_Terms_Of_Use_Agreement\">What is a Terms of Use Agreement?</h3>\r\n\r\n<p><strong>A Terms of Use agreement is a legal document</strong>. If you run a website, app, or virtually any other type of service, a Terms of Use agreement can help you:</p>\r\n\r\n<ul>\r\n	<li><strong>Set the rules</strong>&nbsp;of engagement with your service</li>\r\n	<li>Explain how and why you may&nbsp;<strong>suspend or ban people</strong>&nbsp;from your service</li>\r\n	<li>Avoid or manage any&nbsp;<strong>potential legal issues</strong></li>\r\n</ul>', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:10:09'),
+(19, 'PRIVACY_POLICY', 'Privacy Policy', '<h2><strong>PRIVACY POLICY</strong></h2>\r\n\r\n<p><b>Data Protection Policy:</b></p>\r\n\r\n<p></p>\r\n\r\n<p>This privacy policy has been compiled to better serve those who are concerned with how their &lsquo;Personally Identifiable Information&rsquo; (PII) is being used online. PII, as described in US privacy law and information security, is information that can be used on its own or with other information to identify, contact, or locate a single person, or to identify an individual in context. Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>What personal information do we collect from the people that visit our blog, website or app?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>When ordering or registering on our site, as appropriate, you may be asked to enter your name, email address, mailing address, phone number, credit card information or other details to help you with your experience.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>When do we collect information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We collect information from you when you register on our site, place an order, subscribe to a newsletter, fill out a form or enter information on our site.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>How do we use your information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We may use the information we collect from you when you register, make a purchase, sign up for our newsletter, respond to a survey or marketing communication, surf the website, or use certain other site features in the following ways:</p>\r\n\r\n<p></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To allow us to better service you in responding to your customer service requests.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To quickly process your transactions.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To send periodic emails regarding your order or other products and services.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To follow up with them after correspondence (live chat, email or phone inquiries)</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>How do we protect your information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>Our website is scanned on a regular basis for security holes and known vulnerabilities in order to make your visit to our site as safe as possible.</p>\r\n\r\n<p></p>\r\n\r\n<p>We use regular Malware Scanning.</p>\r\n\r\n<p></p>\r\n\r\n<p>Your personal information is contained behind secured networks and is only accessible by a limited number of persons who have special access rights to such systems, and are required to keep the information confidential. In addition, all sensitive/credit information you supply is encrypted via Secure Socket Layer (SSL) technology.</p>\r\n\r\n<p></p>\r\n\r\n<p>We implement a variety of security measures when a user places an order enters, submits, or accesses their information to maintain the safety of your personal information.</p>\r\n\r\n<p></p>\r\n\r\n<p>All transactions are processed through a gateway provider and are not stored or processed on our servers.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Do we use &lsquo;cookies&rsquo;?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not use cookies for tracking purposes</p>\r\n\r\n<p></p>\r\n\r\n<p>You can choose to have your computer warn you each time a cookie is being sent, or you can choose to turn off all cookies. You do this through your browser settings. Since each browser is a little different, look at your browser&rsquo;s Help Menu to learn the correct way to modify your cookies.</p>\r\n\r\n<p></p>\r\n\r\n<p>If you turn cookies off .</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Third-party disclosure</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not sell, trade, or otherwise transfer to outside parties your Personally Identifiable Information unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website, conducting our business, or serving our users, so long as those parties agree to keep this information confidential. We may also release information when it&rsquo;s release is appropriate to comply with the law, enforce our site policies, or protect ours or others&rsquo; rights, property or safety.</p>\r\n\r\n<p></p>\r\n\r\n<p>However, non-personally identifiable visitor information may be provided to other parties for marketing, advertising, or other uses.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Third-party links</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not include or offer third-party products or services on our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Google</b></p>\r\n\r\n<p></p>\r\n\r\n<p>Google&rsquo;s advertising requirements can be summed up by Google&rsquo;s Advertising Principles. They are put in place to provide a positive experience for users. https://support.google.com/adwordspolicy/answer/1316548?hl=en</p>\r\n\r\n<p></p>\r\n\r\n<p>We use Google AdSense Advertising on our website.</p>\r\n\r\n<p></p>\r\n\r\n<p>Google, as a third-party vendor, uses cookies to serve ads on our site. Google&rsquo;s use of the DART cookie enables it to serve ads to our users based on previous visits to our site and other sites on the Internet. Users may opt-out of the use of the DART cookie by visiting the Google Ad and Content Network privacy policy.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>We have implemented the following:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google Display Network Impression Reporting</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demographics and Interests Reporting</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p>We, along with third-party vendors such as Google use first-party cookies (such as the Google Analytics cookies) and third-party cookies (such as the DoubleClick cookie) or other third-party identifiers together to compile data regarding user interactions with ad impressions and other ad service functions as they relate to our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Opting out:</b></p>\r\n\r\n<p>Users can set preferences for how Google advertises to you using the Google Ad Settings page. Alternatively, you can opt out by visiting the Network Advertising Initiative Opt Out page or by using the Google Analytics Opt Out Browser add on.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>California Online Privacy Protection Act</b></p>\r\n\r\n<p></p>\r\n\r\n<p>CalOPPA is the first state law in the nation to require commercial websites and online services to post a privacy policy. The law&rsquo;s reach stretches well beyond California to require any person or company in the United States (and conceivably the world) that operates websites collecting Personally Identifiable Information from California consumers to post a conspicuous privacy policy on its website stating exactly the information being collected and those individuals or companies with whom it is being shared. &ndash; See more at: http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf</p>\r\n\r\n<p></p>\r\n\r\n<p><b>According to CalOPPA, we agree to the following:</b></p>\r\n\r\n<p>Users can visit our site anonymously.</p>\r\n\r\n<p>Once this privacy policy is created, we will add a link to it on our home page or as a minimum, on the first significant page after entering our website.</p>\r\n\r\n<p>Our Privacy Policy link includes the word &lsquo;Privacy&rsquo; and can easily be found on the page specified above.</p>\r\n\r\n<p></p>\r\n\r\n<p>You will be notified of any Privacy Policy changes:</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On our Privacy Policy Page</li>\r\n</ul>\r\n\r\n<p>Can change your personal information:</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By logging in to your account</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>How does our site handle Do Not Track signals?</b></p>\r\n\r\n<p>We honor Do Not Track signals and Do Not Track, plant cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in place.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Does our site allow third-party behavioral tracking?</b></p>\r\n\r\n<p>It&rsquo;s also important to note that we allow third-party behavioral tracking</p>\r\n\r\n<p></p>\r\n\r\n<p><b>COPPA (Children Online Privacy Protection Act)</b></p>\r\n\r\n<p></p>\r\n\r\n<p>When it comes to the collection of personal information from children under the age of 13 years old, the Children&rsquo;s Online Privacy Protection Act (COPPA) puts parents in control. The Federal Trade Commission, United States&rsquo; consumer protection agency, enforces the COPPA Rule, which spells out what operators of websites and online services must do to protect children&rsquo;s privacy and safety online.</p>\r\n\r\n<p></p>\r\n\r\n<p>We do not specifically market to children under the age of 13 years old.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Fair Information Practices</b></p>\r\n\r\n<p></p>\r\n\r\n<p>The Fair Information Practices Principles form the backbone of privacy law in the United States and the concepts they include have played a significant role in the development of data protection laws around the globe. Understanding the Fair Information Practice Principles and how they should be implemented is critical to comply with the various privacy laws that protect personal information.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>In order to be in line with Fair Information Practices we will take the following responsive action, should a data breach occur:</b></p>\r\n\r\n<p>We will notify you via email</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Within 7 business days</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p>We also agree to the Individual Redress Principle which requires that individuals have the right to legally pursue enforceable rights against data collectors and processors who fail to adhere to the law. This principle requires not only that individuals have enforceable rights against data users, but also that individuals have recourse to courts or government agencies to investigate and/or prosecute non-compliance by data processors.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>CAN SPAM Act</b></p>\r\n\r\n<p></p>\r\n\r\n<p>The CAN-SPAM Act is a law that sets the rules for commercial email, establishes requirements for commercial messages, gives recipients the right to have emails stopped from being sent to them, and spells out tough penalties for violations.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>We collect your email address in order to:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send information, respond to inquiries, and/or other requests or questions</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process orders and to send information and updates pertaining to orders.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send you additional information related to your product and/or service</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market to our mailing list or continue to send emails to our clients after the original transaction has occurred.</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>To be in accordance with CANSPAM, we agree to the following:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not use false or misleading subjects or email addresses.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify the message as an advertisement in some reasonable way.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include the physical address of our business or site headquarters.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Monitor third-party email marketing services for compliance, if one is used.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Honor opt-out/unsubscribe requests quickly.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Allow users to unsubscribe by using the link at the bottom of each email.</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>If at any time you would like to unsubscribe from receiving future emails, you can email us at</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow the instructions at the bottom of each email.</li>\r\n</ul>\r\n\r\n<p>and we will promptly remove you from&nbsp;<b>ALL</b>&nbsp;correspondence.</p>', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:09:47');
 
 -- --------------------------------------------------------
 
@@ -180,7 +202,7 @@ CREATE TABLE `countries` (
   `capital` varchar(50) DEFAULT NULL,
   `time_zone_in_capital` varchar(200) DEFAULT NULL,
   `currency` varchar(50) DEFAULT NULL,
-  `flag` longtext,
+  `flag` longtext DEFAULT NULL,
   `created_by` int(10) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` int(10) NOT NULL,
@@ -449,6 +471,7 @@ CREATE TABLE `coupons` (
   `coupon_description` text NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
+  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
   `coupon_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(10) DEFAULT NULL,
@@ -469,14 +492,14 @@ CREATE TABLE `customers` (
   `customer_password` varchar(250) NOT NULL,
   `customer_first_name` varchar(250) NOT NULL,
   `customer_last_name` varchar(250) NOT NULL,
-  `customer_avatar` text,
+  `customer_avatar` text DEFAULT NULL,
   `customer_birthday` datetime NOT NULL,
   `customer_gender_id` tinyint(4) NOT NULL,
   `customer_phone` varchar(50) NOT NULL,
   `customer_occupation` varchar(250) NOT NULL,
   `customer_address` varchar(250) NOT NULL,
-  `free_trial` tinyint(4) NOT NULL DEFAULT '0',
-  `customer_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `free_trial` tinyint(4) NOT NULL DEFAULT 0,
+  `customer_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1395,13 +1418,23 @@ CREATE TABLE `locations` (
   `location_name` varchar(250) NOT NULL,
   `lat` varchar(250) NOT NULL,
   `lng` varchar(250) NOT NULL,
-  `location_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `is_hot` tinyint(4) DEFAULT 0,
+  `location_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `location_name`, `lat`, `lng`, `is_hot`, `location_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 'VELTA free shop', '50.04693217193328', '12.352281584655778', 0, 2, '2021-09-11 12:13:40', 1, NULL, NULL, NULL),
+(2, 'Asia Gragon Bazan', '50.04732487914607', '12.353837265884415', 0, 2, '2021-09-11 12:17:56', 1, NULL, NULL, NULL),
+(3, 'Markt chech', '50.047648687939635', '12.355822100555436', 0, 2, '2021-09-11 12:18:53', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1415,7 +1448,7 @@ CREATE TABLE `opening_hours` (
   `day_id` tinyint(4) NOT NULL,
   `start_time` varchar(50) NOT NULL,
   `end_time` varchar(50) NOT NULL,
-  `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1536,7 +1569,8 @@ CREATE TABLE `services` (
   `service_name` varchar(250) NOT NULL,
   `service_image` text NOT NULL,
   `service_status_id` tinyint(4) NOT NULL,
-  `display_order` int(10) NOT NULL DEFAULT '0',
+  `display_order` int(10) NOT NULL DEFAULT 0,
+  `is_hot` tinyint(4) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1573,7 +1607,7 @@ CREATE TABLE `sliders` (
   `slider_image` text NOT NULL,
   `slider_url` text NOT NULL,
   `slider_status_id` tinyint(4) NOT NULL,
-  `display_order` int(10) NOT NULL DEFAULT '0',
+  `display_order` int(10) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1630,7 +1664,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_name`, `user_pass`, `full_name`, `email`, `gender_id`, `role_id`, `status_id`, `address`, `birth_day`, `phone_number`, `avatar`, `token`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', 1, 1, 2, '', '2020-04-15 00:00:00', '0123456789', 'no_image.jpg', NULL, 1, '2020-03-01 00:00:00', 1, '2020-04-15 20:10:27', NULL);
+(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', 1, 1, 2, 'e', '2020-04-15 00:00:00', '0123456789', '2021-09-12/613d0886165b0.png', NULL, 1, '2020-03-01 00:00:00', 1, '2021-09-12 02:50:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -13035,7 +13069,7 @@ ALTER TABLE `wards`
 -- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `business_payments`
@@ -13119,7 +13153,7 @@ ALTER TABLE `itemtags`
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `opening_hours`
