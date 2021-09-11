@@ -39,8 +39,8 @@ function initMap() {
     let locationId = parseInt($('input[name="id"]').val());
     let latitude = $("input[name='lat']").val().trim();
     let longitude = $("input[name='lng']").val().trim();
-    latitude = latitude != '' ? latitude: 10.639014;
-    longitude = longitude != '' ? longitude: 106.710205;
+    latitude = latitude != '' ? latitude: latMapAdmin;
+    longitude = longitude != '' ? longitude: lngMapAdmin;
     
     const myLatlng = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
    
@@ -49,7 +49,7 @@ function initMap() {
         $("input[name='lng']").val(myLatlng.lng);
     }
     const map = new google.maps.Map(document.getElementById("mapLocation"), {
-        zoom: 16,
+        zoom: zoomMapAdmin,
         center: myLatlng,
     });
 

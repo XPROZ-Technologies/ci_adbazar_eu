@@ -24,7 +24,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label" style="width: 100%;">Logo header<button type="button" class="btn btn-box-tool" id="btnUpLogoHeader"><i class="fa fa-upload"></i> Chọn hình</button></label>
-                                            <img src="<?php echo CONFIG_PATH.$listConfigs['LOGO_IMAGE_HEADER']; ?>" id="imgLogoHeader" style="width: 50%;">
+                                            <img src="<?php echo CONFIG_PATH.$listConfigs['LOGO_IMAGE_HEADER']; ?>" id="imgLogoHeader" style="width: 80px;">
                                             <input type="text" hidden="hidden" id="logoImageHeader" name="LOGO_IMAGE_HEADER" value="<?php echo $listConfigs['LOGO_IMAGE_HEADER']; ?>">
                                             <input type="file" style="display: none;" id="logoFileImageHeader">
                                         </div>
@@ -33,31 +33,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="box box-default padding15">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Content footer web</h3>
-                            </div>
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Facebook Url <span class="required">*</span></label>
-                                            <input type="text" class="form-control hmdrequired" name="FACEBOOK_URL" value="<?php echo $listConfigs['FACEBOOK_URL']; ?>" data-field="Facebook Url">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Youtube Url <span class="required">*</span></label>
-                                            <input type="text" class="form-control hmdrequired" name="YOUTUBE_URL" value="<?php echo $listConfigs['YOUTUBE_URL']; ?>" data-field="Youtube Url">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-6">
                         <div class="box box-default padding15">
                             <div class="box-header with-border">
@@ -77,6 +52,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    
                     <div class="col-sm-6">
                         <div class="box box-default padding15">
                             <div class="box-header with-border">
@@ -94,46 +72,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="box box-default padding15">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Content ABOUT US</h3>
-                            </div>
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label class="control-label" style="width: 100%;">ABOUT US Image<button type="button" class="btn btn-box-tool" id="btnAboutUs"><i class="fa fa-upload"></i> Choose image</button></label>
-                                            <img src="<?php echo CONFIG_PATH.$listConfigs['ABOUT_US_IMAGE']; ?>" id="imgAboutUs" style="width: 50%;">
-                                            <input type="text" hidden="hidden" id="logoImageAboutUs" name="ABOUT_US_IMAGE" value="<?php echo $listConfigs['ABOUT_US_IMAGE']; ?>">
-                                            <input type="file" style="display: none;" id="logoFileAboutUs">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="box box-default padding15">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Content Contact Us</h3>
-                            </div>
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label class="control-label" style="width: 100%;">ABOUT US Image<button type="button" class="btn btn-box-tool" id="btnContactUs"><i class="fa fa-upload"></i> Choose image</button></label>
-                                            <img src="<?php echo CONFIG_PATH.$listConfigs['CONTACT_US_IMAGE']; ?>" id="imgContactUs" style="width: 50%;">
-                                            <input type="text" hidden="hidden" id="logoImageContactUs" name="CONTACT_US_IMAGE" value="<?php echo $listConfigs['CONTACT_US_IMAGE']; ?>">
-                                            <input type="file" style="display: none;" id="logoFileContactUs">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-sm-6">
                         <div class="box box-default padding15">
                             <div class="box-header with-border">
@@ -144,12 +82,153 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="control-label" style="width: 100%;">Marker Image<button type="button" class="btn btn-box-tool" id="btnMarkerMap"><i class="fa fa-upload"></i> Choose image</button></label>
-                                            <img src="<?php echo CONFIG_PATH.$listConfigs['MARKER_MAP_IMAGE']; ?>" id="imgMarkerMap" style="width: 20%;">
+                                            <img src="<?php echo CONFIG_PATH.$listConfigs['MARKER_MAP_IMAGE']; ?>" id="imgMarkerMap" style="width: 64px;">
                                             <input type="text" hidden="hidden" id="logoImageMarkerMap" name="MARKER_MAP_IMAGE" value="<?php echo $listConfigs['MARKER_MAP_IMAGE']; ?>">
                                             <input type="file" style="display: none;" id="logoFileMarkerMap">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="box box-default padding15">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Content ABOUT US</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label" style="width: 100%;">ABOUT US Image<button type="button" class="btn btn-box-tool" id="btnAboutUs"><i class="fa fa-upload"></i> Choose image</button></label>
+                                                    <img src="<?php echo CONFIG_PATH.$listConfigs['ABOUT_US_IMAGE']; ?>" id="imgAboutUs" style="width: 50%;">
+                                                    <input type="text" hidden="hidden" id="logoImageAboutUs" name="ABOUT_US_IMAGE" value="<?php echo $listConfigs['ABOUT_US_IMAGE']; ?>">
+                                                    <input type="file" style="display: none;" id="logoFileAboutUs">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="box box-default padding15">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Content Contact Us</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label" style="width: 100%;">ABOUT US Image<button type="button" class="btn btn-box-tool" id="btnContactUs"><i class="fa fa-upload"></i> Choose image</button></label>
+                                                    <img src="<?php echo CONFIG_PATH.$listConfigs['CONTACT_US_IMAGE']; ?>" id="imgContactUs" style="width: 50%;">
+                                                    <input type="text" hidden="hidden" id="logoImageContactUs" name="CONTACT_US_IMAGE" value="<?php echo $listConfigs['CONTACT_US_IMAGE']; ?>">
+                                                    <input type="file" style="display: none;" id="logoFileContactUs">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="box box-default padding15">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Content footer web</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Phone number <span class="required">*</span></label>
+                                                        <input type="text" class="form-control hmdrequired" name="PHONE_NUMBER_FOOTER" value="<?php echo $listConfigs['PHONE_NUMBER_FOOTER']; ?>" data-field="Phone number">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Email <span class="required">*</span></label>
+                                                        <input type="text" class="form-control hmdrequired" name="EMAIL_FOOTER" value="<?php echo $listConfigs['EMAIL_FOOTER']; ?>" data-field="Email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Address <span class="required">*</span></label>
+                                                        <input type="text" class="form-control hmdrequired" name="ADDRESS_FOOTER" value="<?php echo $listConfigs['ADDRESS_FOOTER']; ?>" data-field="Address">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label" style="width: 100%;">Logo footer<button type="button" class="btn btn-box-tool" id="btnLogoFooter"><i class="fa fa-upload"></i> Choose image</button></label>
+                                                        <img src="<?php echo CONFIG_PATH.$listConfigs['LOGO_FOOTER_IMAGE']; ?>" id="imgLogoFooter" style="width: 50%;">
+                                                        <input type="text" hidden="hidden" id="logoImageLogoFooter" name="LOGO_FOOTER_IMAGE" value="<?php echo $listConfigs['LOGO_FOOTER_IMAGE']; ?>">
+                                                        <input type="file" style="display: none;" id="logoFileLogoFooter">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Facebook Url <span class="required">*</span></label>
+                                                        <input type="text" class="form-control hmdrequired" name="FACEBOOK_URL" value="<?php echo $listConfigs['FACEBOOK_URL']; ?>" data-field="Facebook Url">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Instagram Url <span class="required">*</span></label>
+                                                        <input type="text" class="form-control hmdrequired" name="INSTAGRAM_URL" value="<?php echo $listConfigs['INSTAGRAM_URL']; ?>" data-field="Instagram Url">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Tiktok Url <span class="required">*</span></label>
+                                                        <input type="text" class="form-control hmdrequired" name="TIKTOK_URL" value="<?php echo $listConfigs['TIKTOK_URL']; ?>" data-field="Tiktok Url">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Twitter Url <span class="required">*</span></label>
+                                                        <input type="text" class="form-control hmdrequired" name="TWITTER_URL" value="<?php echo $listConfigs['TWITTER_URL']; ?>" data-field="Twitter Url">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Pinterest Url <span class="required">*</span></label>
+                                                        <input type="text" class="form-control hmdrequired" name="PINTEREST_URL" value="<?php echo $listConfigs['PINTEREST_URL']; ?>" data-field="Pinterest Url">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="col-sm-6">
+                        <div class="box box-default padding15">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Term of use</h3>
+                            </div>
+                            <div class="box-body">
+                                <textarea class="form-control" name="TERM_OF_USE"><?php echo $listConfigs['TERM_OF_USE']; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="box box-default padding15">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Privacy Policy</h3>
+                            </div>
+                            <div class="box-body">
+                                <textarea class="form-control" name="PRIVACY_POLICY"><?php echo $listConfigs['PRIVACY_POLICY']; ?></textarea>
                             </div>
                         </div>
                     </div>

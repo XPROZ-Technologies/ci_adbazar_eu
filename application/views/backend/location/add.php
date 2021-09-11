@@ -54,5 +54,8 @@ $configs = $this->session->userdata('configs');
 ?>
 <script>
     var iconMarker = "<?php echo base_url(CONFIG_PATH.$configs['MARKER_MAP_IMAGE']) ?>";
+    var latMapAdmin = <?php echo LAT_MAP_ADMIN ?>;
+    var lngMapAdmin = <?php echo LNG_MAP_ADMIN ?>;
+    var zoomMapAdmin = <?php echo ZOOM_MAP_ADMIN ?>;
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>

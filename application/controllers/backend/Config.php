@@ -7,7 +7,7 @@ class Config extends MY_Controller{
 		$user = $this->checkUserLogin();
 		$data = $this->commonData($user,
 			'Configs',
-			array('scriptFooter' => array('js' => array('js/backend/config/config.js')))
+			array('scriptFooter' => array('js' => array('ckeditor/ckeditor.js', 'js/backend/config/config.js')))
 		);
 		if($this->Mactions->checkAccess($data['listActions'], 'config')) {
 			$this->loadModel(array('Mconfigs'));
@@ -29,7 +29,7 @@ class Config extends MY_Controller{
         $param = $this->input->post();
         foreach($listConfigs as $c){
             $configValue = isset($param[$c['config_code']]) ? trim($param[$c['config_code']]) : '';
-            $arrImg = array('MARKER_MAP_IMAGE', 'LOGO_IMAGE_HEADER', 'COUPON_IMAGE', 'ABOUT_US_IMAGE', 'CONTACT_US_IMAGE');
+            $arrImg = array('MARKER_MAP_IMAGE', 'LOGO_IMAGE_HEADER', 'COUPON_IMAGE', 'ABOUT_US_IMAGE', 'CONTACT_US_IMAGE', 'LOGO_FOOTER_IMAGE');
             if(in_array($c['config_code'], $arrImg)) $configValue = replaceFileUrl($configValue, CONFIG_PATH);
             // else if($c['config_code'] == 'PAY_IMAGES' || $c['config_code'] == 'ICON_PAYMENT_UNIT') {
             //     $images = json_decode($configValue, true);

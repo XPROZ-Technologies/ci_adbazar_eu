@@ -109,3 +109,8 @@ define('URL_API', '');
 
 // key api
 define('KEY_GOOGLE_MAP', 'AIzaSyD53XNjfZqrg7twWutFv3rIgnhGvT_Exik');
+
+// lat and lng map admin
+define('LAT_MAP_ADMIN', 50.0473111);
+define('LNG_MAP_ADMIN', 12.3523245);
+define('ZOOM_MAP_ADMIN', 17);
