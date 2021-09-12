@@ -19,16 +19,27 @@
                             </div>
                             <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="control-label">Service name <span class="required">*</span></label>
-                                        <input type="text" name="service_name" id="service_name" class="form-control hmdrequired" data-field="Service name" autocomplete="off" value="<?php echo $service['service_name'] ?>">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Display order <span class="required">*</span></label>
-                                        <?php $this->Mconstants->selectNumber(0, 100, 'display_order', $service['display_order'], true); ?>
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <?php foreach($this->Mconstants->languageTexts as $key => $text): ?>
+                                            <li class="<?php echo $key == 'en' ? 'active':''; ?>">
+                                                <a href="#service-name-<?php echo $key ?>-tab" role="tab" data-toggle="tab"><?php echo $text ?></a>
+                                            </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <br>
+                                        <div class="tab-content">
+                                            <?php foreach($this->Mconstants->languageTexts as $key => $text): ?>
+                                            <div class="tab-pane fade <?php echo $key == 'en' ? 'active':''; ?> in" id="service-name-<?php echo $key ?>-tab">
+                                                <div class="form-group">
+                                                    <input type="text" name="service_name_<?php echo $key ?>" id="service_name_<?php echo $key ?>" class="form-control hmdrequired" value="<?php echo $service['service_name_'.$key.''] ?>" data-field="Service Name <?php echo $text ?>" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -36,6 +47,12 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Display order <span class="required">*</span></label>
+                                        <?php $this->Mconstants->selectNumber(0, 100, 'display_order', $service['display_order'], true); ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Status <span class="required">*</span></label>
                                         <?php $this->Mconstants->selectConstants('status', 'service_status_id', $service['service_status_id']); ?>
                                     </div>
                                 </div>

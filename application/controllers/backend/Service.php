@@ -77,7 +77,7 @@ class Service extends MY_Controller {
     public function update(){
         try {
             $user = $this->checkUserLogin();
-            $postData = $this->arrayFromPost(array('service_name', 'display_order', 'service_image'));
+            $postData = $this->arrayFromPost(array('service_name_vi', 'service_name_en', 'service_name_cz', 'service_name_de', 'display_order', 'service_image'));
             $serviceId = $this->input->post('id');
             if(empty($postData['service_image'])) $postData['service_image'] = NO_IMAGE;
             else $postData['service_image'] = replaceFileUrl($postData['service_image'], SERVICE_PATH);

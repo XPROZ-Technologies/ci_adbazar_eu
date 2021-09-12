@@ -13,7 +13,7 @@ app.submits = function() {
     $("body").on('click', '.submit', function() {
         var $this = $(this);
         $this.prop('disabled', true);
-        if (validateEmpty('#locationForm'), '.submit') {
+        if (validateEmpty('#locationForm', '.submit')) {
             var form = $('#locationForm');
             $.ajax({
                 type: "POST",

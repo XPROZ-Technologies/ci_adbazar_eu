@@ -68,8 +68,8 @@ app.handle = function(serviceId) {
 
 app.submits = function(serviceId) {
     $("body").on('click', '.submit', function(){
-        if(validateEmpty('#serviceForm'), '.submit'){
-            // $('.submit').prop('disabled', true);
+        if(validateEmpty('#serviceForm', '.submit')){
+            $('.submit').prop('disabled', true);
             var form = $('#serviceForm');
             var datas = form.serializeArray();
             datas.push({ name: "ServiceTypes", value: JSON.stringify(getDataServiceType())});
@@ -81,10 +81,10 @@ app.submits = function(serviceId) {
                 success: function (response) {
                     var json = $.parseJSON(response);
                     showNotification(json.message, json.code);
-                    // if(json.code == 1){
-                    //     redirect(true, '');
-                    // }
-                    // else $('.submit').prop('disabled', false);
+                    if(json.code == 1){
+                        redirect(false, $("a#btnCancel").attr('href'));
+                    }
+                    else $('.submit').prop('disabled', false);
                 },
                 error: function (response) {
                     showNotification('Có lỗi xảy ra trong quá trình thực hiện', 0);

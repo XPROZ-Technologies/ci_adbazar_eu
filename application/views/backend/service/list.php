@@ -37,7 +37,15 @@
                             <tr>
                                 <th style="width:60px;">#</th>
                                 <th style="width:120px;">Service Image</th>
-                                <th>Service Name</th>
+                                <th><div  class="text-center"><span>Service Name</span></div>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <?php foreach($this->Mconstants->languageTexts as $key => $text): ?>
+                                        <li class="<?php echo $key == 'en' ? 'active':''; ?>">
+                                            <a href=".service-name-<?php echo $key ?>-tab" role="tab" data-toggle="tab"><?php echo $text ?></a>
+                                        </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </th>
                                 <th style="width:120px;">Status</th>
                                 <th style="width:250px;">Action</th>
                             </tr>
@@ -50,7 +58,19 @@
                                 <tr id="service_<?php echo $s['id']; ?>">
                                     <td><?php echo $i; ?></td>
                                     <td><img width="60px" src="<?php echo SERVICE_PATH.$s['service_image']; ?>"></td>
-                                    <td><a href="<?php echo base_url('backend/service/edit/'.$s['id']); ?>"><?php echo $s['service_name']; ?></a></td>
+                                    <td>
+                                        <!-- Tab panes -->
+                                        <br>
+                                        <div class="tab-content">
+                                            <?php foreach($this->Mconstants->languageTexts as $key => $text): ?>
+                                            <div class="tab-pane fade <?php echo $key == 'en' ? 'active':''; ?> in service-name-<?php echo $key ?>-tab">
+                                                <div class="form-group">
+                                                    <a href="<?php echo base_url('backend/service/edit/'.$s['id']); ?>"><?php echo $s['service_name_'.$key.'']; ?></a>
+                                                </div>
+                                            </div>
+                                            <?php endforeach; ?>
+                                        </div>    
+                                    </td>
                                     <td><span class="<?php echo $labelCss[$s['service_status_id']]; ?>"><?php echo $this->Mconstants->status[$s['service_status_id']]; ?></span></td>
                                     <td class="actions">
                                         <a href="javascript:void(0)" class="link_delete btn btn-xs btn-default" data-id="<?php echo $s['id']; ?>" status-id="0" title="Remove">Remove</a>

@@ -3,15 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Slider extends MY_Controller { 
 
-    public function index(){
+    public function index($sliderTypeId = 1){
+        if(!in_array($sliderTypeId, [1,2])) $sliderTypeId = 1;
         $user = $this->checkUserLogin();
         $data = $this->commonData($user,
-            'List Slider',
+            'List '.$this->Mconstants->sliderTypeIds[$sliderTypeId],
             array('scriptFooter' => array('js' => 'js/backend/setting/slider.js'))
         );
-        if ($this->Mactions->checkAccess($data['listActions'], 'slider')) {
+        if ($this->Mactions->checkAccess($data['listActions'], 'slider/'.$sliderTypeId)) {
             $this->load->model('Msliders');
-            $data['listSliders'] = $this->Msliders->getBy(array('slider_status_id' => STATUS_ACTIVED), false, 'display_order','', 0, 0, 'asc');
+            $data['sliderTypeId'] = $sliderTypeId;
+            $data['listSliders'] = $this->Msliders->getBy(array('slider_status_id' => STATUS_ACTIVED, 'slider_type_id' => $sliderTypeId), false, 'display_order','', 0, 0, 'asc');
             $this->load->view('backend/setting/slider', $data);
         }
         else $this->load->view('backend/user/permission', $data);
@@ -20,7 +22,7 @@ class Slider extends MY_Controller {
     public function update(){
         try {
             $user = $this->checkUserLogin();
-            $postData = $this->arrayFromPost(array('slider_image','slider_url', 'display_order'));
+            $postData = $this->arrayFromPost(array('slider_image','slider_url', 'display_order', 'slider_type_id'));
             if(!empty($postData['slider_image'])) {
                 $sliderId  = $this->input->post('id');
                 if(empty($postData['slider_image'])) $postData['slider_image'] = NO_IMAGE;

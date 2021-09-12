@@ -59,7 +59,7 @@ class Location extends MY_Controller {
             if ($this->Mactions->checkAccess($data['listActions'], 'location/edit')) {
 				$this->load->model('Mlocations');
                 $location = $this->Mlocations->get($locationId);
-                if ($location && $location['location_status_id'] == STATUS_ACTIVED) {
+                if ($location && $location['location_status_id'] > 0) {
                     $data['id'] = $locationId;
                     $data['location'] = $location;
                 }else {
