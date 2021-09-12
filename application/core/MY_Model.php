@@ -100,6 +100,17 @@ class MY_Model extends CI_Model {
         return $retVal;
     }
 
+    public function changeIsHot($isHot, $id, $fieldName = 'is_hot', $updateUserId = 0){
+        $retVal = false;
+        if($isHot != '' && $id > 0){
+            if(empty($fieldName)) $fieldName = 'is_hot';
+            if($updateUserId > 0) $id =  $this->save(array($fieldName => $isHot, 'updated_by' => $updateUserId, 'updated_at' => getCurentDateTime()), $id);
+            else $id = $this->save(array($fieldName => $isHot), $id);
+            $retVal = $id > 0;
+        }
+        return $retVal;
+    }
+
     public function updateBy($where, $data) {
         $this->db_master->where($where);
         return $this->db_master->update($this->_table_name, $data);

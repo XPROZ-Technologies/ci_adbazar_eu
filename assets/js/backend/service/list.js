@@ -31,6 +31,27 @@ app.changeStatus = function() {
         }
         return false;
     });
+
+    $('.js-switch').bootstrapSwitch({size: 'mini'}).on('switchChange.bootstrapSwitch', function(event, state) {
+        $.ajax({
+            type: "POST",
+            url: $('input#updateIsHotUrl').val(),
+            data: {
+                id: $(this).attr('data-id'),
+                is_hot: state ? 'ON' : 'OFF'
+            },
+            success: function (response) {
+                var json = $.parseJSON(response);
+                showNotification(json.message, json.code);
+                if(json.code != 1) redirect(true, '');
+                else $('.js-switch').val(state);
+            },
+            error: function (response) {
+                showNotification($('input#errorCommonMessage').val(), 0);
+                redirect(true, '');
+            }
+        });
+    });
 }
 
 function changeStatus(id, statusId) {

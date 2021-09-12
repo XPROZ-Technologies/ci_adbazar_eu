@@ -30,13 +30,13 @@ abstract class MY_Controller extends CI_Controller {
                 //$fields = array('user', 'configs');
                 //foreach($fields as $field) $this->session->unset_userdata($field);
                 if($isApi) echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
-                else redirect('admin?redirectUrl='.current_url());
+                else redirect('sys-admin?redirectUrl='.current_url());
                 die();
             }
         }
         else{
             if($isApi) echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
-            else redirect('admin?redirectUrl='.current_url());
+            else redirect('sys-admin?redirectUrl='.current_url());
             die();
         }
     }

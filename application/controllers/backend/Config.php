@@ -17,12 +17,54 @@ class Config extends MY_Controller{
 		else $this->load->view('backend/user/permission', $data);
 	}
 
+    public function abount(){
+		$user = $this->checkUserLogin();
+        $configAbountUs = $this->rsession->get('config_about_us');
+		$data = $this->commonData($user,
+			'Abount us',
+			array('scriptFooter' => array('js' => array('js/backend/config/config.js')))
+		);
+		if($this->Mactions->checkAccess($data['listActions'], 'config/abount')) {
+			$this->loadModel(array('Mconfigs'));
+			$data['listConfigs'] = $this->Mconfigs->getListMap(1, $configAbountUs['language_id']);
+            $data['configAbountUs'] = $configAbountUs;
+			$this->load->view('backend/config/abount', $data);
+		}
+		else $this->load->view('backend/user/permission', $data);
+	}
+
+    public function changeLanguageAbount() {
+        $languageId = $this->input->post('language_id');
+        $language = 'english';
+        switch ($languageId) {
+            case 1:
+                $language = 'english';
+                break;
+            case 2:
+                $language = 'czech';
+                break;
+            case 3:
+                $language = 'german';
+                break;
+            case 4:
+                $language = 'vietnamese';
+                break;
+            default:
+                $language = 'english';
+                break;
+        }
+        $this->session->set_userdata('config_about_us', array('language_id' => $languageId));
+        redirect($this->input->post('UrlOld'));
+    }
+
     public function update($autoLoad = 1){
         $user = $this->checkUserLogin();
-        $user['language_id'] = 1;
+        $configAbountUs = $this->rsession->get('config_about_us');
         $this->load->model('Mconfigs');
         $langCode = '';
-        if($user['language_id'] == 2) $langCode = '_en';
+        if ($configAbountUs['language_id'] == 1) $langCode = '_en';
+        elseif ($configAbountUs['language_id'] == 2) $langCode = '_zc';
+        elseif ($configAbountUs['language_id'] == 3) $langCode = '_de';
         $listConfigs = $this->Mconfigs->getBy(array('auto_load' => $autoLoad), false, "", "id,config_code,config_value".$langCode."");
         $valueData = array();
         $updateDateTime = getCurentDateTime();

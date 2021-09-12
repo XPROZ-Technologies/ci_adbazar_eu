@@ -27,6 +27,8 @@ class User extends MY_Controller {
 			if ($user) {
 				if(empty($user['avatar'])) $user['avatar'] = NO_IMAGE;
 				$this->session->set_userdata('user', $user);
+                $this->session->set_userdata('config_about_us', array('language_id' => 1));
+
 				if ($postData['is_get_configs'] == 1) {
 					$this->load->model('Mconfigs');
 					$configs = $this->Mconfigs->getListMap();
@@ -50,7 +52,7 @@ class User extends MY_Controller {
 	}
 
     public function logout(){
-		$fields = array('user', 'configs');
+		$fields = array('user', 'configs', 'config_about_us');
 		foreach($fields as $field) $this->session->unset_userdata($field);
 		redirect('backend/user');
 	}
