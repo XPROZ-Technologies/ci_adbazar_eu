@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 14, 2021 at 06:35 AM
+-- Generation Time: Sep 14, 2021 at 10:51 AM
 -- Server version: 10.3.22-MariaDB
 -- PHP Version: 7.3.28
 
@@ -1448,8 +1448,8 @@ CREATE TABLE `opening_hours` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
   `day_id` tinyint(4) NOT NULL,
-  `start_time` time NOT NULL,
-  `end_time` time NOT NULL,
+  `start_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL,
   `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
