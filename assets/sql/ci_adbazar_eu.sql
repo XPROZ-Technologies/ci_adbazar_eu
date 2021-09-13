@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 14, 2021 at 10:51 AM
+-- Generation Time: Sep 14, 2021 at 11:22 AM
 -- Server version: 10.3.22-MariaDB
 -- PHP Version: 7.3.28
 
@@ -502,6 +502,7 @@ CREATE TABLE `customers` (
   `customer_address` varchar(250) NOT NULL,
   `free_trial` tinyint(4) NOT NULL DEFAULT 0,
   `customer_status_id` tinyint(4) NOT NULL DEFAULT 0,
+  `language_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -513,8 +514,8 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(6, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, '2021-09-09 01:44:48', 0, NULL, NULL, NULL);
+INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `language_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(6, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, 0, '2021-09-09 01:44:48', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1836,6 +1837,7 @@ CREATE TABLE `services` (
   `service_name_cz` varchar(250) DEFAULT NULL,
   `service_image` text NOT NULL,
   `service_status_id` tinyint(4) NOT NULL,
+  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
   `display_order` int(10) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
