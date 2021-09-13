@@ -47,9 +47,8 @@ class Mservices extends MY_Model {
                     $u['updated_by'] = $userId;
                     $u['updated_at'] = getCurentDateTime();
                     $arrServiceType[] = $u;
-                   
-                    
                 }
+               
                 if (!empty($arrServiceType)) $this->db->insert_batch('service_types', $arrServiceType);
             }
         }
@@ -61,5 +60,12 @@ class Mservices extends MY_Model {
             $this->db->trans_commit();
             return $serviceId;
         }
+    }
+
+    public function getListSelect2Ajax($searchText = '') {
+        $where = '';
+        if(!empty($searchText)) $where = " AND (service_name_en LIKE '%".$searchText."%') ";
+        $query = "SELECT * FROM services WHERE service_status_id = 2  ".$where." LIMIT 200";
+        return $this->getByQuery($query);
     }
 }

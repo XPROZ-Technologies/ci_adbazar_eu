@@ -73,4 +73,11 @@ class Mcustomers extends MY_Model {
         }
     }
 
+    public function getListSelect2Ajax($searchText = '') {
+        $where = '';
+        if(!empty($searchText)) $where = " AND (customer_first_name LIKE '%".$searchText."%' OR customer_last_name LIKE '%".$searchText."%') ";
+        $query = "SELECT CONCAT(customer_first_name, ' ', customer_last_name) as full_name, id FROM customers WHERE customer_status_id = 2  ".$where." LIMIT 200";
+        return $this->getByQuery($query);
+    }
+
 }

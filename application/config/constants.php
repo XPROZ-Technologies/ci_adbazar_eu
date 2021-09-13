@@ -102,6 +102,7 @@ define('FILE_PATH', 'assets/uploads/files/');
 define('SLIDER_PATH', 'assets/uploads/sliders/');
 define('CONFIG_PATH', 'assets/uploads/configs/');
 define('SERVICE_PATH', 'assets/uploads/services/');
+define('BUSINESS_PROFILE_PATH', 'assets/uploads/busines_profile/');
 
 define('DEFAULT_IMG', '');
 
