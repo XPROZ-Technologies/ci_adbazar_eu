@@ -67,6 +67,8 @@ $route['sys-admin/dashboard'] = 'backend/dashboard';
 $route['sys-admin/service'] = 'backend/service';
 $route['sys-admin/service-create'] = 'backend/service/add';
 $route['sys-admin/service-update'] = 'backend/service/edit';
+$route['sys-admin/service/get-list'] = 'backend/service/getListSelect2Ajax';
+$route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax'; 
 
 $route['sys-admin/location'] = 'backend/location';
 $route['sys-admin/location-create'] = 'backend/location/add';
@@ -76,7 +78,19 @@ $route['sys-admin/sider'] = 'backend/sider';
 
 $route['sys-admin/staff'] = 'backend/user/staff';
 $route['sys-admin/staff-create'] = 'backend/user/add';
-$route['sys-admin/staff-update'] = 'backend/user/edit';
+$route['sys-admin/staff-update/(:num)'] = 'backend/user/edit/$id';
+
+// customer
+$route['sys-admin/customer/get-list'] = 'backend/customer/getListSelect2Ajax';
+
+$route['sys-admin/business-profile'] = 'backend/businessprofile';
+$route['sys-admin/business-profile-add'] = 'backend/businessprofile/add';
+$route['sys-admin/business-profile-update/(:num)'] = 'backend/businessprofile/edit/$1';
+$route['sys-admin/business-profile/insert-update'] = 'backend/businessprofile/update';
+$route['sys-admin/business-profile/change-status'] = 'backend/businessprofile/changeStatus'; 
+
+$route['sys-admin/phone-code/get-list'] = 'backend/phonecode/getListSelect2Ajax';
+
 
 /**
  * FRONT-END ROUTES

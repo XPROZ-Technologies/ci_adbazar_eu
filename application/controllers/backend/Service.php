@@ -145,4 +145,22 @@ class Service extends MY_Controller {
 		}
 		else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
 	}
+
+    public function getListSelect2Ajax() {
+        $user = $this->checkUserLogin();
+		$searchText = $this->input->post('search_text');
+		$this->load->model('Mservices');
+		$list = $this->Mservices->getListSelect2Ajax($searchText);
+		echo json_encode($list);
+    }
+
+    public function getListServiceTypeSelect2Ajax(){
+        $user = $this->checkUserLogin();
+        $serviceId = $this->input->post('service_id');
+        $searchText = $this->input->post('search_text');
+        $this->load->model('Mservicetypes');
+        if(empty($serviceId)) $serviceId = 0;
+        $list = $this->Mservicetypes->getListServiceTypeSelect2Ajax($serviceId, $searchText);
+        echo json_encode($list);
+    }
 }

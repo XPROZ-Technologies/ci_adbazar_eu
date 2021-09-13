@@ -20,4 +20,11 @@ class Mservicetypes extends MY_Model {
                 ";
         return $this->getByQuery($query, array($serviceId));
     }
+
+    public function getListServiceTypeSelect2Ajax($serviceId, $searchText){
+        $where = '';
+        if(!empty($searchText)) $where = " AND service_type_name_en LIKE '%".$searchText."%' ";
+        $query = "SELECT * FROM service_types WHERE service_id = ".$serviceId.$where." LIMIT 200";
+        return $this->getByQuery($query);
+    }
 }

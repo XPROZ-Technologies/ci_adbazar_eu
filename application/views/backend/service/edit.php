@@ -82,7 +82,18 @@
                                 <table class="table table-hover table-bordered">
                                     <thead class="theadNormal">
                                     <tr>
-                                        <th>Service type</th>
+                                        <th>
+                                            <div class="text-center">
+                                                <span>Service type</span>
+                                            </div>
+                                            <ul class="nav nav-tabs" role="tablist">
+                                                <?php foreach($this->Mconstants->languageTexts as $key1 => $text): ?>
+                                                <li class="service_type_title_all service_type_title_<?php echo $key1; ?> <?php echo $key1 == 'en' ? 'active':''; ?>">
+                                                    <a href=".service-type-name-<?php echo $key1 ?>-tab" role="tab" data-toggle="tab"><?php echo $text ?></a>
+                                                </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </th>
                                         <th>Display order</th>
                                         <th style="width: 60px;"></th>
                                     </tr>
@@ -90,7 +101,17 @@
                                     <tbody id="tbodyServiceTypes">
                                         <?php foreach($serviceTypes as $st): ?>
                                             <tr class="htmlServiceTypes">
-                                                <td><?php echo $st['service_type_name'] ?></td>
+                                                <td>
+                                                <div class="tab-content">
+                                                    <?php foreach($this->Mconstants->languageTexts as $key2 => $text): ?>
+                                                        <div class="tab-pane fade <?php echo $key2 == 'en' ? 'active':''; ?> service_type_title_all_content in service-type-name-<?php echo $key2; ?>-tab" data-key="<?php echo $key2; ?>">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control service_type_name_text_<?php echo $key2; ?>" readonly value="<?php echo $st['service_type_name_vi']; ?>">
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                                </td>
                                                 <td><?php echo $st['display_order'] ?></td>
                                                 <td service-type-id="<?php echo $st['id'] ?>">
                                                     <a href="javascript:void(0)" class="link_edit" title="Update"><i class="fa fa-pencil"></i></a>&nbsp;
@@ -102,7 +123,15 @@
                                         <?php endforeach; ?>
                                     	<tr id="trData">
                                             <td>
-                                                <input type="text" name="service_type_name" id="service_type_name" class="form-control">
+                                                <div class="tab-content">
+                                                    <?php foreach($this->Mconstants->languageTexts as $key2 => $text): ?>
+                                                    <div class="service_type_name tab-pane fade <?php echo $key2 == 'en' ? 'active':''; ?> in service-type-name-<?php echo $key2 ?>-tab" data-key="<?php echo $key2 ?>">
+                                                        <div class="form-group">
+                                                            <input type="text" name="service_type_name_<?php echo $key2 ?>" id="service_type_name_<?php echo $key2 ?>" class="form-control clearAllText" data-field="Service Type Name <?php echo $text ?>" autocomplete="off">
+                                                        </div>
+                                                    </div>
+                                                    <?php endforeach; ?>
+                                                </div>
                                             </td>
                                     		<td>
                                                 <?php $this->Mconstants->selectNumber(0, 100, 'display_order_0', 1, true); ?>
