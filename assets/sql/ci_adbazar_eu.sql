@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 13, 2021 at 09:39 AM
+-- Generation Time: Sep 14, 2021 at 06:35 AM
 -- Server version: 10.3.22-MariaDB
 -- PHP Version: 7.3.28
 
@@ -1326,9 +1326,9 @@ CREATE TABLE `events` (
   `event_subject` varchar(250) NOT NULL,
   `event_image` text NOT NULL,
   `start_date` datetime NOT NULL,
-  `start_time` varchar(50) NOT NULL,
+  `start_time` time NOT NULL,
   `end_date` datetime NOT NULL,
-  `end_time` varchar(50) NOT NULL,
+  `end_time` time NOT NULL,
   `event_description` tinyint(4) NOT NULL,
   `event_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -1448,8 +1448,8 @@ CREATE TABLE `opening_hours` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
   `day_id` tinyint(4) NOT NULL,
-  `start_time` varchar(50) NOT NULL,
-  `end_time` varchar(50) NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
   `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
@@ -1830,6 +1830,10 @@ CREATE TABLE `roleactions` (
 
 CREATE TABLE `services` (
   `id` int(10) NOT NULL,
+  `service_name_vi` varchar(250) DEFAULT NULL,
+  `service_name_en` varchar(250) DEFAULT NULL,
+  `service_name_de` varchar(250) DEFAULT NULL,
+  `service_name_cz` varchar(250) DEFAULT NULL,
   `service_image` text NOT NULL,
   `service_status_id` tinyint(4) NOT NULL,
   `display_order` int(10) NOT NULL DEFAULT 0,
@@ -1843,24 +1847,15 @@ CREATE TABLE `services` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `service_details`
---
-
-CREATE TABLE `service_details` (
-  `id` int(10) NOT NULL,
-  `service_id` int(10) NOT NULL,
-  `service_name` varchar(250) NOT NULL,
-  `language_id` tinyint(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `service_types`
 --
 
 CREATE TABLE `service_types` (
   `id` int(10) NOT NULL,
+  `service_type_name_vi` varchar(250) DEFAULT NULL,
+  `service_type_name_en` varchar(250) DEFAULT NULL,
+  `service_type_name_de` varchar(250) DEFAULT NULL,
+  `service_type_name_cz` varchar(250) DEFAULT NULL,
   `service_id` int(10) NOT NULL,
   `display_order` int(10) NOT NULL,
   `created_at` datetime NOT NULL,
@@ -1868,19 +1863,6 @@ CREATE TABLE `service_types` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(10) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `service_type_details`
---
-
-CREATE TABLE `service_type_details` (
-  `id` int(10) NOT NULL,
-  `service_type_id` int(10) NOT NULL,
-  `service_type_name` varchar(255) NOT NULL,
-  `language_id` tinyint(4) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -13326,21 +13308,9 @@ ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `service_details`
---
-ALTER TABLE `service_details`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `service_types`
 --
 ALTER TABLE `service_types`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `service_type_details`
---
-ALTER TABLE `service_type_details`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -13492,21 +13462,9 @@ ALTER TABLE `services`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `service_details`
---
-ALTER TABLE `service_details`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `service_types`
 --
 ALTER TABLE `service_types`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `service_type_details`
---
-ALTER TABLE `service_type_details`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
