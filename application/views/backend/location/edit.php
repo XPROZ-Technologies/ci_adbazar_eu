@@ -37,6 +37,32 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <?php 
+                                        $businessName = ''; $businessId = 0; $expiredDate = ''; $businessProfileLocationId = 0;
+                                        if(!empty($locationInBusiness)) {
+                                            $businessName = $locationInBusiness['business_name'];
+                                            $businessId = $locationInBusiness['id']; 
+                                            $expiredDate = ddMMyyyy($locationInBusiness['expired_date'], 'd/m/Y H:i');
+                                            $businessProfileLocationId = $locationInBusiness['business_profile_location_id'];
+                                        }
+                                    ?>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Business Profile</label>
+                                            <select class="form-control" name="business_profile_id" id="business_profile_id"> 
+                                                <option value="<?php echo $businessId ?>"><?php echo $businessName; ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Expired Date</label>
+                                            <input type="text" name="expired_date" id="expired_date" class="form-control" value="<?php echo $expiredDate ?>">
+                                            <input type="hidden" name="business_profile_location_id" value="<?php echo $businessProfileLocationId ?>">
+                                        </div>
+                                    </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="col-sm-12 no-padding">
@@ -45,6 +71,7 @@
                             </div>
                         </div>
                     </div>
+                    <input type="text" hidden="hidden" id="urlGetBusinessProfileNotInLocation" value="<?php echo base_url('sys-admin/business-profile/get-business-profile-not-in-location') ?>">
                 <?php echo form_close(); ?>
             <?php } else { ?> 
                 <?php $this->load->view('backend/includes/notice'); ?>

@@ -13,7 +13,7 @@ class File extends MY_Controller {
             $fileExt = 'png';
 	        if($fileTypeId == 1) $dir = PRODUCT_PATH;
             elseif($fileTypeId == 2) $dir = USER_PATH;
-	        elseif($fileTypeId == 3) $dir = IMAGE_PATH;
+	        elseif($fileTypeId == 3) $dir = CUSTOMER_PATH;
             elseif($fileTypeId == 4) $dir = SLIDER_PATH;
             elseif($fileTypeId == 5) $dir = CONFIG_PATH;
             elseif($fileTypeId == 6) $dir = SERVICE_PATH;

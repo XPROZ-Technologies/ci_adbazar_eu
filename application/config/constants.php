@@ -97,7 +97,7 @@ define('ERROR_NO_DATA', 'Data does not exist');
 //path
 define('ROOT_PATH', dirname($_SERVER['SCRIPT_NAME']) . '/');
 define('USER_PATH', 'assets/uploads/users/');
-define('IMAGE_PATH', 'assets/uploads/images/');
+define('CUSTOMER_PATH', 'assets/uploads/customers/');
 define('FILE_PATH', 'assets/uploads/files/');
 define('SLIDER_PATH', 'assets/uploads/sliders/');
 define('CONFIG_PATH', 'assets/uploads/configs/');

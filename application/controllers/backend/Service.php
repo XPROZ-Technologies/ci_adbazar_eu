@@ -137,7 +137,7 @@ class Service extends MY_Controller {
 			$this->load->model('Mservices');
 			$flag = $this->Mservices->changeIsHot($isHot, $serviceId, '', $user['id']);
 			$message = 'Activation of featured position successfully';
-			if($isHot == 'OFF') $message = 'Successfully Hide Featured Location';
+			if($isHot == 1) $message = 'Successfully Hide Featured Location';
 			if($flag) {
 				echo json_encode(array('code' => 1, 'message' => $message));
 			}

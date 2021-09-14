@@ -1,13 +1,13 @@
 var app = app || {};
 
-app.init = function (userId) {
+app.init = function (customerId) {
     app.library();
-    app.submits(userId);
+    app.submits(customerId);
 }
 
 $(document).ready(function () {
-    var userId = parseInt($('input[name="id"]').val());
-    app.init(userId);
+    var customerId = parseInt($('input[name="id"]').val());
+    app.init(customerId);
 });
 
 app.library = function() {
@@ -20,7 +20,7 @@ app.library = function() {
     $('.chooseImage').click(function() {
         $('#inputFileImage').trigger('click');
     });
-    chooseFile($('#inputFileImage'), $('#fileProgress'), 2, function(fileUrl) {
+    chooseFile($('#inputFileImage'), $('#fileProgress'), 3, function(fileUrl) {
         $('input#avatar').val(fileUrl);
         $('img#imgAvatar').attr('src', fileUrl);
     });
@@ -30,37 +30,32 @@ app.library = function() {
         $('input#rePass').val(pass);
         return false;
     });
+
+    $('.js-switch').bootstrapSwitch({size: 'mini'}).on('switchChange.bootstrapSwitch', function(event, state) {
+        var isHot = state ? 2 : 1;
+        $(this).val(isHot)
+    });
 }
 
 app.submits = function(userId) {
     $("body").on('click', '.submit', function() {
         var $this = $(this);
         $this.prop('disabled', true);
-        if (validateEmpty('#userForm', '.submit')) {
-            if ($('input#userName').length > 0 && $('input#userName').val().trim().indexOf(' ') >= 0) {
-                showNotification(userNameText, 0);
-                $('input#userName').focus();
-                $this.prop('disabled', false);
-                return false;
-            }
-            if (!validateEmail($('input[name="email"]').val()) && $('input[name="email"]').val().trim() != '') {
+        if (validateEmpty('#customerForm', '.submit')) {
+           
+            if (!validateEmail($('input[name="customer_email"]').val()) && $('input[name="customer_email"]').val().trim() != '') {
                 showNotification(emailText, 0);
-                $('input[name="email"]').focus();
+                $('input[name="customer_email"]').focus();
                 $this.prop('disabled', false);
                 return false;
             }
-            if ($("select#role_id").val() == 0) {
-                showNotification(roleText, 0);
-                $this.prop('disabled', false);
-                return false;
-            }
-          
+           
             if ($('input#newPass').val() != $('input#rePass').val()) {
                 showNotification(rePassText, 0);
                 $this.prop('disabled', false);
                 return false;
             }
-            var form = $('#userForm');
+            var form = $('#customerForm');
             $.ajax({
                 type: "POST",
                 url: form.attr('action'),

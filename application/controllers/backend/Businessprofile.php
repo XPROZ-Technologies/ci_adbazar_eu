@@ -8,8 +8,8 @@ class Businessprofile extends MY_Controller {
 		$data = $this->commonData($user,
 			'List Business Profile',
             array(
-                'scriptHeader' => array('css' => ''),
-                'scriptFooter' => array('js' => array('js/backend/business_profile/list.js'))
+                'scriptHeader' => array('css' => 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css'),
+                'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/list.js'))
             )
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/business-profile')) {
@@ -69,6 +69,7 @@ class Businessprofile extends MY_Controller {
                     $data['businessservicetypes'] = $this->Mbusinessservicetype->getListFieldValue(array('business_profile_id' => $profile['id']), 'service_type_id');
                     $data['openinghours'] = $this->Mopeninghours->getBy(array('business_profile_id' => $businessProfileId), false, 'day_id', '',0,0, 'asc');
                     $data['phonecode'] = $this->Mphonecodes->get($profile['country_code_id']);
+                    $data['businessInLocation'] = $this->Mbusinessprofiles->getBusinessInLocation($businessProfileId);
                 }else {
                     $data['id'] = 0;
                     $data['txtError'] = ERROR_NO_DATA;
@@ -110,7 +111,18 @@ class Businessprofile extends MY_Controller {
 			if(!is_array($businessServiceTypes)) $businessServiceTypes = array();
             $this->load->model('Mbusinessprofiles');
             $flag = $this->Mbusinessprofiles->update($postData, $businessProfileId, $businessServiceTypes, $openingHours, $user['id']);
-            if($flag) echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
+            if($flag) {
+                $businessProfileLocation = $this->arrayFromPost(array('location_id', 'expired_date')); 
+                if($businessProfileLocation['location_id'] > 0) {
+                    $businessProfileLocationId = $this->input->post('business_profile_location_id');
+                    $businessProfileLocation['expired_date'] = !empty($businessProfileLocation['expired_date']) ? ddMMyyyyToDate($businessProfileLocation['expired_date'], 'd/m/Y H:i', 'Y-m-d H:i') : NULL;
+                    $businessProfileLocation['business_profile_id'] = $flag;
+                    $businessProfileLocation['business_profile_location_status_id'] = STATUS_ACTIVED;
+                    $this->load->model('Mbusinessprofilelocations');
+                    $this->Mbusinessprofilelocations->save($businessProfileLocation, $businessProfileLocationId);
+                }
+                echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
+            } 
             else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
@@ -131,8 +143,26 @@ class Businessprofile extends MY_Controller {
                 $message = 'Business Profile activation successful.';
                 $deleteAt = 0;
             }
-            $this->load->model('Mbusinessprofiles');
+            $this->loadModel(array('Mbusinessprofilelocations','Mbusinessprofiles'));
 			$flag = $this->Mbusinessprofiles->changeStatus($statusId, $businessProfileId, 'busines_status_id', $user['id'], $deleteAt);
+			if($flag) {
+                $this->Mbusinessprofilelocations->changeStatusChild($statusId, $businessProfileId, 'business_profile_location_status_id', $user['id'], $deleteAt, 'business_profile_id');
+				echo json_encode(array('code' => 1, 'message' => $message));
+			}
+			else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+		}
+		else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+	}
+
+    public function isHot() {
+		$user = $this->checkUserLogin();
+		$locationId = $this->input->post('id');
+		$isHot = $this->input->post('is_hot');
+		if($locationId > 0) {
+			$this->load->model('Mbusinessprofiles');
+			$flag = $this->Mbusinessprofiles->changeIsHot($isHot, $locationId, '', $user['id']);
+			$message = 'Activation of featured position successfully';
+			if($isHot == 1) $message = 'Successfully Hide Featured Location';
 			if($flag) {
 				echo json_encode(array('code' => 1, 'message' => $message));
 			}
@@ -140,5 +170,14 @@ class Businessprofile extends MY_Controller {
 		}
 		else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
 	}
+
+    public function getBusinessProfileNotInLocation() {
+        $user = $this->checkUserLogin();
+        $searchText = $this->input->post('search_text');
+        $businessProfileLocationId = $this->input->post('business_profile_location_id');
+		$this->load->model('Mbusinessprofiles');
+		$list = $this->Mbusinessprofiles->getBusinessProfileNotInLocation($searchText, $businessProfileLocationId);
+		echo json_encode($list);
+    }
 
 }

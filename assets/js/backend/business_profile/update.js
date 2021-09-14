@@ -19,11 +19,15 @@ app.library = function() {
         var isOpen = state ? 'Open':'Close';
         $("span#textDay_"+isDay).text(isOpen);
         if(state) {
+            $('input#start_time_'+isDay).attr("placeholder", "Open at");
+            $('input#end_time_'+isDay).attr("placeholder", "Open at");
             $("input#start_time_"+isDay).prop('readonly', false);
             $("input#end_time_"+isDay).prop('readonly', false);
         } else {
             $("input#start_time_"+isDay).prop('readonly', true).val('');
             $("input#end_time_"+isDay).prop('readonly', true).val('');
+            $('input#start_time_'+isDay).attr("placeholder", "Close at");
+            $('input#end_time_'+isDay).attr("placeholder", "Close at");
         }
         
     });
@@ -66,6 +70,41 @@ app.library = function() {
 }
 
 app.handle = function() {
+    $('#expired_date').datetimepicker({
+        format: 'DD/MM/YYYY HH:mm',
+        minDate:new Date()
+    });
+    $("select#location_id").select2({
+        placeholder: '--Choose Location Name--',
+        allowClear: true,
+        ajax: {
+            url: $("input#urlGetLocationNotInBusinessProfile").val(),
+            type: 'POST',
+            dataType: 'json',
+            data: function(data) {
+                $("input#expired_date").val('');
+                return {
+                    search_text: data.term,
+                    business_profile_location_id: $('input[name="business_profile_location_id"]').val()
+                };
+            },
+            processResults: function(data, params) {
+                return {
+                    results: $.map(data, function(item) {
+                        return {
+                            text: item.location_name,
+                            id: item.id,
+                            data: item
+                        };
+                    })
+                };
+            }
+        }
+
+    }).on('change',function() {
+        $("input#expired_date").val('');
+    });
+
     $("select#customer_id").select2({
         placeholder: '--Choose Customer--',
         allowClear: true,

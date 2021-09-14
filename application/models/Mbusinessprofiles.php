@@ -82,4 +82,34 @@ class Mbusinessprofiles extends MY_Model {
             return $businessProfileId;
         }
     }
+
+    public function getBusinessInLocation($businessProfileId = 0) {
+        $query = "SELECT
+                locations.id,
+                locations.location_name,
+                business_profile_locations.expired_date,
+                business_profile_locations.id as business_profile_location_id
+            FROM business_profile_locations
+                LEFT JOIN locations ON locations.id = business_profile_locations.location_id
+            WHERE
+                business_profile_locations.business_profile_location_status_id > 0 AND business_profile_locations.business_profile_id = ?";
+        $data = $this->getByQuery($query, array($businessProfileId));
+        if(count($data) > 0) return $data[0];
+        else return array(); 
+    }
+
+    public function getBusinessProfileNotInLocation($searchText = '', $businessProfileLocationId = 0) {
+        $where = ''; $where2 = '';
+        if(!empty($searchText)) $where = " AND (business_name LIKE '%".$searchText."%') ";
+        if($businessProfileLocationId > 0) $where2 = " AND id != ".$businessProfileLocationId;
+        $query = "SELECT
+                        id,
+                        business_name 
+                    FROM
+                        business_profiles 
+                    WHERE
+                        business_profiles.busines_status_id = ? ".$where."
+                        AND business_profiles.id NOT IN ( SELECT business_profile_id FROM business_profile_locations WHERE business_profile_location_status_id > 0 ".$where2.")";
+        return $this->getByQuery($query, array(STATUS_ACTIVED));
+    }
 }
