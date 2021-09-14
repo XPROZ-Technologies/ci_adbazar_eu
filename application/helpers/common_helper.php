@@ -280,3 +280,21 @@ if(!function_exists('callApi2')) {
         return $result;
     }
 }
+if(!function_exists('createRandomCode')) {
+    function createRandomCode($length = 7) { 
+        $chars = "0123456789abcdefghijklmnopqrs092u3tuvwxyzaskdhfhf9882323"; 
+        srand((double)microtime()*1000000); 
+        $i = 0; 
+        $pass = '' ; 
+
+        while ($i <= $length) { 
+            $num = rand() % 33; 
+            $tmp = substr($chars, $num, 1); 
+            $pass = $pass . $tmp; 
+            $i++; 
+        } 
+
+        return $pass; 
+
+    } 
+}

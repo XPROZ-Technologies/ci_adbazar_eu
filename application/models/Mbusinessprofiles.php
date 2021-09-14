@@ -112,4 +112,11 @@ class Mbusinessprofiles extends MY_Model {
                         AND business_profiles.id NOT IN ( SELECT business_profile_id FROM business_profile_locations WHERE business_profile_location_status_id > 0 ".$where2.")";
         return $this->getByQuery($query, array(STATUS_ACTIVED));
     }
+
+    public function getListSelect2BuinessProfile($searchText = '') {
+        $where = '';
+        if(!empty($searchText)) $where = " AND (business_name LIKE '%".$searchText."%') ";
+        $query = "SELECT id, business_name FROM business_profiles WHERE busines_status_id = 2  ".$where." LIMIT 200";
+        return $this->getByQuery($query);
+    }
 }

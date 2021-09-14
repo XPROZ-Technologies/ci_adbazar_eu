@@ -197,4 +197,4 @@
         </div> 
     </div>
 <?php $this->load->view('backend/includes/footer'); ?>
-<?php $this->load->view('backend/user/_lang'); ?>
+<?php $this->load->view('backend/business_profile/_lang'); ?>

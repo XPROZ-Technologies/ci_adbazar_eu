@@ -99,6 +99,14 @@ $route['sys-admin/business-profile/is-hot'] = 'backend/businessprofile/isHot';
 
 $route['sys-admin/phone-code/get-list'] = 'backend/phonecode/getListSelect2Ajax';
 
+$route['sys-admin/coupon'] = 'backend/coupon';
+$route['sys-admin/coupon-create'] = 'backend/coupon/add';
+$route['sys-admin/coupon-update/(:num)'] = 'backend/coupon/edit/$1';
+$route['sys-admin/coupon/insert-update'] = 'backend/coupon/update'; 
+$route['sys-admin/coupon/get-list-business-profile'] = 'backend/coupon/getListSelect2BuinessProfile';
+$route['sys-admin/coupon/is-hot'] = 'backend/coupon/isHot';
+$route['sys-admin/coupon/change-status'] = 'backend/coupon/changeStatus'; 
+
 
 /**
  * FRONT-END ROUTES
