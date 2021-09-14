@@ -13,7 +13,7 @@ class Msliders extends MY_Model {
         $this->db_master->trans_begin();
         if($postData['display_order'] > 0) {
             $this->db_master->set('display_order', 'display_order+1', false);
-            $this->db_master->where(array('slider_status_id' => STATUS_ACTIVED, 'display_order>=' => $postData['display_order']));
+            $this->db_master->where(array('slider_status_id' => STATUS_ACTIVED, 'slider_type_id' => $postData['slider_type_id'], 'display_order>=' => $postData['display_order']));
             $this->db_master->update('sliders');
         }
         $sliderId = $this->save($postData, $sliderId);

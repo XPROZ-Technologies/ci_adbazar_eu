@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Sep 09, 2021 at 02:12 PM
--- Server version: 5.7.32
--- PHP Version: 7.4.16
+-- Host: localhost
+-- Generation Time: Sep 14, 2021 at 06:35 AM
+-- Server version: 10.3.22-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ci_adbazar_eu`
+-- Database: `adb`
 --
 
 -- --------------------------------------------------------
@@ -42,6 +43,17 @@ CREATE TABLE `actions` (
   `updated_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `actions`
+--
+
+INSERT INTO `actions` (`id`, `action_name`, `action_url`, `parent_action_id`, `display_order`, `font_awesome`, `action_level`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'Service', 'sys-admin/service', 0, 1, '', 1, 2, '2021-09-12 02:37:42', '2021-09-12 02:37:42', 1, 1),
+(2, 'Location', 'sys-admin/location', 0, 2, '', 1, 2, '2021-09-12 02:41:57', '2021-09-12 02:41:57', 1, 1),
+(3, 'Slider', 'sys-admin/sider', 4, 2, '', 2, 2, '2021-09-12 02:41:48', '2021-09-12 02:41:48', 1, 1),
+(4, 'Manager', '', 0, 3, '', 1, 2, '2021-09-12 02:42:00', '2021-09-12 02:42:00', 1, 1),
+(5, 'Employee', 'sys-admin/staff', 4, 1, '', 2, 2, '2021-09-12 02:41:36', '2021-09-12 02:41:36', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -51,10 +63,10 @@ CREATE TABLE `actions` (
 CREATE TABLE `business_payments` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
-  `payment_gateway_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1: paypal, 2:...',
-  `payment_amount` float DEFAULT '0',
+  `payment_gateway_id` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1: paypal, 2:...',
+  `payment_amount` float DEFAULT 0,
   `payment_currency` varchar(10) NOT NULL,
-  `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -81,10 +93,11 @@ CREATE TABLE `business_profiles` (
   `business_description` text NOT NULL,
   `business_avatar` text NOT NULL,
   `business_image_cover` text NOT NULL,
-  `is_annual_payment` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1: annual, 0: one time',
+  `is_annual_payment` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1: annual, 0: one time',
   `expired_date` datetime NOT NULL,
-  `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
-  `busines_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
+  `busines_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `updated_by` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -115,10 +128,10 @@ CREATE TABLE `business_profile_locations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `business_service_type`
+-- Table structure for table `business_service_types`
 --
 
-CREATE TABLE `business_service_type` (
+CREATE TABLE `business_service_types` (
   `id` int(11) NOT NULL,
   `business_profile_id` int(11) NOT NULL,
   `service_type_id` int(11) NOT NULL
@@ -135,7 +148,9 @@ CREATE TABLE `configs` (
   `config_code` varchar(45) NOT NULL,
   `config_name` varchar(100) NOT NULL,
   `config_value` text NOT NULL,
-  `config_value_en` text,
+  `config_value_en` text DEFAULT NULL,
+  `config_value_de` text DEFAULT NULL,
+  `config_value_zc` text DEFAULT NULL,
   `auto_load` tinyint(4) NOT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -147,15 +162,25 @@ CREATE TABLE `configs` (
 -- Dumping data for table `configs`
 --
 
-INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `config_value_en`, `auto_load`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 'COUPON_IMAGE', 'Coupon Image', '2021-09-08/6138c9416d8d2.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(3, 'VIDEO_URL', 'Video URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(4, 'ABOUT_US_IMAGE', 'About Us Image', '2021-09-08/6138c94711abb.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '2021-09-08/6138c94bc7a97.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(6, 'FACEBOOK_URL', 'Facebook URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(7, 'YOUTUBE_URL', 'Youtube URL', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-08/6138c9391df99.png', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41');
+INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `config_value_en`, `config_value_de`, `config_value_zc`, `auto_load`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
+(1, 'COUPON_IMAGE', 'Coupon Image', '2021-09-08/6138c9416d8d2.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(3, 'VIDEO_URL', 'Video URL', 'Text Logo heade', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(4, 'ABOUT_US_TEXT', 'About Us TExt', '2021-09-11/613c2d232a50c.png', 'sdfsdfds', 'dfsd', 'sdfdsf', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 18:12:04'),
+(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '2021-09-11/613c2d1ce3ac1.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 11:14:23'),
+(6, 'FACEBOOK_URL', 'Facebook URL', 'Text Logo heade', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(7, 'INSTAGRAM_URL', 'Instagram Url', 'Text Logo heade', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-11/613c2d366223b.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 11:15:12'),
+(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(10, 'MARKER_MAP_IMAGE', 'Marker map image', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
+(11, 'TIKTOK_URL', 'Tiktok Url', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
+(12, 'TWITTER_URL', 'Twitter Url', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
+(13, 'PINTEREST_URL', 'Pinterest Url', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
+(14, 'PHONE_NUMBER_FOOTER', 'Phone number', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
+(15, 'EMAIL_FOOTER', 'Email', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
+(16, 'LOGO_FOOTER_IMAGE', 'Logo footer', '2021-09-11/613c37f65b8d4.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:00:40'),
+(17, 'ADDRESS_FOOTER', 'Address', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
+(18, 'TERM_OF_USE', 'Term of use', '<h2 id=\"Terms_Of_Use_Your_Questions_Answered\">Terms of Use: Your Questions Answered</h2>\r\n\r\n<p>Before we look at what to include in your Terms of Use agreement, let&#39;s answer some common questions about&nbsp;<strong>what this agreement is and how it can help&nbsp;<em>you</em></strong>.</p>\r\n\r\n<h3 id=\"What_Is_A_Terms_Of_Use_Agreement\">What is a Terms of Use Agreement?</h3>\r\n\r\n<p><strong>A Terms of Use agreement is a legal document</strong>. If you run a website, app, or virtually any other type of service, a Terms of Use agreement can help you:</p>\r\n\r\n<ul>\r\n	<li><strong>Set the rules</strong>&nbsp;of engagement with your service</li>\r\n	<li>Explain how and why you may&nbsp;<strong>suspend or ban people</strong>&nbsp;from your service</li>\r\n	<li>Avoid or manage any&nbsp;<strong>potential legal issues</strong></li>\r\n</ul>', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:10:09'),
+(19, 'PRIVACY_POLICY', 'Privacy Policy', '<h2><strong>PRIVACY POLICY</strong></h2>\r\n\r\n<p><b>Data Protection Policy:</b></p>\r\n\r\n<p></p>\r\n\r\n<p>This privacy policy has been compiled to better serve those who are concerned with how their &lsquo;Personally Identifiable Information&rsquo; (PII) is being used online. PII, as described in US privacy law and information security, is information that can be used on its own or with other information to identify, contact, or locate a single person, or to identify an individual in context. Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>What personal information do we collect from the people that visit our blog, website or app?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>When ordering or registering on our site, as appropriate, you may be asked to enter your name, email address, mailing address, phone number, credit card information or other details to help you with your experience.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>When do we collect information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We collect information from you when you register on our site, place an order, subscribe to a newsletter, fill out a form or enter information on our site.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>How do we use your information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We may use the information we collect from you when you register, make a purchase, sign up for our newsletter, respond to a survey or marketing communication, surf the website, or use certain other site features in the following ways:</p>\r\n\r\n<p></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To allow us to better service you in responding to your customer service requests.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To quickly process your transactions.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To send periodic emails regarding your order or other products and services.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To follow up with them after correspondence (live chat, email or phone inquiries)</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>How do we protect your information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>Our website is scanned on a regular basis for security holes and known vulnerabilities in order to make your visit to our site as safe as possible.</p>\r\n\r\n<p></p>\r\n\r\n<p>We use regular Malware Scanning.</p>\r\n\r\n<p></p>\r\n\r\n<p>Your personal information is contained behind secured networks and is only accessible by a limited number of persons who have special access rights to such systems, and are required to keep the information confidential. In addition, all sensitive/credit information you supply is encrypted via Secure Socket Layer (SSL) technology.</p>\r\n\r\n<p></p>\r\n\r\n<p>We implement a variety of security measures when a user places an order enters, submits, or accesses their information to maintain the safety of your personal information.</p>\r\n\r\n<p></p>\r\n\r\n<p>All transactions are processed through a gateway provider and are not stored or processed on our servers.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Do we use &lsquo;cookies&rsquo;?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not use cookies for tracking purposes</p>\r\n\r\n<p></p>\r\n\r\n<p>You can choose to have your computer warn you each time a cookie is being sent, or you can choose to turn off all cookies. You do this through your browser settings. Since each browser is a little different, look at your browser&rsquo;s Help Menu to learn the correct way to modify your cookies.</p>\r\n\r\n<p></p>\r\n\r\n<p>If you turn cookies off .</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Third-party disclosure</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not sell, trade, or otherwise transfer to outside parties your Personally Identifiable Information unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website, conducting our business, or serving our users, so long as those parties agree to keep this information confidential. We may also release information when it&rsquo;s release is appropriate to comply with the law, enforce our site policies, or protect ours or others&rsquo; rights, property or safety.</p>\r\n\r\n<p></p>\r\n\r\n<p>However, non-personally identifiable visitor information may be provided to other parties for marketing, advertising, or other uses.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Third-party links</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not include or offer third-party products or services on our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Google</b></p>\r\n\r\n<p></p>\r\n\r\n<p>Google&rsquo;s advertising requirements can be summed up by Google&rsquo;s Advertising Principles. They are put in place to provide a positive experience for users. https://support.google.com/adwordspolicy/answer/1316548?hl=en</p>\r\n\r\n<p></p>\r\n\r\n<p>We use Google AdSense Advertising on our website.</p>\r\n\r\n<p></p>\r\n\r\n<p>Google, as a third-party vendor, uses cookies to serve ads on our site. Google&rsquo;s use of the DART cookie enables it to serve ads to our users based on previous visits to our site and other sites on the Internet. Users may opt-out of the use of the DART cookie by visiting the Google Ad and Content Network privacy policy.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>We have implemented the following:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google Display Network Impression Reporting</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demographics and Interests Reporting</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p>We, along with third-party vendors such as Google use first-party cookies (such as the Google Analytics cookies) and third-party cookies (such as the DoubleClick cookie) or other third-party identifiers together to compile data regarding user interactions with ad impressions and other ad service functions as they relate to our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Opting out:</b></p>\r\n\r\n<p>Users can set preferences for how Google advertises to you using the Google Ad Settings page. Alternatively, you can opt out by visiting the Network Advertising Initiative Opt Out page or by using the Google Analytics Opt Out Browser add on.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>California Online Privacy Protection Act</b></p>\r\n\r\n<p></p>\r\n\r\n<p>CalOPPA is the first state law in the nation to require commercial websites and online services to post a privacy policy. The law&rsquo;s reach stretches well beyond California to require any person or company in the United States (and conceivably the world) that operates websites collecting Personally Identifiable Information from California consumers to post a conspicuous privacy policy on its website stating exactly the information being collected and those individuals or companies with whom it is being shared. &ndash; See more at: http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf</p>\r\n\r\n<p></p>\r\n\r\n<p><b>According to CalOPPA, we agree to the following:</b></p>\r\n\r\n<p>Users can visit our site anonymously.</p>\r\n\r\n<p>Once this privacy policy is created, we will add a link to it on our home page or as a minimum, on the first significant page after entering our website.</p>\r\n\r\n<p>Our Privacy Policy link includes the word &lsquo;Privacy&rsquo; and can easily be found on the page specified above.</p>\r\n\r\n<p></p>\r\n\r\n<p>You will be notified of any Privacy Policy changes:</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On our Privacy Policy Page</li>\r\n</ul>\r\n\r\n<p>Can change your personal information:</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By logging in to your account</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>How does our site handle Do Not Track signals?</b></p>\r\n\r\n<p>We honor Do Not Track signals and Do Not Track, plant cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in place.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Does our site allow third-party behavioral tracking?</b></p>\r\n\r\n<p>It&rsquo;s also important to note that we allow third-party behavioral tracking</p>\r\n\r\n<p></p>\r\n\r\n<p><b>COPPA (Children Online Privacy Protection Act)</b></p>\r\n\r\n<p></p>\r\n\r\n<p>When it comes to the collection of personal information from children under the age of 13 years old, the Children&rsquo;s Online Privacy Protection Act (COPPA) puts parents in control. The Federal Trade Commission, United States&rsquo; consumer protection agency, enforces the COPPA Rule, which spells out what operators of websites and online services must do to protect children&rsquo;s privacy and safety online.</p>\r\n\r\n<p></p>\r\n\r\n<p>We do not specifically market to children under the age of 13 years old.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Fair Information Practices</b></p>\r\n\r\n<p></p>\r\n\r\n<p>The Fair Information Practices Principles form the backbone of privacy law in the United States and the concepts they include have played a significant role in the development of data protection laws around the globe. Understanding the Fair Information Practice Principles and how they should be implemented is critical to comply with the various privacy laws that protect personal information.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>In order to be in line with Fair Information Practices we will take the following responsive action, should a data breach occur:</b></p>\r\n\r\n<p>We will notify you via email</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Within 7 business days</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p>We also agree to the Individual Redress Principle which requires that individuals have the right to legally pursue enforceable rights against data collectors and processors who fail to adhere to the law. This principle requires not only that individuals have enforceable rights against data users, but also that individuals have recourse to courts or government agencies to investigate and/or prosecute non-compliance by data processors.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>CAN SPAM Act</b></p>\r\n\r\n<p></p>\r\n\r\n<p>The CAN-SPAM Act is a law that sets the rules for commercial email, establishes requirements for commercial messages, gives recipients the right to have emails stopped from being sent to them, and spells out tough penalties for violations.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>We collect your email address in order to:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send information, respond to inquiries, and/or other requests or questions</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process orders and to send information and updates pertaining to orders.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send you additional information related to your product and/or service</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market to our mailing list or continue to send emails to our clients after the original transaction has occurred.</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>To be in accordance with CANSPAM, we agree to the following:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not use false or misleading subjects or email addresses.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify the message as an advertisement in some reasonable way.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include the physical address of our business or site headquarters.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Monitor third-party email marketing services for compliance, if one is used.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Honor opt-out/unsubscribe requests quickly.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Allow users to unsubscribe by using the link at the bottom of each email.</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>If at any time you would like to unsubscribe from receiving future emails, you can email us at</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow the instructions at the bottom of each email.</li>\r\n</ul>\r\n\r\n<p>and we will promptly remove you from&nbsp;<b>ALL</b>&nbsp;correspondence.</p>', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:09:47');
 
 -- --------------------------------------------------------
 
@@ -179,7 +204,7 @@ CREATE TABLE `countries` (
   `capital` varchar(50) DEFAULT NULL,
   `time_zone_in_capital` varchar(200) DEFAULT NULL,
   `currency` varchar(50) DEFAULT NULL,
-  `flag` longtext,
+  `flag` longtext DEFAULT NULL,
   `created_by` int(10) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` int(10) NOT NULL,
@@ -448,6 +473,7 @@ CREATE TABLE `coupons` (
   `coupon_description` text NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
+  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
   `coupon_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(10) DEFAULT NULL,
@@ -468,14 +494,14 @@ CREATE TABLE `customers` (
   `customer_password` varchar(250) NOT NULL,
   `customer_first_name` varchar(250) NOT NULL,
   `customer_last_name` varchar(250) NOT NULL,
-  `customer_avatar` text,
+  `customer_avatar` text DEFAULT NULL,
   `customer_birthday` datetime NOT NULL,
   `customer_gender_id` tinyint(4) NOT NULL,
   `customer_phone` varchar(50) NOT NULL,
   `customer_occupation` varchar(250) NOT NULL,
   `customer_address` varchar(250) NOT NULL,
-  `free_trial` tinyint(4) NOT NULL DEFAULT '0',
-  `customer_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `free_trial` tinyint(4) NOT NULL DEFAULT 0,
+  `customer_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1300,9 +1326,9 @@ CREATE TABLE `events` (
   `event_subject` varchar(250) NOT NULL,
   `event_image` text NOT NULL,
   `start_date` datetime NOT NULL,
-  `start_time` varchar(50) NOT NULL,
+  `start_time` time NOT NULL,
   `end_date` datetime NOT NULL,
-  `end_time` varchar(50) NOT NULL,
+  `end_time` time NOT NULL,
   `event_description` tinyint(4) NOT NULL,
   `event_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -1394,13 +1420,23 @@ CREATE TABLE `locations` (
   `location_name` varchar(250) NOT NULL,
   `lat` varchar(250) NOT NULL,
   `lng` varchar(250) NOT NULL,
-  `location_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `is_hot` tinyint(4) DEFAULT 0,
+  `location_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `location_name`, `lat`, `lng`, `is_hot`, `location_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 'VELTA free shop', '50.04693217193328', '12.352281584655778', 0, 2, '2021-09-11 12:13:40', 1, NULL, NULL, NULL),
+(2, 'Asia Gragon Bazan', '50.04732487914607', '12.353837265884415', 0, 2, '2021-09-11 12:17:56', 1, NULL, NULL, NULL),
+(3, 'Markt chech', '50.047648687939635', '12.355822100555436', 0, 2, '2021-09-11 12:18:53', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1412,15 +1448,277 @@ CREATE TABLE `opening_hours` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
   `day_id` tinyint(4) NOT NULL,
-  `start_time` varchar(50) NOT NULL,
-  `end_time` varchar(50) NOT NULL,
-  `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phonecodes`
+--
+
+CREATE TABLE `phonecodes` (
+  `id` int(11) NOT NULL,
+  `iso` char(2) NOT NULL,
+  `main_name` varchar(80) NOT NULL,
+  `country_name` varchar(80) NOT NULL,
+  `iso3` char(3) DEFAULT NULL,
+  `numcode` smallint(6) DEFAULT NULL,
+  `phonecode` int(5) NOT NULL,
+  `image` varchar(10) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `phonecodes`
+--
+
+INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `numcode`, `phonecode`, `image`) VALUES
+(1, 'AF', 'AFGHANISTAN', 'Afghanistan', 'AFG', 4, 93, 'af.png'),
+(2, 'AL', 'ALBANIA', 'Albania', 'ALB', 8, 355, 'al.png'),
+(3, 'DZ', 'ALGERIA', 'Algeria', 'DZA', 12, 213, 'dz.png'),
+(4, 'AS', 'AMERICAN SAMOA', 'American Samoa', 'ASM', 16, 1684, 'as.png'),
+(5, 'AD', 'ANDORRA', 'Andorra', 'AND', 20, 376, 'ad.png'),
+(6, 'AO', 'ANGOLA', 'Angola', 'AGO', 24, 244, 'ao.png'),
+(7, 'AI', 'ANGUILLA', 'Anguilla', 'AIA', 660, 1264, 'ai.png'),
+(8, 'AQ', 'ANTARCTICA', 'Antarctica', NULL, NULL, 0, 'aq.png'),
+(9, 'AG', 'ANTIGUA AND BARBUDA', 'Antigua and Barbuda', 'ATG', 28, 1268, 'ag.png'),
+(10, 'AR', 'ARGENTINA', 'Argentina', 'ARG', 32, 54, 'ar.png'),
+(11, 'AM', 'ARMENIA', 'Armenia', 'ARM', 51, 374, 'am.png'),
+(12, 'AW', 'ARUBA', 'Aruba', 'ABW', 533, 297, 'aw.png'),
+(13, 'AU', 'AUSTRALIA', 'Australia', 'AUS', 36, 61, 'au.png'),
+(14, 'AT', 'AUSTRIA', 'Austria', 'AUT', 40, 43, 'at.png'),
+(15, 'AZ', 'AZERBAIJAN', 'Azerbaijan', 'AZE', 31, 994, 'az.png'),
+(16, 'BS', 'BAHAMAS', 'Bahamas', 'BHS', 44, 1242, 'bs.png'),
+(17, 'BH', 'BAHRAIN', 'Bahrain', 'BHR', 48, 973, 'bh.png'),
+(18, 'BD', 'BANGLADESH', 'Bangladesh', 'BGD', 50, 880, 'bd.png'),
+(19, 'BB', 'BARBADOS', 'Barbados', 'BRB', 52, 1246, 'bb.png'),
+(20, 'BY', 'BELARUS', 'Belarus', 'BLR', 112, 375, 'by.png'),
+(21, 'BE', 'BELGIUM', 'Belgium', 'BEL', 56, 32, 'be.png'),
+(22, 'BZ', 'BELIZE', 'Belize', 'BLZ', 84, 501, 'bz.png'),
+(23, 'BJ', 'BENIN', 'Benin', 'BEN', 204, 229, 'bj.png'),
+(24, 'BM', 'BERMUDA', 'Bermuda', 'BMU', 60, 1441, 'bm.png'),
+(25, 'BT', 'BHUTAN', 'Bhutan', 'BTN', 64, 975, 'bt.png'),
+(26, 'BO', 'BOLIVIA', 'Bolivia', 'BOL', 68, 591, 'bo.png'),
+(27, 'BA', 'BOSNIA AND HERZEGOVINA', 'Bosnia and Herzegovina', 'BIH', 70, 387, 'ba.png'),
+(28, 'BW', 'BOTSWANA', 'Botswana', 'BWA', 72, 267, 'bw.png'),
+(29, 'BV', 'BOUVET ISLAND', 'Bouvet Island', NULL, NULL, 0, 'bv.png'),
+(30, 'BR', 'BRAZIL', 'Brazil', 'BRA', 76, 55, 'br.png'),
+(31, 'IO', 'BRITISH INDIAN OCEAN TERRITORY', 'British Indian Ocean Territory', NULL, NULL, 246, 'io.png'),
+(32, 'BN', 'BRUNEI DARUSSALAM', 'Brunei Darussalam', 'BRN', 96, 673, 'bn.png'),
+(33, 'BG', 'BULGARIA', 'Bulgaria', 'BGR', 100, 359, 'bg.png'),
+(34, 'BF', 'BURKINA FASO', 'Burkina Faso', 'BFA', 854, 226, 'bf.png'),
+(35, 'BI', 'BURUNDI', 'Burundi', 'BDI', 108, 257, 'bi.png'),
+(36, 'KH', 'CAMBODIA', 'Cambodia', 'KHM', 116, 855, 'kh.png'),
+(37, 'CM', 'CAMEROON', 'Cameroon', 'CMR', 120, 237, 'cm.png'),
+(38, 'CA', 'CANADA', 'Canada', 'CAN', 124, 1, 'ca.png'),
+(39, 'CV', 'CAPE VERDE', 'Cape Verde', 'CPV', 132, 238, 'cv.png'),
+(40, 'KY', 'CAYMAN ISLANDS', 'Cayman Islands', 'CYM', 136, 1345, 'ky.png'),
+(41, 'CF', 'CENTRAL AFRICAN REPUBLIC', 'Central African Republic', 'CAF', 140, 236, 'cf.png'),
+(42, 'TD', 'CHAD', 'Chad', 'TCD', 148, 235, 'td.png'),
+(43, 'CL', 'CHILE', 'Chile', 'CHL', 152, 56, 'cl.png'),
+(44, 'CN', 'CHINA', 'China', 'CHN', 156, 86, 'cn.png'),
+(45, 'CX', 'CHRISTMAS ISLAND', 'Christmas Island', NULL, NULL, 61, 'cx.png'),
+(46, 'CC', 'COCOS (KEELING) ISLANDS', 'Cocos (Keeling) Islands', NULL, NULL, 672, 'cc.png'),
+(47, 'CO', 'COLOMBIA', 'Colombia', 'COL', 170, 57, 'co.png'),
+(48, 'KM', 'COMOROS', 'Comoros', 'COM', 174, 269, 'km.png'),
+(49, 'CG', 'CONGO', 'Congo', 'COG', 178, 242, 'cg.png'),
+(50, 'CD', 'CONGO, THE DEMOCRATIC REPUBLIC OF THE', 'Congo, the Democratic Republic of the', 'COD', 180, 242, 'cd.png'),
+(51, 'CK', 'COOK ISLANDS', 'Cook Islands', 'COK', 184, 682, 'ck.png'),
+(52, 'CR', 'COSTA RICA', 'Costa Rica', 'CRI', 188, 506, 'cr.png'),
+(53, 'CI', 'COTE D\'IVOIRE', 'Cote D\'Ivoire', 'CIV', 384, 225, 'ci.png'),
+(54, 'HR', 'CROATIA', 'Croatia', 'HRV', 191, 385, 'hr.png'),
+(55, 'CU', 'CUBA', 'Cuba', 'CUB', 192, 53, 'cu.png'),
+(56, 'CY', 'CYPRUS', 'Cyprus', 'CYP', 196, 357, 'cy.png'),
+(57, 'CZ', 'CZECH REPUBLIC', 'Czech Republic', 'CZE', 203, 420, 'cz.png'),
+(58, 'DK', 'DENMARK', 'Denmark', 'DNK', 208, 45, 'dk.png'),
+(59, 'DJ', 'DJIBOUTI', 'Djibouti', 'DJI', 262, 253, 'dj.png'),
+(60, 'DM', 'DOMINICA', 'Dominica', 'DMA', 212, 1767, 'dm.png'),
+(61, 'DO', 'DOMINICAN REPUBLIC', 'Dominican Republic', 'DOM', 214, 1809, 'do.png'),
+(62, 'EC', 'ECUADOR', 'Ecuador', 'ECU', 218, 593, 'ec.png'),
+(63, 'EG', 'EGYPT', 'Egypt', 'EGY', 818, 20, 'eg.png'),
+(64, 'SV', 'EL SALVADOR', 'El Salvador', 'SLV', 222, 503, 'sv.png'),
+(65, 'GQ', 'EQUATORIAL GUINEA', 'Equatorial Guinea', 'GNQ', 226, 240, 'gq.png'),
+(66, 'ER', 'ERITREA', 'Eritrea', 'ERI', 232, 291, 'er.png'),
+(67, 'EE', 'ESTONIA', 'Estonia', 'EST', 233, 372, 'ee.png'),
+(68, 'ET', 'ETHIOPIA', 'Ethiopia', 'ETH', 231, 251, 'et.png'),
+(69, 'FK', 'FALKLAND ISLANDS (MALVINAS)', 'Falkland Islands (Malvinas)', 'FLK', 238, 500, 'fk.png'),
+(70, 'FO', 'FAROE ISLANDS', 'Faroe Islands', 'FRO', 234, 298, 'fo.png'),
+(71, 'FJ', 'FIJI', 'Fiji', 'FJI', 242, 679, 'fj.png'),
+(72, 'FI', 'FINLAND', 'Finland', 'FIN', 246, 358, 'fi.png'),
+(73, 'FR', 'FRANCE', 'France', 'FRA', 250, 33, 'fr.png'),
+(74, 'GF', 'FRENCH GUIANA', 'French Guiana', 'GUF', 254, 594, 'gf.png'),
+(75, 'PF', 'FRENCH POLYNESIA', 'French Polynesia', 'PYF', 258, 689, 'pf.png'),
+(76, 'TF', 'FRENCH SOUTHERN TERRITORIES', 'French Southern Territories', NULL, NULL, 0, 'tf.png'),
+(77, 'GA', 'GABON', 'Gabon', 'GAB', 266, 241, 'ga.png'),
+(78, 'GM', 'GAMBIA', 'Gambia', 'GMB', 270, 220, 'gm.png'),
+(79, 'GE', 'GEORGIA', 'Georgia', 'GEO', 268, 995, 'ge.png'),
+(80, 'DE', 'GERMANY', 'Germany', 'DEU', 276, 49, 'de.png'),
+(81, 'GH', 'GHANA', 'Ghana', 'GHA', 288, 233, 'gh.png'),
+(82, 'GI', 'GIBRALTAR', 'Gibraltar', 'GIB', 292, 350, 'gi.png'),
+(83, 'GR', 'GREECE', 'Greece', 'GRC', 300, 30, 'gr.png'),
+(84, 'GL', 'GREENLAND', 'Greenland', 'GRL', 304, 299, 'gl.png'),
+(85, 'GD', 'GRENADA', 'Grenada', 'GRD', 308, 1473, 'gd.png'),
+(86, 'GP', 'GUADELOUPE', 'Guadeloupe', 'GLP', 312, 590, 'gp.png'),
+(87, 'GU', 'GUAM', 'Guam', 'GUM', 316, 1671, 'gu.png'),
+(88, 'GT', 'GUATEMALA', 'Guatemala', 'GTM', 320, 502, 'gt.png'),
+(89, 'GN', 'GUINEA', 'Guinea', 'GIN', 324, 224, 'gn.png'),
+(90, 'GW', 'GUINEA-BISSAU', 'Guinea-Bissau', 'GNB', 624, 245, 'gw.png'),
+(91, 'GY', 'GUYANA', 'Guyana', 'GUY', 328, 592, 'gy.png'),
+(92, 'HT', 'HAITI', 'Haiti', 'HTI', 332, 509, 'ht.png'),
+(93, 'HM', 'HEARD ISLAND AND MCDONALD ISLANDS', 'Heard Island and Mcdonald Islands', NULL, NULL, 0, 'hm.png'),
+(94, 'VA', 'HOLY SEE (VATICAN CITY STATE)', 'Holy See (Vatican City State)', 'VAT', 336, 39, 'va.png'),
+(95, 'HN', 'HONDURAS', 'Honduras', 'HND', 340, 504, 'hn.png'),
+(96, 'HK', 'HONG KONG', 'Hong Kong', 'HKG', 344, 852, 'hk.png'),
+(97, 'HU', 'HUNGARY', 'Hungary', 'HUN', 348, 36, 'hu.png'),
+(98, 'IS', 'ICELAND', 'Iceland', 'ISL', 352, 354, 'is.png'),
+(99, 'IN', 'INDIA', 'India', 'IND', 356, 91, 'in.png'),
+(100, 'ID', 'INDONESIA', 'Indonesia', 'IDN', 360, 62, 'id.png'),
+(101, 'IR', 'IRAN, ISLAMIC REPUBLIC OF', 'Iran, Islamic Republic of', 'IRN', 364, 98, 'ir.png'),
+(102, 'IQ', 'IRAQ', 'Iraq', 'IRQ', 368, 964, 'iq.png'),
+(103, 'IE', 'IRELAND', 'Ireland', 'IRL', 372, 353, 'ie.png'),
+(104, 'IL', 'ISRAEL', 'Israel', 'ISR', 376, 972, 'il.png'),
+(105, 'IT', 'ITALY', 'Italy', 'ITA', 380, 39, 'it.png'),
+(106, 'JM', 'JAMAICA', 'Jamaica', 'JAM', 388, 1876, 'jm.png'),
+(107, 'JP', 'JAPAN', 'Japan', 'JPN', 392, 81, 'jp.png'),
+(108, 'JO', 'JORDAN', 'Jordan', 'JOR', 400, 962, 'jo.png'),
+(109, 'KZ', 'KAZAKHSTAN', 'Kazakhstan', 'KAZ', 398, 7, 'kz.png'),
+(110, 'KE', 'KENYA', 'Kenya', 'KEN', 404, 254, 'ke.png'),
+(111, 'KI', 'KIRIBATI', 'Kiribati', 'KIR', 296, 686, 'ki.png'),
+(112, 'KP', 'KOREA, DEMOCRATIC PEOPLE\'S REPUBLIC OF', 'Korea, Democratic People\'s Republic of', 'PRK', 408, 850, 'kp.png'),
+(113, 'KR', 'KOREA, REPUBLIC OF', 'Korea, Republic of', 'KOR', 410, 82, 'kr.png'),
+(114, 'KW', 'KUWAIT', 'Kuwait', 'KWT', 414, 965, 'kw.png'),
+(115, 'KG', 'KYRGYZSTAN', 'Kyrgyzstan', 'KGZ', 417, 996, 'kg.png'),
+(116, 'LA', 'LAO PEOPLE\'S DEMOCRATIC REPUBLIC', 'Lao People\'s Democratic Republic', 'LAO', 418, 856, 'la.png'),
+(117, 'LV', 'LATVIA', 'Latvia', 'LVA', 428, 371, 'lv.png'),
+(118, 'LB', 'LEBANON', 'Lebanon', 'LBN', 422, 961, 'lb.png'),
+(119, 'LS', 'LESOTHO', 'Lesotho', 'LSO', 426, 266, 'ls.png'),
+(120, 'LR', 'LIBERIA', 'Liberia', 'LBR', 430, 231, 'lr.png'),
+(121, 'LY', 'LIBYAN ARAB JAMAHIRIYA', 'Libyan Arab Jamahiriya', 'LBY', 434, 218, 'ly.png'),
+(122, 'LI', 'LIECHTENSTEIN', 'Liechtenstein', 'LIE', 438, 423, 'li.png'),
+(123, 'LT', 'LITHUANIA', 'Lithuania', 'LTU', 440, 370, 'lt.png'),
+(124, 'LU', 'LUXEMBOURG', 'Luxembourg', 'LUX', 442, 352, 'lu.png'),
+(125, 'MO', 'MACAO', 'Macao', 'MAC', 446, 853, 'mo.png'),
+(126, 'MK', 'MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF', 'Macedonia, the Former Yugoslav Republic of', 'MKD', 807, 389, 'mk.png'),
+(127, 'MG', 'MADAGASCAR', 'Madagascar', 'MDG', 450, 261, 'mg.png'),
+(128, 'MW', 'MALAWI', 'Malawi', 'MWI', 454, 265, 'mw.png'),
+(129, 'MY', 'MALAYSIA', 'Malaysia', 'MYS', 458, 60, 'my.png'),
+(130, 'MV', 'MALDIVES', 'Maldives', 'MDV', 462, 960, 'mv.png'),
+(131, 'ML', 'MALI', 'Mali', 'MLI', 466, 223, 'ml.png'),
+(132, 'MT', 'MALTA', 'Malta', 'MLT', 470, 356, 'mt.png'),
+(133, 'MH', 'MARSHALL ISLANDS', 'Marshall Islands', 'MHL', 584, 692, 'mh.png'),
+(134, 'MQ', 'MARTINIQUE', 'Martinique', 'MTQ', 474, 596, 'mq.png'),
+(135, 'MR', 'MAURITANIA', 'Mauritania', 'MRT', 478, 222, 'mr.png'),
+(136, 'MU', 'MAURITIUS', 'Mauritius', 'MUS', 480, 230, 'mu.png'),
+(137, 'YT', 'MAYOTTE', 'Mayotte', NULL, NULL, 269, 'yt.png'),
+(138, 'MX', 'MEXICO', 'Mexico', 'MEX', 484, 52, 'mx.png'),
+(139, 'FM', 'MICRONESIA, FEDERATED STATES OF', 'Micronesia, Federated States of', 'FSM', 583, 691, 'fm.png'),
+(140, 'MD', 'MOLDOVA, REPUBLIC OF', 'Moldova, Republic of', 'MDA', 498, 373, 'md.png'),
+(141, 'MC', 'MONACO', 'Monaco', 'MCO', 492, 377, 'mc.png'),
+(142, 'MN', 'MONGOLIA', 'Mongolia', 'MNG', 496, 976, 'mn.png'),
+(143, 'MS', 'MONTSERRAT', 'Montserrat', 'MSR', 500, 1664, 'ms.png'),
+(144, 'MA', 'MOROCCO', 'Morocco', 'MAR', 504, 212, 'ma.png'),
+(145, 'MZ', 'MOZAMBIQUE', 'Mozambique', 'MOZ', 508, 258, 'mz.png'),
+(146, 'MM', 'MYANMAR', 'Myanmar', 'MMR', 104, 95, 'mm.png'),
+(147, 'NA', 'NAMIBIA', 'Namibia', 'NAM', 516, 264, 'na.png'),
+(148, 'NR', 'NAURU', 'Nauru', 'NRU', 520, 674, 'nr.png'),
+(149, 'NP', 'NEPAL', 'Nepal', 'NPL', 524, 977, 'np.png'),
+(150, 'NL', 'NETHERLANDS', 'Netherlands', 'NLD', 528, 31, 'nl.png'),
+(151, 'AN', 'NETHERLANDS ANTILLES', 'Netherlands Antilles', 'ANT', 530, 599, 'an.png'),
+(152, 'NC', 'NEW CALEDONIA', 'New Caledonia', 'NCL', 540, 687, 'nc.png'),
+(153, 'NZ', 'NEW ZEALAND', 'New Zealand', 'NZL', 554, 64, 'nz.png'),
+(154, 'NI', 'NICARAGUA', 'Nicaragua', 'NIC', 558, 505, 'ni.png'),
+(155, 'NE', 'NIGER', 'Niger', 'NER', 562, 227, 'ne.png'),
+(156, 'NG', 'NIGERIA', 'Nigeria', 'NGA', 566, 234, 'ng.png'),
+(157, 'NU', 'NIUE', 'Niue', 'NIU', 570, 683, 'nu.png'),
+(158, 'NF', 'NORFOLK ISLAND', 'Norfolk Island', 'NFK', 574, 672, 'nf.png'),
+(159, 'MP', 'NORTHERN MARIANA ISLANDS', 'Northern Mariana Islands', 'MNP', 580, 1670, 'mp.png'),
+(160, 'NO', 'NORWAY', 'Norway', 'NOR', 578, 47, 'no.png'),
+(161, 'OM', 'OMAN', 'Oman', 'OMN', 512, 968, 'om.png'),
+(162, 'PK', 'PAKISTAN', 'Pakistan', 'PAK', 586, 92, 'pk.png'),
+(163, 'PW', 'PALAU', 'Palau', 'PLW', 585, 680, 'pw.png'),
+(164, 'PS', 'PALESTINIAN TERRITORY, OCCUPIED', 'Palestinian Territory, Occupied', NULL, NULL, 970, 'ps.png'),
+(165, 'PA', 'PANAMA', 'Panama', 'PAN', 591, 507, 'pa.png'),
+(166, 'PG', 'PAPUA NEW GUINEA', 'Papua New Guinea', 'PNG', 598, 675, 'pg.png'),
+(167, 'PY', 'PARAGUAY', 'Paraguay', 'PRY', 600, 595, 'py.png'),
+(168, 'PE', 'PERU', 'Peru', 'PER', 604, 51, 'pe.png'),
+(169, 'PH', 'PHILIPPINES', 'Philippines', 'PHL', 608, 63, 'ph.png'),
+(170, 'PN', 'PITCAIRN', 'Pitcairn', 'PCN', 612, 0, 'pn.png'),
+(171, 'PL', 'POLAND', 'Poland', 'POL', 616, 48, 'pl.png'),
+(172, 'PT', 'PORTUGAL', 'Portugal', 'PRT', 620, 351, 'pt.png'),
+(173, 'PR', 'PUERTO RICO', 'Puerto Rico', 'PRI', 630, 1787, 'pr.png'),
+(174, 'QA', 'QATAR', 'Qatar', 'QAT', 634, 974, 'qa.png'),
+(175, 'RE', 'REUNION', 'Reunion', 'REU', 638, 262, 're.png'),
+(176, 'RO', 'ROMANIA', 'Romania', 'ROM', 642, 40, 'ro.png'),
+(177, 'RU', 'RUSSIAN FEDERATION', 'Russian Federation', 'RUS', 643, 70, 'ru.png'),
+(178, 'RW', 'RWANDA', 'Rwanda', 'RWA', 646, 250, 'rw.png'),
+(179, 'SH', 'SAINT HELENA', 'Saint Helena', 'SHN', 654, 290, 'sh.png'),
+(180, 'KN', 'SAINT KITTS AND NEVIS', 'Saint Kitts and Nevis', 'KNA', 659, 1869, 'kn.png'),
+(181, 'LC', 'SAINT LUCIA', 'Saint Lucia', 'LCA', 662, 1758, 'lc.png'),
+(182, 'PM', 'SAINT PIERRE AND MIQUELON', 'Saint Pierre and Miquelon', 'SPM', 666, 508, 'pm.png'),
+(183, 'VC', 'SAINT VINCENT AND THE GRENADINES', 'Saint Vincent and the Grenadines', 'VCT', 670, 1784, 'vc.png'),
+(184, 'WS', 'SAMOA', 'Samoa', 'WSM', 882, 684, 'ws.png'),
+(185, 'SM', 'SAN MARINO', 'San Marino', 'SMR', 674, 378, 'sm.png'),
+(186, 'ST', 'SAO TOME AND PRINCIPE', 'Sao Tome and Principe', 'STP', 678, 239, 'st.png'),
+(187, 'SA', 'SAUDI ARABIA', 'Saudi Arabia', 'SAU', 682, 966, 'sa.png'),
+(188, 'SN', 'SENEGAL', 'Senegal', 'SEN', 686, 221, 'sn.png'),
+(189, 'CS', 'SERBIA AND MONTENEGRO', 'Serbia and Montenegro', NULL, NULL, 381, 'cs.png'),
+(190, 'SC', 'SEYCHELLES', 'Seychelles', 'SYC', 690, 248, 'sc.png'),
+(191, 'SL', 'SIERRA LEONE', 'Sierra Leone', 'SLE', 694, 232, 'sl.png'),
+(192, 'SG', 'SINGAPORE', 'Singapore', 'SGP', 702, 65, 'sg.png'),
+(193, 'SK', 'SLOVAKIA', 'Slovakia', 'SVK', 703, 421, 'sk.png'),
+(194, 'SI', 'SLOVENIA', 'Slovenia', 'SVN', 705, 386, 'si.png'),
+(195, 'SB', 'SOLOMON ISLANDS', 'Solomon Islands', 'SLB', 90, 677, 'sb.png'),
+(196, 'SO', 'SOMALIA', 'Somalia', 'SOM', 706, 252, 'so.png'),
+(197, 'ZA', 'SOUTH AFRICA', 'South Africa', 'ZAF', 710, 27, 'za.png'),
+(198, 'GS', 'SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS', 'South Georgia and the South Sandwich Islands', NULL, NULL, 0, 'gs.png'),
+(199, 'ES', 'SPAIN', 'Spain', 'ESP', 724, 34, 'es.png'),
+(200, 'LK', 'SRI LANKA', 'Sri Lanka', 'LKA', 144, 94, 'lk.png'),
+(201, 'SD', 'SUDAN', 'Sudan', 'SDN', 736, 249, 'sd.png'),
+(202, 'SR', 'SURINAME', 'Suriname', 'SUR', 740, 597, 'sr.png'),
+(203, 'SJ', 'SVALBARD AND JAN MAYEN', 'Svalbard and Jan Mayen', 'SJM', 744, 47, 'sj.png'),
+(204, 'SZ', 'SWAZILAND', 'Swaziland', 'SWZ', 748, 268, 'sz.png'),
+(205, 'SE', 'SWEDEN', 'Sweden', 'SWE', 752, 46, 'se.png'),
+(206, 'CH', 'SWITZERLAND', 'Switzerland', 'CHE', 756, 41, 'ch.png'),
+(207, 'SY', 'SYRIAN ARAB REPUBLIC', 'Syrian Arab Republic', 'SYR', 760, 963, 'sy.png'),
+(208, 'TW', 'TAIWAN, PROVINCE OF CHINA', 'Taiwan, Province of China', 'TWN', 158, 886, 'tw.png'),
+(209, 'TJ', 'TAJIKISTAN', 'Tajikistan', 'TJK', 762, 992, 'tj.png'),
+(210, 'TZ', 'TANZANIA, UNITED REPUBLIC OF', 'Tanzania, United Republic of', 'TZA', 834, 255, 'tz.png'),
+(211, 'TH', 'THAILAND', 'Thailand', 'THA', 764, 66, 'th.png'),
+(212, 'TL', 'TIMOR-LESTE', 'Timor-Leste', NULL, NULL, 670, 'tl.png'),
+(213, 'TG', 'TOGO', 'Togo', 'TGO', 768, 228, 'tg.png'),
+(214, 'TK', 'TOKELAU', 'Tokelau', 'TKL', 772, 690, 'tk.png'),
+(215, 'TO', 'TONGA', 'Tonga', 'TON', 776, 676, 'to.png'),
+(216, 'TT', 'TRINIDAD AND TOBAGO', 'Trinidad and Tobago', 'TTO', 780, 1868, 'tt.png'),
+(217, 'TN', 'TUNISIA', 'Tunisia', 'TUN', 788, 216, 'tn.png'),
+(218, 'TR', 'TURKEY', 'Turkey', 'TUR', 792, 90, 'tr.png'),
+(219, 'TM', 'TURKMENISTAN', 'Turkmenistan', 'TKM', 795, 7370, 'tm.png'),
+(220, 'TC', 'TURKS AND CAICOS ISLANDS', 'Turks and Caicos Islands', 'TCA', 796, 1649, 'tc.png'),
+(221, 'TV', 'TUVALU', 'Tuvalu', 'TUV', 798, 688, 'tv.png'),
+(222, 'UG', 'UGANDA', 'Uganda', 'UGA', 800, 256, 'ug.png'),
+(223, 'UA', 'UKRAINE', 'Ukraine', 'UKR', 804, 380, 'ua.png'),
+(224, 'AE', 'UNITED ARAB EMIRATES', 'United Arab Emirates', 'ARE', 784, 971, 'ae.png'),
+(225, 'GB', 'UNITED KINGDOM', 'United Kingdom', 'GBR', 826, 44, 'gb.png'),
+(226, 'US', 'UNITED STATES', 'United States', 'USA', 840, 1, 'us.png'),
+(227, 'UM', 'UNITED STATES MINOR OUTLYING ISLANDS', 'United States Minor Outlying Islands', NULL, NULL, 1, 'um.png'),
+(228, 'UY', 'URUGUAY', 'Uruguay', 'URY', 858, 598, 'uy.png'),
+(229, 'UZ', 'UZBEKISTAN', 'Uzbekistan', 'UZB', 860, 998, 'uz.png'),
+(230, 'VU', 'VANUATU', 'Vanuatu', 'VUT', 548, 678, 'vu.png'),
+(231, 'VE', 'VENEZUELA', 'Venezuela', 'VEN', 862, 58, 've.png'),
+(232, 'VN', 'VIET NAM', 'Viet Nam', 'VNM', 704, 84, 'vn.png'),
+(233, 'VG', 'VIRGIN ISLANDS, BRITISH', 'Virgin Islands, British', 'VGB', 92, 1284, 'vg.png'),
+(234, 'VI', 'VIRGIN ISLANDS, U.S.', 'Virgin Islands, U.s.', 'VIR', 850, 1340, 'vi.png'),
+(235, 'WF', 'WALLIS AND FUTUNA', 'Wallis and Futuna', 'WLF', 876, 681, 'wf.png'),
+(236, 'EH', 'WESTERN SAHARA', 'Western Sahara', 'ESH', 732, 212, 'eh.png'),
+(237, 'YE', 'YEMEN', 'Yemen', 'YEM', 887, 967, 'ye.png'),
+(238, 'ZM', 'ZAMBIA', 'Zambia', 'ZMB', 894, 260, 'zm.png'),
+(239, 'ZW', 'ZIMBABWE', 'Zimbabwe', 'ZWE', 716, 263, 'zw.png');
 
 -- --------------------------------------------------------
 
@@ -1532,10 +1830,13 @@ CREATE TABLE `roleactions` (
 
 CREATE TABLE `services` (
   `id` int(10) NOT NULL,
-  `service_name` varchar(250) NOT NULL,
+  `service_name_vi` varchar(250) DEFAULT NULL,
+  `service_name_en` varchar(250) DEFAULT NULL,
+  `service_name_de` varchar(250) DEFAULT NULL,
+  `service_name_cz` varchar(250) DEFAULT NULL,
   `service_image` text NOT NULL,
   `service_status_id` tinyint(4) NOT NULL,
-  `display_order` int(10) NOT NULL DEFAULT '0',
+  `display_order` int(10) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1551,8 +1852,11 @@ CREATE TABLE `services` (
 
 CREATE TABLE `service_types` (
   `id` int(10) NOT NULL,
+  `service_type_name_vi` varchar(250) DEFAULT NULL,
+  `service_type_name_en` varchar(250) DEFAULT NULL,
+  `service_type_name_de` varchar(250) DEFAULT NULL,
+  `service_type_name_cz` varchar(250) DEFAULT NULL,
   `service_id` int(10) NOT NULL,
-  `service_type_name` varchar(255) NOT NULL,
   `display_order` int(10) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
@@ -1569,10 +1873,11 @@ CREATE TABLE `service_types` (
 
 CREATE TABLE `sliders` (
   `id` int(10) NOT NULL,
+  `slider_type_id` tinyint(4) NOT NULL DEFAULT 0,
   `slider_image` text NOT NULL,
   `slider_url` text NOT NULL,
   `slider_status_id` tinyint(4) NOT NULL,
-  `display_order` int(10) NOT NULL DEFAULT '0',
+  `display_order` int(10) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1629,7 +1934,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_name`, `user_pass`, `full_name`, `email`, `gender_id`, `role_id`, `status_id`, `address`, `birth_day`, `phone_number`, `avatar`, `token`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', 1, 1, 2, '', '2020-04-15 00:00:00', '0123456789', 'no_image.jpg', NULL, 1, '2020-03-01 00:00:00', 1, '2020-04-15 20:10:27', NULL);
+(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', 1, 1, 2, 'e', '2020-04-15 00:00:00', '0123456789', '2021-09-12/613d0886165b0.png', NULL, 1, '2020-03-01 00:00:00', 1, '2021-09-12 02:50:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -12979,6 +13284,12 @@ ALTER TABLE `opening_hours`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `phonecodes`
+--
+ALTER TABLE `phonecodes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `provinces`
 --
 ALTER TABLE `provinces`
@@ -13034,7 +13345,7 @@ ALTER TABLE `wards`
 -- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `business_payments`
@@ -13118,13 +13429,19 @@ ALTER TABLE `itemtags`
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `opening_hours`
 --
 ALTER TABLE `opening_hours`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `phonecodes`
+--
+ALTER TABLE `phonecodes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
 
 --
 -- AUTO_INCREMENT for table `provinces`

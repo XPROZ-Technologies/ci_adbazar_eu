@@ -13,9 +13,12 @@ class File extends MY_Controller {
             $fileExt = 'png';
 	        if($fileTypeId == 1) $dir = PRODUCT_PATH;
             elseif($fileTypeId == 2) $dir = USER_PATH;
-	        elseif($fileTypeId == 3) $dir = IMAGE_PATH;
+	        elseif($fileTypeId == 3) $dir = CUSTOMER_PATH;
             elseif($fileTypeId == 4) $dir = SLIDER_PATH;
             elseif($fileTypeId == 5) $dir = CONFIG_PATH;
+            elseif($fileTypeId == 6) $dir = SERVICE_PATH;
+            elseif($fileTypeId == 7) $dir = BUSINESS_PROFILE_PATH; 
+            elseif($fileTypeId == 8) $dir = COUPONS_PATH;
 	        /*elseif($fileTypeId == 4){
 	            $dir = FILE_PATH;
 	            $fileExt = trim($this->input->post('FileExt'));

@@ -30,16 +30,15 @@
 <div class="wrapper">
     <?php $textLogoHeader = 'LK';
     $textLogoMenu = 'LK';
-    $logoImage = NO_IMAGE;
+    $logoImage = 'assets/img/logo.png';
     $configs = $this->session->userdata('configs');
     if($configs){
         if(isset($configs['TEXT_LOGO_HEADER'])) $textLogoHeader = $configs['TEXT_LOGO_HEADER'];
-        if(isset($configs['TEXT_LOGO_MENU'])) $textLogoMenu = $configs['TEXT_LOGO_MENU'];
-        if(isset($configs['LOGO_IMAGE'])) $logoImage = $configs['LOGO_IMAGE'];
+        if(isset($configs['LOGO_IMAGE_HEADER'])) $logoImage = $configs['LOGO_IMAGE_HEADER'];
     } ?>
     <header class="main-header">
         <a href="<?php echo base_url(); ?>" class="logo">
-            <img src="assets/uploads/images/logo.png" width="150px" class="mgr-5">
+            <img src="assets/img/logo.png" width="80px" class="mgr-5">
         </a>
         <nav class="navbar navbar-static-top">
             <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -62,10 +61,10 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                            <a href="<?php echo base_url('backend/user/edit/'.$user['id']); ?>" class="btn btn-default btn-flat">Thông tin cá nhân</a>
+                            <!-- <a href="<?php // echo base_url('backend/user/edit/'.$user['id']); ?>" class="btn btn-default btn-flat">Thông tin cá nhân</a> -->
                             </div>
                             <div class="pull-right">
-                            <a href="<?php echo base_url('backend/user/logout'); ?>" class="btn btn-default btn-flat">Thoát tài khoản</a>
+                            <a href="<?php echo base_url('backend/user/logout'); ?>" class="btn btn-default btn-flat">Logout</a>
                             </div>
                         </li>
                         </ul>

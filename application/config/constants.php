@@ -97,10 +97,14 @@ define('ERROR_NO_DATA', 'Data does not exist');
 //path
 define('ROOT_PATH', dirname($_SERVER['SCRIPT_NAME']) . '/');
 define('USER_PATH', 'assets/uploads/users/');
-define('IMAGE_PATH', 'assets/uploads/images/');
+define('CUSTOMER_PATH', 'assets/uploads/customers/');
 define('FILE_PATH', 'assets/uploads/files/');
 define('SLIDER_PATH', 'assets/uploads/sliders/');
 define('CONFIG_PATH', 'assets/uploads/configs/');
+define('SERVICE_PATH', 'assets/uploads/services/');
+define('BUSINESS_PROFILE_PATH', 'assets/uploads/busines_profile/');
+define('COUPONS_PATH', 'assets/uploads/coupons/');
+
 
 define('DEFAULT_IMG', '');
 
@@ -108,3 +112,8 @@ define('URL_API', '');
 
 // key api
 define('KEY_GOOGLE_MAP', 'AIzaSyD53XNjfZqrg7twWutFv3rIgnhGvT_Exik');
+
+// lat and lng map admin
+define('LAT_MAP_ADMIN', 50.0473111);
+define('LNG_MAP_ADMIN', 12.3523245);
+define('ZOOM_MAP_ADMIN', 17);

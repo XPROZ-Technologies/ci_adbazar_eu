@@ -28,6 +28,33 @@ class Mconstants extends CI_Model {
         4 => 'Viet Nam'
     );
 
+    public $languageTexts = array(
+        'en' => 'English',
+        'cz' => 'Czech republic',
+        'de' => 'Germany',
+        'vi' => 'Viet Nam'
+    );
+
+    public $sliderTypeIds = array(
+        1 => 'Slider',
+        2 => 'Banner'
+    );
+
+    public $dayIds = array(
+        0 => 'Monday',
+        1 => 'Tuesday',
+        2 => 'Wednesday',
+        3 => 'Thursday',
+        4 => 'Friday',
+        5 => 'Saturday',
+        6 => 'Sunday'
+    );
+
+    public $isHot = array(
+        1 => 'Not stand out', // không nổi bật 
+        2 => 'Highlights' // nổi bật
+    );
+
     public $labelCss = array(
         1 => 'label label-default',
         2 => 'label label-success',

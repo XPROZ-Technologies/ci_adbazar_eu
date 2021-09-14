@@ -21,17 +21,26 @@ class Mcustomers extends MY_Model {
         return false;
     }
 
-    public function checkExist($email){
-        $query = "SELECT id FROM customers WHERE customer_status_id > ?";
-        $param = array(0);
+    public function checkExist($customerId, $email, $phoneNumber){
+        $query = "SELECT id FROM customers WHERE id != ? AND customer_status_id > 0 ";
+        $param = array($customerId);
         $flag1 = !empty($email);
-        if($flag1){
+        $flag2 = !empty($phoneNumber);
+        if($flag1 && $flag2){
+            $query .= " AND (customer_email = ? OR customer_phone = ? ) LIMIT 1";
+            $param[] = $email;
+            $param[] = $phoneNumber;
+        }
+        elseif($flag1){
             $query .= " AND customer_email = ? LIMIT 1";
             $param[] = $email;
         }
-       
-        $customers = $this->getByQuery($query, $param);
-        if (!empty($customers)) return true;
+        elseif($flag2){
+            $query .= " AND customer_phone = ? LIMIT 1";
+            $param[] = $phoneNumber;
+        }
+        $customer = $this->getByQuery($query, $param);
+        if (!empty($customer)) return true;
         return false;
     }
 
@@ -71,6 +80,13 @@ class Mcustomers extends MY_Model {
             $this->db_master->trans_commit();
             return $customerId;
         }
+    }
+
+    public function getListSelect2Ajax($searchText = '') {
+        $where = '';
+        if(!empty($searchText)) $where = " AND (customer_first_name LIKE '%".$searchText."%' OR customer_last_name LIKE '%".$searchText."%') ";
+        $query = "SELECT CONCAT(customer_first_name, ' ', customer_last_name) as full_name, id FROM customers WHERE customer_status_id = 2  ".$where." LIMIT 200";
+        return $this->getByQuery($query);
     }
 
 }

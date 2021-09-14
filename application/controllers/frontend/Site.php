@@ -16,7 +16,9 @@ class Site extends MY_Controller {
 
     public function index() {
         $customer = $this->checkLoginCustomer();
+        $this->loadModel(array('Mconfigs', 'Mlocations'));
         $data['customer'] = $customer;
+        $data['locations'] = $this->Mlocations->getBy(array('location_status_id' => STATUS_ACTIVED));
         $this->load->view('frontend/site/home', $data);
     }
 

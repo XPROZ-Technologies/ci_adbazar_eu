@@ -9,7 +9,7 @@ class Action extends MY_Controller {
 			'Menu hệ thống nội bộ',
 			array('scriptFooter' => array('js' => 'js/backend/setting/action.js'))
 		);
-		if ($this->Mactions->checkAccess($data['listActions'], 'action')) {
+		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/action')) {
 			$data['listActiveActions'] = $this->Mactions->getHierachy();
 			$this->load->view('backend/setting/action', $data);
 		}

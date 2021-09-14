@@ -2,6 +2,7 @@ var app = app || {};
 
 app.init = function (locationId) {
     app.submits(locationId);
+    app.handle();
 }
 
 $(document).ready(function () {
@@ -13,7 +14,7 @@ app.submits = function() {
     $("body").on('click', '.submit', function() {
         var $this = $(this);
         $this.prop('disabled', true);
-        if (validateEmpty('#locationForm'), '.submit') {
+        if (validateEmpty('#locationForm', '.submit')) {
             var form = $('#locationForm');
             $.ajax({
                 type: "POST",
@@ -36,12 +37,49 @@ app.submits = function() {
     })
 }
 
+app.handle = function() {
+    $('#expired_date').datetimepicker({
+        format: 'DD/MM/YYYY HH:mm',
+        minDate:new Date()
+    });
+    $("select#business_profile_id").select2({
+        placeholder: '--Choose Business Profile--',
+        allowClear: true,
+        ajax: {
+            url: $("input#urlGetBusinessProfileNotInLocation").val(),
+            type: 'POST',
+            dataType: 'json',
+            data: function(data) {
+                $("input#expired_date").val('');
+                return {
+                    search_text: data.term,
+                    business_profile_location_id: $('input[name="business_profile_location_id"]').val()
+                };
+            },
+            processResults: function(data, params) {
+                return {
+                    results: $.map(data, function(item) {
+                        return {
+                            text: item.business_name,
+                            id: item.id,
+                            data: item
+                        };
+                    })
+                };
+            }
+        }
+
+    }).on('change',function() {
+        $("input#expired_date").val('');
+    });
+}
+
 function initMap() {
     let locationId = parseInt($('input[name="id"]').val());
     let latitude = $("input[name='lat']").val().trim();
     let longitude = $("input[name='lng']").val().trim();
-    latitude = latitude != '' ? latitude: 10.639014;
-    longitude = longitude != '' ? longitude: 106.710205;
+    latitude = latitude != '' ? latitude: latMapAdmin;
+    longitude = longitude != '' ? longitude: lngMapAdmin;
     
     const myLatlng = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
    
@@ -49,10 +87,8 @@ function initMap() {
         $("input[name='lat']").val(myLatlng.lat);
         $("input[name='lng']").val(myLatlng.lng);
     }
-   
-    // const geocoder = new google.maps.Geocoder();
     const map = new google.maps.Map(document.getElementById("mapLocation"), {
-        zoom: 16,
+        zoom: zoomMapAdmin,
         center: myLatlng,
     });
 
@@ -62,6 +98,7 @@ function initMap() {
         map,
         draggable:true,
         animation: google.maps.Animation.DROP,
+        icon: iconMarker
     });
     let infoWindow = new google.maps.InfoWindow({
         content: JSON.stringify(myLatlng, null, 2),
@@ -81,13 +118,13 @@ function initMap() {
             map,
             draggable:true,
             animation: google.maps.Animation.DROP,
+            icon: iconMarker
         });
     
         // Create a new InfoWindow.
         infoWindow = new google.maps.InfoWindow({
             position: mapsMouseEvent.latLng,
         });
-        // geocodePlaceId(geocoder, map, infoWindow);
         infoWindow.setContent(
             JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
         );
@@ -97,36 +134,13 @@ function initMap() {
     });
 
     google.maps.event.addListener(marker, 'dragend', function(event) { 
+        let lat = marker.getPosition().lat();
+		let long = marker.getPosition().lng();
         infoWindow.setContent(
-            JSON.stringify(event.latLng.toJSON(), null, 2)
+            JSON.stringify(marker.getPosition().toJSON(), null, 2)
         );
-        $("input[name='lat']").val(event.latLng.lat());
-        $("input[name='lng']").val(event.latLng.lng());
+        $("input[name='lat']").val(lat);
+        $("input[name='lng']").val(long);
      } );
 
 }
-
-
-// function geocodePlaceId(geocoder, map, infowindow) {
-//     const placeId ='ChIJd8BlQ2BZwokRAFUEcm_qrcA';
-
-//     geocoder
-//         .geocode({ placeId: placeId })
-//         .then(({ results }) => {
-//         if (results[0]) {
-//             map.setZoom(11);
-//             map.setCenter(results[0].geometry.location);
-
-//             const marker = new google.maps.Marker({
-//             map,
-//             position: results[0].geometry.location,
-//             });
-
-//             infowindow.setContent(results[0].formatted_address);
-//             infowindow.open(map, marker);
-//         } else {
-//             window.alert("No results found");
-//         }
-//         })
-//         .catch((e) => window.alert("Geocoder failed due to: " + e));
-//     }

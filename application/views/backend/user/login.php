@@ -18,7 +18,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <img src="assets/uploads/images/logo.png" width="300px" class="mgr-5">
+        <img src="assets/img/logo.png" width="120px" class="mgr-5">
     </div>
     <div class="login-box-body">
         <p class="login-box-msg">Log in to the system</p>

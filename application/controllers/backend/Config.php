@@ -7,7 +7,7 @@ class Config extends MY_Controller{
 		$user = $this->checkUserLogin();
 		$data = $this->commonData($user,
 			'Configs',
-			array('scriptFooter' => array('js' => array('js/backend/config/config.js')))
+			array('scriptFooter' => array('js' => array('ckeditor/ckeditor.js', 'js/backend/config/config.js')))
 		);
 		if($this->Mactions->checkAccess($data['listActions'], 'config')) {
 			$this->loadModel(array('Mconfigs'));
@@ -17,19 +17,62 @@ class Config extends MY_Controller{
 		else $this->load->view('backend/user/permission', $data);
 	}
 
+    public function abount(){
+		$user = $this->checkUserLogin();
+        $configAbountUs = $this->rsession->get('config_about_us');
+		$data = $this->commonData($user,
+			'Abount us',
+			array('scriptFooter' => array('js' => array('js/backend/config/config.js')))
+		);
+		if($this->Mactions->checkAccess($data['listActions'], 'config/abount')) {
+			$this->loadModel(array('Mconfigs'));
+			$data['listConfigs'] = $this->Mconfigs->getListMap(1, $configAbountUs['language_id']);
+            $data['configAbountUs'] = $configAbountUs;
+			$this->load->view('backend/config/abount', $data);
+		}
+		else $this->load->view('backend/user/permission', $data);
+	}
+
+    public function changeLanguageAbount() {
+        $languageId = $this->input->post('language_id');
+        $language = 'english';
+        switch ($languageId) {
+            case 1:
+                $language = 'english';
+                break;
+            case 2:
+                $language = 'czech';
+                break;
+            case 3:
+                $language = 'german';
+                break;
+            case 4:
+                $language = 'vietnamese';
+                break;
+            default:
+                $language = 'english';
+                break;
+        }
+        $this->session->set_userdata('config_about_us', array('language_id' => $languageId));
+        redirect($this->input->post('UrlOld'));
+    }
+
     public function update($autoLoad = 1){
         $user = $this->checkUserLogin();
-        $user['language_id'] = 1;
+        $configAbountUs = $this->rsession->get('config_about_us');
         $this->load->model('Mconfigs');
         $langCode = '';
-        if($user['language_id'] == 2) $langCode = '_en';
+        if ($configAbountUs['language_id'] == 1) $langCode = '_en';
+        elseif ($configAbountUs['language_id'] == 2) $langCode = '_zc';
+        elseif ($configAbountUs['language_id'] == 3) $langCode = '_de';
         $listConfigs = $this->Mconfigs->getBy(array('auto_load' => $autoLoad), false, "", "id,config_code,config_value".$langCode."");
         $valueData = array();
         $updateDateTime = getCurentDateTime();
         $param = $this->input->post();
         foreach($listConfigs as $c){
             $configValue = isset($param[$c['config_code']]) ? trim($param[$c['config_code']]) : '';
-            if($c['config_code'] == 'LOGO_IMAGE_HEADER' || $c['config_code'] == 'COUPON_IMAGE' || $c['config_code'] == 'ABOUT_US_IMAGE' || $c['config_code'] == 'CONTACT_US_IMAGE') $configValue = replaceFileUrl($configValue, CONFIG_PATH);
+            $arrImg = array('MARKER_MAP_IMAGE', 'LOGO_IMAGE_HEADER', 'COUPON_IMAGE', 'ABOUT_US_IMAGE', 'CONTACT_US_IMAGE', 'LOGO_FOOTER_IMAGE');
+            if(in_array($c['config_code'], $arrImg)) $configValue = replaceFileUrl($configValue, CONFIG_PATH);
             // else if($c['config_code'] == 'PAY_IMAGES' || $c['config_code'] == 'ICON_PAYMENT_UNIT') {
             //     $images = json_decode($configValue, true);
             //     $arrImg = [];
@@ -49,13 +92,15 @@ class Config extends MY_Controller{
         }
         $flag = $this->Mconfigs->updateBatch($valueData);
         if($flag){
+            $configs = $this->Mconfigs->getListMap();
+			$this->session->set_userdata('configs', $configs);
             echo json_encode(array('code' => 1, 'message' => 'Update successful'));
         }
         else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
     }
 
     public function updateItem(){
-        $user = $this->checkUserLogin(true);
+        $user = $this->checkUserLogin();
         $configCode = trim($this->input->post('config_code'));
         $configValue = trim($this->input->post('config_value'));
         if(!empty($configCode) && !empty($configValue)){

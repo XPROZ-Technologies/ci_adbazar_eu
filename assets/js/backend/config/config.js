@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var aboundId = parseInt($('input#autoLoad').val());
     if($('input#autoLoad').val() == '1') {
 
         $('#btnUpLogoHeader').click(function(){
@@ -38,8 +39,44 @@ $(document).ready(function(){
             $('img#imgContactUs').attr('src', fileUrl).show();
         });
 
+        $('#btnMarkerMap').click(function(){
+            $('#logoFileMarkerMap').trigger('click');
+        });
+    
+        chooseFile($('#logoFileMarkerMap'), $('#fileProgress'), 5, function(fileUrl){
+            $('input#logoImageMarkerMap').val(fileUrl);
+            $('img#imgMarkerMap').attr('src', fileUrl).show();
+        });
+
+        $('#btnLogoFooter').click(function(){
+            $('#logoFileLogoFooter').trigger('click');
+        });
+    
+        chooseFile($('#logoFileLogoFooter'), $('#fileProgress'), 5, function(fileUrl){
+            $('input#logoImageLogoFooter').val(fileUrl);
+            $('img#imgLogoFooter').attr('src', fileUrl).show();
+        });
+        if(aboundId == 0) {
+            CKEDITOR.replace('TERM_OF_USE', {
+                language: 'en',
+                toolbar : 'ShortToolbar',
+                height: 200
+            });
+
+            CKEDITOR.replace('PRIVACY_POLICY', {
+                language: 'en',
+                toolbar : 'ShortToolbar',
+                height: 200
+            });
+        } 
+        
+
         $('.submit').click(function(){
             if(validateEmpty('#configForm')) {
+                if(aboundId == 0) {
+                    CKEDITOR.instances['TERM_OF_USE'].updateElement();
+                    CKEDITOR.instances['PRIVACY_POLICY'].updateElement();
+                }
                 // $('.submit').prop('disabled', true);
                
                 var form = $('#configForm');

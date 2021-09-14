@@ -36,7 +36,7 @@ app.submits = function(userId) {
     $("body").on('click', '.submit', function() {
         var $this = $(this);
         $this.prop('disabled', true);
-        if (validateEmpty('#userForm')) {
+        if (validateEmpty('#userForm', '.submit')) {
             if ($('input#userName').length > 0 && $('input#userName').val().trim().indexOf(' ') >= 0) {
                 showNotification(userNameText, 0);
                 $('input#userName').focus();
@@ -54,11 +54,7 @@ app.submits = function(userId) {
                 $this.prop('disabled', false);
                 return false;
             }
-            if ((($('input#newPass').val().length < 6 || $('input#rePass').val().length < 6) && userId == 0) || (($('input#newPass').val().length > 0 && $('input#newPass').val().length < 6) || ($('input#rePass').val().length > 1 && $('input#rePass').val().length < 6) && userId > 0)) {
-                showNotification(newPassText, 0);
-                $this.prop('disabled', false);
-                return false;
-            }
+          
             if ($('input#newPass').val() != $('input#rePass').val()) {
                 showNotification(rePassText, 0);
                 $this.prop('disabled', false);

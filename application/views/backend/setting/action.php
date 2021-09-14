@@ -52,8 +52,8 @@
                                     <a href="javascript:void(0)" class="link_delete" title="Xóa" data-id="0"><i class="fa fa-times"></i></a>
                                     <input type="text" hidden="hidden" id="parent_0" value="0">
                                     <input type="text" hidden="hidden" id="level_0" value="1">
-                                    <input type="text" hidden="hidden" id="updateActionUrl" value="<?php echo base_url('action/update'); ?>">
-                                    <input type="text" hidden="hidden" id="deleteActionUrl" value="<?php echo base_url('action/delete'); ?>">
+                                    <input type="text" hidden="hidden" id="updateActionUrl" value="<?php echo base_url('backend/action/update'); ?>">
+                                    <input type="text" hidden="hidden" id="deleteActionUrl" value="<?php echo base_url('backend/action/delete'); ?>">
                                 </td>
                             </tr>
                             </tbody>

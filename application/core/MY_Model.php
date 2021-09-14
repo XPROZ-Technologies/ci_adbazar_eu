@@ -100,6 +100,31 @@ class MY_Model extends CI_Model {
         return $retVal;
     }
 
+    public function changeStatusChild($statusId, $id, $fieldName = 'status_id', $updateUserId = 0, $deleteAt = 0, $whereFieldName = 'id') {
+        $retVal = false;
+        if($statusId >= 0 && $id > 0){
+            if(empty($fieldName)) $fieldName = 'status_id';
+            $this->db_master->where(array($whereFieldName => $id));
+            $data = array();
+            if($updateUserId > 0) $data = array($fieldName => $statusId, 'updated_by' => $updateUserId, 'updated_at' => getCurentDateTime());
+            if($deleteAt > 0) $data = array($fieldName => $statusId, 'updated_by' => $updateUserId, 'deleted_at' => getCurentDateTime());
+            if(!empty($data)) $id = $this->db_master->update($this->_table_name, $data);
+            $retVal = $id > 0;
+        }
+        return $retVal;
+    }
+
+    public function changeIsHot($isHot, $id, $fieldName = 'is_hot', $updateUserId = 0){
+        $retVal = false;
+        if($isHot != '' && $id > 0){
+            if(empty($fieldName)) $fieldName = 'is_hot';
+            if($updateUserId > 0) $id =  $this->save(array($fieldName => $isHot, 'updated_by' => $updateUserId, 'updated_at' => getCurentDateTime()), $id);
+            else $id = $this->save(array($fieldName => $isHot), $id);
+            $retVal = $id > 0;
+        }
+        return $retVal;
+    }
+
     public function updateBy($where, $data) {
         $this->db_master->where($where);
         return $this->db_master->update($this->_table_name, $data);

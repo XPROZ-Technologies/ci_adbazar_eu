@@ -12,15 +12,25 @@ class Mconfigs extends MY_Model {
     public function getListMap($autoLoad = 1, $languageId = 1){
         $langCode = '';
         $select = "config_code, config_value";
-        if($languageId == 2){
+        if($languageId == 1){
             $langCode = '_en';
             $select = "config_code, config_value_en";
-        };
+        }elseif ($languageId == 2) {
+            $langCode = '_zc';
+            $select = "config_code, config_value_zc";
+        }elseif ($languageId == 3) {
+            $langCode = '_de';
+            $select = "config_code, config_value_de";
+        }
         $configs = $this->getBy(array('auto_load' => $autoLoad), false, "", $select);
         $retVal = array();
         foreach($configs as $cf) {
-            if($languageId == 2){
+            if($languageId == 1){
                 $retVal[$cf['config_code']] = $cf['config_value_en'];
+            } else if($languageId == 2){
+                $retVal[$cf['config_code']] = $cf['config_value_zc'];
+            } else if($languageId == 3){
+                $retVal[$cf['config_code']] = $cf['config_value_de'];
             } else {
                 $retVal[$cf['config_code']] = $cf['config_value'];
             }

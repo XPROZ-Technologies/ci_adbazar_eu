@@ -49,7 +49,8 @@
                                 <td class="actions">
                                     <a href="javascript:void(0)" id="link_update" title="Cập nhật"><i class="fa fa-save"></i></a>
                                     <a href="javascript:void(0)" id="link_cancel" title="Thôi"><i class="fa fa-times"></i></a>
-                                    <input type="text" name="id" id="sliderId" value="0" hidden="hidden">
+                                    <input type="text" name="id" id="sliderId" value="0" hidden="hidden"> 
+                                    <input type="text" name="slider_type_id" value="<?php echo $sliderTypeId ?>" hidden="hidden">
                                     <input type="text" id="deleteUrl" value="<?php echo base_url('backend/slider/delete'); ?>" hidden="hidden">
                                 </td>
                             </tr>
