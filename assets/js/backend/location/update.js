@@ -2,6 +2,7 @@ var app = app || {};
 
 app.init = function (locationId) {
     app.submits(locationId);
+    app.handle();
 }
 
 $(document).ready(function () {
@@ -35,6 +36,44 @@ app.submits = function() {
         return false;
     })
 }
+
+app.handle = function() {
+    $('#expired_date').datetimepicker({
+        format: 'DD/MM/YYYY HH:mm',
+        minDate:new Date()
+    });
+    $("select#business_profile_id").select2({
+        placeholder: '--Choose Business Profile--',
+        allowClear: true,
+        ajax: {
+            url: $("input#urlGetBusinessProfileNotInLocation").val(),
+            type: 'POST',
+            dataType: 'json',
+            data: function(data) {
+                $("input#expired_date").val('');
+                return {
+                    search_text: data.term,
+                    business_profile_location_id: $('input[name="business_profile_location_id"]').val()
+                };
+            },
+            processResults: function(data, params) {
+                return {
+                    results: $.map(data, function(item) {
+                        return {
+                            text: item.business_name,
+                            id: item.id,
+                            data: item
+                        };
+                    })
+                };
+            }
+        }
+
+    }).on('change',function() {
+        $("input#expired_date").val('');
+    });
+}
+
 function initMap() {
     let locationId = parseInt($('input[name="id"]').val());
     let latitude = $("input[name='lat']").val().trim();

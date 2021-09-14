@@ -4,17 +4,17 @@
             <section class="content-header">
                 <h1><?php echo $title; ?></h1>
                 <ul class="list-inline">
-                    <li><a href="<?php echo base_url('backend/location/add'); ?>" class="btn btn-primary">Add location</a></li>
+                    <li><a href="<?php echo base_url('sys-admin/coupon-create'); ?>" class="btn btn-primary">Add coupon</a></li>
                 </ul>
             </section>
             <section class="content">
                 <div class="box box-default">
                     <?php sectionTitleHtml('Filter'); ?>
                     <div class="box-body row-margin">
-                        <?php echo form_open('backend/user'); ?>
+                        <?php echo form_open('sys-admin/coupon'); ?>
                         <div class="row">
                             <div class="col-sm-4 form-group">
-                                <input type="text" name="search_text" class="form-control" value="<?php echo set_value('search_text'); ?>" placeholder="Location name, Latitude, Longitude">
+                                <input type="text" name="search_text" class="form-control" value="<?php echo set_value('search_text'); ?>" placeholder="Code, Subject, Amount">
                             </div>
                             <div class="col-sm-4 form-group">
                                 <input type="submit" id="submit" name="submit" class="btn btn-primary" value="Search">
@@ -33,9 +33,11 @@
                             <thead>
                             <tr>
                                 <th style="width:60px;">#</th>
-                                <th>Location name</th>
-                                <th>Latitude</th>
-                                <th>Longitude</th>
+                                <th>Code</th>
+                                <th>Subject</th>
+                                <th>Amount</th>
+                                <th>Start date</th>
+                                <th>End date</th>
                                 <th style="width:120px;">Status</th>
                                 <th style="width:250px;">Action</th>
                             </tr>
@@ -43,18 +45,20 @@
                             <tbody id="tbodyLocation">
                             <?php $i = 0;
                             $labelCss = $this->Mconstants->labelCss;
-                            foreach($lisLocations as $s){
+                            foreach($listCoupons as $s){
                                 $i++; ?>
-                                <tr id="location_<?php echo $s['id']; ?>">
+                                <tr>
                                     <td><?php echo $i; ?></td>
-                                    <td><a href="<?php echo base_url('backend/location/edit/'.$s['id']); ?>"><?php echo $s['location_name']; ?></a></td>
-                                    <td><?php echo $s['lat']; ?></td>
-                                    <td><?php echo $s['lng']; ?></td>
-                                    <td><span class="<?php echo $labelCss[$s['location_status_id']]; ?>"><?php echo $this->Mconstants->status[$s['location_status_id']]; ?></span></td>
+                                    <td><a href="<?php echo base_url('sys-admin/coupon-update/'.$s['id']); ?>"><?php echo $s['coupon_code']; ?></a></td>
+                                    <td><?php echo $s['coupon_subject']; ?></td>
+                                    <td><?php echo $s['coupon_amount']; ?></td>
+                                    <td><?php echo ddMMyyyy($s['start_date']); ?></td>
+                                    <td><?php echo ddMMyyyy($s['end_date']); ?></td>
+                                    <td><span class="<?php echo $labelCss[$s['coupon_status_id']]; ?>"><?php echo $this->Mconstants->status[$s['coupon_status_id']]; ?></span></td>
                                     <td class="actions">
                                         <input type="checkbox" value="<?php echo $s['is_hot']; ?>"  data-id="<?php echo $s['id']; ?>" class="js-switch"<?php if($s['is_hot'] == 2) echo ' checked'; ?>/>
                                         <a href="javascript:void(0)" class="link_delete btn btn-xs btn-default" data-id="<?php echo $s['id']; ?>" status-id="0" title="Remove">Remove</a>
-                                        <?php if($s['location_status_id'] == STATUS_ACTIVED){ 
+                                        <?php if($s['coupon_status_id'] == STATUS_ACTIVED){ 
                                         ?> 
                                             <a href="javascript:void(0)" class="link_deactive btn btn-xs btn-danger" data-id="<?php echo $s['id']; ?>" status-id="1" title="Deactive">Deactive</a>
                                         <?php } else { ?> 
@@ -71,8 +75,8 @@
             </section>
         </div>
     </div>
-    <input type="text" hidden="hidden" id="changeStatusUrl" value="<?php echo base_url('backend/location/changeStatus'); ?>">
-    <input type="text" hidden="hidden" id="updateIsHotUrl" value="<?php echo base_url('backend/location/isHot'); ?>">
+    <input type="text" hidden="hidden" id="changeStatusUrl" value="<?php echo base_url('sys-admin/coupon/change-status'); ?>">
+    <input type="text" hidden="hidden" id="updateIsHotUrl" value="<?php echo base_url('sys-admin/coupon/is-hot'); ?>">
 <?php $this->load->view('backend/includes/footer'); ?>
 <script>
     var removeText = "<?php echo 'Do you really want to delete?' ?>";

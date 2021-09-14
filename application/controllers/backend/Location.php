@@ -35,8 +35,8 @@ class Location extends MY_Controller {
 		$data = $this->commonData($user,
 			'Add location',
 			array(
-				'scriptHeader' => array('css' => ''),
-				'scriptFooter' => array('js' => array('js/backend/location/update.js'))
+				'scriptHeader' => array('css' => 'vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css',),
+				'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-datetimepicker/moment.min.js', 'vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js', 'js/backend/location/update.js'))
 			)
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'location/add')) {
@@ -52,8 +52,8 @@ class Location extends MY_Controller {
             $data = $this->commonData($user,
                 'Edit location',
                 array(
-                    'scriptHeader' => array('css' => ''),
-                    'scriptFooter' => array('js' => array('js/backend/location/update.js'))
+                    'scriptHeader' => array('css' => 'vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css',),
+                    'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-datetimepicker/moment.min.js', 'vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js', 'js/backend/location/update.js'))
                 )
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'location/edit')) {
@@ -62,6 +62,7 @@ class Location extends MY_Controller {
                 if ($location && $location['location_status_id'] > 0) {
                     $data['id'] = $locationId;
                     $data['location'] = $location;
+					$data['locationInBusiness'] = $this->Mlocations->getLocationInBusiness($locationId);
                 }else {
                     $data['id'] = 0;
                     $data['txtError'] = ERROR_NO_DATA;
@@ -94,7 +95,16 @@ class Location extends MY_Controller {
 				$this->load->model('Mlocations');
 				$locationId = $this->Mlocations->save($postData, $locationId);
 
-				if ($locationId > 0) echo json_encode(array('code' => 1, 'message' => $message, 'data' => $locationId));
+				if ($locationId > 0) {
+					$businessProfileLocationId = $this->input->post('business_profile_location_id');
+					$businessProfileLocation = $this->arrayFromPost(array('business_profile_id', 'expired_date')); 
+					$businessProfileLocation['expired_date'] = !empty($businessProfileLocation['expired_date']) ? ddMMyyyyToDate($businessProfileLocation['expired_date'], 'd/m/Y H:i', 'Y-m-d H:i') : NULL;
+					$businessProfileLocation['location_id'] = $locationId;
+					$businessProfileLocation['business_profile_location_status_id'] = STATUS_ACTIVED;
+					$this->load->model('Mbusinessprofilelocations');
+					$this->Mbusinessprofilelocations->save($businessProfileLocation, $businessProfileLocationId);
+					echo json_encode(array('code' => 1, 'message' => $message, 'data' => $locationId));
+				}
 				else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
             }
             else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
@@ -117,9 +127,10 @@ class Location extends MY_Controller {
                 $message = 'Location activation successful';
                 $deleteAt = 0;
             }
-			$this->load->model('Mlocations');
+			$this->loadModel(array('Mbusinessprofilelocations','Mlocations'));
 			$flag = $this->Mlocations->changeStatus($statusId, $locationId, 'location_status_id', $user['id'], $deleteAt);
 			if($flag) {
+				$this->Mbusinessprofilelocations->changeStatusChild($statusId, $locationId, 'business_profile_location_status_id', $user['id'], $deleteAt, 'location_id');
 				echo json_encode(array('code' => 1, 'message' => $message));
 			}
 			else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
@@ -135,12 +146,21 @@ class Location extends MY_Controller {
 			$this->load->model('Mlocations');
 			$flag = $this->Mlocations->changeIsHot($isHot, $locationId, '', $user['id']);
 			$message = 'Activation of featured position successfully';
-			if($isHot == 'OFF') $message = 'Successfully Hide Featured Location';
+			if($isHot == 1) $message = 'Successfully Hide Featured Location';
 			if($flag) {
 				echo json_encode(array('code' => 1, 'message' => $message));
 			}
 			else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
 		}
 		else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+	}
+
+	public function getLocationNotInBusinessProfile() {
+		$user = $this->checkUserLogin();
+        $searchText = $this->input->post('search_text');
+        $businessProfileLocationId = $this->input->post('business_profile_location_id');
+		$this->load->model('Mlocations');
+		$list = $this->Mlocations->getLocationNotInBusinessProfile($searchText, $businessProfileLocationId);
+		echo json_encode($list);
 	}
 }

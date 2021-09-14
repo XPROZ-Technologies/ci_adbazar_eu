@@ -7,8 +7,30 @@ app.init = function () {
 $(document).ready(function () {
     app.init();
 });
-
 app.changeStatus = function() {
+    $("body").on("click", "a.link_delete", function(){
+        if (confirm(removeText)){
+            var id = $(this).attr('data-id');
+            var statusId = $(this).attr('status-id');
+            changeStatus(id, statusId)
+        }
+        return false;
+    }).on("click", "a.link_deactive", function(){
+        if (confirm(deactiveText)){
+            var id = $(this).attr('data-id');
+            var statusId = $(this).attr('status-id');
+            changeStatus(id, statusId)
+        }
+        return false;
+    }).on("click", "a.link_active", function(){
+        if (confirm(activeText)){
+            var id = $(this).attr('data-id');
+            var statusId = $(this).attr('status-id');
+            changeStatus(id, statusId)
+        }
+        return false;
+    });
+
     $('.js-switch').bootstrapSwitch({size: 'mini'}).on('switchChange.bootstrapSwitch', function(event, state) {
         var isHot = state ? 2 : 1;
         $.ajax({
@@ -32,29 +54,6 @@ app.changeStatus = function() {
             }
         });
     });
-    
-    $("body").on("click", "a.link_delete", function(){
-        if (confirm(removeText)){
-            var id = $(this).attr('data-id');
-            var statusId = $(this).attr('status-id');
-            changeStatus(id, statusId)
-        }
-        return false;
-    }).on("click", "a.link_deactive", function(){
-        if (confirm(deactiveText)){
-            var id = $(this).attr('data-id');
-            var statusId = $(this).attr('status-id');
-            changeStatus(id, statusId)
-        }
-        return false;
-    }).on("click", "a.link_active", function(){
-        if (confirm(activeText)){
-            var id = $(this).attr('data-id');
-            var statusId = $(this).attr('status-id');
-            changeStatus(id, statusId)
-        }
-        return false;
-    });
 }
 
 function changeStatus(id, statusId) {
@@ -63,7 +62,7 @@ function changeStatus(id, statusId) {
         url: $('input#changeStatusUrl').val(),
         data: {
             id: id,
-            busines_status_id: statusId
+            status_id: statusId
         },
         success: function (response) {
             var json = $.parseJSON(response);

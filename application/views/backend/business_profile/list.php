@@ -64,6 +64,7 @@
                                     <td><?php echo $s['business_address']; ?></td>
                                     <td><span class="<?php echo $labelCss[$s['busines_status_id']]; ?>"><?php echo $this->Mconstants->status[$s['busines_status_id']]; ?></span></td>
                                     <td class="actions">
+                                        <input type="checkbox" value="<?php echo $s['is_hot']; ?>"  data-id="<?php echo $s['id']; ?>" class="js-switch"<?php if($s['is_hot'] == 2) echo ' checked'; ?>/>
                                         <a href="javascript:void(0)" class="link_delete btn btn-xs btn-default" data-id="<?php echo $s['id']; ?>" status-id="0" title="Remove">Remove</a>
                                         <?php if($s['busines_status_id'] == STATUS_ACTIVED){ 
                                         ?> 
@@ -83,6 +84,7 @@
         </div>
     </div>
     <input type="text" hidden="hidden" id="changeStatusUrl" value="<?php echo base_url('sys-admin/business-profile/change-status'); ?>">
+    <input type="text" hidden="hidden" id="updateIsHotUrl" value="<?php echo base_url('sys-admin/business-profile/is-hot'); ?>">
 <?php $this->load->view('backend/includes/footer'); ?>
 <script>
     var removeText = "<?php echo 'Do you really want to delete ?' ?>";
