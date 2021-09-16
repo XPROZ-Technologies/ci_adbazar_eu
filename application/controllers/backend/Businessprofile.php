@@ -13,6 +13,7 @@ class Businessprofile extends MY_Controller {
             )
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/business-profile')) {
+            var_dump(json_encode([]));
             $postData = $this->arrayFromPost(array('search_text', 'busines_status_id'));
             $this->loadModel(array('Mservices', 'Mbusinessprofiles', 'Mcustomers'));
             $rowCount = $this->Mbusinessprofiles->getCount($postData);
@@ -58,7 +59,7 @@ class Businessprofile extends MY_Controller {
                 )
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'service/edit')) {
-                $this->loadModel(array('Mservices', 'Mbusinessprofiles', 'Mcustomers', 'Mbusinessservicetype', 'Mservicetypes', 'Mopeninghours','Mphonecodes'));
+                $this->loadModel(array('Mservices', 'Mbusinessprofiles', 'Mcustomers', 'Mbusinessservicetype', 'Mservicetypes', 'Mopeninghours','Mphonecodes', 'Mbusinessphotos', 'Mbusinessvideos'));
                 $profile = $this->Mbusinessprofiles->get($businessProfileId);
                 if ($profile && $profile['busines_status_id'] > 0) {
                     $data['id'] = $businessProfileId;
@@ -70,6 +71,8 @@ class Businessprofile extends MY_Controller {
                     $data['openinghours'] = $this->Mopeninghours->getBy(array('business_profile_id' => $businessProfileId), false, 'day_id', '',0,0, 'asc');
                     $data['phonecode'] = $this->Mphonecodes->get($profile['country_code_id']);
                     $data['businessInLocation'] = $this->Mbusinessprofiles->getBusinessInLocation($businessProfileId);
+                    $data['businessphotos'] = $this->Mbusinessphotos->getBy(array('business_profile_id' => $businessProfileId));
+                    $data['businessvideos'] = $this->Mbusinessvideos->getBy(array('business_profile_id' => $businessProfileId));
                 }else {
                     $data['id'] = 0;
                     $data['txtError'] = ERROR_NO_DATA;
@@ -107,10 +110,18 @@ class Businessprofile extends MY_Controller {
 
             $openingHours = json_decode(trim($this->input->post('OpeningHours')), true); 
             if(!is_array($openingHours)) $openingHours = array();
+
 			$businessServiceTypes = json_decode(trim($this->input->post('BusinessServiceTypeIds')), true);
 			if(!is_array($businessServiceTypes)) $businessServiceTypes = array();
+
+            $businessPhotos = json_decode(trim($this->input->post('Photos')), true);
+			if(!is_array($businessPhotos)) $businessPhotos = array(); 
+
+            $businessVideos = json_decode(trim($this->input->post('BusinessVideos')), true);
+			if(!is_array($businessVideos)) $businessVideos = array();
+
             $this->load->model('Mbusinessprofiles');
-            $flag = $this->Mbusinessprofiles->update($postData, $businessProfileId, $businessServiceTypes, $openingHours, $user['id']);
+            $flag = $this->Mbusinessprofiles->update($postData, $businessProfileId, $businessServiceTypes, $openingHours, $user['id'], $businessPhotos, $businessVideos);
             if($flag) {
                 $businessProfileLocation = $this->arrayFromPost(array('location_id', 'expired_date')); 
                 if($businessProfileLocation['location_id'] > 0) {
@@ -125,6 +136,7 @@ class Businessprofile extends MY_Controller {
             } 
             else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
         } catch (\Throwable $th) {
+            var_dump($th);
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
         }
 	}

@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="box box-default">
+                        <div class="box box-default padding15">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="col-sm-6">
@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="box box-default">
+                        <div class="box box-default padding15">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Opening hour <span class="required">*</span></h3>
                             </div>
@@ -177,6 +177,47 @@
                                     <?php endforeach; ?>
                                 </div>
                             </div>
+                            
+                        </div>
+                        <div class="box box-default padding15">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Photo</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" id="btnUpImage"><i class="fa fa-upload"></i> Choose photo</button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <ul class="list-inline" id="ulImages"></ul>
+                                <img src="" style="display: none;" id="photoImage">
+                                <input type="file" style="display: none;" id="inputFileImage">
+                            </div>
+                        </div>
+                        <div class="box box-default padding15">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Video Youtube</h3>
+                                
+                            </div>
+                            <div class="box-body">
+                            <table class="table table-hover table-bordered">
+                                    <thead class="theadNormal">
+                                    <tr>
+                                        <th>Link Youtube</th>
+                                        <th style="width: 60px;"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbodyYoutube">
+                                    	<tr id="trData">
+                                            <td>
+                                                <input type="text" class="form-control" id="linkYoutube">
+                                            </td>
+                                    		<td class="actions" service-type-id="0">
+                                                <a href="javascript:void(0)" id="link_add" title="Cập nhật"><i class="fa fa-save"></i></a>&nbsp;
+                                                <a href="javascript:void(0)" id="link_cancel" title="Thôi"><i class="fa fa-times"></i></a>
+                                            </td>
+                                    	</tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     
@@ -197,4 +238,4 @@
         </div> 
     </div>
 <?php $this->load->view('backend/includes/footer'); ?>
-<?php $this->load->view('backend/business_profile/_lang'); ?>
+<?php $this->load->view('backend/business_profile/_common'); ?>

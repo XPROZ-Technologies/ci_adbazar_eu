@@ -113,6 +113,7 @@ define('URL_API', '');
 
 // key api
 define('KEY_GOOGLE_MAP', 'AIzaSyD53XNjfZqrg7twWutFv3rIgnhGvT_Exik');
+define('KEY_YOUTUBE_V3', 'AIzaSyAWR3oe6AzQfm3k_XYuwm-_wvjmQkq2ylg');
 
 // lat and lng map admin
 define('LAT_MAP_ADMIN', 50.0473111);

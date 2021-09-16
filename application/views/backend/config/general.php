@@ -6,7 +6,7 @@
                 $this->load->view('backend/includes/breadcrumb', array("button" => $button)); 
             ?>
             <section class="content">
-                <?php echo form_open('backend/config/update/1', array('id' => 'configForm')); ?>
+                <?php echo form_open('sys-admin/config/update/1', array('id' => 'configForm')); ?>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="box box-default padding15">

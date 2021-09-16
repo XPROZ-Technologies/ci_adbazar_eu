@@ -58,28 +58,45 @@ $route['translate_uri_dashes'] = FALSE;
  */
 $route['sys-admin'] = 'backend/user';
 
-$route['sys-admin/action'] = 'backend/action';
-
-$route['sys-admin/config'] = 'backend/config';
-
+// dashboard
 $route['sys-admin/dashboard'] = 'backend/dashboard';
 
+// login
+$route['sys-admin/login'] = 'backend/user/checkLogin';
+
+// action
+$route['sys-admin/action'] = 'backend/action';
+$route['sys-admin/action/insert-update'] = 'backend/action/update';
+$route['sys-admin/action/delete'] = 'backend/action/delete';
+
+// config
+$route['sys-admin/config'] = 'backend/config';
+$route['sys-admin/config/abount'] = 'backend/config/abount';
+$route['sys-admin/config/update/(:num)'] = 'backend/config/update/$1';
+$route['sys-admin/config/change-language-abount'] = 'backend/config/changeLanguageAbount';
+
+// service
 $route['sys-admin/service'] = 'backend/service';
 $route['sys-admin/service-create'] = 'backend/service/add';
 $route['sys-admin/service-update'] = 'backend/service/edit';
 $route['sys-admin/service/get-list'] = 'backend/service/getListSelect2Ajax';
 $route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax'; 
 
+// location
 $route['sys-admin/location'] = 'backend/location';
 $route['sys-admin/location-create'] = 'backend/location/add';
 $route['sys-admin/location-update'] = 'backend/location/edit';
 $route['sys-admin/location/get-location-not-in-business-profile'] = 'backend/location/getLocationNotInBusinessProfile';
 
+// sider
 $route['sys-admin/sider'] = 'backend/sider';
 
+// staff
 $route['sys-admin/staff'] = 'backend/user/staff';
 $route['sys-admin/staff-create'] = 'backend/user/add';
-$route['sys-admin/staff-update/(:num)'] = 'backend/user/edit/$id';
+$route['sys-admin/staff-update/(:num)'] = 'backend/user/edit/$1';
+$route['sys-admin/staff/insert-update'] = 'backend/user/update';
+$route['sys-admin/staff/change-status'] = 'backend/user/changeStatus';
 
 // customer
 $route['sys-admin/customer'] = 'backend/customer';
@@ -89,6 +106,7 @@ $route['sys-admin/customer-update/(:num)'] = 'backend/customer/edit/$1';
 $route['sys-admin/customer/insert-update'] = 'backend/customer/update';
 $route['sys-admin/customer/change-status'] = 'backend/customer/changeStatus'; 
 
+// business-profile
 $route['sys-admin/business-profile'] = 'backend/businessprofile';
 $route['sys-admin/business-profile-add'] = 'backend/businessprofile/add';
 $route['sys-admin/business-profile-update/(:num)'] = 'backend/businessprofile/edit/$1';

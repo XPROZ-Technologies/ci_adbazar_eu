@@ -32,7 +32,7 @@ class Mbusinessprofiles extends MY_Model {
         return $query;
     }
 
-    public function update($postData = array(), $businessProfileId = 0, $businessServiceTypes = array(), $openingHours = array(), $userId = 0) {
+    public function update($postData = array(), $businessProfileId = 0, $businessServiceTypes = array(), $openingHours = array(), $userId = 0, $businessPhotos = array(), $businessVideos = array()) {
         $isUpdate = $businessProfileId > 0;
         $this->db->trans_begin();
         $businessProfileId = $this->save($postData, $businessProfileId);
@@ -40,6 +40,7 @@ class Mbusinessprofiles extends MY_Model {
             if($isUpdate){
                 $this->db->delete('opening_hours', array('business_profile_id' => $businessProfileId));
                 $this->db->delete('business_service_types', array('business_profile_id' => $businessProfileId));
+                $this->db->delete('business_photos', array('business_profile_id' => $businessProfileId));
         	}
             if(!empty($businessServiceTypes)) {
                 $arrBusinessType = array();
@@ -71,6 +72,40 @@ class Mbusinessprofiles extends MY_Model {
                 }
                
                 if (!empty($arrOpenHours)) $this->db->insert_batch('opening_hours', $arrOpenHours);
+            }
+            if(!empty($businessPhotos)) {
+                $arrPhotos = array();
+                foreach ($businessPhotos as $u) {
+                    $photo = empty($u) ? NO_IMAGE : replaceFileUrl($u, BUSINESS_PROFILE_PATH);
+                    $arrPhotos[] = array(
+                        'business_profile_id' => $businessProfileId,
+                        'photo_image' => $photo,
+                        'created_at' => getCurentDateTime(),
+                        'created_by' => $userId,
+                        'updated_at' => getCurentDateTime(),
+                        'updated_by' => $userId
+
+                    );
+                }
+               
+                if (!empty($arrPhotos)) $this->db->insert_batch('business_photos', $arrPhotos);
+            }
+            if(!empty($businessVideos)) {
+                $arrVideos = array();
+                foreach ($businessVideos as $u) {
+                    $arrVideos[] = array(
+                        'business_profile_id' => $businessProfileId,
+                        'video_url' => $u['video_url'],
+                        'video_code' => $u['video_code'],
+                        'created_at' => getCurentDateTime(),
+                        'created_by' => $userId,
+                        'updated_at' => getCurentDateTime(),
+                        'updated_by' => $userId
+
+                    );
+                }
+               
+                if (!empty($arrVideos)) $this->db->insert_batch('business_videos', $arrVideos);
             }
         }
         if ($this->db->trans_status() === false) {

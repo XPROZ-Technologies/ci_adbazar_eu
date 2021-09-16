@@ -12,7 +12,7 @@ class User extends MY_Controller {
 			$data['userPass'] = $this->input->cookie('userPass', true);
 			$this->load->view('backend/user/login', $data);
 		}
-		else redirect('backend/dashboard');
+		else redirect('sys-admin/dashboard');
 	}
 
     public function checkLogin(){
@@ -54,7 +54,7 @@ class User extends MY_Controller {
     public function logout(){
 		$fields = array('user', 'configs', 'config_about_us');
 		foreach($fields as $field) $this->session->unset_userdata($field);
-		redirect('backend/user');
+		redirect('sys-admin');
 	}
 
     public function staff(){
@@ -63,7 +63,7 @@ class User extends MY_Controller {
 			'List staff',
 			array('scriptFooter' => array('js' => 'js/backend/user/list.js'))
 		);
-		if ($this->Mactions->checkAccess($data['listActions'], 'user')) {
+		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/staff')) {
             $postData = $this->arrayFromPost(array('search_text', 'status_id'));
             $rowCount = $this->Musers->getCount($postData);
             $data['listUsers'] = array();
@@ -89,7 +89,7 @@ class User extends MY_Controller {
 				'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'js/backend/user/update.js'))
 			)
 		);
-		if ($this->Mactions->checkAccess($data['listActions'], 'user/add')) {
+		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/staff-create')) {
 			$this->load->view('backend/user/add', $data);
 		}
 		else $this->load->view('backend/user/permission', $data);
@@ -105,7 +105,7 @@ class User extends MY_Controller {
                     'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'js/backend/user/update.js'))
                 )
             );
-            if ($this->Mactions->checkAccess($data['listActions'], 'user/edit')) {
+            if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/staff-update')) {
                 $staff = $this->Musers->get($userId);
                 if ($staff && $staff['status_id'] > 0) {
                     $data['id'] = $userId;
@@ -118,7 +118,7 @@ class User extends MY_Controller {
             }
             else $this->load->view('backend/user/permission', $data);
         }
-        else redirect('backend/user/staff');
+        else redirect('sys-admin/staff');
 	}
 
     public function update(){

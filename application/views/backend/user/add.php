@@ -5,11 +5,11 @@
                 <h1><?php echo $title; ?></h1>
                 <ul class="list-inline">
                     <li><button class="btn btn-primary submit">Save</button></li>
-                    <li><a href="<?php echo base_url('backend/user/staff'); ?>" class="btn btn-default">Cancel</a></li>
+                    <li><a href="<?php echo base_url('sys-admin/staff'); ?>" class="btn btn-default">Cancel</a></li>
                 </ul>
             </section>
             <section class="content">
-                <?php echo form_open('backend/user/update', array('id' => 'userForm')); ?>
+                <?php echo form_open('sys-admin/staff/insert-update', array('id' => 'userForm')); ?>
                 <div class="row">
                     <div class="col-sm-8 no-padding">
                         <div class="box box-default padding15">
@@ -127,7 +127,7 @@
                 </div>
                 <ul class="list-inline pull-right margin-right-10">
                     <li><button class="btn btn-primary submit" type="button">Save</button></li>
-                    <li><a href="<?php echo base_url('backend/user/staff'); ?>" class="btn btn-default" id="btnCancel">Cancel</a></li>
+                    <li><a href="<?php echo base_url('sys-admin/staff'); ?>" class="btn btn-default" id="btnCancel">Cancel</a></li>
                     <input type="text" hidden="hidden" name="id" value="0">
                 </ul>
                 <?php echo form_close(); ?>
