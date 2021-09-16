@@ -30,14 +30,14 @@ $configs = $this->Mconfigs->getListMap();
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 <script>
     var myStyles =[
-    {
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-              { visibility: "off" }
-        ]
-    }
-];
+        {
+            featureType: "poi",
+            elementType: "labels",
+            stylers: [
+                { visibility: "off" }
+            ]
+        }
+    ];
     function initMap() {
     latitude = latMapAdmin;
     longitude = lngMapAdmin;
@@ -69,5 +69,41 @@ $configs = $this->Mconfigs->getListMap();
             }
         })(marker, i));
     }
+}
+</script>
+
+
+<fb:login-button 
+data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '177851481129433',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v12.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+   
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
 }
 </script>
