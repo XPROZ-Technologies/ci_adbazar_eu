@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 16, 2021 at 11:25 PM
+-- Generation Time: Sep 17, 2021 at 10:55 AM
 -- Server version: 10.3.22-MariaDB
 -- PHP Version: 7.3.28
 
@@ -48,11 +48,18 @@ CREATE TABLE `actions` (
 --
 
 INSERT INTO `actions` (`id`, `action_name`, `action_url`, `parent_action_id`, `display_order`, `font_awesome`, `action_level`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Service', 'sys-admin/service', 0, 1, '', 1, 2, '2021-09-12 02:37:42', '2021-09-12 02:37:42', 1, 1),
-(2, 'Location', 'sys-admin/location', 0, 2, '', 1, 2, '2021-09-12 02:41:57', '2021-09-12 02:41:57', 1, 1),
-(3, 'Slider', 'sys-admin/sider', 4, 2, '', 2, 2, '2021-09-12 02:41:48', '2021-09-12 02:41:48', 1, 1),
-(4, 'Manager', '', 0, 3, '', 1, 2, '2021-09-12 02:42:00', '2021-09-12 02:42:00', 1, 1),
-(5, 'Employee', 'sys-admin/staff', 4, 1, '', 2, 2, '2021-09-12 02:41:36', '2021-09-12 02:41:36', 1, 1);
+(1, 'Manager', '', 0, 8, '', 1, 2, '2021-09-16 14:14:08', '2021-09-16 14:14:08', 1, 1),
+(2, 'Menu admin', 'sys-admin/action', 1, 1, '', 2, 2, '2021-09-16 14:14:27', '2021-09-16 14:14:27', 1, 1),
+(3, 'Web', '', 0, 7, '', 1, 2, '2021-09-16 14:15:36', '2021-09-16 14:15:36', 1, 1),
+(4, 'Config Home', 'sys-admin/config', 3, 1, '', 2, 2, '2021-09-16 14:15:54', '2021-09-16 14:15:54', 1, 1),
+(5, 'Abount', 'sys-admin/config/abount', 3, 2, '', 2, 2, '2021-09-16 14:19:47', '2021-09-16 14:19:47', 1, 1),
+(6, 'Service', 'sys-admin/service', 0, 6, '', 1, 2, '2021-09-16 14:20:39', '2021-09-16 14:20:39', 1, 1),
+(7, 'Location', 'sys-admin/location', 0, 5, '', 1, 2, '2021-09-16 14:20:59', '2021-09-16 14:20:59', 1, 1),
+(8, 'Customer', 'sys-admin/customer', 0, 1, '', 1, 2, '2021-09-16 14:21:20', '2021-09-16 14:21:20', 1, 1),
+(9, 'Staff', 'sys-admin/staff', 1, 2, '', 2, 2, '2021-09-16 14:21:41', '2021-09-16 14:21:41', 1, 1),
+(10, 'Business profiles', 'sys-admin/business-profile', 0, 2, '', 1, 2, '2021-09-16 14:28:30', '2021-09-16 14:28:30', 1, 1),
+(11, 'Coupon', 'sys-admin/coupon', 0, 3, '', 1, 2, '2021-09-16 14:29:14', '2021-09-16 14:29:14', 1, 1),
+(12, 'Event', 'sys-admin/event', 0, 4, '', 1, 2, '2021-09-16 14:29:35', '2021-09-16 14:29:35', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -538,6 +545,8 @@ CREATE TABLE `customers` (
   `free_trial` tinyint(4) NOT NULL DEFAULT 0,
   `customer_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `language_id` tinyint(4) NOT NULL DEFAULT 0,
+  `social_id` varchar(250) DEFAULT NULL,
+  `social_type_id` tinyint(4) DEFAULT NULL COMMENT '1: Facebook / 2: google',
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -549,8 +558,8 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `language_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(6, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, 0, '2021-09-09 01:44:48', 0, NULL, NULL, NULL);
+INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `language_id`, `social_id`, `social_type_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(6, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, 0, NULL, NULL, '2021-09-09 01:44:48', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13394,7 +13403,7 @@ ALTER TABLE `wards`
 -- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `business_payments`
