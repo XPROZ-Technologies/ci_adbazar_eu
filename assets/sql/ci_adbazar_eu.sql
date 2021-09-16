@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 14, 2021 at 06:35 AM
+-- Generation Time: Sep 16, 2021 at 11:25 PM
 -- Server version: 10.3.22-MariaDB
 -- PHP Version: 7.3.28
 
@@ -77,6 +77,23 @@ CREATE TABLE `business_payments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `business_photos`
+--
+
+CREATE TABLE `business_photos` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `photo_image` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `business_profiles`
 --
 
@@ -135,6 +152,24 @@ CREATE TABLE `business_service_types` (
   `id` int(11) NOT NULL,
   `business_profile_id` int(11) NOT NULL,
   `service_type_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_videos`
+--
+
+CREATE TABLE `business_videos` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `video_url` varchar(250) NOT NULL,
+  `video_code` varchar(50) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -502,6 +537,7 @@ CREATE TABLE `customers` (
   `customer_address` varchar(250) NOT NULL,
   `free_trial` tinyint(4) NOT NULL DEFAULT 0,
   `customer_status_id` tinyint(4) NOT NULL DEFAULT 0,
+  `language_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -513,8 +549,8 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(6, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, '2021-09-09 01:44:48', 0, NULL, NULL, NULL);
+INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `language_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(6, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, 0, '2021-09-09 01:44:48', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1329,7 +1365,7 @@ CREATE TABLE `events` (
   `start_time` time NOT NULL,
   `end_date` datetime NOT NULL,
   `end_time` time NOT NULL,
-  `event_description` tinyint(4) NOT NULL,
+  `event_description` text NOT NULL,
   `event_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(10) DEFAULT NULL,
@@ -1448,8 +1484,8 @@ CREATE TABLE `opening_hours` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
   `day_id` tinyint(4) NOT NULL,
-  `start_time` time NOT NULL,
-  `end_time` time NOT NULL,
+  `start_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL,
   `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
@@ -1836,6 +1872,7 @@ CREATE TABLE `services` (
   `service_name_cz` varchar(250) DEFAULT NULL,
   `service_image` text NOT NULL,
   `service_status_id` tinyint(4) NOT NULL,
+  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
   `display_order` int(10) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
@@ -13187,6 +13224,12 @@ ALTER TABLE `business_payments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `business_photos`
+--
+ALTER TABLE `business_photos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
@@ -13196,6 +13239,12 @@ ALTER TABLE `business_profiles`
 -- Indexes for table `business_profile_locations`
 --
 ALTER TABLE `business_profile_locations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `business_videos`
+--
+ALTER TABLE `business_videos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -13354,6 +13403,12 @@ ALTER TABLE `business_payments`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `business_photos`
+--
+ALTER TABLE `business_photos`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
@@ -13363,6 +13418,12 @@ ALTER TABLE `business_profiles`
 -- AUTO_INCREMENT for table `business_profile_locations`
 --
 ALTER TABLE `business_profile_locations`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `business_videos`
+--
+ALTER TABLE `business_videos`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
