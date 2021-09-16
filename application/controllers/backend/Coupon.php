@@ -105,7 +105,6 @@ class Coupon extends MY_Controller {
             }
             else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
         } catch (\Throwable $th) {
-            var_dump($th);
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
      	}
     }

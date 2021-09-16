@@ -107,6 +107,12 @@ $route['sys-admin/coupon/get-list-business-profile'] = 'backend/coupon/getListSe
 $route['sys-admin/coupon/is-hot'] = 'backend/coupon/isHot';
 $route['sys-admin/coupon/change-status'] = 'backend/coupon/changeStatus'; 
 
+$route['sys-admin/event'] = 'backend/event';
+$route['sys-admin/event-create'] = 'backend/event/add';
+$route['sys-admin/event-update/(:num)'] = 'backend/event/edit/$1';
+$route['sys-admin/event/insert-update'] = 'backend/event/update'; 
+$route['sys-admin/event/change-status'] = 'backend/event/changeStatus';
+
 
 /**
  * FRONT-END ROUTES
