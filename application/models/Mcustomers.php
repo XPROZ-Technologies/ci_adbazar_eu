@@ -21,26 +21,16 @@ class Mcustomers extends MY_Model {
         return false;
     }
 
-    public function checkExist($customerId, $email, $phoneNumber){
+    public function checkExist($customerId, $email){
         $query = "SELECT id FROM customers WHERE id != ? AND customer_status_id > 0 ";
         $param = array($customerId);
         $flag1 = !empty($email);
-        $flag2 = !empty($phoneNumber);
-        if($flag1 && $flag2){
-            $query .= " AND (customer_email = ? OR customer_phone = ? ) LIMIT 1";
-            $param[] = $email;
-            $param[] = $phoneNumber;
-        }
-        elseif($flag1){
+        if($flag1){
             $query .= " AND customer_email = ? LIMIT 1";
             $param[] = $email;
         }
-        elseif($flag2){
-            $query .= " AND customer_phone = ? LIMIT 1";
-            $param[] = $phoneNumber;
-        }
         $customer = $this->getByQuery($query, $param);
-        if (!empty($customer)) return true;
+        if (!empty($customer)) return $customer[0];
         return false;
     }
 

@@ -53,7 +53,7 @@ class Customer extends MY_Controller {
             if(!empty($postData['customer_email'])) {
                 $postData['customer_email'] = strtolower($postData['customer_email']);
                 $this->load->model('Mcustomers');
-                if ($this->Mcustomers->checkExist($postData['customer_email'])) {
+                if ($this->Mcustomers->checkExist(0,$postData['customer_email'])) {
                     echo json_encode(array('code' => -1, 'message' => $this->lang->line('customer_phone_or_email_exists')));
                 }
                 else {
@@ -77,6 +77,36 @@ class Customer extends MY_Controller {
             echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
             //echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
      	}
+    }
+
+    public function loginFb() {
+        try {
+            $postData = $this->arrayFromPost(array('customer_email', 'customer_first_name', 'customer_last_name', 'social_id', 'social_type_id'));
+            $postData['customer_email'] = strtolower($postData['customer_email']);
+            $this->load->model('Mcustomers');
+            $customer = $this->Mcustomers->checkExist(0,$postData['customer_email']);
+            $customerId = 0;
+            if(count($customer) > 0) $customerId = $customer['id'];
+            $message = 'Successfully register account';
+            if($customerId == 0) {
+                $postData['created_by'] = 0;
+                $postData['created_at'] = getCurentDateTime();
+                $postData['customer_status_id'] = STATUS_WAITING_ACTIVE;
+                $postData['free_trial'] = STATUS_FREE_TRIAL;
+                $postData['customer_password'] =  md5('123456');
+            } else {
+                $postData['updated_by'] = 0;
+                $postData['updated_at'] = getCurentDateTime();
+            }
+            $flag = $this->Mcustomers->save($postData, $customerId);
+            if ($customerId > 0) {
+                echo json_encode(array('code' => 1, 'message' => $message, 'data' => $customerId));
+            }
+            else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+        } catch (\Throwable $th) {
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
+        }
+
     }
 
 }

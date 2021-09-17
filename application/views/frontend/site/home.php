@@ -9,8 +9,10 @@
 
     
 <?php echo form_close(); ?>
+
 <br>
 <span><?php echo $this->lang->line('hello'); ?><span>
+<a href="javascript:void(0);" onclick="fbLogin();" id="fbLink">LOgin fb</a>
 <br>
 <div class="col-sm-12 no-padding">
     <div class="box box-default padding15">
@@ -71,39 +73,7 @@ $configs = $this->Mconfigs->getListMap();
     }
 }
 </script>
+<script src="<?php echo base_url('assets/vendor/plugins/jQuery/jquery-2.2.3.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/frontend/home/fb_login.js'); ?>"></script>
 
-
-<fb:login-button 
-data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
-  scope="public_profile,email"
-  onlogin="checkLoginState();">
-</fb:login-button>
-
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '177851481129433',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v12.0'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
-   
-function checkLoginState() {
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-}
-</script>
+<input type="hidden" value="<?php echo base_url('fb-login'); ?>" id="loginFacebook">
