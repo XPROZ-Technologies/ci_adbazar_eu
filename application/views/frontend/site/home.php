@@ -77,3 +77,4 @@ $configs = $this->Mconfigs->getListMap();
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/home/fb_login.js'); ?>"></script>
 
 <input type="hidden" value="<?php echo base_url('fb-login'); ?>" id="loginFacebook">
+<input type="hidden" value="<?php echo base_url('fb-logout'); ?>" id="logoutFacebook">

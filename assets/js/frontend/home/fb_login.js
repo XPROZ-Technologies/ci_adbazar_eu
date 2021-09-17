@@ -43,8 +43,33 @@ function getFbUserData(){
     FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
     function (response) {
         console.log(response)
-        document.getElementById('fbLink').setAttribute("onclick","fbLogout()");
-        // document.getElementById('fbLink').innerHTML = 'Logout from Facebook';
+        $.ajax({
+            type: "POST",
+            url: $("input#loginFacebook").val(),
+            data: {
+                id: response.id,
+                customer_first_name: response.first_name,
+                customer_last_name: response.last_name,
+                customer_email: response.email,
+                login_type_id: 1
+            },
+            success: function (response) {
+                var json = $.parseJSON(response);
+                console.log(json)
+                // showNotification(json.message, json.code);
+                if(json.code == 1){
+                    document.getElementById('fbLink').setAttribute("onclick","fbLogout()");
+                    document.getElementById('fbLink').innerHTML = 'Logout from Facebook';
+                    // redirect(false, $("a#btnCancel").attr('href'));
+                }
+                // else $('.submit').prop('disabled', false);
+            },
+            error: function (response) {
+                // showNotification($('input#errorCommonMessage').val(), 0);
+                // $('.submit').prop('disabled', false);
+            }
+        });
+       
         // document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + response.first_name + '!</p>';
         // document.getElementById('userData').innerHTML = '<h2>Facebook Profile Details</h2><p><img src="'+response.picture.data.url+'"/></p><p><b>FB ID:</b> '+response.id+'</p><p><b>Name:</b> '+response.first_name+' '+response.last_name+'</p><p><b>Email:</b> '+response.email+'</p><p><b>Gender:</b> '+response.gender+'</p><p><b>FB Profile:</b> <a target="_blank" href="'+response.link+'">click to view profile</a></p>';
     });
@@ -53,37 +78,30 @@ function getFbUserData(){
 // Logout from facebook
 function fbLogout() {
     FB.logout(function() {
-        document.getElementById('fbLink').setAttribute("onclick","fbLogin()");
-        // document.getElementById('fbLink').innerHTML = '<img src="images/fb-login-btn.png"/>';
-        // document.getElementById('userData').innerHTML = '';
-        // document.getElementById('status').innerHTML = '<p>You have successfully logout from Facebook.</p>';
+       
+        $.ajax({
+            type: "POST",
+            url: $("input#logoutFacebook").val(),
+            success: function (response) {
+                var json = $.parseJSON(response);
+                console.log(json)
+                // showNotification(json.message, json.code);
+                if(json.code == 1){
+                    document.getElementById('fbLink').setAttribute("onclick","fbLogin()");
+                    document.getElementById('fbLink').innerHTML = 'Login from Facebook';
+                    location.reload();
+                }
+                // else $('.submit').prop('disabled', false);
+            },
+            error: function (response) {
+                // showNotification($('input#errorCommonMessage').val(), 0);
+                // $('.submit').prop('disabled', false);
+            }
+        });
     });
 }
 
 $(document).ready(function () {
 
-    $.ajax({
-        type: "POST",
-        url: $("input#loginFacebook").val(),
-        data: {
-            id:'3210518352503578',
-            customer_first_name: 'Mẫn',
-            customer_last_name: 'Hà',
-            customer_email: 'facebook12636@gmail.com',
-            login_type_id: 1
-        },
-        success: function (response) {
-            var json = $.parseJSON(response);
-            console.log(json)
-            // showNotification(json.message, json.code);
-            // if(json.code == 1){
-            //     redirect(false, $("a#btnCancel").attr('href'));
-            // }
-            // else $('.submit').prop('disabled', false);
-        },
-        error: function (response) {
-            showNotification($('input#errorCommonMessage').val(), 0);
-            // $('.submit').prop('disabled', false);
-        }
-    });
+    
 })

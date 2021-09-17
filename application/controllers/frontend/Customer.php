@@ -103,8 +103,13 @@ class Customer extends MY_Controller {
                 $postData['updated_at'] = getCurentDateTime();
             }
             $flag = $this->Mcustomers->save($postData, $customerId);
-            if ($customerId > 0) {
-                echo json_encode(array('code' => 1, 'message' => $message, 'data' => $customerId));
+            if ($flag > 0) {
+                $customer = $this->Mcustomers->get($flag);
+                $this->session->set_userdata('customer', $customer);
+                $this->load->helper('cookie');
+                $this->input->set_cookie(array('name' => 'customerEmail', 'value' => $customer['customer_email'], 'expire' => '86400'));
+                $this->input->set_cookie(array('name' => 'customerPass', 'value' => $customer['customer_password'], 'expire' => '86400'));
+                echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
             }
             else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
         } catch (\Throwable $th) {
@@ -112,5 +117,11 @@ class Customer extends MY_Controller {
         }
 
     }
+
+    public function logout(){
+		$fields = array('customer');
+		foreach($fields as $field) $this->session->unset_userdata($field);
+		echo json_encode(array('code' => 1, 'message' => 'Logout Successfully'));
+	}
 
 }
