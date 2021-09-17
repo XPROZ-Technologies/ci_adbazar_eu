@@ -1,3 +1,4 @@
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c.apps.googleusercontent.com">
 <?php echo form_open('frontend/site/changeLanguage', array('id' => 'languageForm')); ?>
     <select class="form-control" name="language_id" id="languageId" onchange="this.form.submit()">
@@ -80,25 +81,70 @@ $configs = $this->Mconfigs->getListMap();
 <input type="hidden" value="<?php echo base_url('fb-login'); ?>" id="loginFacebook">
 <input type="hidden" value="<?php echo base_url('fb-logout'); ?>" id="logoutFacebook">
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+
 
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
+<button type="button" class="btn btn-danger g-logout" style="display:none;" onclick="signOut();">Sign Out</button>
 
 <script>
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
+        $.ajax({
+            type: "POST",
+            url: $("input#loginFacebook").val(),
+            data: {
+                id: profile.TS,
+                customer_first_name: profile.yS,
+                customer_last_name: profile.yU,
+                customer_email: profile.Gt,
+                login_type_id: 2
+            },
+            success: function (response) {
+                var json = $.parseJSON(response);
+                console.log(json)
+                // showNotification(json.message, json.code);
+                if(json.code == 1){
+                    $(".g-signin2").css("display", "none");
+                    $(".g-logout").css("display", "block");
+                    // redirect(false, $("a#btnCancel").attr('href'));
+                }
+                // else $('.submit').prop('disabled', false);
+            },
+            error: function (response) {
+                // showNotification($('input#errorCommonMessage').val(), 0);
+                // $('.submit').prop('disabled', false);
+            }
+        });
         console.log(profile)
     // $("#name").text(profile.getName());
     // $("#email").text(profile.getEmail());
     // $("#image").attr('src', profile.getImageUrl());
     // $(".data").css("display", "block");
-    // $(".g-signin2").css("display", "none");
+    //
 }
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-        console.log("You have been signed out successfully");
+        $.ajax({
+            type: "POST",
+            url: $("input#logoutFacebook").val(),
+            success: function (response) {
+                var json = $.parseJSON(response);
+                console.log("You have been signed out successfully");
+                // showNotification(json.message, json.code);
+                if(json.code == 1){
+                    $(".g-signin2").css("display", "block");
+                    $(".g-logout").css("display", "none");
+                    location.reload();
+                }
+                // else $('.submit').prop('disabled', false);
+            },
+            error: function (response) {
+                // showNotification($('input#errorCommonMessage').val(), 0);
+                // $('.submit').prop('disabled', false);
+            }
+        });
         // $(".data").css("display", "none");
         // $(".g-signin2").css("display", "block");
     });
