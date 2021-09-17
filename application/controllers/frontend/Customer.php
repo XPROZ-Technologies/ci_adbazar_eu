@@ -81,7 +81,11 @@ class Customer extends MY_Controller {
 
     public function loginFb() {
         try {
-            $postData = $this->arrayFromPost(array('customer_email', 'customer_first_name', 'customer_last_name', 'social_id', 'social_type_id'));
+            $postData = $this->arrayFromPost(array('customer_email', 'customer_first_name', 'customer_last_name', 'login_type_id'));
+            $id = $this->input->post('id');
+            if($postData['login_type_id'] == 1) $postData['facebook_id'] = $id;
+            else if($postData['login_type_id'] == 2) $postData['google_id'] = $id;
+            
             $postData['customer_email'] = strtolower($postData['customer_email']);
             $this->load->model('Mcustomers');
             $customer = $this->Mcustomers->checkExist(0,$postData['customer_email']);

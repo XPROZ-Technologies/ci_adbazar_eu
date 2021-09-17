@@ -66,11 +66,11 @@ $(document).ready(function () {
         type: "POST",
         url: $("input#loginFacebook").val(),
         data: {
-            social_id:'3210518352503578',
+            id:'3210518352503578',
             customer_first_name: 'Mẫn',
             customer_last_name: 'Hà',
             customer_email: 'facebook12636@gmail.com',
-            social_type_id: 1
+            login_type_id: 1
         },
         success: function (response) {
             var json = $.parseJSON(response);
