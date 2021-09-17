@@ -1,3 +1,4 @@
+<meta name="google-signin-client_id" content="1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c.apps.googleusercontent.com">
 <?php echo form_open('frontend/site/changeLanguage', array('id' => 'languageForm')); ?>
     <select class="form-control" name="language_id" id="languageId" onchange="this.form.submit()">
         <?php foreach($this->Mconstants->languageIds as $k => $item): ?>
@@ -78,3 +79,28 @@ $configs = $this->Mconfigs->getListMap();
 
 <input type="hidden" value="<?php echo base_url('fb-login'); ?>" id="loginFacebook">
 <input type="hidden" value="<?php echo base_url('fb-logout'); ?>" id="logoutFacebook">
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log(profile)
+    // $("#name").text(profile.getName());
+    // $("#email").text(profile.getEmail());
+    // $("#image").attr('src', profile.getImageUrl());
+    // $(".data").css("display", "block");
+    // $(".g-signin2").css("display", "none");
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log("You have been signed out successfully");
+        // $(".data").css("display", "none");
+        // $(".g-signin2").css("display", "block");
+    });
+}
+</script>
