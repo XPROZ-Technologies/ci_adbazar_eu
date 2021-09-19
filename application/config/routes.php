@@ -136,5 +136,8 @@ $route['sys-admin/event/change-status'] = 'backend/event/changeStatus';
  * FRONT-END ROUTES
  */
 
+$route['login'] = 'frontend/login';
+$route['signup'] = 'frontend/signup';
+
 $route['fb-login'] = 'frontend/customer/loginFb';
 $route['fb-logout'] = 'frontend/customer/logout';
