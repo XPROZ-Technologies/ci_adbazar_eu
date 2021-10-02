@@ -141,6 +141,7 @@ class Customer extends MY_Controller
             $customerId = 0;
             if (count($customer) > 0) $customerId = $customer['id'];
             $message = 'Successfully register account';
+            $customer['language_id'] = 1;
             if ($customerId == 0) {
                 $postData['created_by'] = 0;
                 $postData['created_at'] = getCurentDateTime();
@@ -154,6 +155,7 @@ class Customer extends MY_Controller
             $flag = $this->Mcustomers->save($postData, $customerId);
             if ($flag > 0) {
                 $customer = $this->Mcustomers->get($flag);
+                $customer['language_name'] = $customer['language_id'] == 0 ? 'en' : $this->Mconstants->languageCodes[$customer['language_id']];
                 $this->load->helper('cookie');
                 $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '3600'));
                 echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
@@ -165,10 +167,11 @@ class Customer extends MY_Controller
 
     public function logout()
     {
+        $this->load->helper('cookie');
         $fields = array('customer');
-        foreach ($fields as $field) $this->session->unset_userdata($field);
-        $this->input->set_cookie($this->configValueCookie('customer', '', '-3600'));
-        redirect(base_url(HOME_URL));
+        delete_cookie('customer');
+        echo json_encode(array('code' => 1, 'message' => ''));
+        
     }
 
     public function customerGetCoupon()

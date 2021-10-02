@@ -64,6 +64,8 @@ abstract class MY_Controller extends CI_Controller {
         if (isset($customers) && $customers['id'] > 0) {
             // check login customer
             $customers['is_logged_in'] = 1;
+            $customers['language_id'] = $customers['language_id'] == 0 ? 1 : $customers['language_id'];
+            $customers['language_name'] = $customers['language_id'] == 0 ? 'en' : $this->Mconstants->languageCodes[$customers['language_id']];
         } else {
             // customer not login
             if (empty($customers) || $customers == NULL) {

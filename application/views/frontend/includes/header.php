@@ -230,7 +230,7 @@
               <div class="user-info-img">
                 <img src="<?php echo $customer['customer_avatar']; ?>" alt="avatar" class="img-fluid avatar-img">
                 <div class="user-info-text">
-                  <a href="javascript:void(0)"><?php echo $customer['customer_name']; ?></a>
+                  <a href="javascript:void(0)"><?php echo $customer['customer_last_name']; ?></a>
                   <a href=""><img src="assets/img/frontend/bot-avata.png" alt="avatar" class="img-fluid"></a>
                 </div>
                 <div class="user-info-box">
@@ -238,12 +238,12 @@
                     <div class="user-info-box-top">
                       <img src="assets/img/frontend/people.png" alt="avatar" class="img-fluid">
                       <div class="user-info-box-name">
-                        <p><?php echo $customer['customer_name']; ?></p>
+                        <p><?php echo $customer['customer_last_name']; ?></p>
                         <a href="<?php echo base_url('customer/general-information') ?>">See my profile</a>
                       </div>
                     </div>
                     <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('business-profile'); ?>'" >Go to my Business Profile</button>
-                    <button class="btn btn-outline-red" onclick="window.location.href='<?php echo base_url('customer-logout'); ?>'">Logout</button>
+                    <button class="btn btn-outline-red" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
                   </div>
                 </div>
               </div>

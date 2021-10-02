@@ -1,9 +1,21 @@
 $(document).ready(function () {
-    // $( "#formLogin" ).submit(function( e ) {
-    //     e.preventDefault();
-    //     alert('a');
-    // });
+    $( "#formLogin" ).submit(function( e ) {
+        e.preventDefault();
+        alert('a');
+    });
     $(".toast").hide();
+
+    $("body").on('click', '.btn-outline-red', function() {
+        var typeLoginId = parseInt($(this).attr('login-type-id'));
+        if(typeLoginId == 1) {
+            //fb
+            fbLogout()
+        } else if(typeLoginId == 2) {
+            //gg
+        } else {
+
+        }
+    });
 });
 
 window.fbAsyncInit = function() {
@@ -24,10 +36,8 @@ window.fbAsyncInit = function() {
 function fbLogin() {
     FB.login(function (response) {
         if (response.authResponse) {
-            console.log("============================")
             getFbUserData();
         } else {
-            console.log("===2222222222222222====================")
             // document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
         }
     }, {scope: 'email'});
@@ -42,62 +52,60 @@ function fbLogin() {
 }(document, 'script', 'facebook-jssdk'));
 
 function getFbUserData(){
-    // 
-    FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
-    function (response) {
-        console.log(response)
-        $.ajax({
-            type: "POST",
-            url: $("input#loginFacebook").val(),
-            data: {
-                id: response.id,
-                customer_first_name: response.first_name,
-                customer_last_name: response.last_name,
-                customer_email: response.email,
-                login_type_id: 1
-            },
-            success: function (response) {
-                var json = $.parseJSON(response);
-                console.log(json)
-                // showNotification(json.message, json.code);
-                if(json.code == 1){
-                    $(".toast").show();
-                    $(".text-secondary").html(json.message);
-                    redirect(false, $("#baseHomeUrl").attr("data-href"));
+    var isLogin = parseInt($(".btn-outline-red").attr('is-login'));
+    if(isNaN(isLogin) == true) {
+        FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
+        function (response) {
+            $.ajax({
+                type: "POST",
+                url: $("input#loginFacebook").val(),
+                data: {
+                    id: response.id,
+                    customer_first_name: response.first_name,
+                    customer_last_name: response.last_name,
+                    customer_email: response.email,
+                    login_type_id: 1
+                },
+                success: function (response) {
+                    var json = $.parseJSON(response);
+                    console.log(json)
+                    // showNotification(json.message, json.code);
+                    if(json.code == 1){
+                        $(".toast").show();
+                        $(".text-secondary").html(json.message);
+                        redirect(false, $("#baseHomeUrl").attr("data-href"));
+                    }
+                    // else $('.submit').prop('disabled', false);
+                },
+                error: function (response) {
+                    // showNotification($('input#errorCommonMessage').val(), 0);
+                    // $('.submit').prop('disabled', false);
                 }
-                // else $('.submit').prop('disabled', false);
-            },
-            error: function (response) {
-                // showNotification($('input#errorCommonMessage').val(), 0);
-                // $('.submit').prop('disabled', false);
-            }
+            });
+            return false;
         });
-        return false;
-    });
+    } else {
+        FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
+        function (response) {
+        });
+    }
 }
 
 function fbLogout() {
     FB.logout(function() {
-       
         $.ajax({
             type: "POST",
             url: $("input#logoutFacebook").val(),
             success: function (response) {
                 var json = $.parseJSON(response);
-                console.log(json)
-                // showNotification(json.message, json.code);
                 if(json.code == 1){
-                    document.getElementById('fbLink').setAttribute("onclick","fbLogin()");
-                    document.getElementById('fbLink').innerHTML = 'Login from Facebook';
                     location.reload();
                 }
-                // else $('.submit').prop('disabled', false);
             },
             error: function (response) {
-                // showNotification($('input#errorCommonMessage').val(), 0);
-                // $('.submit').prop('disabled', false);
             }
         });
+        return false;
     });
 }
 

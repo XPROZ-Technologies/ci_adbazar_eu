@@ -119,6 +119,7 @@ define('URL_API', '');
 // key api
 define('KEY_GOOGLE_MAP', 'AIzaSyD53XNjfZqrg7twWutFv3rIgnhGvT_Exik');
 define('KEY_YOUTUBE_V3', 'AIzaSyAWR3oe6AzQfm3k_XYuwm-_wvjmQkq2ylg');
+define('KEY_GG', '1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c');
 
 // lat and lng map admin
 define('LAT_MAP_ADMIN', 50.0473111);

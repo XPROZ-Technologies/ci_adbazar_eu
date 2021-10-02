@@ -108,6 +108,6 @@
       </div>
     </div>
 <!-- End toast -->
-<input type="hidden" value="<?php echo base_url('fb-login'); ?>" id="loginFacebook">
+<input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>

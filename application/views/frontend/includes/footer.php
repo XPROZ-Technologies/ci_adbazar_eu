@@ -52,11 +52,15 @@
     <script src="assets/js/frontend/commons/main.js?version=<?php echo time(); ?>"></script>
     <script src="assets/vendor/plugins/lib/main.js?version=<?php echo time(); ?>"></script>
     <script src="assets/js/frontend/common.js?version=<?php echo time(); ?>"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="<?php echo KEY_GG ?>.apps.googleusercontent.com">
+    <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
     <?php if(isset($scriptFooter)) outputScript($scriptFooter); ?>
 </body>
 
 </html>
 <?php $this->load->view('frontend/includes/popup_noti'); ?>
+<input type="hidden" value="<?php echo base_url('frontend/customer/logout'); ?>" id="logoutFacebook">
 <!-- Modal saved coupon -->
 <div class="modal fade" id="savedCouponModal" tabindex="-1" aria-labelledby="savedCouponModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
