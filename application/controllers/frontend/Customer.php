@@ -46,7 +46,7 @@ class Customer extends MY_Controller
                     //$customer_cookie = array('login_type_id' => $customer['login_type_id'], 'customer_name' => $customer['customer_first_name'], 'language_id' => $customer['language_id'], 'language_name' => $this->Mconstants->languageCodes[$customer['language_id']], 'customer_avatar' => $customer['customer_avatar'], 'id' => $customer['id']);
 
                     $customer['language_name'] = $this->Mconstants->languageCodes[$customer['language_id']];
-                    
+
                     if ($postData['is_remember'] == 'on') {
                         $this->load->helper('cookie');
                         $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '3600'));
@@ -144,6 +144,11 @@ class Customer extends MY_Controller
             if (count($customer) > 0) $customerId = $customer['id'];
             $message = 'Successfully register account';
             $customer['language_id'] = 1;
+            if (empty($customer['customer_avatar'])) {
+                $customer['customer_avatar'] = USER_PATH . NO_IMAGE;
+            } else {
+                $customer['customer_avatar'] = USER_PATH . $customer['customer_avatar'];
+            }
             if ($customerId == 0) {
                 $postData['created_by'] = 0;
                 $postData['created_at'] = getCurentDateTime();
