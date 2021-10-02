@@ -40,7 +40,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" name="start_date" id="start_date" class="form-control hmdrequired" data-field="Start Date" autocomplete="off" value="<?php echo ddMMyyyy($event['start_date'], 'd/m/Y H:i') ?>">
+                                            <input type="text" name="start_date" id="start_date" class="form-control hmdrequired" data-field="Start Date" autocomplete="off" value="<?php echo ddMMyyyy($event['start_date'].' '.$event['start_time'], 'd/m/Y H:i') ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" name="end_date" id="end_date" class="form-control hmdrequired" data-field="End Date" autocomplete="off"  value="<?php echo ddMMyyyy($event['end_date'], 'd/m/Y H:i') ?>">
+                                            <input type="text" name="end_date" id="end_date" class="form-control hmdrequired" data-field="End Date" autocomplete="off"  value="<?php echo ddMMyyyy($event['end_date'].' '.$event['end_time'], 'd/m/Y H:i') ?>">
                                         </div>
                                     </div>
                                 </div>
