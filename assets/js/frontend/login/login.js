@@ -57,32 +57,7 @@ function getFbUserData(){
     if(isNaN(isLogin) == true) {
         FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
         function (response) {
-            $.ajax({
-                type: "POST",
-                url: $("input#loginFacebook").val(),
-                data: {
-                    id: response.id,
-                    customer_first_name: response.first_name,
-                    customer_last_name: response.last_name,
-                    customer_email: response.email,
-                    login_type_id: 1
-                },
-                success: function (response) {
-                    var json = $.parseJSON(response);
-                    console.log(json)
-                    // showNotification(json.message, json.code);
-                    if(json.code == 1){
-                        $(".toast").show();
-                        $(".text-secondary").html(json.message);
-                        redirect(false, $("#baseHomeUrl").attr("data-href"));
-                    }
-                    // else $('.submit').prop('disabled', false);
-                },
-                error: function (response) {
-                    // showNotification($('input#errorCommonMessage').val(), 0);
-                    // $('.submit').prop('disabled', false);
-                }
-            });
+            loginGG_FB(response.id, response.first_name, response.last_name, response.email, 1)
             return false;
         });
     } else {
@@ -142,31 +117,7 @@ function onLoad() {
 
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    $.ajax({
-        type: "POST",
-        url: $("input#loginFacebook").val(),
-        data: {
-            id: profile.TS,
-            customer_first_name: profile.yS,
-            customer_last_name: profile.yU,
-            customer_email: profile.Gt,
-            login_type_id: 2
-        },
-        success: function (response) {
-            var json = $.parseJSON(response);
-            console.log(json)
-            // showNotification(json.message, json.code);
-            if(json.code == 1){
-                // $(".g-signin2").css("display", "none");
-                // $(".g-logout").css("display", "block");
-                // redirect(false, $("a#btnCancel").attr('href'));
-            }
-            // else $('.submit').prop('disabled', false);
-        },
-        error: function (response) {
-          
-        }
-    });
+    loginGG_FB(profile.TS, profile.yS, profile.yU, profile.Gt, 2)
     return false;
 }
 
@@ -191,6 +142,36 @@ function signOut() {
             }
         });
        
+    });
+    return false;
+}
+
+function loginGG_FB(id, customer_first_name, customer_last_name, customer_email, login_type_id) {
+    $.ajax({
+        type: "POST",
+        url: $("input#loginFacebook").val(),
+        data: {
+            id: id,
+            customer_first_name: customer_first_name,
+            customer_last_name: customer_last_name,
+            customer_email: customer_email,
+            login_type_id: login_type_id
+        },
+        success: function (response) {
+            var json = $.parseJSON(response);
+            console.log(json)
+            // showNotification(json.message, json.code);
+            if(json.code == 1){
+                $(".toast").show();
+                $(".text-secondary").html(json.message);
+                redirect(false, $("#baseHomeUrl").attr("data-href"));
+            }
+            // else $('.submit').prop('disabled', false);
+        },
+        error: function (response) {
+            // showNotification($('input#errorCommonMessage').val(), 0);
+            // $('.submit').prop('disabled', false);
+        }
     });
     return false;
 }
