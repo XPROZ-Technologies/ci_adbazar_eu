@@ -1,9 +1,21 @@
 $(document).ready(function () {
-    // $( "#formLogin" ).submit(function( e ) {
-    //     e.preventDefault();
-    //     alert('a');
-    // });
+    $( "#formLogin" ).submit(function( e ) {
+        e.preventDefault();
+        alert('a');
+    });
     $(".toast").hide();
+
+    $("body").on('click', '.btn-outline-red', function() {
+        var typeLoginId = parseInt($(this).attr('login-type-id'));
+        if(typeLoginId == 1) {
+            //fb
+            fbLogout()
+        } else if(typeLoginId == 2) {
+            //gg
+        } else {
+
+        }
+    })
 });
 
 window.fbAsyncInit = function() {
@@ -87,8 +99,6 @@ function fbLogout() {
                 console.log(json)
                 // showNotification(json.message, json.code);
                 if(json.code == 1){
-                    document.getElementById('fbLink').setAttribute("onclick","fbLogin()");
-                    document.getElementById('fbLink').innerHTML = 'Login from Facebook';
                     location.reload();
                 }
                 // else $('.submit').prop('disabled', false);

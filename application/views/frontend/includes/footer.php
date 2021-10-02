@@ -52,6 +52,9 @@
     <script src="assets/js/frontend/commons/main.js?version=<?php echo time(); ?>"></script>
     <script src="assets/vendor/plugins/lib/main.js?version=<?php echo time(); ?>"></script>
     <script src="assets/js/frontend/common.js?version=<?php echo time(); ?>"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="<?php echo KEY_GG ?>.apps.googleusercontent.com">
+    <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
     <?php if(isset($scriptFooter)) outputScript($scriptFooter); ?>
 </body>
 

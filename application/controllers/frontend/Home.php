@@ -15,11 +15,13 @@ class Home extends MY_Controller {
     }
 
     public function index() {
-        $this->loadModel(array('Mconfigs', 'Mlocations', 'Mservices', 'Msliders', 'Mcoupons', 'Mbusinessprofiles', 'Mservicetypes', 'Mcustomercoupons'));
+        $this->loadModel(array('Mcustomers','Mconfigs', 'Mlocations', 'Mservices', 'Msliders', 'Mcoupons', 'Mbusinessprofiles', 'Mservicetypes', 'Mcustomercoupons'));
         
         /**
          * Commons data
          */
+
+
         $data = $this->commonDataCustomer('Home');
         $data['activeMenu'] = "home";
         /**
