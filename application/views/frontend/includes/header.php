@@ -8,13 +8,13 @@
 
   <meta name="google-signin-client_id" content="<?php echo KEY_GG ?>.apps.googleusercontent.com">
   <title><?php if (!empty($title)) {
-            echo $title . ' - '. $configs['TEXT_LOGO_HEADER'];;
+            echo $title . ' - ' . $configs['TEXT_LOGO_HEADER'];;
           } else {
             echo "Asia Dragon Bazar";
           } ?></title>
   <base href="<?php echo base_url(); ?>" data-href="<?php echo base_url(); ?>" id="baseUrl" />
   <base data-href="<?php echo site_url(HOME_URL); ?>" id="baseHomeUrl" />
- 
+
   <?php $this->load->view('frontend/includes/favicon'); ?>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -210,7 +210,11 @@
               </div>
             <?php } ?>
             <!-- Languages -->
-            <div class="dropdown dropdown-language <?php if (isset($customer) && $customer['is_logged_in'] == 0) { echo "ml-32"; }else{ echo "mx-3"; } ?>">
+            <div class="dropdown dropdown-language <?php if (isset($customer) && $customer['is_logged_in'] == 0) {
+                                                      echo "ml-32";
+                                                    } else {
+                                                      echo "mx-3";
+                                                    } ?>">
               <a href="javascript:void(0)" class="wrapper-btn dropdown-toggle current" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">
                 <?php if (isset($customer['language_id']) && ($customer['language_id'] == 1)) { ?><img src="assets/img/frontend/en.png" alt="English" class="img-fluid"><?php } ?>
                 <?php if (isset($customer['language_id']) && ($customer['language_id'] == 2)) { ?><img src="assets/img/frontend/cre.png" alt="Czech Republic" class="img-fluid"><?php } ?>
@@ -231,11 +235,11 @@
             <!-- END. Languages -->
 
             <?php if (isset($customer) && $customer['is_logged_in'] == 1) { ?>
-            <!-- Logged In Info -->
+              <!-- Logged In Info -->
               <div class="user-info-img">
                 <img src="<?php echo $customer['customer_avatar']; ?>" alt="avatar" class="img-fluid avatar-img">
                 <div class="user-info-text">
-                  <a href="javascript:void(0)"><?php echo $customer['customer_last_name']; ?></a>
+                  <a href="javascript:void(0)"><?php echo $customer['customer_name']; ?></a>
                   <a href=""><img src="assets/img/frontend/bot-avata.png" alt="avatar" class="img-fluid"></a>
                 </div>
                 <div class="user-info-box">
@@ -243,17 +247,17 @@
                     <div class="user-info-box-top">
                       <img src="assets/img/frontend/people.png" alt="avatar" class="img-fluid">
                       <div class="user-info-box-name">
-                        <p><?php echo $customer['customer_last_name']; ?></p>
+                        <p><?php echo $customer['customer_name']; ?></p>
                         <a href="<?php echo base_url('customer/general-information') ?>">See my profile</a>
                       </div>
                     </div>
-                    <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('business-profile'); ?>'" >Go to my Business Profile</button>
-                    <?php if($customer['login_type_id'] == 2){ ?> 
-                        <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
-                      <?php } else { ?> 
-                        <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
-                      <?php } ?>
-                    
+                    <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('business-profile'); ?>'">Go to my Business Profile</button>
+                    <?php if (isset($customer['login_type_id']) && $customer['login_type_id'] == 2) { ?>
+                      <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
+                    <?php } else { ?>
+                      <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
+                    <?php } ?>
+
                   </div>
                 </div>
               </div>
@@ -328,7 +332,7 @@
                   </div>
                 </div>
               </div>
-            <!-- END. Logged In Info -->
+              <!-- END. Logged In Info -->
             <?php } ?>
 
           </div>

@@ -43,7 +43,7 @@ class Customer extends MY_Controller
                     if (empty($customer['language_id'])) {
                         $customer['language_id'] = $this->Mconstants->languageDefault;
                     }
-                    $customer_cookie = array('customer_name' => $customer['customer_first_name'], 'language_id' => $customer['language_id'], 'language_name' => $this->Mconstants->languageCodes[$customer['language_id']], 'customer_avatar' => $customer['customer_avatar'], 'id' => $customer['id']);
+                    $customer_cookie = array('login_type_id' => $customer['login_type_id'], 'customer_name' => $customer['customer_first_name'], 'language_id' => $customer['language_id'], 'language_name' => $this->Mconstants->languageCodes[$customer['language_id']], 'customer_avatar' => $customer['customer_avatar'], 'id' => $customer['id']);
 
 
                     if ($postData['is_remember'] == 'on') {
@@ -100,6 +100,7 @@ class Customer extends MY_Controller
                     $postData['free_trial'] = STATUS_FREE_TRIAL;
                     $postData['customer_password'] = !empty($customerPass) ? md5($customerPass) : md5('123456');
                     $postData['created_by'] = 0;
+                    $postData['login_type_id'] = 0;
                     $postData['created_at'] = getCurentDateTime();
 
                     $customerId = $this->Mcustomers->update($postData);

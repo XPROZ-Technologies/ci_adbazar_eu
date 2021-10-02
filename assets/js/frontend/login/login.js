@@ -1,9 +1,8 @@
 $(document).ready(function () {
-    $( "#formLogin" ).submit(function( e ) {
-        e.preventDefault();
-        alert('a');
-    });
-    $(".toast").hide();
+    //$( "#formLogin" ).submit(function( e ) {
+        //e.preventDefault();
+    //});
+    //$(".toast").hide();
 
     $("body").on('click', '.btn-logout-all', function() {
         var typeLoginId = parseInt($(this).attr('login-type-id'));
@@ -14,7 +13,7 @@ $(document).ready(function () {
             //gg
             signOut()
         } else {
-
+            webLogout();
         }
     });
 
@@ -69,6 +68,22 @@ function getFbUserData(){
         function (response) {
         });
     }
+}
+
+function webLogout() {
+    $.ajax({
+        type: "POST",
+        url: $("input#logoutFacebook").val(),
+        success: function (response) {
+            var json = $.parseJSON(response);
+            if(json.code == 1){
+                location.reload();
+            }
+        },
+        error: function (response) {
+        }
+    });
+    return false;
 }
 
 function fbLogout() {
@@ -166,7 +181,7 @@ function loginGG_FB(id, customer_first_name, customer_last_name, customer_email,
             console.log(json)
             // showNotification(json.message, json.code);
             if(json.code == 1){
-                $(".toast").show();
+                $(".toast").addClass('show');
                 $(".text-secondary").html(json.message);
                 redirect(false, $("#baseHomeUrl").attr("data-href"));
             }

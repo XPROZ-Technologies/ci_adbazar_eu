@@ -68,9 +68,9 @@ $(document).ready(function () {
             }
         });
     });
-    
-
-    
+    $("body").on("click", ".btn-toast-close", function(){
+        $(".toast").removeClass('show');
+    });
 });
 
 
