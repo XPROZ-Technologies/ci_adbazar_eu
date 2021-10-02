@@ -154,6 +154,7 @@ class Customer extends MY_Controller
             $flag = $this->Mcustomers->save($postData, $customerId);
             if ($flag > 0) {
                 $customer = $this->Mcustomers->get($flag);
+                $customer['is_logged_in'] = 1;
                 $this->session->set_userdata('customer', $customer);
                 $this->load->helper('cookie');
                 $this->input->set_cookie(array('name' => 'customerEmail', 'value' => $customer['customer_email'], 'expire' => '86400'));
