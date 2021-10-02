@@ -141,6 +141,7 @@ class Customer extends MY_Controller
             $customerId = 0;
             if (count($customer) > 0) $customerId = $customer['id'];
             $message = 'Successfully register account';
+            $customer['language_id'] = 1;
             if ($customerId == 0) {
                 $postData['created_by'] = 0;
                 $postData['created_at'] = getCurentDateTime();

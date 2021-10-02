@@ -36,10 +36,8 @@ window.fbAsyncInit = function() {
 function fbLogin() {
     FB.login(function (response) {
         if (response.authResponse) {
-            console.log("============================")
             getFbUserData();
         } else {
-            console.log("===2222222222222222====================")
             // document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
         }
     }, {scope: 'email'});
@@ -55,7 +53,7 @@ function fbLogin() {
 
 function getFbUserData(){
     var isLogin = parseInt($(".btn-outline-red").attr('is-login'));
-    if(isLogin < 1) {
+    if(isNaN(isLogin) == true) {
         FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
         function (response) {
             $.ajax({
