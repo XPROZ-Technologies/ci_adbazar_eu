@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    $( "#formLogin" ).submit(function( e ) {
-        e.preventDefault();
-        alert('a');
-    });
+    // $( "#formLogin" ).submit(function( e ) {
+    //     e.preventDefault();
+    //     alert('a');
+    // });
     $(".toast").hide();
 });
 
@@ -24,8 +24,10 @@ window.fbAsyncInit = function() {
 function fbLogin() {
     FB.login(function (response) {
         if (response.authResponse) {
+            console.log("============================")
             getFbUserData();
         } else {
+            console.log("===2222222222222222====================")
             // document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
         }
     }, {scope: 'email'});
@@ -40,6 +42,7 @@ function fbLogin() {
 }(document, 'script', 'facebook-jssdk'));
 
 function getFbUserData(){
+    // 
     FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
     function (response) {
         console.log(response)
@@ -60,10 +63,33 @@ function getFbUserData(){
                 if(json.code == 1){
                     $(".toast").show();
                     $(".text-secondary").html(json.message);
-                    redirect(false, $("input#homeUrl"));
-                    // document.getElementById('fbLink').setAttribute("onclick","fbLogout()");
-                    // document.getElementById('fbLink').innerHTML = 'Logout from Facebook';
-                    // redirect(false, $("a#btnCancel").attr('href'));
+                    redirect(false, $("#baseHomeUrl").attr("data-href"));
+                }
+                // else $('.submit').prop('disabled', false);
+            },
+            error: function (response) {
+                // showNotification($('input#errorCommonMessage').val(), 0);
+                // $('.submit').prop('disabled', false);
+            }
+        });
+        return false;
+    });
+}
+
+function fbLogout() {
+    FB.logout(function() {
+       
+        $.ajax({
+            type: "POST",
+            url: $("input#logoutFacebook").val(),
+            success: function (response) {
+                var json = $.parseJSON(response);
+                console.log(json)
+                // showNotification(json.message, json.code);
+                if(json.code == 1){
+                    document.getElementById('fbLink').setAttribute("onclick","fbLogin()");
+                    document.getElementById('fbLink').innerHTML = 'Login from Facebook';
+                    location.reload();
                 }
                 // else $('.submit').prop('disabled', false);
             },

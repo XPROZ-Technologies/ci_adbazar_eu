@@ -65,6 +65,7 @@
                                 <div class="col-12 d-flex justify-content-center mb-3 mt-lg-4">
                                     <button type="submit" class="btn btn-red px-3">Sign up</button>
                                 </div>
+                                </form>
                                 <div class="p-0">
                                     <p class="text-center mb-3 text-black">Already have an account?<a
                                             href="signin.html" class="ms-3 text-black fw-500">Log in</a></p>
@@ -79,7 +80,7 @@
                                         Sign in with Facebook</a>
                                     </div>
                                 </div>
-                            </form>
+                            
                         </div>
                     </div>
                 </div>
