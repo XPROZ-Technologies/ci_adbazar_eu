@@ -86,10 +86,12 @@ class Home extends MY_Controller {
         $service_ids = array();
         $data['listProfilesMap'] = $this->Mbusinessprofiles->search($getData);
         for($i = 0; $i < count($data['listProfilesMap']); $i++){
-            $service_ids[] = $data['listProfiles'][$i]['service_id'];
-            $data['listProfilesMap'][$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($data['listProfilesMap'][$i]['id'], $service_type_name);
-            $data['listProfilesMap'][$i]['isOpen'] = $this->checkBusinessOpenHours($data['listProfilesMap'][$i]['id']);
-            $data['listProfilesMap'][$i]['locationInfo'] = $this->Mbusinessprofiles->getBusinessInLocation($data['listProfilesMap'][$i]['id']);
+            if(isset($data['listProfilesMap'][$i])){
+                $service_ids[] = $data['listProfilesMap'][$i]['service_id'];
+                $data['listProfilesMap'][$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($data['listProfilesMap'][$i]['id'], $service_type_name);
+                $data['listProfilesMap'][$i]['isOpen'] = $this->checkBusinessOpenHours($data['listProfilesMap'][$i]['id']);
+                $data['listProfilesMap'][$i]['locationInfo'] = $this->Mbusinessprofiles->getBusinessInLocation($data['listProfilesMap'][$i]['id']);
+            }
         }
         $data['listServices'] = array();
         foreach($data['services'] as $itemService){
