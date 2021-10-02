@@ -14,11 +14,11 @@
           <div class="d-flex align-items-center inner-filter">
             <span class="me-2 page-text-lg">Filter by</span>
             <div class="notification-filter">
-              <div class="custom-select choose-business">
+              <div class="custom-select choose-service">
                 <select>
                   <option value="0" selected>All</option>
-                  <?php if ($businessProfiles) { foreach($businessProfiles as $itemBusiness){ ?>
-                    <option value="<?php echo $itemBusiness['id']; ?>" <?php  if(isset($business) && $itemBusiness['id'] == $business){ echo 'selected="selected"'; } ?> ><?php echo $itemBusiness['business_name']; ?></option>
+                  <?php if ($listServices) { foreach($listServices as $itemService){ ?>
+                    <option value="<?php echo $itemService['id']; ?>" <?php  if(isset($service) && $itemService['id'] == $service){ echo 'selected="selected"'; } ?> ><?php echo $itemService['service_name']; ?></option>
                   <?php } } ?>
                 </select>
               </div>
@@ -29,7 +29,7 @@
             <div class="custom-select mb-0 choose-order">
               <select>
                 <option value="desc">Newest</option>
-                <option value="asc" <?php if(isset($order_by) && $order_by == 'asc'){ echo 'selected="selected'; } ?>>Oldest</option>
+                <option value="asc" <?php if(isset($order_by) && $order_by == 'asc'){ echo 'selected="selected"'; } ?>>Oldest</option>
               </select>
             </div>
           </div>

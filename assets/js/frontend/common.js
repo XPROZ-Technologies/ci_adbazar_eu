@@ -16,9 +16,13 @@ $(document).ready(function () {
           var url = $("#currentBaseUrl").val();
           redirect(false, url + '?business=' + $(this).data('value') + '&order_by=' + $('.choose-order li.option.selected').data('value'));
     });
+    $("body").on("click", ".choose-service li.option", function(){
+        var url = $("#currentBaseUrl").val();
+        redirect(false, url + '?service=' + $(this).data('value') + '&order_by=' + $('.choose-order li.option.selected').data('value'));
+  });
     $("body").on("click", ".choose-order li.option", function(){
           var url = $("#currentBaseUrl").val();
-          redirect(false, url + '?order_by=' + $(this).data('value') + '&business=' + $('.choose-business li.option.selected').data('value'));
+          redirect(false, url + '?order_by=' + $(this).data('value') + '&service=' + $('.choose-service li.option.selected').data('value'));
     });
 
     

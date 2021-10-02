@@ -33,11 +33,7 @@ class Customer extends MY_Controller
                 $customer = $this->Mcustomers->login($customerEmail, $customerPass);
 
                 if ($customer) {
-                    if (empty($customer['customer_avatar'])) {
-                        $customer['customer_avatar'] = USER_PATH . NO_IMAGE;
-                    } else {
-                        $customer['customer_avatar'] = USER_PATH . $customer['customer_avatar'];
-                    }
+                   
                     $this->session->set_userdata('customer', $customer);
 
                     if (empty($customer['language_id'])) {
@@ -144,11 +140,7 @@ class Customer extends MY_Controller
             if (count($customer) > 0) $customerId = $customer['id'];
             $message = 'Successfully register account';
             $customer['language_id'] = 1;
-            if (empty($customer['customer_avatar'])) {
-                $customer['customer_avatar'] = USER_PATH . NO_IMAGE;
-            } else {
-                $customer['customer_avatar'] = USER_PATH . $customer['customer_avatar'];
-            }
+            
             if ($customerId == 0) {
                 $postData['created_by'] = 0;
                 $postData['created_at'] = getCurentDateTime();

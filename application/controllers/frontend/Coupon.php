@@ -31,28 +31,45 @@ class Coupon extends MY_Controller {
         $data['keyword'] =  $search_text;
         $order_by = $this->input->get('order_by');
         $data['order_by'] =  $order_by;
-        $businessId = $this->input->get('business');
-        $data['business'] =  $businessId;
+        $serviceId = $this->input->get('service');
+        $data['service'] =  $serviceId;
         $savedCoupons = $this->Mcustomercoupons->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_coupon_status_id >' => 0), 'coupon_id');
 
+        $serviceIds = $this->Mbusinessprofiles->getListFieldValue(array('business_status_id >' => 0), 'service_id', 0);
+        if(!empty($serviceIds)) $serviceIds = array_unique($serviceIds);
+        
+        if(!empty($serviceId)){
+            $businessProfileIds = $this->Mbusinessprofiles->getListFieldValue(array('service_id' => $serviceId), 'id', 0);
+        }else{
+            $businesses = $this->Mbusinessprofiles->search(array('service_ids' => $serviceIds));
+            $businessProfileIds = array();
+            foreach($businesses as $itemBusiness){
+                $businessProfileIds[] = $itemBusiness['id'];
+            }
+        }
+        
+        
         $getData = array(
             'coupon_status_id' => STATUS_ACTIVED, 
             'search_text_fe' => $search_text, 
             'saved_coupons' => $savedCoupons,
-            'business_profile_id' => $businessId,
+            'business_profile_ids' => $businessProfileIds,
             'order_by' => $order_by
         );
 
-        $businessProfileIds = $this->Mcoupons->getListBusinessId();
-        
         $data['businessProfiles'] = array();
         $data['serviceTypes'] = array();
-        if(!empty($businessProfileIds) && count($businessProfileIds) > 0){
+        $data['listServices'] = array();
+        if(!empty($serviceIds) && count($serviceIds) > 0){
             $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
-            $data['serviceTypes'] = $this->Mservicetypes->getListByListBusinessId(array('business_profile_ids' => $businessProfileIds), $service_type_name);
-            
-            $data['businessProfiles'] = $this->Mbusinessprofiles->search(array('business_profile_ids' => $businessProfileIds));
+            $data['serviceTypes'] = $this->Mservicetypes->getListByServices(array('service_ids' => $serviceIds), $service_type_name);
+            $data['listServices'] = $this->Mservices->getByIds(array('service_ids' => $serviceIds), $data['language_id']);
+        }else if(!empty($serviceId)){
+            $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+            $data['serviceTypes'] = $this->Mservicetypes->getListByServices(array('service_id' => $serviceId), $service_type_name);
+            $data['listServices'] = $this->Mservices->getByIds(array('service_id' => $serviceId), $data['language_id']);
         }
+        
         
         $rowCount = $this->Mcoupons->getCount($getData);
         $data['lists'] = array();

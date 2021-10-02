@@ -27,6 +27,7 @@ class Mservices extends MY_Model {
         $query = '';
         if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `service_name_vi` LIKE '%{$postData['search_text']}%' || `service_name_en` LIKE '%{$postData['search_text']}%' || `service_name_cz` LIKE '%{$postData['search_text']}%' || `service_name_de` LIKE '%{$postData['search_text']}%')";
         if(isset($postData['service_status_id']) && $postData['service_status_id'] > 0) $query .= " AND service_status_id = ".$postData['service_status_id'];
+        if(isset($postData['service_id']) && $postData['service_id'] > 0) $query .= " AND id = ".$postData['service_id'];
         if(isset($postData['service_ids']) && count($postData['service_ids']) > 0) $query .= " AND id IN (".implode(',', $postData['service_ids']).")";
         if(isset($postData['is_hot']) && $postData['is_hot'] > 0) $query .= " AND is_hot = ".$postData['is_hot'];
         return $query;
@@ -69,10 +70,23 @@ class Mservices extends MY_Model {
         $service_name = "service_name_".$this->Mconstants->languageCodes[$language];
         $query = "SELECT id, service_image, service_name_en as service_slug, {$service_name} as service_name FROM services";
         if($isAll){
+            $query .= " WHERE is_hot = ".STATUS_ACTIVED." AND service_status_id > 0";
+        }else{
+            $query .= " WHERE is_hot = ".STATUS_ACTIVED." AND service_status_id = ".STATUS_ACTIVED;
+        }
+        return $this->getByQuery($query);
+    }
+
+    public function getByIds($postData = array(), $language = 0, $isAll = false) {
+        if($language == 0) $language = $this->Mconstants->languageDefault;
+        $service_name = "service_name_".$this->Mconstants->languageCodes[$language];
+        $query = "SELECT id, service_image, service_name_en as service_slug, {$service_name} as service_name FROM services";
+        if($isAll){
             $query .= " WHERE service_status_id > 0";
         }else{
             $query .= " WHERE service_status_id = ".STATUS_ACTIVED;
         }
+        $query .= $this->buildQuery($postData);
         return $this->getByQuery($query);
     }
 

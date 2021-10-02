@@ -45,10 +45,23 @@ class Mservicetypes extends MY_Model {
         return $this->getByQuery($query);
     }
 
+    public function getListByServices($postData = array(), $service_type_name = "service_type_name_de") {
+        $query = "SELECT
+                        DISTINCT
+                        {$service_type_name} as service_type_name,
+                        service_types.id
+                    FROM
+                        service_types
+                    WHERE service_id > 0 ". $this->buildQuery($postData);
+        return $this->getByQuery($query);
+    }
+
     private function buildQuery($postData){
         $query = '';
         
         if(isset($postData['business_profile_ids']) && count($postData['business_profile_ids']) > 0) $query .= " AND business_service_types.business_profile_id IN (".implode(',', $postData['business_profile_ids']).")";
+        if(isset($postData['service_ids']) && count($postData['service_ids']) > 0) $query .= " AND service_id IN (".implode(',', $postData['service_ids']).")";
+        if(isset($postData['service_id']) && $postData['service_id'] > 0) $query .= " AND service_id = ".$postData['service_id'];
         
         return $query;
     }

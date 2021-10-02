@@ -238,7 +238,7 @@
               <!-- Logged In Info -->
               <div class="user-info-img">
                 <?php $avatar = empty($customer['customer_avatar']) ? NO_IMAGE : $customer['customer_avatar']; ?>
-                <img src="<?php echo USER_PATH . $avatar; ?>" alt="avatar" class="img-fluid avatar-img">
+                <img src="<?php echo CUSTOMER_PATH . $avatar; ?>" alt="avatar" class="img-fluid avatar-img">
                 <div class="user-info-text">
                   <a href="javascript:void(0)"><?php echo $customer['customer_first_name']; ?></a>
                   <a href=""><img src="assets/img/frontend/bot-avata.png" alt="avatar" class="img-fluid"></a>
@@ -246,7 +246,7 @@
                 <div class="user-info-box">
                   <div class="user-info-item">
                     <div class="user-info-box-top">
-                      <img src="<?php echo $customer['customer_avatar']; ?>" alt="avatar" class="img-fluid">
+                      <img src="<?php echo CUSTOMER_PATH . $avatar; ?>" alt="avatar" class="img-fluid">
                       <div class="user-info-box-name">
                         <p><?php echo $customer['customer_first_name']; ?></p>
                         <a href="<?php echo base_url('customer/general-information') ?>">See my profile</a>
