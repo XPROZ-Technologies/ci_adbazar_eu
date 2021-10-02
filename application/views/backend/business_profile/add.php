@@ -55,7 +55,7 @@
                                         <label class="control-label">Custom URL</label>
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                                <button type="button" class="btn btn-default"><?php echo base_url('pages/'); ?></button>
+                                                <button type="button" class="btn btn-default"><?php echo base_url(BUSINESS_PROFILE_URL); ?></button>
                                             </div>
                                             <input type="text" name="business_url" class="form-control" id="business_url" value="">
                                         </div>

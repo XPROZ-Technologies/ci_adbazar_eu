@@ -23,9 +23,9 @@ class Businessprofile extends MY_Controller
         }
         $businessURL = trim($slug);
         $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations'));
-        
+
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
-        if($businessProfileId == 0) {
+        if ($businessProfileId == 0) {
             $this->session->set_flashdata('notice_message', "Business profile not exist");
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
@@ -43,19 +43,19 @@ class Businessprofile extends MY_Controller
         $data['activeBusinessMenu'] = "about-us";
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
-        
-        $data['businessInfo'] = $businessInfo; 
+
+        $data['businessInfo'] = $businessInfo;
         $data['phoneCodeInfo'] = array();
-        if($businessInfo['business_phone_code'] > 0){
+        if ($businessInfo['business_phone_code'] > 0) {
             $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['business_phone_code']);
         }
 
         $businessLocationId = $this->Mbusinessprofilelocations->getFieldValue(array('business_profile_id' => $businessInfo['id'], 'business_profile_location_status_id' => STATUS_ACTIVED), 'location_id', 0);
         $data['locationInfo'] = array();
-        if($businessLocationId > 0){
+        if ($businessLocationId > 0) {
             $data['locationInfo'] = $this->Mlocations->get($businessLocationId);
         }
-        $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
         $data['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($businessProfileId, $service_type_name);
 
         $this->load->view('frontend/business/bp-about-us', $data);
@@ -69,10 +69,10 @@ class Businessprofile extends MY_Controller
             redirect(base_url(HOME_URL));
         }
         $businessURL = trim($slug);
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mbusinessphotos', 'Mbusinessvideos'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
-        if($businessProfileId == 0) {
+        if ($businessProfileId == 0) {
             $this->session->set_flashdata('notice_message', "Business profile not exist");
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
@@ -81,7 +81,13 @@ class Businessprofile extends MY_Controller
         /**
          * Commons data
          */
-        $data = $this->commonDataCustomer($businessInfo['business_name']);
+        $data = $this->commonDataCustomer(
+            $businessInfo['business_name'],
+            array(
+                'scriptHeader' => array('css' => 'vendor/plugins/slick/slick.css'),
+                'scriptFooter' => array('js' => 'vendor/plugins/slick/slick.min.js')
+            )
+        );
         $data['activeMenu'] = "";
         /**
          * Commons data
@@ -89,8 +95,10 @@ class Businessprofile extends MY_Controller
 
         $data['activeBusinessMenu'] = "gallery";
 
-        $data['businessInfo'] = $businessInfo; 
+        $data['businessInfo'] = $businessInfo;
 
+        $data['businessPhotos'] = $this->Mbusinessphotos->getBy(array('business_profile_id' => $businessProfileId));
+        $data['businessVideos'] = $this->Mbusinessvideos->getBy(array('business_profile_id' => $businessProfileId));
 
         $this->load->view('frontend/business/bp-gallery', $data);
     }
@@ -104,9 +112,9 @@ class Businessprofile extends MY_Controller
         }
         $businessURL = trim($slug);
         $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons'));
-        
+
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
-        if($businessProfileId == 0) {
+        if ($businessProfileId == 0) {
             $this->session->set_flashdata('notice_message', "Business profile not exist");
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
@@ -123,7 +131,7 @@ class Businessprofile extends MY_Controller
 
         $data['activeBusinessMenu'] = "coupons";
 
-        $data['businessInfo'] = $businessInfo; 
+        $data['businessInfo'] = $businessInfo;
 
 
         $this->load->view('frontend/business/bp-coupon', $data);
@@ -139,7 +147,7 @@ class Businessprofile extends MY_Controller
         $businessURL = trim($slug);
         $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons'));
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
-        if($businessProfileId == 0) {
+        if ($businessProfileId == 0) {
             $this->session->set_flashdata('notice_message', "Business profile not exist");
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));

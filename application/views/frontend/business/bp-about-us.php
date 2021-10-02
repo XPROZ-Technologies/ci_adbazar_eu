@@ -118,7 +118,7 @@
           <div class="modal-content">
             <div class="modal-body p-0" style="padding:0px !important;">
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              <div class="height700" id="map_business"></div>
+              <div class="height500" id="map_business"></div>
             </div>
           </div>
         </div>
@@ -134,7 +134,7 @@
     let map;
 
     function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
+      map = new google.maps.Map(document.getElementById("map_business"), {
         center: new google.maps.LatLng(50.047648687939635, 12.355822100555436),
         zoom: 16,
       });
