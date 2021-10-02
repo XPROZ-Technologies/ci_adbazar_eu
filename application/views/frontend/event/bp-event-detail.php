@@ -4,7 +4,11 @@
         <div class="um-event-detail">
             <div class="container">
                 <div class="bp-event-back mb-3 mb-md-4">
-                    <a href="bp-event.html" class="text-dark text-decoration-underline">
+                    <a href="<?php if (isset($_SERVER['HTTP_REFERER'])) {
+                                    echo $_SERVER['HTTP_REFERER'];
+                                } else {
+                                    echo base_url('events.html');
+                                } ?>" class="text-dark text-decoration-underline">
                         <img src="assets/img/frontend/icon-goback.png" alt="icon-goback" class="img-fluid me-1">Back
                     </a>
                 </div>
@@ -12,14 +16,14 @@
                     <div class="col-lg-4 mb-3 mb-lg-0">
                         <div class="um-event-detail-left">
                             <div class="detail-img">
-                                <img src="assets/img/frontend/bp-event-detail.jpg" alt="even detail image" class="img-fluid w-100">
+                                <img src="<?php echo $detailInfo['event_image']; ?>" alt="even detail image" class="img-fluid w-100">
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-8">
                         <div class="um-event-detail-right">
                             <h3 class="page-title-md fw-bold"><?php echo $detailInfo['event_subject']; ?></h3>
-                            <p class="mb-0 page-text-lg">By <a href="<?php echo base_url(BUSINESS_PROFILE_URL.$businessInfo['business_url']); ?>" class="fw-bold"><?php echo $businessInfo['business_name']; ?></a></p>
+                            <p class="mb-0 page-text-lg">By <a href="<?php echo base_url(BUSINESS_PROFILE_URL . $businessInfo['business_url']); ?>" class="fw-bold"><?php echo $businessInfo['business_name']; ?></a></p>
                             <hr>
                             <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between info">
                                 <ul class="list-unstyled mb-0 page-text-md">
@@ -43,7 +47,7 @@
                                     <img src="<?php echo BUSINESS_PROFILE_PATH . $businessInfo['business_avatar'] ?>" alt="<?php echo $businessInfo['business_name']; ?>" class="img-fluid">
                                 </div>
                                 <div class="horizontal-body">
-                                    <h6 class="mb-0 card-title page-text-lg"><a href="<?php echo base_url(BUSINESS_PROFILE_URL.$businessInfo['business_url']); ?>"><?php echo $businessInfo['business_name']; ?></a></h6>
+                                    <h6 class="mb-0 card-title page-text-lg"><a href="<?php echo base_url(BUSINESS_PROFILE_URL . $businessInfo['business_url']); ?>"><?php echo $businessInfo['business_name']; ?></a></h6>
                                     <p class="my-3 card-text page-text-sm"><?php echo $businessInfo['business_phone']; ?></p>
                                     <p class="mb-0 card-text page-text-sm"><?php echo $businessInfo['business_address']; ?></p>
                                 </div>
