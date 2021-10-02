@@ -56,7 +56,7 @@
 </body>
 
 </html>
-
+<?php $this->load->view('frontend/includes/popup_noti'); ?>
 <!-- Modal saved coupon -->
 <div class="modal fade" id="savedCouponModal" tabindex="-1" aria-labelledby="savedCouponModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -91,3 +91,5 @@
     </div>
 </div>
 <!-- End Modal Register Success -->
+
+    

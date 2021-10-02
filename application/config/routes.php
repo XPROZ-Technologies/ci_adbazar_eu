@@ -146,6 +146,8 @@ $route['customer-get-coupon'] = 'frontend/customer/customerGetCoupon';
 $route['customer-remove-coupon'] = 'frontend/customer/customerRemoveCoupon';
 $route['customer-join-event'] = 'frontend/customer/customerJoinEvent';
 $route['customer-left-event'] = 'frontend/customer/customerLeftEvent';
+$route['customer-change-password'] = 'frontend/customer/customerChangePassword';
+$route['customer-update-information'] = 'frontend/customer/customerUpdateInformation';
 
 //user management
 $route['customer/my-coupons'] = 'frontend/customer/my_coupons';

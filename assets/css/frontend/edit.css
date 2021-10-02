@@ -1297,6 +1297,7 @@ border-radius: 2px;
 .page-user-manager  .container,
 .page-business-profile .container{
     max-width: 955px;
+    min-height: 350px;
 }
 .bm-content.v1  .container{
     max-width: 976px;

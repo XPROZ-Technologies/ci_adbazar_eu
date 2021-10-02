@@ -26,23 +26,23 @@
                 </div>
 
                 <div class="general-form">
-                  <form class="row">
+                  <form class="row" action="<?php echo base_url('customer-update-information'); ?>" method="POST" id="formUpdateInformation">
                     <div class="col-md-6">
                       <div class="form-group mb-3">
                         <label for="profileFirstName" class="form-label">First Name<span class="required">*</span></label>
-                        <input type="text" class="form-control" id="profileFirstName">
+                        <input type="text" class="form-control" id="profileFirstName" name="customer_first_name" value="<?php echo $customerInfo['customer_first_name']; ?>">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group mb-3">
                         <label for="profileLastName" class="form-label">Last Name<span class="required">*</span></label>
-                        <input type="text" class="form-control" id="profileLasttName">
+                        <input type="text" class="form-control" id="profileLasttName" name="customer_last_name" value="<?php echo $customerInfo['customer_last_name']; ?>">
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group mb-3">
                         <label for="profileEmail" class="form-label">Email<span class="required">*</span></label>
-                        <input type="email" class="form-control" id="profileEmail" placeholder="acbcd122334@gmail.com">
+                        <input type="email" class="form-control" id="profileEmail" placeholder="" name="customer_email" value="<?php echo $customerInfo['customer_email']; ?>">
                       </div>
                     </div>
 
@@ -52,7 +52,7 @@
                           <label for="datetimepicker1" class="form-label">Date of birth</label>
                           <div class="datepicker-wraper position-relative">
                             <img src="assets/img/frontend/icon-calendar.png" alt="calendar icon" class="img-fluid icon-calendar" />
-                            <input type="text" class="js-datepicker form-control form-control-lg datetimepicker-input" id="datetimepicker1" data-toggle="datetimepicker" data-target="#datetimepicker1" />
+                            <input type="text" class="js-datepicker form-control form-control-lg datetimepicker-input" id="datetimepicker1" data-toggle="datetimepicker" data-target="#datetimepicker1" name="customer_birthday" value="<?php echo $customerInfo['customer_birthday']; ?>" />
                           </div>
                         </div>
                       </div>
@@ -113,29 +113,15 @@
                             <span class="country-code">+49</span>
                           </a>
                           <ul class="dropdown-menu js-list-country" aria-labelledby="countryDropdown">
-                            <li class="selected"><a class="dropdown-item" href="#"><img src="assets/img/frontend/ger.png" alt="germany flag" class="img-fluid me-2">
-                                <span class="country-text">Germany</span>
-                                <span class="country-code">+49</span>
-                              </a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">
-                                <img src="assets/img/frontend/en.png" alt="english flag" class="img-fluid me-2">
-                                <span class="country-text">English</span>
-                                <span class="country-code">+11</span>
-                              </a>
-                            </li>
-                            <li><a class="dropdown-item" href="#"><img src="assets/img/frontend/vn.png" alt="vietnam flag" class="img-fluid me-2">
-                                <span class="country-text">Vietnam</span>
-                                <span class="country-code">+84</span>
-                              </a></li>
-
-                            <li><a class="dropdown-item" href="#">
-                                <img src="assets/img/frontend/cre.png" alt="czech flag" class="img-fluid me-2">
-                                <span class="country-text">Czech</span>
-                                <span class="country-code">+69</span>
-                              </a>
-                            </li>
+                            <?php if (!empty($phoneCodes)) { ?>
+                              <?php foreach($phoneCodes as $itemPhoneCode) { ?>
+                                <li class="<?php if($itemPhoneCode['id'] == $customerInfo['customer_phone_code']){ echo "selected"; } ?>"><a class="dropdown-item" href="#"><img src="assets/img/iso_flags/<?php echo $itemPhoneCode['image']; ?>" alt="<?php echo $itemPhoneCode['country_name']; ?>" class="img-fluid me-2">
+                                    <span class="country-text"><?php echo $itemPhoneCode['country_name']; ?></span>
+                                    <span class="country-code">+<?php echo $itemPhoneCode['phonecode']; ?></span>
+                                  </a>
+                                </li>
+                              <?php } ?>
+                            <?php } ?>
                           </ul>
                         </div>
                       </div>
@@ -176,7 +162,7 @@
     <!-- Toast -->
     <div class="toast-container position-fixed">
       <!-- Remove class show below to hidden toast -->
-      <div class="toast um-toast show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast um-toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header border-bottom-0">
           <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
