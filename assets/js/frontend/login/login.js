@@ -17,6 +17,10 @@ $(document).ready(function () {
 
         }
     });
+
+    $("body").on('click', '.login-gg', function() {
+        $(".g-signin2").trigger('click');
+    })
 });
 
 window.fbAsyncInit = function() {
