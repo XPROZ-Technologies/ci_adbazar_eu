@@ -60,7 +60,7 @@ function getFbUserData(){
                 if(json.code == 1){
                     $(".toast").show();
                     $(".text-secondary").html(json.message);
-                    redirect(false, $("input#homeUrl"));
+                    redirect(false, $("#baseHomeUrl").attr("data-href"));
                     // document.getElementById('fbLink').setAttribute("onclick","fbLogout()");
                     // document.getElementById('fbLink').innerHTML = 'Logout from Facebook';
                     // redirect(false, $("a#btnCancel").attr('href'));
