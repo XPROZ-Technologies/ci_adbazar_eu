@@ -146,8 +146,11 @@ function showNotification(msg, type) {
 
 
 function redirect(reload, url) {
-    if (reload) window.location.reload(true);
-    else window.location.href = url;
+    setTimeout(function(){
+        if (reload) window.location.reload(true);
+        else window.location.href = url;
+    }, 300);
+    
 }
 
 function scrollTo(eleId) {
@@ -411,4 +414,17 @@ function getIdYoutube(url = '') {
         var match = url.match(regExp);
         return (match && match[1].length==11)? match[1] : false;
     } else return false; 
+}
+
+function showNotification(msg, type) {
+    var typeText = 'error';
+    if (type == 1 || type == 200) typeText = 'success';
+    var notice = new PNotify({
+        title: 'Notification',
+        text: msg,
+        type: typeText,
+        delay: 2000,
+        addclass: 'stack-bottomright',
+        stack: {"dir1": "up", "dir2": "left", "firstpos1": 15, "firstpos2": 15}
+    });
 }

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="assets/css/frontend/main.css?version=<?php echo time(); ?>">
     <link rel="stylesheet" href="assets/css/frontend/edit.css?version=<?php echo time(); ?>">
     <link rel="stylesheet" href="assets/css/frontend/custom.css?version=<?php echo time(); ?>">    
+    <link rel="stylesheet" href="assets/vendor/plugins/pnotify/pnotify.custom.min.css"/>
 </head>
 
 <body>
