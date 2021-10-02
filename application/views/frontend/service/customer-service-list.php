@@ -44,7 +44,7 @@
                       <!-- Business profile -->
                       <div class="card rounded-0 customer-item-list">
                         <div class="d-flex flex-column flex-md-row">
-                          <a href="<?php echo base_url($listProfiles[$i]['business_url']); ?>" class="list-img"><img src="<?php echo BUSINESS_PROFILE_PATH . $listProfiles[$i]['business_avatar']; ?>" class="img-fluid" alt="<?php echo $listProfiles[$i]['business_name']; ?>"></a>
+                          <a href="<?php echo base_url(BUSINESS_PROFILE_URL.$listProfiles[$i]['business_url']); ?>" class="list-img"><img src="<?php echo BUSINESS_PROFILE_PATH . $listProfiles[$i]['business_avatar']; ?>" class="img-fluid" alt="<?php echo $listProfiles[$i]['business_name']; ?>"></a>
 
                           <div class="card-body p-0">
                             <h5 class="card-title page-text-lg"><a href="<?php echo base_url($listProfiles[$i]['business_url']); ?>"><?php echo $listProfiles[$i]['business_name']; ?></a></h5>
@@ -84,7 +84,7 @@
                               <?php } else { ?>
                                 <span class="color-close page-text-xs">Closed</span>
                               <?php } ?>
-                              <a href="<?php echo base_url($listProfiles[$i]['business_url']); ?>" class="btn btn-outline-red">View more</a>
+                              <a href="<?php echo base_url(BUSINESS_PROFILE_URL.$listProfiles[$i]['business_url']); ?>" class="btn btn-outline-red">View more</a>
                             </div>
                           </div>
                         </div>

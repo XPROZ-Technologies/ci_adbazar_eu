@@ -339,10 +339,10 @@ class Customer extends MY_Controller
 
             if ($customerId > 0) {
                 $newPass = "";
-                if($postData['new_password'] == $postData['repeat_password']){
+                if ($postData['new_password'] == $postData['repeat_password']) {
                     $newPass = md5($postData['repeat_password']);
                 }
-                if(!empty($newPass)){
+                if (!empty($newPass)) {
                     $customerInfo = $this->Mcustomers->updateBy(
                         array(
                             'id' => $customerId
@@ -351,30 +351,26 @@ class Customer extends MY_Controller
                             'customer_password' => $newPass
                         )
                     );
-                    if($customerInfo){
+                    if ($customerInfo) {
                         $this->session->set_flashdata('notice_message', "Change password successfully");
                         $this->session->set_flashdata('notice_type', 'success');
                         redirect(base_url('customer/change-password'));
-                    }else{
+                    } else {
                         $this->session->set_flashdata('notice_message', "Change password failed");
                         $this->session->set_flashdata('notice_type', 'error');
                         redirect(base_url('customer/change-password?1'));
                     }
-                }else{
+                } else {
                     $this->session->set_flashdata('notice_message', "Change password failed");
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('customer/change-password?2'));
                 }
-                
-                
             } else {
                 $this->session->set_flashdata('notice_message', "You do not have permission on this page");
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url(HOME_URL));
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
-            die;
             $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('customer/change-password?3'));
@@ -383,58 +379,66 @@ class Customer extends MY_Controller
 
     public function customerUpdateInformation()
     {
+        //echo "<pre>";print_r($_POST);die;
         try {
-            $postData = $this->arrayFromPost(array('current_password', 'new_password', 'repeat_password', 'customer_id'));
-            if (empty($postData['customer_id']) || empty($postData['current_password']) || empty($postData['new_password'])  || empty($postData['repeat_password'])) {
+            $postData = $this->arrayFromPost(array(
+                'customer_first_name',
+                'customer_last_name',
+                'customer_email',
+                'customer_birthday',
+                'customer_gender_id',
+                'customer_phone_code',
+                'customer_phone',
+                'customer_address',
+                'customer_occupation',
+                'language_id',
+                'customer_id'
+            ));
+            if (empty($postData['customer_first_name']) || empty($postData['customer_last_name']) || empty($postData['customer_email'])  || empty($postData['customer_address'])) {
                 $this->session->set_flashdata('notice_message', "Please enter information");
                 $this->session->set_flashdata('notice_type', 'error');
-                redirect(base_url('customer/change-password?0'));
+                redirect(base_url('customer/general-information?0'));
             }
             $this->loadModel(array('Mcustomers'));
-            $currentPass = md5($postData['current_password']);
-            $customerId = $this->Mcustomers->getFieldValue(array('id' => $postData['customer_id'], 'customer_password' => $currentPass, 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
+            $customerId = $this->Mcustomers->getFieldValue(array('id' => $postData['customer_id'], 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
 
             if ($customerId > 0) {
-                $newPass = "";
-                if($postData['new_password'] == $postData['repeat_password']){
-                    $newPass = md5($postData['repeat_password']);
-                }
-                if(!empty($newPass)){
-                    $customerInfo = $this->Mcustomers->updateBy(
-                        array(
-                            'id' => $customerId
-                        ),
-                        array(
-                            'customer_password' => $newPass
-                        )
-                    );
-                    if($customerInfo){
-                        $this->session->set_flashdata('notice_message', "Change password successfully");
-                        $this->session->set_flashdata('notice_type', 'success');
-                        redirect(base_url('customer/change-password'));
-                    }else{
-                        $this->session->set_flashdata('notice_message', "Change password failed");
-                        $this->session->set_flashdata('notice_type', 'error');
-                        redirect(base_url('customer/change-password?1'));
-                    }
-                }else{
-                    $this->session->set_flashdata('notice_message', "Change password failed");
+                $customerInfo = $this->Mcustomers->updateBy(
+                    array(
+                        'id' => $customerId
+                    ),
+                    array(
+                        'customer_first_name' => $postData['customer_first_name'],
+                        'customer_last_name' => $postData['customer_last_name'],
+                        'customer_email' => $postData['customer_email'],
+                        'customer_birthday' => $postData['customer_birthday'],
+                        'customer_gender_id' => $postData['customer_gender_id'],
+                        'customer_phone_code' => $postData['customer_phone_code'],
+                        'customer_phone' => $postData['customer_phone'],
+                        'customer_address' => $postData['customer_address'],
+                        'customer_occupation' => $postData['customer_occupation'],
+                        'language_id' => $postData['language_id']
+                    )
+                );
+                if ($customerInfo) {
+                    $this->session->set_flashdata('notice_message', "Updated successfully");
+                    $this->session->set_flashdata('notice_type', 'success');
+                    redirect(base_url('customer/general-information'));
+                } else {
+                    $this->session->set_flashdata('notice_message', "Updated failed");
                     $this->session->set_flashdata('notice_type', 'error');
-                    redirect(base_url('customer/change-password?2'));
+                    redirect(base_url('customer/general-information?1'));
                 }
-                
-                
             } else {
                 $this->session->set_flashdata('notice_message', "You do not have permission on this page");
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url(HOME_URL));
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
-            die;
+            //echo json_encode(array('code' => -2, 'message' => $e->getMessage()));die;
             $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url('customer/change-password?3'));
+            redirect(base_url('customer/general-information?3'));
         }
     }
 
@@ -451,7 +455,7 @@ class Customer extends MY_Controller
         /**
          * Commons data
          */
-        if($data['customer']['id'] == 0){
+        if ($data['customer']['id'] == 0) {
             $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
@@ -528,7 +532,7 @@ class Customer extends MY_Controller
         $data['activeMenu'] = "";
         $data['activeCustomerNav'] = "general-information";
 
-        if($data['customer']['id'] == 0){
+        if ($data['customer']['id'] == 0) {
             $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
@@ -537,7 +541,12 @@ class Customer extends MY_Controller
         $data['customerInfo'] = $this->Mcustomers->get($data['customer']['id']);
 
         $data['phoneCodes'] = $this->Mphonecodes->get();
- 
+
+        $data['currenPhoneCode'] = array();
+        if($data['customerInfo']['customer_phone_code'] > 0){
+            $data['currenPhoneCode'] = $this->Mphonecodes->get($data['customerInfo']['customer_phone_code']);
+        }
+
         $this->load->view('frontend/customer/um-general', $data);
     }
 
@@ -552,7 +561,7 @@ class Customer extends MY_Controller
         $data['activeMenu'] = "";
         $data['activeCustomerNav'] = "change-password";
 
-        if($data['customer']['id'] == 0){
+        if ($data['customer']['id'] == 0) {
             $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
@@ -575,7 +584,7 @@ class Customer extends MY_Controller
          * Commons data
          */
 
-        if($data['customer']['id'] == 0){
+        if ($data['customer']['id'] == 0) {
             $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
@@ -590,7 +599,7 @@ class Customer extends MY_Controller
         $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
         $data['joinedEvents'] = $joinedEvents;
         $getData = array(
-            'event_status_id' => STATUS_ACTIVED, 
+            'event_status_id' => STATUS_ACTIVED,
             'search_text_fe' => $search_text,
             'event_ids' => $joinedEvents
         );

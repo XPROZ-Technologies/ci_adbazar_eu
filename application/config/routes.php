@@ -176,6 +176,12 @@ $route['event/(:any)-(:num)\.html'] = 'frontend/event/detail/$1/$2';
 $route['coupons.html'] = 'frontend/coupon/index';
 $route['coupon/(:any)-(:num)\.html'] = 'frontend/coupon/detail/$1/$2';
 
+//business prifile
+$route['(:any)'] = 'frontend/businessprofile/index/$1';
+$route['business/(:any)/gallery'] = 'frontend/businessprofile/gallery/$1';
+$route['business/(:any)/coupons'] = 'frontend/businessprofile/coupons/$1';
+$route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
+
 
 $route['fb-login'] = 'frontend/customer/loginFb';
 $route['fb-logout'] = 'frontend/customer/logout';

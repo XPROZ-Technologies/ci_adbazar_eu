@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:8889
--- Thời gian đã tạo: Th10 02, 2021 lúc 02:28 AM
+-- Thời gian đã tạo: Th10 02, 2021 lúc 06:21 AM
 -- Phiên bản máy phục vụ: 5.7.32
 -- Phiên bản PHP: 7.4.16
 
@@ -113,10 +113,10 @@ INSERT INTO `business_photos` (`id`, `business_profile_id`, `photo_image`, `crea
 (111, 3, '2021-09-22/614b395d2299a.png', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
 (110, 3, '2021-09-22/614b395a16a90.png', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
 (109, 3, '2021-09-22/614b395740727.png', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(124, 5, '2021-09-23/614bdf3c73fb1.png', '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
-(123, 5, '2021-09-23/614bdf39cb609.png', '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
-(122, 5, '2021-09-23/614bdf377ccf0.png', '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
-(121, 5, '2021-09-23/614bdf3556bec.png', '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
+(134, 5, '2021-09-23/614bdf3556bec.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
+(133, 5, '2021-09-23/614bdf377ccf0.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
+(132, 5, '2021-09-23/614bdf39cb609.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
+(131, 5, '2021-09-23/614bdf3c73fb1.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
 (125, 6, '2021-10-01/6156c5a774bfb.png', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
 (126, 6, '2021-10-01/6156c5aa898c9.png', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
 (127, 6, '2021-10-01/6156c5ad3a451.png', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
@@ -142,6 +142,7 @@ CREATE TABLE `business_profiles` (
   `business_url` text NOT NULL,
   `country_code_id` int(10) NOT NULL,
   `business_phone` varchar(100) NOT NULL,
+  `business_phone_code` int(10) NOT NULL DEFAULT '0',
   `business_description` text NOT NULL,
   `business_avatar` text NOT NULL,
   `business_image_cover` text NOT NULL,
@@ -161,11 +162,11 @@ CREATE TABLE `business_profiles` (
 -- Đang đổ dữ liệu cho bảng `business_profiles`
 --
 
-INSERT INTO `business_profiles` (`id`, `customer_id`, `service_id`, `business_name`, `business_slogan`, `business_email`, `business_address`, `business_whatsapp`, `business_url`, `country_code_id`, `business_phone`, `business_description`, `business_avatar`, `business_image_cover`, `is_annual_payment`, `expired_date`, `is_hot`, `payment_status_id`, `business_status_id`, `updated_by`, `updated_at`, `created_by`, `created_at`, `deleted_at`) VALUES
-(3, 11, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', '', '2021-09-23/614bdeb8d94cc.png', '2021-09-23/614bdebf60144.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:04', 1, '2021-09-22 17:25:13', NULL),
-(4, 12, 1, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', '', '2021-09-23/614bdf177b533.png', '2021-09-23/614bdf1a5d21a.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:04', 1, '2021-09-23 08:58:38', NULL),
-(5, 12, 1, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:06', 1, '2021-09-23 08:58:46', NULL),
-(6, 11, 1, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 57, '89729822123', 'Hair Salon Spa desc', '2021-10-01/6156c56d4262c.png', '2021-10-01/6156c573ae7fe.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:06', 1, '2021-10-01 15:24:43', NULL);
+INSERT INTO `business_profiles` (`id`, `customer_id`, `service_id`, `business_name`, `business_slogan`, `business_email`, `business_address`, `business_whatsapp`, `business_url`, `country_code_id`, `business_phone`, `business_phone_code`, `business_description`, `business_avatar`, `business_image_cover`, `is_annual_payment`, `expired_date`, `is_hot`, `payment_status_id`, `business_status_id`, `updated_by`, `updated_at`, `created_by`, `created_at`, `deleted_at`) VALUES
+(3, 11, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', 0, '', '2021-09-23/614bdeb8d94cc.png', '2021-09-23/614bdebf60144.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:04', 1, '2021-09-22 17:25:13', NULL),
+(4, 12, 1, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', 0, '', '2021-09-23/614bdf177b533.png', '2021-09-23/614bdf1a5d21a.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:04', 1, '2021-09-23 08:58:38', NULL),
+(5, 12, 1, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', 0, '', '2021-10-02/6157eebb81fa6.png', '2021-10-02/6157eec3d69d8.png', 0, NULL, 2, 0, 2, 1, '2021-10-02 12:31:50', 1, '2021-09-23 08:58:46', NULL),
+(6, 11, 1, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 57, '89729822123', 0, 'Hair Salon Spa desc', '2021-10-01/6156c56d4262c.png', '2021-10-01/6156c573ae7fe.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:06', 1, '2021-10-01 15:24:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -218,8 +219,8 @@ INSERT INTO `business_service_types` (`id`, `business_profile_id`, `service_type
 (39, 4, 1),
 (38, 3, 2),
 (37, 3, 1),
-(44, 5, 2),
-(43, 5, 1),
+(48, 5, 2),
+(47, 5, 1),
 (45, 6, 2),
 (46, 6, 1);
 
@@ -247,7 +248,7 @@ CREATE TABLE `business_videos` (
 
 INSERT INTO `business_videos` (`id`, `business_profile_id`, `video_url`, `video_code`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
 (342, 4, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(344, 5, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
+(347, 5, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
 (345, 6, 'https://www.youtube.com/watch?v=_PgWxvu9rCw', '_PgWxvu9rCw', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
 (346, 6, 'https://www.youtube.com/watch?v=PTR8MIIT5Sw', 'PTR8MIIT5Sw', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
 (341, 3, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL);
@@ -604,13 +605,13 @@ CREATE TABLE `coupons` (
 --
 
 INSERT INTO `coupons` (`id`, `business_profile_id`, `coupon_code`, `coupon_subject`, `coupon_image`, `coupon_amount`, `coupon_description`, `start_date`, `end_date`, `is_hot`, `coupon_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(1, 3, '4b90k3ui1', 'Coupon 1', '2021-09-29/615356d3a9cbe.png', 10, 'Coupon 1 desc', '2021-10-05 00:00:00', '2021-10-15 00:00:00', 2, 2, '2021-09-29 00:54:28', 1, '2021-09-29 00:56:21', 1, NULL),
+(1, 3, '4b90k3ui1', 'Coupon 1', '2021-09-29/615356d3a9cbe.png', 10, 'Coupon 1 desc', '2021-10-05 00:00:00', '2021-10-15 00:00:00', 2, 2, '2021-09-29 00:54:28', 1, '2021-10-02 09:47:22', 1, NULL),
 (2, 3, '5kl8e7u02', 'Coupon 2', '2021-09-29/615356efc2c04.png', 15, 'Coupon 2 desc', '2021-09-30 00:00:00', '2021-10-31 00:00:00', 2, 2, '2021-09-29 00:54:56', 1, '2021-09-29 00:56:22', 1, NULL),
 (3, 4, 'b9g9phf13', 'Coupon 3', '2021-09-29/61535709af683.png', 50, 'Coupon 3 desc', '2021-09-30 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-09-29 00:55:22', 1, '2021-09-29 00:56:23', 1, NULL),
 (4, 5, 'ugkgp2kf4', 'Coupon 4', '2021-09-29/615357244d7a3.png', 20, 'Coupon 4 desc', '2021-09-29 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-09-29 00:55:49', 1, '2021-09-29 00:56:24', 1, NULL),
 (5, 4, '9j9i47bd5', 'Coupon 5', '2021-10-02/61574256e89e3.png', 50, 'Coupon 5 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:16:07', 1, '2021-10-02 00:16:38', 1, NULL),
 (6, 4, 'i6ml4fbi6', 'Coupon 6', '2021-10-02/61574270543c5.png', 10, 'Coupon 6 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:16:34', 1, '2021-10-02 00:16:36', 1, NULL),
-(7, 4, '9cl9bdb37', 'Coupon 7', '2021-10-02/61574290749ab.png', 20, 'Coupon 7 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:17:09', 1, '2021-10-02 00:17:11', 1, NULL);
+(7, 4, '9cl9bdb37', 'Coupon 7', 'no_image.png', 0, 'Coupon 7 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:17:09', 1, '2021-10-02 09:46:38', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -628,6 +629,7 @@ CREATE TABLE `customers` (
   `customer_birthday` datetime NOT NULL,
   `customer_gender_id` tinyint(4) NOT NULL,
   `customer_phone` varchar(50) NOT NULL,
+  `customer_phone_code` int(10) DEFAULT '0',
   `customer_occupation` varchar(250) NOT NULL,
   `customer_address` varchar(250) NOT NULL,
   `free_trial` tinyint(4) NOT NULL DEFAULT '0',
@@ -647,11 +649,11 @@ CREATE TABLE `customers` (
 -- Đang đổ dữ liệu cho bảng `customers`
 --
 
-INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `language_id`, `facebook_id`, `google_id`, `login_type_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(13, 'huongthien_93@yahoo.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, 0, NULL, '', NULL, '2021-09-30 21:32:32', 0, NULL, NULL, NULL),
-(10, 'facebook12636@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mẫn', 'Hà', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, 0, '3210518352503578', '', 1, '2021-09-17 16:54:08', 0, '2021-09-17 16:54:13', 0, NULL),
-(11, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Thiên', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 2, 0, '4368860993183697', '', 1, '2021-09-17 17:39:31', 0, '2021-09-22 16:33:28', 1, NULL),
-(12, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 2, 0, NULL, '102246103372895088198', 2, '2021-09-17 20:01:33', 0, '2021-09-23 08:56:38', 1, NULL);
+INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_phone_code`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `language_id`, `facebook_id`, `google_id`, `login_type_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(13, 'huongthien_93@yahoo.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '2021-10-31 10:58:58', 0, '', 0, '', '', 0, 1, 0, NULL, '', NULL, '2021-09-30 21:32:32', 0, NULL, NULL, NULL),
+(10, 'facebook12636@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mẫn', 'Hà', NULL, '2021-10-31 10:58:58', 0, '', 0, '', '', 0, 1, 0, '3210518352503578', '', 1, '2021-09-17 16:54:08', 0, '2021-09-17 16:54:13', 0, NULL),
+(11, 'huongthien1993@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Nguyễn', 'Thiên', NULL, '1990-12-01 00:00:00', 1, '0886917766', 3, 'Developer IT', 'Ho Chi Minh', 0, 2, 4, '4368860993183697', '', 1, '2021-09-17 17:39:31', 0, '2021-09-22 16:33:28', 1, NULL),
+(12, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '2021-10-31 10:58:58', 0, '', 0, '', '', 0, 2, 0, NULL, '102246103372895088198', 2, '2021-09-17 20:01:33', 0, '2021-09-23 08:56:38', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -696,7 +698,8 @@ INSERT INTO `customer_coupons` (`id`, `customer_id`, `coupon_id`, `customer_coup
 (17, 11, 2, '5kl8e7u02-10001', 0, NULL, NULL, NULL, NULL, NULL),
 (18, 11, 4, 'ugkgp2kf4-10001', 2, NULL, NULL, NULL, NULL, NULL),
 (19, 11, 2, '5kl8e7u02-10001', 2, NULL, NULL, NULL, NULL, NULL),
-(20, 11, 6, 'i6ml4fbi6-10001', 2, NULL, NULL, NULL, NULL, NULL);
+(20, 11, 6, 'i6ml4fbi6-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(21, 11, 5, '9j9i47bd5-10001', 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -723,6 +726,7 @@ CREATE TABLE `customer_events` (
 INSERT INTO `customer_events` (`id`, `customer_id`, `event_id`, `customer_event_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
 (1, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
 (2, 11, 2, 0, NULL, NULL, NULL, NULL, NULL),
+(7, 11, 3, 2, NULL, NULL, NULL, NULL, NULL),
 (4, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
 (5, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
 (6, 11, 3, 0, NULL, NULL, NULL, NULL, NULL);
@@ -1667,13 +1671,13 @@ INSERT INTO `opening_hours` (`id`, `business_profile_id`, `day_id`, `start_time`
 (138, 4, 4, NULL, NULL, 2, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
 (139, 4, 5, NULL, NULL, 1, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
 (140, 4, 6, NULL, NULL, 1, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(154, 5, 6, NULL, NULL, 1, '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
-(153, 5, 5, NULL, NULL, 1, '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
-(152, 5, 4, NULL, NULL, 2, '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
-(151, 5, 3, NULL, NULL, 1, '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
-(150, 5, 2, NULL, NULL, 1, '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
-(149, 5, 1, NULL, NULL, 1, '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
-(148, 5, 0, '07:00:00', '18:00:00', 2, '2021-09-23 08:59:45', 1, '2021-09-23 08:59:45', 1, NULL),
+(168, 5, 6, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
+(167, 5, 5, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
+(166, 5, 4, NULL, NULL, 2, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
+(165, 5, 3, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
+(164, 5, 2, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
+(163, 5, 1, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
+(162, 5, 0, '07:00:00', '18:00:00', 2, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
 (155, 6, 0, '08:00:00', '19:00:00', 2, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
 (156, 6, 1, '08:00:00', '19:00:00', 2, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
 (157, 6, 2, NULL, NULL, 1, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
@@ -13628,7 +13632,7 @@ ALTER TABLE `business_payments`
 -- AUTO_INCREMENT cho bảng `business_photos`
 --
 ALTER TABLE `business_photos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT cho bảng `business_profiles`
@@ -13646,13 +13650,13 @@ ALTER TABLE `business_profile_locations`
 -- AUTO_INCREMENT cho bảng `business_service_types`
 --
 ALTER TABLE `business_service_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT cho bảng `business_videos`
 --
 ALTER TABLE `business_videos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=347;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=348;
 
 --
 -- AUTO_INCREMENT cho bảng `countries`
@@ -13676,13 +13680,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT cho bảng `customer_coupons`
 --
 ALTER TABLE `customer_coupons`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT cho bảng `customer_events`
 --
 ALTER TABLE `customer_events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `events`
@@ -13724,7 +13728,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT cho bảng `opening_hours`
 --
 ALTER TABLE `opening_hours`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 
 --
 -- AUTO_INCREMENT cho bảng `phonecodes`
