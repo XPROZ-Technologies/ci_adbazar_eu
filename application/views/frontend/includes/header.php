@@ -11,6 +11,8 @@
           } ?></title>
   <base href="<?php echo base_url(); ?>" data-href="<?php echo base_url(); ?>" id="baseUrl" />
   <base data-href="<?php echo site_url(HOME_URL); ?>" id="baseHomeUrl" />
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="<?php echo KEY_GG ?>.apps.googleusercontent.com">
   <?php $this->load->view('frontend/includes/favicon'); ?>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

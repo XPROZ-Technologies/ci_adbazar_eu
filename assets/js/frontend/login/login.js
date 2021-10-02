@@ -12,6 +12,7 @@ $(document).ready(function () {
             fbLogout()
         } else if(typeLoginId == 2) {
             //gg
+            signOut()
         } else {
 
         }
@@ -131,4 +132,59 @@ function renderProductType() {
             }
         });
     }
+}
+
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    $.ajax({
+        type: "POST",
+        url: $("input#loginFacebook").val(),
+        data: {
+            id: profile.TS,
+            customer_first_name: profile.yS,
+            customer_last_name: profile.yU,
+            customer_email: profile.Gt,
+            login_type_id: 2
+        },
+        success: function (response) {
+            var json = $.parseJSON(response);
+            console.log(json)
+            // showNotification(json.message, json.code);
+            if(json.code == 1){
+                // $(".g-signin2").css("display", "none");
+                // $(".g-logout").css("display", "block");
+                // redirect(false, $("a#btnCancel").attr('href'));
+            }
+            // else $('.submit').prop('disabled', false);
+        },
+        error: function (response) {
+          
+        }
+    });
+    return false;
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        $.ajax({
+            type: "POST",
+            url: $("input#logoutFacebook").val(),
+            success: function (response) {
+                var json = $.parseJSON(response);
+                console.log("You have been signed out successfully");
+                // showNotification(json.message, json.code);
+                if(json.code == 1){
+                    // $(".g-signin2").css("display", "block");
+                    // $(".g-logout").css("display", "none");
+                    location.reload();
+                }
+                // else $('.submit').prop('disabled', false);
+            },
+            error: function (response) {
+            }
+        });
+       
+    });
+    return false;
 }
