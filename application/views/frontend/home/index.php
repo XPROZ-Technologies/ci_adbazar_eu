@@ -115,7 +115,7 @@
                     </div>
                   </div>
                 </a>
-                <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>" >Get now</a>
+                <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>">Get now</a>
               </div>
             <?php } ?>
             <!-- item coupon -->
@@ -146,7 +146,7 @@
 
 
     <!-- Customer Location -->
-    <section class="customer-location"  id="maps">
+    <section class="customer-location" id="maps">
       <div class="container">
         <h2 class="page-heading page-title">Location</h2>
         <div class="row">
@@ -155,8 +155,11 @@
               <div class="custom-select mb-20">
                 <select id="selectServiceMap">
                   <option value="0" selected>All</option>
-                  <?php if(!empty($listServices)){ foreach($listServices as $itemService) ?>
-                    <option value="<?php echo $itemService['id']; ?>" <?php if($service_id == $itemService['id']){ echo 'selected="selected"'; } ?>><?php echo $itemService['service_name']; ?></option>
+                  <?php if (!empty($listServices)) {
+                    foreach ($listServices as $itemService) ?>
+                    <option value="<?php echo $itemService['id']; ?>" <?php if ($service_id == $itemService['id']) {
+                                                                        echo 'selected="selected"';
+                                                                      } ?>><?php echo $itemService['service_name']; ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -169,11 +172,11 @@
                     <div class="card rounded-0 customer-location-item mb-2">
                       <div class="row g-0">
                         <div class="col-3">
-                          <a href="#" class="customer-location-img"><img src="<?php echo BUSINESS_PROFILE_PATH.$itemBusines['business_avatar']; ?>" class="img-fluid" alt="<?php echo $itemBusines['business_name']; ?>"></a>
+                          <a href="#" class="customer-location-img"><img src="<?php echo BUSINESS_PROFILE_PATH . $itemBusines['business_avatar']; ?>" class="img-fluid" alt="<?php echo $itemBusines['business_name']; ?>"></a>
                         </div>
                         <div class="col-9">
                           <div class="card-body p-0">
-                            <h6 class="card-title mb-1 page-text-xs"><a href="<?php echo base_url(BUSINESS_PROFILE_URL.$itemBusines['business_url']); ?>" title=""><?php echo $itemBusines['business_name']; ?></a></h6>
+                            <h6 class="card-title mb-1 page-text-xs"><a href="<?php echo base_url(BUSINESS_PROFILE_URL . $itemBusines['business_url']); ?>" title=""><?php echo $itemBusines['business_name']; ?></a></h6>
                             <!--
                             <ul class="list-inline mb-2 list-rating-sm">
                               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
@@ -184,11 +187,17 @@
                               <li class="list-inline-item me-0">(10)</li>
                             </ul>
                             -->
-                            <p class="card-text mb-0 page-text-xxs text-secondary"><?php $businessServiceTypes = $itemBusines['businessServiceTypes']; for($k = 0; $k < count($businessServiceTypes); $k++){ echo $businessServiceTypes[$k]['service_type_name']; if($k < (count($businessServiceTypes)-1)){ echo ', '; } } ?>
+                            <p class="card-text mb-0 page-text-xxs text-secondary"><?php $businessServiceTypes = $itemBusines['businessServiceTypes'];
+                                                                                    for ($k = 0; $k < count($businessServiceTypes); $k++) {
+                                                                                      echo $businessServiceTypes[$k]['service_type_name'];
+                                                                                      if ($k < (count($businessServiceTypes) - 1)) {
+                                                                                        echo ', ';
+                                                                                      }
+                                                                                    } ?>
                             </p>
-                            <?php if($itemBusines['isOpen']){ ?>
+                            <?php if ($itemBusines['isOpen']) { ?>
                               <a href="" class="text-success">Opening</a>
-                            <?php }else{ ?>
+                            <?php } else { ?>
                               <a href="" class="customer-location-close">Closed</a>
                             <?php } ?>
                             <!--<a href=""><img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image"></a>-->
@@ -214,9 +223,9 @@
           <div class="col-lg-8">
             <div class="text-right mb-20">
               <div class="wrapper-search">
-                <form class="d-flex search-box"  action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
+                <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                   <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                  <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>" >
+                  <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
                 </form>
               </div>
             </div>
@@ -227,7 +236,7 @@
         </div>
       </div>
     </section>
-    
+
     <!-- End Customer Location -->
 
     <!-- Customer Contact -->
@@ -258,7 +267,7 @@
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
                   <div class="customer-contact-right">
-                    <img src="<?php echo CONFIG_PATH .$configs['CONTACT_US_IMAGE']; ?>" class="img-fluid h-100" alt="slider image">
+                    <img src="<?php echo CONFIG_PATH . $configs['CONTACT_US_IMAGE']; ?>" class="img-fluid h-100" alt="slider image">
                   </div>
                 </div>
               </div>
@@ -270,111 +279,124 @@
     <!-- End Customer Contact -->
   </div>
 </main>
+<!-- footer script -->
 <?php $this->load->view('frontend/includes/footer'); ?>
-<!-- footer script --><script>
-      if ($('#map').length > 0) {
-        let map;
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
+<script>
+  if ($('#map').length > 0) {
+    let map;
 
-        function initMap() {
-          map = new google.maps.Map(document.getElementById("map"), {
-            center: new google.maps.LatLng(50.047648687939635, 12.355822100555436),
-            zoom: 16,
-          });
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: new google.maps.LatLng(50.047648687939635, 12.355822100555436),
+        zoom: 16,
+      });
 
-          const iconBase =
-            "<?php echo CONFIG_PATH; ?>";
-          const icons = {
-            iconMap: {
-              icon: iconBase + "<?php if (!empty($configs['MARKER_MAP_IMAGE'])) { echo $configs['MARKER_MAP_IMAGE'];  } else { echo "iconmap.png"; } ?>",
+      const iconBase =
+        "<?php echo CONFIG_PATH; ?>";
+      const icons = {
+        iconMap: {
+          icon: iconBase + "<?php if (!empty($configs['MARKER_MAP_IMAGE'])) {
+                              echo $configs['MARKER_MAP_IMAGE'];
+                            } else {
+                              echo "iconmap.png";
+                            } ?>",
+        },
+      };
+
+      const features = [
+        <?php if (!empty($listProfilesMap) > 0) {
+          foreach ($listProfilesMap as $kBusines => $itemBusines) { ?> {
+              position: new google.maps.LatLng(<?php echo $itemBusines['locationInfo']['lat']; ?>, <?php echo $itemBusines['locationInfo']['lng']; ?>),
+              type: "iconMap",
+              servicetypes: '<?php $businessServiceTypes = $itemBusines['businessServiceTypes'];
+                              for ($k = 0; $k < count($businessServiceTypes); $k++) {
+                                echo $businessServiceTypes[$k]['service_type_name'];
+                                if ($k < (count($businessServiceTypes) - 1)) {
+                                  echo ', ';
+                                }
+                              } ?>',
+              imgiInfo: '<?php echo BUSINESS_PROFILE_PATH . $itemBusines['business_avatar']; ?>',
+              linkInfo: '',
+              titleInfo: '<?php echo $itemBusines['business_name']; ?>',
+              starInfo: '',
+              evaluateInfo: 0,
+              linkClose: '<?php echo $itemBusines['isOpen']; ?>',
+              linkLocation: '',
+              linkView: '<?php echo base_url(BUSINESS_PROFILE_URL . $itemBusines['business_url']); ?>',
             },
-          };
-
-          const features = [
-            <?php if (!empty($listProfilesMap) > 0) { foreach ($listProfilesMap as $kBusines => $itemBusines) { ?>
-              {
-                position: new google.maps.LatLng(<?php echo $itemBusines['locationInfo']['lat']; ?>, <?php echo $itemBusines['locationInfo']['lng']; ?>),
-                type: "iconMap",
-                servicetypes: '<?php $businessServiceTypes = $itemBusines['businessServiceTypes']; for($k = 0; $k < count($businessServiceTypes); $k++){ echo $businessServiceTypes[$k]['service_type_name']; if($k < (count($businessServiceTypes)-1)){ echo ', '; } } ?>',
-                imgiInfo: '<?php echo BUSINESS_PROFILE_PATH.$itemBusines['business_avatar']; ?>',
-                linkInfo: '',
-                titleInfo: '<?php echo $itemBusines['business_name']; ?>',
-                starInfo: '',
-                evaluateInfo: 0,
-                linkClose: '<?php echo $itemBusines['isOpen']; ?>',
-                linkLocation: '',
-                linkView: '<?php echo base_url(BUSINESS_PROFILE_URL.$itemBusines['business_url']); ?>',
-              },
-            <?php } } ?>
-          ];
-          // Create markers.
-          for (let i = 0; i < features.length; i++) {
-            var rank = ``;
-            if (features[i].starInfo === 0) {
-              var rank = `
+        <?php }
+        } ?>
+      ];
+      // Create markers.
+      for (let i = 0; i < features.length; i++) {
+        var rank = ``;
+        if (features[i].starInfo === 0) {
+          var rank = `
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               `;
-                    } else if (features[i].starInfo === 1) {
-                      var rank = `
+        } else if (features[i].starInfo === 1) {
+          var rank = `
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               `;
-                    } else if (features[i].starInfo === 2) {
-                      var rank = `
+        } else if (features[i].starInfo === 2) {
+          var rank = `
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               `;
-                    } else if (features[i].starInfo === 3) {
-                      var rank = `
+        } else if (features[i].starInfo === 3) {
+          var rank = `
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               `;
-                    } else if (features[i].starInfo === 4) {
-                      var rank = `
+        } else if (features[i].starInfo === 4) {
+          var rank = `
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
               `;
-                    } else if (features[i].starInfo === 5) {
-                      var rank = `
+        } else if (features[i].starInfo === 5) {
+          var rank = `
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
               `;
-                    }
-                    var open_status = "";
-                    if(features[i].linkClose == 1){
-                      open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
-                    }else{
-                      open_status = `<a href="javascript:void(0);" class="customer-location-close">Closed</a>`;
-                    }
-                    var evaluate_info = "";
-                    if(features[i].evaluateInfo !== 0){
-                      evaluate_info = `<li class="list-inline-item me-0">(${features[i].evaluateInfo})</li>`;
-                    }
-                    var link_location = "";
-                    if(features[i].linkLocation !== ""){
-                      link_location = `<a href="${features[i].linkLocation}"><img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon"
+        }
+        var open_status = "";
+        if (features[i].linkClose == 1) {
+          open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
+        } else {
+          open_status = `<a href="javascript:void(0);" class="customer-location-close">Closed</a>`;
+        }
+        var evaluate_info = "";
+        if (features[i].evaluateInfo !== 0) {
+          evaluate_info = `<li class="list-inline-item me-0">(${features[i].evaluateInfo})</li>`;
+        }
+        var link_location = "";
+        if (features[i].linkLocation !== "") {
+          link_location = `<a href="${features[i].linkLocation}"><img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon"
                             alt="location image"></a>`;
-                    }
+        }
 
-                    const infoMap = `<div class="card rounded-0 customer-location-item mb-2">
+        const infoMap = `<div class="card rounded-0 customer-location-item mb-2">
               <div class="row g-0">
                   <div class="col-3">
                       <a href="#" class="customer-location-img"><img  src="${features[i].imgiInfo}" class="img-fluid" alt="location image" style="max-width: 100%; height: auto"></a>
@@ -396,22 +418,22 @@
                   </div>
               </div>
           </div>`;
-            const infowindow = new google.maps.InfoWindow({
-              content: infoMap,
-            });
-            const marker = new google.maps.Marker({
-              position: features[i].position,
-              icon: icons[features[i].type].icon,
-              map: map,
-            });
-            marker.addListener("click", () => {
-              infowindow.open({
-                anchor: marker,
-                map,
-                shouldFocus: false,
-              });
-            });
-          }
-        }
+        const infowindow = new google.maps.InfoWindow({
+          content: infoMap,
+        });
+        const marker = new google.maps.Marker({
+          position: features[i].position,
+          icon: icons[features[i].type].icon,
+          map: map,
+        });
+        marker.addListener("click", () => {
+          infowindow.open({
+            anchor: marker,
+            map,
+            shouldFocus: false,
+          });
+        });
       }
-    </script>
+    }
+  }
+</script>
