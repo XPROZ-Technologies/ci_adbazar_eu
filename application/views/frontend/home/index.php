@@ -291,7 +291,7 @@
         center: new google.maps.LatLng(50.047648687939635, 12.355822100555436),
         zoom: 16,
       });
-
+      /*
       const iconBase =
         "<?php echo CONFIG_PATH; ?>";
       const icons = {
@@ -434,6 +434,7 @@
           });
         });
       }
+      */
     }
   }
 </script>
