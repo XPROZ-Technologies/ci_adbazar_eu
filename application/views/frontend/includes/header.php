@@ -243,7 +243,7 @@
                       </div>
                     </div>
                     <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('business-profile'); ?>'" >Go to my Business Profile</button>
-                    <button class="btn btn-outline-red" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
+                    <button class="btn btn-outline-red" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
                   </div>
                 </div>
               </div>

@@ -60,6 +60,7 @@
 
 </html>
 <?php $this->load->view('frontend/includes/popup_noti'); ?>
+<input type="hidden" value="<?php echo base_url('frontend/customer/logout'); ?>" id="logoutFacebook">
 <!-- Modal saved coupon -->
 <div class="modal fade" id="savedCouponModal" tabindex="-1" aria-labelledby="savedCouponModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
