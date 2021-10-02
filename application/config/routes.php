@@ -176,15 +176,22 @@ $route['event/(:any)-(:num)\.html'] = 'frontend/event/detail/$1/$2';
 $route['coupons.html'] = 'frontend/coupon/index';
 $route['coupon/(:any)-(:num)\.html'] = 'frontend/coupon/detail/$1/$2';
 
-//business profile
-$route['(:any)'] = 'frontend/businessprofile/index/$1';
-$route['business/(:any)/gallery'] = 'frontend/businessprofile/gallery/$1';
-$route['business/(:any)/coupons'] = 'frontend/businessprofile/coupons/$1';
-$route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
+
 
 //business management
-$route['business-profile/'] = 'frontend/businessprofile/my_business';
+$route['my-business-profile'] = 'frontend/businessprofile/my_business';
+$route['business-profile/select-plan'] = 'frontend/businessprofile/select_plan';
+$route['business-profile/submit-select-plan'] = 'frontend/businessprofile/submitSelectPlan';
+$route['business-profile/got-free-trial'] = 'frontend/businessprofile/got_free_trial';
+$route['business-profile/create-new-business'] = 'frontend/businessprofile/create_new_business';
+$route['business-profile/create-business'] = 'frontend/businessprofile/updateBusiness';
 
 
 $route['fb-login'] = 'frontend/customer/loginFb';
 $route['fb-logout'] = 'frontend/customer/logout';
+
+//business profile - put at the end
+$route['(:any)'] = 'frontend/businessprofile/index/$1';
+$route['business/(:any)/gallery'] = 'frontend/businessprofile/gallery/$1';
+$route['business/(:any)/coupons'] = 'frontend/businessprofile/coupons/$1';
+$route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
