@@ -2,8 +2,11 @@
 <html lang="en">
 
 <head>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="google-signin-client_id" content="<?php echo KEY_GG ?>.apps.googleusercontent.com">
   <title><?php if (!empty($title)) {
             echo $title . ' - '. $configs['TEXT_LOGO_HEADER'];;
           } else {
@@ -11,6 +14,7 @@
           } ?></title>
   <base href="<?php echo base_url(); ?>" data-href="<?php echo base_url(); ?>" id="baseUrl" />
   <base data-href="<?php echo site_url(HOME_URL); ?>" id="baseHomeUrl" />
+ 
   <?php $this->load->view('frontend/includes/favicon'); ?>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +30,7 @@
   <link rel="stylesheet" href="assets/css/frontend/custom.css?version=<?php echo time(); ?>">
   <?php if (isset($scriptHeader)) outputScript($scriptHeader); ?>
 </head>
+
 
 <body>
   <header class="page-header">
@@ -243,7 +248,12 @@
                       </div>
                     </div>
                     <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('business-profile'); ?>'" >Go to my Business Profile</button>
-                    <button class="btn btn-outline-red" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
+                    <?php if($customer['login_type_id'] == 2){ ?> 
+                        <button type="button" class="btn btn-outline-red g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
+                      <?php } else { ?> 
+                        <button class="btn btn-outline-red" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
+                      <?php } ?>
+                    
                   </div>
                 </div>
               </div>

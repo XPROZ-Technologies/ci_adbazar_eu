@@ -93,21 +93,9 @@
             </div>
         </div>
     </div>
+    <?php $this->load->view('frontend/includes/popup_noti'); ?>
 </main>
-<!-- Toast -->
-<div class="toast-container position-fixed">
-      <!-- Remove class show below to hidden toast -->
-      <div class="toast um-toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header border-bottom-0">
-          <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          <p class="text-center text-secondary">Your information has been succesfully saved.</p>
-          <img src="assets/img/frontend/ic-check-mask.png" alt="ic-check-mask" class="d-block mx-auto img-fluid">
-        </div>
-      </div>
-    </div>
-<!-- End toast -->
+
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>

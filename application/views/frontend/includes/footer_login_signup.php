@@ -9,8 +9,7 @@
 <script src="assets/js/frontend/commons/bootstrap.bundle.min.js"></script>
 <script src="assets/js/frontend/commons/main.js?version=<?php echo time(); ?>"></script>
 <script src="assets/js/frontend/common.js?version=<?php echo time(); ?>"></script>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="<?php echo KEY_GG ?>.apps.googleusercontent.com">
+
 </body>
 
 </html>
