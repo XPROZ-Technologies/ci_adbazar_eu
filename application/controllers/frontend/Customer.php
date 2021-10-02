@@ -33,7 +33,7 @@ class Customer extends MY_Controller
                 $customer = $this->Mcustomers->login($customerEmail, $customerPass);
 
                 if ($customer) {
-                   
+
                     $this->session->set_userdata('customer', $customer);
 
                     if (empty($customer['language_id'])) {
@@ -140,7 +140,7 @@ class Customer extends MY_Controller
             if (count($customer) > 0) $customerId = $customer['id'];
             $message = 'Successfully register account';
             $customer['language_id'] = 1;
-            
+
             if ($customerId == 0) {
                 $postData['created_by'] = 0;
                 $postData['created_at'] = getCurentDateTime();
@@ -170,7 +170,6 @@ class Customer extends MY_Controller
         $fields = array('customer');
         delete_cookie('customer');
         echo json_encode(array('code' => 1, 'message' => ''));
-        
     }
 
     public function customerGetCoupon()
@@ -471,53 +470,54 @@ class Customer extends MY_Controller
         $data['business'] =  $businessId;
 
         $savedCoupons = $this->Mcustomercoupons->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_coupon_status_id >' => 0), 'coupon_id');
+        if (count($savedCoupons) > 0) {
+            $getData = array(
+                'search_text_fe' => $search_text,
+                'coupon_ids' => $savedCoupons,
+                'business_profile_id' => $businessId,
+                'order_by' => $order_by
+            );
 
-        $getData = array(
-            'search_text_fe' => $search_text,
-            'coupon_ids' => $savedCoupons,
-            'business_profile_id' => $businessId,
-            'order_by' => $order_by
-        );
+            $businessProfileIds = $this->Mcoupons->getListBusinessId();
 
-        $businessProfileIds = $this->Mcoupons->getListBusinessId();
+            $data['businessProfiles'] = array();
+            $data['serviceTypes'] = array();
+            if (!empty($businessProfileIds) && count($businessProfileIds) > 0) {
+                $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
+                $data['serviceTypes'] = $this->Mservicetypes->getListByListBusinessId(array('business_profile_ids' => $businessProfileIds), $service_type_name);
 
-        $data['businessProfiles'] = array();
-        $data['serviceTypes'] = array();
-        if (!empty($businessProfileIds) && count($businessProfileIds) > 0) {
-            $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
-            $data['serviceTypes'] = $this->Mservicetypes->getListByListBusinessId(array('business_profile_ids' => $businessProfileIds), $service_type_name);
+                $data['businessProfiles'] = $this->Mbusinessprofiles->search(array('business_profile_ids' => $businessProfileIds));
+            }
 
-            $data['businessProfiles'] = $this->Mbusinessprofiles->search(array('business_profile_ids' => $businessProfileIds));
+            $rowCount = $this->Mcoupons->getCount($getData);
+            $data['lists'] = array();
+
+            /**
+             * PAGINATION
+             */
+            $perPage = DEFAULT_LIMIT_COUPON;
+            //$perPage = 2;
+            if (is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
+            $pageCount = ceil($rowCount / $perPage);
+            $page = $this->input->get('page');
+            if (!is_numeric($page) || $page < 1) $page = 1;
+            $data['basePagingUrl'] = base_url('customer/my-coupons');
+            $data['perPage'] = $perPage;
+            $data['page'] = $page;
+            $data['rowCount'] = $rowCount;
+            $data['paggingHtml'] = getPaggingHtmlFront($page, $pageCount, $data['basePagingUrl'] . '?page={$1}');
+            /**
+             * END - PAGINATION
+             */
+
+            $data['lists'] = $this->Mcoupons->search($getData, $perPage, $page);
+            foreach ($data['lists'] as $kCoupon => $itemCoupon) {
+                $data['lists'][$kCoupon]['customer_id'] = $data['customer']['id'];
+                $data['lists'][$kCoupon]['customer_coupon_status_id'] = $this->Mcustomercoupons->getFieldValue(array('coupon_id' => $itemCoupon['id'], 'customer_id' => $data['customer']['id'], 'customer_coupon_status_id > ' => 0), 'customer_coupon_status_id', 0);
+            }
+        }else{
+            $data['lists'] = array();
         }
-
-        $rowCount = $this->Mcoupons->getCount($getData);
-        $data['lists'] = array();
-
-        /**
-         * PAGINATION
-         */
-        $perPage = DEFAULT_LIMIT_COUPON;
-        //$perPage = 2;
-        if (is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
-        $pageCount = ceil($rowCount / $perPage);
-        $page = $this->input->get('page');
-        if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('customer/my-coupons');
-        $data['perPage'] = $perPage;
-        $data['page'] = $page;
-        $data['rowCount'] = $rowCount;
-        $data['paggingHtml'] = getPaggingHtmlFront($page, $pageCount, $data['basePagingUrl'] . '?page={$1}');
-        /**
-         * END - PAGINATION
-         */
-
-        $data['lists'] = $this->Mcoupons->search($getData, $perPage, $page);
-        foreach ($data['lists'] as $kCoupon => $itemCoupon) {
-            $data['lists'][$kCoupon]['customer_id'] = $data['customer']['id'];
-            $data['lists'][$kCoupon]['customer_coupon_status_id'] = $this->Mcustomercoupons->getFieldValue(array('coupon_id' => $itemCoupon['id'], 'customer_id' => $data['customer']['id'], 'customer_coupon_status_id > ' => 0), 'customer_coupon_status_id', 0);
-        }
-
-
         $this->load->view('frontend/customer/um-coupon', $data);
     }
 
@@ -543,7 +543,7 @@ class Customer extends MY_Controller
         $data['phoneCodes'] = $this->Mphonecodes->get();
 
         $data['currenPhoneCode'] = array();
-        if($data['customerInfo']['customer_phone_code'] > 0){
+        if ($data['customerInfo']['customer_phone_code'] > 0) {
             $data['currenPhoneCode'] = $this->Mphonecodes->get($data['customerInfo']['customer_phone_code']);
         }
 

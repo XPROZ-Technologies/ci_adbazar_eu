@@ -8,146 +8,22 @@
                 <div class="bm-innner-list grid-40">
                     <!-- If item < 2 please add class 'justify-content-center' to class row below -->
                     <div class="row">
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image1.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
+                        <?php if (!empty($businessProfiles)) { foreach($businessProfiles as $itemBusiness){ ?>
+                            <?php if(empty($itemBusiness['business_avatar'])) { $itemBusiness['business_avatar'] = NO_IMAGE; } ?>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="card bm-item">
+                                    <a href="#" class="d-block bm-item-img">
+                                        <img src="<?php echo BUSINESS_PROFILE_PATH . $itemBusiness['business_avatar']; ?>" class="card-img-top img-fluid" alt="<?php echo $itemBusiness['business_name']; ?>">
+                                    </a>
+                                    <div class="card-body pt-0">
+                                        <h5 class="card-title page-text-lg text-black text-center"><?php echo $itemBusiness['business_name']; ?></h5>
+                                        <div class="text-center">
+                                            <a href="<?php echo base_url($itemBusiness['business_url']); ?>" class="btn btn-red btn-manager btn-red-md">Manage</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image2.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image3.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image4.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image1.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image2.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image3.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image4.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image5.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item">
-                                <a href="#" class="d-block bm-item-img">
-                                    <img src="assets/img/frontend/bm-image3.png" class="card-img-top img-fluid" alt="business manager image">
-                                </a>
-                                <div class="card-body pt-0">
-                                    <h5 class="card-title page-text-lg text-black text-center">Fusion Restaurant
-                                    </h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-red btn-manager btn-red-md">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php } } ?>
                         <!-- Create new Business Profiles -->
                         <div class="col-sm-6 col-lg-3">
                             <div class="card bm-item bm-item-add" onclick="window.location.href='<?php echo base_url('business-profile/select-plan'); ?>'">
