@@ -47,7 +47,7 @@
                                     <p class="text-center mb-2 mb-lg-4 text-black">Not have an account yet? <a href="<?php echo base_url('signup.html'); ?>" class="ms-3 text-black fw-bold">Sign up</a></p>
                                     <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span>Or</span></p>
                                     <div class="mx-auto text-center mb-3 sign-social">
-                                        <a href="javascript:void(0);" class="g-signin2 btn btn-outline-red" data-onsuccess="onSignIn">
+                                        <a href="javascript:void(0);" class="btn btn-outline-red" data-onsuccess="onSignIn">
                                             <img src="assets/img/frontend/ic-google.png" class="icon-google" alt="icon google">
                                             Log in with Google
                                         </a>
@@ -93,21 +93,9 @@
             </div>
         </div>
     </div>
+    <?php $this->load->view('frontend/includes/popup_noti'); ?>
 </main>
-<!-- Toast -->
-<div class="toast-container position-fixed">
-      <!-- Remove class show below to hidden toast -->
-      <div class="toast um-toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header border-bottom-0">
-          <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          <p class="text-center text-secondary">Your information has been succesfully saved.</p>
-          <img src="assets/img/frontend/ic-check-mask.png" alt="ic-check-mask" class="d-block mx-auto img-fluid">
-        </div>
-      </div>
-    </div>
-<!-- End toast -->
+
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
