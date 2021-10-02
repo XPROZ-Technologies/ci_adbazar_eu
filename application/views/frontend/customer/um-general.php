@@ -78,27 +78,27 @@
                         <div class="dropdown dropdown-country page-text-lg">
                           <a href="#" class="wrapper-btn dropdown-toggle current js-lang" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">
                             <?php if ($customerInfo['language_id'] == 1) { ?>
-                              <img src="assets/img/frontend/ger.png" alt="English" class="img-fluid me-2">
-                              <span class="country-text">English</span>
+                              <img src="assets/img/frontend/ger.png" alt="English" class="img-fluid me-2 customerLanguageImg">
+                              <span class="country-text  customerLanguageName">English</span>
                             <?php } ?>
                             <?php if ($customerInfo['language_id'] == 2) { ?>
-                              <img src="assets/img/frontend/cre.png" alt="Czech" class="img-fluid me-2">
-                              <span class="country-text">Czech</span>
+                              <img src="assets/img/frontend/cre.png" alt="Czech" class="img-fluid me-2 customerLanguageImg">
+                              <span class="country-text  customerLanguageName">Czech</span>
                             <?php } ?>
                             <?php if ($customerInfo['language_id'] == 3 || $customerInfo['language_id'] == 0) { ?>
-                              <img src="assets/img/frontend/ger.png" alt="Germany" class="img-fluid me-2">
-                              <span class="country-text">Germany</span>
+                              <img src="assets/img/frontend/ger.png" alt="Germany" class="img-fluid me-2 customerLanguageImg">
+                              <span class="country-text  customerLanguageName">Germany</span>
                             <?php } ?>
                             <?php if ($customerInfo['language_id'] == 4) { ?>
-                              <img src="assets/img/frontend/vn.png" alt="Vietnam" class="img-fluid me-2">
-                              <span class="country-text">Vietnam</span>
+                              <img src="assets/img/frontend/vn.png" alt="Vietnam" class="img-fluid me-2 customerLanguageImg" >
+                              <span class="country-text  customerLanguageName">Vietnam</span>
                             <?php } ?>
                           </a>
                           <ul class="dropdown-menu js-list-lang" aria-labelledby="languageDropdown">
                             <li class="<?php if ($customerInfo['language_id'] == 3 || $customerInfo['language_id'] == 0) {
                                           echo "selected";
-                                        } ?>" data-id="3">
-                              <a class="dropdown-item" href="javascript:void(0)" data-id="3">
+                                        } ?>">
+                              <a class="dropdown-item" href="javascript:void(0)" data-id="3" data-name="Germany" data-img="assets/img/frontend/ger.png">
                                 <img src="assets/img/frontend/ger.png" alt="germany flag" class="img-fluid me-2">
                                 <span class="country-text">Germany</span>
                               </a>
@@ -106,8 +106,8 @@
 
                             <li class="<?php if ($customerInfo['language_id'] == 1) {
                                           echo "selected";
-                                        } ?>" data-id="1">
-                              <a class="dropdown-item" href="javascript:void(0)" data-id="1">
+                                        } ?>">
+                              <a class="dropdown-item" href="javascript:void(0)" data-id="1" data-name="English" data-img="assets/img/frontend/en.png">
                                 <img src="assets/img/frontend/en.png" alt="english flag" class="img-fluid me-2">
                                 <span class="country-text">English</span>
                               </a>
@@ -115,13 +115,16 @@
 
                             <li class="<?php if ($customerInfo['language_id'] == 4) {
                                           echo "selected";
-                                        } ?>" data-id="4"><a class="dropdown-item" href="javascript:void(0)" data-id="4"><img src="assets/img/frontend/vn.png" alt="vietnam flag" class="img-fluid me-2">
+                                        } ?>">
+                                        <a class="dropdown-item" href="javascript:void(0)" data-id="4" data-name="Vietnam" data-img="assets/img/frontend/vn.png">
+                                          <img src="assets/img/frontend/vn.png" alt="vietnam flag" class="img-fluid me-2">
                                 <span class="country-text">Vietnam</span>
                               </a></li>
 
                             <li class="<?php if ($customerInfo['language_id'] == 2) {
                                           echo "selected";
-                                        } ?>" data-id="2"><a class="dropdown-item" href="javascript:void(0)" data-id="2">
+                                        } ?>">
+                                        <a class="dropdown-item" href="javascript:void(0)" data-id="2" data-name="Czech" data-img="assets/img/frontend/cre.png">
                                 <img src="assets/img/frontend/cre.png" alt="czech flag" class="img-fluid me-2">
                                 <span class="country-text">Czech</span>
                               </a>
@@ -218,8 +221,7 @@
   });
   $("body").on("click", ".js-list-lang li a", function() {
     $("#customerLanguage").val($(this).data('id'));
-  });
-  $("body").on("click", ".js-list-lang li a", function() {
-    $("#customerLanguage").val($(this).data('id'));
+    $(".customerLanguageName").html($(this).data('name'));
+    $(".customerLanguageImg").attr('src', $(this).data('img'));
   });
 </script>
