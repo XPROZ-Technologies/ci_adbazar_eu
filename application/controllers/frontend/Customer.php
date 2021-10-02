@@ -154,11 +154,8 @@ class Customer extends MY_Controller
             $flag = $this->Mcustomers->save($postData, $customerId);
             if ($flag > 0) {
                 $customer = $this->Mcustomers->get($flag);
-                $customer['is_logged_in'] = 1;
-                $this->session->set_userdata('customer', $customer);
                 $this->load->helper('cookie');
-                $this->input->set_cookie(array('name' => 'customerEmail', 'value' => $customer['customer_email'], 'expire' => '86400'));
-                $this->input->set_cookie(array('name' => 'customerPass', 'value' => $customer['customer_password'], 'expire' => '86400'));
+                $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '3600'));
                 echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
             } else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
         } catch (\Throwable $th) {
