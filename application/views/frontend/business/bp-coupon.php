@@ -13,261 +13,91 @@
             <div class="bp-tabs-right">
               <div class="bp-coupon grid-60">
                 <div class="d-flex justify-content-end">
-                  <form class="d-flex search-box">
-                    <a href="#" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                  <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
+                    <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();" ><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>" >
                   </form>
                 </div>
-                <div class="bp-coupon-list">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
+                <?php if (count($lists) > 0) { ?>
+                  <div class="bp-coupon-list">
+                    <div class="row">
+                      <?php foreach ($lists as $indexCoupon => $itemCoupon) {
+                        $couponDetailUrl = base_url('coupon/' . makeSlug($itemCoupon['coupon_subject']) . '-' . $itemCoupon['id']) . '.html'; ?>
+                        <div class="col-md-6  coupon-item-<?php echo $itemCoupon['id']; ?>">
+
+                          <div class="position-relative">
+                            <a class="card customer-coupon-item" href="<?php echo $couponDetailUrl; ?>">
+                              <p class="customer-coupon-img mb-0">
+                                <img src="<?php echo COUPONS_PATH . $itemCoupon['coupon_image']; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
+                              </p>
+                              <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                                <div class="customer-coupon-body">
+                                  <h6 class="card-title"><span><?php echo $itemCoupon['coupon_subject']; ?></span></h6>
+                                  <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date']); ?> to <?php echo ddMMyyyy($itemCoupon['end_date']); ?></p>
+                                  <div class="d-flex align-items-center justify-content-between">
+                                    <div class="wraper-progress">
+                                      <div class="progress">
+                                        <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first"><?php echo $itemCoupon['coupon_amount_used']; ?></span>/<span class="progress-last"><?php echo $itemCoupon['coupon_amount']; ?></span></span></div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>">Get now</a>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item">
-                        <a href="customer-coupon.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/coupon2.jpg" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="#">45-Minute Full-Spectrum Infrared Sauna Sessions for One</a></h6>
-                            <p class="card-text page-text-xs">10/21/2021 to 10/22/2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-progress">
-                                <div class="progress">
-                                  <div class="progress-bar page-text-xs fw-500" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="progress-text"><span class="progress-first">22</span>/<span class="progress-last">30</span></span></div>
-                                </div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-getnow">Get now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <?php } ?>
+
                     </div>
                   </div>
-                </div>
-                <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
-                  <div class="d-flex align-items-center pagination-left">
-                    <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500">1 – 10</span> of <span class="fw-500">50</span>
-                      results</p>
-                    <div class="page-text-sm mb-0 d-flex align-items-center">
-                      <span class="fw-500 show-page-text">50</span>
-                      <span class="ms-2">/</span>
-                      <div class="page-select position-relative">
-                        <span class="ml-8px"> Page <img class="ml-8px" src="assets/img/frontend/icon-page.png" alt=""></span>
-                        <ul>
-                          <li class="active">10</li>
-                          <li>20</li>
-                          <li>30</li>
-                          <li>40</li>
-                        </ul>
+                <?php } else { ?>
+                  <div class="zero-event zero-box">
+                    <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
+                    <p class="text-secondary page-text-lg">No coupons</p>
+                  </div>
+                <?php } ?>
+                <?php if (count($lists) > 0) { ?>
+                  <!-- Pagination -->
+                  <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
+                    <div class="d-flex align-items-center pagination-left">
+                      <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                        results</p>
+                      <div class="page-text-sm mb-0 d-flex align-items-center">
+                        <div class="custom-select choose-perpage">
+                          <select>
+                            <option value="10" <?php if (isset($per_page) && $per_page == 20) {
+                                                  echo 'selected';
+                                                } ?>>10</option>
+                            <option value="20" <?php if (isset($per_page) && $per_page == 20) {
+                                                  echo 'selected';
+                                                } ?>>20</option>
+                            <option value="30" <?php if (isset($per_page) && $per_page == 30) {
+                                                  echo 'selected';
+                                                } ?>>30</option>
+                            <option value="40" <?php if (isset($per_page) && $per_page == 40) {
+                                                  echo 'selected';
+                                                } ?>>40</option>
+                            <option value="50" <?php if (isset($per_page) && $per_page == 50) {
+                                                  echo 'selected';
+                                                } ?>>50</option>
+                          </select>
+                        </div>
+                        <span class="ms-2">/</span>
+                        <span class="">Page</span>
                       </div>
                     </div>
+                    <div class="pagination-right">
+                      <!-- Page pagination -->
+                      <nav>
+                        <?php echo $paggingHtml; ?>
+                      </nav>
+                      <!-- End Page pagination -->
+                    </div>
                   </div>
-                  <div class="pagination-right">
-                    <!-- Page pagination -->
-                    <nav>
-                      <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
-                        </li>
-                      </ul>
-                    </nav>
-                    <!-- End Page pagination -->
-                  </div>
-                </div>
+                  <!-- END. Pagination -->
+                <?php } ?>
+
               </div>
             </div>
           </div>
@@ -276,4 +106,5 @@
     </div>
   </div>
 </main>
+<input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
