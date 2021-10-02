@@ -291,7 +291,7 @@
         center: new google.maps.LatLng(50.047648687939635, 12.355822100555436),
         zoom: 16,
       });
-      /*
+    
       const iconBase =
         "<?php echo CONFIG_PATH; ?>";
       const icons = {
@@ -309,13 +309,7 @@
           foreach ($listProfilesMap as $kBusines => $itemBusines) { ?> {
               position: new google.maps.LatLng(<?php echo $itemBusines['locationInfo']['lat']; ?>, <?php echo $itemBusines['locationInfo']['lng']; ?>),
               type: "iconMap",
-              servicetypes: '<?php $businessServiceTypes = $itemBusines['businessServiceTypes'];
-                              for ($k = 0; $k < count($businessServiceTypes); $k++) {
-                                echo $businessServiceTypes[$k]['service_type_name'];
-                                if ($k < (count($businessServiceTypes) - 1)) {
-                                  echo ', ';
-                                }
-                              } ?>',
+              servicetypes: '',
               imgiInfo: '<?php echo BUSINESS_PROFILE_PATH . $itemBusines['business_avatar']; ?>',
               linkInfo: '',
               titleInfo: '<?php echo $itemBusines['business_name']; ?>',
@@ -434,7 +428,7 @@
           });
         });
       }
-      */
+      
     }
   }
 </script>
