@@ -43,14 +43,15 @@ class Customer extends MY_Controller
                     if (empty($customer['language_id'])) {
                         $customer['language_id'] = $this->Mconstants->languageDefault;
                     }
-                    $customer_cookie = array('login_type_id' => $customer['login_type_id'], 'customer_name' => $customer['customer_first_name'], 'language_id' => $customer['language_id'], 'language_name' => $this->Mconstants->languageCodes[$customer['language_id']], 'customer_avatar' => $customer['customer_avatar'], 'id' => $customer['id']);
+                    //$customer_cookie = array('login_type_id' => $customer['login_type_id'], 'customer_name' => $customer['customer_first_name'], 'language_id' => $customer['language_id'], 'language_name' => $this->Mconstants->languageCodes[$customer['language_id']], 'customer_avatar' => $customer['customer_avatar'], 'id' => $customer['id']);
 
-
+                    $customer['language_name'] = $this->Mconstants->languageCodes[$customer['language_id']];
+                    
                     if ($postData['is_remember'] == 'on') {
                         $this->load->helper('cookie');
-                        $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer_cookie), '3600'));
+                        $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '3600'));
                     } else {
-                        $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer_cookie), '-3600'));
+                        $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '-3600'));
                     }
 
                     $user['SessionId'] = uniqid();
