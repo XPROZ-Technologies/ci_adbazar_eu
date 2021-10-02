@@ -73,11 +73,11 @@
                                     <div class="mx-auto text-center mb-3 sign-social signup">
                                     <a href="#" class="btn btn-outline-red">
                                         <img src="./assets/img/frontend/ic-google.png" class="icon-google" alt="icon google">
-                                        Sign up with Google
+                                        Login with Google
                                     </a>
                                     <a href="#" class="btn btn-outline-red mt-3 mt-lg-0">
                                         <img src="./assets/img/frontend/ic-facebook.png" class="icon-fb" alt="icon fb">
-                                        Sign in with Facebook</a>
+                                        Login with Facebook</a>
                                     </div>
                                 </div>
                             
