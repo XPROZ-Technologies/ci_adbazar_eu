@@ -155,6 +155,7 @@ class Customer extends MY_Controller
             $flag = $this->Mcustomers->save($postData, $customerId);
             if ($flag > 0) {
                 $customer = $this->Mcustomers->get($flag);
+                $customers['language_name'] = $customers['language_id'] == 0 ? 'en' : $this->Mconstants->languageCodes[$customers['language_id']];
                 $this->load->helper('cookie');
                 $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '3600'));
                 echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
