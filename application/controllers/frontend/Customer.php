@@ -168,9 +168,8 @@ class Customer extends MY_Controller
         $this->load->helper('cookie');
         $fields = array('customer');
         delete_cookie('customer');
-        // foreach ($fields as $field) $this->session->unset_userdata($field);
-        // $this->input->set_cookie($this->configValueCookie('customer', '', '-3600'));
-        redirect(base_url(HOME_URL));
+        echo json_encode(array('code' => 1, 'message' => ''));
+        
     }
 
     public function customerGetCoupon()

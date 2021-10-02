@@ -55,9 +55,9 @@ function fbLogin() {
 
 function getFbUserData(){
     var isLogin = parseInt($(".btn-outline-red").attr('is-login'));
-    FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
-    function (response) {
-        if(isLogin < 1) {
+    if(isLogin < 1) {
+        FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
+        function (response) {
             $.ajax({
                 type: "POST",
                 url: $("input#loginFacebook").val(),
@@ -84,32 +84,30 @@ function getFbUserData(){
                     // $('.submit').prop('disabled', false);
                 }
             });
-        }
-        
-        return false;
-    });
+            return false;
+        });
+    } else {
+        FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
+        function (response) {
+        });
+    }
 }
 
 function fbLogout() {
     FB.logout(function() {
-       
         $.ajax({
             type: "POST",
             url: $("input#logoutFacebook").val(),
             success: function (response) {
                 var json = $.parseJSON(response);
-                console.log(json)
-                // showNotification(json.message, json.code);
                 if(json.code == 1){
                     location.reload();
                 }
-                // else $('.submit').prop('disabled', false);
             },
             error: function (response) {
-                // showNotification($('input#errorCommonMessage').val(), 0);
-                // $('.submit').prop('disabled', false);
             }
         });
+        return false;
     });
 }
 
