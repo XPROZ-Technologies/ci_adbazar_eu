@@ -15,7 +15,7 @@
               <div class="um-general">
                 <div class="general-top">
                   <div class="general-avatar">
-                    <img class="general-picture js-profile-pic" src="assets/img/frontend/um-profile-picture.png" />
+                    <img class="general-picture js-profile-pic" src="<?php if(empty($customerInfo['customer_avatar'])){ echo CUSTOMER_PATH . NO_IMAGE; }else{ echo CUSTOMER_PATH . $customerInfo['customer_avatar']; } ?>" />
                     <div class="general-upload-btn js-profile-upload-btn"></div>
                     <input class="general-file-upload js-profile-upload" type="file" accept="image/*" />
                   </div>
@@ -27,6 +27,7 @@
 
                 <div class="general-form">
                   <form class="row" action="<?php echo base_url('customer-update-information'); ?>" method="POST" id="formUpdateInformation">
+                    <input type="hidden" id="customerAvatarUpload" name="customer_avatar_upload" value="" />
                     <input type="hidden" name="customer_id" value="<?php echo $customer['id']; ?>" />
                     <div class="col-md-6">
                       <div class="form-group mb-3">
@@ -66,7 +67,9 @@
                         <div class="custom-select js-list-gender">
                           <select id="profileGender">
                             <option value="0">Male</option>
-                            <option value="1" <?php if($customerInfo['customer_gender_id'] == 1){ echo "selected"; } ?> >Female</option>
+                            <option value="1" <?php if ($customerInfo['customer_gender_id'] == 1) {
+                                                echo "selected";
+                                              } ?>>Female</option>
                           </select>
                         </div>
                       </div>
@@ -91,7 +94,7 @@
                               <span class="country-text  customerLanguageName">Germany</span>
                             <?php } ?>
                             <?php if ($customerInfo['language_id'] == 4) { ?>
-                              <img src="assets/img/frontend/vn.png" alt="Vietnam" class="img-fluid me-2 customerLanguageImg" >
+                              <img src="assets/img/frontend/vn.png" alt="Vietnam" class="img-fluid me-2 customerLanguageImg">
                               <span class="country-text  customerLanguageName">Vietnam</span>
                             <?php } ?>
                           </a>
@@ -117,15 +120,16 @@
                             <li class="<?php if ($customerInfo['language_id'] == 4) {
                                           echo "selected";
                                         } ?>">
-                                        <a class="dropdown-item" href="javascript:void(0)" data-id="4" data-name="Vietnam" data-img="assets/img/frontend/vn.png">
-                                          <img src="assets/img/frontend/vn.png" alt="vietnam flag" class="img-fluid me-2">
+                              <a class="dropdown-item" href="javascript:void(0)" data-id="4" data-name="Vietnam" data-img="assets/img/frontend/vn.png">
+                                <img src="assets/img/frontend/vn.png" alt="vietnam flag" class="img-fluid me-2">
                                 <span class="country-text">Vietnam</span>
-                              </a></li>
+                              </a>
+                            </li>
 
                             <li class="<?php if ($customerInfo['language_id'] == 2) {
                                           echo "selected";
                                         } ?>">
-                                        <a class="dropdown-item" href="javascript:void(0)" data-id="2" data-name="Czech" data-img="assets/img/frontend/cre.png">
+                              <a class="dropdown-item" href="javascript:void(0)" data-id="2" data-name="Czech" data-img="assets/img/frontend/cre.png">
                                 <img src="assets/img/frontend/cre.png" alt="czech flag" class="img-fluid me-2">
                                 <span class="country-text">Czech</span>
                               </a>
@@ -227,5 +231,13 @@
     $("#customerLanguage").val($(this).data('id'));
     $(".customerLanguageName").html($(this).data('name'));
     $(".customerLanguageImg").attr('src', $(this).data('img'));
+  });
+  $("body").on("click", ".js-list-gender li", function() {
+    $("#customerGender").val($(this).data('value'));
+  });
+ 
+  $("#formUpdateInformation").submit(function(event) {
+    $("#customerAvatarUpload").val();
+    return;
   });
 </script>
