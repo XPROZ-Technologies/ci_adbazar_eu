@@ -695,7 +695,7 @@ $(document).ready(function() {
       }
   });
 })
-
+/*
 $(document).ready(function () {
   if($('.posting').length > 0){
     $('.slider').slick({
@@ -792,6 +792,8 @@ $(document).ready(function () {
   }
   
 });
+
+*/
 
 $(document).ready(function() {
   if (window.File && window.FileList && window.FileReader) {
