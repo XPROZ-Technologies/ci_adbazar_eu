@@ -49,13 +49,13 @@
                                     <div class="mx-auto text-center mb-3 sign-social">
                                         <a href="javascript:void(0);" class="btn btn-outline-red login-gg">
                                             <img src="assets/img/frontend/ic-google.png" class="icon-google" alt="icon google">
-                                            Login with Google
+                                            Log in with Google
                                         </a>
                                         <a style="display:none;" href="javascript:void(0);" class="g-signin2 btn btn-outline-red" data-onsuccess="onSignIn">
                                         </a>
                                         <a href="javascript:void(0);" class="btn btn-outline-red mt-3 mt-lg-0" onclick="fbLogin();" id="fbLink">
                                             <img src="assets/img/frontend/ic-facebook.png" class="icon-fb" alt="icon fb">
-                                            Login with Facebook
+                                            Log in with Facebook
                                         </a>
                                     </div>
                                 </form>
