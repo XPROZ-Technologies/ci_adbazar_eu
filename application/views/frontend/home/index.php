@@ -307,7 +307,7 @@
       const features = [
         <?php if (!empty($listProfilesMap) > 0) {
           foreach ($listProfilesMap as $kBusines => $itemBusines) {
-              if(!empty($itemBusines)){ ?> {
+              if(!empty($itemBusines['locationInfo'])){ ?> {
               position: new google.maps.LatLng(<?php echo $itemBusines['locationInfo']['lat']; ?>, <?php echo $itemBusines['locationInfo']['lng']; ?>),
               type: "iconMap",
               servicetypes: '',
