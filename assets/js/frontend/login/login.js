@@ -5,7 +5,7 @@ $(document).ready(function () {
     });
     $(".toast").hide();
 
-    $("body").on('click', '.btn-outline-red', function() {
+    $("body").on('click', '.btn-logout-all', function() {
         var typeLoginId = parseInt($(this).attr('login-type-id'));
         if(typeLoginId == 1) {
             //fb
@@ -17,6 +17,10 @@ $(document).ready(function () {
 
         }
     });
+
+    $("body").on('click', '.login-gg', function() {
+        $(".abcRioButtonContents").find('span').eq(0).click();
+    })
 });
 
 window.fbAsyncInit = function() {

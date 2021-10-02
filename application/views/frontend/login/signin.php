@@ -47,9 +47,11 @@
                                     <p class="text-center mb-2 mb-lg-4 text-black">Not have an account yet? <a href="<?php echo base_url('signup.html'); ?>" class="ms-3 text-black fw-bold">Sign up</a></p>
                                     <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span>Or</span></p>
                                     <div class="mx-auto text-center mb-3 sign-social">
-                                        <a href="javascript:void(0);" class="g-signin2 btn btn-outline-red" data-onsuccess="onSignIn">
+                                        <a href="javascript:void(0);" class="btn btn-outline-red login-gg">
                                             <img src="assets/img/frontend/ic-google.png" class="icon-google" alt="icon google">
                                             Log in with Google
+                                        </a>
+                                        <a style="display:none;" href="javascript:void(0);" class="g-signin2 btn btn-outline-red" data-onsuccess="onSignIn">
                                         </a>
                                         <a href="javascript:void(0);" class="btn btn-outline-red mt-3 mt-lg-0" onclick="fbLogin();" id="fbLink">
                                             <img src="assets/img/frontend/ic-facebook.png" class="icon-fb" alt="icon fb">
