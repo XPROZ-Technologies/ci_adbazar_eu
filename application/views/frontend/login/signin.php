@@ -11,7 +11,7 @@
                     </div>
                     <div class="col-lg-7 signin-box-right">
                         <div class="signin-right">
-                            <h1 class="text-center page-title mb-20">Login with your account</h1>
+                            <h1 class="text-center page-title mb-20">Log in with your account</h1>
                             <div class="signup-form">
                                 <form class="form-signin"  id="formLogin" method="POST" action="<?php echo base_url('customer-login'); ?>" >
                                     <div class="form-group mx-auto mb-3">
