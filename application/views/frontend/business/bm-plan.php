@@ -58,7 +58,7 @@
                       </ul>
                       <div class="page-text-lg description">
                         <div class="wrapper-text">
-                          <p class="mb-1 text-bill text-primary">Billed anually
+                          <p class="mb-1 text-bill text-primary">Monthly anually
                           </p>
                           <p class="mb-1 text-payment">As one payment of 1299 CZK
                           </p>
