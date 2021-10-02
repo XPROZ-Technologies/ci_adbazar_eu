@@ -134,6 +134,44 @@ class Businessprofile extends MY_Controller
         $data['businessInfo'] = $businessInfo;
 
 
+        $per_page = $this->input->get('per_page');
+        $data['per_page'] =  $per_page;
+        $search_text = $this->input->get('keyword');
+        $data['keyword'] =  $search_text;
+        
+        $getData = array(
+            'coupon_status_id' => STATUS_ACTIVED, 
+            'search_text_fe' => $search_text,
+            'business_profile_id' => $businessProfileId
+        );
+
+        $rowCount = $this->Mcoupons->getCount($getData);
+        $data['lists'] = array();
+        
+        /**
+         * PAGINATION
+         */
+        $perPage = DEFAULT_LIMIT_COUPON;
+        //$perPage = 2;
+        if(is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
+        $pageCount = ceil($rowCount / $perPage);
+        $page = $this->input->get('page');
+        if(!is_numeric($page) || $page < 1) $page = 1;
+        $data['basePagingUrl'] = base_url('business/'.$businessInfo['business_url'].'/coupons');
+        $data['perPage'] = $perPage;
+        $data['page'] = $page;
+        $data['rowCount'] = $rowCount;
+        $data['paggingHtml'] = getPaggingHtmlFront($page, $pageCount, $data['basePagingUrl'].'?page={$1}');
+        /**
+         * END - PAGINATION
+         */
+        
+        $data['lists'] = $this->Mcoupons->search($getData, $perPage, $page);
+        foreach($data['lists'] as $kCoupon => $itemCoupon){
+            $data['lists'][$kCoupon]['coupon_amount_used'] = $this->Mcustomercoupons->getUsedCoupon($itemCoupon['id']);
+        }
+
+
         $this->load->view('frontend/business/bp-coupon', $data);
     }
 
@@ -144,8 +182,11 @@ class Businessprofile extends MY_Controller
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
+        
         $businessURL = trim($slug);
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons'));
+        
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents'));
+
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
             $this->session->set_flashdata('notice_message', "Business profile not exist");
@@ -153,6 +194,7 @@ class Businessprofile extends MY_Controller
             redirect(base_url(HOME_URL));
         }
         $businessInfo = $this->Mbusinessprofiles->get($businessProfileId);
+
         /**
          * Commons data
          */
@@ -165,6 +207,44 @@ class Businessprofile extends MY_Controller
         $data['activeBusinessMenu'] = "events";
 
         $data['businessInfo'] = $businessInfo;
+
+
+        $per_page = $this->input->get('per_page');
+        $data['per_page'] = $per_page;
+        $search_text = $this->input->get('keyword');
+        $data['keyword'] = $search_text;
+        
+        $getData = array(
+            'event_status_id' => STATUS_ACTIVED, 
+            'search_text_fe' => $search_text, 
+            'business_profile_id' => $businessProfileId
+        );
+        $rowCount = $this->Mevents->getCount($getData);
+        $data['lists'] = array();
+        
+        /**
+         * PAGINATION
+         */
+        $perPage = DEFAULT_LIMIT_BUSINESS_PROFILE;
+        //$perPage = 2;
+        if(is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
+        $pageCount = ceil($rowCount / $perPage);
+        $page = $this->input->get('page');
+        if(!is_numeric($page) || $page < 1) $page = 1;
+        $data['basePagingUrl'] = base_url('business/'.$businessInfo['business_url'].'/events');
+        $data['perPage'] = $perPage;
+        $data['page'] = $page;
+        $data['rowCount'] = $rowCount;
+        $data['paggingHtml'] = getPaggingHtmlFront($page, $pageCount, $data['basePagingUrl'].'?page={$1}');
+        /**
+         * END - PAGINATION
+         */
+
+        $data['lists'] = $this->Mevents->search($getData, $perPage, $page);
+        for($i = 0; $i < count($data['lists']); $i++){
+            $data['lists'][$i]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $data['lists'][$i]['business_profile_id'], 'business_status_id' => STATUS_ACTIVED), 'business_name', '');
+            $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH.$data['lists'][$i]['event_image'] : EVENTS_PATH.NO_IMAGE ;
+        }
 
 
         $this->load->view('frontend/business/bp-event', $data);
