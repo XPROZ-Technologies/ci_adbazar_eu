@@ -62,11 +62,11 @@
                                     <td><?php echo $s['business_phone']; ?></td>
                                     <td><?php echo $s['business_whatsapp']; ?></td>
                                     <td><?php echo $s['business_address']; ?></td>
-                                    <td><span class="<?php echo $labelCss[$s['busines_status_id']]; ?>"><?php echo $this->Mconstants->status[$s['busines_status_id']]; ?></span></td>
+                                    <td><span class="<?php echo $labelCss[$s['business_status_id']]; ?>"><?php echo $this->Mconstants->status[$s['business_status_id']]; ?></span></td>
                                     <td class="actions">
                                         <input type="checkbox" value="<?php echo $s['is_hot']; ?>"  data-id="<?php echo $s['id']; ?>" class="js-switch"<?php if($s['is_hot'] == 2) echo ' checked'; ?>/>
                                         <a href="javascript:void(0)" class="link_delete btn btn-xs btn-default" data-id="<?php echo $s['id']; ?>" status-id="0" title="Remove">Remove</a>
-                                        <?php if($s['busines_status_id'] == STATUS_ACTIVED){ 
+                                        <?php if($s['business_status_id'] == STATUS_ACTIVED){ 
                                         ?> 
                                             <a href="javascript:void(0)" class="link_deactive btn btn-xs btn-danger" data-id="<?php echo $s['id']; ?>" status-id="1" title="Deactive">Deactive</a>
                                         <?php } else { ?> 

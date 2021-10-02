@@ -8,4 +8,6 @@ class Mbusinessservicetype extends MY_Model {
         $this->_table_name = "business_service_types";
         $this->_primary_key = "id";
     }
+
+    
 }

@@ -31,7 +31,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Slogan <span class="required">*</span></label>
-                                        <input type="text" name="full_name" class="form-control hmdrequired" data-field="Slogan" autocomplete="off">
+                                        <input type="text" name="business_slogan" class="form-control hmdrequired" data-field="Slogan" autocomplete="off">
                                     </div>
                                 </div>
                             </div>

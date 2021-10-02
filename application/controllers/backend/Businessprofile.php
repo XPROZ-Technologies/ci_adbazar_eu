@@ -13,8 +13,7 @@ class Businessprofile extends MY_Controller {
             )
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/business-profile')) {
-            var_dump(json_encode([]));
-            $postData = $this->arrayFromPost(array('search_text', 'busines_status_id'));
+            $postData = $this->arrayFromPost(array('search_text', 'business_status_id'));
             $this->loadModel(array('Mservices', 'Mbusinessprofiles', 'Mcustomers'));
             $rowCount = $this->Mbusinessprofiles->getCount($postData);
             $data['listProfiles'] = array();
@@ -52,7 +51,7 @@ class Businessprofile extends MY_Controller {
         if($businessProfileId > 0) {
             $user = $this->checkUserLogin();
             $data = $this->commonData($user,
-                'Edit staff',
+                'Edit business profile',
                 array(
                     'scriptHeader' => array('css' => array('vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
                     'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-datetimepicker/moment.min.js','vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/update.js'))
@@ -61,7 +60,7 @@ class Businessprofile extends MY_Controller {
             if ($this->Mactions->checkAccess($data['listActions'], 'service/edit')) {
                 $this->loadModel(array('Mservices', 'Mbusinessprofiles', 'Mcustomers', 'Mbusinessservicetype', 'Mservicetypes', 'Mopeninghours','Mphonecodes', 'Mbusinessphotos', 'Mbusinessvideos'));
                 $profile = $this->Mbusinessprofiles->get($businessProfileId);
-                if ($profile && $profile['busines_status_id'] > 0) {
+                if ($profile && $profile['business_status_id'] > 0) {
                     $data['id'] = $businessProfileId;
                     $data['profile'] = $profile;
                     $data['service'] = $this->Mservices->get($profile['service_id']);
@@ -87,7 +86,7 @@ class Businessprofile extends MY_Controller {
 	public function update() {
 		try {
             $user = $this->checkUserLogin();
-            $postData = $this->arrayFromPost(array('customer_id', 'service_id', 'business_name', 'business_email', 'business_address', 'business_whatsapp', 'business_url', 'business_phone', 'business_description', 'business_avatar', 'business_image_cover', 'country_code_id'));
+            $postData = $this->arrayFromPost(array('customer_id', 'service_id', 'business_name', 'business_slogan', 'business_email', 'business_address', 'business_whatsapp', 'business_url', 'business_phone', 'business_description', 'business_avatar', 'business_image_cover', 'country_code_id'));
             $businessProfileId = $this->input->post('id');
 
             if(empty($postData['business_avatar'])) $postData['business_avatar'] = NO_IMAGE;
@@ -98,7 +97,7 @@ class Businessprofile extends MY_Controller {
 
             $message = 'Successfully added service';
             if($businessProfileId == 0){
-                $postData['busines_status_id'] = STATUS_ACTIVED;
+                $postData['business_status_id'] = STATUS_ACTIVED;
                 $postData['created_by'] = $user['id'];
                 $postData['created_at'] = getCurentDateTime();
             }
@@ -144,7 +143,7 @@ class Businessprofile extends MY_Controller {
     public function changeStatus(){
 		$user = $this->checkUserLogin();
 		$businessProfileId = $this->input->post('id');
-        $statusId = $this->input->post('busines_status_id');
+        $statusId = $this->input->post('business_status_id');
 		if($businessProfileId > 0) {
             $deleteAt = 1;
             $message = 'Delete Business Profile successfully.';
@@ -156,7 +155,7 @@ class Businessprofile extends MY_Controller {
                 $deleteAt = 0;
             }
             $this->loadModel(array('Mbusinessprofilelocations','Mbusinessprofiles'));
-			$flag = $this->Mbusinessprofiles->changeStatus($statusId, $businessProfileId, 'busines_status_id', $user['id'], $deleteAt);
+			$flag = $this->Mbusinessprofiles->changeStatus($statusId, $businessProfileId, 'business_status_id', $user['id'], $deleteAt);
 			if($flag) {
                 $this->Mbusinessprofilelocations->changeStatusChild($statusId, $businessProfileId, 'business_profile_location_status_id', $user['id'], $deleteAt, 'business_profile_id');
 				echo json_encode(array('code' => 1, 'message' => $message));

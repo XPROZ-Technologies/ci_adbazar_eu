@@ -17,7 +17,16 @@ class Signup extends MY_Controller {
     public function index() {
         $this->loadModel(array('Mconfigs'));
 
-        $data = [];
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer('Signup');
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        
         
         $this->load->view('frontend/signup/signup', $data);
     }

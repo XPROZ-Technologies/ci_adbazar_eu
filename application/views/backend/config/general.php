@@ -67,6 +67,26 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="box box-default padding15">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Home Banner Text</h3>
+                            </div>
+                            <div class="box-body">
+                                <textarea class="form-control" name="HOME_BANNER_TEXT"><?php echo $listConfigs['HOME_BANNER_TEXT']; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="box box-default padding15">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Event Banner Text</h3>
+                            </div>
+                            <div class="box-body">
+                                <textarea class="form-control" name="EVENT_BANNER_TEXT"><?php echo $listConfigs['EVENT_BANNER_TEXT']; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="box box-default padding15">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Content footer web</h3>
                                 </div>

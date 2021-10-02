@@ -90,11 +90,15 @@ define('STATUS_ACTIVED', 2);
 define('STATUS_WAITING_ACTIVE', 1);
 define('NO_IMAGE', 'no_image.png');
 define('DEFAULT_LIMIT', 20);
+define('DEFAULT_LIMIT_BUSINESS_PROFILE', 10);
+define('DEFAULT_LIMIT_BUSINESS_PROFILE_MAP', 4);
+define('DEFAULT_LIMIT_COUPON', 50);
 //define('API_VERSION', '1.0');
 //message
 define('ERROR_COMMON_MESSAGE', 'An error occurred during execution');
 define('ERROR_NO_DATA', 'Data does not exist');
 //path
+define('HOME_URL', 'home');
 define('ROOT_PATH', dirname($_SERVER['SCRIPT_NAME']) . '/');
 define('USER_PATH', 'assets/uploads/users/');
 define('CUSTOMER_PATH', 'assets/uploads/customers/');

@@ -89,7 +89,7 @@ $route['sys-admin/location-update'] = 'backend/location/edit';
 $route['sys-admin/location/get-location-not-in-business-profile'] = 'backend/location/getLocationNotInBusinessProfile';
 
 // sider
-$route['sys-admin/sider'] = 'backend/sider';
+$route['sys-admin/slider/(:num)'] = 'backend/slider/index';
 
 // staff
 $route['sys-admin/staff'] = 'backend/user/staff';
@@ -125,19 +125,55 @@ $route['sys-admin/coupon/get-list-business-profile'] = 'backend/coupon/getListSe
 $route['sys-admin/coupon/is-hot'] = 'backend/coupon/isHot';
 $route['sys-admin/coupon/change-status'] = 'backend/coupon/changeStatus'; 
 
+//event
 $route['sys-admin/event'] = 'backend/event';
 $route['sys-admin/event-create'] = 'backend/event/add';
 $route['sys-admin/event-update/(:num)'] = 'backend/event/edit/$1';
 $route['sys-admin/event/insert-update'] = 'backend/event/update'; 
 $route['sys-admin/event/change-status'] = 'backend/event/changeStatus';
 
-
 /**
  * FRONT-END ROUTES
  */
 
-$route['login'] = 'frontend/login';
-$route['signup'] = 'frontend/signup';
+$route['change-customer-language'] = 'frontend/site/changeLanguage';
+
+
+$route['customer-login'] = 'frontend/customer/checkLogin';
+$route['customer-signup'] = 'frontend/customer/register';
+$route['customer-logout'] = 'frontend/customer/logout';
+$route['customer-get-coupon'] = 'frontend/customer/customerGetCoupon';
+$route['customer-remove-coupon'] = 'frontend/customer/customerRemoveCoupon';
+$route['customer-join-event'] = 'frontend/customer/customerJoinEvent';
+$route['customer-left-event'] = 'frontend/customer/customerLeftEvent';
+
+//user management
+$route['customer/my-coupons'] = 'frontend/customer/my_coupons';
+$route['customer/general-information'] = 'frontend/customer/general_information';
+$route['customer/change-password'] = 'frontend/customer/change_password';
+$route['customer/my-events'] = 'frontend/customer/my_events';
+
+$route['notifications.html'] = 'frontend/notification/index';
+
+$route['login.html'] = 'frontend/login';
+$route['signup.html'] = 'frontend/signup';
+
+$route['home'] = 'frontend/home';
+$route['term-of-use.html'] = 'frontend/home/term';
+$route['privacy-policy.html'] = 'frontend/home/privacy';
+
+//services
+$route['services.html'] = 'frontend/service/index';
+$route['service/(:any)-(:num)\.html'] = 'frontend/service/detail/$1/$2';
+
+//events
+$route['events.html'] = 'frontend/event/index';
+$route['event/(:any)-(:num)\.html'] = 'frontend/event/detail/$1/$2';
+
+//coupons
+$route['coupons.html'] = 'frontend/coupon/index';
+$route['coupon/(:any)-(:num)\.html'] = 'frontend/coupon/detail/$1/$2';
+
 
 $route['fb-login'] = 'frontend/customer/loginFb';
 $route['fb-logout'] = 'frontend/customer/logout';

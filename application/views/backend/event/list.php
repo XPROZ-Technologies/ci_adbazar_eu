@@ -4,14 +4,14 @@
             <section class="content-header">
                 <h1><?php echo $title; ?></h1>
                 <ul class="list-inline">
-                    <li><a href="<?php echo base_url('sys-admin/coupon-create'); ?>" class="btn btn-primary">Add coupon</a></li>
+                    <li><a href="<?php echo base_url('sys-admin/event-create'); ?>" class="btn btn-primary">Add Event</a></li>
                 </ul>
             </section>
             <section class="content">
                 <div class="box box-default">
                     <?php sectionTitleHtml('Filter'); ?>
                     <div class="box-body row-margin">
-                        <?php echo form_open('sys-admin/coupon'); ?>
+                        <?php echo form_open('sys-admin/event'); ?>
                         <div class="row">
                             <div class="col-sm-4 form-group">
                                 <input type="text" name="search_text" class="form-control" value="<?php echo set_value('search_text'); ?>" placeholder="Code, Subject, Amount">

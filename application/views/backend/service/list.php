@@ -19,6 +19,9 @@
                             <div class="col-sm-2 form-group">
                                 <?php $this->Mconstants->selectConstants('status', 'status_id', set_value('status_id'), true, '--Status--'); ?>
                             </div>
+                            <div class="col-sm-2 form-group">
+                                <?php $this->Mconstants->selectConstants('isHot', 'is_hot', set_value('is_hot'), true, '--Highlights--'); ?>
+                            </div>
                             <div class="col-sm-4 form-group">
                                 <input type="submit" id="submit" name="submit" class="btn btn-primary" value="Search">
                                 <input type="text" hidden="hidden" name="page_id" id="pageId" value="<?php echo set_value('page_id'); ?>">
@@ -47,6 +50,7 @@
                                     </ul>
                                 </th>
                                 <th style="width:120px;">Status</th>
+                                <th style="width:120px;">Highlights</th>
                                 <th style="width:250px;">Action</th>
                             </tr>
                             </thead>
@@ -72,8 +76,10 @@
                                         </div>    
                                     </td>
                                     <td><span class="<?php echo $labelCss[$s['service_status_id']]; ?>"><?php echo $this->Mconstants->status[$s['service_status_id']]; ?></span></td>
-                                    <td class="actions">
+                                    <td>
                                         <input type="checkbox" value="<?php echo $s['is_hot']; ?>"  data-id="<?php echo $s['id']; ?>" class="js-switch"<?php if($s['is_hot'] == 2) echo ' checked'; ?>/>
+                                    </td>
+                                    <td class="actions">
                                         <a href="javascript:void(0)" class="link_delete btn btn-xs btn-default" data-id="<?php echo $s['id']; ?>" status-id="0" title="Remove">Remove</a>
                                         <?php if($s['service_status_id'] == STATUS_ACTIVED){ 
                                         ?> 

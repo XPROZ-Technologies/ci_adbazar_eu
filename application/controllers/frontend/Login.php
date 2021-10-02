@@ -10,14 +10,23 @@ class Login extends MY_Controller {
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
         $this->lang->load('login', $this->language);
-
-
     }
 
     public function index() {
         $this->loadModel(array('Mconfigs'));
 
-        $data = [];
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer('Login',
+			array('scriptFooter' => array('js' => 'js/frontend/login/login.js'))
+        );
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        
         
         $this->load->view('frontend/login/signin', $data);
     }

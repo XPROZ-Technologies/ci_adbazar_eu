@@ -15,13 +15,92 @@ class Home extends MY_Controller {
     }
 
     public function index() {
-        $customer = $this->checkLoginCustomer();
+        $this->loadModel(array('Mconfigs', 'Mlocations', 'Mservices', 'Msliders', 'Mcoupons', 'Mbusinessprofiles', 'Mservicetypes', 'Mcustomercoupons'));
+        
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer('Home');
+        $data['activeMenu'] = "home";
+        /**
+         * Commons data
+         */
 
-        $this->loadModel(array('Mconfigs', 'Mlocations'));
+        $data['listSlidersHome'] = $this->Msliders->getBy(array('slider_status_id' => STATUS_ACTIVED, 'slider_type_id' => 1), false, 'display_order','', 0, 0, 'asc');
 
-        $data = [];
-        $data['customer'] = $customer;
+        $data['services'] = $this->Mservices->getHighlightListByLang($data['language_id'] );
+
+        $data['listSlidersEvent'] = $this->Msliders->getBy(array('slider_status_id' => STATUS_ACTIVED, 'slider_type_id' => 2), false, 'display_order','', 0, 0, 'asc');
+
+        $savedCoupons = $this->Mcustomercoupons->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_coupon_status_id >' => 0), 'coupon_id');
+        $data['listCoupons'] = $this->Mcoupons->search(array('coupon_status_id' => STATUS_ACTIVED, 'is_hot' => 2, 'saved_coupons' => $savedCoupons));
+        foreach($data['listCoupons'] as $kCoupon => $itemCoupon){
+            $data['listCoupons'][$kCoupon]['coupon_amount_used'] = $this->Mcustomercoupons->getUsedCoupon($itemCoupon['id']);
+        }
+
         $data['locations'] = $this->Mlocations->getBy(array('location_status_id' => STATUS_ACTIVED));
+
+        
+        /**
+         * Business profile on Map
+         */
+        $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $service_id = $this->input->get('service_id');
+        if(empty($service_id)){ $service_id = 0; }
+        $data['service_id'] = $service_id;
+        $search_text = $this->input->get('keyword');
+        $data['keyword'] = $search_text;
+        $getData = array('business_status_id' => STATUS_ACTIVED, 'search_text_fe' => $search_text, 'service_id' => $service_id);
+        $rowCount = $this->Mbusinessprofiles->getCount($getData);
+        $data['listProfiles'] = array();
+        
+            /**
+             * PAGINATION
+             */
+            $perPage = DEFAULT_LIMIT_BUSINESS_PROFILE_MAP;
+            //$perPage = 2;
+            $per_page = $this->input->get('per_page');
+            if(is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
+            $pageCount = ceil($rowCount / $perPage);
+            $page = $this->input->get('page');
+            if(!is_numeric($page) || $page < 1) $page = 1;
+            $data['basePagingUrl'] = base_url(HOME_URL);
+            $data['perPage'] = $perPage;
+            $data['page'] = $page;
+            $data['rowCount'] = $rowCount;
+            $data['paggingHtml'] = getPaggingHtmlFront_2($page, $pageCount, $data['basePagingUrl'].'?page={$1}#maps');
+            /**
+             * END - PAGINATION
+             */
+        
+
+        $data['listProfiles'] = $this->Mbusinessprofiles->search($getData, $perPage, $page);
+        for($i = 0; $i < count($data['listProfiles']); $i++){
+            
+            $data['listProfiles'][$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($data['listProfiles'][$i]['id'], $service_type_name);
+            $data['listProfiles'][$i]['isOpen'] = $this->checkBusinessOpenHours($data['listProfiles'][$i]['id']);
+        }
+
+        $service_ids = array();
+        $data['listProfilesMap'] = $this->Mbusinessprofiles->search($getData);
+        for($i = 0; $i < count($data['listProfilesMap']); $i++){
+            $service_ids[] = $data['listProfiles'][$i]['service_id'];
+            $data['listProfilesMap'][$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($data['listProfilesMap'][$i]['id'], $service_type_name);
+            $data['listProfilesMap'][$i]['isOpen'] = $this->checkBusinessOpenHours($data['listProfilesMap'][$i]['id']);
+            $data['listProfilesMap'][$i]['locationInfo'] = $this->Mbusinessprofiles->getBusinessInLocation($data['listProfilesMap'][$i]['id']);
+        }
+        $data['listServices'] = array();
+        foreach($data['services'] as $itemService){
+            if(in_array($itemService['id'], $service_ids)){
+                $data['listServices'][] = $itemService;
+            }
+        }
+       
+        /**
+         * END. Business profile on Map
+         */
+
+        //echo "<pre>";print_r($data['listServices']);
 
         $this->load->view('frontend/home/index', $data);
     }

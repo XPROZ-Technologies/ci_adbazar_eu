@@ -2,7 +2,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Review Video</h3>
+        <h3 class="modal-title">Preview Video</h3>
       </div>
       <div class="modal-body">
             <div class="row">

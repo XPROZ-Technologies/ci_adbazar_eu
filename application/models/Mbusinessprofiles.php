@@ -10,12 +10,12 @@ class Mbusinessprofiles extends MY_Model {
     }
 
     public function getCount($postData){
-        $query = "busines_status_id > 0" . $this->buildQuery($postData);
+        $query = "business_status_id > 0" . $this->buildQuery($postData);
         return $this->countRows($query);
     }
 
     public function search($postData, $perPage = 0, $page = 1){
-        $query = "SELECT * FROM business_profiles WHERE busines_status_id > 0" . $this->buildQuery($postData);
+        $query = "SELECT * FROM business_profiles WHERE business_status_id > 0" . $this->buildQuery($postData);
         if($perPage > 0) {
             $from = ($page-1) * $perPage;
             $query .= " LIMIT {$from}, {$perPage}";
@@ -26,8 +26,11 @@ class Mbusinessprofiles extends MY_Model {
     private function buildQuery($postData){
         $query = '';
         if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `business_name` LIKE '%{$postData['search_text']}%' OR `business_email` LIKE '%{$postData['search_text']}%' OR `business_address` LIKE '%{$postData['search_text']}%' OR `business_whatsapp` LIKE '%{$postData['search_text']}%' OR `business_phone` LIKE '%{$postData['search_text']}%')";
-        if(isset($postData['busines_status_id']) && $postData['busines_status_id'] > 0) $query .= " AND busines_status_id = ".$postData['busines_status_id'];
+        if(isset($postData['search_text_fe']) && !empty($postData['search_text_fe'])) $query .=" AND ( `business_name` LIKE '%{$postData['search_text_fe']}%' OR `business_description` LIKE '%{$postData['search_text_fe']}%')";
+        if(isset($postData['business_status_id']) && $postData['business_status_id'] > 0) $query .= " AND business_status_id = ".$postData['business_status_id'];
+        if(isset($postData['business_profile_ids']) && count($postData['business_profile_ids']) > 0) $query .= " AND id IN (".implode(',', $postData['business_profile_ids']).")";
         if(isset($postData['service_id']) && $postData['service_id'] > 0) $query .= " AND service_id = ".$postData['service_id'];
+        if(isset($postData['service_ids']) && count($postData['service_ids']) > 0) $query .= " AND service_id IN (".implode(',', $postData['service_ids']).")";
         if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query .= " AND customer_id = ".$postData['customer_id'];
         return $query;
     }
@@ -41,6 +44,7 @@ class Mbusinessprofiles extends MY_Model {
                 $this->db->delete('opening_hours', array('business_profile_id' => $businessProfileId));
                 $this->db->delete('business_service_types', array('business_profile_id' => $businessProfileId));
                 $this->db->delete('business_photos', array('business_profile_id' => $businessProfileId));
+                $this->db->delete('business_videos', array('business_profile_id' => $businessProfileId));
         	}
             if(!empty($businessServiceTypes)) {
                 $arrBusinessType = array();
@@ -122,6 +126,8 @@ class Mbusinessprofiles extends MY_Model {
         $query = "SELECT
                 locations.id,
                 locations.location_name,
+                locations.lat,
+                locations.lng,
                 business_profile_locations.expired_date,
                 business_profile_locations.id as business_profile_location_id
             FROM business_profile_locations
@@ -143,7 +149,7 @@ class Mbusinessprofiles extends MY_Model {
                     FROM
                         business_profiles 
                     WHERE
-                        business_profiles.busines_status_id = ? ".$where."
+                        business_profiles.business_status_id = ? ".$where."
                         AND business_profiles.id NOT IN ( SELECT business_profile_id FROM business_profile_locations WHERE business_profile_location_status_id > 0 ".$where2.")";
         return $this->getByQuery($query, array(STATUS_ACTIVED));
     }
@@ -151,7 +157,7 @@ class Mbusinessprofiles extends MY_Model {
     public function getListSelect2BuinessProfile($searchText = '') {
         $where = '';
         if(!empty($searchText)) $where = " AND (business_name LIKE '%".$searchText."%') ";
-        $query = "SELECT id, business_name FROM business_profiles WHERE busines_status_id = 2  ".$where." LIMIT 200";
+        $query = "SELECT id, business_name FROM business_profiles WHERE business_status_id = 2  ".$where." LIMIT 200";
         return $this->getByQuery($query);
     }
 }

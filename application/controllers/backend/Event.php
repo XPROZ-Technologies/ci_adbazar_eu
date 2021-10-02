@@ -6,7 +6,7 @@ class Event extends MY_Controller {
     public function index(){
 		$user = $this->checkUserLogin(); 
 		$data = $this->commonData($user,
-			'List Coupon',
+			'List Event',
 			array(
                 'scriptHeader' => array('css' => ''),
                 'scriptFooter' => array('js' => array('js/backend/event/list.js'))

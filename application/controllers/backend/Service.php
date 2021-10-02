@@ -13,7 +13,7 @@ class Service extends MY_Controller {
             )
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'service')) {
-            $postData = $this->arrayFromPost(array('search_text', 'service_status_id'));
+            $postData = $this->arrayFromPost(array('search_text', 'service_status_id', 'is_hot'));
             $this->load->model('Mservices');
             $rowCount = $this->Mservices->getCount($postData);
             $data['listServices'] = array();
@@ -49,7 +49,7 @@ class Service extends MY_Controller {
         if($serviceId > 0) {
             $user = $this->checkUserLogin();
             $data = $this->commonData($user,
-                'Edit staff',
+                'Edit service',
                 array(
                     'scriptHeader' => array('css' => 'vendor/plugins/datepicker/datepicker3.css'),
                     'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'js/backend/service/update.js'))
@@ -77,7 +77,7 @@ class Service extends MY_Controller {
     public function update(){
         try {
             $user = $this->checkUserLogin();
-            $postData = $this->arrayFromPost(array('service_name_vi', 'service_name_en', 'service_name_cz', 'service_name_de', 'display_order', 'service_image'));
+            $postData = $this->arrayFromPost(array('service_name_vi', 'service_name_en', 'service_name_cz', 'service_name_de', 'display_order', 'service_image', 'service_status_id', 'is_hot'));
             $serviceId = $this->input->post('id');
             if(empty($postData['service_image'])) $postData['service_image'] = NO_IMAGE;
             else $postData['service_image'] = replaceFileUrl($postData['service_image'], SERVICE_PATH);
