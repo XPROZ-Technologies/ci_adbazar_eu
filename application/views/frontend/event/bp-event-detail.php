@@ -19,7 +19,7 @@
                     <div class="col-lg-8">
                         <div class="um-event-detail-right">
                             <h3 class="page-title-md fw-bold"><?php echo $detailInfo['event_subject']; ?></h3>
-                            <p class="mb-0 page-text-lg">By <a href="<?php echo base_url($businessInfo['business_url']); ?>" class="fw-bold"><?php echo $businessInfo['business_name']; ?></a></p>
+                            <p class="mb-0 page-text-lg">By <a href="<?php echo base_url(BUSINESS_PROFILE_URL.$businessInfo['business_url']); ?>" class="fw-bold"><?php echo $businessInfo['business_name']; ?></a></p>
                             <hr>
                             <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between info">
                                 <ul class="list-unstyled mb-0 page-text-md">
@@ -43,7 +43,7 @@
                                     <img src="<?php echo BUSINESS_PROFILE_PATH . $businessInfo['business_avatar'] ?>" alt="<?php echo $businessInfo['business_name']; ?>" class="img-fluid">
                                 </div>
                                 <div class="horizontal-body">
-                                    <h6 class="mb-0 card-title page-text-lg"><a href="<?php echo base_url($businessInfo['business_url']); ?>"><?php echo $businessInfo['business_name']; ?></a></h6>
+                                    <h6 class="mb-0 card-title page-text-lg"><a href="<?php echo base_url(BUSINESS_PROFILE_URL.$businessInfo['business_url']); ?>"><?php echo $businessInfo['business_name']; ?></a></h6>
                                     <p class="my-3 card-text page-text-sm"><?php echo $businessInfo['business_phone']; ?></p>
                                     <p class="mb-0 card-text page-text-sm"><?php echo $businessInfo['business_address']; ?></p>
                                 </div>

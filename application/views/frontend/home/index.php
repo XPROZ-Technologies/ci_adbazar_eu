@@ -173,7 +173,7 @@
                         </div>
                         <div class="col-9">
                           <div class="card-body p-0">
-                            <h6 class="card-title mb-1 page-text-xs"><a href="<?php echo base_url($itemBusines['business_url']); ?>" title=""><?php echo $itemBusines['business_name']; ?></a></h6>
+                            <h6 class="card-title mb-1 page-text-xs"><a href="<?php echo base_url(BUSINESS_PROFILE_URL.$itemBusines['business_url']); ?>" title=""><?php echo $itemBusines['business_name']; ?></a></h6>
                             <!--
                             <ul class="list-inline mb-2 list-rating-sm">
                               <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
@@ -302,7 +302,7 @@
                 evaluateInfo: 0,
                 linkClose: '<?php echo $itemBusines['isOpen']; ?>',
                 linkLocation: '',
-                linkView: '<?php echo base_url($itemBusines['business_url']); ?>',
+                linkView: '<?php echo base_url(BUSINESS_PROFILE_URL.$itemBusines['business_url']); ?>',
               },
             <?php } } ?>
           ];
