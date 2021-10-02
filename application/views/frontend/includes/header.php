@@ -249,9 +249,9 @@
                     </div>
                     <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('business-profile'); ?>'" >Go to my Business Profile</button>
                     <?php if($customer['login_type_id'] == 2){ ?> 
-                        <button type="button" class="btn btn-outline-red g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
+                        <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
                       <?php } else { ?> 
-                        <button class="btn btn-outline-red" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
+                        <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
                       <?php } ?>
                     
                   </div>
