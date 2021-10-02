@@ -62,8 +62,9 @@
                     <div class="col-md-4">
                       <div class="form-group mb-3">
                         <label for="profileGender" class="form-label">Gender</label>
-                        <div class="custom-select">
-                          <select id="profileGender" name="customer_gender_id">
+                        <input type="hidden" id="customerGender" name="customer_gender_id" value="<?php echo $customerInfo['customer_gender_id']; ?>" />
+                        <div class="custom-select js-list-gender">
+                          <select id="profileGender">
                             <option value="0">Male</option>
                             <option value="1" <?php if($customerInfo['customer_gender_id'] == 1){ echo "selected"; } ?> >Female</option>
                           </select>
@@ -216,6 +217,9 @@
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
 <script>
+  $("body").on("click", ".js-list-gender li", function() {
+    $("#customerGender").val($(this).data('value'));
+  });
   $("body").on("click", ".js-list-country li a", function() {
     $("#customerPhoneCode").val($(this).data('id'));
   });
