@@ -306,7 +306,8 @@
 
       const features = [
         <?php if (!empty($listProfilesMap) > 0) {
-          foreach ($listProfilesMap as $kBusines => $itemBusines) { ?> {
+          foreach ($listProfilesMap as $kBusines => $itemBusines) {
+              if(!empty($itemBusines['locationInfo'])){ ?> {
               position: new google.maps.LatLng(<?php echo $itemBusines['locationInfo']['lat']; ?>, <?php echo $itemBusines['locationInfo']['lng']; ?>),
               type: "iconMap",
               servicetypes: '',
@@ -319,7 +320,7 @@
               linkLocation: '',
               linkView: '<?php echo base_url(BUSINESS_PROFILE_URL . $itemBusines['business_url']); ?>',
             },
-        <?php }
+        <?php } }
         } ?>
       ];
       // Create markers.
