@@ -248,16 +248,16 @@
               <div class="row g-0">
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                   <div class="customer-contact-left d-flex align-items-center">
-                    <form class="row g-3" action="#">
+                    <form class="row g-3" action="" id="formContactUs" method="POST">
                       <h3 class="fw-bold text-center mb-4">Contact Us </h3>
                       <div class="col-12">
-                        <input type="text" class="form-control" id="customerName" placeholder="Name">
+                        <input type="text" class="form-control" name="contact_name" id="contactName" placeholder="Name" required>
                       </div>
                       <div class="col-12">
-                        <input type="email" class="form-control" id="customerEmail" placeholder="Email">
+                        <input type="email" class="form-control" name="contact_email" id="contactEmail" placeholder="Email" required>
                       </div>
                       <div class="col-12">
-                        <textarea class="form-control" id="customerContente" rows="3" placeholder="Type your message here"></textarea>
+                        <textarea class="form-control" name="contact_message" id="contactMessage" rows="3" placeholder="Type your message here" required ></textarea>
                       </div>
                       <div class="col-12 d-flex justify-content-center btn-submit">
                         <button type="submit" class="btn btn-red">Submit</button>
@@ -432,4 +432,21 @@
       
     }
   }
+  
+  $( "#formContactUs" ).submit(function( event ) {
+      event.preventDefault();
+      var email = $("#contactEmail").val();
+      var name = $("#contactNam").val();
+      var message = $("#contactMessage").val();
+      if(email !== "" && name != "" && message != ""){
+          //this.submit();
+          $(".notiPopup").addClass('show');
+          $(".notiPopup .text-secondary").html('Message sent');
+          $(".ico-noti-success").removeClass('ico-hidden');
+      }else{
+          $(".notiPopup").addClass('show');
+          $(".notiPopup .text-secondary").html('Please enter your contact information');
+          $(".ico-noti-error").removeClass('ico-hidden');
+      }
+  });
 </script>
