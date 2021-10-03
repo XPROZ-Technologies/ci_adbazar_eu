@@ -6549,7 +6549,7 @@ a {
   background: #F5F5F5;
   width: 447px; }
   .toast-container {
-    z-index: 10;
+    /*z-index: 10;*/
     left: 84px;
     bottom: 72px; }
   .toast-header {
