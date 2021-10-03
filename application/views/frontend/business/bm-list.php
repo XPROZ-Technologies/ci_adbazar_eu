@@ -26,7 +26,7 @@
                         <?php } } ?>
                         <!-- Create new Business Profiles -->
                         <div class="col-sm-6 col-lg-3">
-                            <div class="card bm-item bm-item-add" onclick="window.location.href='<?php echo base_url('business-profile/select-plan'); ?>'">
+                            <div class="card bm-item bm-item-add">
                                 <img src="assets/img/frontend/bm-plus.png" alt="plus icon">
                             </div>
                         </div>
@@ -78,3 +78,26 @@
     </div>
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
+
+<!-- Modal cannot create -->
+<div class="modal fade" id="bmCannotCreateModal" tabindex="-1" aria-labelledby="bmCannotCreateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="page-text-lg text-center">You cannot create a second business while using your three-month free trial.
+                    If you have any special request, please contact our admin for further help.</p>
+                    <a href="<?php echo base_url(HOME_URL); ?>#contact-us" class="btn btn-red btn-contact-ad">Contact us</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal cannot create -->
+<script>
+    $('.bm-item-add').click(function() {
+        <?php if (!empty($businessProfiles) && count($businessProfiles) > 0) { ?>
+            $("#bmCannotCreateModal").modal('show');
+        <?php }else{ ?>
+            redirect(false, '<?php echo base_url('business-profile/select-plan'); ?>');
+        <?php } ?>
+    });
+</script>

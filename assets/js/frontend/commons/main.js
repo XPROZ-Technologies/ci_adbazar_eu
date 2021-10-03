@@ -9,7 +9,7 @@ $(window).ready(() => {
   */
   $("#eventCancelModal").modal("show");
   $("#reservationModal").modal("show");
-  $("#bmCannotCreateModal").modal("show");
+  /*$("#bmCannotCreateModal").modal("show");*/
   $("#bmCouponAlertModal").modal("show");
   /*
   $('.btn-getnow').click(function(){
