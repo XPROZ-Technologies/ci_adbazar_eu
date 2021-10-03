@@ -166,9 +166,9 @@
           <div class="col-lg-8">
             <div class="text-right mb-20">
               <div class="wrapper-search">
-                <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
-                  <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                  <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
+                <form class="d-flex search-box" >
+                  <a href="javascript:void(0)" class="search-box-icon" ><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                  <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
                 </form>
               </div>
             </div>
