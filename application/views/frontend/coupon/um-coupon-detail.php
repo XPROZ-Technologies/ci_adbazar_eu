@@ -136,7 +136,7 @@
 <script>
   $('.btn-get-coupon').click(function() {
     var button = $(this);
-
+    var url = $("#baseUrl").data('href');
     var customer_id = <?php echo $customer['id']; ?>;
     var redirectUrl = $("#redirectUrl").val();
 
