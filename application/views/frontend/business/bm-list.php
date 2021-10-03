@@ -12,13 +12,13 @@
                             <?php if(empty($itemBusiness['business_avatar'])) { $itemBusiness['business_avatar'] = NO_IMAGE; } ?>
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card bm-item">
-                                    <a href="<?php echo base_url($itemBusiness['business_url']); ?>" class="d-block bm-item-img">
+                                    <a href="<?php echo base_url('business/'.$itemBusiness['business_url'].'/about-us'); ?>" class="d-block bm-item-img">
                                         <img src="<?php echo BUSINESS_PROFILE_PATH . $itemBusiness['business_avatar']; ?>" class="card-img-top img-fluid" alt="<?php echo $itemBusiness['business_name']; ?>">
                                     </a>
                                     <div class="card-body pt-0">
                                         <h5 class="card-title page-text-lg text-black text-center"><?php echo $itemBusiness['business_name']; ?></h5>
                                         <div class="text-center">
-                                            <a href="<?php echo base_url($itemBusiness['business_url']); ?>" class="btn btn-red btn-manager btn-red-md">Manage</a>
+                                            <a href="<?php echo base_url('business/'.$itemBusiness['business_url'].'/about-us'); ?>" class="btn btn-red btn-manager btn-red-md">Manage</a>
                                         </div>
                                     </div>
                                 </div>

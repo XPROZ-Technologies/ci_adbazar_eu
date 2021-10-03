@@ -199,3 +199,4 @@ $route['(:any)'] = 'frontend/businessprofile/index/$1';
 $route['business/(:any)/gallery'] = 'frontend/businessprofile/gallery/$1';
 $route['business/(:any)/coupons'] = 'frontend/businessprofile/coupons/$1';
 $route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
+$route['business/(:any)/about-us'] = 'frontend/businessprofile/about_us/$1';

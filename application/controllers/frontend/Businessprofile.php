@@ -61,6 +61,53 @@ class Businessprofile extends MY_Controller
         $this->load->view('frontend/business/bp-about-us', $data);
     }
 
+    public function about_us($slug = "")
+    {
+        if (empty($slug)) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+        $businessURL = trim($slug);
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations'));
+
+        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+        if ($businessProfileId == 0) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+        $businessInfo = $this->Mbusinessprofiles->get($businessProfileId);
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer($businessInfo['business_name']);
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $data['activeBusinessMenu'] = "about-us";
+
+        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+
+        $data['businessInfo'] = $businessInfo;
+        $data['phoneCodeInfo'] = array();
+        if ($businessInfo['business_phone_code'] > 0) {
+            $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['business_phone_code']);
+        }
+
+        $businessLocationId = $this->Mbusinessprofilelocations->getFieldValue(array('business_profile_id' => $businessInfo['id'], 'business_profile_location_status_id' => STATUS_ACTIVED), 'location_id', 0);
+        $data['locationInfo'] = array();
+        if ($businessLocationId > 0) {
+            $data['locationInfo'] = $this->Mlocations->get($businessLocationId);
+        }
+        $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
+        $data['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($businessProfileId, $service_type_name);
+
+        $this->load->view('frontend/business/bm-profile', $data);
+    }
+
     public function gallery($slug = "")
     {
         if (empty($slug)) {
