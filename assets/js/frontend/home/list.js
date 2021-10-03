@@ -1,3 +1,6 @@
+
+    
+
 $(document).ready(function() {
     $("#profilePagging").html('');
     $(".customer-location-list").html('');
@@ -18,7 +21,15 @@ $(document).ready(function() {
         }, 1000);
     });
 });
+let map;
 
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: new google.maps.LatLng(50.047648687939635, 12.355822100555436),
+        zoom: 16,
+      });
+    
+    }
 function loadProfile(service_id, search_text_fe, page, per_page) {
     $.ajax({
         type: "POST",
@@ -33,7 +44,9 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
             var json = $.parseJSON(response);
             $("#profilePagging").html('');
             $(".customer-location-list").html('');
+           
             if(json.code == 1){
+                let markers = [];
                 var listProfiles = json.data;
                 var html = '';
                 var pathProfileBusiness = $("input#pathProfileBusiness").val();
@@ -90,6 +103,132 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                     $("#profilePagging").html(retVal);
                 }
                 $(".customer-location-list").html(html);
+                
+                var listProfilesMap = json.listProfilesMap;
+
+var infowindow = null;
+jQuery(function() {
+        var StartLatLng = new google.maps.LatLng(50.047648687939635, 12.355822100555436);
+        var mapOptions = {
+            center: StartLatLng,
+            zoom: 16,
+        };
+
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    var infowindow = new google.maps.InfoWindow({
+        content: ''
+    });
+        
+    jQuery.each( listProfilesMap, function(i, item) {
+        item.servicetypes = '';
+        item.linkInfo = '';
+        var starInfo = '';
+                    
+
+                        var rank = `
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                            `;
+                        // starInfo lấy trong db ra, hiện tại chưa làm
+                        if (starInfo == 1) {
+                            rank = `
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                `;
+                        } else if (starInfo == 2) {
+                            rank = `
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                `;
+                        } else if (starInfo == 3) {
+                            rank = `
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                `;
+                        } else if (starInfo == 4) {
+                            rank = `
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                                `;
+                        } else if (starInfo == 5) {
+                            rank = `
+                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                            `;
+                        }
+        var open_status = '<a href="javascript:void(0);" class="customer-location-close">Closed</a>';
+        if (item.linkClose == 1) {
+            open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
+        }
+
+        var evaluate_info = "";
+        if (item.evaluateInfo !== 0) {
+            evaluate_info = `<li class="list-inline-item me-0">(${item.evaluateInfo})</li>`;
+        }
+        var link_location = "";
+        if (item.linkLocation !== "") {
+            link_location = `<a href="${item.linkLocation}"><img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image"></a>`;
+        }
+
+        const infoMap = `<div class="card rounded-0 customer-location-item mb-2">
+            <div class="row g-0">
+                <div class="col-3">
+                    <a href="#" class="customer-location-img"><img  src="${item.imgiInfo}" class="img-fluid" alt="location image" style="max-width: 100%; height: auto"></a>
+                </div>
+                <div class="col-9">
+                    <div class="card-body p-0 ml-2">
+                        <h6 class="card-title mb-1 page-text-xs"><a href="${item.linkInfo}" title="">${item.business_name}</a></h6>
+                        <ul class="list-inline mb-2 list-rating-sm">
+                            ${rank}
+                            ${evaluate_info}
+                        </ul>
+                        <p class="card-text mb-0 page-text-xxs text-secondary">${item.servicetypes}
+                        </p>
+                        ${open_status}
+                        
+                        <a target="_blank" href="${item.linkView}"
+                            class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(parseFloat(item.locationInfo.lat), parseFloat(item.locationInfo.lng)),
+            map: map,
+            icon: iconMap,
+        });
+console.log(item)
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.close();
+            infowindow.setContent(infoMap);
+            infowindow.open(map,marker);
+        });
+
+
+    });
+});
+                
+               
+               
             }
         },
         error: function (response) {
@@ -97,3 +236,4 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
     });
     return false;
 }
+

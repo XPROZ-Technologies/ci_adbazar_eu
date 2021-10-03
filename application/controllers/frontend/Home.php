@@ -112,7 +112,7 @@ class Home extends MY_Controller {
     public function getListProfile() {
         try {
             $data = $this->commonDataCustomer('Home');
-            
+
             $this->loadModel(array('Mbusinessprofiles', 'Mservicetypes'));
 
             $postData = $this->arrayFromPost(array('search_text', 'service_id'));
@@ -133,7 +133,16 @@ class Home extends MY_Controller {
                 $listProfiles[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfiles[$i]['id']);
             }
             $pageCount = ceil($rowCount / $perPage);
-            echo json_encode(array('code' => 1, 'message' => 'Data', 'data' => $listProfiles, 'page' => $page, 'per_page' => $perPage, 'page_count' => $pageCount));
+
+            $listProfilesMap = $this->Mbusinessprofiles->search($postData);
+            for($i = 0; $i < count($listProfilesMap); $i++){
+                if(isset($listProfilesMap[$i])){
+                    $listProfilesMap[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfilesMap[$i]['id'], $service_type_name);
+                    $listProfilesMap[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfilesMap[$i]['id']);
+                    $listProfilesMap[$i]['locationInfo'] = $this->Mbusinessprofiles->getBusinessInLocation($listProfilesMap[$i]['id']);
+                }
+            }
+            echo json_encode(array('code' => 1, 'message' => 'Data', 'data' => $listProfiles, 'page' => $page, 'per_page' => $perPage, 'page_count' => $pageCount, 'listProfilesMap' => $listProfilesMap));
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
         }
