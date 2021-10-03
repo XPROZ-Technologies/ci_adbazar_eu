@@ -252,11 +252,11 @@
                         <a href="<?php echo base_url('customer/general-information') ?>">See my profile</a>
                       </div>
                     </div>
-                    <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('my-business-profile'); ?>'">Go to my Business Profile</button>
+                    <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('my-business-profile'); ?>'">My Business Profile</button>
                     <?php if (isset($customer['login_type_id']) && $customer['login_type_id'] == 2) { ?>
                       <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
                     <?php } else { ?>
-                      <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Logout</button>
+                      <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Log Out</button>
                     <?php } ?>
 
                   </div>

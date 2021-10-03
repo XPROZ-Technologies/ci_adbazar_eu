@@ -43,6 +43,7 @@ app.handle = function() {
         minDate:new Date(),
         defaultDate: new Date()
     });
+
     $("select#business_profile_id").select2({
         placeholder: '--Choose Business Profile--',
         allowClear: true,
