@@ -219,3 +219,10 @@ min-height: 322px;
 .home-coupon .customer-coupon-item {
     margin-bottom: 27px;
 }
+
+.home-service  .owl-customer-service .owl-dots{
+    display: none!important;
+}
+.home-service {
+    padding: 40px 0 64px;
+}
