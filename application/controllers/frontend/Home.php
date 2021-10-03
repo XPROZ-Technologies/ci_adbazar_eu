@@ -148,4 +148,23 @@ class Home extends MY_Controller {
         }
     }
     
+
+    public function about() {
+        $this->loadModel(array('Mcustomers','Mconfigs', 'Mlocations', 'Mservices', 'Msliders', 'Mcoupons', 'Mbusinessprofiles', 'Mservicetypes', 'Mcustomercoupons'));
+        
+        /**
+         * Commons data
+         */
+
+
+        $data = $this->commonDataCustomer('About Us');
+        $data['activeMenu'] = "about-us";
+        /**
+         * Commons data
+         */
+
+        
+
+        $this->load->view('frontend/home/about', $data);
+    }
 }

@@ -166,7 +166,7 @@
             <li class="nav-item">
               <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "about-us") {
                                     echo "active";
-                                  } ?>" href="#">About Us</a>
+                                  } ?>" href="<?php echo base_url('about-us.html') ?>">About Us</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle  <?php if (isset($activeMenu) && $activeMenu == "services") {
@@ -330,7 +330,7 @@
               <li class="nav-item">
                 <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "about-us") {
                                       echo "active";
-                                    } ?>" href="#">About Us</a>
+                                    } ?>" href="<?php echo base_url('about-us.html') ?>">About Us</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle  <?php if (isset($activeMenu) && $activeMenu == "services") {

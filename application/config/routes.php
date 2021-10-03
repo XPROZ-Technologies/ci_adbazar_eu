@@ -161,6 +161,7 @@ $route['login.html'] = 'frontend/login';
 $route['signup.html'] = 'frontend/signup';
 
 $route['home'] = 'frontend/home';
+$route['about-us.html'] = 'frontend/home/about';
 $route['term-of-use.html'] = 'frontend/home/term';
 $route['privacy-policy.html'] = 'frontend/home/privacy';
 
