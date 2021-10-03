@@ -13,21 +13,21 @@
             <img src="assets/img/frontend/bm-paypal.png" alt="paypal image" class="img-fluid">
           </div>
           <p class="page-title-sm fw-bold text-center text-primary mb-0">Three-month free trial is available for your first business</p>
-          <!-- Change currency 
-                        <div class="d-flex align-items-center justify-content-center currency-wrap">
-                            <span class="fw-500">Currency</span>
-                            <div class="d-flex align-items-center justify-content-center switch-btn">
-                                <input id="checkbox" type="checkbox" class="checkbox" checked />
-                                <label for="checkbox" class="switch">
-                                    <span class="switch-circle">
-                                        <span class="switch-circle-inner"></span>
-                                    </span>
-                                    <span class="switch-left">USD</span>
-                                    <span class="switch-right">CZK</span>
-                                </label>
-                            </div>
-                        </div>
-                        END. Change currency -->
+          <!-- Change currency -->
+          <div class="d-flex align-items-center justify-content-center currency-wrap">
+            <span class="fw-500">Currency</span>
+            <div class="d-flex align-items-center justify-content-center switch-btn">
+              <input id="checkbox" type="checkbox" class="checkbox" checked />
+              <label for="checkbox" class="switch">
+                <span class="switch-circle">
+                  <span class="switch-circle-inner"></span>
+                </span>
+                <span class="switch-left">USD</span>
+                <span class="switch-right">CZK</span>
+              </label>
+            </div>
+          </div>
+          <!-- END. Change currency -->
         </div>
       </div>
 

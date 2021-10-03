@@ -176,6 +176,9 @@ $route['event/(:any)-(:num)\.html'] = 'frontend/event/detail/$1/$2';
 $route['coupons.html'] = 'frontend/coupon/index';
 $route['coupon/(:any)-(:num)\.html'] = 'frontend/coupon/detail/$1/$2';
 
+//notification
+$route['notifications.html'] = 'frontend/notification/index';
+
 
 
 //business management

@@ -266,7 +266,9 @@
               <div class="wrapper-notification">
                 <div class="header-notification">
                   <i class="bi bi-bell"></i>
-                  <div class="badge">2</div>
+                  <?php if(isset($listNotification) && count($listNotification) > 0){ ?>
+                    <div class="badge">2</div>
+                  <?php } ?>
                 </div>
                 <div class="wrapper-notify">
                   <div class="spacer"></div>
@@ -278,8 +280,9 @@
 
                     <!-- List noti -->
                     <div class="list-notify">
+                      <?php if(isset($listNotification) && !empty($listNotification)){ ?>
                       <!-- noti item -->
-                      <a href="customer-notification.html" class="notify-item">
+                      <a href="javascript:void(0)" class="notify-item">
                         <div class="notify-img">
                           <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
                         </div>
@@ -290,44 +293,13 @@
                         <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
                       </a>
                       <!-- END. noti item -->
-                      <a href="customer-notification.html" class="notify-item">
-                        <div class="notify-img">
-                          <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
+                      <?php }else{ ?>
+                        <div class="notification-zero zero-box">
+                          <img src="assets/img/frontend/img-empty-box.svg" alt="empty box" class="img-fluid d-block mx-auto">
+                          <p class="page-text-lg text-center text-secondary">You do not have any notification yet</p>
                         </div>
-                        <div class="notify-body">
-                          <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                          <small>2 days ago</small>
-                        </div>
-                      </a>
-                      <a href="customer-notification.html" class="notify-item">
-                        <div class="notify-img">
-                          <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
-                        </div>
-                        <div class="notify-body">
-                          <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                          <small>2 days ago</small>
-                        </div>
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
-                      </a>
-                      <a href="customer-notification.html" class="notify-item">
-                        <div class="notify-img">
-                          <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
-                        </div>
-                        <div class="notify-body">
-                          <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                          <small>2 days ago</small>
-                        </div>
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
-                      </a>
-                      <a href="customer-notification.html" class="notify-item">
-                        <div class="notify-img">
-                          <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
-                        </div>
-                        <div class="notify-body">
-                          <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                          <small>2 days ago</small>
-                        </div>
-                      </a>
+                      <?php } ?>
+                      
                     </div>
                     <!-- END. List noti -->
                   </div>
