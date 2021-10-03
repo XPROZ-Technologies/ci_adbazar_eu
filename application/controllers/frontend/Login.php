@@ -26,6 +26,9 @@ class Login extends MY_Controller {
          * Commons data
          */
 
+        $redirectUrl = $this->input->get('redirectUrl');
+        $data['redirectOldUrl'] = $redirectUrl;
+
         
         
         $this->load->view('frontend/login/signin', $data);

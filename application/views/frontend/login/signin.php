@@ -38,8 +38,7 @@
                                                 Remember me
                                             </label>
                                         </div>
-                                        <a href="#forgotPasswordModal" data-bs-toggle="modal" class=" page-text-lg fw-bold">Forgot
-                                            your password?</a>
+                                        <a href="#forgotPasswordModal" data-bs-toggle="modal" class=" page-text-lg fw-bold">Forgot your password?</a>
                                     </div>
                                     <div class="col-12 d-flex justify-content-center mb-3 mt-lg-4">
                                         <button type="submit" class="btn btn-red px-3">Login</button>
@@ -58,6 +57,7 @@
                                             Log in with Facebook
                                         </a>
                                     </div>
+                                    <input type="hidden" name="redirectOldUrl" value="<?php echo $redirectOldUrl; ?>" />
                                 </form>
                             </div>
                         </div>

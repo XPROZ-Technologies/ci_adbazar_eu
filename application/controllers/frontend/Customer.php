@@ -24,7 +24,7 @@ class Customer extends MY_Controller
     public function checkLogin()
     {
         try {
-            $postData = $this->arrayFromPost(array('customer_email', 'customer_password', 'is_remember'));
+            $postData = $this->arrayFromPost(array('customer_email', 'customer_password', 'is_remember', 'redirectOldUrl'));
             $customerEmail = $postData['customer_email'];
             $customerPass = $postData['customer_password'];
             if (!empty($customerEmail) && !empty($customerPass)) {
@@ -54,7 +54,12 @@ class Customer extends MY_Controller
 
                     $this->session->set_flashdata('notice_message', $this->lang->line('customer_login_success'));
                     $this->session->set_flashdata('notice_type', 'success');
-                    redirect(base_url(HOME_URL));
+                    if(!empty($postData['redirectOldUrl'])){
+                        redirect($postData['redirectOldUrl']);
+                    }else{
+                        redirect(base_url(HOME_URL));
+                    }
+                    
                 } else {
                     $this->session->set_flashdata('notice_message', $this->lang->line('customer_login_failed'));
                     $this->session->set_flashdata('notice_type', 'error');

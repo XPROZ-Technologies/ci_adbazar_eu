@@ -35,12 +35,19 @@ $(document).ready(function () {
         var url = $("#baseUrl").data('href');
         var current_button = $(this);
 
+        var customer_id = current_button.data('customer');
+        var redirectUrl = $("#redirectUrl").val();
+
+        if(customer_id == 0) {
+            redirect(false, url + 'login.html?requiredLogin=1&redirectUrl=' + redirectUrl);
+        }
+
         $.ajax({
             type: "POST",
             url: url + '/customer-get-coupon',
             data: {
               coupon_id: current_button.data('id'),
-              customer_id: current_button.data('customer')
+              customer_id: customer_id
             },
             dataType: "json",
             success: function(response) {
@@ -56,12 +63,19 @@ $(document).ready(function () {
         var url = $("#baseUrl").data('href');
         var current_button = $(this);
 
+        var customer_id = current_button.data('customer');
+        var redirectUrl = $("#redirectUrl").val();
+
+        if(customer_id == 0) {
+            redirect(false, url + 'login.html?requiredLogin=1&redirectUrl=' + redirectUrl);
+        }
+
         $.ajax({
             type: "POST",
             url: url + '/customer-join-event',
             data: {
               event_id: current_button.data('id'),
-              customer_id: current_button.data('customer')
+              customer_id: customer_id
             },
             dataType: "json",
             success: function(response) {
