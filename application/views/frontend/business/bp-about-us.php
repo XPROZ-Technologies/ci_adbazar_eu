@@ -16,7 +16,7 @@
                 <div class="row justify-content-between">
                   <div class="col-lg-7">
                     <div class="bp-about-left">
-                      <h4 class="fw-bold page-title-xs">BUSINESS’ INFORMATION</h4>
+                      <h4 class="fw-bold page-title-xs">BUSINESS INFORMATION</h4>
 
                       <ul class="list-inline list-rating">
                         <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
