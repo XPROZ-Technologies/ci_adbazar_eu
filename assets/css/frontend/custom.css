@@ -211,3 +211,11 @@ min-height: 322px;
 .datepicker-wraper.position-relative .icon-calendar{
     pointer-events: none;
 }
+
+.home-coupon {
+    padding-bottom: 60px;
+}
+
+.home-coupon .customer-coupon-item {
+    margin-bottom: 27px;
+}
