@@ -70,6 +70,9 @@
                             <option value="1" <?php if ($customerInfo['customer_gender_id'] == 1) {
                                                 echo "selected";
                                               } ?>>Female</option>
+                            <option value="2" <?php if ($customerInfo['customer_gender_id'] == 2) {
+                                                echo "selected";
+                                              } ?>>Other</option>
                           </select>
                         </div>
                       </div>
@@ -77,7 +80,7 @@
 
                     <div class="col-md-4">
                       <div class="form-group mb-3">
-                        <label class="form-label">Contry code</label>
+                        <label class="form-label">Language</label>
                         <input type="hidden" name="language_id" id="customerLanguage" value="<?php echo $customerInfo['language_id']; ?>" />
                         <div class="dropdown dropdown-country page-text-lg">
                           <a href="#" class="wrapper-btn dropdown-toggle current js-lang" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">

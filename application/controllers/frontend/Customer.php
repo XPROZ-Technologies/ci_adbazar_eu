@@ -370,9 +370,9 @@ class Customer extends MY_Controller
                     redirect(base_url('customer/change-password?2'));
                 }
             } else {
-                $this->session->set_flashdata('notice_message', "You do not have permission on this page");
+                $this->session->set_flashdata('notice_message', "The current password is not correct");
                 $this->session->set_flashdata('notice_type', 'error');
-                redirect(base_url(HOME_URL));
+                redirect(base_url('customer/change-password?4'));
             }
         } catch (Exception $e) {
             $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
