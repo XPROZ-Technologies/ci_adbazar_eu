@@ -226,3 +226,30 @@ min-height: 322px;
 .home-service {
     padding: 40px 0 64px;
 }
+
+.discover_more {
+    padding: 8.5px 73.5px!important;
+    width: calc(25% - 20px)!important;
+}
+@media (max-width: 1366px){
+    .discover_more {
+        padding: 8.5px 73.5px!important;
+        width: calc(33.33% - 20px)!important;
+    }
+}
+@media (max-width: 991px){
+    .discover_more {
+        padding: 8.5px 73.5px!important;
+        width: calc(50% - 10px)!important;
+    }
+}
+@media (max-width: 767px){
+    .discover_more {
+        padding: 8.5px 0!important;
+        width: calc(50% - 10px)!important;
+    }
+}
+.home-event-slider .carousel-caption{
+    left: 0;
+    right: 0;
+}

@@ -121,9 +121,11 @@ jQuery(function() {
     });
         
     jQuery.each( listProfilesMap, function(i, item) {
+        console.log(item);
         item.servicetypes = '';
         item.linkInfo = '';
-        var starInfo = '';
+        item.evaluateInfo = 0;
+        var starInfo = 5;
                     
 
                         var rank = `
@@ -176,7 +178,7 @@ jQuery(function() {
                             `;
                         }
         var open_status = '<a href="javascript:void(0);" class="customer-location-close">Closed</a>';
-        if (item.linkClose == 1) {
+        if (item.isOpen == true) {
             open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
         }
 
@@ -184,19 +186,16 @@ jQuery(function() {
         if (item.evaluateInfo !== 0) {
             evaluate_info = `<li class="list-inline-item me-0">(${item.evaluateInfo})</li>`;
         }
-        var link_location = "";
-        if (item.linkLocation !== "") {
-            link_location = `<a href="${item.linkLocation}"><img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image"></a>`;
-        }
+        
 
         const infoMap = `<div class="card rounded-0 customer-location-item mb-2">
             <div class="row g-0">
                 <div class="col-3">
-                    <a href="#" class="customer-location-img"><img  src="${item.imgiInfo}" class="img-fluid" alt="location image" style="max-width: 100%; height: auto"></a>
+                    <a href="#" class="customer-location-img"><img  src="assets/uploads/busines_profile/${item.business_avatar}" class="img-fluid" alt="location image" style="max-width: 100%; height: auto"></a>
                 </div>
                 <div class="col-9">
                     <div class="card-body p-0 ml-2">
-                        <h6 class="card-title mb-1 page-text-xs"><a href="${item.linkInfo}" title="">${item.business_name}</a></h6>
+                        <h6 class="card-title mb-1 page-text-xs"><a target="_blank" href="./${item.business_url}" title="">${item.business_name}</a></h6>
                         <ul class="list-inline mb-2 list-rating-sm">
                             ${rank}
                             ${evaluate_info}
@@ -205,7 +204,7 @@ jQuery(function() {
                         </p>
                         ${open_status}
                         
-                        <a target="_blank" href="${item.linkView}"
+                        <a target="_blank" href="./${item.business_url}"
                             class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
                     </div>
                 </div>
