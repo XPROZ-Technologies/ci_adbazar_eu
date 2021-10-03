@@ -43,8 +43,8 @@
                     </div>
                     <div class="col-12">
                       <div class="form-group mb-3">
-                        <label for="profileEmail" class="form-label">Email<span class="required">*</span></label>
-                        <input type="email" class="form-control" id="profileEmail" placeholder="" name="customer_email" value="<?php echo $customerInfo['customer_email']; ?>">
+                        <label for="profileEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control disable-input" id="profileEmail"  value="<?php echo $customerInfo['customer_email']; ?>" disabled >
                       </div>
                     </div>
 
@@ -143,7 +143,7 @@
                     </div>
                     <div class="col-lg-5">
                       <div class="form-group mb-3">
-                        <label class="form-label">Contry code</label>
+                        <label class="form-label">Country code</label>
                         <input type="hidden" name="customer_phone_code" id="customerPhoneCode" value="<?php echo $customerInfo['customer_phone_code']; ?>" />
                         <div class="dropdown dropdown-country page-text-lg">
                           <a href="#" class="wrapper-btn dropdown-toggle current js-country" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">

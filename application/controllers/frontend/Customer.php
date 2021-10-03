@@ -388,7 +388,6 @@ class Customer extends MY_Controller
             $postData = $this->arrayFromPost(array(
                 'customer_first_name',
                 'customer_last_name',
-                'customer_email',
                 'customer_birthday',
                 'customer_gender_id',
                 'customer_phone_code',
@@ -398,7 +397,7 @@ class Customer extends MY_Controller
                 'language_id',
                 'customer_id'
             ));
-            if (empty($postData['customer_first_name']) || empty($postData['customer_last_name']) || empty($postData['customer_email'])  || empty($postData['customer_address'])) {
+            if (empty($postData['customer_first_name']) || empty($postData['customer_last_name']) || empty($postData['customer_address'])) {
                 $this->session->set_flashdata('notice_message', "Please enter information");
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('customer/general-information?0'));

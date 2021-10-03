@@ -199,7 +199,7 @@
                                   } ?>" href="<?php echo base_url('events.html'); ?>">Events</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url(HOME_URL); ?>#contact-us">Contact us</a>
+              <a class="nav-link" href="<?php echo base_url(HOME_URL); ?>#contact-us">Contact Us</a>
             </li>
           </ul>
           <div class="d-flex align-items-center navbar-right">
@@ -365,7 +365,7 @@
               <li class="nav-item">
                 <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "home-contact-us") {
                                       echo "active";
-                                    } ?>" href="<?php echo base_url(HOME_URL); ?>#contact-us">Contact us</a>
+                                    } ?>" href="<?php echo base_url(HOME_URL); ?>#contact-us">Contact Us</a>
               </li>
             </ul>
 

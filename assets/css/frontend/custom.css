@@ -133,3 +133,6 @@ html {
     height: 300px;
     overflow-y: scroll;
 }
+.disable-input {
+    background: #F5F5F5 !important;
+}
