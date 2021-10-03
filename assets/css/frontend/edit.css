@@ -2103,7 +2103,7 @@ span.switch-left {
     right: 6px;
 }
 .page-header .btn-outline-red,.page-header .btn-red {
-    padding: 5px 4px!important;
+    padding: 5px 20px!important;
     border-radius: 2px;
     font-size: 12px;
     line-height: 14px;
