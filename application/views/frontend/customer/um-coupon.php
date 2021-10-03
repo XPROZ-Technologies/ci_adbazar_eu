@@ -18,6 +18,7 @@
                 <input class="form-control w-100" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
               </form>
               <div class="um-coupon">
+              <?php if (count($lists) > 0) { ?>
                 <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                   <div class="d-flex align-items-center inner-filter">
                     <span class="me-2 page-text-lg fw-bold">Filter by</span>
@@ -48,6 +49,7 @@
                     </div>
                   </div>
                 </div>
+                
                 <div class="list-tags">
                   <ul class="list-unstyled list-inline">
                     <?php if (!empty($serviceTypes)) {
@@ -57,7 +59,7 @@
                     } ?>
                   </ul>
                 </div>
-                <?php if (count($lists) > 0) { ?>
+                
                   <!-- coupon list -->
                   <div class="um-coupon-list grid-60">
                     <div class="row">
@@ -92,6 +94,11 @@
                     </div>
                   </div>
                   <!-- END. coupon list -->
+                <?php }else{ ?>
+                  <div class="zero-event zero-box">
+                    <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
+                    <p class="text-secondary page-text-lg">No coupons</p>
+                  </div>
                 <?php } ?>
               </div>
             </div>

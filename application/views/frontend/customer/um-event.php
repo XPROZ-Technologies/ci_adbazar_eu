@@ -42,6 +42,11 @@
                       <!-- END. event item -->
                     </div>
                     <!-- END. List event -->
+                  <?php } else { ?>
+                    <div class="zero-event zero-box">
+                      <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
+                      <p class="text-secondary page-text-lg">No events</p>
+                    </div>
                   <?php } ?>
 
                   <?php if (count($lists) > 0 && count($joinedEvents) > 0) { ?>
@@ -107,7 +112,7 @@
           <input type="hidden" id="selected-customer-event" value="<?php echo $customer['id']; ?>" />
           <input type="hidden" id="selected-id-event" value="0" />
           <div class="d-flex justify-content-center">
-            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-event" >Yes</a>
+            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-event">Yes</a>
             <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
           </div>
         </div>
@@ -126,25 +131,25 @@
   });
 
   $('.btn-remove-event').click(function() {
-        $.ajax({
-            type: "POST",
-            url: '<?php echo base_url('customer-left-event'); ?>',
-            data: {
-                event_id: $("#selected-id-event").val(),
-                customer_id: $("#selected-customer-event").val()
-            },
-            dataType: "json",
-            success: function(response) {
-                if (response.code == 1) {
-                    //$("#removeEventModal").modal("show");
-                    redirect(true);
-                }
+    $.ajax({
+      type: "POST",
+      url: '<?php echo base_url('customer-left-event'); ?>',
+      data: {
+        event_id: $("#selected-id-event").val(),
+        customer_id: $("#selected-customer-event").val()
+      },
+      dataType: "json",
+      success: function(response) {
+        if (response.code == 1) {
+          //$("#removeEventModal").modal("show");
+          redirect(true);
+        }
 
-            },
-            error: function(response) {
-                // showNotification($('input#errorCommonMessage').val(), 0);
-                // $('.submit').prop('disabled', false);
-            }
-        });
+      },
+      error: function(response) {
+        // showNotification($('input#errorCommonMessage').val(), 0);
+        // $('.submit').prop('disabled', false);
+      }
     });
+  });
 </script>

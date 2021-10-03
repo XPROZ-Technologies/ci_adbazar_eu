@@ -521,6 +521,7 @@ class Customer extends MY_Controller
             }
         }else{
             $data['lists'] = array();
+            $data['basePagingUrl'] = base_url('customer/my-coupons');
         }
         $this->load->view('frontend/customer/um-coupon', $data);
     }
