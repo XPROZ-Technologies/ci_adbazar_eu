@@ -43,7 +43,6 @@ class Event extends MY_Controller {
         $getData = array(
             'event_status_id' => STATUS_ACTIVED, 
             'search_text_fe' => $search_text, 
-            'start_date' => date('Y-m-d'), 
             'selected_date' => $selected_date,
             'joined_events' => $joinedEvents
         );
@@ -73,8 +72,24 @@ class Event extends MY_Controller {
             $data['lists'][$i]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $data['lists'][$i]['business_profile_id'], 'business_status_id' => STATUS_ACTIVED), 'business_name', '');
             $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH.$data['lists'][$i]['event_image'] : EVENTS_PATH.NO_IMAGE ;
         }
+
         $getDataEvent = array('event_status_id' => STATUS_ACTIVED, 'start_date' => date('Y-m-d'));
         $data['listEvents'] = $this->Mevents->search($getDataEvent);
+        
+        
+        $dateRanges = array();
+        foreach($data['listEvents'] as $eventItem){
+            if(empty($dateRanges)){
+                $dateRanges = getDatesFromRange($eventItem['start_date'], $eventItem['end_date']);
+            }else{
+                $dateRanges = array_merge($dateRanges, getDatesFromRange($eventItem['start_date'], $eventItem['end_date']));
+            }
+        }   
+        if(!empty($dateRanges)){
+            $dateRanges = array_unique($dateRanges);
+        }
+        $data['dateRanges'] = $dateRanges;
+        
 
         $this->load->view('frontend/event/customer-event', $data);
     }

@@ -122,9 +122,9 @@
         editable: false,
         selectable: false,
         events: [
-          <?php if (!empty($listEvents) > 0) {
-            foreach ($listEvents as $eventItem) { ?> {
-                start: '<?php echo ddMMyyyy($eventItem['start_date'], 'Y-m-d'); ?>',
+          <?php if (!empty($dateRanges) > 0) {
+            foreach ($dateRanges as $itemDate) { ?> {
+                start: '<?php echo $itemDate; ?>',
                 constraint: '',
                 color: '#C20000'
               },
