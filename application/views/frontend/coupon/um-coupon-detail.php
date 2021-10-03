@@ -136,12 +136,21 @@
 <script>
   $('.btn-get-coupon').click(function() {
     var button = $(this);
+
+    var customer_id = <?php echo $customer['id']; ?>;
+    var redirectUrl = $("#redirectUrl").val();
+
+    if(customer_id == 0) {
+        redirect(false, url + 'login.html?requiredLogin=1&redirectUrl=' + redirectUrl);
+    }
+
+
     $.ajax({
       type: "POST",
       url: '<?php echo base_url('customer-get-coupon'); ?>',
       data: {
         coupon_id: <?php echo $detailInfo['id']; ?>,
-        customer_id: <?php echo $customer['id']; ?>
+        customer_id: customer_id
       },
       dataType: "json",
       success: function(response) {
