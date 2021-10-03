@@ -165,7 +165,7 @@ $(window).ready(() => {
     //$('#customerAvatarUpload').val($(".js-profile-pic").attr('src'));
   });
 
-  $(".js-profile-upload-btn, .js-profile-icon").on("click", function () {
+  $(".js-profile-upload-btn, .js-profile-icon, .js-camera-profile-icon").on("click", function () {
     $(".js-profile-upload").click();
   });
 

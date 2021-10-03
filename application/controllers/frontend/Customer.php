@@ -406,22 +406,31 @@ class Customer extends MY_Controller
             $customerId = $this->Mcustomers->getFieldValue(array('id' => $postData['customer_id'], 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
 
             if ($customerId > 0) {
+                $dataUpdate = array(
+                    'customer_first_name' => $postData['customer_first_name'],
+                    'customer_last_name' => $postData['customer_last_name'],
+                    'customer_birthday' => $postData['customer_birthday'],
+                    'customer_gender_id' => $postData['customer_gender_id'],
+                    'customer_phone_code' => $postData['customer_phone_code'],
+                    'customer_phone' => $postData['customer_phone'],
+                    'customer_address' => $postData['customer_address'],
+                    'customer_occupation' => $postData['customer_occupation'],
+                    'language_id' => $postData['language_id']
+                );
+                /**
+                 * Upload if customer choose image
+                 */
+                $customerAvatarUpload = $this->input->post('customer_avatar_upload');
+                if(!empty($customerAvatarUpload)){
+                    $avatarUpload = $this->uploadImageBase64($customerAvatarUpload, 3);
+                    $dataUpdate['customer_avatar'] = replaceFileUrl($avatarUpload, CUSTOMER_PATH);
+                }
+                
                 $customerInfo = $this->Mcustomers->updateBy(
                     array(
                         'id' => $customerId
                     ),
-                    array(
-                        'customer_first_name' => $postData['customer_first_name'],
-                        'customer_last_name' => $postData['customer_last_name'],
-                        'customer_email' => $postData['customer_email'],
-                        'customer_birthday' => $postData['customer_birthday'],
-                        'customer_gender_id' => $postData['customer_gender_id'],
-                        'customer_phone_code' => $postData['customer_phone_code'],
-                        'customer_phone' => $postData['customer_phone'],
-                        'customer_address' => $postData['customer_address'],
-                        'customer_occupation' => $postData['customer_occupation'],
-                        'language_id' => $postData['language_id']
-                    )
+                    $dataUpdate
                 );
                 if ($customerInfo) {
                     $this->session->set_flashdata('notice_message', "Updated successfully");

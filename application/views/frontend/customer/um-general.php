@@ -19,7 +19,7 @@
                     <div class="general-upload-btn js-profile-upload-btn"></div>
                     <input class="general-file-upload js-profile-upload" type="file" accept="image/*" />
                   </div>
-                  <div class="general-icon">
+                  <div class="general-icon js-camera-profile-icon">
                     <img src="assets/img/frontend/icon-camera.png" alt="icon-camera">
                     <span>Change profile picture</span>
                   </div>

@@ -185,4 +185,40 @@ abstract class MY_Controller extends CI_Controller {
      *    echo 'kkk'.$flag;die;
      * }
      */
+
+     /**
+      * Custom Upload without POST
+      */
+
+    public function uploadImageBase64($fileBase64 = "", $fileTypeId = 0){
+	    if(!empty($fileBase64) & $fileTypeId > 0){
+            $fileBase64 = str_replace('[removed]', '', $fileBase64);
+            $dir = '';
+            $fileExt = 'png';
+	        if($fileTypeId == 1) $dir = PRODUCT_PATH;
+            elseif($fileTypeId == 2) $dir = USER_PATH;
+	        elseif($fileTypeId == 3) $dir = CUSTOMER_PATH;
+            elseif($fileTypeId == 4) $dir = SLIDER_PATH;
+            elseif($fileTypeId == 5) $dir = CONFIG_PATH;
+            elseif($fileTypeId == 6) $dir = SERVICE_PATH;
+            elseif($fileTypeId == 7) $dir = BUSINESS_PROFILE_PATH; 
+            elseif($fileTypeId == 8) $dir = COUPONS_PATH;
+            elseif($fileTypeId == 9) $dir = EVENTS_PATH;
+	       
+            if(!empty($dir)){
+                $dir = $dir . date('Y-m-d') . '/';
+                @mkdir($dir, 0777, true);
+                @system("/bin/chown -R nginx:nginx ".$dir);
+                if($fileExt == 'png') $fileBase64 = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $fileBase64));
+                else $fileBase64 = base64_decode(preg_replace('#^data:application/\w+;base64,#i', '', $fileBase64));
+                $filePath = $dir . uniqid() . '.' . $fileExt;
+                $flag = file_put_contents($filePath, $fileBase64);
+                if($flag !== false) {
+                    return $filePath;
+                }
+            }
+            
+        }
+        return "";
+    }
 }
