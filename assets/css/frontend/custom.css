@@ -198,3 +198,12 @@ min-height: 322px;
 .page-business-profile .bm-list .bm-innner-list>.row{
     justify-content: center;
 }
+
+.wrapper-notification .wrapper-notify .list-notify .notification-zero.zero-box img{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+.wrapper-notification .wrapper-notify .list-notify .notification-zero.zero-box {
+    padding: 40px 0 20px 0;
+}
