@@ -136,7 +136,7 @@ function onLoad() {
 
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    loginGG_FB(profile.TS, profile.yS, profile.yU, profile.Gt, 2)
+    loginGG_FB(profile.rT, profile.XS, profile.GU, profile.St, 2)
     return false;
 }
 
@@ -149,13 +149,9 @@ function signOut() {
             success: function (response) {
                 var json = $.parseJSON(response);
                 console.log("You have been signed out successfully");
-                // showNotification(json.message, json.code);
                 if(json.code == 1){
-                    // $(".g-signin2").css("display", "block");
-                    // $(".g-logout").css("display", "none");
                     location.reload();
                 }
-                // else $('.submit').prop('disabled', false);
             },
             error: function (response) {
             }
@@ -178,18 +174,13 @@ function loginGG_FB(id, customer_first_name, customer_last_name, customer_email,
         },
         success: function (response) {
             var json = $.parseJSON(response);
-            console.log(json)
-            // showNotification(json.message, json.code);
+            $(".toast").addClass('show');
+            $(".text-secondary").html(json.message);
             if(json.code == 1){
-                $(".toast").addClass('show');
-                $(".text-secondary").html(json.message);
                 redirect(false, $("#baseHomeUrl").attr("data-href"));
             }
-            // else $('.submit').prop('disabled', false);
         },
         error: function (response) {
-            // showNotification($('input#errorCommonMessage').val(), 0);
-            // $('.submit').prop('disabled', false);
         }
     });
     return false;
