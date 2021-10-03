@@ -152,5 +152,26 @@ class Event extends MY_Controller {
 
         $this->load->view('frontend/event/bp-event-detail', $data);
     }
+
+    public function event_login() {
+
+        $this->loadModel(array('Mconfigs'));
+
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer('Login to join event',
+			array('scriptFooter' => array('js' => 'js/frontend/login/login.js'))
+        );
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $redirectUrl = $this->input->get('redirectUrl');
+        $data['redirectOldUrl'] = $redirectUrl;
+
+        $this->load->view('frontend/event/bp-event-account', $data);
+    }
     
 }

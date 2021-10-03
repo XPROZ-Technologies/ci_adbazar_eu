@@ -171,6 +171,7 @@ $route['service/(:any)-(:num)\.html'] = 'frontend/service/detail/$1/$2';
 //events
 $route['events.html'] = 'frontend/event/index';
 $route['event/(:any)-(:num)\.html'] = 'frontend/event/detail/$1/$2';
+$route['event/login.html'] = 'frontend/event/event_login';
 
 //coupons
 $route['coupons.html'] = 'frontend/coupon/index';

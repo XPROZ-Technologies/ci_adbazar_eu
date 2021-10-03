@@ -85,12 +85,20 @@
 <script>
     $('.btn-join-event').click(function() {
         var button = $(this);
+        var url = $("#baseUrl").data('href');
+        var customer_id = <?php echo $customer['id']; ?>;
+        var redirectUrl = $("#redirectUrl").val();
+
+        if(customer_id == 0) {
+            redirect(false, url + 'event/login.html?requiredLogin=1&redirectUrl=' + redirectUrl);
+        }
+
         $.ajax({
             type: "POST",
             url: '<?php echo base_url('customer-join-event'); ?>',
             data: {
                 event_id: <?php echo $detailInfo['id']; ?>,
-                customer_id: <?php echo $customer['id']; ?>
+                customer_id: customer_id
             },
             dataType: "json",
             success: function(response) {
