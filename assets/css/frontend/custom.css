@@ -207,3 +207,7 @@ min-height: 322px;
 .wrapper-notification .wrapper-notify .list-notify .notification-zero.zero-box {
     padding: 40px 0 20px 0;
 }
+
+.datepicker-wraper.position-relative .icon-calendar{
+    pointer-events: none;
+}
