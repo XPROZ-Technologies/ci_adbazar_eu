@@ -129,6 +129,7 @@
   </div>
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 <script>
   if ($('#map_business').length > 0) {
     let map;
