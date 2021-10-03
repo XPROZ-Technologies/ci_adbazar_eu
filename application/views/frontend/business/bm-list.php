@@ -12,7 +12,7 @@
                             <?php if(empty($itemBusiness['business_avatar'])) { $itemBusiness['business_avatar'] = NO_IMAGE; } ?>
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card bm-item">
-                                    <a href="#" class="d-block bm-item-img">
+                                    <a href="<?php echo base_url($itemBusiness['business_url']); ?>" class="d-block bm-item-img">
                                         <img src="<?php echo BUSINESS_PROFILE_PATH . $itemBusiness['business_avatar']; ?>" class="card-img-top img-fluid" alt="<?php echo $itemBusiness['business_name']; ?>">
                                     </a>
                                     <div class="card-body pt-0">
