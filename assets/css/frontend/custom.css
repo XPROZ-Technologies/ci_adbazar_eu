@@ -136,3 +136,65 @@ html {
 .disable-input {
     background: #F5F5F5 !important;
 }
+
+/*custom css*/
+main{
+    padding-top: 57px;
+}
+@media (min-width: 1200px){
+    .navbar-expand-xl .navbar-nav {
+        margin-left: inherit!important;
+    }
+    .navbar.navbar-expand-xl .navbar-brand{
+        margin-right: 27px;
+    }
+    main{
+        padding-top: 74px;
+    }
+}
+.page-header {
+    z-index: 999!important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+}
+#map {
+    min-height: 368px;
+}
+.um-top .list-inline-item a {
+    padding: 9px 87px;
+}
+.um-top .list-inline-item:first-child a {
+    padding: 9px 75px;
+}
+.bm-plan-top .currency-wrap{
+    margin-bottom: 8px;
+}
+.bm-plan-top .switch-btn {
+    margin: 8px 0 8px 22px;
+}
+.bm-plan-item .card-header, .bm-plan-item.selected-plan .card-header {
+    padding: 19.5px 20px;
+}
+ .bm-plan-item.selected-plan .month {
+    padding: 16px 0;
+}
+.bm-plan-item .list-text li:not(:last-child) ,
+.bm-plan-item.selected-plan .list-text li:not(:last-child) {
+    margin-bottom: 5px;
+}
+.bm-plan-item .month{
+    padding: 7.5px 0; 
+}
+.bm-plan-item .month small{
+    margin-top: 0;
+}
+.page-business-profile .bm-list .bm-innner-list>.row .bm-item-add{
+min-height: 322px;
+}
+
+.page-business-profile .bm-list .bm-innner-list>.row{
+    justify-content: center;
+}

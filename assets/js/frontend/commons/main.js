@@ -626,6 +626,7 @@ if($('#calendar').length > 0){
 }
 */
 
+/*
 $(window).scroll(function(event) {
   var hei = $('.page-header').height();
   if ($(window).width()>1200) {
@@ -647,6 +648,7 @@ $(window).scroll(function(event) {
     }
   }
 });
+*/
 
 $(document).on('click', '.input-eye', function(event) {
   event.stopPropagation();
