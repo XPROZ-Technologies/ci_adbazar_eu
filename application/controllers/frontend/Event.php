@@ -37,6 +37,9 @@ class Event extends MY_Controller {
         $data['keyword'] = $search_text;
         $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
         
+        //current day default
+        if(empty($selected_date)) $selected_date = date('Y-m-d');
+
         $getData = array(
             'event_status_id' => STATUS_ACTIVED, 
             'search_text_fe' => $search_text, 
@@ -70,8 +73,8 @@ class Event extends MY_Controller {
             $data['lists'][$i]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $data['lists'][$i]['business_profile_id'], 'business_status_id' => STATUS_ACTIVED), 'business_name', '');
             $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH.$data['lists'][$i]['event_image'] : EVENTS_PATH.NO_IMAGE ;
         }
-        
-        $data['listEvents'] = $this->Mevents->search(array('event_status_id' => STATUS_ACTIVED, 'search_text_fe' => $search_text, 'start_date' => date('Y-m-d')));
+        $getDataEvent = array('event_status_id' => STATUS_ACTIVED, 'start_date' => date('Y-m-d'));
+        $data['listEvents'] = $this->Mevents->search($getDataEvent);
 
         $this->load->view('frontend/event/customer-event', $data);
     }
