@@ -121,7 +121,6 @@ jQuery(function() {
     });
         
     jQuery.each( listProfilesMap, function(i, item) {
-        console.log(item);
         item.servicetypes = '';
         item.linkInfo = '';
         item.evaluateInfo = 0;
