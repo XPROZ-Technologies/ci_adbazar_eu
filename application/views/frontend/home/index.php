@@ -153,71 +153,14 @@
           <div class="col-lg-4">
             <div class="customer-location-dropdown">
               <div class="custom-select mb-20">
-                <select id="selectServiceMap">
-                  <option value="0" selected>All</option>
-                  <?php if (!empty($listServices)) {
-                    foreach ($listServices as $itemService) ?>
-                    <option value="<?php echo $itemService['id']; ?>" <?php if ($service_id == $itemService['id']) {
-                                                                        echo 'selected="selected"';
-                                                                      } ?>><?php echo $itemService['service_name']; ?></option>
-                  <?php } ?>
-                </select>
+                <?php $this->Mconstants->selectObject($listServices, 'id', 'service_name', 'selectServiceMap', 0, true, 'All', ' '); ?>
               </div>
             </div>
             <div class="customer-location-left">
               <div class="customer-location-list">
-                <?php if (!empty($listProfiles) > 0) { ?>
-                  <!-- business item -->
-                  <?php foreach ($listProfiles as $kBusines => $itemBusines) { ?>
-                    <div class="card rounded-0 customer-location-item mb-2">
-                      <div class="row g-0">
-                        <div class="col-3">
-                          <a href="#" class="customer-location-img"><img src="<?php echo BUSINESS_PROFILE_PATH . $itemBusines['business_avatar']; ?>" class="img-fluid" alt="<?php echo $itemBusines['business_name']; ?>"></a>
-                        </div>
-                        <div class="col-9">
-                          <div class="card-body p-0">
-                            <h6 class="card-title mb-1 page-text-xs"><a href="<?php echo base_url(BUSINESS_PROFILE_URL . $itemBusines['business_url']); ?>" title=""><?php echo $itemBusines['business_name']; ?></a></h6>
-                            <!--
-                            <ul class="list-inline mb-2 list-rating-sm">
-                              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                              <li class="list-inline-item me-0">(10)</li>
-                            </ul>
-                            -->
-                            <p class="card-text mb-0 page-text-xxs text-secondary"><?php $businessServiceTypes = $itemBusines['businessServiceTypes'];
-                                                                                    for ($k = 0; $k < count($businessServiceTypes); $k++) {
-                                                                                      echo $businessServiceTypes[$k]['service_type_name'];
-                                                                                      if ($k < (count($businessServiceTypes) - 1)) {
-                                                                                        echo ', ';
-                                                                                      }
-                                                                                    } ?>
-                            </p>
-                            <?php if ($itemBusines['isOpen']) { ?>
-                              <a href="" class="text-success">Opening</a>
-                            <?php } else { ?>
-                              <a href="" class="customer-location-close">Closed</a>
-                            <?php } ?>
-                            <!--<a href=""><img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image"></a>-->
-                            <a href="#" class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  <?php } ?>
-                  <!-- END. business item-->
-                <?php } ?>
 
               </div>
-              <?php if (!empty($listProfiles) > 0) { ?>
-                <!-- pagination -->
-                <nav>
-                  <?php echo $paggingHtml; ?>
-                </nav>
-                <!-- END. pagination -->
-              <?php } ?>
+              <div id="profilePagging"></div>
             </div>
           </div>
           <div class="col-lg-8">

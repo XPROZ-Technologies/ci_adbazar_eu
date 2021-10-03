@@ -51,6 +51,7 @@
     <script src="assets/js/frontend/commons/main.js?version=<?php echo time(); ?>"></script>
     <script src="assets/vendor/plugins/lib/main.js?version=<?php echo time(); ?>"></script>
     <script src="assets/js/frontend/common.js?version=<?php echo time(); ?>"></script>
+    <script src="assets/js/frontend/home/list.js?version=<?php echo time(); ?>"></script>
     
     <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
@@ -60,8 +61,11 @@
 
 </html>
 <?php $this->load->view('frontend/includes/popup_noti'); ?>
+<input type="hidden" value="<?php echo base_url('frontend/home/getListProfile'); ?>" id="urlGetListProfile">
 <input type="hidden" value="<?php echo base_url('frontend/customer/logout'); ?>" id="logoutFacebook">
 <input type="hidden" value="<?php echo current_url(); ?>" id="redirectUrl">
+<input type="hidden" value="<?php echo BUSINESS_PROFILE_PATH ?>" id="pathProfileBusiness"> 
+<input type="hidden" value="<?php echo BUSINESS_PROFILE_URL ?>" id="urlProfileBusiness">
 <!-- Modal saved coupon -->
 <div class="modal fade" id="savedCouponModal" tabindex="-1" aria-labelledby="savedCouponModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

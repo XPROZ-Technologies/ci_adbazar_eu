@@ -108,5 +108,35 @@ class Home extends MY_Controller {
 
         $this->load->view('frontend/home/index', $data);
     }
+
+    public function getListProfile() {
+        try {
+            $data = $this->commonDataCustomer('Home');
+            
+            $this->loadModel(array('Mbusinessprofiles', 'Mservicetypes'));
+
+            $postData = $this->arrayFromPost(array('search_text', 'service_id'));
+            $postData['business_status_id'] = STATUS_ACTIVED;
+
+            $page = $this->input->post('page');
+            $per_page = $this->input->post('per_page');
+            $perPage = DEFAULT_LIMIT_BUSINESS_PROFILE_MAP;
+            if(is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
+            $rowCount = $this->Mbusinessprofiles->getCount($postData);
+
+            $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+
+            $listProfiles = $this->Mbusinessprofiles->search($postData, $perPage, $page);
+            for($i = 0; $i < count($listProfiles); $i++){
+            
+                $listProfiles[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfiles[$i]['id'], $service_type_name);
+                $listProfiles[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfiles[$i]['id']);
+            }
+            $pageCount = ceil($rowCount / $perPage);
+            echo json_encode(array('code' => 1, 'message' => 'Data', 'data' => $listProfiles, 'page' => $page, 'per_page' => $perPage, 'page_count' => $pageCount));
+        } catch (\Throwable $th) {
+            echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+        }
+    }
     
 }

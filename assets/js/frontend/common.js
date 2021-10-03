@@ -6,10 +6,10 @@ $(document).ready(function () {
     });
 
     //$( "#selectServiceMap" ).change(function() {
-    $("body").on("click", ".customer-location-dropdown li.option", function(){
-        var url = $("#baseHomeUrl").data('href');
-        redirect(false, url + '?service_id=' + $(this).data('value') + '#maps');
-    });
+    // $("body").on("click", ".customer-location-dropdown li.option", function(){
+    //     var url = $("#baseHomeUrl").data('href');
+    //     redirect(false, url + '?service_id=' + $(this).data('value') + '#maps');
+    // });
 
 
     $("body").on("click", ".choose-business li.option", function(){
