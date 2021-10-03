@@ -115,7 +115,7 @@
                     </div>
                   </div>
                 </a>
-                <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>">Get now</a>
+                <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>" data-index="<?php echo $indexCoupon; ?>">Get now</a>
               </div>
             <?php } ?>
             <!-- item coupon -->

@@ -3,11 +3,7 @@
   <div class="page-bp-coupon-detail page-um-coupon-detail">
     <div class="bp-coupon-back mb-3 mb-md-4">
       <div class="container">
-        <a href="<?php if (isset($_SERVER['HTTP_REFERER'])) {
-                    echo $_SERVER['HTTP_REFERER'];
-                  } else {
-                    echo base_url('coupons.html');
-                  } ?>" class="text-dark text-decoration-underline">
+        <a href="<?php echo $backUrl; ?>" class="text-dark text-decoration-underline">
           <img src="assets/img/frontend/icon-goback.png" alt="icon-goback" class="img-fluid me-1">Back
         </a>
       </div>

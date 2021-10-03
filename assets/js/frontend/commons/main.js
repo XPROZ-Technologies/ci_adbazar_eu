@@ -48,8 +48,10 @@ $(window).ready(() => {
     },
   });
 
+  /*
   // Init carousel customer home service
-  $(".owl-coupon").owlCarousel({
+  var owl_coupon = $('.owl-coupon');
+  owl_coupon.owlCarousel({
     loop: true,
     margin: 16,
     autoplay: true,
@@ -77,6 +79,7 @@ $(window).ready(() => {
       },
     },
   });
+  */
 
   // Init bootstrap datetime picker
   $("#datetimepickerEvent").datetimepicker({

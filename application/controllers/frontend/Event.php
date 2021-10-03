@@ -99,7 +99,7 @@ class Event extends MY_Controller {
             if (isset($_SERVER['HTTP_REFERER'])) {
                 redirect($_SERVER['HTTP_REFERER']);
             }else{
-                redirect('events.html');
+                redirect(base_url('events.html'));
             }
         }
 
@@ -111,7 +111,7 @@ class Event extends MY_Controller {
             if (isset($_SERVER['HTTP_REFERER'])) {
                 redirect($_SERVER['HTTP_REFERER']);
             }else{
-                redirect('events.html');
+                redirect(base_url('events.html'));
             }
         }
 
@@ -125,6 +125,12 @@ class Event extends MY_Controller {
         /**
          * Commons data
          */
+
+        if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != current_url()) {
+            $data['backUrl'] = $_SERVER['HTTP_REFERER'];
+        }else{
+            $data['backUrl'] = base_url('coupons.html');
+        }
 
         $data['activeMenuService'] = 0;
 

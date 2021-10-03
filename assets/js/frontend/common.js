@@ -31,6 +31,37 @@ $(document).ready(function () {
         redirect(false, url + '?per_page=' + $(this).data('value'));
     });
 
+    // Init carousel customer home service
+    var owl_coupon = $('.owl-coupon');
+    owl_coupon.owlCarousel({
+        loop: false,
+        margin: 16,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        responsiveClass: true,
+        nav: true,
+        navText: [
+            '<img src="assets/img/frontend/icon-left.png">',
+            '<img src="assets/img/frontend/icon-right.png">',
+        ],
+        responsive: {
+        0: {
+            items: 1,
+            margin: 16,
+        },
+        768: {
+            items: 2,
+        },
+        1000: {
+            items: 3,
+        },
+        1200: {
+            items: 4,
+        },
+        },
+    });
+
     $("body").on("click", ".get-coupon-in-list", function(){
         var url = $("#baseUrl").data('href');
         var current_button = $(this);
@@ -53,7 +84,9 @@ $(document).ready(function () {
             success: function(response) {
               if (response.code == 1) {
                 $(".coupon-item-" + current_button.data('id')).hide();
+                owl_coupon.trigger('remove.owl.carousel', [current_button.data('index')]).trigger('refresh.owl.carousel');
                 $("#savedCouponModal").modal("show");
+                
               }
             }
         });
