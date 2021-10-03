@@ -6557,7 +6557,9 @@ a {
     padding: 20px;
     padding-bottom: 3px; }
   .toast-body {
-    padding: 20px; }
+    padding: 20px; 
+    text-align: center;
+  }
 
 .ck-content {
   min-height: 562px; }

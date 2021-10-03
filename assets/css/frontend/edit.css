@@ -2643,6 +2643,9 @@ span.switch-left {
 .btn-hidden {
     display: none;
 }
+.ico-hidden {
+    display: none;
+}
 #removeCouponModal .modal-medium, #removeEventModal .modal-medium {
     max-width: 350px;
 }

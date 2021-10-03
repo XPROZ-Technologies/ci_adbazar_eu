@@ -54,10 +54,9 @@
 
                             <div class="col-12 d-flex justify-content-center">
                                 <div class="form-check mx-auto">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck" checked >
                                     <label class="form-check-label" for="gridCheck">
                                         Agree with our&nbsp<a class="fw-bold text-underline" href="javascript:void(0)">Term and Conditions</a>
-
                                     </label>
                                 </div>
                             </div>
@@ -118,3 +117,16 @@
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
+<script>
+    $( "#formRegister" ).submit(function( event ) {
+        event.preventDefault();
+
+        if($('#gridCheck').is(':checked')){
+            this.submit();
+        }else{
+            $(".notiPopup").addClass('show');
+            $(".notiPopup .text-secondary").html('Please agree with our term and condition!');
+            $(".ico-noti-error").removeClass('ico-hidden');
+        }
+    });
+</script>

@@ -7,7 +7,8 @@
     </div>
     <div class="toast-body">
       <p class="text-center text-secondary">Your information has been succesfully saved.</p>
-      <img src="assets/img/frontend/ic-check-mask.png" alt="ic-check-mask" class="d-block mx-auto img-fluid">
+      <img src="assets/img/frontend/ic-check-mask.png" alt="ic-check-mask" class="mx-auto img-fluid ico-noti-success ico-hidden"  >
+      <img src="assets/img/frontend/ic-cancel.png" alt="ic-check-mask" class="mx-auto img-fluid ico-noti-error ico-hidden" >
     </div>
   </div>
 </div>

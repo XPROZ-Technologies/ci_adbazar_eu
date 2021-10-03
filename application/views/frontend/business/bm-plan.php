@@ -143,6 +143,7 @@
     } else {
       $(".notiPopup").addClass('show');
       $(".notiPopup .text-secondary").html("Plan does not exist");
+      $(".ico-noti-error").removeClass('ico-hidden');
     }
   });
 </script>

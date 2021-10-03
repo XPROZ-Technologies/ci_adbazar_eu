@@ -24,6 +24,7 @@ class Site extends MY_Controller {
 
     public function changeLanguage() {
         $languageId = $this->input->post('language_id');
+        /*
         $language = 'de';
         switch ($languageId) {
             case 1:
@@ -42,8 +43,12 @@ class Site extends MY_Controller {
                 $language = 'de';
                 break;
         }
+        */
+        /*
         $cookieValue = json_encode(array('language_id' => $languageId, 'language_name' => $language, 'id' => 0));
         $this->input->set_cookie($this->configValueCookie('customer', $cookieValue));
+        */
+        $customer = $this->checkLoginCustomer($languageId);
         redirect($this->input->post('UrlOld'));
     }
 

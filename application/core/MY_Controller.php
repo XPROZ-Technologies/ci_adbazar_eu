@@ -58,7 +58,7 @@ abstract class MY_Controller extends CI_Controller {
     }
 
     // check ngôn ngữ và login phía customer (end user)
-    protected function checkLoginCustomer() {
+    protected function checkLoginCustomer($language_id = 0) {
         $this->load->helper('cookie');
         $customers = json_decode($this->input->cookie('customer', true), true);
         if (isset($customers) && $customers['id'] > 0) {
@@ -75,6 +75,10 @@ abstract class MY_Controller extends CI_Controller {
                 $customers = array('language_id' => $customers['language_id'], 'language_name' => $customers['language_name'], 'id' => 0);
             }
             $customers['is_logged_in'] = 0;
+        }
+        if($language_id > 0){
+            $customers['language_id'] = $language_id;
+            $customers['language_name'] = $this->Mconstants->languageCodes[$language_id];
         }
         $this->input->set_cookie($this->configValueCookie('customer', json_encode($customers)));
         return $customers;

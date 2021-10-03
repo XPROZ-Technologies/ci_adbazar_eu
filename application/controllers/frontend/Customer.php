@@ -98,7 +98,7 @@ class Customer extends MY_Controller
                     redirect(base_url('signup.html?2'));
                 } else {
                     $customerPass = $postData['customer_password'];
-                    $postData['customer_status_id'] = STATUS_WAITING_ACTIVE;
+                    $postData['customer_status_id'] = STATUS_ACTIVED;
                     $postData['free_trial'] = STATUS_FREE_TRIAL;
                     $postData['customer_password'] = !empty($customerPass) ? md5($customerPass) : md5('123456');
                     $postData['created_by'] = 0;

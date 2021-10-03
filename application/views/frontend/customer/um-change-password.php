@@ -76,6 +76,5 @@
     if(flag == true){
       this.submit();
     }
-    
   });
 </script>

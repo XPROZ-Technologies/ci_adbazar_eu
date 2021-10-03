@@ -13,3 +13,4 @@
 </body>
 
 </html>
+<?php $this->load->view('frontend/includes/popup_noti'); ?>
