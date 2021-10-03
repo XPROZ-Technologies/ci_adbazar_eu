@@ -61,7 +61,7 @@
                     </div>
                   </div>
                   <div class="col-lg-5">
-                    <!--
+                    
                     <div class="bp-about-right">
                       <div class="open-hour">
                         <h5 class="text-center page-text-lg">OPENING HOUR</h5>
@@ -76,7 +76,7 @@
                         </ul>
                       </div>
                     </div>
-                    -->
+                   
                   </div>
                 </div>
                 <?php if(!empty($businessInfo['business_description'])){ ?>

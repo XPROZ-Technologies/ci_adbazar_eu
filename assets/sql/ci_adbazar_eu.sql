@@ -2,10 +2,10 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost:8889
--- Thời gian đã tạo: Th10 02, 2021 lúc 12:39 PM
--- Phiên bản máy phục vụ: 5.7.32
--- Phiên bản PHP: 7.4.16
+-- Host: localhost:8889
+-- Generation Time: Oct 03, 2021 at 07:40 AM
+-- Server version: 5.7.32
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `ci_adbazar_eu`
+-- Database: `ci_adbazar_eu`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `actions`
+-- Table structure for table `actions`
 --
 
 CREATE TABLE `actions` (
@@ -43,7 +43,7 @@ CREATE TABLE `actions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `actions`
+-- Dumping data for table `actions`
 --
 
 INSERT INTO `actions` (`id`, `action_name`, `action_url`, `parent_action_id`, `display_order`, `font_awesome`, `action_level`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
@@ -66,7 +66,7 @@ INSERT INTO `actions` (`id`, `action_name`, `action_url`, `parent_action_id`, `d
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `business_payments`
+-- Table structure for table `business_payments`
 --
 
 CREATE TABLE `business_payments` (
@@ -86,7 +86,7 @@ CREATE TABLE `business_payments` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `business_photos`
+-- Table structure for table `business_photos`
 --
 
 CREATE TABLE `business_photos` (
@@ -101,7 +101,7 @@ CREATE TABLE `business_photos` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `business_photos`
+-- Dumping data for table `business_photos`
 --
 
 INSERT INTO `business_photos` (`id`, `business_profile_id`, `photo_image`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
@@ -117,17 +117,17 @@ INSERT INTO `business_photos` (`id`, `business_profile_id`, `photo_image`, `crea
 (133, 5, '2021-09-23/614bdf377ccf0.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
 (132, 5, '2021-09-23/614bdf39cb609.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
 (131, 5, '2021-09-23/614bdf3c73fb1.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(125, 6, '2021-10-01/6156c5a774bfb.png', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(126, 6, '2021-10-01/6156c5aa898c9.png', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(127, 6, '2021-10-01/6156c5ad3a451.png', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(128, 6, '2021-10-01/6156c5af6db30.png', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(129, 6, '2021-10-01/6156c5b2333c1.png', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(130, 6, '2021-10-01/6156c5b491de6.png', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL);
+(140, 6, '2021-10-01/6156c5b491de6.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(139, 6, '2021-10-01/6156c5b2333c1.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(138, 6, '2021-10-01/6156c5af6db30.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(137, 6, '2021-10-01/6156c5ad3a451.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(136, 6, '2021-10-01/6156c5aa898c9.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(135, 6, '2021-10-01/6156c5a774bfb.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `business_profiles`
+-- Table structure for table `business_profiles`
 --
 
 CREATE TABLE `business_profiles` (
@@ -159,19 +159,20 @@ CREATE TABLE `business_profiles` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `business_profiles`
+-- Dumping data for table `business_profiles`
 --
 
 INSERT INTO `business_profiles` (`id`, `customer_id`, `service_id`, `business_name`, `business_slogan`, `business_email`, `business_address`, `business_whatsapp`, `business_url`, `country_code_id`, `business_phone`, `business_phone_code`, `business_description`, `business_avatar`, `business_image_cover`, `is_annual_payment`, `expired_date`, `is_hot`, `payment_status_id`, `business_status_id`, `updated_by`, `updated_at`, `created_by`, `created_at`, `deleted_at`) VALUES
 (3, 11, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', 0, '', '2021-09-23/614bdeb8d94cc.png', '2021-09-23/614bdebf60144.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:04', 1, '2021-09-22 17:25:13', NULL),
 (4, 12, 1, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', 0, '', '2021-09-23/614bdf177b533.png', '2021-09-23/614bdf1a5d21a.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:04', 1, '2021-09-23 08:58:38', NULL),
 (5, 12, 1, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', 0, '', '2021-10-02/6157eebb81fa6.png', '2021-10-02/6157eec3d69d8.png', 0, NULL, 2, 0, 2, 1, '2021-10-02 12:31:50', 1, '2021-09-23 08:58:46', NULL),
-(6, 11, 1, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 57, '89729822123', 0, 'Hair Salon Spa desc', '2021-10-01/6156c56d4262c.png', '2021-10-01/6156c573ae7fe.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:06', 1, '2021-10-01 15:24:43', NULL);
+(6, 21, 1, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 57, '89729822123', 0, 'Hair Salon Spa desc', '2021-10-03/615945383889a.png', '2021-10-03/615945354fc1c.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 12:53:03', 1, '2021-10-01 15:24:43', NULL),
+(7, 12, 1, 'Business demo location', 'Business demo location slogan', 'a@gmail.com', 'Ho Chi Minh', '0886765544', 'business-demo-location', 14, '0938893675', 0, 'Business demo location desc', 'no_image.png', 'no_image.png', 0, NULL, 0, 0, 2, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:23:42', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `business_profile_locations`
+-- Table structure for table `business_profile_locations`
 --
 
 CREATE TABLE `business_profile_locations` (
@@ -189,19 +190,20 @@ CREATE TABLE `business_profile_locations` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `business_profile_locations`
+-- Dumping data for table `business_profile_locations`
 --
 
 INSERT INTO `business_profile_locations` (`id`, `business_profile_id`, `location_id`, `expired_date`, `payment_status_id`, `business_profile_location_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
 (1, 3, 1, '2021-10-22 16:38:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
 (2, 4, 3, '2021-10-23 08:58:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
 (3, 5, 3, '2021-10-23 08:58:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
-(4, 6, 2, '2021-10-31 15:23:00', 0, 2, NULL, NULL, NULL, NULL, NULL);
+(4, 6, 2, '2021-10-31 15:23:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(5, 7, 4, '0000-00-00 00:00:00', 0, 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `business_service_types`
+-- Table structure for table `business_service_types`
 --
 
 CREATE TABLE `business_service_types` (
@@ -211,7 +213,7 @@ CREATE TABLE `business_service_types` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `business_service_types`
+-- Dumping data for table `business_service_types`
 --
 
 INSERT INTO `business_service_types` (`id`, `business_profile_id`, `service_type_id`) VALUES
@@ -221,13 +223,15 @@ INSERT INTO `business_service_types` (`id`, `business_profile_id`, `service_type
 (37, 3, 1),
 (48, 5, 2),
 (47, 5, 1),
-(45, 6, 2),
-(46, 6, 1);
+(54, 6, 2),
+(53, 6, 1),
+(52, 7, 2),
+(51, 7, 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `business_videos`
+-- Table structure for table `business_videos`
 --
 
 CREATE TABLE `business_videos` (
@@ -243,20 +247,20 @@ CREATE TABLE `business_videos` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `business_videos`
+-- Dumping data for table `business_videos`
 --
 
 INSERT INTO `business_videos` (`id`, `business_profile_id`, `video_url`, `video_code`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
 (342, 4, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
 (347, 5, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(345, 6, 'https://www.youtube.com/watch?v=_PgWxvu9rCw', '_PgWxvu9rCw', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(346, 6, 'https://www.youtube.com/watch?v=PTR8MIIT5Sw', 'PTR8MIIT5Sw', '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
+(349, 6, 'https://www.youtube.com/watch?v=PTR8MIIT5Sw', 'PTR8MIIT5Sw', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(348, 6, 'https://www.youtube.com/watch?v=_PgWxvu9rCw', '_PgWxvu9rCw', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
 (341, 3, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `configs`
+-- Table structure for table `configs`
 --
 
 CREATE TABLE `configs` (
@@ -275,7 +279,7 @@ CREATE TABLE `configs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `configs`
+-- Dumping data for table `configs`
 --
 
 INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `config_value_en`, `config_value_de`, `config_value_zc`, `auto_load`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
@@ -303,7 +307,26 @@ INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `conf
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `countries`
+-- Table structure for table `contact_us`
+--
+
+CREATE TABLE `contact_us` (
+  `id` int(10) NOT NULL,
+  `contact_name` varchar(250) NOT NULL,
+  `contact_email` varchar(250) NOT NULL,
+  `contact_message` text NOT NULL,
+  `is_send` tinyint(4) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(10) NOT NULL,
+  `deleted_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `countries`
 --
 
 CREATE TABLE `countries` (
@@ -330,7 +353,7 @@ CREATE TABLE `countries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `countries`
+-- Dumping data for table `countries`
 --
 
 INSERT INTO `countries` (`id`, `country_name_vn`, `country_name_en`, `iso2`, `iso3`, `top_level_domain`, `fips`, `iso_numeric`, `geo_name_id`, `e_164`, `phone_code`, `continent`, `capital`, `time_zone_in_capital`, `currency`, `flag`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
@@ -578,7 +601,7 @@ INSERT INTO `countries` (`id`, `country_name_vn`, `country_name_en`, `iso2`, `is
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `coupons`
+-- Table structure for table `coupons`
 --
 
 CREATE TABLE `coupons` (
@@ -601,7 +624,7 @@ CREATE TABLE `coupons` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `coupons`
+-- Dumping data for table `coupons`
 --
 
 INSERT INTO `coupons` (`id`, `business_profile_id`, `coupon_code`, `coupon_subject`, `coupon_image`, `coupon_amount`, `coupon_description`, `start_date`, `end_date`, `is_hot`, `coupon_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
@@ -612,14 +635,14 @@ INSERT INTO `coupons` (`id`, `business_profile_id`, `coupon_code`, `coupon_subje
 (5, 4, '9j9i47bd5', 'Coupon 5', '2021-10-02/61574256e89e3.png', 50, 'Coupon 5 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:16:07', 1, '2021-10-02 00:16:38', 1, NULL),
 (6, 4, 'i6ml4fbi6', 'Coupon 6', '2021-10-02/61574270543c5.png', 10, 'Coupon 6 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:16:34', 1, '2021-10-02 00:16:36', 1, NULL),
 (7, 4, '9cl9bdb37', 'Coupon 7', '2021-10-02/61582248f0d13.png', 0, 'Coupon 7 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:17:09', 1, '2021-10-02 16:11:37', 1, NULL),
-(8, 6, '4i4dqjin8', 'Coupon Demo 1', '2021-10-02/615816c816038.png', 20, 'Coupon Demo 1 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 0, 2, '2021-10-02 15:22:32', 1, NULL, NULL, NULL),
-(9, 6, '0idk2g009', 'Coupon Demo 2', '2021-10-02/615816e6cd628.png', 20, 'Coupon Demo 2 desc', '2021-10-08 00:00:00', '2021-12-29 00:00:00', 0, 2, '2021-10-02 15:23:03', 1, NULL, NULL, NULL),
-(10, 6, '08mu20f910', 'Coupon Demo 3', '2021-10-02/61581700477fa.png', 50, 'Coupon Demo 3 desc', '2021-10-20 00:00:00', '2021-11-30 00:00:00', 0, 2, '2021-10-02 15:23:29', 1, NULL, NULL, NULL);
+(8, 6, '4i4dqjin8', 'Coupon Demo 1', '2021-10-02/615816c816038.png', 20, 'Coupon Demo 1 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 15:22:32', 1, '2021-10-02 19:47:52', 1, NULL),
+(9, 6, '0idk2g009', 'Coupon Demo 2', '2021-10-02/615816e6cd628.png', 20, 'Coupon Demo 2 desc', '2021-10-08 00:00:00', '2021-12-29 00:00:00', 2, 2, '2021-10-02 15:23:03', 1, '2021-10-02 19:47:51', 1, NULL),
+(10, 6, '08mu20f910', 'Coupon Demo 3', '2021-10-02/61581700477fa.png', 50, 'Coupon Demo 3 desc', '2021-10-20 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 15:23:29', 1, '2021-10-02 19:47:52', 1, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customers`
+-- Table structure for table `customers`
 --
 
 CREATE TABLE `customers` (
@@ -650,19 +673,25 @@ CREATE TABLE `customers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `customers`
+-- Dumping data for table `customers`
 --
 
 INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_phone_code`, `customer_occupation`, `customer_address`, `free_trial`, `free_trial_type`, `customer_status_id`, `language_id`, `facebook_id`, `google_id`, `login_type_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(13, 'huongthien_93@yahoo.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '2021-10-31 10:58:58', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', NULL, '2021-09-30 21:32:32', 0, NULL, NULL, NULL),
-(10, 'facebook12636@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mẫn', 'Hà', NULL, '2021-10-31 10:58:58', 0, '', 0, '', '', 0, 0, 1, 0, '3210518352503578', '', 1, '2021-09-17 16:54:08', 0, '2021-09-17 16:54:13', 0, NULL),
-(11, 'huongthien1993@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Nguyễn', 'Thiên', NULL, '1990-12-01 00:00:00', 1, '0886917766', 3, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 4, '4368860993183697', '', 0, '2021-09-17 17:39:31', 0, '2021-09-22 16:33:28', 1, NULL),
-(12, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '2021-10-31 10:58:58', 0, '', 0, '', '', 0, 0, 2, 0, NULL, '102246103372895088198', 2, '2021-09-17 20:01:33', 0, '2021-09-23 08:56:38', 1, NULL);
+(18, 'thunh.uet@gmail.com', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-03 00:00:52', 0, NULL, NULL, NULL),
+(17, 'huyenthunguyeniser@gmail.com', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-02 23:58:28', 0, NULL, NULL, NULL),
+(11, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Thien', 'Nguyen Hoang Huong', NULL, '1990-12-01 00:00:00', 0, '0886917766', 39, 'Developer IT 2', 'Ho Chi Minh', 0, 1, 2, 4, '4368860993183697', '', 0, '2021-09-17 17:39:31', 0, '2021-09-22 16:33:28', 1, NULL),
+(12, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '2021-10-31 10:58:58', 0, '', 0, '', '', 0, 0, 2, 0, NULL, '102246103372895088198', 2, '2021-09-17 20:01:33', 0, '2021-09-23 08:56:38', 1, NULL),
+(14, '0866666666@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Thien', 'Nguyen', 'no_image.png', '2021-10-04 00:00:00', 1, '0866666666', 0, 'CS', 'Ho Chi Minh', 0, 1, 2, 0, NULL, '', 0, '2021-10-02 20:03:48', 1, NULL, NULL, NULL),
+(15, 'huongthien_93@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Thiên', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4368860993183697', '', 1, '2021-10-02 20:04:17', 0, '2021-10-02 23:52:15', 0, NULL),
+(16, 'paytherent@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-02 20:37:39', 0, NULL, NULL, NULL),
+(19, '16022388@vnu.edu.vn', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-03 00:01:41', 0, NULL, NULL, NULL),
+(21, 'vienruachen@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', 'Vien', 'Chen', '2021-10-03/6159500b3733d.png', '2021-09-28 00:00:00', 0, '088691111', 2, 'Developer 2', 'Ha Noi', 0, 0, 2, 4, NULL, '', 0, '2021-10-03 09:37:32', 0, NULL, NULL, NULL),
+(22, 'abc@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Thien', 'Nguyen', '2021-10-03/61595dee2d464.png', '2021-10-25 00:00:00', 1, '0886917766', 3, '', 'Ho Chi Minh', 0, 0, 2, 4, NULL, '', 0, '2021-10-03 14:32:26', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customer_coupons`
+-- Table structure for table `customer_coupons`
 --
 
 CREATE TABLE `customer_coupons` (
@@ -679,7 +708,7 @@ CREATE TABLE `customer_coupons` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `customer_coupons`
+-- Dumping data for table `customer_coupons`
 --
 
 INSERT INTO `customer_coupons` (`id`, `customer_id`, `coupon_id`, `customer_coupon_code`, `customer_coupon_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
@@ -703,12 +732,25 @@ INSERT INTO `customer_coupons` (`id`, `customer_id`, `coupon_id`, `customer_coup
 (18, 11, 4, 'ugkgp2kf4-10001', 2, NULL, NULL, NULL, NULL, NULL),
 (19, 11, 2, '5kl8e7u02-10001', 2, NULL, NULL, NULL, NULL, NULL),
 (20, 11, 6, 'i6ml4fbi6-10001', 2, NULL, NULL, NULL, NULL, NULL),
-(21, 11, 5, '9j9i47bd5-10001', 2, NULL, NULL, NULL, NULL, NULL);
+(21, 11, 5, '9j9i47bd5-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(22, 14, 6, 'i6ml4fbi6-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(23, 11, 9, '0idk2g009-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(24, 21, 9, '0idk2g009-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(25, 21, 9, '0idk2g009-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(26, 21, 5, '9j9i47bd5-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(27, 21, 8, '4i4dqjin8-10001', 0, NULL, NULL, NULL, NULL, NULL),
+(28, 21, 1, '4b90k3ui1-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(29, 21, 2, '5kl8e7u02-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(30, 21, 4, 'ugkgp2kf4-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(31, 21, 6, 'i6ml4fbi6-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(32, 21, 10, '08mu20f910-10001', 0, NULL, NULL, NULL, NULL, NULL),
+(33, 21, 3, 'b9g9phf13-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(34, 21, 8, '4i4dqjin8-10001', 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customer_events`
+-- Table structure for table `customer_events`
 --
 
 CREATE TABLE `customer_events` (
@@ -724,7 +766,7 @@ CREATE TABLE `customer_events` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `customer_events`
+-- Dumping data for table `customer_events`
 --
 
 INSERT INTO `customer_events` (`id`, `customer_id`, `event_id`, `customer_event_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
@@ -733,12 +775,16 @@ INSERT INTO `customer_events` (`id`, `customer_id`, `event_id`, `customer_event_
 (7, 11, 3, 2, NULL, NULL, NULL, NULL, NULL),
 (4, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
 (5, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
-(6, 11, 3, 0, NULL, NULL, NULL, NULL, NULL);
+(6, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
+(8, 14, 4, 0, NULL, NULL, NULL, NULL, NULL),
+(9, 14, 5, 2, NULL, NULL, NULL, NULL, NULL),
+(10, 14, 1, 2, NULL, NULL, NULL, NULL, NULL),
+(11, 15, 6, 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `districts`
+-- Table structure for table `districts`
 --
 
 CREATE TABLE `districts` (
@@ -753,7 +799,7 @@ CREATE TABLE `districts` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `districts`
+-- Dumping data for table `districts`
 --
 
 INSERT INTO `districts` (`id`, `district_name`, `province_id`, `display_order`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
@@ -1499,7 +1545,7 @@ INSERT INTO `districts` (`id`, `district_name`, `province_id`, `display_order`, 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `events`
+-- Table structure for table `events`
 --
 
 CREATE TABLE `events` (
@@ -1507,9 +1553,9 @@ CREATE TABLE `events` (
   `business_profile_id` int(10) NOT NULL,
   `event_subject` varchar(250) NOT NULL,
   `event_image` text NOT NULL,
-  `start_date` datetime NOT NULL,
+  `start_date` date NOT NULL,
   `start_time` time NOT NULL,
-  `end_date` datetime NOT NULL,
+  `end_date` date NOT NULL,
   `end_time` time NOT NULL,
   `event_description` text NOT NULL,
   `event_status_id` tinyint(4) NOT NULL,
@@ -1521,20 +1567,23 @@ CREATE TABLE `events` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `events`
+-- Dumping data for table `events`
 --
 
 INSERT INTO `events` (`id`, `business_profile_id`, `event_subject`, `event_image`, `start_date`, `start_time`, `end_date`, `end_time`, `event_description`, `event_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(1, 3, 'Event 1', '2021-10-01/615608c37645b.png', '2021-10-01 00:00:00', '01:56:00', '2021-10-31 00:00:00', '01:57:00', 'Event', 2, '2021-10-01 01:58:12', 1, NULL, NULL, NULL),
-(2, 4, 'Event 2', '2021-10-01/615608dc961c8.png', '2021-10-05 00:00:00', '01:58:00', '2021-10-07 00:00:00', '01:58:00', 'Event 2 desc', 2, '2021-10-01 01:58:37', 1, NULL, NULL, NULL),
-(3, 5, 'Event 3', '2021-10-01/61560907dd592.png', '2021-10-07 00:00:00', '09:00:00', '2021-10-09 00:00:00', '18:00:00', 'Event 3 desc', 2, '2021-10-01 01:59:20', 1, NULL, NULL, NULL),
-(4, 6, 'Event halloween 2021', '2021-10-02/6158213bcc869.png', '2021-10-04 00:00:00', '16:06:00', '2021-11-17 00:00:00', '16:06:00', 'Event halloween 2021 desc', 2, '2021-10-02 16:07:08', 1, NULL, NULL, NULL),
-(5, 6, 'Event halloween 2022', '2021-10-02/6158216ee914e.png', '2021-10-02 00:00:00', '16:07:00', '2021-10-31 00:00:00', '16:07:00', 'Event halloween 2022 desc', 2, '2021-10-02 16:07:59', 1, NULL, NULL, NULL);
+(1, 3, 'Event 1', '2021-10-01/615608c37645b.png', '2021-10-01', '01:56:00', '2021-10-31', '01:57:00', 'Event', 1, '2021-10-01 01:58:12', 1, '2021-10-03 11:23:09', 1, NULL),
+(2, 4, 'Event 2', '2021-10-01/615608dc961c8.png', '2021-10-05', '01:58:00', '2021-10-07', '01:58:00', 'Event 2 desc', 2, '2021-10-01 01:58:37', 1, NULL, NULL, NULL),
+(3, 5, 'Event 3', '2021-10-01/61560907dd592.png', '2021-10-07', '09:00:00', '2021-10-09', '18:00:00', 'Event 3 desc', 0, '2021-10-01 01:59:20', 1, '2021-10-02 19:48:46', 1, '2021-10-02 19:48:46'),
+(4, 6, 'Event halloween 2021', '2021-10-02/6158213bcc869.png', '2021-10-04', '16:06:00', '2021-11-17', '16:06:00', 'Event halloween 2021 desc', 1, '2021-10-02 16:07:08', 1, '2021-10-03 11:23:36', 1, NULL),
+(5, 6, 'Event halloween 2022', '2021-10-02/6158216ee914e.png', '2021-10-02', '16:07:00', '2021-10-31', '16:07:00', 'Event halloween 2022 desc', 1, '2021-10-02 16:07:59', 1, '2021-10-03 11:23:07', 1, NULL),
+(6, 6, 'event demo 1', 'no_image.png', '2021-10-07', '19:50:00', '2021-10-31', '19:50:00', 'event demo 1 desc', 1, '2021-10-02 19:50:34', 1, '2021-10-03 11:22:56', 1, NULL),
+(7, 6, 'Event Test Range', 'no_image.png', '2021-10-06', '11:23:00', '2021-10-09', '11:23:00', '', 2, '2021-10-03 11:23:58', 1, NULL, NULL, NULL),
+(8, 6, 'Event Test Range 2', 'no_image.png', '2021-10-18', '11:24:00', '2021-10-21', '11:24:00', '', 2, '2021-10-03 11:24:57', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `files`
+-- Table structure for table `files`
 --
 
 CREATE TABLE `files` (
@@ -1551,7 +1600,7 @@ CREATE TABLE `files` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `filters`
+-- Table structure for table `filters`
 --
 
 CREATE TABLE `filters` (
@@ -1571,7 +1620,7 @@ CREATE TABLE `filters` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `itemfiles`
+-- Table structure for table `itemfiles`
 --
 
 CREATE TABLE `itemfiles` (
@@ -1588,7 +1637,7 @@ CREATE TABLE `itemfiles` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `itemtags`
+-- Table structure for table `itemtags`
 --
 
 CREATE TABLE `itemtags` (
@@ -1605,7 +1654,7 @@ CREATE TABLE `itemtags` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `locations`
+-- Table structure for table `locations`
 --
 
 CREATE TABLE `locations` (
@@ -1623,18 +1672,19 @@ CREATE TABLE `locations` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `locations`
+-- Dumping data for table `locations`
 --
 
 INSERT INTO `locations` (`id`, `location_name`, `lat`, `lng`, `is_hot`, `location_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
 (1, 'VELTA free shop', '50.04693217193328', '12.352281584655778', 0, 2, '2021-09-11 12:13:40', 1, NULL, NULL, NULL),
 (2, 'Asia Gragon Bazan', '50.04732487914607', '12.353837265884415', 0, 2, '2021-09-11 12:17:56', 1, NULL, NULL, NULL),
-(3, 'Markt chech', '50.047648687939635', '12.355822100555436', 0, 2, '2021-09-11 12:18:53', 1, NULL, NULL, NULL);
+(3, 'Markt chech', '50.047648687939635', '12.355822100555436', 0, 2, '2021-09-11 12:18:53', 1, NULL, NULL, NULL),
+(4, 'Location 1', '50.04687297284231', '12.355692994889038', 0, 2, '2021-10-02 20:21:50', 1, '2021-10-02 20:24:08', 1, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `opening_hours`
+-- Table structure for table `opening_hours`
 --
 
 CREATE TABLE `opening_hours` (
@@ -1652,7 +1702,7 @@ CREATE TABLE `opening_hours` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `opening_hours`
+-- Dumping data for table `opening_hours`
 --
 
 INSERT INTO `opening_hours` (`id`, `business_profile_id`, `day_id`, `start_time`, `end_time`, `opening_hours_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
@@ -1684,18 +1734,25 @@ INSERT INTO `opening_hours` (`id`, `business_profile_id`, `day_id`, `start_time`
 (164, 5, 2, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
 (163, 5, 1, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
 (162, 5, 0, '07:00:00', '18:00:00', 2, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(155, 6, 0, '08:00:00', '19:00:00', 2, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(156, 6, 1, '08:00:00', '19:00:00', 2, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(157, 6, 2, NULL, NULL, 1, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(158, 6, 3, NULL, NULL, 1, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(159, 6, 4, NULL, NULL, 1, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(160, 6, 5, NULL, NULL, 1, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL),
-(161, 6, 6, NULL, NULL, 1, '2021-10-01 15:24:43', 1, '2021-10-01 15:24:43', 1, NULL);
+(189, 6, 6, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(188, 6, 5, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(187, 6, 4, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(186, 6, 3, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(185, 6, 2, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(184, 6, 1, '08:00:00', '19:00:00', 2, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(183, 6, 0, '08:00:00', '19:00:00', 2, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
+(182, 7, 6, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
+(181, 7, 5, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
+(180, 7, 4, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
+(179, 7, 3, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
+(178, 7, 2, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
+(177, 7, 1, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
+(176, 7, 0, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `phonecodes`
+-- Table structure for table `phonecodes`
 --
 
 CREATE TABLE `phonecodes` (
@@ -1710,7 +1767,7 @@ CREATE TABLE `phonecodes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `phonecodes`
+-- Dumping data for table `phonecodes`
 --
 
 INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `numcode`, `phonecode`, `image`) VALUES
@@ -1957,7 +2014,7 @@ INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `num
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `provinces`
+-- Table structure for table `provinces`
 --
 
 CREATE TABLE `provinces` (
@@ -1972,7 +2029,7 @@ CREATE TABLE `provinces` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `provinces`
+-- Dumping data for table `provinces`
 --
 
 INSERT INTO `provinces` (`id`, `province_name`, `country_id`, `display_order`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
@@ -2043,7 +2100,7 @@ INSERT INTO `provinces` (`id`, `province_name`, `country_id`, `display_order`, `
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `roleactions`
+-- Table structure for table `roleactions`
 --
 
 CREATE TABLE `roleactions` (
@@ -2059,7 +2116,7 @@ CREATE TABLE `roleactions` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `services`
+-- Table structure for table `services`
 --
 
 CREATE TABLE `services` (
@@ -2080,20 +2137,20 @@ CREATE TABLE `services` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `services`
+-- Dumping data for table `services`
 --
 
 INSERT INTO `services` (`id`, `service_name_vi`, `service_name_en`, `service_name_de`, `service_name_cz`, `service_image`, `service_status_id`, `is_hot`, `display_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
 (1, 'Thẩm mỹ viện', 'Beauty Salons', 'Schönheitssalons', 'Kosmetické salony', '2021-09-22/614aabe543361.png', 2, 2, 1, '2021-09-22 11:07:05', 1, '2021-09-22 16:38:02', 1, NULL),
-(2, 'Sức khỏe - Spa', 'Wellness - Spas', 'Wellnesses - Spas', 'Wellness - lázně', '2021-09-22/614aac520ab60.png', 2, 1, 1, '2021-09-22 11:08:52', 1, NULL, NULL, NULL),
-(3, 'Nhà Hàng', 'Restaurants', 'Restaurants', 'Restaurace', '2021-09-22/614aac7d0112c.png', 2, 1, 1, '2021-09-22 11:09:35', 1, NULL, NULL, NULL),
-(4, 'Cửa Hàng', 'Shops', 'Geschäfte', 'Obchody', '2021-09-22/614aacaa378b5.png', 2, 1, 1, '2021-09-22 11:10:20', 1, NULL, NULL, NULL),
-(5, 'Sòng bạc', 'Casinos', 'Kasinos', 'Kasina', '2021-09-22/614aacd446937.png', 2, 1, 1, '2021-09-22 11:11:01', 1, NULL, NULL, NULL);
+(2, 'Sức khỏe - Spa', 'Wellness - Spas', 'Wellnesses - Spas', 'Wellness - lázně', '2021-09-22/614aac520ab60.png', 2, 2, 1, '2021-09-22 11:08:52', 1, '2021-10-02 23:42:28', 1, NULL),
+(3, 'Nhà Hàng', 'Restaurants', 'Restaurants', 'Restaurace', '2021-09-22/614aac7d0112c.png', 2, 2, 1, '2021-09-22 11:09:35', 1, '2021-10-02 23:42:29', 1, NULL),
+(4, 'Cửa Hàng', 'Shops', 'Geschäfte', 'Obchody', '2021-09-22/614aacaa378b5.png', 2, 2, 1, '2021-09-22 11:10:20', 1, '2021-10-02 23:42:30', 1, NULL),
+(5, 'Sòng bạc', 'Casinos', 'Kasinos', 'Kasina', '2021-09-22/614aacd446937.png', 2, 2, 1, '2021-09-22 11:11:01', 1, '2021-10-02 23:42:31', 1, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `service_types`
+-- Table structure for table `service_types`
 --
 
 CREATE TABLE `service_types` (
@@ -2112,7 +2169,7 @@ CREATE TABLE `service_types` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `service_types`
+-- Dumping data for table `service_types`
 --
 
 INSERT INTO `service_types` (`id`, `service_type_name_vi`, `service_type_name_en`, `service_type_name_de`, `service_type_name_cz`, `service_id`, `display_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
@@ -2122,7 +2179,7 @@ INSERT INTO `service_types` (`id`, `service_type_name_vi`, `service_type_name_en
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sliders`
+-- Table structure for table `sliders`
 --
 
 CREATE TABLE `sliders` (
@@ -2140,7 +2197,7 @@ CREATE TABLE `sliders` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `sliders`
+-- Dumping data for table `sliders`
 --
 
 INSERT INTO `sliders` (`id`, `slider_type_id`, `slider_image`, `slider_url`, `slider_status_id`, `display_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
@@ -2151,7 +2208,7 @@ INSERT INTO `sliders` (`id`, `slider_type_id`, `slider_image`, `slider_url`, `sl
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tags`
+-- Table structure for table `tags`
 --
 
 CREATE TABLE `tags` (
@@ -2168,7 +2225,7 @@ CREATE TABLE `tags` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -2193,16 +2250,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `user_name`, `user_pass`, `full_name`, `email`, `gender_id`, `role_id`, `status_id`, `address`, `birth_day`, `phone_number`, `avatar`, `token`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', 1, 1, 2, 'e', '2020-04-15 00:00:00', '0123456789', '2021-09-12/613d0886165b0.png', NULL, 1, '2020-03-01 00:00:00', 1, '2021-09-12 02:50:35', NULL);
+(1, 'admin', '3c0532f76dad48bfe4b56c91dc3db0b0', 'Admin', 'admin@gmail.com', 1, 1, 2, 'e', '2020-04-15 00:00:00', '0123456789', '2021-09-12/613d0886165b0.png', NULL, 1, '2020-03-01 00:00:00', 1, '2021-10-02 21:09:46', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wards`
+-- Table structure for table `wards`
 --
 
 CREATE TABLE `wards` (
@@ -2219,7 +2276,7 @@ CREATE TABLE `wards` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `wards`
+-- Dumping data for table `wards`
 --
 
 INSERT INTO `wards` (`id`, `ward_name`, `province_id`, `district_id`, `display_order`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`) VALUES
@@ -13434,352 +13491,364 @@ INSERT INTO `wards` (`id`, `ward_name`, `province_id`, `district_id`, `display_o
 (32281, 'Huyện Tân Bình', 46, 795, 0, 0, '2021-06-17 16:41:14', 0, NULL, NULL);
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `actions`
+-- Indexes for table `actions`
 --
 ALTER TABLE `actions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `business_payments`
+-- Indexes for table `business_payments`
 --
 ALTER TABLE `business_payments`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `business_photos`
+-- Indexes for table `business_photos`
 --
 ALTER TABLE `business_photos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `business_profiles`
+-- Indexes for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `business_profile_locations`
+-- Indexes for table `business_profile_locations`
 --
 ALTER TABLE `business_profile_locations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `business_service_types`
+-- Indexes for table `business_service_types`
 --
 ALTER TABLE `business_service_types`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `business_videos`
+-- Indexes for table `business_videos`
 --
 ALTER TABLE `business_videos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `configs`
+-- Indexes for table `configs`
 --
 ALTER TABLE `configs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `countries`
+-- Indexes for table `contact_us`
+--
+ALTER TABLE `contact_us`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `countries`
 --
 ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`),
   ADD KEY `CountryId` (`id`);
 
 --
--- Chỉ mục cho bảng `coupons`
+-- Indexes for table `coupons`
 --
 ALTER TABLE `coupons`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `customers`
+-- Indexes for table `customers`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `customer_coupons`
+-- Indexes for table `customer_coupons`
 --
 ALTER TABLE `customer_coupons`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `customer_events`
+-- Indexes for table `customer_events`
 --
 ALTER TABLE `customer_events`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `districts`
+-- Indexes for table `districts`
 --
 ALTER TABLE `districts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `events`
+-- Indexes for table `events`
 --
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `files`
+-- Indexes for table `files`
 --
 ALTER TABLE `files`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `filters`
+-- Indexes for table `filters`
 --
 ALTER TABLE `filters`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `itemfiles`
+-- Indexes for table `itemfiles`
 --
 ALTER TABLE `itemfiles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `itemtags`
+-- Indexes for table `itemtags`
 --
 ALTER TABLE `itemtags`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `locations`
+-- Indexes for table `locations`
 --
 ALTER TABLE `locations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `opening_hours`
+-- Indexes for table `opening_hours`
 --
 ALTER TABLE `opening_hours`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `phonecodes`
+-- Indexes for table `phonecodes`
 --
 ALTER TABLE `phonecodes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `provinces`
+-- Indexes for table `provinces`
 --
 ALTER TABLE `provinces`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `roleactions`
+-- Indexes for table `roleactions`
 --
 ALTER TABLE `roleactions`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `services`
+-- Indexes for table `services`
 --
 ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `service_types`
+-- Indexes for table `service_types`
 --
 ALTER TABLE `service_types`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `sliders`
+-- Indexes for table `sliders`
 --
 ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `tags`
+-- Indexes for table `tags`
 --
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `wards`
+-- Indexes for table `wards`
 --
 ALTER TABLE `wards`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `actions`
+-- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT cho bảng `business_payments`
+-- AUTO_INCREMENT for table `business_payments`
 --
 ALTER TABLE `business_payments`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `business_photos`
+-- AUTO_INCREMENT for table `business_photos`
 --
 ALTER TABLE `business_photos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
--- AUTO_INCREMENT cho bảng `business_profiles`
+-- AUTO_INCREMENT for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `business_profile_locations`
+-- AUTO_INCREMENT for table `business_profile_locations`
 --
 ALTER TABLE `business_profile_locations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `business_service_types`
+-- AUTO_INCREMENT for table `business_service_types`
 --
 ALTER TABLE `business_service_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
--- AUTO_INCREMENT cho bảng `business_videos`
+-- AUTO_INCREMENT for table `business_videos`
 --
 ALTER TABLE `business_videos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=348;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=350;
 
 --
--- AUTO_INCREMENT cho bảng `countries`
+-- AUTO_INCREMENT for table `contact_us`
+--
+ALTER TABLE `contact_us`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
--- AUTO_INCREMENT cho bảng `coupons`
+-- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT cho bảng `customers`
+-- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT cho bảng `customer_coupons`
+-- AUTO_INCREMENT for table `customer_coupons`
 --
 ALTER TABLE `customer_coupons`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT cho bảng `customer_events`
+-- AUTO_INCREMENT for table `customer_events`
 --
 ALTER TABLE `customer_events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT cho bảng `events`
+-- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT cho bảng `files`
+-- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `filters`
+-- AUTO_INCREMENT for table `filters`
 --
 ALTER TABLE `filters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `itemfiles`
+-- AUTO_INCREMENT for table `itemfiles`
 --
 ALTER TABLE `itemfiles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `itemtags`
+-- AUTO_INCREMENT for table `itemtags`
 --
 ALTER TABLE `itemtags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `locations`
+-- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `opening_hours`
+-- AUTO_INCREMENT for table `opening_hours`
 --
 ALTER TABLE `opening_hours`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 
 --
--- AUTO_INCREMENT cho bảng `phonecodes`
+-- AUTO_INCREMENT for table `phonecodes`
 --
 ALTER TABLE `phonecodes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
 
 --
--- AUTO_INCREMENT cho bảng `provinces`
+-- AUTO_INCREMENT for table `provinces`
 --
 ALTER TABLE `provinces`
   MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
--- AUTO_INCREMENT cho bảng `roleactions`
+-- AUTO_INCREMENT for table `roleactions`
 --
 ALTER TABLE `roleactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `services`
+-- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `service_types`
+-- AUTO_INCREMENT for table `service_types`
 --
 ALTER TABLE `service_types`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `sliders`
+-- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `tags`
+-- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
