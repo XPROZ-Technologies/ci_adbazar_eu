@@ -40,8 +40,7 @@ app.submits = function() {
 app.handle = function() {
     $('#expired_date').datetimepicker({
         format: 'DD/MM/YYYY HH:mm',
-        minDate:new Date(),
-        defaultDate: new Date()
+        minDate:new Date()
     });
     $("select#business_profile_id").select2({
         placeholder: '--Choose Business Profile--',
@@ -51,7 +50,7 @@ app.handle = function() {
             type: 'POST',
             dataType: 'json',
             data: function(data) {
-                $("input#expired_date").val('');
+
                 return {
                     search_text: data.term,
                     business_profile_location_id: $('input[name="business_profile_location_id"]').val()
