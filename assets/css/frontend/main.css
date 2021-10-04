@@ -489,13 +489,20 @@ progress {
 
 @media (min-width: 992px) {
   .container, .container-sm, .container-md, .container-lg {
-    max-width: 960px; } }
+    max-width: 960px; } 
+  .customer-video .container-video {
+    max-width: 960px;
+  }
+}
 
 @media (min-width: 1200px) {
   .container, .container-sm, .container-md, .container-lg, .container-xl {
     max-width: 1140px; } 
   .home-service .container-owl, .home-coupon .container-owl {
       max-width: 1140px;
+  }
+  .customer-video .container-video {
+    max-width: 1000px;
   }
 }
   
@@ -505,6 +512,9 @@ progress {
     max-width: 1320px; } 
   .home-service .container-owl, .home-coupon .container-owl {
       max-width: 1140px;
+  }
+  .customer-video .container-video {
+    max-width: 1000px;
   }
 }
 
