@@ -40,7 +40,7 @@ app.submits = function() {
 app.handle = function() {
     $('#expired_date').datetimepicker({
         format: 'd/m/Y H:m',
-        step:30,
+        step:5,
         changeMonth: true,
         changeYear: true,
         minDate:new Date()
