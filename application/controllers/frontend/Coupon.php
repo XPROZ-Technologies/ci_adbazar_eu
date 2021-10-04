@@ -150,5 +150,47 @@ class Coupon extends MY_Controller {
 
         $this->load->view('frontend/coupon/um-coupon-detail', $data);
     }
+
+    public function update(){
+        try {
+            $postData = $this->arrayFromPost(array('business_profile_id', 'coupon_subject', 'coupon_amount', 'coupon_description', 'start_date', 'end_date'));
+            if(!empty($postData['business_profile_id'])  && !empty($postData['coupon_subject'])) {
+                $couponId = $this->input->post('id');
+				$this->load->model('Mcoupons');
+                $postData['start_date'] = date("Y-m-d", strtotime($postData['start_date']));
+                $postData['end_date'] = date("Y-m-d", strtotime($postData['end_date']));
+                
+                /**
+                 * Upload if customer choose image
+                 */
+                $couponImageUpload = $this->input->post('coupon_image_upload');
+                if(!empty($couponImageUpload)){
+                    $imageUpload = $this->uploadImageBase64($couponImageUpload, 8);
+                    $postData['coupon_image'] = replaceFileUrl($imageUpload, COUPONS_PATH);
+                }
+
+                $message = 'Create success';
+                if ($couponId == 0){
+                    $postData['coupon_status_id'] = STATUS_ACTIVED;
+                    $postData['created_by'] = 0;
+                    $postData['created_at'] = getCurentDateTime();
+                }
+                else {
+                    $message = 'Update successful';
+                    $postData['updated_by'] = 0;
+                    $postData['updated_at'] = getCurentDateTime();
+                }
+                
+                $couponId = $this->Mcoupons->update($postData, $couponId);
+                if ($couponId > 0) {
+                    echo json_encode(array('code' => 1, 'message' => $message, 'data' => $couponId));
+                }
+                else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+            }
+            else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+        } catch (\Throwable $th) {
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
+     	}
+    }
     
 }

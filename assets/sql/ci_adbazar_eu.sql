@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 04, 2021 at 08:37 PM
+-- Generation Time: Oct 05, 2021 at 12:08 AM
 -- Server version: 10.3.21-MariaDB
 -- PHP Version: 7.0.33
 
@@ -148,13 +148,13 @@ CREATE TABLE `business_profiles` (
   `business_phone` varchar(100) NOT NULL,
   `business_phone_code` int(10) NOT NULL DEFAULT 0,
   `business_description` text NOT NULL,
-  `business_avatar` text NOT NULL,
-  `business_image_cover` text NOT NULL,
+  `business_avatar` text DEFAULT NULL,
+  `business_image_cover` text DEFAULT NULL,
   `is_annual_payment` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1: annual, 0: one time',
   `expired_date` datetime DEFAULT NULL,
-  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
-  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
-  `business_status_id` tinyint(4) NOT NULL DEFAULT 0,
+  `is_hot` tinyint(4) DEFAULT 0,
+  `payment_status_id` tinyint(4) DEFAULT 0,
+  `business_status_id` tinyint(4) DEFAULT 0,
   `updated_by` int(11) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_by` int(11) NOT NULL,

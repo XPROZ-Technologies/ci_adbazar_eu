@@ -18,7 +18,8 @@ class Mconstants extends CI_Model {
 
     public $genders = array(
         1 => 'Male',
-        2 => 'Female'
+        2 => 'Female',
+        3 => 'Other'
     );
 
     public $languageDefault = 3;

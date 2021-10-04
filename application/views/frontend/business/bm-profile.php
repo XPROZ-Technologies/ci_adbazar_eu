@@ -18,13 +18,13 @@
           <div class="overlay"></div>
           <div class="bp-top bm-top">
             <div class="container">
-              <img src="<?php echo BUSINESS_PROFILE_PATH.$businessInfo['business_image_cover']; ?>" alt="<?php echo $businessInfo['business_name']; ?>" class="img-fluid">
+              <img src="<?php echo BUSINESS_PROFILE_PATH . $businessInfo['business_image_cover']; ?>" alt="<?php echo $businessInfo['business_name']; ?>" class="img-fluid">
             </div>
           </div>
 
           <div class="bp-top-img bm-top-img">
             <div class="bp-header">
-              <img src="<?php echo BUSINESS_PROFILE_PATH.$businessInfo['business_avatar']; ?>" alt="<?php echo $businessInfo['business_name']; ?>" class="img-fluid">
+              <img src="<?php echo BUSINESS_PROFILE_PATH . $businessInfo['business_avatar']; ?>" alt="<?php echo $businessInfo['business_name']; ?>" class="img-fluid">
               <h3 class="text-center page-title fw-bold text-black text-top"><?php echo $businessInfo['business_name']; ?></h3>
               <p class="mb-0 page-text-lg text-black text-center"><?php echo $businessInfo['business_slogan']; ?></p>
             </div>
@@ -32,20 +32,7 @@
 
           <div class="row">
             <div class="col-lg-3">
-              <div class="bm-left">
-                <aside class="bp-sidebar">
-                  <ul class="list-unstyled">
-                    <li class="active"><a href="javascript:void(0)" class="btn-join-as-guest">My profile</a></li>
-                    <li class=""><a href="javascript:void(0)" class="btn-join-as-guest">Gallery</a></li>
-                    <li class=""><a href="javascript:void(0)" class="btn-join-as-guest">Events</a></li>
-                    <li class=""><a href="javascript:void(0)" class="btn-join-as-guest">Coupons</a></li>
-                    <li class=""><a href="javascript:void(0)" class="btn-join-as-guest">Reviews</a></li>
-                    <li class=""><a href="javascript:void(0)" class="btn-join-as-guest">Reservations</a></li>
-                    <li class=""><a href="javascript:void(0)" class="btn-join-as-guest">Subcription</a></li>
-                    <li></li>
-                  </ul>
-                </aside>
-              </div>
+              <?php $this->load->view('frontend/includes/business_manage_nav_sidebar'); ?>
             </div>
             <div class="col-lg-9">
               <div class="bp-tabs-right bm-right">
@@ -100,19 +87,17 @@
                         <div class="open-hour">
                           <h5 class="text-center page-text-lg">OPENING HOUR</h5>
                           <ul class="list-unstyled mb-0">
-                            <li><span class="date">Mon</span> <span class="time">8:00 -
-                                17:00</span></li>
-                            <li><span class="date">Mon</span> <span class="badge badge-cancel">Closed</span></li>
-                            <li><span class="date">Mon</span> <span class="time">8:00 -
-                                17:00</span></li>
-                            <li><span class="date">Mon</span> <span class="time">8:00 -
-                                17:00</span></li>
-                            <li><span class="date">Mon</span> <span class="time">8:00 -
-                                17:00</span></li>
-                            <li><span class="date">Mon</span> <span class="time">8:00 -
-                                17:00</span></li>
-                            <li><span class="date">Mon</span> <span class="time">8:00 -
-                                17:00</span></li>
+                            <?php foreach ($businessOpeningHours as $open_hours) { ?>
+                              <li>
+                                <span class="date"><?php echo $this->Mconstants->dayIds[$open_hours['day_id']]; ?></span>
+                                <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
+                                  <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
+                                    <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
+                                <?php } else { ?>
+                                  <span class="badge badge-cancel">Closed</span>
+                                <?php } ?>
+                              </li>
+                            <?php } ?>
                           </ul>
                         </div>
                       </div>

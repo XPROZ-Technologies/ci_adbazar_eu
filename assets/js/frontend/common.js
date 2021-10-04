@@ -164,6 +164,14 @@ $(document).ready(function () {
     });
 });
 
+function hideNotiMessage(){
+    if($('#popupNotification').length > 0){
+        setTimeout(function() {
+            $('#popupNotification').fadeOut('fast');
+        }, 2000);
+    }
+}
+
 
 function changeLanguage(langId) {
     $.ajax({

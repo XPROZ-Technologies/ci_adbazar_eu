@@ -251,22 +251,21 @@
         dataType: 'json',
         success: function(response) {
           if(response.code == 1){
-            $(".notiPopup").addClass('show');
             $(".notiPopup .text-secondary").html(response.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-
-          }else{
             $(".notiPopup").addClass('show');
+          }else{
             $(".notiPopup .text-secondary").html(response.message);
             $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").addClass('show');
           }
         },
         error: function(response) {}
       });
     } else {
-      $(".notiPopup").addClass('show');
       $(".notiPopup .text-secondary").html('Please enter your contact information');
       $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").addClass('show');
     }
   });
 </script>
