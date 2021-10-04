@@ -35,8 +35,8 @@ class Customer extends MY_Controller {
 		$data = $this->commonData($user,
 			'Add Customer',
 			array(
-				'scriptHeader' => array('css' => array('vendor/plugins/datepicker/datepicker3.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
-				'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/customer/update.js'))
+				'scriptHeader' => array('css' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
+				'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/customer/update.js'))
 			)
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/customer-create')) {
@@ -51,8 +51,8 @@ class Customer extends MY_Controller {
             $data = $this->commonData($user,
                 'Edit Customer',
                 array(
-					'scriptHeader' => array('css' => array('vendor/plugins/datepicker/datepicker3.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
-					'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/customer/update.js'))
+					'scriptHeader' => array('css' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
+					'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/customer/update.js'))
 				)
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/customer-update')) {

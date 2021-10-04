@@ -35,11 +35,17 @@ app.library = function() {
     });
 
     $('.datetimepicker-start').datetimepicker({
-        format: 'HH:mm'
+        datepicker:false,
+        timepicker:true,
+        format:'H:i',
+        step:30,
     });
 
     $('.datetimepicker-end').datetimepicker({
-        format: 'HH:mm'
+        datepicker:false,
+        timepicker:true,
+        format:'H:i',
+        step:30,
     });
 
     $('#btnAvatar').click(function(){
@@ -85,7 +91,10 @@ app.library = function() {
 
 app.handle = function() {
     $('#expired_date').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm',
+        format: 'd/m/Y H:m',
+        step:30,
+        changeMonth: true,
+        changeYear: true,
         minDate:new Date()
     });
     $("select#location_id").select2({

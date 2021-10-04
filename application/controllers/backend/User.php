@@ -85,8 +85,8 @@ class User extends MY_Controller {
 		$data = $this->commonData($user,
 			'Add staff',
 			array(
-				'scriptHeader' => array('css' => 'vendor/plugins/datepicker/datepicker3.css'),
-				'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'js/backend/user/update.js'))
+				'scriptHeader' => array('css' => 'vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css'),
+				'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/user/update.js'))
 			)
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/staff-create')) {
@@ -101,8 +101,8 @@ class User extends MY_Controller {
             $data = $this->commonData($user,
                 'Edit staff',
                 array(
-                    'scriptHeader' => array('css' => 'vendor/plugins/datepicker/datepicker3.css'),
-                    'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'js/backend/user/update.js'))
+                    'scriptHeader' => array('css' => 'vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css'),
+                    'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/user/update.js'))
                 )
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/staff-update')) {

@@ -54,29 +54,43 @@ app.handle = function() {
 
     var dateNow = new Date();
     dateNow.setDate(dateNow.getDate());
-    $('#start_date').datepicker({
-        format: 'dd/mm/yyyy',
+    $('#start_date').datetimepicker({
+        timepicker:false,
+        format: 'd/m/Y',
         todayBtn: true,
-        startDate: dateNow,
+        minDate: dateNow,
         autoclose: true
-    }).on('changeDate', function (selected) {
-        var minDate = new Date(selected.date.valueOf());
-        $('#end_date').datepicker('setStartDate', minDate);
+    }).on('change.datetimepicker', function () {
+        let dateString = $('#start_date').val();
+        let dateParts = dateString.split('/');
+        let startDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+        $('#end_date').datetimepicker({
+            timepicker:false,
+            format: 'd/m/Y',
+            minDate:startDate
+        });
         $('#end_date').prop('disabled', false);
     });
 
     let dateString = $('#start_date').val();
     let dateParts = dateString.split('/');
     let startDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
-    $("#end_date").datepicker({
-        format: 'dd/mm/yyyy',
-        startDate: startDate,
+    $("#end_date").datetimepicker({
+        timepicker:false,
+        format: 'd/m/Y',
+        minDate: startDate,
         autoclose: true
-    }).on('changeDate', function (selected) {
-        var minDate = new Date(selected.date.valueOf());
-        $('#start_date').datepicker('setEndDate', minDate);
+    }).on('change.datetimepicker', function (selected) {
+        let dateString2 = $('#end_date').val();
+        let dateParts2 = dateString2.split('/');
+        let endDate = new Date(+dateParts2[2], dateParts2[1] - 1, +dateParts2[0]);
+        $('#start_date').datetimepicker({
+            timepicker:false,
+            format: 'd/m/Y',
+            minDate:startDate,
+            maxDate:endDate
+        });
     });
-   
 }
 
 app.submits = function() {

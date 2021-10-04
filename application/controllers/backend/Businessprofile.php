@@ -35,8 +35,8 @@ class Businessprofile extends MY_Controller {
 		$data = $this->commonData($user,
 			'Add Business Profiles',
 			array(
-				'scriptHeader' => array('css' => array('vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
-				'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-datetimepicker/moment.min.js','vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/update.js'))
+				'scriptHeader' => array('css' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
+				'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/update.js'))
 			)
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/business-profile-add')) {
@@ -53,8 +53,8 @@ class Businessprofile extends MY_Controller {
             $data = $this->commonData($user,
                 'Edit business profile',
                 array(
-                    'scriptHeader' => array('css' => array('vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
-                    'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-datetimepicker/moment.min.js','vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/update.js'))
+                    'scriptHeader' => array('css' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
+                    'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/update.js'))
                 )
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'service/edit')) {

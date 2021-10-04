@@ -139,10 +139,11 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label">Expired Date</label>
-                                            <input type="text" name="expired_date" id="expired_date" class="form-control">
+                                            <input type="text" name="expired_date" id="expired_date" class="form-control" autocomplete="off">
                                             <input type="hidden" name="business_profile_location_id" value="0">
                                         </div>
                                     </div>
+                                   
                                 </div>
                             </div>
                         </div>

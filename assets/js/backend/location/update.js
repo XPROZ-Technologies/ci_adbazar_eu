@@ -39,9 +39,11 @@ app.submits = function() {
 
 app.handle = function() {
     $('#expired_date').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm',
-        minDate:new Date(),
-        defaultDate: new Date()
+        format: 'd/m/Y H:m',
+        step:30,
+        changeMonth: true,
+        changeYear: true,
+        minDate:new Date()
     });
 
     $("select#business_profile_id").select2({

@@ -49,37 +49,109 @@ app.handle = function(eventId) {
         }
 
     });
-    let startDateStr = $('#start_date').val();
-    $('#start_date').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm', // 
-        useCurrent: true,
-        minDate: eventId == 0 ? moment() : moment(startDateStr, 'DD/MM/YYYY HH:mm')
-    });
+    // let startDateStr = $('#start_date').val();
+    // $('#start_date').datetimepicker({
+    //     format: 'DD/MM/YYYY HH:mm', // 
+    //     useCurrent: true,
+    //     minDate: eventId == 0 ? moment() : moment(startDateStr, 'DD/MM/YYYY HH:mm')
+    // });
 
-    let endDateStr = $('#end_date').val();
-    $('#end_date').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm', // 
-        useCurrent: true,
-        minDate: eventId == 0 ? moment() : moment(endDateStr, 'DD/MM/YYYY HH:mm')
-    });
+    // let endDateStr = $('#end_date').val();
+    // $('#end_date').datetimepicker({
+    //     format: 'DD/MM/YYYY HH:mm', // 
+    //     useCurrent: true,
+    //     minDate: eventId == 0 ? moment() : moment(endDateStr, 'DD/MM/YYYY HH:mm')
+    // });
    
 
-    $('#start_date').datetimepicker().on('dp.change', function (e) {
-        var incrementDay = moment(new Date(e.date));
-        // incrementDay.add(1, 'days');
-        $('#end_date').val('');
-        $('#end_date').data('DateTimePicker').minDate(incrementDay);
-        // $(this).data("DateTimePicker").hide();
-        $("#end_date").prop('readonly', false);
-    });
+    // $('#start_date').datetimepicker().on('dp.change', function (e) {
+    //     var incrementDay = moment(new Date(e.date));
+    //     // incrementDay.add(1, 'days');
+    //     $('#end_date').val('');
+    //     $('#end_date').data('DateTimePicker').minDate(incrementDay);
+    //     // $(this).data("DateTimePicker").hide();
+    //     $("#end_date").prop('readonly', false);
+    // });
 
 
-    $('#end_date').datetimepicker().on('dp.change', function (e) {
-        var decrementDay = moment(new Date(e.date));
-        // decrementDay.subtract(1, 'days');
-        $('#start_date').data('DateTimePicker').maxDate(decrementDay);
-        //  $(this).data("DateTimePicker").hide();
+    // $('#end_date').datetimepicker().on('dp.change', function (e) {
+    //     var decrementDay = moment(new Date(e.date));
+    //     // decrementDay.subtract(1, 'days');
+    //     $('#start_date').data('DateTimePicker').maxDate(decrementDay);
+    //     //  $(this).data("DateTimePicker").hide();
+    // });
+
+    var dateNow = new Date();
+    dateNow.setDate(dateNow.getDate());
+    $('#start_date').datetimepicker({
+        format: 'd/m/Y H:i',
+        todayBtn: true,
+        minDate: dateNow,
+        autoclose: true
+    }).on('change.datetimepicker', function () {
+        let dateString = $('#start_date').val();
+        let dateParts = dateString.split('/');
+        let yearTime = dateParts[2].split(' ');
+        let time = yearTime[1].split(':');
+        let startDate = new Date(+yearTime[0], dateParts[1] - 1, +dateParts[0], time[0], time[1]);
+        $('#end_date').datetimepicker({
+            format: 'd/m/Y H:i',
+            minDate:startDate
+        });
+        $('#end_date').prop('disabled', false);
     });
+
+    if(eventId == 0) {
+        $("#end_date").datetimepicker({
+            format: 'd/m/Y H:i',
+            // minDate: startDate,
+            autoclose: true
+        }).on('change.datetimepicker', function (selected) {
+            let dateString2 = $('#end_date').val();
+            let dateParts2 = dateString2.split('/');
+            let yearTime2 = dateParts2[2].split(' ');
+            let time2 = yearTime2[1].split(':');
+            let endDate = new Date(+yearTime2[0], dateParts2[1] - 1, +dateParts2[0], time2[0], time2[1]);
+    
+            let dateString = $('#start_date').val();
+            let dateParts = dateString.split('/');
+            let yearTime = dateParts[2].split(' ');
+            let time = yearTime[1].split(':');
+            let startDate = new Date(+yearTime[0], dateParts[1] - 1, +dateParts[0], time[0], time[1]);
+    
+            $('#start_date').datetimepicker({
+                format: 'd/m/Y H:i',
+                minDate:startDate,
+                maxDate:endDate
+            });
+        });
+    } else {
+        let dateString = $('#start_date').val();
+        let dateParts = dateString.split('/');
+        let yearTime = dateParts[2].split(' ');
+        let time = yearTime[1].split(':');
+        let startDate = new Date(+yearTime[0], dateParts[1] - 1, +dateParts[0], time[0], time[1]);
+        $("#end_date").datetimepicker({
+            format: 'd/m/Y H:i',
+            minDate: startDate,
+            autoclose: true
+        }).on('change.datetimepicker', function (selected) {
+            let dateString2 = $('#end_date').val();
+            let dateParts2 = dateString2.split('/');
+            let yearTime2 = dateParts2[2].split(' ');
+            let time2 = yearTime2[1].split(':');
+            let endDate = new Date(+yearTime2[0], dateParts2[1] - 1, +dateParts2[0], time2[0], time2[1]);
+    
+            
+    
+            $('#start_date').datetimepicker({
+                format: 'd/m/Y H:i',
+                minDate:startDate,
+                maxDate:endDate
+            });
+        });
+    }
+    
 
     
 
