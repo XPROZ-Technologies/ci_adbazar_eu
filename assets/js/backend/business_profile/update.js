@@ -38,14 +38,14 @@ app.library = function() {
         datepicker:false,
         timepicker:true,
         format:'H:i',
-        step:30,
+        step:5,
     });
 
     $('.datetimepicker-end').datetimepicker({
         datepicker:false,
         timepicker:true,
         format:'H:i',
-        step:30,
+        step:5,
     });
 
     $('#btnAvatar').click(function(){
@@ -92,7 +92,7 @@ app.library = function() {
 app.handle = function() {
     $('#expired_date').datetimepicker({
         format: 'd/m/Y H:m',
-        step:30,
+        step:5,
         changeMonth: true,
         changeYear: true,
         minDate:new Date()
