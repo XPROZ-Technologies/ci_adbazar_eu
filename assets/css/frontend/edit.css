@@ -1151,6 +1151,9 @@ border-radius: 2px;
 .customer-item-list .wrapper-img img {
     max-width: 18px;
 }
+.customer-item-list .wrapper-img {
+    margin-right: 17px;
+}
 .customer-item-list .list-img {
     width: 150px;
     height: 150px;

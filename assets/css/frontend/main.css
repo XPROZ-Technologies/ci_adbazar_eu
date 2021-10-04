@@ -5848,6 +5848,9 @@ a {
   font-size: 14px;
   line-height: 16px; }
 
+.font-style-normal {
+    font-style: normal !important; }
+
 .modal-header {
   padding-top: 60px;
   padding-bottom: 0;

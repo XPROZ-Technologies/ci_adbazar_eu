@@ -1,7 +1,7 @@
 <!-- Toast -->
 <div class="toast-container position-fixed">
   <!-- Remove class show below to hidden toast -->
-  <div class="toast um-toast notiPopup" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast um-toast notiPopup" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="2000">
     <div class="toast-header border-bottom-0">
       <button type="button" class="btn-close ms-auto btn-toast-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
@@ -21,7 +21,7 @@ if (!empty($notiMessage) && !empty($notiType)) {
   <!-- Toast PHP noti -->
   <div class="toast-container position-fixed" id="popupNotification">
     <!-- Remove class show below to hidden toast -->
-    <div class="toast um-toast show" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast um-toast show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" data-autohide="true">
       <div class="toast-header border-bottom-0">
         <button type="button" class="btn-close ms-auto btn-toast-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
