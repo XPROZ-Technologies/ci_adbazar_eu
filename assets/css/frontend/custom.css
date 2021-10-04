@@ -231,6 +231,133 @@ min-height: 322px;
     padding: 8.5px 73.5px!important;
     width: calc(25% - 20px)!important;
 }
+.home-event-slider .carousel-caption{
+    left: 0;
+    right: 0;
+}
+.list-inline-item:not(:last-child) {
+    margin-right: 6px;
+}
+.bp-tabs-right .open-hour li .badge-cancel {
+    padding: 2px 26px;
+}
+
+.card.rounded-0.customer-location-item .col-3{
+    width: 20%;
+}
+#aboutMapModal .card.rounded-0.customer-location-item .col-3 {
+    width: 24%;
+}
+#aboutMapModal .gm-style .gm-style-iw-c, #aboutMapModal .gm-style .gm-style-iw-d {
+    overflow: hidden!important;
+    border-radius: 0;
+    width: 345px;
+    height: 80px;
+    padding: 0;
+    background: transparent;
+}
+.um-links li:not(:last-child) a, .um-links li a, .bp-sidebar li a {
+    font-weight: bold;
+}
+.c-img {
+    display: block;
+    position: relative;
+    padding-top: 100%; 
+}
+.c-img img, .c-img .bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit; 
+}
+#pills-photo .photo-list .c-img {
+    padding-top: 126%;
+}
+.posting .slider .slick-slide a {
+    display: flex!important;
+    width: 360px;
+    height: 496px;
+}
+.posting .slider .slick-slide img {
+    width: 360px;
+    height: 496px;
+}
+.posting-modal{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slider1 .c-img {
+    padding-top: 131%;
+}
+.posting .close_posting .btn-close{
+    top: 16px;
+    right: 16px;
+}
+.um-coupon-detail .detail-horizontal {
+    margin-bottom: 40px;
+}
+.um-coupon-detail .btn-remove{
+    position: absolute;
+    bottom: 14px;
+    right: 30px;
+    margin: 0;
+    padding: 0;
+}
+#removeCouponModal.v1 .modal-medium, #removeEventModal.v1 .modal-medium {
+    max-width: 451px;
+}
+#removeCouponModal.v1 .modal-medium .modal-body, #removeEventModal.v1 .modal-medium .modal-body {
+    padding: 77.5px 40px !important;
+}
+#removeCouponModal.v1 .modal-dialog .btn-yes, #removeEventModal.v1 .modal-dialog .btn-yes {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 5px 21px!important;
+}
+.create-form .dropdown-country {
+    border: 1px solid #7C7C7C;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+.bm-create .create-form .custom-select.nice-select::after {
+    right: 16px;
+    top: 32px;
+}
+.bm-create .create-form .custom-select {
+    height: 59px;
+    line-height: 59px;
+}
+.bm-create .create-form .action-btn .btn{
+    line-height: 23px;
+    padding: 6px 20px!important;
+    border-radius: 2px;
+}
+.switch-btn.disabled .switch-left, .switch-btn.disabled .switch-right, .switch-btn.disabled .switch-text {
+    color: #949494;
+}
+.switch-btn.disabled .checkbox:checked ~ .switch, .switch-btn.disabled .checkbox:not(:checked) ~ .switch {
+    border: 1.6px solid #7C7C7C;
+}
+.switch-btn.disabled .switch-circle-inner {
+    background-color: #7C7C7C;
+}
+.open-hour-item .form-control:disabled::placeholder, .open-hour-item .form-control::placeholder {
+    color: #949494;
+}
+.open-hour-item .d-flex.wrapper-time .time-content .form-control-lg{
+    border-color: #CFCFCF;
+}
+.bm-create-content .open-hour-item.disabled-item .time-content::after {
+    background-image: url(../../img/frontend/ic-timepicker.png);
+}
 @media (max-width: 1366px){
     .discover_more {
         padding: 8.5px 73.5px!important;
@@ -243,13 +370,25 @@ min-height: 322px;
         width: calc(50% - 10px)!important;
     }
 }
-@media (max-width: 767px){
+@media (max-width: 768px){
     .discover_more {
         padding: 8.5px 0!important;
         width: calc(50% - 10px)!important;
     }
+    .page-business-profile .container {
+        padding: 0px 15px;
+        margin-top: 0;
+    }
 }
-.home-event-slider .carousel-caption{
-    left: 0;
-    right: 0;
+@media screen and (max-width: 576px){
+    .posting .slider .slick-slide a,
+    .posting .slider .slick-slide img {
+        height: 400px;
+    }
+}
+@media screen and (max-width: 375px){
+    .posting .slider .slick-slide a,
+    .posting .slider .slick-slide img {
+        height: 350px;
+    }
 }

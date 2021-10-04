@@ -27,7 +27,7 @@
                   <div class="row g-0 align-items-lg-center">
                     <p class="col-lg-7 card-text mb-0 page-text-xs"><?php echo ddMMyyyy($detailInfo['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($detailInfo['end_date'], 'M d, Y'); ?></p>
                     <div class="col-lg-5">
-                      <div class="d-flex align-items-center justify-content-end">
+                      <div class="d-flex align-items-center ">
                         <?php if (!empty($customerCoupon)) { ?>
                           <!-- Saved -->
                           <span class="page-text-sm me-1">Status:</span>
@@ -92,12 +92,9 @@
   </div>
 
   <!-- Modal confirm remove -->
-  <div class="modal fade" id="removeCouponModal" tabindex="-1" aria-labelledby="removeCouponModalLabel" aria-hidden="true">
+  <div class="modal fade v1" id="removeCouponModal" tabindex="-1" aria-labelledby="removeCouponModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-medium">
       <div class="modal-content">
-        <div class="modal-header border-bottom-0">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
         <div class="modal-body">
           <p class="text-center page-text-lg">Are you sure want to remove the coupon
             <b><?php echo $detailInfo['coupon_subject']; ?></b>?
