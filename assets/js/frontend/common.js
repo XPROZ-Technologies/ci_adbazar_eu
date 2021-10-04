@@ -35,7 +35,7 @@ $(document).ready(function () {
     var owl_coupon = $('.owl-coupon');
     owl_coupon.owlCarousel({
         loop: true,
-        margin: 16,
+        margin: 30,
         autoplay: true,
         autoplayTimeout: 5000,
         autoplayHoverPause: true,

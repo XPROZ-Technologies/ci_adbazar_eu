@@ -28,7 +28,7 @@
     <?php if (!empty($services) && count($services) > 0) { ?>
       <!-- Customer Service -->
       <section class="home-service">
-        <div class="container">
+        <div class="container container-owl">
           <h2 class="page-heading fw-bold page-title">Services</h2>
           <div class="owl-carousel owl-customer-service">
             <?php for ($i = 0; $i < count($services); $i++) {
@@ -90,7 +90,7 @@
     <?php if (count($listCoupons) > 0) { ?>
       <!-- Customer Coupon -->
       <section class="home-coupon">
-        <div class="container">
+        <div class="container container-owl">
           <h2 class="text-center page-title">Coupons</h2>
           <div class="owl-carousel owl-coupon">
             <!-- item coupon -->
@@ -166,10 +166,10 @@
           <div class="col-lg-8">
             <div class="text-right mb-20">
               <div class="wrapper-search">
-                <form class="d-flex search-box" >
+                <div class="d-flex search-box" >
                   <a href="javascript:void(0)" class="search-box-icon" ><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
                   <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
-                </form>
+                </div>
               </div>
             </div>
             <div class="customer-location-right">

@@ -493,11 +493,20 @@ progress {
 
 @media (min-width: 1200px) {
   .container, .container-sm, .container-md, .container-lg, .container-xl {
-    max-width: 1140px; } }
+    max-width: 1140px; } 
+  .home-service .container-owl, .home-coupon .container-owl {
+      max-width: 1140px;
+  }
+}
+  
 
 @media (min-width: 1400px) {
   .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
-    max-width: 1320px; } }
+    max-width: 1320px; } 
+  .home-service .container-owl, .home-coupon .container-owl {
+      max-width: 1140px;
+  }
+}
 
 .row {
   --bs-gutter-x: 1.5rem;

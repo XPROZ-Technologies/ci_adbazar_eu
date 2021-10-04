@@ -21,6 +21,7 @@ $(document).ready(function() {
         }, 1000);
     });
 });
+
 let map;
 
     function initMap() {
@@ -71,7 +72,7 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                                     <h6 class="card-title mb-1 page-text-xs"><a href="${urlProfileBusiness+item.business_url}" title="">${item.business_name}</a></h6>
                                     <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                     ${isOpen}
-                                    <a href="avascript:void(0)" class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
+                                    <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +123,7 @@ jQuery(function() {
         var infowindow = new google.maps.InfoWindow({
             content: ''
         });
-        
+
         item.servicetypes = '';
         item.linkInfo = '';
         item.evaluateInfo = 0;
