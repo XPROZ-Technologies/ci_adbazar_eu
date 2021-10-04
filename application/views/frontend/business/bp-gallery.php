@@ -31,7 +31,7 @@
                                                     foreach ($businessPhotos as $itemPhoto) { ?>
                                                         <div class="col-6 col-lg-3">
                                                             <div class="photo-item">
-                                                                <a data-id="<?php echo $itemPhoto['id']; ?>" data-business="<?php echo $businessInfo['id']; ?>" class="d-block">
+                                                                <a data-id="<?php echo $itemPhoto['id']; ?>" data-business="<?php echo $businessInfo['id']; ?>" class="d-block c-img">
                                                                     <img src="<?php if (!empty($itemPhoto['photo_image'])) {
                                                                                     echo BUSINESS_PROFILE_PATH . $itemPhoto['photo_image'];
                                                                                 } else {
@@ -169,6 +169,7 @@
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
 <div class="posting">
+<div class="posting-modal">
     <div class="posting-box">
         <div class="close_posting"><button type="button" class="btn-close"></button></div>
         <div class="slider">
@@ -194,7 +195,7 @@
             <?php if (!empty($businessPhotos)) {
                 foreach ($businessPhotos as $itemPhoto) { ?>
                     <div class="photo-item">
-                        <a class="d-block">
+                        <a class="d-block c-img">
                             <img src="<?php if (!empty($itemPhoto['photo_image'])) {
                                             echo BUSINESS_PROFILE_PATH . $itemPhoto['photo_image'];
                                         } else {
@@ -238,6 +239,7 @@
 
         </div>
     </div>
+</div>
 </div>
 <script>
     $(document).ready(function() {
