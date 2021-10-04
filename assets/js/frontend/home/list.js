@@ -106,7 +106,7 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                 
                 var listProfilesMap = json.listProfilesMap;
 
-var infowindow = null;
+//var infowindow = null;
 jQuery(function() {
         var StartLatLng = new google.maps.LatLng(50.047648687939635, 12.355822100555436);
         var mapOptions = {
@@ -116,11 +116,13 @@ jQuery(function() {
 
     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    var infowindow = new google.maps.InfoWindow({
-        content: ''
-    });
+    
         
     jQuery.each( listProfilesMap, function(i, item) {
+        var infowindow = new google.maps.InfoWindow({
+            content: ''
+        });
+        
         item.servicetypes = '';
         item.linkInfo = '';
         item.evaluateInfo = 0;
@@ -214,14 +216,21 @@ jQuery(function() {
             map: map,
             icon: iconMap,
         });
-console.log(item)
+        infowindow.setContent(infoMap);
+        infowindow.open(map,marker);
+        //console.log(item)
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.close();
             infowindow.setContent(infoMap);
             infowindow.open(map,marker);
         });
 
-
+        /*
+        // show map, open infoBox 
+        google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+            infowindow.open(map, marker);
+        });
+        */
     });
 });
                 

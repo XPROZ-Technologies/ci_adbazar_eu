@@ -89,7 +89,7 @@ content: '';
     display: inline-block;
 }
 .page-item.active a.page-link:after {
-    left: 10px;
+    left: 8px;
 }
 .customer-service-item {
     margin-bottom: 32px;
