@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Oct 03, 2021 at 07:40 AM
--- Server version: 5.7.32
--- PHP Version: 7.4.16
+-- Host: localhost
+-- Generation Time: Oct 04, 2021 at 08:37 PM
+-- Server version: 10.3.21-MariaDB
+-- PHP Version: 7.0.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ci_adbazar_eu`
+-- Database: `adb_xproz`
 --
 
 -- --------------------------------------------------------
@@ -72,10 +73,10 @@ INSERT INTO `actions` (`id`, `action_name`, `action_url`, `parent_action_id`, `d
 CREATE TABLE `business_payments` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
-  `payment_gateway_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1: paypal, 2:...',
-  `payment_amount` float DEFAULT '0',
+  `payment_gateway_id` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1: paypal, 2:...',
+  `payment_amount` float DEFAULT 0,
   `payment_currency` varchar(10) NOT NULL,
-  `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -105,24 +106,27 @@ CREATE TABLE `business_photos` (
 --
 
 INSERT INTO `business_photos` (`id`, `business_profile_id`, `photo_image`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(116, 4, '2021-09-23/614bdf3c73fb1.png', '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(115, 4, '2021-09-23/614bdf39cb609.png', '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(114, 4, '2021-09-23/614bdf377ccf0.png', '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(113, 4, '2021-09-23/614bdf3556bec.png', '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(112, 3, '2021-09-22/614b396309d97.png', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(111, 3, '2021-09-22/614b395d2299a.png', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(110, 3, '2021-09-22/614b395a16a90.png', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(109, 3, '2021-09-22/614b395740727.png', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(134, 5, '2021-09-23/614bdf3556bec.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(133, 5, '2021-09-23/614bdf377ccf0.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(132, 5, '2021-09-23/614bdf39cb609.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(131, 5, '2021-09-23/614bdf3c73fb1.png', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(140, 6, '2021-10-01/6156c5b491de6.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(139, 6, '2021-10-01/6156c5b2333c1.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(138, 6, '2021-10-01/6156c5af6db30.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(137, 6, '2021-10-01/6156c5ad3a451.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(136, 6, '2021-10-01/6156c5aa898c9.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(135, 6, '2021-10-01/6156c5a774bfb.png', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL);
+(158, 4, '2021-09-23/614bdf3556bec.png', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(157, 4, '2021-09-23/614bdf377ccf0.png', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(156, 4, '2021-09-23/614bdf39cb609.png', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(155, 4, '2021-09-23/614bdf3c73fb1.png', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(187, 3, '2021-09-22/614b396309d97.png', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(186, 3, '2021-09-22/614b395d2299a.png', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(185, 3, '2021-09-22/614b395a16a90.png', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(184, 3, '2021-09-22/614b395740727.png', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(162, 5, '2021-09-23/614bdf3c73fb1.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(161, 5, '2021-09-23/614bdf39cb609.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(160, 5, '2021-09-23/614bdf377ccf0.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(159, 5, '2021-09-23/614bdf3556bec.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(180, 6, '2021-10-03/615983317567b.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(179, 6, '2021-10-03/6159832dd23b3.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(178, 6, '2021-10-03/6159832a960e7.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(177, 6, '2021-10-01/6156c5a774bfb.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(176, 6, '2021-10-01/6156c5ad3a451.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(175, 6, '2021-10-01/6156c5b2333c1.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(181, 6, '2021-10-03/61598336bc894.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(182, 6, '2021-10-03/6159833ab0a9f.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(183, 6, '2021-10-03/61598342a3ed1.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -142,15 +146,15 @@ CREATE TABLE `business_profiles` (
   `business_url` text NOT NULL,
   `country_code_id` int(10) NOT NULL,
   `business_phone` varchar(100) NOT NULL,
-  `business_phone_code` int(10) NOT NULL DEFAULT '0',
+  `business_phone_code` int(10) NOT NULL DEFAULT 0,
   `business_description` text NOT NULL,
   `business_avatar` text NOT NULL,
   `business_image_cover` text NOT NULL,
-  `is_annual_payment` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1: annual, 0: one time',
+  `is_annual_payment` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1: annual, 0: one time',
   `expired_date` datetime DEFAULT NULL,
-  `is_hot` tinyint(4) NOT NULL DEFAULT '0',
-  `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
-  `business_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
+  `business_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `updated_by` int(11) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_by` int(11) NOT NULL,
@@ -163,11 +167,11 @@ CREATE TABLE `business_profiles` (
 --
 
 INSERT INTO `business_profiles` (`id`, `customer_id`, `service_id`, `business_name`, `business_slogan`, `business_email`, `business_address`, `business_whatsapp`, `business_url`, `country_code_id`, `business_phone`, `business_phone_code`, `business_description`, `business_avatar`, `business_image_cover`, `is_annual_payment`, `expired_date`, `is_hot`, `payment_status_id`, `business_status_id`, `updated_by`, `updated_at`, `created_by`, `created_at`, `deleted_at`) VALUES
-(3, 11, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', 0, '', '2021-09-23/614bdeb8d94cc.png', '2021-09-23/614bdebf60144.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:04', 1, '2021-09-22 17:25:13', NULL),
-(4, 12, 1, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', 0, '', '2021-09-23/614bdf177b533.png', '2021-09-23/614bdf1a5d21a.png', 0, NULL, 2, 0, 2, 1, '2021-10-01 15:25:04', 1, '2021-09-23 08:58:38', NULL),
-(5, 12, 1, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', 0, '', '2021-10-02/6157eebb81fa6.png', '2021-10-02/6157eec3d69d8.png', 0, NULL, 2, 0, 2, 1, '2021-10-02 12:31:50', 1, '2021-09-23 08:58:46', NULL),
-(6, 21, 1, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 57, '89729822123', 0, 'Hair Salon Spa desc', '2021-10-03/615945383889a.png', '2021-10-03/615945354fc1c.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 12:53:03', 1, '2021-10-01 15:24:43', NULL),
-(7, 12, 1, 'Business demo location', 'Business demo location slogan', 'a@gmail.com', 'Ho Chi Minh', '0886765544', 'business-demo-location', 14, '0938893675', 0, 'Business demo location desc', 'no_image.png', 'no_image.png', 0, NULL, 0, 0, 2, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:23:42', NULL);
+(3, 0, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', 0, '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-04 20:29:37', 1, '2021-09-22 17:25:13', NULL),
+(4, 0, 2, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', 0, '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:00:50', 1, '2021-09-23 08:58:38', NULL),
+(5, 0, 3, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', 0, '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:01:08', 1, '2021-09-23 08:58:46', NULL),
+(6, 26, 8, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 57, '89729822123', 0, 'Hair Salon Spa desc', '2021-10-03/61598314185a4.png', '2021-10-03/61598320230c8.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:17:40', 1, '2021-10-01 15:24:43', NULL),
+(7, 0, 1, 'Business demo location', 'Business demo location slogan', 'a@gmail.com', 'Ho Chi Minh', '0886765544', 'business-demo-location', 14, '0938893675', 0, 'Business demo location desc', 'no_image.png', 'no_image.png', 0, NULL, 0, 0, 2, 1, '2021-10-03 18:44:31', 1, '2021-10-02 20:23:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -179,8 +183,8 @@ CREATE TABLE `business_profile_locations` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
   `location_id` int(10) NOT NULL,
-  `expired_date` datetime NOT NULL,
-  `payment_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `expired_date` datetime DEFAULT NULL,
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `business_profile_location_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -198,7 +202,11 @@ INSERT INTO `business_profile_locations` (`id`, `business_profile_id`, `location
 (2, 4, 3, '2021-10-23 08:58:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
 (3, 5, 3, '2021-10-23 08:58:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
 (4, 6, 2, '2021-10-31 15:23:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
-(5, 7, 4, '0000-00-00 00:00:00', 0, 2, NULL, NULL, NULL, NULL, NULL);
+(5, 7, 4, '0000-00-00 00:00:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(6, 0, 9, '2021-10-03 17:26:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(7, 0, 11, '0000-00-00 00:00:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(8, 0, 13, '2021-10-03 17:53:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(9, 0, 14, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -217,16 +225,14 @@ CREATE TABLE `business_service_types` (
 --
 
 INSERT INTO `business_service_types` (`id`, `business_profile_id`, `service_type_id`) VALUES
-(40, 4, 2),
-(39, 4, 1),
-(38, 3, 2),
-(37, 3, 1),
-(48, 5, 2),
-(47, 5, 1),
-(54, 6, 2),
-(53, 6, 1),
-(52, 7, 2),
-(51, 7, 1);
+(62, 4, 31),
+(61, 4, 33),
+(70, 3, 9),
+(69, 3, 7),
+(64, 5, 14),
+(63, 5, 13),
+(67, 6, 5),
+(68, 7, 9);
 
 -- --------------------------------------------------------
 
@@ -251,11 +257,11 @@ CREATE TABLE `business_videos` (
 --
 
 INSERT INTO `business_videos` (`id`, `business_profile_id`, `video_url`, `video_code`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(342, 4, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(347, 5, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(349, 6, 'https://www.youtube.com/watch?v=PTR8MIIT5Sw', 'PTR8MIIT5Sw', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(348, 6, 'https://www.youtube.com/watch?v=_PgWxvu9rCw', '_PgWxvu9rCw', '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(341, 3, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL);
+(354, 4, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(355, 5, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(361, 6, 'https://www.youtube.com/watch?v=_PgWxvu9rCw', '_PgWxvu9rCw', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(360, 6, 'https://www.youtube.com/watch?v=PTR8MIIT5Sw', 'PTR8MIIT5Sw', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(362, 3, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -268,9 +274,9 @@ CREATE TABLE `configs` (
   `config_code` varchar(45) NOT NULL,
   `config_name` varchar(100) NOT NULL,
   `config_value` text NOT NULL,
-  `config_value_en` text,
-  `config_value_de` text,
-  `config_value_zc` text,
+  `config_value_en` text DEFAULT NULL,
+  `config_value_de` text DEFAULT NULL,
+  `config_value_zc` text DEFAULT NULL,
   `auto_load` tinyint(4) NOT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -291,7 +297,7 @@ INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `conf
 (7, 'INSTAGRAM_URL', 'Instagram Url', 'Text Logo heade', '#', NULL, '#', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
 (8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-11/613c2d366223b.png', '2021-09-26/61507620e94d5.png', NULL, '2021-09-26/61507620e94d5.png', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-29 08:38:10'),
 (9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', 'Asia Dragon Bazar', NULL, 'Asia Dragon Bazar', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-29 08:38:10'),
-(10, 'MARKER_MAP_IMAGE', 'Marker map image', '2021-09-11/613c299d53fc9.png', '2021-09-26/6150765a524e4.png', NULL, '2021-09-26/6150765a524e4.png', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-29 08:38:10'),
+(10, 'MARKER_MAP_IMAGE', 'Marker map image', '2021-09-11/613c299d53fc9.png', '2021-10-03/615968b49b0c9.png', NULL, '2021-09-26/6150765a524e4.png', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-03 15:24:22'),
 (11, 'TIKTOK_URL', 'Tiktok Url', '2021-09-11/613c299d53fc9.png', '#', NULL, '#', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
 (12, 'TWITTER_URL', 'Twitter Url', '2021-09-11/613c299d53fc9.png', '#', NULL, '#', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
 (13, 'PINTEREST_URL', 'Pinterest Url', '2021-09-11/613c299d53fc9.png', '#', NULL, '#', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
@@ -315,6 +321,7 @@ CREATE TABLE `contact_us` (
   `contact_name` varchar(250) NOT NULL,
   `contact_email` varchar(250) NOT NULL,
   `contact_message` text NOT NULL,
+  `customer_id` int(10) DEFAULT 0,
   `is_send` tinyint(4) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
@@ -345,7 +352,7 @@ CREATE TABLE `countries` (
   `capital` varchar(50) DEFAULT NULL,
   `time_zone_in_capital` varchar(200) DEFAULT NULL,
   `currency` varchar(50) DEFAULT NULL,
-  `flag` longtext,
+  `flag` longtext DEFAULT NULL,
   `created_by` int(10) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_by` int(10) NOT NULL,
@@ -614,7 +621,7 @@ CREATE TABLE `coupons` (
   `coupon_description` text NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
-  `is_hot` tinyint(4) NOT NULL DEFAULT '0',
+  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
   `coupon_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(10) DEFAULT NULL,
@@ -651,20 +658,20 @@ CREATE TABLE `customers` (
   `customer_password` varchar(250) NOT NULL,
   `customer_first_name` varchar(250) NOT NULL,
   `customer_last_name` varchar(250) NOT NULL,
-  `customer_avatar` text,
+  `customer_avatar` text DEFAULT NULL,
   `customer_birthday` datetime NOT NULL,
   `customer_gender_id` tinyint(4) NOT NULL,
   `customer_phone` varchar(50) NOT NULL,
-  `customer_phone_code` int(10) DEFAULT '0',
+  `customer_phone_code` int(10) DEFAULT 0,
   `customer_occupation` varchar(250) NOT NULL,
   `customer_address` varchar(250) NOT NULL,
-  `free_trial` tinyint(4) NOT NULL DEFAULT '0',
-  `free_trial_type` tinyint(4) NOT NULL DEFAULT '0',
-  `customer_status_id` tinyint(4) NOT NULL DEFAULT '0',
-  `language_id` tinyint(4) NOT NULL DEFAULT '0',
+  `free_trial` tinyint(4) NOT NULL DEFAULT 0,
+  `free_trial_type` tinyint(4) NOT NULL DEFAULT 0,
+  `customer_status_id` tinyint(4) NOT NULL DEFAULT 0,
+  `language_id` tinyint(4) NOT NULL DEFAULT 0,
   `facebook_id` varchar(250) DEFAULT NULL,
-  `google_id` varchar(250) NOT NULL,
-  `login_type_id` tinyint(4) DEFAULT '0' COMMENT '1: Facebook / 2: google',
+  `google_id` varchar(250) DEFAULT NULL,
+  `login_type_id` tinyint(4) DEFAULT 0 COMMENT '1: Facebook / 2: google',
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -677,16 +684,20 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_phone_code`, `customer_occupation`, `customer_address`, `free_trial`, `free_trial_type`, `customer_status_id`, `language_id`, `facebook_id`, `google_id`, `login_type_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(18, 'thunh.uet@gmail.com', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-03 00:00:52', 0, NULL, NULL, NULL),
-(17, 'huyenthunguyeniser@gmail.com', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-02 23:58:28', 0, NULL, NULL, NULL),
-(11, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Thien', 'Nguyen Hoang Huong', NULL, '1990-12-01 00:00:00', 0, '0886917766', 39, 'Developer IT 2', 'Ho Chi Minh', 0, 1, 2, 4, '4368860993183697', '', 0, '2021-09-17 17:39:31', 0, '2021-09-22 16:33:28', 1, NULL),
-(12, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '2021-10-31 10:58:58', 0, '', 0, '', '', 0, 0, 2, 0, NULL, '102246103372895088198', 2, '2021-09-17 20:01:33', 0, '2021-09-23 08:56:38', 1, NULL),
+(18, 'thunh.uet@gmail.com', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, '2021-10-03 00:00:52', 0, '2021-10-03 00:09:25', 1, '2021-10-03 00:09:25'),
+(25, '', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '910613696502683', NULL, 2, '2021-10-03 09:51:03', 0, '2021-10-04 18:32:15', 0, NULL),
+(27, 'abc@gmail.com', '25f9e794323b453885f5181f1b624d0b', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-03 15:41:36', 0, NULL, NULL, NULL),
+(26, 'vienruachen@gmail.com', 'f2513d295ef85e3eab69ff1b244588f4', 'Vien', 'Chen', '2021-10-03/61594d106a957.png', '2021-10-07 00:00:00', 0, '0987666666', 3, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 4, NULL, NULL, 0, '2021-10-03 09:59:16', 0, NULL, NULL, NULL),
 (14, '0866666666@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Thien', 'Nguyen', 'no_image.png', '2021-10-04 00:00:00', 1, '0866666666', 0, 'CS', 'Ho Chi Minh', 0, 1, 2, 0, NULL, '', 0, '2021-10-02 20:03:48', 1, NULL, NULL, NULL),
-(15, 'huongthien_93@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Thiên', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4368860993183697', '', 1, '2021-10-02 20:04:17', 0, '2021-10-02 23:52:15', 0, NULL),
+(15, 'huongthien_93@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Thiên', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4368860993183697', '', 1, '2021-10-02 20:04:17', 0, '2021-10-03 15:23:55', 0, NULL),
 (16, 'paytherent@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-02 20:37:39', 0, NULL, NULL, NULL),
-(19, '16022388@vnu.edu.vn', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-03 00:01:41', 0, NULL, NULL, NULL),
-(21, 'vienruachen@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', 'Vien', 'Chen', '2021-10-03/6159500b3733d.png', '2021-09-28 00:00:00', 0, '088691111', 2, 'Developer 2', 'Ha Noi', 0, 0, 2, 4, NULL, '', 0, '2021-10-03 09:37:32', 0, NULL, NULL, NULL),
-(22, 'abc@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Thien', 'Nguyen', '2021-10-03/61595dee2d464.png', '2021-10-25 00:00:00', 1, '0886917766', 3, '', 'Ho Chi Minh', 0, 0, 2, 4, NULL, '', 0, '2021-10-03 14:32:26', 0, NULL, NULL, NULL);
+(19, '16022388@vnu.edu.vn', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, '2021-10-03 00:01:41', 0, '2021-10-03 00:24:09', 1, '2021-10-03 00:24:09'),
+(20, 'levanhoanhtt@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Hoàn', 'Lê', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4762416737155785', '', 1, '2021-10-03 00:32:37', 0, NULL, NULL, NULL),
+(21, 'huyenthunguyeniser@gmail.com', '4531e8924edde928f341f7df3ab36c70', 'Nguyễn', 'Huyền Thư', NULL, '0000-00-00 00:00:00', 0, '', 0, '', 'fdf', 0, 2, 2, 0, NULL, '103952864733277509914', 2, '2021-10-03 00:51:04', 0, '2021-10-03 14:15:49', 0, NULL),
+(24, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '102246103372895088198', 2, '2021-10-03 09:49:13', 0, NULL, NULL, NULL),
+(28, 'dangnam92chem@gmail.com', '953f98c64c598bf3764736454ee85bef', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 2, 2, 0, NULL, NULL, 0, '2021-10-03 23:56:46', 0, NULL, NULL, NULL),
+(29, 'ondrisvu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ondris', 'Vu', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '962429757654796', NULL, 1, '2021-10-04 03:43:06', 0, '2021-10-04 03:44:38', 0, NULL),
+(30, 'email@email.com', '4c38ca394d146abe6218714eb8821aac', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-04 03:45:19', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -734,18 +745,30 @@ INSERT INTO `customer_coupons` (`id`, `customer_id`, `coupon_id`, `customer_coup
 (20, 11, 6, 'i6ml4fbi6-10001', 2, NULL, NULL, NULL, NULL, NULL),
 (21, 11, 5, '9j9i47bd5-10001', 2, NULL, NULL, NULL, NULL, NULL),
 (22, 14, 6, 'i6ml4fbi6-10002', 0, NULL, NULL, NULL, NULL, NULL),
-(23, 11, 9, '0idk2g009-10001', 2, NULL, NULL, NULL, NULL, NULL),
-(24, 21, 9, '0idk2g009-10002', 0, NULL, NULL, NULL, NULL, NULL),
-(25, 21, 9, '0idk2g009-10002', 0, NULL, NULL, NULL, NULL, NULL),
-(26, 21, 5, '9j9i47bd5-10002', 0, NULL, NULL, NULL, NULL, NULL),
-(27, 21, 8, '4i4dqjin8-10001', 0, NULL, NULL, NULL, NULL, NULL),
-(28, 21, 1, '4b90k3ui1-10002', 0, NULL, NULL, NULL, NULL, NULL),
-(29, 21, 2, '5kl8e7u02-10002', 2, NULL, NULL, NULL, NULL, NULL),
-(30, 21, 4, 'ugkgp2kf4-10002', 0, NULL, NULL, NULL, NULL, NULL),
-(31, 21, 6, 'i6ml4fbi6-10002', 0, NULL, NULL, NULL, NULL, NULL),
-(32, 21, 10, '08mu20f910-10001', 0, NULL, NULL, NULL, NULL, NULL),
+(23, 17, 9, '0idk2g009-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(24, 21, 9, '0idk2g009-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(25, 21, 6, 'i6ml4fbi6-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(26, 21, 2, '5kl8e7u02-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(27, 17, 1, '4b90k3ui1-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(28, 26, 1, '4b90k3ui1-10003', 0, NULL, NULL, NULL, NULL, NULL),
+(29, 26, 5, '9j9i47bd5-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(30, 26, 5, '9j9i47bd5-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(31, 21, 2, '5kl8e7u02-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(32, 21, 10, '08mu20f910-10001', 2, NULL, NULL, NULL, NULL, NULL),
 (33, 21, 3, 'b9g9phf13-10002', 2, NULL, NULL, NULL, NULL, NULL),
-(34, 21, 8, '4i4dqjin8-10001', 2, NULL, NULL, NULL, NULL, NULL);
+(34, 21, 8, '4i4dqjin8-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(35, 26, 1, '4b90k3ui1-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(36, 21, 5, '9j9i47bd5-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(37, 25, 5, '9j9i47bd5-10004', 2, NULL, NULL, NULL, NULL, NULL),
+(38, 25, 6, 'i6ml4fbi6-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(39, 25, 1, '4b90k3ui1-10004', 2, NULL, NULL, NULL, NULL, NULL),
+(40, 26, 10, '08mu20f910-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(41, 27, 10, '08mu20f910-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(42, 26, 2, '5kl8e7u02-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(43, 30, 9, '0idk2g009-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(44, 30, 6, 'i6ml4fbi6-10004', 2, NULL, NULL, NULL, NULL, NULL),
+(45, 30, 5, '9j9i47bd5-10005', 2, NULL, NULL, NULL, NULL, NULL),
+(46, 30, 4, 'ugkgp2kf4-10002', 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -779,7 +802,18 @@ INSERT INTO `customer_events` (`id`, `customer_id`, `event_id`, `customer_event_
 (8, 14, 4, 0, NULL, NULL, NULL, NULL, NULL),
 (9, 14, 5, 2, NULL, NULL, NULL, NULL, NULL),
 (10, 14, 1, 2, NULL, NULL, NULL, NULL, NULL),
-(11, 15, 6, 2, NULL, NULL, NULL, NULL, NULL);
+(11, 15, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(12, 17, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(13, 21, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(14, 17, 1, 2, NULL, NULL, NULL, NULL, NULL),
+(15, 25, 1, 0, NULL, NULL, NULL, NULL, NULL),
+(16, 27, 5, 2, NULL, NULL, NULL, NULL, NULL),
+(17, 27, 4, 2, NULL, NULL, NULL, NULL, NULL),
+(18, 27, 1, 2, NULL, NULL, NULL, NULL, NULL),
+(19, 27, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(20, 27, 2, 2, NULL, NULL, NULL, NULL, NULL),
+(21, 28, 5, 0, NULL, NULL, NULL, NULL, NULL),
+(22, 28, 1, 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1571,14 +1605,12 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `business_profile_id`, `event_subject`, `event_image`, `start_date`, `start_time`, `end_date`, `end_time`, `event_description`, `event_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(1, 3, 'Event 1', '2021-10-01/615608c37645b.png', '2021-10-01', '01:56:00', '2021-10-31', '01:57:00', 'Event', 1, '2021-10-01 01:58:12', 1, '2021-10-03 11:23:09', 1, NULL),
+(1, 3, 'Event 1', '2021-10-01/615608c37645b.png', '2021-10-01', '01:56:00', '2021-10-31', '01:57:00', 'Event', 2, '2021-10-01 01:58:12', 1, NULL, NULL, NULL),
 (2, 4, 'Event 2', '2021-10-01/615608dc961c8.png', '2021-10-05', '01:58:00', '2021-10-07', '01:58:00', 'Event 2 desc', 2, '2021-10-01 01:58:37', 1, NULL, NULL, NULL),
 (3, 5, 'Event 3', '2021-10-01/61560907dd592.png', '2021-10-07', '09:00:00', '2021-10-09', '18:00:00', 'Event 3 desc', 0, '2021-10-01 01:59:20', 1, '2021-10-02 19:48:46', 1, '2021-10-02 19:48:46'),
-(4, 6, 'Event halloween 2021', '2021-10-02/6158213bcc869.png', '2021-10-04', '16:06:00', '2021-11-17', '16:06:00', 'Event halloween 2021 desc', 1, '2021-10-02 16:07:08', 1, '2021-10-03 11:23:36', 1, NULL),
-(5, 6, 'Event halloween 2022', '2021-10-02/6158216ee914e.png', '2021-10-02', '16:07:00', '2021-10-31', '16:07:00', 'Event halloween 2022 desc', 1, '2021-10-02 16:07:59', 1, '2021-10-03 11:23:07', 1, NULL),
-(6, 6, 'event demo 1', 'no_image.png', '2021-10-07', '19:50:00', '2021-10-31', '19:50:00', 'event demo 1 desc', 1, '2021-10-02 19:50:34', 1, '2021-10-03 11:22:56', 1, NULL),
-(7, 6, 'Event Test Range', 'no_image.png', '2021-10-06', '11:23:00', '2021-10-09', '11:23:00', '', 2, '2021-10-03 11:23:58', 1, NULL, NULL, NULL),
-(8, 6, 'Event Test Range 2', 'no_image.png', '2021-10-18', '11:24:00', '2021-10-21', '11:24:00', '', 2, '2021-10-03 11:24:57', 1, NULL, NULL, NULL);
+(4, 6, 'Event halloween 2021', '2021-10-02/6158213bcc869.png', '2021-10-04', '16:06:00', '2021-11-17', '16:06:00', 'Event halloween 2021 desc', 2, '2021-10-02 16:07:08', 1, NULL, NULL, NULL),
+(5, 6, 'Event halloween 2022', '2021-10-02/6158216ee914e.png', '2021-10-02', '16:07:00', '2021-10-31', '16:07:00', 'Event halloween 2022 desc', 2, '2021-10-02 16:07:59', 1, NULL, NULL, NULL),
+(6, 6, 'event demo 1', 'no_image.png', '2021-10-07', '19:50:00', '2021-10-31', '19:50:00', 'event demo 1 desc', 2, '2021-10-02 19:50:34', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1662,8 +1694,8 @@ CREATE TABLE `locations` (
   `location_name` varchar(250) NOT NULL,
   `lat` varchar(250) NOT NULL,
   `lng` varchar(250) NOT NULL,
-  `is_hot` tinyint(4) DEFAULT '0',
-  `location_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `is_hot` tinyint(4) DEFAULT 0,
+  `location_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1676,10 +1708,15 @@ CREATE TABLE `locations` (
 --
 
 INSERT INTO `locations` (`id`, `location_name`, `lat`, `lng`, `is_hot`, `location_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(1, 'VELTA free shop', '50.04693217193328', '12.352281584655778', 0, 2, '2021-09-11 12:13:40', 1, NULL, NULL, NULL),
-(2, 'Asia Gragon Bazan', '50.04732487914607', '12.353837265884415', 0, 2, '2021-09-11 12:17:56', 1, NULL, NULL, NULL),
-(3, 'Markt chech', '50.047648687939635', '12.355822100555436', 0, 2, '2021-09-11 12:18:53', 1, NULL, NULL, NULL),
-(4, 'Location 1', '50.04687297284231', '12.355692994889038', 0, 2, '2021-10-02 20:21:50', 1, '2021-10-02 20:24:08', 1, NULL);
+(1, 'VELTA free shop', '50.04693217193328', '12.352281584655778', 2, 2, '2021-09-11 12:13:40', 1, '2021-10-03 15:01:18', 1, NULL),
+(2, 'Asia Gragon Bazan', '50.04732487914607', '12.353837265884415', 2, 2, '2021-09-11 12:17:56', 1, '2021-10-03 15:01:21', 1, NULL),
+(3, 'Markt chech', '50.047648687939635', '12.355822100555436', 2, 2, '2021-09-11 12:18:53', 1, '2021-10-03 15:01:21', 1, NULL),
+(12, 'Fusion 3', '50.0473111', '12.3523245', 0, 2, '2021-10-03 17:36:05', 1, NULL, NULL, NULL),
+(11, 'Fusion 02', '50.046367219078746', '12.351637854492203', 0, 2, '2021-10-03 17:26:30', 1, '2021-10-03 17:27:21', 1, NULL),
+(10, 'Fusion 02', '50.046367219078746', '12.351637854492203', 0, 2, '2021-10-03 17:26:27', 1, NULL, NULL, NULL),
+(9, 'Fusion 01', '50.0464085573181', '12.35214743585295', 0, 2, '2021-10-03 17:26:10', 1, NULL, NULL, NULL),
+(13, 'Nail 01', '50.04683418834578', '12.353290095245377', 0, 2, '2021-10-03 17:53:59', 1, NULL, NULL, NULL),
+(14, 'location tesst', '50.0471595291323', '12.352941408073441', 0, 2, '2021-10-03 18:44:17', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1693,7 +1730,7 @@ CREATE TABLE `opening_hours` (
   `day_id` tinyint(4) NOT NULL,
   `start_time` time DEFAULT NULL,
   `end_time` time DEFAULT NULL,
-  `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT '0',
+  `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1713,41 +1750,41 @@ INSERT INTO `opening_hours` (`id`, `business_profile_id`, `day_id`, `start_time`
 (5, 2, 4, NULL, NULL, 1, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
 (6, 2, 5, NULL, NULL, 1, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
 (7, 2, 6, NULL, NULL, 1, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
-(133, 3, 6, NULL, NULL, 1, '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(132, 3, 5, NULL, NULL, 1, '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(131, 3, 4, NULL, NULL, 1, '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(130, 3, 3, NULL, NULL, 1, '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(129, 3, 2, NULL, NULL, 1, '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(128, 3, 1, NULL, NULL, 1, '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(127, 3, 0, '07:00:00', '18:00:00', 2, '2021-09-23 08:56:16', 1, '2021-09-23 08:56:16', 1, NULL),
-(134, 4, 0, '07:00:00', '18:00:00', 2, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(135, 4, 1, NULL, NULL, 1, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(136, 4, 2, NULL, NULL, 1, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(137, 4, 3, NULL, NULL, 1, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(138, 4, 4, NULL, NULL, 2, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(139, 4, 5, NULL, NULL, 1, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(140, 4, 6, NULL, NULL, 1, '2021-09-23 08:58:38', 1, '2021-09-23 08:58:38', 1, NULL),
-(168, 5, 6, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(167, 5, 5, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(166, 5, 4, NULL, NULL, 2, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(165, 5, 3, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(164, 5, 2, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(163, 5, 1, NULL, NULL, 1, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(162, 5, 0, '07:00:00', '18:00:00', 2, '2021-10-02 12:31:50', 1, '2021-10-02 12:31:50', 1, NULL),
-(189, 6, 6, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(188, 6, 5, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(187, 6, 4, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(186, 6, 3, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(185, 6, 2, NULL, NULL, 1, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(184, 6, 1, '08:00:00', '19:00:00', 2, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(183, 6, 0, '08:00:00', '19:00:00', 2, '2021-10-03 12:53:03', 1, '2021-10-03 12:53:03', 1, NULL),
-(182, 7, 6, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
-(181, 7, 5, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
-(180, 7, 4, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
-(179, 7, 3, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
-(178, 7, 2, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
-(177, 7, 1, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL),
-(176, 7, 0, NULL, NULL, 1, '2021-10-02 20:24:58', 1, '2021-10-02 20:24:58', 1, NULL);
+(259, 3, 6, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(258, 3, 5, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(257, 3, 4, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(256, 3, 3, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(255, 3, 2, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(254, 3, 1, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(253, 3, 0, '07:00:00', '18:00:00', 2, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(217, 4, 6, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(216, 4, 5, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(215, 4, 4, NULL, NULL, 2, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(214, 4, 3, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(213, 4, 2, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(212, 4, 1, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(211, 4, 0, '07:00:00', '18:00:00', 2, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(224, 5, 6, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(223, 5, 5, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(222, 5, 4, NULL, NULL, 2, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(221, 5, 3, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(220, 5, 2, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(219, 5, 1, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(218, 5, 0, '07:00:00', '18:00:00', 2, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(245, 6, 6, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(244, 6, 5, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(243, 6, 4, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(242, 6, 3, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(241, 6, 2, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(240, 6, 1, '08:00:00', '19:00:00', 2, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(239, 6, 0, '08:00:00', '19:00:00', 2, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(252, 7, 6, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(251, 7, 5, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(250, 7, 4, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(249, 7, 3, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(248, 7, 2, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(247, 7, 1, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(246, 7, 0, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -1778,7 +1815,6 @@ INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `num
 (5, 'AD', 'ANDORRA', 'Andorra', 'AND', 20, 376, 'ad.png'),
 (6, 'AO', 'ANGOLA', 'Angola', 'AGO', 24, 244, 'ao.png'),
 (7, 'AI', 'ANGUILLA', 'Anguilla', 'AIA', 660, 1264, 'ai.png'),
-(8, 'AQ', 'ANTARCTICA', 'Antarctica', NULL, NULL, 0, 'aq.png'),
 (9, 'AG', 'ANTIGUA AND BARBUDA', 'Antigua and Barbuda', 'ATG', 28, 1268, 'ag.png'),
 (10, 'AR', 'ARGENTINA', 'Argentina', 'ARG', 32, 54, 'ar.png'),
 (11, 'AM', 'ARMENIA', 'Armenia', 'ARM', 51, 374, 'am.png'),
@@ -2127,8 +2163,8 @@ CREATE TABLE `services` (
   `service_name_cz` varchar(250) DEFAULT NULL,
   `service_image` text NOT NULL,
   `service_status_id` tinyint(4) NOT NULL,
-  `is_hot` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1: không nổi bật, 2: nổi bật',
-  `display_order` int(10) NOT NULL DEFAULT '0',
+  `is_hot` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1: không nổi bật, 2: nổi bật',
+  `display_order` int(10) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -2141,11 +2177,14 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `service_name_vi`, `service_name_en`, `service_name_de`, `service_name_cz`, `service_image`, `service_status_id`, `is_hot`, `display_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(1, 'Thẩm mỹ viện', 'Beauty Salons', 'Schönheitssalons', 'Kosmetické salony', '2021-09-22/614aabe543361.png', 2, 2, 1, '2021-09-22 11:07:05', 1, '2021-09-22 16:38:02', 1, NULL),
-(2, 'Sức khỏe - Spa', 'Wellness - Spas', 'Wellnesses - Spas', 'Wellness - lázně', '2021-09-22/614aac520ab60.png', 2, 2, 1, '2021-09-22 11:08:52', 1, '2021-10-02 23:42:28', 1, NULL),
-(3, 'Nhà Hàng', 'Restaurants', 'Restaurants', 'Restaurace', '2021-09-22/614aac7d0112c.png', 2, 2, 1, '2021-09-22 11:09:35', 1, '2021-10-02 23:42:29', 1, NULL),
-(4, 'Cửa Hàng', 'Shops', 'Geschäfte', 'Obchody', '2021-09-22/614aacaa378b5.png', 2, 2, 1, '2021-09-22 11:10:20', 1, '2021-10-02 23:42:30', 1, NULL),
-(5, 'Sòng bạc', 'Casinos', 'Kasinos', 'Kasina', '2021-09-22/614aacd446937.png', 2, 2, 1, '2021-09-22 11:11:01', 1, '2021-10-02 23:42:31', 1, NULL);
+(1, 'Thẩm mỹ viện', 'Beauty Salons', 'Schönheitssalons', 'Kosmetické salony', '2021-09-22/614aabe543361.png', 2, 2, 1, '2021-09-22 11:07:05', 1, '2021-10-03 16:50:04', 1, NULL),
+(2, 'Sức khỏe - Spa', 'Wellness - Spas', 'Wellnesses - Spas', 'Wellness - lázně', '2021-09-22/614aac520ab60.png', 2, 2, 1, '2021-09-22 11:08:52', 1, '2021-10-03 16:59:48', 1, NULL),
+(3, 'Nhà Hàng', 'Restaurants', 'Restaurants', 'Restaurace', '2021-09-22/614aac7d0112c.png', 2, 2, 1, '2021-09-22 11:09:35', 1, '2021-10-03 16:51:58', 1, NULL),
+(4, 'Cửa Hàng', 'Shops', 'Geschäfte', 'Obchody', '2021-09-22/614aacaa378b5.png', 2, 2, 1, '2021-09-22 11:10:20', 1, '2021-10-03 16:53:21', 1, NULL),
+(5, 'Sòng bài', 'Casinos', 'Kasinos', 'Kasina', '2021-09-22/614aacd446937.png', 2, 2, 1, '2021-09-22 11:11:01', 1, '2021-10-03 16:54:08', 1, NULL),
+(6, 'Hiệu thuốc', 'Pharmacies', 'Apotheken', 'Lékarny', '2021-10-03/6159766155816.png', 2, 2, 1, '2021-10-03 16:20:24', 1, '2021-10-03 16:52:31', 1, NULL),
+(7, 'Khách sạn', 'Hotels', 'Hotel', 'Hotely', '2021-10-03/6159766dcea51.png', 2, 2, 1, '2021-10-03 16:20:45', 1, '2021-10-03 16:25:25', 1, NULL),
+(8, 'Khác', 'Other', 'Andere', 'Ostatní', '2021-10-03/6159767a74791.png', 2, 2, 1, '2021-10-03 16:20:59', 1, '2021-10-04 10:50:25', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -2173,8 +2212,35 @@ CREATE TABLE `service_types` (
 --
 
 INSERT INTO `service_types` (`id`, `service_type_name_vi`, `service_type_name_en`, `service_type_name_de`, `service_type_name_cz`, `service_id`, `display_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(1, 'Tóc', 'Haar', 'Haar', 'Vlasy', 1, 1, '2021-09-22 16:38:02', 1, '2021-09-22 16:38:02', 1, NULL),
-(2, 'Móng Tay', 'Nails', 'Nägel', 'Hřebíky', 1, 1, '2021-09-22 16:38:02', 1, '2021-09-22 16:38:02', 1, NULL);
+(6, 'Permanent make-up', 'Permanent make-up', 'Permanent make-up', 'Permanent make-up', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(7, 'Massage', 'Massage', 'Massage', 'Massage', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(8, 'Make up', 'Make up', 'Make up', 'Make up', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(9, 'Other', 'Other', 'Other', 'Other', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(10, 'Nails', 'Nails', 'Nails', 'Nails', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(11, 'Hair', 'Hair', 'Hair', 'Hair', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(12, 'Coffee Shop', 'Coffee Shop', 'Coffee Shop', 'Coffee Shop', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(13, 'Vietnamese', 'Vietnamese', 'Vietnamese', 'Vietnamese', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(14, 'Fast Food', 'Fast Food', 'Fast Food', 'Fast Food', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(15, 'Bakery', 'Bakery', 'Bakery', 'Bakery', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(16, 'Fusion', 'Fusion', 'Fusion', 'Fusion', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(17, 'Czech', 'Czech', 'Czech', 'Czech', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(18, 'Other', 'Other', 'Other', 'Other', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(19, 'Asian', 'Asian', 'Asian', 'Asian', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(20, 'Thai', 'Thai', 'Thai', 'Thai', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(22, 'Other', 'Other', 'Other', 'Other', 6, 1, '2021-10-03 16:52:31', 1, '2021-10-03 16:52:31', 1, NULL),
+(23, 'Medicine', 'Medicine', 'Medicine', 'Medicine', 6, 1, '2021-10-03 16:52:31', 1, '2021-10-03 16:52:31', 1, NULL),
+(24, 'Other', 'Other', 'Other', 'Other', 4, 1, '2021-10-03 16:53:21', 1, '2021-10-03 16:53:21', 1, NULL),
+(25, 'Electronics', 'Electronics', 'Electronics', 'Electronics', 4, 1, '2021-10-03 16:53:21', 1, '2021-10-03 16:53:21', 1, NULL),
+(26, 'Asian Grocery', 'Asian Grocery', 'Asian Grocery', 'Asian Grocery', 4, 1, '2021-10-03 16:53:21', 1, '2021-10-03 16:53:21', 1, NULL),
+(27, 'Clothes', 'Clothes', 'Clothes', 'Clothes', 4, 1, '2021-10-03 16:53:21', 1, '2021-10-03 16:53:21', 1, NULL),
+(28, 'Other', 'Other', 'Other', 'Other', 5, 1, '2021-10-03 16:54:08', 1, '2021-10-03 16:54:08', 1, NULL),
+(29, 'Spielzimmer', 'Spielzimmer', 'Spielzimmer', 'Spielzimmer', 5, 1, '2021-10-03 16:54:08', 1, '2021-10-03 16:54:08', 1, NULL),
+(30, 'Casino', 'Casino', 'Casino', 'Casino', 5, 1, '2021-10-03 16:54:08', 1, '2021-10-03 16:54:08', 1, NULL),
+(31, 'Other', 'Other', 'Other', 'Other', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL),
+(32, 'Day Spa', 'Day Spa', 'Day Spa', 'Day Spa', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL),
+(33, 'Spa', 'Spa', 'Spa', 'Spa', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL),
+(34, 'Destination Spa', 'Destination Spa', 'Destination Spa', 'Destination Spa', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL),
+(35, 'Health Spa', 'Health Spa', 'Health Spa', 'Health Spa', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -2184,11 +2250,11 @@ INSERT INTO `service_types` (`id`, `service_type_name_vi`, `service_type_name_en
 
 CREATE TABLE `sliders` (
   `id` int(10) NOT NULL,
-  `slider_type_id` tinyint(4) NOT NULL DEFAULT '0',
+  `slider_type_id` tinyint(4) NOT NULL DEFAULT 0,
   `slider_image` text NOT NULL,
   `slider_url` text NOT NULL,
   `slider_status_id` tinyint(4) NOT NULL,
-  `display_order` int(10) NOT NULL DEFAULT '0',
+  `display_order` int(10) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -13701,31 +13767,31 @@ ALTER TABLE `business_payments`
 -- AUTO_INCREMENT for table `business_photos`
 --
 ALTER TABLE `business_photos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
 
 --
 -- AUTO_INCREMENT for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `business_profile_locations`
 --
 ALTER TABLE `business_profile_locations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `business_service_types`
 --
 ALTER TABLE `business_service_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `business_videos`
 --
 ALTER TABLE `business_videos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=350;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=363;
 
 --
 -- AUTO_INCREMENT for table `contact_us`
@@ -13749,25 +13815,25 @@ ALTER TABLE `coupons`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `customer_coupons`
 --
 ALTER TABLE `customer_coupons`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `customer_events`
 --
 ALTER TABLE `customer_events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `files`
@@ -13797,13 +13863,13 @@ ALTER TABLE `itemtags`
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `opening_hours`
 --
 ALTER TABLE `opening_hours`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
 
 --
 -- AUTO_INCREMENT for table `phonecodes`
@@ -13827,13 +13893,13 @@ ALTER TABLE `roleactions`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `service_types`
 --
 ALTER TABLE `service_types`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `sliders`

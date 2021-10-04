@@ -1,5 +1,5 @@
 <!-- Toast -->
-<div class="toast-container position-fixed">
+<div class="toast-container position-fixed" id="notiMessage">
   <!-- Remove class show below to hidden toast -->
   <div class="toast um-toast notiPopup" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="2000">
     <div class="toast-header border-bottom-0">

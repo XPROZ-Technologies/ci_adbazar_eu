@@ -181,6 +181,8 @@ $route['coupon/(:any)-(:num)\.html'] = 'frontend/coupon/detail/$1/$2';
 //notification
 $route['notifications.html'] = 'frontend/notification/index';
 
+//contact
+$route['customer/send-contact-us'] = 'frontend/contact/saveContactForm';
 
 
 //business management

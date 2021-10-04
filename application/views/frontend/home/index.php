@@ -166,8 +166,8 @@
           <div class="col-lg-8">
             <div class="text-right mb-20">
               <div class="wrapper-search">
-                <div class="d-flex search-box" >
-                  <a href="javascript:void(0)" class="search-box-icon" ><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                <div class="d-flex search-box">
+                  <a href="javascript:void(0)" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
                   <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
                 </div>
               </div>
@@ -191,7 +191,8 @@
               <div class="row g-0">
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                   <div class="customer-contact-left d-flex align-items-center">
-                    <form class="row g-3" action="" id="formContactUs" method="POST">
+                    <form class="row g-3" action="<?php echo base_url('customer/send-contact-us'); ?>" id="formContactUs" method="POST">
+                      <input name="customer_id" id="contactCustomer" type="hidden" value="<?php if (isset($customer['id'])) { echo $customer['id']; } else { echo 0; } ?>" />
                       <h3 class="fw-bold text-center mb-4">Contact Us </h3>
                       <div class="col-12">
                         <input type="text" class="form-control" name="contact_name" id="contactName" placeholder="Name" required>
@@ -200,7 +201,7 @@
                         <input type="email" class="form-control" name="contact_email" id="contactEmail" placeholder="Email" required>
                       </div>
                       <div class="col-12">
-                        <textarea class="form-control" name="contact_message" id="contactMessage" rows="3" placeholder="Type your message here" required ></textarea>
+                        <textarea class="form-control" name="contact_message" id="contactMessage" rows="3" placeholder="Type your message here" required></textarea>
                       </div>
                       <div class="col-12 d-flex justify-content-center btn-submit">
                         <button type="submit" class="btn btn-red">Submit</button>
@@ -227,22 +228,45 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 
 <script>
-  var iconMap = "<?php echo  (isset($configs['MARKER_MAP_IMAGE']) && !empty($configs['MARKER_MAP_IMAGE'])) ? CONFIG_PATH.$configs['MARKER_MAP_IMAGE'] : CONFIG_PATH."iconmap.png" ?>";
-  
-  $( "#formContactUs" ).submit(function( event ) {
-      event.preventDefault();
-      var email = $("#contactEmail").val();
-      var name = $("#contactNam").val();
-      var message = $("#contactMessage").val();
-      if(email !== "" && name != "" && message != ""){
-          //this.submit();
-          $(".notiPopup").addClass('show');
-          $(".notiPopup .text-secondary").html('Message sent');
-          $(".ico-noti-success").removeClass('ico-hidden');
-      }else{
-          $(".notiPopup").addClass('show');
-          $(".notiPopup .text-secondary").html('Please enter your contact information');
-          $(".ico-noti-error").removeClass('ico-hidden');
-      }
+  var iconMap = "<?php echo (isset($configs['MARKER_MAP_IMAGE']) && !empty($configs['MARKER_MAP_IMAGE'])) ? CONFIG_PATH . $configs['MARKER_MAP_IMAGE'] : CONFIG_PATH . "iconmap.png" ?>";
+
+  $("#formContactUs").submit(function(event) {
+    event.preventDefault();
+    var email = $("#contactEmail").val();
+    var name = $("#contactName").val();
+    var message = $("#contactMessage").val();
+    var customer_id = $("#contactCustomer").val();
+    
+    if (email !== "" && name != "" && message != "") {
+      //this.submit();
+      $.ajax({
+        type: "POST",
+        url: $('#formContactUs').attr('action'),
+        data: {
+          contact_name: name,
+          contact_email: email,
+          contact_message: message,
+          customer_id: customer_id
+        },
+        dataType: 'json',
+        success: function(response) {
+          if(response.code == 1){
+            $(".notiPopup").addClass('show');
+            $(".notiPopup .text-secondary").html(response.message);
+            $(".ico-noti-success").removeClass('ico-hidden');
+
+          }else{
+            $(".notiPopup").addClass('show');
+            $(".notiPopup .text-secondary").html(response.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+          }
+        },
+        error: function(response) {}
+      });
+    } else {
+      $(".notiPopup").addClass('show');
+      $(".notiPopup .text-secondary").html('Please enter your contact information');
+      $(".ico-noti-error").removeClass('ico-hidden');
+    }
   });
 </script>
