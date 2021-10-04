@@ -17,6 +17,7 @@ $(window).ready(() => {
     
   });
   */
+ /*
   // Init carousel customer home service
   $(".owl-customer-service").owlCarousel({
     loop: true,
@@ -34,19 +35,24 @@ $(window).ready(() => {
       0: {
         items: 2,
         margin: 16,
+        slideBy: 2
       },
       768: {
         items: 2,
         margin: 20,
+        slideBy: 2
       },
       1000: {
         items: 3,
+        slideBy: 3
       },
       1366: {
         items: 4,
+        slideBy: 4
       },
     },
   });
+  */
 
   /*
   // Init carousel customer home service
