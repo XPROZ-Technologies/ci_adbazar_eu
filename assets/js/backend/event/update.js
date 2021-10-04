@@ -87,7 +87,8 @@ app.handle = function(eventId) {
         format: 'd/m/Y H:i',
         todayBtn: true,
         minDate: dateNow,
-        autoclose: true
+        autoclose: true,
+        step:5
     }).on('change.datetimepicker', function () {
         let dateString = $('#start_date').val();
         let dateParts = dateString.split('/');
@@ -96,6 +97,7 @@ app.handle = function(eventId) {
         let startDate = new Date(+yearTime[0], dateParts[1] - 1, +dateParts[0], time[0], time[1]);
         $('#end_date').datetimepicker({
             format: 'd/m/Y H:i',
+            step:5,
             minDate:startDate
         });
         $('#end_date').prop('disabled', false);
@@ -105,6 +107,7 @@ app.handle = function(eventId) {
         $("#end_date").datetimepicker({
             format: 'd/m/Y H:i',
             // minDate: startDate,
+            step:5,
             autoclose: true
         }).on('change.datetimepicker', function (selected) {
             let dateString2 = $('#end_date').val();
@@ -122,6 +125,7 @@ app.handle = function(eventId) {
             $('#start_date').datetimepicker({
                 format: 'd/m/Y H:i',
                 minDate:startDate,
+                step:5,
                 maxDate:endDate
             });
         });
@@ -134,6 +138,7 @@ app.handle = function(eventId) {
         $("#end_date").datetimepicker({
             format: 'd/m/Y H:i',
             minDate: startDate,
+            step:5,
             autoclose: true
         }).on('change.datetimepicker', function (selected) {
             let dateString2 = $('#end_date').val();
@@ -147,6 +152,7 @@ app.handle = function(eventId) {
             $('#start_date').datetimepicker({
                 format: 'd/m/Y H:i',
                 minDate:startDate,
+                step:5,
                 maxDate:endDate
             });
         });
