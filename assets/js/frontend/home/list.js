@@ -65,11 +65,19 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                     `<div class="card rounded-0 customer-location-item mb-2">
                         <div class="row g-0">
                             <div class="col-3">
-                                <a href="#" class="customer-location-img"><img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="${item.business_name}"></a>
+                                <a href="${urlProfileBusiness+item.business_url}" class="customer-location-img"><img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="${item.business_name}"></a>
                             </div>
                             <div class="col-9">
                                 <div class="card-body p-0">
                                     <h6 class="card-title mb-1 page-text-xs"><a href="${urlProfileBusiness+item.business_url}" title="">${item.business_name}</a></h6>
+                                    <ul class="list-inline mb-2 list-rating-sm">
+                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
+                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
+                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
+                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
+                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
+                                        <li class="list-inline-item me-0">(10)</li>
+                                    </ul>
                                     <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                     ${isOpen}
                                     <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
@@ -126,7 +134,7 @@ jQuery(function() {
 
         item.servicetypes = '';
         item.linkInfo = '';
-        item.evaluateInfo = 0;
+        item.evaluateInfo = 10;
         var starInfo = 5;
                     
 
