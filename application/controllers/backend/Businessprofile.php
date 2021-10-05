@@ -35,8 +35,8 @@ class Businessprofile extends MY_Controller {
 		$data = $this->commonData($user,
 			'Add Business Profiles',
 			array(
-				'scriptHeader' => array('css' => array('vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
-				'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-datetimepicker/moment.min.js','vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/update.js'))
+				'scriptHeader' => array('css' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
+				'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/update.js'))
 			)
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/business-profile-add')) {
@@ -53,8 +53,8 @@ class Businessprofile extends MY_Controller {
             $data = $this->commonData($user,
                 'Edit business profile',
                 array(
-                    'scriptHeader' => array('css' => array('vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
-                    'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-datetimepicker/moment.min.js','vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/update.js'))
+                    'scriptHeader' => array('css' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
+                    'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/business_profile/update.js'))
                 )
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'service/edit')) {
@@ -68,7 +68,7 @@ class Businessprofile extends MY_Controller {
                     $data['servicetypes'] = $this->Mservicetypes->getBy(array('service_id' => $profile['service_id']));
                     $data['businessservicetypes'] = $this->Mbusinessservicetype->getListFieldValue(array('business_profile_id' => $profile['id']), 'service_type_id');
                     $data['openinghours'] = $this->Mopeninghours->getBy(array('business_profile_id' => $businessProfileId), false, 'day_id', '',0,0, 'asc');
-                    $data['phonecode'] = $this->Mphonecodes->get($profile['country_code_id']);
+                    $data['phonecode'] = $this->Mphonecodes->get($profile['business_phone_code']);
                     $data['businessInLocation'] = $this->Mbusinessprofiles->getBusinessInLocation($businessProfileId);
                     $data['businessphotos'] = $this->Mbusinessphotos->getBy(array('business_profile_id' => $businessProfileId));
                     $data['businessvideos'] = $this->Mbusinessvideos->getBy(array('business_profile_id' => $businessProfileId));

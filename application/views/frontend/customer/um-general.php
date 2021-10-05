@@ -243,4 +243,29 @@
     $("#customerAvatarUpload").val();
     return;
   });
+
+  // Upload profile picture
+  let readURL = function (input, element, dist) {
+    if (input.files && input.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function (e) {
+        element.attr("src", e.target.result);
+        if(dist.length > 0){
+          dist.val(e.target.result);
+        }
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
+
+  // upload image avatar
+  $(".js-profile-upload").on("change", function () {
+    readURL(this, $(".js-profile-pic"), $('#customerAvatarUpload'));
+  });
+
+  $(".js-profile-upload-btn, .js-profile-icon, .js-camera-profile-icon").on("click", function () {
+    $(".js-profile-upload").click();
+  });
 </script>

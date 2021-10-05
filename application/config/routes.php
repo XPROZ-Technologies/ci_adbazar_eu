@@ -181,6 +181,8 @@ $route['coupon/(:any)-(:num)\.html'] = 'frontend/coupon/detail/$1/$2';
 //notification
 $route['notifications.html'] = 'frontend/notification/index';
 
+//contact
+$route['customer/send-contact-us'] = 'frontend/contact/saveContactForm';
 
 
 //business management
@@ -195,9 +197,23 @@ $route['business-profile/create-business'] = 'frontend/businessprofile/updateBus
 $route['fb-login'] = 'frontend/customer/loginFb';
 $route['fb-logout'] = 'frontend/customer/logout';
 
-//business profile - put at the end
+//business profile - customer view
 $route['(:any)'] = 'frontend/businessprofile/index/$1';
 $route['business/(:any)/gallery'] = 'frontend/businessprofile/gallery/$1';
 $route['business/(:any)/coupons'] = 'frontend/businessprofile/coupons/$1';
 $route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
-$route['business/(:any)/about-us'] = 'frontend/businessprofile/about_us/$1';
+
+//busines profile management
+$route['business-management/(:any)/about-us'] = 'frontend/businessprofile/manage_about_us/$1';
+$route['business-management/(:any)/gallery'] = 'frontend/businessprofile/manage_gallery/$1';
+$route['business-management/(:any)/coupons'] = 'frontend/businessprofile/manage_coupons/$1';
+$route['business-management/(:any)/create-coupon'] = 'frontend/businessprofile/manage_create_coupon/$1';
+$route['business-management/(:any)/events'] = 'frontend/businessprofile/manage_events/$1';
+$route['business-management/(:any)/create-event'] = 'frontend/businessprofile/manage_create_event/$1';
+$route['business-management/(:any)/reviews'] = 'frontend/businessprofile/manage_reviews/$1';
+$route['business-management/(:any)/reservations'] = 'frontend/businessprofile/manage_reservations/$1';
+$route['business-management/(:any)/subscriptions'] = 'frontend/businessprofile/manage_subscriptions/$1';
+
+
+$route['business-management/create-coupon'] = 'frontend/coupon/update';
+$route['business-management/create-event'] = 'frontend/event/update';

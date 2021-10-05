@@ -72,10 +72,10 @@
                                         <h3 class="text-center mb-16 page-title-sm">Password assistance
                                         </h3>
                                         <p class="mb-0 text-center mb-32">Enter your username or email to recover your password. You will receive an email with instructions.</p>
-                                        <form class="row">
-                                            <div class="col-12 mx-auto mb-16 has-validation">
+                                        <form class="row" action="" method="POST" id="formForgotPassword" >
+                                            <div class="col-12 mx-auto mb-16">
                                                 <label for="inputForgotPassEmail" class="form-label">Email</label>
-                                                <input type="email" class="form-control is-invalid" id="inputForgotPassEmail">
+                                                <input type="email" class="form-control" id="inputForgotPassEmail" name="customer_email" >
                                                 <div class="invalid-feedback">
                                                     *Your email is incorrect. Please try again.
                                                 </div>

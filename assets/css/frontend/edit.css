@@ -1151,6 +1151,9 @@ border-radius: 2px;
 .customer-item-list .wrapper-img img {
     max-width: 18px;
 }
+.customer-item-list .wrapper-img {
+    margin-right: 17px;
+}
 .customer-item-list .list-img {
     width: 150px;
     height: 150px;
@@ -3534,7 +3537,7 @@ span.switch-left {
         margin-left: 5px !important;
     }
     .header-right-mobile .btn-outline-red {
-        font-size: 14px;
+        font-size: 12px;
     }
     #carouselCustomer h5, #carouselCustomer .h5 {
         width: 200px;

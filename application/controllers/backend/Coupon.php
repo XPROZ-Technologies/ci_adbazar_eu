@@ -35,8 +35,8 @@ class Coupon extends MY_Controller {
 		$data = $this->commonData($user,
 			'Add Coupon',
 			array(
-				'scriptHeader' => array('css' => 'vendor/plugins/datepicker/datepicker3.css'),
-				'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'js/backend/coupon/update.js'))
+				'scriptHeader' => array('css' => 'vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css'),
+				'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/coupon/update.js'))
 			)
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'coupon/coupon-create')) {
@@ -52,8 +52,8 @@ class Coupon extends MY_Controller {
             $data = $this->commonData($user,
                 'Edit location',
                 array(
-                    'scriptHeader' => array('css' => 'vendor/plugins/datepicker/datepicker3.css'),
-                    'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'js/backend/coupon/update.js'))
+                    'scriptHeader' => array('css' => 'vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css'),
+                    'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/coupon/update.js'))
                 )
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/coupon-update')) {

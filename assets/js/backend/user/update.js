@@ -11,10 +11,12 @@ $(document).ready(function () {
 });
 
 app.library = function() {
-    $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
+    $('.datepicker').datetimepicker({
+        format: 'd/m/Y',
         autoclose: true,
-        endDate: new Date()
+        datepicker:true,
+        timepicker:false,
+        maxDate: new Date()
     });
 
     $('.chooseImage').click(function() {

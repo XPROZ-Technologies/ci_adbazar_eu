@@ -34,7 +34,7 @@ $(document).ready(function () {
     // Init carousel customer home service
     var owl_coupon = $('.owl-coupon');
     owl_coupon.owlCarousel({
-        loop: false,
+        loop: true,
         margin: 30,
         autoplay: true,
         autoplayTimeout: 5000,
@@ -49,18 +49,58 @@ $(document).ready(function () {
         0: {
             items: 1,
             margin: 16,
+            slideBy: 1
         },
         768: {
             items: 2,
+            slideBy: 2
         },
         1000: {
             items: 3,
+            slideBy: 3
         },
         1200: {
             items: 4,
+            slideBy: 4
         },
         },
     });
+
+    // Init carousel customer home service
+    $(".owl-customer-service").owlCarousel({
+        loop: true,
+        margin: 30,
+        responsiveClass: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        nav: true,
+        navText: [
+        '<img src="assets/img/frontend/icon-left.png">',
+        '<img src="assets/img/frontend/icon-right.png">',
+        ],
+        responsive: {
+        0: {
+            items: 2,
+            margin: 16,
+            slideBy: 2
+        },
+        768: {
+            items: 2,
+            margin: 20,
+            slideBy: 2
+        },
+        1000: {
+            items: 3,
+            slideBy: 3
+        },
+        1200: {
+            items: 4,
+            slideBy: 4
+        },
+        },
+    });
+    
 
     $("body").on("click", ".get-coupon-in-list", function(){
         var url = $("#baseUrl").data('href');
@@ -134,6 +174,14 @@ $(document).ready(function () {
         }
     });
 });
+
+function hideNotiMessage(){
+    if($('#popupNotification').length > 0){
+        setTimeout(function() {
+            $('#popupNotification').fadeOut('fast');
+        }, 2000);
+    }
+}
 
 
 function changeLanguage(langId) {
