@@ -57,7 +57,7 @@ class Mbusinessprofiles extends MY_Model {
                
                 if (!empty($arrBusinessType)) $this->db->insert_batch('business_service_types', $arrBusinessType);
             }
-
+           
             if(!empty($openingHours)) {
                 $arrOpenHours = array();
                 foreach ($openingHours as $u) {
