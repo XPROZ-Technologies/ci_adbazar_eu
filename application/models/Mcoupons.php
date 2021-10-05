@@ -16,6 +16,13 @@ class Mcoupons extends MY_Model {
 
     public function search($postData, $perPage = 0, $page = 1){
         $query = "SELECT * FROM coupons WHERE coupon_status_id > 0" . $this->buildQuery($postData);
+        
+        if(isset($postData['order_by'])){
+            $query .= " ORDER BY start_date ".$postData['order_by'];
+        }else{
+            $query .= " ORDER BY start_date DESC";
+        }
+        
         if($perPage > 0) {
             $from = ($page-1) * $perPage;
             $query .= " LIMIT {$from}, {$perPage}";
@@ -23,9 +30,30 @@ class Mcoupons extends MY_Model {
         return $this->getByQuery($query);
     }
 
+    public function getListBusinessId(){
+        $query = "SELECT DISTINCT business_profile_id FROM coupons WHERE coupon_status_id > 0";
+       
+        $result = $this->getByQuery($query);
+
+        $businessProfileIds = array();
+        if(count($result) > 0){
+            foreach($result as $couponItem){
+                $businessProfileIds[] = $couponItem['business_profile_id'];
+            }
+        }
+        return $businessProfileIds;
+    }
+
     private function buildQuery($postData){
         $query = '';
-        if(isset($postData['search_text']) && !empty($postData['search_text'])) $query.=" AND ( `coupon_code` LIKE '%{$postData['search_text']}%' OR coupon_subject LIKE '%{$postData['search_text']}%' OR coupon_amount LIKE '%{$postData['search_text']}%'";
+        if(isset($postData['search_text']) && !empty($postData['search_text'])) $query.=" AND ( `coupon_code` LIKE '%{$postData['search_text']}%' OR coupon_subject LIKE '%{$postData['search_text']}%' OR coupon_amount LIKE '%{$postData['search_text']}%')";
+        if(isset($postData['search_text_fe']) && !empty($postData['search_text_fe'])) $query.=" AND ( `coupon_code` LIKE '%{$postData['search_text_fe']}%' OR coupon_subject LIKE '%{$postData['search_text_fe']}%')";
+        if(isset($postData['coupon_status_id']) && !empty($postData['coupon_status_id'])) $query.=" AND `coupon_status_id` = {$postData['coupon_status_id']}";
+        if(isset($postData['business_profile_id']) && $postData['business_profile_id'] > 0) $query.=" AND `business_profile_id` = {$postData['business_profile_id']}";
+        if(isset($postData['is_hot']) && !empty($postData['is_hot'])) $query.=" AND `is_hot` = {$postData['is_hot']}";
+        if(isset($postData['saved_coupons']) && count($postData['saved_coupons']) > 0) $query.=" AND `id` NOT IN (".implode(',', $postData['saved_coupons']).")";
+        if(isset($postData['coupon_ids']) && count($postData['coupon_ids']) > 0) $query.=" AND `id` IN (".implode(',', $postData['coupon_ids']).")";
+        if(isset($postData['business_profile_ids']) && count($postData['business_profile_ids']) > 0) $query.=" AND `business_profile_id` IN (".implode(',', $postData['business_profile_ids']).")";
         return $query;
     }
 
@@ -51,4 +79,15 @@ class Mcoupons extends MY_Model {
             return $couponId;
         }
     }
+
+    function genCouponCode($couponCode = "", $amount = 0, $used = 0) {
+        if(!empty($couponCode) && !empty($amount) && $amount > 0){
+            $new_index = $used + 1;
+            if($amount >= $new_index){
+                return $couponCode . '-' . (($used + 1) + 10000);
+            }
+        }
+        return "";
+    }
+
 }

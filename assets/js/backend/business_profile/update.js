@@ -11,6 +11,8 @@ $(document).ready(function () {
     app.init(businessProfileId);
 });
 
+
+
 app.library = function() {
     $('.js-switch').bootstrapSwitch({size: 'mini'}).on('switchChange.bootstrapSwitch', function(event, state) {
         var isDay = $(this).attr('day-id');
@@ -33,11 +35,17 @@ app.library = function() {
     });
 
     $('.datetimepicker-start').datetimepicker({
-        format: 'HH:mm'
+        datepicker:false,
+        timepicker:true,
+        format:'H:i',
+        step:5,
     });
 
     $('.datetimepicker-end').datetimepicker({
-        format: 'HH:mm'
+        datepicker:false,
+        timepicker:true,
+        format:'H:i',
+        step:5,
     });
 
     $('#btnAvatar').click(function(){
@@ -66,12 +74,27 @@ app.library = function() {
         if(makeSlug(e)) e.preventDefault();
     }).on('keyup', 'input#business_url', function () {
         makeSlug($(this).val())
-    })
+    });
+
+    $('#btnUpImage').click(function(){
+        $('#inputFileImage').trigger('click');
+    });
+    
+    chooseFile($('#inputFileImage'), $('#fileProgress'), 7, function(fileUrl){
+        $('#ulImages').append('<li><a href="' + fileUrl + '"  target="_blank"><img  src="' + fileUrl + '" style="width:80px!important"></a><i class="fa fa-times"></i></li>');
+    });
+
+    $('#ulImages').on('click', 'i', function(){
+        $(this).parent().remove();
+    });
 }
 
 app.handle = function() {
     $('#expired_date').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm',
+        format: 'd/m/Y H:m',
+        step:5,
+        changeMonth: true,
+        changeYear: true,
         minDate:new Date()
     });
     $("select#location_id").select2({
@@ -215,12 +238,65 @@ app.handle = function() {
         }
 
     });
+    var player;
+    $("body").on('click', '#link_add', function(){
+        var linkYoutube = $("input#linkYoutube").val().trim();
+        var videoCode = getIdYoutube(linkYoutube)
+        if(linkYoutube == "" || videoCode == false) {
+            showNotification(youtubeText);
+            return false;
+        }
+       
+        var html = '<tr class="htmlYoutube">';
+    	html += '<td><input class="form-control" name="video_url" value="'+linkYoutube+'"></td>';
+    	html += '<td><a href="javascript:void(0)" class="link_play" title="Play" video-code="'+videoCode+'"><i class="fa fa-youtube-play"></i></a>';
+        html += ' <a href="javascript:void(0)" class="link_delete" title="Delete"><i class="fa fa-times"></i></a></td>';
+    	html += '</tr>';
+        $("#tbodyYoutube").prepend(html);
+        $("input#linkYoutube").val('');
+    }).on('click', '.link_delete', function(){
+        $(this).parent().parent().remove();
+    }).on('click', '.link_play', function() {
+        var videoCode = $(this).attr('video-code');
+        var ifream = `<iframe id="video" src="https://www.youtube.com/embed/${videoCode}?enablejsapi=1&html5=1" allowfullscreen="" frameborder="0" width="100%" height="480px"></iframe>`;
+        $(".contentVideo").html(ifream);
+        setTimeout(function(){ 
+            $.getScript("https://www.youtube.com/iframe_api", function() {
+                onYouTubePlayerAPIReady()
+            });
+        }, 300);
+        
+        $("#modalPlayYoutube").modal('show');
+    }).on('click','#videoTop', function() {
+        $(".contentVideo").html('');
+    });
+
+    function onYouTubePlayerAPIReady() {
+        player = new window.YT.Player('video', {
+            events: {
+            'onReady': onPlayerReady
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        //   var playButton = document.getElementById("play-button");
+        //   playButton.addEventListener("click", function() {
+        //     player.playVideo();
+        //   });
+  
+        var pauseButton = document.getElementById("videoTop");
+        pauseButton.addEventListener("click", function() {
+            player.pauseVideo();
+        });
+    }
+
    
 }
 
 app.submits = function() {
     $("body").on('click', '.submit', function() {
-        $('.submit').prop('disabled', true);
+        // $('.submit').prop('disabled', true);
         if(validateEmpty('#businessProfileForm')) {
             
             var customerId = $("select#customer_id").val();
@@ -230,6 +306,15 @@ app.submits = function() {
                 $('.submit').prop('disabled', false);
                 return false;
             }
+
+            var country_code_id = $("select#country_code_id").val();
+            if(country_code_id == null || country_code_id == 'null'){
+                showNotification(phoneCode, 0);
+                $('select#country_code_id').focus();
+                $('.submit').prop('disabled', false);
+                return false;
+            }
+            
             var serviceId = $("select#serviceId").val();
             if(serviceId == null || serviceId == 'null'){
                 showNotification(typeOfServiceText, 0);
@@ -245,10 +330,35 @@ app.submits = function() {
                 $('.submit').prop('disabled', false);
                 return false;
             }
+            var photos = [];
+            $('#ulImages li a').each(function(){
+                photos.push($(this).attr('href'));
+            });
+            var youtube = [];
+            var flagYouTube = true;
+            $(".htmlYoutube").each(function() {
+                var linkYoutube = $(this).find('td').eq(0).find('input').val();
+                if(linkYoutube == "" || getIdYoutube(linkYoutube) == false) {
+                    flagYouTube = false
+                    $('.submit').prop('disabled', false);
+                    return false;
+                }
+                youtube.push({
+                    video_url: linkYoutube,
+                    video_code: getIdYoutube(linkYoutube)
+                });
+            });
+            if(flagYouTube == false) {
+                showNotification(youtubeText);
+                $('.submit').prop('disabled', false);
+                return false;
+            }
             var form = $('#businessProfileForm');
             var data = form.serializeArray();
             data.push({ name: "OpeningHours", value: JSON.stringify(getOpeningHours())});
             data.push({ name: "BusinessServiceTypeIds", value: businessServiceTypeIds});
+            data.push({ name: 'Photos', value: JSON.stringify(photos) });
+            data.push({ name: 'BusinessVideos', value: JSON.stringify(youtube)})
             $.ajax({
                 type: "POST",
                 url: form.attr('action'),
@@ -256,10 +366,10 @@ app.submits = function() {
                 success: function (response) {
                     var json = $.parseJSON(response);
                     showNotification(json.message, json.code);
-                    if(json.code == 1){
-                        redirect(false, $("a#btnCancel").attr('href'));
-                    }
-                    else $('.submit').prop('disabled', false);
+                    // if(json.code == 1){
+                    //     redirect(false, $("a#btnCancel").attr('href'));
+                    // }
+                    // else $('.submit').prop('disabled', false);
                 },
                 error: function (response) {
                     showNotification($('input#errorCommonMessage').val(), 0);

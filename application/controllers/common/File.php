@@ -19,6 +19,7 @@ class File extends MY_Controller {
             elseif($fileTypeId == 6) $dir = SERVICE_PATH;
             elseif($fileTypeId == 7) $dir = BUSINESS_PROFILE_PATH; 
             elseif($fileTypeId == 8) $dir = COUPONS_PATH;
+            elseif($fileTypeId == 9) $dir = EVENTS_PATH;
 	        /*elseif($fileTypeId == 4){
 	            $dir = FILE_PATH;
 	            $fileExt = trim($this->input->post('FileExt'));

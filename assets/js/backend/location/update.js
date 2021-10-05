@@ -39,9 +39,13 @@ app.submits = function() {
 
 app.handle = function() {
     $('#expired_date').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm',
+        format: 'd/m/Y H:m',
+        step:5,
+        changeMonth: true,
+        changeYear: true,
         minDate:new Date()
     });
+
     $("select#business_profile_id").select2({
         placeholder: '--Choose Business Profile--',
         allowClear: true,
@@ -50,7 +54,7 @@ app.handle = function() {
             type: 'POST',
             dataType: 'json',
             data: function(data) {
-                $("input#expired_date").val('');
+                /*$("input#expired_date").val('');*/
                 return {
                     search_text: data.term,
                     business_profile_location_id: $('input[name="business_profile_location_id"]').val()
@@ -70,7 +74,7 @@ app.handle = function() {
         }
 
     }).on('change',function() {
-        $("input#expired_date").val('');
+        /*$("input#expired_date").val('');*/
     });
 }
 

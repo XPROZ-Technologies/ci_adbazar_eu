@@ -90,11 +90,15 @@ define('STATUS_ACTIVED', 2);
 define('STATUS_WAITING_ACTIVE', 1);
 define('NO_IMAGE', 'no_image.png');
 define('DEFAULT_LIMIT', 20);
+define('DEFAULT_LIMIT_BUSINESS_PROFILE', 10);
+define('DEFAULT_LIMIT_BUSINESS_PROFILE_MAP', 4);
+define('DEFAULT_LIMIT_COUPON', 50);
 //define('API_VERSION', '1.0');
 //message
 define('ERROR_COMMON_MESSAGE', 'An error occurred during execution');
 define('ERROR_NO_DATA', 'Data does not exist');
 //path
+define('HOME_URL', 'home');
 define('ROOT_PATH', dirname($_SERVER['SCRIPT_NAME']) . '/');
 define('USER_PATH', 'assets/uploads/users/');
 define('CUSTOMER_PATH', 'assets/uploads/customers/');
@@ -104,6 +108,8 @@ define('CONFIG_PATH', 'assets/uploads/configs/');
 define('SERVICE_PATH', 'assets/uploads/services/');
 define('BUSINESS_PROFILE_PATH', 'assets/uploads/busines_profile/');
 define('COUPONS_PATH', 'assets/uploads/coupons/');
+define('EVENTS_PATH', 'assets/uploads/events/');
+define('BUSINESS_PROFILE_URL', '');
 
 
 define('DEFAULT_IMG', '');
@@ -112,6 +118,8 @@ define('URL_API', '');
 
 // key api
 define('KEY_GOOGLE_MAP', 'AIzaSyD53XNjfZqrg7twWutFv3rIgnhGvT_Exik');
+define('KEY_YOUTUBE_V3', 'AIzaSyAWR3oe6AzQfm3k_XYuwm-_wvjmQkq2ylg');
+define('KEY_GG', '1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c');
 
 // lat and lng map admin
 define('LAT_MAP_ADMIN', 50.0473111);

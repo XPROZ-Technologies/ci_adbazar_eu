@@ -18,14 +18,24 @@ class Mconstants extends CI_Model {
 
     public $genders = array(
         1 => 'Male',
-        2 => 'Female'
+        2 => 'Female',
+        3 => 'Other'
     );
+
+    public $languageDefault = 3;
 
     public $languageIds = array(
         1 => 'English',
         2 => 'Czech republic',
         3 => 'Germany',
         4 => 'Viet Nam'
+    );
+
+    public $languageCodes = array(
+        1 => 'en',
+        2 => 'cz',
+        3 => 'de',
+        4 => 'vi'
     );
 
     public $languageTexts = array(
@@ -36,8 +46,8 @@ class Mconstants extends CI_Model {
     );
 
     public $sliderTypeIds = array(
-        1 => 'Slider',
-        2 => 'Banner'
+        1 => 'Home Slider',
+        2 => 'Event Slider'
     );
 
     public $dayIds = array(
@@ -56,6 +66,7 @@ class Mconstants extends CI_Model {
     );
 
     public $labelCss = array(
+        0 => 'label label-default',
         1 => 'label label-default',
         2 => 'label label-success',
         3 => 'label label-warning',

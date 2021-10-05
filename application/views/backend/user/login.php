@@ -45,7 +45,7 @@
             </div>
         </div>
         <?php echo form_close(); ?>
-        <input type="text" hidden="hidden" id="dashboardUrl" value="<?php echo base_url('backend/dashboard'); ?>">
+        <input type="text" hidden="hidden" id="dashboardUrl" value="<?php echo base_url('sys-admin/dashboard'); ?>">
         <input type="text" hidden="hidden" id="siteName" value="">
     </div>
 </div>

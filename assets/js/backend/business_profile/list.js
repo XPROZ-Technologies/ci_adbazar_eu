@@ -63,7 +63,7 @@ function changeStatus(id, statusId) {
         url: $('input#changeStatusUrl').val(),
         data: {
             id: id,
-            busines_status_id: statusId
+            business_status_id: statusId
         },
         success: function (response) {
             var json = $.parseJSON(response);

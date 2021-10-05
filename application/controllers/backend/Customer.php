@@ -35,8 +35,8 @@ class Customer extends MY_Controller {
 		$data = $this->commonData($user,
 			'Add Customer',
 			array(
-				'scriptHeader' => array('css' => array('vendor/plugins/datepicker/datepicker3.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
-				'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/customer/update.js'))
+				'scriptHeader' => array('css' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
+				'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/customer/update.js'))
 			)
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/customer-create')) {
@@ -51,16 +51,17 @@ class Customer extends MY_Controller {
             $data = $this->commonData($user,
                 'Edit Customer',
                 array(
-					'scriptHeader' => array('css' => array('vendor/plugins/datepicker/datepicker3.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
-					'scriptFooter' => array('js' => array('vendor/plugins/datepicker/bootstrap-datepicker.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/customer/update.js'))
+					'scriptHeader' => array('css' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css', 'vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')),
+					'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'js/backend/customer/update.js'))
 				)
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/customer-update')) {
-				$this->load->model('Mcustomers');
+				$this->load->model(array('Mcustomers', 'Mphonecodes'));
                 $customer = $this->Mcustomers->get($customerId);
                 if ($customer && $customer['customer_status_id'] > 0) {
                     $data['id'] = $customerId;
                     $data['customer'] = $customer;
+                    $data['phonecode'] = $this->Mphonecodes->get($customer['customer_phone_code']);
                 }else {
                     $data['id'] = 0;
                     $data['txtError'] = ERROR_NO_DATA;
@@ -75,7 +76,7 @@ class Customer extends MY_Controller {
 	public function update(){
         try {
             $user = $this->checkUserLogin();
-            $postData = $this->arrayFromPost(array('customer_email', 'customer_password', 'customer_first_name', 'customer_last_name', 'customer_avatar', 'customer_birthday', 'customer_gender_id', 'customer_phone', 'customer_occupation', 'customer_address', 'free_trial'));
+            $postData = $this->arrayFromPost(array('customer_email', 'customer_password', 'customer_first_name', 'customer_last_name', 'customer_avatar', 'customer_birthday', 'customer_gender_id', 'customer_phone_code', 'customer_phone', 'customer_occupation', 'customer_address', 'free_trial'));
             if(!empty($postData['customer_first_name'])  && !empty($postData['customer_last_name'])) {
                 $customerId = $this->input->post('id');
 				$this->load->model('Mcustomers');

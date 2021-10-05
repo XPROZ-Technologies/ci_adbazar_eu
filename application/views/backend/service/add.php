@@ -57,6 +57,12 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
+                                        <label class="control-label">Highlights</label>
+                                        <?php $this->Mconstants->selectConstants('isHot', 'is_hot'); ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
                                         <label class="control-label">Service image <span class="required">*</span></label>
                                         <?php $avatar = (set_value('avatar')) ? set_value('avatar') : NO_IMAGE; ?>
                                         <img src="<?php echo SERVICE_PATH.$avatar; ?>" class="chooseImage" id="imgAvatar" style="width: 50%;display: block;left: 0;right: 0;margin: auto;">

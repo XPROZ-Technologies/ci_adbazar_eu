@@ -11,13 +11,13 @@
                     <div class="col-sm-12">
                         <div class="box box-default padding15">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Content abount us</h3>
+                                <h3 class="box-title">Content about us</h3>
                             </div>
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <?php echo form_open('backend/config/changeLanguageAbount', array('id' => 'languageForm')); ?>
+                                            <?php echo form_open('sys-admin/config/change-language-abount', array('id' => 'languageForm')); ?>
                                                 <select class="form-control" name="language_id" id="languageId" onchange="this.form.submit()">
                                                     <?php foreach($this->Mconstants->languageIds as $k => $item): ?>
                                                         <option value="<?php echo $k ?>"  <?php echo $configAbountUs['language_id'] == $k ? 'selected':''; ?>><?php echo $item; ?></option>
@@ -29,7 +29,7 @@
                                         </div>
                                     </div>
                                 </div>
-                    <?php echo form_open('backend/config/update/1', array('id' => 'configForm')); ?>
+                                <?php echo form_open('sys-admin/config/update/1', array('id' => 'configForm')); ?>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <textarea class="form-control" name="ABOUT_US_TEXT" rows="10"><?php echo $listConfigs['ABOUT_US_TEXT']; ?></textarea>

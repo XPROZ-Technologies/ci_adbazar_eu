@@ -30,6 +30,12 @@ if (!function_exists('outputScript')){
     }
 }                                      
 
+if (!function_exists('dateToTime')){
+    function dateToTime($dateStr, $dateFormat = "H:i"){
+        if(!empty($dateStr) && $dateStr != '0000-00-00 00:00:00') return date_format(date_create(trim($dateStr)), $dateFormat);
+        return '';
+    }
+}
 if (!function_exists('ddMMyyyy')){
     function ddMMyyyy($dateStr, $dateFormat = "d/m/Y"){
         if(!empty($dateStr) && $dateStr != '0000-00-00 00:00:00') return date_format(date_create(trim($dateStr)), $dateFormat);
@@ -177,7 +183,7 @@ if (!function_exists('getPaggingHtml')){
         return $retVal;
     }
 }
-
+/*
 if (!function_exists('getPaggingHtmlFront')){
     function getPaggingHtmlFront($page, $pageCount, $baseUrl){
         if($pageCount == 1) return '';
@@ -199,6 +205,57 @@ if (!function_exists('getPaggingHtmlFront')){
         }
         if($page < $pageCount) $retVal.='<li><a href="'.str_replace('{$1}', $page + 1, $baseUrl).'">&gt;|</a></li>';
         $retVal.='</ul></div>';
+        return $retVal;
+    }
+}
+*/
+
+if (!function_exists('getPaggingHtmlFront')){
+    function getPaggingHtmlFront($page, $pageCount, $baseUrl){
+        if($pageCount == 1) return '';
+        $retVal = '<ul class="pagination justify-content-end mb-0">';
+        if($page > 1){
+            $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', $page - 1, $baseUrl).'"><i class="bi bi-chevron-left"></i></a></li>';
+            $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', 1, $baseUrl).'">1</a></li>';
+        }
+        else $retVal.='<li class="page-item" class="active"><a class="page-link" href="javascript:void(0)">1</a></li>';
+        $start = ($page > 1)? ($page-1) : 1;
+        if($start != 1) $retVal.='<li class="page-item"><a class="page-link" href="javascript:void(0)">...</a></li>';
+        for($i= $start + 1; $i <= $page + 3 && $i <= $pageCount; $i++){
+            if($i==$page) $retVal.='<li class="page-item" class="active"><a class="page-link" href="javascript:void(0)">'.$i.'</a></li>';
+            else $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', $i, $baseUrl).'">'.$i.'</a></li>';
+        }
+        if($page + 3 < $pageCount){
+            $retVal.='<li class="page-item"><a class="page-link" href="javascript:void(0)">...</a></li>';
+            $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', $pageCount, $baseUrl).'">'.$pageCount.'</a></li>';
+        }
+        if($page < $pageCount) $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', $page + 1, $baseUrl).'"><i class="bi bi-chevron-right"></i></a></li>';
+        $retVal.='</ul>';
+        return $retVal;
+    }
+}
+
+if (!function_exists('getPaggingHtmlFront_2')){
+    function getPaggingHtmlFront_2($page, $pageCount, $baseUrl){
+        if($pageCount == 1) return '';
+        $retVal = '<ul class="pagination justify-content-end mb-lg-0">';
+        if($page > 1){
+            $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', $page - 1, $baseUrl).'"><i class="bi bi-chevron-left"></i></a></li>';
+            $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', 1, $baseUrl).'">1</a></li>';
+        }
+        else $retVal.='<li class="page-item" class="active"><a class="page-link" href="javascript:void(0)">1</a></li>';
+        $start = ($page > 1)? ($page-1) : 1;
+        if($start != 1) $retVal.='<li class="page-item"><a class="page-link" href="javascript:void(0)">...</a></li>';
+        for($i= $start + 1; $i <= $page + 3 && $i <= $pageCount; $i++){
+            if($i==$page) $retVal.='<li class="page-item" class="active"><a class="page-link" href="javascript:void(0)">'.$i.'</a></li>';
+            else $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', $i, $baseUrl).'">'.$i.'</a></li>';
+        }
+        if($page + 3 < $pageCount){
+            $retVal.='<li class="page-item"><a class="page-link" href="javascript:void(0)">...</a></li>';
+            $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', $pageCount, $baseUrl).'">'.$pageCount.'</a></li>';
+        }
+        if($page < $pageCount) $retVal.='<li class="page-item"><a class="page-link" href="'.str_replace('{$1}', $page + 1, $baseUrl).'"><i class="bi bi-chevron-right"></i></a></li>';
+        $retVal.='</ul>';
         return $retVal;
     }
 }
@@ -297,4 +354,31 @@ if(!function_exists('createRandomCode')) {
         return $pass; 
 
     } 
+}
+if(!function_exists('getYoutubeIdFromUrl')) {
+    function getYoutubeIdFromUrl($url) {
+        $parts = parse_url($url);
+        if(isset($parts['query'])){
+            parse_str($parts['query'], $qs);
+            if(isset($qs['v'])){
+                return $qs['v'];
+            }else if(isset($qs['vi'])){
+                return $qs['vi'];
+            }
+        }
+        if(isset($parts['path'])){
+            $path = explode('/', trim($parts['path'], '/'));
+            return $path[count($path)-1];
+        }
+        return false;
+    }
+}
+
+if(!function_exists('getDatesFromRange')) {
+    function getDatesFromRange($start, $end, $format='Y-m-d') {
+        return array_map(function($timestamp) use($format) {
+            return date($format, $timestamp);
+        },
+        range(strtotime($start) + ($start < $end ? 4000 : 8000), strtotime($end) + ($start < $end ? 8000 : 4000), 86400));
+    }
 }

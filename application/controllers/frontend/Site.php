@@ -24,20 +24,31 @@ class Site extends MY_Controller {
 
     public function changeLanguage() {
         $languageId = $this->input->post('language_id');
-        $language = 'english';
+        /*
+        $language = 'de';
         switch ($languageId) {
             case 1:
-                $language = 'english';
+                $language = 'en';
                 break;
             case 2:
-                $language = 'czech';
+                $language = 'cz';
+                break;
+            case 3:
+                $language = 'de';
+                break;
+            case 4:
+                $language = 'vi';
                 break;
             default:
-                $language = 'english';
+                $language = 'de';
                 break;
         }
+        */
+        /*
         $cookieValue = json_encode(array('language_id' => $languageId, 'language_name' => $language, 'id' => 0));
         $this->input->set_cookie($this->configValueCookie('customer', $cookieValue));
+        */
+        $customer = $this->checkLoginCustomer($languageId);
         redirect($this->input->post('UrlOld'));
     }
 

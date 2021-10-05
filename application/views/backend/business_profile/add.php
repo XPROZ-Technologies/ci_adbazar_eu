@@ -31,7 +31,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Slogan <span class="required">*</span></label>
-                                        <input type="text" name="full_name" class="form-control hmdrequired" data-field="Slogan" autocomplete="off">
+                                        <input type="text" name="business_slogan" class="form-control hmdrequired" data-field="Slogan" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                         <label class="control-label">Custom URL</label>
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                                <button type="button" class="btn btn-default"><?php echo base_url('pages/'); ?></button>
+                                                <button type="button" class="btn btn-default"><?php echo base_url(BUSINESS_PROFILE_URL); ?></button>
                                             </div>
                                             <input type="text" name="business_url" class="form-control" id="business_url" value="">
                                         </div>
@@ -66,7 +66,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="control-label">Country code <span class="required">*</span></label>
-                                        <select class="form-control" name="country_code_id" id="country_code_id">
+                                        <select class="form-control" name="business_phone_code" id="country_code_id">
                                         </select>
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="box box-default">
+                        <div class="box box-default padding15">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="col-sm-6">
@@ -139,14 +139,15 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label">Expired Date</label>
-                                            <input type="text" name="expired_date" id="expired_date" class="form-control">
+                                            <input type="text" name="expired_date" id="expired_date" class="form-control" autocomplete="off">
                                             <input type="hidden" name="business_profile_location_id" value="0">
                                         </div>
                                     </div>
+                                   
                                 </div>
                             </div>
                         </div>
-                        <div class="box box-default">
+                        <div class="box box-default padding15">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Opening hour <span class="required">*</span></h3>
                             </div>
@@ -177,6 +178,47 @@
                                     <?php endforeach; ?>
                                 </div>
                             </div>
+                            
+                        </div>
+                        <div class="box box-default padding15">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Photo</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" id="btnUpImage"><i class="fa fa-upload"></i> Choose photo</button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <ul class="list-inline" id="ulImages"></ul>
+                                <img src="" style="display: none;" id="photoImage">
+                                <input type="file" style="display: none;" id="inputFileImage">
+                            </div>
+                        </div>
+                        <div class="box box-default padding15">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Video Youtube</h3>
+                                
+                            </div>
+                            <div class="box-body">
+                            <table class="table table-hover table-bordered">
+                                    <thead class="theadNormal">
+                                    <tr>
+                                        <th>Link Youtube</th>
+                                        <th style="width: 60px;"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbodyYoutube">
+                                    	<tr id="trData">
+                                            <td>
+                                                <input type="text" class="form-control" id="linkYoutube">
+                                            </td>
+                                    		<td class="actions" service-type-id="0">
+                                                <a href="javascript:void(0)" id="link_add" title="Cập nhật"><i class="fa fa-save"></i></a>&nbsp;
+                                                <a href="javascript:void(0)" id="link_cancel" title="Thôi"><i class="fa fa-times"></i></a>
+                                            </td>
+                                    	</tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     
@@ -197,4 +239,4 @@
         </div> 
     </div>
 <?php $this->load->view('backend/includes/footer'); ?>
-<?php $this->load->view('backend/business_profile/_lang'); ?>
+<?php $this->load->view('backend/business_profile/_common'); ?>

@@ -35,8 +35,8 @@ class Location extends MY_Controller {
 		$data = $this->commonData($user,
 			'Add location',
 			array(
-				'scriptHeader' => array('css' => 'vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css',),
-				'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-datetimepicker/moment.min.js', 'vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js', 'js/backend/location/update.js'))
+				'scriptHeader' => array('css' => 'vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css'),
+				'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/location/update.js'))
 			)
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'location/add')) {
@@ -52,8 +52,8 @@ class Location extends MY_Controller {
             $data = $this->commonData($user,
                 'Edit location',
                 array(
-                    'scriptHeader' => array('css' => 'vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css',),
-                    'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-datetimepicker/moment.min.js', 'vendor/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js', 'js/backend/location/update.js'))
+                    'scriptHeader' => array('css' => 'vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css'),
+                    'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/location/update.js'))
                 )
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'location/edit')) {

@@ -1,3 +1,5 @@
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c.apps.googleusercontent.com">
 <?php echo form_open('frontend/site/changeLanguage', array('id' => 'languageForm')); ?>
     <select class="form-control" name="language_id" id="languageId" onchange="this.form.submit()">
         <?php foreach($this->Mconstants->languageIds as $k => $item): ?>
@@ -9,8 +11,10 @@
 
     
 <?php echo form_close(); ?>
+
 <br>
 <span><?php echo $this->lang->line('hello'); ?><span>
+<a href="javascript:void(0);" onclick="fbLogin();" id="fbLink">LOgin fb</a>
 <br>
 <div class="col-sm-12 no-padding">
     <div class="box box-default padding15">
@@ -30,14 +34,14 @@ $configs = $this->Mconfigs->getListMap();
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 <script>
     var myStyles =[
-    {
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-              { visibility: "off" }
-        ]
-    }
-];
+        {
+            featureType: "poi",
+            elementType: "labels",
+            stylers: [
+                { visibility: "off" }
+            ]
+        }
+    ];
     function initMap() {
     latitude = latMapAdmin;
     longitude = lngMapAdmin;
@@ -69,5 +73,80 @@ $configs = $this->Mconfigs->getListMap();
             }
         })(marker, i));
     }
+}
+</script>
+<script src="<?php echo base_url('assets/vendor/plugins/jQuery/jquery-2.2.3.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/frontend/home/fb_login.js'); ?>"></script>
+
+<input type="hidden" value="<?php echo base_url('fb-login'); ?>" id="loginFacebook">
+<input type="hidden" value="<?php echo base_url('fb-logout'); ?>" id="logoutFacebook">
+
+
+
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<button type="button" class="btn btn-danger g-logout" style="display:none;" onclick="signOut();">Sign Out</button>
+
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        $.ajax({
+            type: "POST",
+            url: $("input#loginFacebook").val(),
+            data: {
+                id: profile.TS,
+                customer_first_name: profile.yS,
+                customer_last_name: profile.yU,
+                customer_email: profile.Gt,
+                login_type_id: 2
+            },
+            success: function (response) {
+                var json = $.parseJSON(response);
+                console.log(json)
+                // showNotification(json.message, json.code);
+                if(json.code == 1){
+                    $(".g-signin2").css("display", "none");
+                    $(".g-logout").css("display", "block");
+                    // redirect(false, $("a#btnCancel").attr('href'));
+                }
+                // else $('.submit').prop('disabled', false);
+            },
+            error: function (response) {
+                // showNotification($('input#errorCommonMessage').val(), 0);
+                // $('.submit').prop('disabled', false);
+            }
+        });
+        console.log(profile)
+    // $("#name").text(profile.getName());
+    // $("#email").text(profile.getEmail());
+    // $("#image").attr('src', profile.getImageUrl());
+    // $(".data").css("display", "block");
+    //
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        $.ajax({
+            type: "POST",
+            url: $("input#logoutFacebook").val(),
+            success: function (response) {
+                var json = $.parseJSON(response);
+                console.log("You have been signed out successfully");
+                // showNotification(json.message, json.code);
+                if(json.code == 1){
+                    $(".g-signin2").css("display", "block");
+                    $(".g-logout").css("display", "none");
+                    location.reload();
+                }
+                // else $('.submit').prop('disabled', false);
+            },
+            error: function (response) {
+                // showNotification($('input#errorCommonMessage').val(), 0);
+                // $('.submit').prop('disabled', false);
+            }
+        });
+        // $(".data").css("display", "none");
+        // $(".g-signin2").css("display", "block");
+    });
 }
 </script>

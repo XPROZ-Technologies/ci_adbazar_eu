@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 14, 2021 at 06:35 AM
--- Server version: 10.3.22-MariaDB
--- PHP Version: 7.3.28
+-- Generation Time: Oct 05, 2021 at 12:08 AM
+-- Server version: 10.3.21-MariaDB
+-- PHP Version: 7.0.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `adb`
+-- Database: `adb_xproz`
 --
 
 -- --------------------------------------------------------
@@ -48,11 +48,21 @@ CREATE TABLE `actions` (
 --
 
 INSERT INTO `actions` (`id`, `action_name`, `action_url`, `parent_action_id`, `display_order`, `font_awesome`, `action_level`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Service', 'sys-admin/service', 0, 1, '', 1, 2, '2021-09-12 02:37:42', '2021-09-12 02:37:42', 1, 1),
-(2, 'Location', 'sys-admin/location', 0, 2, '', 1, 2, '2021-09-12 02:41:57', '2021-09-12 02:41:57', 1, 1),
-(3, 'Slider', 'sys-admin/sider', 4, 2, '', 2, 2, '2021-09-12 02:41:48', '2021-09-12 02:41:48', 1, 1),
-(4, 'Manager', '', 0, 3, '', 1, 2, '2021-09-12 02:42:00', '2021-09-12 02:42:00', 1, 1),
-(5, 'Employee', 'sys-admin/staff', 4, 1, '', 2, 2, '2021-09-12 02:41:36', '2021-09-12 02:41:36', 1, 1);
+(1, 'Manager', '', 0, 10, '', 1, 2, '2021-09-16 14:14:08', '2021-09-16 14:14:08', 1, 1),
+(2, 'Menu admin', 'sys-admin/action', 1, 1, '', 2, 2, '2021-09-16 14:14:27', '2021-09-16 14:14:27', 1, 1),
+(3, 'Web', '', 0, 9, '', 1, 2, '2021-09-16 14:15:36', '2021-09-16 14:15:36', 1, 1),
+(4, 'Config Home', 'sys-admin/config', 3, 1, '', 2, 2, '2021-09-16 14:15:54', '2021-09-16 14:15:54', 1, 1),
+(5, 'About', 'sys-admin/config/abount', 3, 2, '', 2, 2, '2021-09-29 00:00:50', '2021-09-29 00:00:50', 1, 1),
+(6, 'Service', 'sys-admin/service', 0, 8, '', 1, 2, '2021-09-16 14:20:39', '2021-09-16 14:20:39', 1, 1),
+(7, 'Location', 'sys-admin/location', 0, 7, '', 1, 2, '2021-09-16 14:20:59', '2021-09-16 14:20:59', 1, 1),
+(8, 'Customer', 'sys-admin/customer', 0, 3, '', 1, 2, '2021-09-16 14:21:20', '2021-09-16 14:21:20', 1, 1),
+(9, 'Staff', 'sys-admin/staff', 1, 2, '', 2, 2, '2021-09-16 14:21:41', '2021-09-16 14:21:41', 1, 1),
+(10, 'Business profiles', 'sys-admin/business-profile', 0, 4, '', 1, 2, '2021-09-16 14:28:30', '2021-09-16 14:28:30', 1, 1),
+(11, 'Coupon', 'sys-admin/coupon', 0, 5, '', 1, 2, '2021-09-16 14:29:14', '2021-09-16 14:29:14', 1, 1),
+(12, 'Event', 'sys-admin/event', 0, 6, '', 1, 2, '2021-09-16 14:29:35', '2021-09-16 14:29:35', 1, 1),
+(13, 'Slider', '', 0, 1, '', 1, 2, '2021-09-28 23:45:23', '2021-09-28 23:45:23', 1, 1),
+(14, 'Home Banner', 'sys-admin/slider/1', 13, 4, '', 2, 2, '2021-09-28 23:45:14', '2021-09-28 23:45:14', 1, 1),
+(15, 'Event Banner', 'sys-admin/slider/2', 13, 5, '', 2, 2, '2021-09-28 23:47:37', '2021-09-28 23:47:37', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -77,6 +87,50 @@ CREATE TABLE `business_payments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `business_photos`
+--
+
+CREATE TABLE `business_photos` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `photo_image` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `business_photos`
+--
+
+INSERT INTO `business_photos` (`id`, `business_profile_id`, `photo_image`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(158, 4, '2021-09-23/614bdf3556bec.png', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(157, 4, '2021-09-23/614bdf377ccf0.png', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(156, 4, '2021-09-23/614bdf39cb609.png', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(155, 4, '2021-09-23/614bdf3c73fb1.png', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(187, 3, '2021-09-22/614b396309d97.png', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(186, 3, '2021-09-22/614b395d2299a.png', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(185, 3, '2021-09-22/614b395a16a90.png', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(184, 3, '2021-09-22/614b395740727.png', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(162, 5, '2021-09-23/614bdf3c73fb1.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(161, 5, '2021-09-23/614bdf39cb609.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(160, 5, '2021-09-23/614bdf377ccf0.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(159, 5, '2021-09-23/614bdf3556bec.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(180, 6, '2021-10-03/615983317567b.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(179, 6, '2021-10-03/6159832dd23b3.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(178, 6, '2021-10-03/6159832a960e7.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(177, 6, '2021-10-01/6156c5a774bfb.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(176, 6, '2021-10-01/6156c5ad3a451.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(175, 6, '2021-10-01/6156c5b2333c1.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(181, 6, '2021-10-03/61598336bc894.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(182, 6, '2021-10-03/6159833ab0a9f.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(183, 6, '2021-10-03/61598342a3ed1.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `business_profiles`
 --
 
@@ -85,25 +139,39 @@ CREATE TABLE `business_profiles` (
   `customer_id` int(10) NOT NULL,
   `service_id` int(10) NOT NULL,
   `business_name` varchar(250) NOT NULL,
+  `business_slogan` varchar(250) DEFAULT NULL,
   `business_email` varchar(250) NOT NULL,
   `business_address` varchar(250) NOT NULL,
   `business_whatsapp` varchar(100) NOT NULL,
   `business_url` text NOT NULL,
+  `country_code_id` int(10) NOT NULL,
   `business_phone` varchar(100) NOT NULL,
+  `business_phone_code` int(10) NOT NULL DEFAULT 0,
   `business_description` text NOT NULL,
-  `business_avatar` text NOT NULL,
-  `business_image_cover` text NOT NULL,
+  `business_avatar` text DEFAULT NULL,
+  `business_image_cover` text DEFAULT NULL,
   `is_annual_payment` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1: annual, 0: one time',
-  `expired_date` datetime NOT NULL,
-  `is_hot` tinyint(4) NOT NULL DEFAULT 0,
-  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
-  `busines_status_id` tinyint(4) NOT NULL DEFAULT 0,
-  `updated_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
+  `expired_date` datetime DEFAULT NULL,
+  `is_hot` tinyint(4) DEFAULT 0,
+  `payment_status_id` tinyint(4) DEFAULT 0,
+  `business_status_id` tinyint(4) DEFAULT 0,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `business_profiles`
+--
+
+INSERT INTO `business_profiles` (`id`, `customer_id`, `service_id`, `business_name`, `business_slogan`, `business_email`, `business_address`, `business_whatsapp`, `business_url`, `country_code_id`, `business_phone`, `business_phone_code`, `business_description`, `business_avatar`, `business_image_cover`, `is_annual_payment`, `expired_date`, `is_hot`, `payment_status_id`, `business_status_id`, `updated_by`, `updated_at`, `created_by`, `created_at`, `deleted_at`) VALUES
+(3, 0, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', 0, '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-04 20:29:37', 1, '2021-09-22 17:25:13', NULL),
+(4, 0, 2, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', 0, '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:00:50', 1, '2021-09-23 08:58:38', NULL),
+(5, 0, 3, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', 0, '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:01:08', 1, '2021-09-23 08:58:46', NULL),
+(6, 26, 8, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 57, '89729822123', 0, 'Hair Salon Spa desc', '2021-10-03/61598314185a4.png', '2021-10-03/61598320230c8.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:17:40', 1, '2021-10-01 15:24:43', NULL),
+(7, 0, 1, 'Business demo location', 'Business demo location slogan', 'a@gmail.com', 'Ho Chi Minh', '0886765544', 'business-demo-location', 14, '0938893675', 0, 'Business demo location desc', 'no_image.png', 'no_image.png', 0, NULL, 0, 0, 2, 1, '2021-10-03 18:44:31', 1, '2021-10-02 20:23:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -115,8 +183,8 @@ CREATE TABLE `business_profile_locations` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
   `location_id` int(10) NOT NULL,
-  `expired_date` datetime NOT NULL,
-  `payment_status_id` tinyint(4) NOT NULL,
+  `expired_date` datetime DEFAULT NULL,
+  `payment_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `business_profile_location_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -124,6 +192,21 @@ CREATE TABLE `business_profile_locations` (
   `updated_by` int(11) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `business_profile_locations`
+--
+
+INSERT INTO `business_profile_locations` (`id`, `business_profile_id`, `location_id`, `expired_date`, `payment_status_id`, `business_profile_location_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 3, 1, '2021-10-22 16:38:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(2, 4, 3, '2021-10-23 08:58:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(3, 5, 3, '2021-10-23 08:58:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(4, 6, 2, '2021-10-31 15:23:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(5, 7, 4, '0000-00-00 00:00:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(6, 0, 9, '2021-10-03 17:26:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(7, 0, 11, '0000-00-00 00:00:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(8, 0, 13, '2021-10-03 17:53:00', 0, 2, NULL, NULL, NULL, NULL, NULL),
+(9, 0, 14, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -136,6 +219,49 @@ CREATE TABLE `business_service_types` (
   `business_profile_id` int(11) NOT NULL,
   `service_type_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `business_service_types`
+--
+
+INSERT INTO `business_service_types` (`id`, `business_profile_id`, `service_type_id`) VALUES
+(62, 4, 31),
+(61, 4, 33),
+(70, 3, 9),
+(69, 3, 7),
+(64, 5, 14),
+(63, 5, 13),
+(67, 6, 5),
+(68, 7, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_videos`
+--
+
+CREATE TABLE `business_videos` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `video_url` varchar(250) NOT NULL,
+  `video_code` varchar(50) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `business_videos`
+--
+
+INSERT INTO `business_videos` (`id`, `business_profile_id`, `video_url`, `video_code`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(354, 4, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(355, 5, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(361, 6, 'https://www.youtube.com/watch?v=_PgWxvu9rCw', '_PgWxvu9rCw', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(360, 6, 'https://www.youtube.com/watch?v=PTR8MIIT5Sw', 'PTR8MIIT5Sw', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(362, 3, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -163,24 +289,46 @@ CREATE TABLE `configs` (
 --
 
 INSERT INTO `configs` (`id`, `config_code`, `config_name`, `config_value`, `config_value_en`, `config_value_de`, `config_value_zc`, `auto_load`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 'COUPON_IMAGE', 'Coupon Image', '2021-09-08/6138c9416d8d2.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(3, 'VIDEO_URL', 'Video URL', 'Text Logo heade', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
+(1, 'SERVICE_IMAGE', 'Service Image', '2021-09-08/6138c9416d8d2.png', '2021-09-26/615075b52976a.png', NULL, '2021-09-26/615075b52976a.png', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-29 08:38:10'),
+(3, 'VIDEO_URL', 'Video URL', 'Text Logo heade', 'https://www.youtube.com/watch?v=48AtOasmT_c', NULL, 'https://www.youtube.com/watch?v=48AtOasmT_c', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-29 08:38:10'),
 (4, 'ABOUT_US_TEXT', 'About Us TExt', '2021-09-11/613c2d232a50c.png', 'sdfsdfds', 'dfsd', 'sdfdsf', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 18:12:04'),
-(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '2021-09-11/613c2d1ce3ac1.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 11:14:23'),
-(6, 'FACEBOOK_URL', 'Facebook URL', 'Text Logo heade', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(7, 'INSTAGRAM_URL', 'Instagram Url', 'Text Logo heade', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-11/613c2d366223b.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 11:15:12'),
-(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-08 21:31:41'),
-(10, 'MARKER_MAP_IMAGE', 'Marker map image', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
-(11, 'TIKTOK_URL', 'Tiktok Url', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
-(12, 'TWITTER_URL', 'Twitter Url', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
-(13, 'PINTEREST_URL', 'Pinterest Url', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
-(14, 'PHONE_NUMBER_FOOTER', 'Phone number', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
-(15, 'EMAIL_FOOTER', 'Email', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
-(16, 'LOGO_FOOTER_IMAGE', 'Logo footer', '2021-09-11/613c37f65b8d4.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:00:40'),
-(17, 'ADDRESS_FOOTER', 'Address', '2021-09-11/613c299d53fc9.png', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 10:59:26'),
+(5, 'CONTACT_US_IMAGE', 'Contact Us Image', '2021-09-11/613c2d1ce3ac1.png', '2021-10-01/6156e618596c6.png', NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:42:34'),
+(6, 'FACEBOOK_URL', 'Facebook URL', 'Text Logo heade', '#', NULL, '#', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
+(7, 'INSTAGRAM_URL', 'Instagram Url', 'Text Logo heade', '#', NULL, '#', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
+(8, 'LOGO_IMAGE_HEADER', 'Logo Header', '2021-09-11/613c2d366223b.png', '2021-09-26/61507620e94d5.png', NULL, '2021-09-26/61507620e94d5.png', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-29 08:38:10'),
+(9, 'TEXT_LOGO_HEADER', 'Text logo header', 'Text Logo heade', 'Asia Dragon Bazar', NULL, 'Asia Dragon Bazar', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-29 08:38:10'),
+(10, 'MARKER_MAP_IMAGE', 'Marker map image', '2021-09-11/613c299d53fc9.png', '2021-10-03/615968b49b0c9.png', NULL, '2021-09-26/6150765a524e4.png', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-03 15:24:22'),
+(11, 'TIKTOK_URL', 'Tiktok Url', '2021-09-11/613c299d53fc9.png', '#', NULL, '#', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
+(12, 'TWITTER_URL', 'Twitter Url', '2021-09-11/613c299d53fc9.png', '#', NULL, '#', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
+(13, 'PINTEREST_URL', 'Pinterest Url', '2021-09-11/613c299d53fc9.png', '#', NULL, '#', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
+(14, 'PHONE_NUMBER_FOOTER', 'Phone number', '2021-09-11/613c299d53fc9.png', '+420 938 934 389', NULL, '+420 938 934 389', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
+(15, 'EMAIL_FOOTER', 'Email', '2021-09-11/613c299d53fc9.png', 'asiadragonbazar@adbazar.eu', NULL, 'asiadragonbazar@adbazar.eu', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
+(16, 'LOGO_FOOTER_IMAGE', 'Logo footer', '2021-09-11/613c37f65b8d4.png', '2021-09-29/6153c34e2796b.png', NULL, '2021-09-29/6153c34e2796b.png', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-29 08:38:10'),
+(17, 'ADDRESS_FOOTER', 'Address', '2021-09-11/613c299d53fc9.png', 'Svatý Kříž 281, 35002 Cheb,  Czech Republic', NULL, 'Svatý Kříž 281, 35002 Cheb, Czech Republic', 1, 1, '2021-09-06 17:04:40', 1, '2021-10-01 17:46:22'),
 (18, 'TERM_OF_USE', 'Term of use', '<h2 id=\"Terms_Of_Use_Your_Questions_Answered\">Terms of Use: Your Questions Answered</h2>\r\n\r\n<p>Before we look at what to include in your Terms of Use agreement, let&#39;s answer some common questions about&nbsp;<strong>what this agreement is and how it can help&nbsp;<em>you</em></strong>.</p>\r\n\r\n<h3 id=\"What_Is_A_Terms_Of_Use_Agreement\">What is a Terms of Use Agreement?</h3>\r\n\r\n<p><strong>A Terms of Use agreement is a legal document</strong>. If you run a website, app, or virtually any other type of service, a Terms of Use agreement can help you:</p>\r\n\r\n<ul>\r\n	<li><strong>Set the rules</strong>&nbsp;of engagement with your service</li>\r\n	<li>Explain how and why you may&nbsp;<strong>suspend or ban people</strong>&nbsp;from your service</li>\r\n	<li>Avoid or manage any&nbsp;<strong>potential legal issues</strong></li>\r\n</ul>', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:10:09'),
-(19, 'PRIVACY_POLICY', 'Privacy Policy', '<h2><strong>PRIVACY POLICY</strong></h2>\r\n\r\n<p><b>Data Protection Policy:</b></p>\r\n\r\n<p></p>\r\n\r\n<p>This privacy policy has been compiled to better serve those who are concerned with how their &lsquo;Personally Identifiable Information&rsquo; (PII) is being used online. PII, as described in US privacy law and information security, is information that can be used on its own or with other information to identify, contact, or locate a single person, or to identify an individual in context. Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>What personal information do we collect from the people that visit our blog, website or app?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>When ordering or registering on our site, as appropriate, you may be asked to enter your name, email address, mailing address, phone number, credit card information or other details to help you with your experience.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>When do we collect information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We collect information from you when you register on our site, place an order, subscribe to a newsletter, fill out a form or enter information on our site.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>How do we use your information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We may use the information we collect from you when you register, make a purchase, sign up for our newsletter, respond to a survey or marketing communication, surf the website, or use certain other site features in the following ways:</p>\r\n\r\n<p></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To allow us to better service you in responding to your customer service requests.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To quickly process your transactions.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To send periodic emails regarding your order or other products and services.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To follow up with them after correspondence (live chat, email or phone inquiries)</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>How do we protect your information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>Our website is scanned on a regular basis for security holes and known vulnerabilities in order to make your visit to our site as safe as possible.</p>\r\n\r\n<p></p>\r\n\r\n<p>We use regular Malware Scanning.</p>\r\n\r\n<p></p>\r\n\r\n<p>Your personal information is contained behind secured networks and is only accessible by a limited number of persons who have special access rights to such systems, and are required to keep the information confidential. In addition, all sensitive/credit information you supply is encrypted via Secure Socket Layer (SSL) technology.</p>\r\n\r\n<p></p>\r\n\r\n<p>We implement a variety of security measures when a user places an order enters, submits, or accesses their information to maintain the safety of your personal information.</p>\r\n\r\n<p></p>\r\n\r\n<p>All transactions are processed through a gateway provider and are not stored or processed on our servers.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Do we use &lsquo;cookies&rsquo;?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not use cookies for tracking purposes</p>\r\n\r\n<p></p>\r\n\r\n<p>You can choose to have your computer warn you each time a cookie is being sent, or you can choose to turn off all cookies. You do this through your browser settings. Since each browser is a little different, look at your browser&rsquo;s Help Menu to learn the correct way to modify your cookies.</p>\r\n\r\n<p></p>\r\n\r\n<p>If you turn cookies off .</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Third-party disclosure</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not sell, trade, or otherwise transfer to outside parties your Personally Identifiable Information unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website, conducting our business, or serving our users, so long as those parties agree to keep this information confidential. We may also release information when it&rsquo;s release is appropriate to comply with the law, enforce our site policies, or protect ours or others&rsquo; rights, property or safety.</p>\r\n\r\n<p></p>\r\n\r\n<p>However, non-personally identifiable visitor information may be provided to other parties for marketing, advertising, or other uses.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Third-party links</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not include or offer third-party products or services on our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Google</b></p>\r\n\r\n<p></p>\r\n\r\n<p>Google&rsquo;s advertising requirements can be summed up by Google&rsquo;s Advertising Principles. They are put in place to provide a positive experience for users. https://support.google.com/adwordspolicy/answer/1316548?hl=en</p>\r\n\r\n<p></p>\r\n\r\n<p>We use Google AdSense Advertising on our website.</p>\r\n\r\n<p></p>\r\n\r\n<p>Google, as a third-party vendor, uses cookies to serve ads on our site. Google&rsquo;s use of the DART cookie enables it to serve ads to our users based on previous visits to our site and other sites on the Internet. Users may opt-out of the use of the DART cookie by visiting the Google Ad and Content Network privacy policy.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>We have implemented the following:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google Display Network Impression Reporting</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demographics and Interests Reporting</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p>We, along with third-party vendors such as Google use first-party cookies (such as the Google Analytics cookies) and third-party cookies (such as the DoubleClick cookie) or other third-party identifiers together to compile data regarding user interactions with ad impressions and other ad service functions as they relate to our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Opting out:</b></p>\r\n\r\n<p>Users can set preferences for how Google advertises to you using the Google Ad Settings page. Alternatively, you can opt out by visiting the Network Advertising Initiative Opt Out page or by using the Google Analytics Opt Out Browser add on.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>California Online Privacy Protection Act</b></p>\r\n\r\n<p></p>\r\n\r\n<p>CalOPPA is the first state law in the nation to require commercial websites and online services to post a privacy policy. The law&rsquo;s reach stretches well beyond California to require any person or company in the United States (and conceivably the world) that operates websites collecting Personally Identifiable Information from California consumers to post a conspicuous privacy policy on its website stating exactly the information being collected and those individuals or companies with whom it is being shared. &ndash; See more at: http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf</p>\r\n\r\n<p></p>\r\n\r\n<p><b>According to CalOPPA, we agree to the following:</b></p>\r\n\r\n<p>Users can visit our site anonymously.</p>\r\n\r\n<p>Once this privacy policy is created, we will add a link to it on our home page or as a minimum, on the first significant page after entering our website.</p>\r\n\r\n<p>Our Privacy Policy link includes the word &lsquo;Privacy&rsquo; and can easily be found on the page specified above.</p>\r\n\r\n<p></p>\r\n\r\n<p>You will be notified of any Privacy Policy changes:</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On our Privacy Policy Page</li>\r\n</ul>\r\n\r\n<p>Can change your personal information:</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By logging in to your account</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>How does our site handle Do Not Track signals?</b></p>\r\n\r\n<p>We honor Do Not Track signals and Do Not Track, plant cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in place.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Does our site allow third-party behavioral tracking?</b></p>\r\n\r\n<p>It&rsquo;s also important to note that we allow third-party behavioral tracking</p>\r\n\r\n<p></p>\r\n\r\n<p><b>COPPA (Children Online Privacy Protection Act)</b></p>\r\n\r\n<p></p>\r\n\r\n<p>When it comes to the collection of personal information from children under the age of 13 years old, the Children&rsquo;s Online Privacy Protection Act (COPPA) puts parents in control. The Federal Trade Commission, United States&rsquo; consumer protection agency, enforces the COPPA Rule, which spells out what operators of websites and online services must do to protect children&rsquo;s privacy and safety online.</p>\r\n\r\n<p></p>\r\n\r\n<p>We do not specifically market to children under the age of 13 years old.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Fair Information Practices</b></p>\r\n\r\n<p></p>\r\n\r\n<p>The Fair Information Practices Principles form the backbone of privacy law in the United States and the concepts they include have played a significant role in the development of data protection laws around the globe. Understanding the Fair Information Practice Principles and how they should be implemented is critical to comply with the various privacy laws that protect personal information.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>In order to be in line with Fair Information Practices we will take the following responsive action, should a data breach occur:</b></p>\r\n\r\n<p>We will notify you via email</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Within 7 business days</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p>We also agree to the Individual Redress Principle which requires that individuals have the right to legally pursue enforceable rights against data collectors and processors who fail to adhere to the law. This principle requires not only that individuals have enforceable rights against data users, but also that individuals have recourse to courts or government agencies to investigate and/or prosecute non-compliance by data processors.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>CAN SPAM Act</b></p>\r\n\r\n<p></p>\r\n\r\n<p>The CAN-SPAM Act is a law that sets the rules for commercial email, establishes requirements for commercial messages, gives recipients the right to have emails stopped from being sent to them, and spells out tough penalties for violations.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>We collect your email address in order to:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send information, respond to inquiries, and/or other requests or questions</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process orders and to send information and updates pertaining to orders.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send you additional information related to your product and/or service</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market to our mailing list or continue to send emails to our clients after the original transaction has occurred.</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>To be in accordance with CANSPAM, we agree to the following:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not use false or misleading subjects or email addresses.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify the message as an advertisement in some reasonable way.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include the physical address of our business or site headquarters.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Monitor third-party email marketing services for compliance, if one is used.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Honor opt-out/unsubscribe requests quickly.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Allow users to unsubscribe by using the link at the bottom of each email.</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>If at any time you would like to unsubscribe from receiving future emails, you can email us at</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow the instructions at the bottom of each email.</li>\r\n</ul>\r\n\r\n<p>and we will promptly remove you from&nbsp;<b>ALL</b>&nbsp;correspondence.</p>', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:09:47');
+(19, 'PRIVACY_POLICY', 'Privacy Policy', '<h2><strong>PRIVACY POLICY</strong></h2>\r\n\r\n<p><b>Data Protection Policy:</b></p>\r\n\r\n<p></p>\r\n\r\n<p>This privacy policy has been compiled to better serve those who are concerned with how their &lsquo;Personally Identifiable Information&rsquo; (PII) is being used online. PII, as described in US privacy law and information security, is information that can be used on its own or with other information to identify, contact, or locate a single person, or to identify an individual in context. Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>What personal information do we collect from the people that visit our blog, website or app?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>When ordering or registering on our site, as appropriate, you may be asked to enter your name, email address, mailing address, phone number, credit card information or other details to help you with your experience.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>When do we collect information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We collect information from you when you register on our site, place an order, subscribe to a newsletter, fill out a form or enter information on our site.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>How do we use your information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We may use the information we collect from you when you register, make a purchase, sign up for our newsletter, respond to a survey or marketing communication, surf the website, or use certain other site features in the following ways:</p>\r\n\r\n<p></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To allow us to better service you in responding to your customer service requests.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To quickly process your transactions.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To send periodic emails regarding your order or other products and services.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To follow up with them after correspondence (live chat, email or phone inquiries)</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>How do we protect your information?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>Our website is scanned on a regular basis for security holes and known vulnerabilities in order to make your visit to our site as safe as possible.</p>\r\n\r\n<p></p>\r\n\r\n<p>We use regular Malware Scanning.</p>\r\n\r\n<p></p>\r\n\r\n<p>Your personal information is contained behind secured networks and is only accessible by a limited number of persons who have special access rights to such systems, and are required to keep the information confidential. In addition, all sensitive/credit information you supply is encrypted via Secure Socket Layer (SSL) technology.</p>\r\n\r\n<p></p>\r\n\r\n<p>We implement a variety of security measures when a user places an order enters, submits, or accesses their information to maintain the safety of your personal information.</p>\r\n\r\n<p></p>\r\n\r\n<p>All transactions are processed through a gateway provider and are not stored or processed on our servers.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Do we use &lsquo;cookies&rsquo;?</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not use cookies for tracking purposes</p>\r\n\r\n<p></p>\r\n\r\n<p>You can choose to have your computer warn you each time a cookie is being sent, or you can choose to turn off all cookies. You do this through your browser settings. Since each browser is a little different, look at your browser&rsquo;s Help Menu to learn the correct way to modify your cookies.</p>\r\n\r\n<p></p>\r\n\r\n<p>If you turn cookies off .</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Third-party disclosure</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not sell, trade, or otherwise transfer to outside parties your Personally Identifiable Information unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website, conducting our business, or serving our users, so long as those parties agree to keep this information confidential. We may also release information when it&rsquo;s release is appropriate to comply with the law, enforce our site policies, or protect ours or others&rsquo; rights, property or safety.</p>\r\n\r\n<p></p>\r\n\r\n<p>However, non-personally identifiable visitor information may be provided to other parties for marketing, advertising, or other uses.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Third-party links</b></p>\r\n\r\n<p></p>\r\n\r\n<p>We do not include or offer third-party products or services on our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Google</b></p>\r\n\r\n<p></p>\r\n\r\n<p>Google&rsquo;s advertising requirements can be summed up by Google&rsquo;s Advertising Principles. They are put in place to provide a positive experience for users. https://support.google.com/adwordspolicy/answer/1316548?hl=en</p>\r\n\r\n<p></p>\r\n\r\n<p>We use Google AdSense Advertising on our website.</p>\r\n\r\n<p></p>\r\n\r\n<p>Google, as a third-party vendor, uses cookies to serve ads on our site. Google&rsquo;s use of the DART cookie enables it to serve ads to our users based on previous visits to our site and other sites on the Internet. Users may opt-out of the use of the DART cookie by visiting the Google Ad and Content Network privacy policy.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>We have implemented the following:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google Display Network Impression Reporting</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demographics and Interests Reporting</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p>We, along with third-party vendors such as Google use first-party cookies (such as the Google Analytics cookies) and third-party cookies (such as the DoubleClick cookie) or other third-party identifiers together to compile data regarding user interactions with ad impressions and other ad service functions as they relate to our website.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Opting out:</b></p>\r\n\r\n<p>Users can set preferences for how Google advertises to you using the Google Ad Settings page. Alternatively, you can opt out by visiting the Network Advertising Initiative Opt Out page or by using the Google Analytics Opt Out Browser add on.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>California Online Privacy Protection Act</b></p>\r\n\r\n<p></p>\r\n\r\n<p>CalOPPA is the first state law in the nation to require commercial websites and online services to post a privacy policy. The law&rsquo;s reach stretches well beyond California to require any person or company in the United States (and conceivably the world) that operates websites collecting Personally Identifiable Information from California consumers to post a conspicuous privacy policy on its website stating exactly the information being collected and those individuals or companies with whom it is being shared. &ndash; See more at: http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf</p>\r\n\r\n<p></p>\r\n\r\n<p><b>According to CalOPPA, we agree to the following:</b></p>\r\n\r\n<p>Users can visit our site anonymously.</p>\r\n\r\n<p>Once this privacy policy is created, we will add a link to it on our home page or as a minimum, on the first significant page after entering our website.</p>\r\n\r\n<p>Our Privacy Policy link includes the word &lsquo;Privacy&rsquo; and can easily be found on the page specified above.</p>\r\n\r\n<p></p>\r\n\r\n<p>You will be notified of any Privacy Policy changes:</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On our Privacy Policy Page</li>\r\n</ul>\r\n\r\n<p>Can change your personal information:</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By logging in to your account</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>How does our site handle Do Not Track signals?</b></p>\r\n\r\n<p>We honor Do Not Track signals and Do Not Track, plant cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in place.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Does our site allow third-party behavioral tracking?</b></p>\r\n\r\n<p>It&rsquo;s also important to note that we allow third-party behavioral tracking</p>\r\n\r\n<p></p>\r\n\r\n<p><b>COPPA (Children Online Privacy Protection Act)</b></p>\r\n\r\n<p></p>\r\n\r\n<p>When it comes to the collection of personal information from children under the age of 13 years old, the Children&rsquo;s Online Privacy Protection Act (COPPA) puts parents in control. The Federal Trade Commission, United States&rsquo; consumer protection agency, enforces the COPPA Rule, which spells out what operators of websites and online services must do to protect children&rsquo;s privacy and safety online.</p>\r\n\r\n<p></p>\r\n\r\n<p>We do not specifically market to children under the age of 13 years old.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>Fair Information Practices</b></p>\r\n\r\n<p></p>\r\n\r\n<p>The Fair Information Practices Principles form the backbone of privacy law in the United States and the concepts they include have played a significant role in the development of data protection laws around the globe. Understanding the Fair Information Practice Principles and how they should be implemented is critical to comply with the various privacy laws that protect personal information.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>In order to be in line with Fair Information Practices we will take the following responsive action, should a data breach occur:</b></p>\r\n\r\n<p>We will notify you via email</p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Within 7 business days</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p>We also agree to the Individual Redress Principle which requires that individuals have the right to legally pursue enforceable rights against data collectors and processors who fail to adhere to the law. This principle requires not only that individuals have enforceable rights against data users, but also that individuals have recourse to courts or government agencies to investigate and/or prosecute non-compliance by data processors.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>CAN SPAM Act</b></p>\r\n\r\n<p></p>\r\n\r\n<p>The CAN-SPAM Act is a law that sets the rules for commercial email, establishes requirements for commercial messages, gives recipients the right to have emails stopped from being sent to them, and spells out tough penalties for violations.</p>\r\n\r\n<p></p>\r\n\r\n<p><b>We collect your email address in order to:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send information, respond to inquiries, and/or other requests or questions</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process orders and to send information and updates pertaining to orders.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send you additional information related to your product and/or service</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market to our mailing list or continue to send emails to our clients after the original transaction has occurred.</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>To be in accordance with CANSPAM, we agree to the following:</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not use false or misleading subjects or email addresses.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify the message as an advertisement in some reasonable way.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include the physical address of our business or site headquarters.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Monitor third-party email marketing services for compliance, if one is used.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Honor opt-out/unsubscribe requests quickly.</li>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Allow users to unsubscribe by using the link at the bottom of each email.</li>\r\n</ul>\r\n\r\n<p></p>\r\n\r\n<p><b>If at any time you would like to unsubscribe from receiving future emails, you can email us at</b></p>\r\n\r\n<ul>\r\n	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow the instructions at the bottom of each email.</li>\r\n</ul>\r\n\r\n<p>and we will promptly remove you from&nbsp;<b>ALL</b>&nbsp;correspondence.</p>', NULL, NULL, NULL, 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:09:47'),
+(20, 'HOME_BANNER_TEXT', 'Home Slider Text', 'One of the biggest Asian\r\n                                            <br>\r\n                                            shopping centers in Europe.', 'One of the biggest Asian\r\n                                            <br>\r\n                                            shopping centers in Europe.', 'One of the biggest Asian\r\n                                            <br>\r\n                                            shopping centers in Europe.', 'One of the biggest Asian\r\n                                            <br>\r\n                                            shopping centers in Europe.', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:09:47'),
+(21, 'EVENT_BANNER_TEXT', 'Event Slider Text', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor puru.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor puru.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor puru.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor puru.', 1, 1, '2021-09-06 17:04:40', 1, '2021-09-11 12:09:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_us`
+--
+
+CREATE TABLE `contact_us` (
+  `id` int(10) NOT NULL,
+  `contact_name` varchar(250) NOT NULL,
+  `contact_email` varchar(250) NOT NULL,
+  `contact_message` text NOT NULL,
+  `customer_id` int(10) DEFAULT 0,
+  `is_send` tinyint(4) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(10) NOT NULL,
+  `deleted_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -482,6 +630,22 @@ CREATE TABLE `coupons` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `business_profile_id`, `coupon_code`, `coupon_subject`, `coupon_image`, `coupon_amount`, `coupon_description`, `start_date`, `end_date`, `is_hot`, `coupon_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 3, '4b90k3ui1', 'Coupon 1', '2021-09-29/615356d3a9cbe.png', 10, 'Coupon 1 desc', '2021-10-05 00:00:00', '2021-10-15 00:00:00', 2, 2, '2021-09-29 00:54:28', 1, '2021-10-02 09:47:22', 1, NULL),
+(2, 3, '5kl8e7u02', 'Coupon 2', '2021-09-29/615356efc2c04.png', 15, 'Coupon 2 desc', '2021-09-30 00:00:00', '2021-10-31 00:00:00', 2, 2, '2021-09-29 00:54:56', 1, '2021-09-29 00:56:22', 1, NULL),
+(3, 4, 'b9g9phf13', 'Coupon 3', '2021-09-29/61535709af683.png', 50, 'Coupon 3 desc', '2021-09-30 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-09-29 00:55:22', 1, '2021-09-29 00:56:23', 1, NULL),
+(4, 5, 'ugkgp2kf4', 'Coupon 4', '2021-09-29/615357244d7a3.png', 20, 'Coupon 4 desc', '2021-09-29 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-09-29 00:55:49', 1, '2021-09-29 00:56:24', 1, NULL),
+(5, 4, '9j9i47bd5', 'Coupon 5', '2021-10-02/61574256e89e3.png', 50, 'Coupon 5 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:16:07', 1, '2021-10-02 00:16:38', 1, NULL),
+(6, 4, 'i6ml4fbi6', 'Coupon 6', '2021-10-02/61574270543c5.png', 10, 'Coupon 6 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:16:34', 1, '2021-10-02 00:16:36', 1, NULL),
+(7, 4, '9cl9bdb37', 'Coupon 7', '2021-10-02/61582248f0d13.png', 0, 'Coupon 7 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:17:09', 1, '2021-10-02 16:11:37', 1, NULL),
+(8, 6, '4i4dqjin8', 'Coupon Demo 1', '2021-10-02/615816c816038.png', 20, 'Coupon Demo 1 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 15:22:32', 1, '2021-10-02 19:47:52', 1, NULL),
+(9, 6, '0idk2g009', 'Coupon Demo 2', '2021-10-02/615816e6cd628.png', 20, 'Coupon Demo 2 desc', '2021-10-08 00:00:00', '2021-12-29 00:00:00', 2, 2, '2021-10-02 15:23:03', 1, '2021-10-02 19:47:51', 1, NULL),
+(10, 6, '08mu20f910', 'Coupon Demo 3', '2021-10-02/61581700477fa.png', 50, 'Coupon Demo 3 desc', '2021-10-20 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 15:23:29', 1, '2021-10-02 19:47:52', 1, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -498,10 +662,16 @@ CREATE TABLE `customers` (
   `customer_birthday` datetime NOT NULL,
   `customer_gender_id` tinyint(4) NOT NULL,
   `customer_phone` varchar(50) NOT NULL,
+  `customer_phone_code` int(10) DEFAULT 0,
   `customer_occupation` varchar(250) NOT NULL,
   `customer_address` varchar(250) NOT NULL,
   `free_trial` tinyint(4) NOT NULL DEFAULT 0,
+  `free_trial_type` tinyint(4) NOT NULL DEFAULT 0,
   `customer_status_id` tinyint(4) NOT NULL DEFAULT 0,
+  `language_id` tinyint(4) NOT NULL DEFAULT 0,
+  `facebook_id` varchar(250) DEFAULT NULL,
+  `google_id` varchar(250) DEFAULT NULL,
+  `login_type_id` tinyint(4) DEFAULT 0 COMMENT '1: Facebook / 2: google',
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -513,8 +683,21 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_occupation`, `customer_address`, `free_trial`, `customer_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(6, 'huongthien1993@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', '', '', 0, 1, '2021-09-09 01:44:48', 0, NULL, NULL, NULL);
+INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_phone_code`, `customer_occupation`, `customer_address`, `free_trial`, `free_trial_type`, `customer_status_id`, `language_id`, `facebook_id`, `google_id`, `login_type_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(18, 'thunh.uet@gmail.com', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, '2021-10-03 00:00:52', 0, '2021-10-03 00:09:25', 1, '2021-10-03 00:09:25'),
+(25, '', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '910613696502683', NULL, 2, '2021-10-03 09:51:03', 0, '2021-10-04 18:32:15', 0, NULL),
+(27, 'abc@gmail.com', '25f9e794323b453885f5181f1b624d0b', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-03 15:41:36', 0, NULL, NULL, NULL),
+(26, 'vienruachen@gmail.com', 'f2513d295ef85e3eab69ff1b244588f4', 'Vien', 'Chen', '2021-10-03/61594d106a957.png', '2021-10-07 00:00:00', 0, '0987666666', 3, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 4, NULL, NULL, 0, '2021-10-03 09:59:16', 0, NULL, NULL, NULL),
+(14, '0866666666@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Thien', 'Nguyen', 'no_image.png', '2021-10-04 00:00:00', 1, '0866666666', 0, 'CS', 'Ho Chi Minh', 0, 1, 2, 0, NULL, '', 0, '2021-10-02 20:03:48', 1, NULL, NULL, NULL),
+(15, 'huongthien_93@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Thiên', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4368860993183697', '', 1, '2021-10-02 20:04:17', 0, '2021-10-03 15:23:55', 0, NULL),
+(16, 'paytherent@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-02 20:37:39', 0, NULL, NULL, NULL),
+(19, '16022388@vnu.edu.vn', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, '2021-10-03 00:01:41', 0, '2021-10-03 00:24:09', 1, '2021-10-03 00:24:09'),
+(20, 'levanhoanhtt@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Hoàn', 'Lê', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4762416737155785', '', 1, '2021-10-03 00:32:37', 0, NULL, NULL, NULL),
+(21, 'huyenthunguyeniser@gmail.com', '4531e8924edde928f341f7df3ab36c70', 'Nguyễn', 'Huyền Thư', NULL, '0000-00-00 00:00:00', 0, '', 0, '', 'fdf', 0, 2, 2, 0, NULL, '103952864733277509914', 2, '2021-10-03 00:51:04', 0, '2021-10-03 14:15:49', 0, NULL),
+(24, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '102246103372895088198', 2, '2021-10-03 09:49:13', 0, NULL, NULL, NULL),
+(28, 'dangnam92chem@gmail.com', '953f98c64c598bf3764736454ee85bef', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 2, 2, 0, NULL, NULL, 0, '2021-10-03 23:56:46', 0, NULL, NULL, NULL),
+(29, 'ondrisvu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ondris', 'Vu', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '962429757654796', NULL, 1, '2021-10-04 03:43:06', 0, '2021-10-04 03:44:38', 0, NULL),
+(30, 'email@email.com', '4c38ca394d146abe6218714eb8821aac', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-04 03:45:19', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -535,6 +718,58 @@ CREATE TABLE `customer_coupons` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `customer_coupons`
+--
+
+INSERT INTO `customer_coupons` (`id`, `customer_id`, `coupon_id`, `customer_coupon_code`, `customer_coupon_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 11, 1, '4b90k3ui1-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(2, 11, 3, 'b9g9phf13-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(3, 11, 4, 'ugkgp2kf4-10001', 0, NULL, NULL, NULL, NULL, NULL),
+(4, 11, 4, 'ugkgp2kf4-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(5, 11, 4, 'ugkgp2kf4-10003', 0, NULL, NULL, NULL, NULL, NULL),
+(6, 11, 4, 'ugkgp2kf4-10004', 0, NULL, NULL, NULL, NULL, NULL),
+(7, 11, 4, 'ugkgp2kf4-10005', 0, NULL, NULL, NULL, NULL, NULL),
+(8, 11, 4, 'ugkgp2kf4-10006', 0, NULL, NULL, NULL, NULL, NULL),
+(9, 11, 4, 'ugkgp2kf4-10007', 0, NULL, NULL, NULL, NULL, NULL),
+(10, 11, 4, 'ugkgp2kf4-10008', 0, NULL, NULL, NULL, NULL, NULL),
+(11, 11, 4, 'ugkgp2kf4-10009', 0, NULL, NULL, NULL, NULL, NULL),
+(12, 11, 4, 'ugkgp2kf4-10010', 0, NULL, NULL, NULL, NULL, NULL),
+(13, 11, 4, 'ugkgp2kf4-10011', 0, NULL, NULL, NULL, NULL, NULL),
+(14, 11, 2, '5kl8e7u02-10001', 0, NULL, NULL, NULL, NULL, NULL),
+(15, 11, 2, '5kl8e7u02-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(16, 11, 2, '5kl8e7u02-10001', 0, NULL, NULL, NULL, NULL, NULL),
+(17, 11, 2, '5kl8e7u02-10001', 0, NULL, NULL, NULL, NULL, NULL),
+(18, 11, 4, 'ugkgp2kf4-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(19, 11, 2, '5kl8e7u02-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(20, 11, 6, 'i6ml4fbi6-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(21, 11, 5, '9j9i47bd5-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(22, 14, 6, 'i6ml4fbi6-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(23, 17, 9, '0idk2g009-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(24, 21, 9, '0idk2g009-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(25, 21, 6, 'i6ml4fbi6-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(26, 21, 2, '5kl8e7u02-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(27, 17, 1, '4b90k3ui1-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(28, 26, 1, '4b90k3ui1-10003', 0, NULL, NULL, NULL, NULL, NULL),
+(29, 26, 5, '9j9i47bd5-10002', 0, NULL, NULL, NULL, NULL, NULL),
+(30, 26, 5, '9j9i47bd5-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(31, 21, 2, '5kl8e7u02-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(32, 21, 10, '08mu20f910-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(33, 21, 3, 'b9g9phf13-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(34, 21, 8, '4i4dqjin8-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(35, 26, 1, '4b90k3ui1-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(36, 21, 5, '9j9i47bd5-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(37, 25, 5, '9j9i47bd5-10004', 2, NULL, NULL, NULL, NULL, NULL),
+(38, 25, 6, 'i6ml4fbi6-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(39, 25, 1, '4b90k3ui1-10004', 2, NULL, NULL, NULL, NULL, NULL),
+(40, 26, 10, '08mu20f910-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(41, 27, 10, '08mu20f910-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(42, 26, 2, '5kl8e7u02-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(43, 30, 9, '0idk2g009-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(44, 30, 6, 'i6ml4fbi6-10004', 2, NULL, NULL, NULL, NULL, NULL),
+(45, 30, 5, '9j9i47bd5-10005', 2, NULL, NULL, NULL, NULL, NULL),
+(46, 30, 4, 'ugkgp2kf4-10002', 2, NULL, NULL, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -545,13 +780,40 @@ CREATE TABLE `customer_events` (
   `id` int(10) NOT NULL,
   `customer_id` int(10) NOT NULL,
   `event_id` int(10) NOT NULL,
-  `customer_evnent_status_id` tinyint(4) NOT NULL,
+  `customer_event_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(10) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(10) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `customer_events`
+--
+
+INSERT INTO `customer_events` (`id`, `customer_id`, `event_id`, `customer_event_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
+(2, 11, 2, 0, NULL, NULL, NULL, NULL, NULL),
+(7, 11, 3, 2, NULL, NULL, NULL, NULL, NULL),
+(4, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
+(5, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
+(6, 11, 3, 0, NULL, NULL, NULL, NULL, NULL),
+(8, 14, 4, 0, NULL, NULL, NULL, NULL, NULL),
+(9, 14, 5, 2, NULL, NULL, NULL, NULL, NULL),
+(10, 14, 1, 2, NULL, NULL, NULL, NULL, NULL),
+(11, 15, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(12, 17, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(13, 21, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(14, 17, 1, 2, NULL, NULL, NULL, NULL, NULL),
+(15, 25, 1, 0, NULL, NULL, NULL, NULL, NULL),
+(16, 27, 5, 2, NULL, NULL, NULL, NULL, NULL),
+(17, 27, 4, 2, NULL, NULL, NULL, NULL, NULL),
+(18, 27, 1, 2, NULL, NULL, NULL, NULL, NULL),
+(19, 27, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(20, 27, 2, 2, NULL, NULL, NULL, NULL, NULL),
+(21, 28, 5, 0, NULL, NULL, NULL, NULL, NULL),
+(22, 28, 1, 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1325,11 +1587,11 @@ CREATE TABLE `events` (
   `business_profile_id` int(10) NOT NULL,
   `event_subject` varchar(250) NOT NULL,
   `event_image` text NOT NULL,
-  `start_date` datetime NOT NULL,
+  `start_date` date NOT NULL,
   `start_time` time NOT NULL,
-  `end_date` datetime NOT NULL,
+  `end_date` date NOT NULL,
   `end_time` time NOT NULL,
-  `event_description` tinyint(4) NOT NULL,
+  `event_description` text NOT NULL,
   `event_status_id` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(10) DEFAULT NULL,
@@ -1337,6 +1599,18 @@ CREATE TABLE `events` (
   `updated_by` int(10) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `business_profile_id`, `event_subject`, `event_image`, `start_date`, `start_time`, `end_date`, `end_time`, `event_description`, `event_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 3, 'Event 1', '2021-10-01/615608c37645b.png', '2021-10-01', '01:56:00', '2021-10-31', '01:57:00', 'Event', 2, '2021-10-01 01:58:12', 1, NULL, NULL, NULL),
+(2, 4, 'Event 2', '2021-10-01/615608dc961c8.png', '2021-10-05', '01:58:00', '2021-10-07', '01:58:00', 'Event 2 desc', 2, '2021-10-01 01:58:37', 1, NULL, NULL, NULL),
+(3, 5, 'Event 3', '2021-10-01/61560907dd592.png', '2021-10-07', '09:00:00', '2021-10-09', '18:00:00', 'Event 3 desc', 0, '2021-10-01 01:59:20', 1, '2021-10-02 19:48:46', 1, '2021-10-02 19:48:46'),
+(4, 6, 'Event halloween 2021', '2021-10-02/6158213bcc869.png', '2021-10-04', '16:06:00', '2021-11-17', '16:06:00', 'Event halloween 2021 desc', 2, '2021-10-02 16:07:08', 1, NULL, NULL, NULL),
+(5, 6, 'Event halloween 2022', '2021-10-02/6158216ee914e.png', '2021-10-02', '16:07:00', '2021-10-31', '16:07:00', 'Event halloween 2022 desc', 2, '2021-10-02 16:07:59', 1, NULL, NULL, NULL),
+(6, 6, 'event demo 1', 'no_image.png', '2021-10-07', '19:50:00', '2021-10-31', '19:50:00', 'event demo 1 desc', 2, '2021-10-02 19:50:34', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1434,9 +1708,15 @@ CREATE TABLE `locations` (
 --
 
 INSERT INTO `locations` (`id`, `location_name`, `lat`, `lng`, `is_hot`, `location_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(1, 'VELTA free shop', '50.04693217193328', '12.352281584655778', 0, 2, '2021-09-11 12:13:40', 1, NULL, NULL, NULL),
-(2, 'Asia Gragon Bazan', '50.04732487914607', '12.353837265884415', 0, 2, '2021-09-11 12:17:56', 1, NULL, NULL, NULL),
-(3, 'Markt chech', '50.047648687939635', '12.355822100555436', 0, 2, '2021-09-11 12:18:53', 1, NULL, NULL, NULL);
+(1, 'VELTA free shop', '50.04693217193328', '12.352281584655778', 2, 2, '2021-09-11 12:13:40', 1, '2021-10-03 15:01:18', 1, NULL),
+(2, 'Asia Gragon Bazan', '50.04732487914607', '12.353837265884415', 2, 2, '2021-09-11 12:17:56', 1, '2021-10-03 15:01:21', 1, NULL),
+(3, 'Markt chech', '50.047648687939635', '12.355822100555436', 2, 2, '2021-09-11 12:18:53', 1, '2021-10-03 15:01:21', 1, NULL),
+(12, 'Fusion 3', '50.0473111', '12.3523245', 0, 2, '2021-10-03 17:36:05', 1, NULL, NULL, NULL),
+(11, 'Fusion 02', '50.046367219078746', '12.351637854492203', 0, 2, '2021-10-03 17:26:30', 1, '2021-10-03 17:27:21', 1, NULL),
+(10, 'Fusion 02', '50.046367219078746', '12.351637854492203', 0, 2, '2021-10-03 17:26:27', 1, NULL, NULL, NULL),
+(9, 'Fusion 01', '50.0464085573181', '12.35214743585295', 0, 2, '2021-10-03 17:26:10', 1, NULL, NULL, NULL),
+(13, 'Nail 01', '50.04683418834578', '12.353290095245377', 0, 2, '2021-10-03 17:53:59', 1, NULL, NULL, NULL),
+(14, 'location tesst', '50.0471595291323', '12.352941408073441', 0, 2, '2021-10-03 18:44:17', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1448,8 +1728,8 @@ CREATE TABLE `opening_hours` (
   `id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
   `day_id` tinyint(4) NOT NULL,
-  `start_time` time NOT NULL,
-  `end_time` time NOT NULL,
+  `start_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL,
   `opening_hours_status_id` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
@@ -1457,6 +1737,54 @@ CREATE TABLE `opening_hours` (
   `updated_by` int(11) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `opening_hours`
+--
+
+INSERT INTO `opening_hours` (`id`, `business_profile_id`, `day_id`, `start_time`, `end_time`, `opening_hours_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 2, 0, '07:00:00', '18:00:00', 2, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
+(2, 2, 1, NULL, NULL, 1, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
+(3, 2, 2, NULL, NULL, 1, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
+(4, 2, 3, NULL, NULL, 1, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
+(5, 2, 4, NULL, NULL, 1, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
+(6, 2, 5, NULL, NULL, 1, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
+(7, 2, 6, NULL, NULL, 1, '2021-09-22 17:24:03', 1, '2021-09-22 17:24:03', 1, NULL),
+(259, 3, 6, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(258, 3, 5, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(257, 3, 4, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(256, 3, 3, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(255, 3, 2, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(254, 3, 1, NULL, NULL, 1, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(253, 3, 0, '07:00:00', '18:00:00', 2, '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(217, 4, 6, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(216, 4, 5, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(215, 4, 4, NULL, NULL, 2, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(214, 4, 3, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(213, 4, 2, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(212, 4, 1, NULL, NULL, 1, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(211, 4, 0, '07:00:00', '18:00:00', 2, '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
+(224, 5, 6, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(223, 5, 5, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(222, 5, 4, NULL, NULL, 2, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(221, 5, 3, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(220, 5, 2, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(219, 5, 1, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(218, 5, 0, '07:00:00', '18:00:00', 2, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
+(245, 6, 6, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(244, 6, 5, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(243, 6, 4, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(242, 6, 3, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(241, 6, 2, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(240, 6, 1, '08:00:00', '19:00:00', 2, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(239, 6, 0, '08:00:00', '19:00:00', 2, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(252, 7, 6, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(251, 7, 5, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(250, 7, 4, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(249, 7, 3, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(248, 7, 2, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(247, 7, 1, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(246, 7, 0, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -1487,7 +1815,6 @@ INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `num
 (5, 'AD', 'ANDORRA', 'Andorra', 'AND', 20, 376, 'ad.png'),
 (6, 'AO', 'ANGOLA', 'Angola', 'AGO', 24, 244, 'ao.png'),
 (7, 'AI', 'ANGUILLA', 'Anguilla', 'AIA', 660, 1264, 'ai.png'),
-(8, 'AQ', 'ANTARCTICA', 'Antarctica', NULL, NULL, 0, 'aq.png'),
 (9, 'AG', 'ANTIGUA AND BARBUDA', 'Antigua and Barbuda', 'ATG', 28, 1268, 'ag.png'),
 (10, 'AR', 'ARGENTINA', 'Argentina', 'ARG', 32, 54, 'ar.png'),
 (11, 'AM', 'ARMENIA', 'Armenia', 'ARM', 51, 374, 'am.png'),
@@ -1836,6 +2163,7 @@ CREATE TABLE `services` (
   `service_name_cz` varchar(250) DEFAULT NULL,
   `service_image` text NOT NULL,
   `service_status_id` tinyint(4) NOT NULL,
+  `is_hot` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1: không nổi bật, 2: nổi bật',
   `display_order` int(10) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
@@ -1843,6 +2171,20 @@ CREATE TABLE `services` (
   `updated_by` int(11) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`id`, `service_name_vi`, `service_name_en`, `service_name_de`, `service_name_cz`, `service_image`, `service_status_id`, `is_hot`, `display_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 'Thẩm mỹ viện', 'Beauty Salons', 'Schönheitssalons', 'Kosmetické salony', '2021-09-22/614aabe543361.png', 2, 2, 1, '2021-09-22 11:07:05', 1, '2021-10-03 16:50:04', 1, NULL),
+(2, 'Sức khỏe - Spa', 'Wellness - Spas', 'Wellnesses - Spas', 'Wellness - lázně', '2021-09-22/614aac520ab60.png', 2, 2, 1, '2021-09-22 11:08:52', 1, '2021-10-03 16:59:48', 1, NULL),
+(3, 'Nhà Hàng', 'Restaurants', 'Restaurants', 'Restaurace', '2021-09-22/614aac7d0112c.png', 2, 2, 1, '2021-09-22 11:09:35', 1, '2021-10-03 16:51:58', 1, NULL),
+(4, 'Cửa Hàng', 'Shops', 'Geschäfte', 'Obchody', '2021-09-22/614aacaa378b5.png', 2, 2, 1, '2021-09-22 11:10:20', 1, '2021-10-03 16:53:21', 1, NULL),
+(5, 'Sòng bài', 'Casinos', 'Kasinos', 'Kasina', '2021-09-22/614aacd446937.png', 2, 2, 1, '2021-09-22 11:11:01', 1, '2021-10-03 16:54:08', 1, NULL),
+(6, 'Hiệu thuốc', 'Pharmacies', 'Apotheken', 'Lékarny', '2021-10-03/6159766155816.png', 2, 2, 1, '2021-10-03 16:20:24', 1, '2021-10-03 16:52:31', 1, NULL),
+(7, 'Khách sạn', 'Hotels', 'Hotel', 'Hotely', '2021-10-03/6159766dcea51.png', 2, 2, 1, '2021-10-03 16:20:45', 1, '2021-10-03 16:25:25', 1, NULL),
+(8, 'Khác', 'Other', 'Andere', 'Ostatní', '2021-10-03/6159767a74791.png', 2, 2, 1, '2021-10-03 16:20:59', 1, '2021-10-04 10:50:25', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -1865,6 +2207,41 @@ CREATE TABLE `service_types` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `service_types`
+--
+
+INSERT INTO `service_types` (`id`, `service_type_name_vi`, `service_type_name_en`, `service_type_name_de`, `service_type_name_cz`, `service_id`, `display_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(6, 'Permanent make-up', 'Permanent make-up', 'Permanent make-up', 'Permanent make-up', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(7, 'Massage', 'Massage', 'Massage', 'Massage', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(8, 'Make up', 'Make up', 'Make up', 'Make up', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(9, 'Other', 'Other', 'Other', 'Other', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(10, 'Nails', 'Nails', 'Nails', 'Nails', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(11, 'Hair', 'Hair', 'Hair', 'Hair', 1, 1, '2021-10-03 16:50:04', 1, '2021-10-03 16:50:04', 1, NULL),
+(12, 'Coffee Shop', 'Coffee Shop', 'Coffee Shop', 'Coffee Shop', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(13, 'Vietnamese', 'Vietnamese', 'Vietnamese', 'Vietnamese', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(14, 'Fast Food', 'Fast Food', 'Fast Food', 'Fast Food', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(15, 'Bakery', 'Bakery', 'Bakery', 'Bakery', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(16, 'Fusion', 'Fusion', 'Fusion', 'Fusion', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(17, 'Czech', 'Czech', 'Czech', 'Czech', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(18, 'Other', 'Other', 'Other', 'Other', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(19, 'Asian', 'Asian', 'Asian', 'Asian', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(20, 'Thai', 'Thai', 'Thai', 'Thai', 3, 1, '2021-10-03 16:51:58', 1, '2021-10-03 16:51:58', 1, NULL),
+(22, 'Other', 'Other', 'Other', 'Other', 6, 1, '2021-10-03 16:52:31', 1, '2021-10-03 16:52:31', 1, NULL),
+(23, 'Medicine', 'Medicine', 'Medicine', 'Medicine', 6, 1, '2021-10-03 16:52:31', 1, '2021-10-03 16:52:31', 1, NULL),
+(24, 'Other', 'Other', 'Other', 'Other', 4, 1, '2021-10-03 16:53:21', 1, '2021-10-03 16:53:21', 1, NULL),
+(25, 'Electronics', 'Electronics', 'Electronics', 'Electronics', 4, 1, '2021-10-03 16:53:21', 1, '2021-10-03 16:53:21', 1, NULL),
+(26, 'Asian Grocery', 'Asian Grocery', 'Asian Grocery', 'Asian Grocery', 4, 1, '2021-10-03 16:53:21', 1, '2021-10-03 16:53:21', 1, NULL),
+(27, 'Clothes', 'Clothes', 'Clothes', 'Clothes', 4, 1, '2021-10-03 16:53:21', 1, '2021-10-03 16:53:21', 1, NULL),
+(28, 'Other', 'Other', 'Other', 'Other', 5, 1, '2021-10-03 16:54:08', 1, '2021-10-03 16:54:08', 1, NULL),
+(29, 'Spielzimmer', 'Spielzimmer', 'Spielzimmer', 'Spielzimmer', 5, 1, '2021-10-03 16:54:08', 1, '2021-10-03 16:54:08', 1, NULL),
+(30, 'Casino', 'Casino', 'Casino', 'Casino', 5, 1, '2021-10-03 16:54:08', 1, '2021-10-03 16:54:08', 1, NULL),
+(31, 'Other', 'Other', 'Other', 'Other', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL),
+(32, 'Day Spa', 'Day Spa', 'Day Spa', 'Day Spa', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL),
+(33, 'Spa', 'Spa', 'Spa', 'Spa', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL),
+(34, 'Destination Spa', 'Destination Spa', 'Destination Spa', 'Destination Spa', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL),
+(35, 'Health Spa', 'Health Spa', 'Health Spa', 'Health Spa', 2, 1, '2021-10-03 16:59:48', 1, '2021-10-03 16:59:48', 1, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -1884,6 +2261,15 @@ CREATE TABLE `sliders` (
   `updated_by` int(10) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sliders`
+--
+
+INSERT INTO `sliders` (`id`, `slider_type_id`, `slider_image`, `slider_url`, `slider_status_id`, `display_order`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 1, '2021-09-28/61534771ab3e5.png', '#', 2, 1, '2021-09-28 23:48:52', 1, NULL, NULL, NULL),
+(2, 2, '2021-09-28/6153477915b76.png', '', 2, 1, '2021-09-28 23:48:58', 1, NULL, NULL, NULL),
+(3, 2, '2021-09-28/6153477d48a0e.png', '', 2, 2, '2021-09-28 23:49:04', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1934,7 +2320,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_name`, `user_pass`, `full_name`, `email`, `gender_id`, `role_id`, `status_id`, `address`, `birth_day`, `phone_number`, `avatar`, `token`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', 1, 1, 2, 'e', '2020-04-15 00:00:00', '0123456789', '2021-09-12/613d0886165b0.png', NULL, 1, '2020-03-01 00:00:00', 1, '2021-09-12 02:50:35', NULL);
+(1, 'admin', '3c0532f76dad48bfe4b56c91dc3db0b0', 'Admin', 'admin@gmail.com', 1, 1, 2, 'e', '2020-04-15 00:00:00', '0123456789', '2021-09-12/613d0886165b0.png', NULL, 1, '2020-03-01 00:00:00', 1, '2021-10-02 21:09:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -13187,6 +13573,12 @@ ALTER TABLE `business_payments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `business_photos`
+--
+ALTER TABLE `business_photos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
@@ -13199,9 +13591,27 @@ ALTER TABLE `business_profile_locations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `business_service_types`
+--
+ALTER TABLE `business_service_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `business_videos`
+--
+ALTER TABLE `business_videos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `configs`
 --
 ALTER TABLE `configs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contact_us`
+--
+ALTER TABLE `contact_us`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -13345,7 +13755,7 @@ ALTER TABLE `wards`
 -- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `business_payments`
@@ -13354,15 +13764,39 @@ ALTER TABLE `business_payments`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `business_photos`
+--
+ALTER TABLE `business_photos`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
+
+--
 -- AUTO_INCREMENT for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `business_profile_locations`
 --
 ALTER TABLE `business_profile_locations`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `business_service_types`
+--
+ALTER TABLE `business_service_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+
+--
+-- AUTO_INCREMENT for table `business_videos`
+--
+ALTER TABLE `business_videos`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=363;
+
+--
+-- AUTO_INCREMENT for table `contact_us`
+--
+ALTER TABLE `contact_us`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
@@ -13375,31 +13809,31 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `customer_coupons`
 --
 ALTER TABLE `customer_coupons`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `customer_events`
 --
 ALTER TABLE `customer_events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `files`
@@ -13429,13 +13863,13 @@ ALTER TABLE `itemtags`
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `opening_hours`
 --
 ALTER TABLE `opening_hours`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
 
 --
 -- AUTO_INCREMENT for table `phonecodes`
@@ -13459,19 +13893,19 @@ ALTER TABLE `roleactions`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `service_types`
 --
 ALTER TABLE `service_types`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tags`

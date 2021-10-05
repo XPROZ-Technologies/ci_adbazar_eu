@@ -8,8 +8,6 @@ class MY_Model extends CI_Model {
 
     function __construct() {
         parent::__construct();
-        $this->db_slave = $this->load->database('slave', TRUE);
-        $this->db_master = $this->load->database('master', TRUE);
     }
 
     public function get($id = 0, $single = false, $orderBy = "", $select = "", $limit = 0, $offset = 0, $orderType = 'desc') {

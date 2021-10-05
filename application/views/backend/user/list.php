@@ -4,14 +4,14 @@
             <section class="content-header">
                 <h1><?php echo $title; ?></h1>
                 <ul class="list-inline">
-                    <li><a href="<?php echo base_url('backend/user/add'); ?>" class="btn btn-primary">Add staff</a></li>
+                    <li><a href="<?php echo base_url('sys-admin/staff-create'); ?>" class="btn btn-primary">Add staff</a></li>
                 </ul>
             </section>
             <section class="content">
                 <div class="box box-default">
                     <?php sectionTitleHtml('Filter'); ?>
                     <div class="box-body row-margin">
-                        <?php echo form_open('backend/user'); ?>
+                        <?php echo form_open('sys-admin/staff'); ?>
                         <div class="row">
                             <div class="col-sm-4 form-group">
                                 <input type="text" name="search_text" class="form-control" value="<?php echo set_value('search_text'); ?>" placeholder="User Name, Full Name, Phone Number, Email, Address">
@@ -51,8 +51,8 @@
                                 $i++; ?>
                                 <tr id="user_<?php echo $s['id']; ?>">
                                     <td><?php echo $i; ?></td>
-                                    <td><a href="<?php echo base_url('backend/user/edit/'.$s['id']); ?>"><?php echo $s['user_name']; ?></a></td>
-                                    <td><a href="<?php echo base_url('backend/user/edit/'.$s['id']); ?>"><?php echo $s['full_name']; ?></a></td>
+                                    <td><a href="<?php echo base_url('sys-admin/staff-update/'.$s['id']); ?>"><?php echo $s['user_name']; ?></a></td>
+                                    <td><a href="<?php echo base_url('sys-admin/staff-update/'.$s['id']); ?>"><?php echo $s['full_name']; ?></a></td>
                                     <td><?php echo $s['phone_number']; ?></td>
                                     <td><?php echo $s['address']; ?></td>
                                     <td><span class="<?php echo $labelCss[$s['status_id']]; ?>"><?php echo $this->Mconstants->status[$s['status_id']]; ?></span></td>
@@ -78,7 +78,7 @@
             </section>
         </div>
     </div>
-    <input type="text" hidden="hidden" id="changeStatusUrl" value="<?php echo base_url('backend/user/changeStatus'); ?>">
+    <input type="text" hidden="hidden" id="changeStatusUrl" value="<?php echo base_url('sys-admin/staff/change-statu'); ?>">
 <?php $this->load->view('backend/includes/footer'); ?>
 <script>
     var removeText = "<?php echo 'Do you really want to delete ?' ?>";

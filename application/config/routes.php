@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'backend/user';
+$route['default_controller'] = 'frontend/home';
 $route['404_override'] = '';//'user/permission';
 $route['translate_uri_dashes'] = FALSE;
 //===============================================================
@@ -58,28 +58,45 @@ $route['translate_uri_dashes'] = FALSE;
  */
 $route['sys-admin'] = 'backend/user';
 
-$route['sys-admin/action'] = 'backend/action';
-
-$route['sys-admin/config'] = 'backend/config';
-
+// dashboard
 $route['sys-admin/dashboard'] = 'backend/dashboard';
 
+// login
+$route['sys-admin/login'] = 'backend/user/checkLogin';
+
+// action
+$route['sys-admin/action'] = 'backend/action';
+$route['sys-admin/action/insert-update'] = 'backend/action/update';
+$route['sys-admin/action/delete'] = 'backend/action/delete';
+
+// config
+$route['sys-admin/config'] = 'backend/config';
+$route['sys-admin/config/abount'] = 'backend/config/abount';
+$route['sys-admin/config/update/(:num)'] = 'backend/config/update/$1';
+$route['sys-admin/config/change-language-abount'] = 'backend/config/changeLanguageAbount';
+
+// service
 $route['sys-admin/service'] = 'backend/service';
 $route['sys-admin/service-create'] = 'backend/service/add';
 $route['sys-admin/service-update'] = 'backend/service/edit';
 $route['sys-admin/service/get-list'] = 'backend/service/getListSelect2Ajax';
-$route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax'; 
+$route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax';  
 
+// location
 $route['sys-admin/location'] = 'backend/location';
 $route['sys-admin/location-create'] = 'backend/location/add';
 $route['sys-admin/location-update'] = 'backend/location/edit';
 $route['sys-admin/location/get-location-not-in-business-profile'] = 'backend/location/getLocationNotInBusinessProfile';
 
-$route['sys-admin/sider'] = 'backend/sider';
+// sider
+$route['sys-admin/slider/(:num)'] = 'backend/slider/index';
 
+// staff
 $route['sys-admin/staff'] = 'backend/user/staff';
 $route['sys-admin/staff-create'] = 'backend/user/add';
-$route['sys-admin/staff-update/(:num)'] = 'backend/user/edit/$id';
+$route['sys-admin/staff-update/(:num)'] = 'backend/user/edit/$1';
+$route['sys-admin/staff/insert-update'] = 'backend/user/update';
+$route['sys-admin/staff/change-status'] = 'backend/user/changeStatus';
 
 // customer
 $route['sys-admin/customer'] = 'backend/customer';
@@ -89,6 +106,7 @@ $route['sys-admin/customer-update/(:num)'] = 'backend/customer/edit/$1';
 $route['sys-admin/customer/insert-update'] = 'backend/customer/update';
 $route['sys-admin/customer/change-status'] = 'backend/customer/changeStatus'; 
 
+// business-profile
 $route['sys-admin/business-profile'] = 'backend/businessprofile';
 $route['sys-admin/business-profile-add'] = 'backend/businessprofile/add';
 $route['sys-admin/business-profile-update/(:num)'] = 'backend/businessprofile/edit/$1';
@@ -107,7 +125,96 @@ $route['sys-admin/coupon/get-list-business-profile'] = 'backend/coupon/getListSe
 $route['sys-admin/coupon/is-hot'] = 'backend/coupon/isHot';
 $route['sys-admin/coupon/change-status'] = 'backend/coupon/changeStatus'; 
 
+//event
+$route['sys-admin/event'] = 'backend/event';
+$route['sys-admin/event-create'] = 'backend/event/add';
+$route['sys-admin/event-update/(:num)'] = 'backend/event/edit/$1';
+$route['sys-admin/event/insert-update'] = 'backend/event/update'; 
+$route['sys-admin/event/change-status'] = 'backend/event/changeStatus';
 
 /**
  * FRONT-END ROUTES
  */
+
+$route['change-customer-language'] = 'frontend/site/changeLanguage';
+
+
+$route['customer-login'] = 'frontend/customer/checkLogin';
+$route['customer-signup'] = 'frontend/customer/register';
+$route['customer-logout'] = 'frontend/customer/logout';
+$route['customer-get-coupon'] = 'frontend/customer/customerGetCoupon';
+$route['customer-remove-coupon'] = 'frontend/customer/customerRemoveCoupon';
+$route['customer-join-event'] = 'frontend/customer/customerJoinEvent';
+$route['customer-left-event'] = 'frontend/customer/customerLeftEvent';
+$route['customer-change-password'] = 'frontend/customer/customerChangePassword';
+$route['customer-update-information'] = 'frontend/customer/customerUpdateInformation';
+
+//user management
+$route['customer/my-coupons'] = 'frontend/customer/my_coupons';
+$route['customer/general-information'] = 'frontend/customer/general_information';
+$route['customer/change-password'] = 'frontend/customer/change_password';
+$route['customer/my-events'] = 'frontend/customer/my_events';
+
+$route['notifications.html'] = 'frontend/notification/index';
+
+$route['login.html'] = 'frontend/login';
+$route['signup.html'] = 'frontend/signup';
+
+$route['home'] = 'frontend/home';
+$route['about-us.html'] = 'frontend/home/about';
+$route['term-of-use.html'] = 'frontend/home/term';
+$route['privacy-policy.html'] = 'frontend/home/privacy';
+
+//services
+$route['services.html'] = 'frontend/service/index';
+$route['service/(:any)-(:num)\.html'] = 'frontend/service/detail/$1/$2';
+$route['service/get-list-service-type'] = 'frontend/service/getListServiceTypeSelect2Ajax';
+
+//events
+$route['events.html'] = 'frontend/event/index';
+$route['event/(:any)-(:num)\.html'] = 'frontend/event/detail/$1/$2';
+$route['event/login.html'] = 'frontend/event/event_login';
+
+//coupons
+$route['coupons.html'] = 'frontend/coupon/index';
+$route['coupon/(:any)-(:num)\.html'] = 'frontend/coupon/detail/$1/$2';
+
+//notification
+$route['notifications.html'] = 'frontend/notification/index';
+
+//contact
+$route['customer/send-contact-us'] = 'frontend/contact/saveContactForm';
+
+
+//business management
+$route['my-business-profile'] = 'frontend/businessprofile/my_business';
+$route['business-profile/select-plan'] = 'frontend/businessprofile/select_plan';
+$route['business-profile/submit-select-plan'] = 'frontend/businessprofile/submitSelectPlan';
+$route['business-profile/got-free-trial'] = 'frontend/businessprofile/got_free_trial';
+$route['business-profile/create-new-business'] = 'frontend/businessprofile/create_new_business';
+$route['business-profile/create-business'] = 'frontend/businessprofile/updateBusiness';
+
+
+$route['fb-login'] = 'frontend/customer/loginFb';
+$route['fb-logout'] = 'frontend/customer/logout';
+
+//business profile - customer view
+$route['(:any)'] = 'frontend/businessprofile/index/$1';
+$route['business/(:any)/gallery'] = 'frontend/businessprofile/gallery/$1';
+$route['business/(:any)/coupons'] = 'frontend/businessprofile/coupons/$1';
+$route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
+
+//busines profile management
+$route['business-management/(:any)/about-us'] = 'frontend/businessprofile/manage_about_us/$1';
+$route['business-management/(:any)/gallery'] = 'frontend/businessprofile/manage_gallery/$1';
+$route['business-management/(:any)/coupons'] = 'frontend/businessprofile/manage_coupons/$1';
+$route['business-management/(:any)/create-coupon'] = 'frontend/businessprofile/manage_create_coupon/$1';
+$route['business-management/(:any)/events'] = 'frontend/businessprofile/manage_events/$1';
+$route['business-management/(:any)/create-event'] = 'frontend/businessprofile/manage_create_event/$1';
+$route['business-management/(:any)/reviews'] = 'frontend/businessprofile/manage_reviews/$1';
+$route['business-management/(:any)/reservations'] = 'frontend/businessprofile/manage_reservations/$1';
+$route['business-management/(:any)/subscriptions'] = 'frontend/businessprofile/manage_subscriptions/$1';
+
+
+$route['business-management/create-coupon'] = 'frontend/coupon/update';
+$route['business-management/create-event'] = 'frontend/event/update';
