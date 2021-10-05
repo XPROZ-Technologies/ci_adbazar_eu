@@ -97,7 +97,7 @@
                         <div class="wrapper-text">
                           <p class="mb-1 text-bill text-primary">Billed anually
                           </p>
-                          <p class="mb-1 text-payment">As one payment of 1299 CZK
+                          <p class="mb-1 text-payment">As one payment of 1099 CZK
                           </p>
                         </div>
                         <p class="mb-0 text-warning text-vat">VAT and local taxes may apply</p>
@@ -113,7 +113,7 @@
             </form>
             <div class="bm-plan-trail">
               <div class="d-flex justify-content-end">
-                <div class="d-flex flex-column align-items-center">
+                <div class="d-flex flex-column align-items-end">
                   <div class="d-flex align-items-center">
                     <a href="javascript:void(0)" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-select-plan">Start 3-month free trial</a>
                     <!--

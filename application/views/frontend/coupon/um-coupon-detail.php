@@ -53,7 +53,7 @@
                     <p class="text-danger text-desc">Please show your coupon to the vendor when you arrive.</p>
                   <?php } else { ?>
                     <!-- Not Saved -->
-                    <button type="button" class="btn btn-red w-100 btn-getnow btn-get-coupon">Get now</button>
+                    <button type="button" class="btn btn-red w-100 btn-getnow btn-get-coupon mb-80">Get now</button>
                     <button type="button" disabled="" class="btn btn-outline-red btn-outline-red-disabled w-100 btn-getnow btn-saved btn-hidden">Saved</button>
                   <?php } ?>
                   <div class="d-flex align-items-center detail-horizontal">

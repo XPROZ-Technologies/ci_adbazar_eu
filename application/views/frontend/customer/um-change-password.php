@@ -32,6 +32,14 @@
                       <div class="position-relative">
                         <input type="password" class="form-control form-control-lg" id="profileNewPassword" name="new_password" required >
                         <img src="assets/img/frontend/ic-eye.png" alt="icon-show-pass" class="icon-show-pass">
+                        <div class="tooltip-signup">
+                          <p>Your password has to meet the following requirements: </p>
+                          <ul>
+                              <li>At least 8 characters—the more characters, the better.</li>
+                              <li>At least 1 uppercase letter.</li>
+                              <li>A mixture of letters and numbers.</li>
+                          </ul>
+                      </div>
                       </div>
                     </div>
                     <div class="form-group mb-3" id="confirmPassBlock">

@@ -665,20 +665,21 @@ $(window).scroll(function(event) {
 });
 */
 
-$(document).on('click', '.input-eye', function (event) {
+$('.input-eye').mousedown(function(event){
   event.stopPropagation();
-  if ($(this).prev('input').attr('type') == "text") {
-    $(this).prev('input').attr('type', 'password');
-  } else {
     $(this).prev('input').attr('type', 'text');
-  }
-}).on('keyup', '.signup-form .signup-form-list .inputPassword', function (event) {
+});
+$('.input-eye').mouseup(function(event){
+  event.stopPropagation();
+    $(this).prev('input').attr('type', 'password');
+});
+$(document).on('keyup', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
   event.stopPropagation();
   var password = $(this).val();
   checkPass(password, $(this))
-}).on('blur', '.signup-form .signup-form-list .inputPassword', function (event) {
+}).on('blur', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
   $(this).parent().find('.tooltip-signup').hide();
-}).on('click', '.signup-form .signup-form-list .inputPassword', function (event) {
+}).on('click', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
   var password = $(this).val();
   checkPass(password, $(this))
 });
