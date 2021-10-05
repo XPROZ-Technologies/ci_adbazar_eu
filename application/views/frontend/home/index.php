@@ -265,7 +265,7 @@
     } else {
       $(".notiPopup .text-secondary").html('Please enter your contact information');
       $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").addClass('show');
+      $(".notiPopup").fadeIn('slow').fadeOut(5000);
     }
   });
 </script>
