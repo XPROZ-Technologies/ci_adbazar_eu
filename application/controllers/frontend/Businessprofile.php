@@ -735,7 +735,7 @@ class Businessprofile extends MY_Controller
         $pageCount = ceil($rowCount / $perPage);
         $page = $this->input->get('page');
         if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('business/' . $businessInfo['business_url'] . '/coupons');
+        $data['basePagingUrl'] = base_url('business-management/' . $businessInfo['business_url'] . '/coupons');
         $data['perPage'] = $perPage;
         $data['page'] = $page;
         $data['rowCount'] = $rowCount;
@@ -848,7 +848,7 @@ class Businessprofile extends MY_Controller
         $pageCount = ceil($rowCount / $perPage);
         $page = $this->input->get('page');
         if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('business/' . $businessInfo['business_url'] . '/events');
+        $data['basePagingUrl'] = base_url('business-management/' . $businessInfo['business_url'] . '/events');
         $data['perPage'] = $perPage;
         $data['page'] = $page;
         $data['rowCount'] = $rowCount;
