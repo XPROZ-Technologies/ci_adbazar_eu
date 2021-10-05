@@ -18,7 +18,7 @@
                     </div>
                     <div class="cover-icon" id="cover-icon">
                       <img src="assets/img/frontend/icon-camera.png" alt="icon-camera">
-                      <span id="cover-text text-decoration-underline">Upload cover photo</span>
+                      <span id="cover-text" class="text-decoration-underline">Upload cover photo</span>
                     </div>
                   </div>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="form-group mb-3">
                       <label for="bm-slogan" class="form-label">Slogan</label>
                       <div class="slogan-wrap">
-                        <input type="text" class="form-control form-control-lg" id="bm-slogan" aria-label="Business Slogan" name="business_slogan">
+                        <input maxlength="100" type="text" class="form-control form-control-lg" id="bm-slogan" aria-label="Business Slogan" name="business_slogan">
                         <!--<span class="text-secondary page-text-sm slogan-counter">0/100</span>-->
                       </div>
                     </div>
@@ -69,7 +69,10 @@
                   <div class="col-12">
                     <div class="form-group mb-3">
                       <label for="bm-url" class="form-label">Custom URL</label>
-                      <input type="url" class="form-control form-control-lg" placeholder="adbazar.eu/" aria-label="Custom URL" name="business_url" id="business_url">
+                      <div class="position-relative text-url">
+                        <span>adbazar.eu/</span>
+                        <input type="url" class="form-control form-control-lg" placeholder="" aria-label="Custom URL" name="business_url" id="business_url">
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-4">

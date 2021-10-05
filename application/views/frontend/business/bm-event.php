@@ -48,12 +48,13 @@
                     </div>
                   </div>
                   <div class="bp-event-list bm-event-list">
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                  <div class="position-relative">  
+                  <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event1.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -61,18 +62,20 @@
 
                         <div class="badge badge-primary bm-event-status">Upcomming</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                    </div>
+                    <div class="position-relative">
+                    <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event2.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -80,18 +83,20 @@
 
                         <div class="badge badge-approved bm-event-status">Ongoing</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                    </div>
+                    <div class="position-relative">
+                    <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event3.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -99,18 +104,20 @@
 
                         <div class="badge badge-cancel bm-event-status">Cancelled</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                    </div>
+                    <div class="position-relative">
+                    <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event1.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -118,18 +125,20 @@
 
                         <div class="badge badge-primary bm-event-status">Upcomming</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                    </div>
+                    <div class="position-relative">
+                    <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event2.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -137,18 +146,20 @@
 
                         <div class="badge badge-approved bm-event-status">Ongoing</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                    </div>
+                    <div class="position-relative">
+                    <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event3.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -156,18 +167,20 @@
 
                         <div class="badge badge-cancel bm-event-status">Cancelled</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                    </div>
+                    <div class="position-relative">
+                    <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event1.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -175,18 +188,20 @@
 
                         <div class="badge badge-primary bm-event-status">Upcomming</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                    </div>
+                    <div class="position-relative">
+                    <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event2.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -194,18 +209,20 @@
 
                         <div class="badge badge-approved bm-event-status">Ongoing</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                    </div>
+                    <div class="position-relative">
+                    <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event3.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -213,18 +230,20 @@
 
                         <div class="badge badge-cancel bm-event-status">Cancelled</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="bm-event-detail.html" class="event-img">
+                    </div>
+                    <div class="position-relative">
+                    <a href="" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                      <span class="event-img">
                         <img src="assets/img/frontend/bm-event1.png" alt="event image">
-                      </a>
+                      </span>
                       <div class="event-text">
-                        <a href="bm-event-detail.html" class="event-header page-text-lg fw-500">50% OFF for all new customers</a>
+                        <span class="event-header page-text-lg fw-500">50% OFF for all new customers</span>
                         <p class="mb-0">By Inspire Beauty Salon</p>
                         <hr class="my-2 my-lg-3">
                         <p class="event-date page-text-sm">Oct 21, 2021 - Oct 15, 2021</p>
@@ -232,13 +251,14 @@
 
                         <div class="badge badge-primary bm-event-status">Upcomming</div>
 
-                        <div class="bm-event-actions">
-                          <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                        </div>
                       </div>
+                    </a>
+                    <div class="bm-event-actions">
+                      <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                      <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                     </div>
-                  </div>
+                    </div>
+                  </a href="">
 
                   <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                     <div class="d-flex align-items-center pagination-left">

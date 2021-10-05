@@ -54,196 +54,233 @@
                 <div class="um-coupon-list grid-60">
                   <div class="row">
                     <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
-                                <div class="badge badge-primary">Upcoming</div>
-                              </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
                                 <div class="badge badge-approved">Ongoing</div>
+                                  <!-- <div class="badge badge-primary">Upcoming</div> -->
+                                  <!-- <div class="badge badge-cancel">End</div> -->
+                                </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
-                                <div class="badge badge-cancel">End</div>
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
+                                <!-- <div class="badge badge-approved">Ongoing</div> -->
+                                  <div class="badge badge-primary">Upcoming</div>
+                                  <!-- <div class="badge badge-cancel">End</div> -->
+                                </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
-                                <div class="badge badge-primary">Upcoming</div>
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
+                                <!-- <div class="badge badge-approved">Ongoing</div> -->
+                                  <!-- <div class="badge badge-primary">Upcoming</div> -->
+                                  <div class="badge badge-cancel">End</div>
+                                </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
                                 <div class="badge badge-approved">Ongoing</div>
+                                  <!-- <div class="badge badge-primary">Upcoming</div> -->
+                                  <!-- <div class="badge badge-cancel">End</div> -->
+                                </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
-                                <div class="badge badge-cancel">End</div>
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
+                                <!-- <div class="badge badge-approved">Ongoing</div> -->
+                                  <div class="badge badge-primary">Upcoming</div>
+                                  <!-- <div class="badge badge-cancel">End</div> -->
+                                </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
-                                <div class="badge badge-primary">Upcoming</div>
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
+                                <!-- <div class="badge badge-approved">Ongoing</div> -->
+                                  <!-- <div class="badge badge-primary">Upcoming</div> -->
+                                  <div class="badge badge-cancel">End</div>
+                                </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
                                 <div class="badge badge-approved">Ongoing</div>
+                                  <!-- <div class="badge badge-primary">Upcoming</div> -->
+                                  <!-- <div class="badge badge-cancel">End</div> -->
+                                </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
-                                <div class="badge badge-cancel">End</div>
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
+                                <div class="badge badge-approved">Ongoing</div>
+                                  <!-- <div class="badge badge-primary">Upcoming</div> -->
+                                  <!-- <div class="badge badge-cancel">End</div> -->
+                                </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="card customer-coupon-item um-coupon-item bm-coupon-item">
-                        <a href="bm-coupon-detail.html" class="customer-coupon-img">
-                          <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
-                        </a>
-                        <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                          <div class="customer-coupon-body">
-                            <h6 class="card-title page-text-sm"><a href="bm-coupon-detail.html">Face and Body Full
-                                Massage Service (80 minutes)</a></h6>
-                            <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20,
-                              2021</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                              <div class="wraper-status">
-                                <div class="badge badge-cancel">End</div>
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
+                                <div class="badge badge-approved">Ongoing</div>
+                                  <!-- <div class="badge badge-primary">Upcoming</div> -->
+                                  <!-- <div class="badge badge-cancel">End</div> -->
+                                </div>
                               </div>
-                              <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode">View
-                                detail</a>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="position-relative">
+                        <a href="bm-coupon-detail.html" class="card customer-coupon-item um-coupon-item bm-coupon-item">
+                          <span class="customer-coupon-img">
+                            <img src="assets/img/frontend/um-coupon1.png" class="img-fluid" alt="coupon image">
+                        </span>
+                          <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                            <div class="customer-coupon-body">
+                              <h6 class="card-title page-text-sm"><span>Face and Body Full Massage Service (80 minutes)</span></h6>
+                              <p class="card-text page-text-xs">Oct 21, 2021 - Dec 20, 2021</p>
+                              <div class="d-flex align-items-center justify-content-between">
+                                <div class="wraper-status">
+                                <div class="badge badge-approved">Ongoing</div>
+                                  <!-- <div class="badge badge-primary">Upcoming</div> -->
+                                  <!-- <div class="badge badge-cancel">End</div> -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="#" class="btn btn-outline-red btn-outline-red-md btn-viewcode fw-bold">Detail</a>
                       </div>
                     </div>
                   </div>

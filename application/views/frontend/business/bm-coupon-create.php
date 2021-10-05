@@ -66,7 +66,7 @@
                     <button type="button" class="minus">
                       <img src="assets/img/frontend/ic-minus.png" alt="icon minus">
                     </button>
-                    <input type="number" class="form-control form-control-lg quantity" id="quantityCoupon" value="200" min="1" max="200" name="coupon_amount">
+                    <input type="number" class="form-control form-control-lg quantity" id="quantityCoupon" value="100" min="1" max="200" name="coupon_amount">
                     <button type="button" class="plus">
                       <img src="assets/img/frontend/ic-plus.png" alt="icon plus">
                     </button>
