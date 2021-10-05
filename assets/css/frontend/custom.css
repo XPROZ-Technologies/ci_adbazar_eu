@@ -383,6 +383,7 @@ object-fit: contain;
 .page-user-manager.page-um-change-pass .um-content .um-right {
     margin-left: 19px;
 }
+.bm-coupon-item:hover,
 .customer-event-item:hover{
     color: inherit;
 }
