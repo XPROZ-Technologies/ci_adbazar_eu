@@ -37,6 +37,33 @@ app.library = function() {
         var isHot = state ? 2 : 1;
         $(this).val(isHot)
     });
+
+    $("select#country_code_id").select2({
+        placeholder: '--Choose Country Code--',
+        allowClear: true,
+        ajax: {
+            url: $("input#urlGetPhoneCode").val(),
+            type: 'POST',
+            dataType: 'json',
+            data: function(data) {
+                return {
+                    search_text: data.term
+                };
+            },
+            processResults: function(data, params) {
+                return {
+                    results: $.map(data, function(item) {
+                        return {
+                            text: item.country_name +'  +'+item.phonecode,
+                            id: item.id,
+                            data: item
+                        };
+                    })
+                };
+            }
+        }
+
+    });
 }
 
 app.submits = function(userId) {
@@ -44,6 +71,13 @@ app.submits = function(userId) {
         var $this = $(this);
         $this.prop('disabled', true);
         if (validateEmpty('#customerForm', '.submit')) {
+            var country_code_id = $("select#country_code_id").val();
+            if(country_code_id == null || country_code_id == 'null'){
+                showNotification(phoneCode, 0);
+                $('select#country_code_id').focus();
+                $('.submit').prop('disabled', false);
+                return false;
+            }
            
             if (!validateEmail($('input[name="customer_email"]').val()) && $('input[name="customer_email"]').val().trim() != '') {
                 showNotification(emailText, 0);
