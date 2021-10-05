@@ -236,11 +236,11 @@
       var message = $("#contactMessage").val();
       if(email !== "" && name != "" && message != ""){
           //this.submit();
-          $(".notiPopup").addClass('show');
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
           $(".notiPopup .text-secondary").html('Message sent');
           $(".ico-noti-success").removeClass('ico-hidden');
       }else{
-          $(".notiPopup").addClass('show');
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
           $(".notiPopup .text-secondary").html('Please enter your contact information');
           $(".ico-noti-error").removeClass('ico-hidden');
       }

@@ -1,5 +1,5 @@
 <?php $this->load->view('frontend/includes/header'); ?>
-    <main>
+    <main class="main-customer">
         <div class="page-customer-service">
             <div class="customer-service-grid">
                 <div class="container">

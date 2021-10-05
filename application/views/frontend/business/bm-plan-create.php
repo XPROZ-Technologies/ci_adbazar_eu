@@ -117,7 +117,7 @@
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn disabled">
-                              <input id="checkbox4" type="checkbox" class="checkbox" disabled />
+                              <input id="checkbox4" type="checkbox" class="checkbox" />
                               <label for="checkbox4" class="switch">
                                 <span class="switch-circle">
                                   <span class="switch-circle-inner"></span>

@@ -89,7 +89,7 @@ content: '';
     display: inline-block;
 }
 .page-item.active a.page-link:after {
-    left: 10px;
+    left: 8px;
 }
 .customer-service-item {
     margin-bottom: 32px;
@@ -141,7 +141,30 @@ html {
 main{
     padding-top: 57px;
 }
+@media (min-width: 1366px){
+    .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+        max-width: 1146px;
+        padding: 0;
+    }
+    .main-customer .container,
+    .page-header  .container{
+        max-width: 1339px;
+   }
+   .page-footer .container{
+       max-width: 1086px;
+   }
+   .customer-service-left {
+    height: 843px;
+    margin-left: -40px;
+    }
+}
 @media (min-width: 1200px){
+    .main-customer .page-customer-service .customer-service-list .col-xl-3 {
+        width: 34.19%;
+    }
+    .main-customer .page-customer-service .customer-service-list .col-xl-9 {
+        width: 65.81%;
+    }
     .navbar-expand-xl .navbar-nav {
         margin-left: inherit!important;
     }
@@ -150,7 +173,41 @@ main{
     }
     main{
         padding-top: 74px;
+        min-height: calc(100vh - 202px);
     }
+}
+.toast:not(.showing):not(.show) {
+    opacity: 1;
+}
+.toast{
+    display: none;
+}
+.um-content .um-right{
+    margin-left: 7px;
+}
+.um-reservation, .um-coupon{
+    padding: 0 20px;
+}
+.um-coupon-list {
+    padding: 0;
+}
+.bm-content .container, .page-user-manager .container, .page-business-profile .container {
+    min-height: 345px;
+}
+.customer-item-list .view-more .btn {
+    margin-top: 24px;
+}
+.customer-service-list .inner-service .wrapper-search {
+    margin-bottom: 16px;
+}
+.list-tags {
+    margin-bottom: 24px;
+}
+.card .card-body .page-text-lg {
+    font-weight: bold;
+}
+.dropdown-language .selected .dropdown-item {
+    color: #C20000;
 }
 .page-header {
     z-index: 999!important;
@@ -229,7 +286,7 @@ min-height: 322px;
 
 .discover_more {
     padding: 8.5px 73.5px!important;
-    width: calc(25% - 20px)!important;
+    width: calc(25% - 22.5px)!important;
 }
 .home-event-slider .carousel-caption{
     left: 0;
@@ -358,6 +415,22 @@ min-height: 322px;
 .bm-create-content .open-hour-item.disabled-item .time-content::after {
     background-image: url(../../img/frontend/ic-timepicker.png);
 }
+.customer-location .text-success{
+    font-size: 10px;
+    line-height: 12px;
+}
+.customer-service-grid {
+    padding: 40px 0 40px;
+}
+.customer-service-grid .page-heading {
+    padding: 0;
+    margin-bottom: 24px;
+}
+.customer-service-grid [class*='row'], .grid-40 [class='row'] {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
 @media (max-width: 1366px){
     .discover_more {
         padding: 8.5px 73.5px!important;
