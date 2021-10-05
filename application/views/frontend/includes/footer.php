@@ -40,6 +40,7 @@
     
     <!--<script src="assets/js/frontend/commons/jquery.slim.min.js"></script>-->
     <script src="assets/js/frontend/commons/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
     <script src="assets/js/frontend/commons/owl.carousel.min.js"></script>
     <script src="assets/js/frontend/commons/moment.min.js"></script>
     <script src="assets/js/frontend/commons/tempusdominus-bootstrap-4.min.js"></script>
@@ -52,7 +53,7 @@
     <script src="assets/vendor/plugins/lib/main.js?version=<?php echo time(); ?>"></script>
     <script src="assets/js/frontend/common.js?version=<?php echo time(); ?>"></script>
     <script src="assets/js/frontend/home/list.js?version=<?php echo time(); ?>"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/js/BsMultiSelect.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
     

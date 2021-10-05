@@ -302,6 +302,7 @@ $(window).ready(() => {
     );
   });
 
+  /*
   // Multiselect tags dropdown
   if ($("select[multiple='multiple']").length > 0) {
     $("select[multiple='multiple']").bsMultiSelect({
@@ -312,7 +313,10 @@ $(window).ready(() => {
       }
     });
   }
+  */
+
 });
+
 document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
   const dropZoneElement = inputElement.closest(".drop-zone");
   const changeImgElement = document.getElementById('change-event-img');

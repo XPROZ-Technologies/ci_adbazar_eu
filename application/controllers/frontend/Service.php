@@ -98,5 +98,21 @@ class Service extends MY_Controller {
 
         $this->load->view('frontend/service/customer-service-list', $data);
     }
+
+    public function getListServiceTypeSelect2Ajax(){
+        $data = $this->commonDataCustomer('');
+        $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $serviceId = $this->input->post('service_id');
+        $this->load->model('Mservicetypes');
+        if(empty($serviceId)) $serviceId = 0;
+        $list = $this->Mservicetypes->getListServiceTypeSelect2AjaxFrontend($serviceId, $service_type_name);
+        $serviceTypesHtml = "";
+        if(!empty($list)){
+            foreach($list as $itemService){
+                $serviceTypesHtml .= '<option value="'.$itemService['id'].'">'.$itemService['service_type_name'].'</option>';
+            }
+        }
+        echo $serviceTypesHtml;die;
+    }
     
 }

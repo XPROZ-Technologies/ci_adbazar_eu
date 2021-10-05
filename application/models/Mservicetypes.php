@@ -72,4 +72,10 @@ class Mservicetypes extends MY_Model {
         $query = "SELECT * FROM service_types WHERE service_id = ".$serviceId.$where." LIMIT 200";
         return $this->getByQuery($query);
     }
+
+    public function getListServiceTypeSelect2AjaxFrontend($serviceId, $service_type_name = "service_type_name_de"){
+        $where = '';
+        $query = "SELECT id, {$service_type_name} as service_type_name FROM service_types WHERE service_id = ".$serviceId.$where." LIMIT 50";
+        return $this->getByQuery($query);
+    }
 }

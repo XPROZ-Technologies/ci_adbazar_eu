@@ -1,4 +1,5 @@
 <?php $this->load->view('frontend/includes/header'); ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/css/BsMultiSelect.min.css" />
 <main>
   <div class="page-business-manager">
     <div class="bm-create">
@@ -131,11 +132,11 @@
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[0][start_time]" id="timePicker1" data-toggle="datetimepicker" data-target="#timePicker1" placeholder="Open at"  />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[0][start_time]" id="timePicker1" data-toggle="datetimepicker" data-target="#timePicker1" placeholder="Open at" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[0][start_time]" id="timePicker2" data-toggle="datetimepicker" data-target="#timePicker2" placeholder="Open at"  />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[0][start_time]" id="timePicker2" data-toggle="datetimepicker" data-target="#timePicker2" placeholder="Open at" />
                               </div>
                             </div>
                           </div>
@@ -200,7 +201,7 @@
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn">
-                              <input id="checkboxThursday" type="checkbox" class="checkbox"  name="open_hours[3][opening_hours_status_id]" />
+                              <input id="checkboxThursday" type="checkbox" class="checkbox" name="open_hours[3][opening_hours_status_id]" />
                               <label for="checkboxThursday" class="switch">
                                 <span class="switch-circle">
                                   <span class="switch-circle-inner"></span>
@@ -227,7 +228,7 @@
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn">
-                              <input id="checkboxFriday" type="checkbox" class="checkbox"  name="open_hours[4][opening_hours_status_id]" />
+                              <input id="checkboxFriday" type="checkbox" class="checkbox" name="open_hours[4][opening_hours_status_id]" />
                               <label for="checkboxFriday" class="switch">
                                 <span class="switch-circle">
                                   <span class="switch-circle-inner"></span>
@@ -254,7 +255,7 @@
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn">
-                              <input id="checkboxSaturday" type="checkbox" class="checkbox"  name="open_hours[5][opening_hours_status_id]" />
+                              <input id="checkboxSaturday" type="checkbox" class="checkbox" name="open_hours[5][opening_hours_status_id]" />
                               <label for="checkboxSaturday" class="switch">
                                 <span class="switch-circle">
                                   <span class="switch-circle-inner"></span>
@@ -281,7 +282,7 @@
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn">
-                              <input id="checkboxSunday" type="checkbox" class="checkbox"  name="open_hours[6][opening_hours_status_id]" />
+                              <input id="checkboxSunday" type="checkbox" class="checkbox" name="open_hours[6][opening_hours_status_id]" />
                               <label for="checkboxSunday" class="switch">
                                 <span class="switch-circle">
                                   <span class="switch-circle-inner"></span>
@@ -317,8 +318,8 @@
                   <div class="col-12">
                     <div class="form-group mb-3">
                       <label class="form-label">Type of service <span class="required text-danger">*</span></label>
-                      <div class="custom-select">
-                        <select name="service_id" required>
+                      <div class="custom-select js-select-service">
+                        <select name="service_id" required id="serviceId">
                           <?php foreach ($listServices as $itemService) { ?>
                             <option value="<?php echo $itemService['id']; ?>"><?php echo $itemService['service_name']; ?></option>
                           <?php } ?>
@@ -327,25 +328,15 @@
                     </div>
                   </div>
 
-                  <!-- 
-                  <div class="col-12">
+
+                  <div class="col-12 serviceTypeBlock">
                     <label class="form-label" for="sub-category">Sub-categories<span class="required text-danger">*</span></label>
-                    <select name="sub-category" class="form-control form-control-lg js-tags-select" multiple="multiple">
-
-                      <option value="Nails">Nails</option>
-
-                      <option value="Hairs">Hairs</option>
-
-                      <option value="Massage">Massage</option>
-
-                      <option value="Permanent Makeup">Permanent Makeup</option>
-
-                      <option selected value=Others>Others</option>
-
+                    <select name="service_type_ids" id="serviceTypeId" class="form-control form-control-lg js-tags-select" multiple="multiple">
+                      
                     </select>
 
                   </div>
-                  -->
+
 
                   <div class="col-12">
                     <div class="form-group d-flex justify-content-center action-btn">
@@ -364,6 +355,8 @@
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
 <script>
+  $(".serviceTypeBlock").hide();
+
   $("body").on("click", ".js-list-country li a", function() {
     //alert($(this).data('id'));
     $("#businessPhoneCode").val($(this).data('id'));
@@ -418,5 +411,37 @@
   $("#cover-profile-upload").on("change", function() {
     readURL(this, $("#cover-photo"), $('#businessCoverUpload'));
     $("#cover-text").text("Change cover photo");
+  });
+
+
+  $("#serviceTypeId").bsMultiSelect({
+    useCssPatch: false,
+    css: {
+      choice_hover: '',
+      picks_focus: '',
+    }
+  });
+
+
+  // Select service
+  $("body").on("click", ".js-select-service li", function() {
+    var service_id = $(this).data('value');
+    $.ajax({
+      type: "POST",
+      url: '<?php echo base_url('service/get-list-service-type'); ?>',
+      data: {
+        service_id: service_id
+      },
+      dataType: 'text',
+      success: function(response) {
+        $("#serviceTypeId").html(response);
+        $("#serviceTypeId").bsMultiSelect("UpdateData");
+        $(".serviceTypeBlock").show();
+      },
+      error: function(response) {}
+    });
+
+    
+
   });
 </script>

@@ -80,7 +80,7 @@ $route['sys-admin/service'] = 'backend/service';
 $route['sys-admin/service-create'] = 'backend/service/add';
 $route['sys-admin/service-update'] = 'backend/service/edit';
 $route['sys-admin/service/get-list'] = 'backend/service/getListSelect2Ajax';
-$route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax'; 
+$route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax';  
 
 // location
 $route['sys-admin/location'] = 'backend/location';
@@ -168,6 +168,7 @@ $route['privacy-policy.html'] = 'frontend/home/privacy';
 //services
 $route['services.html'] = 'frontend/service/index';
 $route['service/(:any)-(:num)\.html'] = 'frontend/service/detail/$1/$2';
+$route['service/get-list-service-type'] = 'frontend/service/getListServiceTypeSelect2Ajax';
 
 //events
 $route['events.html'] = 'frontend/event/index';

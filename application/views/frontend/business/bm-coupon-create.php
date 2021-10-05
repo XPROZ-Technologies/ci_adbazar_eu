@@ -105,7 +105,6 @@
       data: data,
       dataType: 'json',
       success: function(response) {
-
         if (response.code == 1) {
           $(".notiPopup .text-secondary").html(response.message);
           $(".ico-noti-success").removeClass('ico-hidden');
@@ -123,7 +122,7 @@
       error: function(response) {
         $('.btn-create').prop('disabled', false);
 
-        $(".notiPopup .text-secondary").html(response.message);
+        $(".notiPopup .text-secondary").html(<?php echo ERROR_COMMON_MESSAGE; ?>);
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").addClass('show');
       }
