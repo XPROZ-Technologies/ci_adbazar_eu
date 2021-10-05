@@ -55,32 +55,30 @@
                   </div>
                   
                   <div class="bp-event-list bm-event-list">
-
-                  <?php foreach ($lists as $key => $eventItem) {
+                    <?php foreach ($lists as $key => $eventItem) {
                         $eventDetailUrl = base_url('event/' . makeSlug($eventItem['event_subject']) . '-' . $eventItem['id']) . '.html'; ?>
-                    <div class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                      <a href="<?php echo $eventDetailUrl; ?>" class="event-img">
-                        <img src="<?php echo $eventItem['event_image']; ?>" alt="<?php echo $eventItem['event_subject']; ?>">
-                      </a>
-                      <div class="event-text">
-                        <a href="<?php echo $eventDetailUrl; ?>" class="event-header page-text-lg fw-500"><?php echo $eventItem['event_subject']; ?></a>
-                        <p class="mb-0">By <?php echo $eventItem['business_name']; ?></p>
-                        <hr class="my-2 my-lg-3">
-                        <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?></p>
-                        <p class="mb-0 event-time page-text-sm"><?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
+                    <div class="position-elative">
+                      <a href="<?php echo $eventDetailUrl; ?>" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                        <span class="event-img">
+                          <img src="<?php echo $eventItem['event_image']; ?>" alt="<?php echo $eventItem['event_subject']; ?>">
+                        </span>
+                        <div class="event-text">
+                          <span class="event-header page-text-lg fw-500"><?php echo $eventItem['event_subject']; ?></span>
+                          <p class="mb-0">By <?php echo $eventItem['business_name']; ?></p>
+                          <hr class="my-2 my-lg-3">
+                          <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?></p>
+                          <p class="mb-0 event-time page-text-sm"><?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
 
-                        <div class="badge badge-primary bm-event-status">Upcomming</div>
-
-                        <div class="bm-event-actions">
-                          <a href="javascript:void(0)" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                          <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
+                          <div class="badge badge-primary bm-event-status">Upcomming</div>
                         </div>
+                      </a>
+                      <div class="bm-event-actions">
+                        <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                        <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
                       </div>
                     </div>
                     <?php } ?>
-
                   </div>
-
                   <?php } else { ?>
                     <div class="zero-event zero-box">
                       <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
@@ -125,7 +123,7 @@
                         </nav>
                         <!-- End Page pagination -->
                       </div>
-                    </div>
+                    </a>
                     <!-- END. Pagination -->
                   <?php } ?>
 

@@ -45,7 +45,7 @@
           </ul>
         </div>
         <?php if (count($lists) > 0) { ?>     
-        <div class="customer-coupon-content grid-60">
+        <div class="customer-coupon-content grid-60 all-coupon">
           <div class="row">
             <!-- coupon item -->
             <?php foreach ($lists as $indexCoupon => $itemCoupon) {

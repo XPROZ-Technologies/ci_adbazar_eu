@@ -33,52 +33,54 @@
                   <?php if (!empty($listProfiles) > 0) { ?>
                     <?php for ($i = 0; $i < count($listProfiles); $i++) { ?>
                       <!-- Business profile -->
-                      <div class="card rounded-0 customer-item-list">
-                        <div class="d-flex flex-column flex-md-row">
-                          <a href="<?php echo base_url(BUSINESS_PROFILE_URL.$listProfiles[$i]['business_url']); ?>" class="list-img"><img src="<?php echo BUSINESS_PROFILE_PATH . $listProfiles[$i]['business_avatar']; ?>" class="img-fluid" alt="<?php echo $listProfiles[$i]['business_name']; ?>"></a>
-
-                          <div class="card-body p-0">
-                            <h5 class="card-title page-text-lg fw-500"><a href="<?php echo base_url($listProfiles[$i]['business_url']); ?>"><?php echo $listProfiles[$i]['business_name']; ?></a></h5>
-                            <p class="card-text page-text-xxs"><?php echo $listProfiles[$i]['business_slogan']; ?></p>
-                            <ul class="list-unstyled mb-0 list-info">
-                              <li class="page-text-xxs font-style-normal">
-                                <div class="wrapper-img"><img src="assets/img/frontend/ic-tag-service.svg" alt="tag icon" class="img-fluid">
-                                </div><?php $businessServiceTypes = $listProfiles[$i]['businessServiceTypes'];
-                                      for ($k = 0; $k < count($businessServiceTypes); $k++) {
-                                        echo $businessServiceTypes[$k]['service_type_name'];
-                                        if ($k < (count($businessServiceTypes) - 1)) {
-                                          echo ', ';
-                                        }
-                                      } ?>
-                              </li>
-                              <li class="page-text-xxs font-style-normal">
-                                <div class="wrapper-img"><img src="assets/img/frontend/ic-telephone-service.svg" alt="telephone icon" class="img-fluid"></div>+<?php echo $listProfiles[$i]['country_code_id']; ?> <?php echo ltrim($listProfiles[$i]['business_phone'], '0'); ?>
-                              </li>
-                              <li class="page-text-xxs font-style-normal" >
-                                <div class="wrapper-img"><img src="assets/img/frontend/ic-place-service.svg" alt="map icon" class="img-fluid">
-                                </div><?php echo $listProfiles[$i]['business_address']; ?>
-                              </li>
-                            </ul>
-                            
-                            <ul class="list-inline mb-0 list-rating">
-                              <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              <li class="list-inline-item"><a href="#"><i class="bi bi-star"></i></a></li>
-                              <li class="list-inline-item fw-500">(10)</li>
-                            </ul>
-                            
-                            <div class="view-more">
-                              <?php if ($listProfiles[$i]['isOpen']) { ?>
-                                <span class="text-success page-text-xs text-center">Open now</span>
-                              <?php } else { ?>
-                                <span class="color-close page-text-xs text-center">Closed</span>
-                              <?php } ?>
-                              <a href="<?php echo base_url(BUSINESS_PROFILE_URL.$listProfiles[$i]['business_url']); ?>" class="btn btn-outline-red">View more</a>
+                      <div class="position-relative">
+                        <a href="<?php echo base_url(BUSINESS_PROFILE_URL.$listProfiles[$i]['business_url']); ?>" class="card rounded-0 customer-item-list">
+                          <div class="d-flex flex-column flex-md-row">
+                            <span class="list-img"><img src="<?php echo BUSINESS_PROFILE_PATH . $listProfiles[$i]['business_avatar']; ?>" class="img-fluid" alt="<?php echo $listProfiles[$i]['business_name']; ?>"></span>
+  
+                            <div class="card-body p-0">
+                              <h5 class="card-title page-text-lg fw-500"><span><?php echo $listProfiles[$i]['business_name']; ?></span></h5>
+                              <p class="card-text page-text-xxs"><?php echo $listProfiles[$i]['business_slogan']; ?></p>
+                              <ul class="list-unstyled mb-0 list-info">
+                                <li class="page-text-xxs font-style-normal">
+                                  <div class="wrapper-img"><img src="assets/img/frontend/ic-tag-service.svg" alt="tag icon" class="img-fluid">
+                                  </div><?php $businessServiceTypes = $listProfiles[$i]['businessServiceTypes'];
+                                        for ($k = 0; $k < count($businessServiceTypes); $k++) {
+                                          echo $businessServiceTypes[$k]['service_type_name'];
+                                          if ($k < (count($businessServiceTypes) - 1)) {
+                                            echo ', ';
+                                          }
+                                        } ?>
+                                </li>
+                                <li class="page-text-xxs font-style-normal">
+                                  <div class="wrapper-img"><img src="assets/img/frontend/ic-telephone-service.svg" alt="telephone icon" class="img-fluid"></div>+<?php echo $listProfiles[$i]['country_code_id']; ?> <?php echo ltrim($listProfiles[$i]['business_phone'], '0'); ?>
+                                </li>
+                                <li class="page-text-xxs font-style-normal" >
+                                  <div class="wrapper-img"><img src="assets/img/frontend/ic-place-service.svg" alt="map icon" class="img-fluid">
+                                  </div><?php echo $listProfiles[$i]['business_address']; ?>
+                                </li>
+                              </ul>
+                              
+                              <ul class="list-inline mb-0 list-rating">
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star-fill"></i><span></li>
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star-fill"></i><span></li>
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star-fill"></i><span></li>
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star-fill"></i><span></li>
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star"></i><span></li>
+                                <li class="list-inline-item fw-500">(10)</li>
+                              </ul>
+                              
+                              <div class="view-more">
+                                <?php if ($listProfiles[$i]['isOpen']) { ?>
+                                  <span class="text-success page-text-xs text-center">Open now</span>
+                                <?php } else { ?>
+                                  <span class="color-close page-text-xs text-center">Closed</span>
+                                <?php } ?>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </a>
+                        <a href="<?php echo base_url(BUSINESS_PROFILE_URL.$listProfiles[$i]['business_url']); ?>" class="btn btn-outline-red view-more-list-cus">View more</a>
                       </div>
                       <!-- END. Business profile -->
                     <?php } ?>

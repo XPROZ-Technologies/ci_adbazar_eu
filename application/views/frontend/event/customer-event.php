@@ -133,6 +133,9 @@
         ],
         dateClick: function(info) {
           //get date
+          console.log(info.dateStr);// ngày click
+          console.log(info.dayEl);// html ngày click
+          info.dayEl.style.backgroundColor = 'red';
           redirect(false, '<?php echo base_url('events.html'); ?>?selected_date=' + info.dateStr);
         }
       });

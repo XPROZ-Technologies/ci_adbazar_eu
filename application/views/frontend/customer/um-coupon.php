@@ -67,26 +67,28 @@
                       <?php foreach ($lists as $indexCoupon => $itemCoupon) {
                         $couponDetailUrl = base_url('coupon/' . makeSlug($itemCoupon['coupon_subject']) . '-' . $itemCoupon['id']) . '.html'; ?>
                         <div class="col-md-6">
-                          <div class="card customer-coupon-item um-coupon-item position-relative">
-                            <a href="<?php echo $couponDetailUrl; ?>" class="customer-coupon-img">
-                              <img src="<?php echo COUPONS_PATH . $itemCoupon['coupon_image']; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
-                            </a>
-                            <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                              <div class="customer-coupon-body">
-                                <h6 class="card-title page-text-sm"><a href="<?php echo $couponDetailUrl; ?>"><?php echo $itemCoupon['coupon_subject']; ?></a></h6>
-                                <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
-                                <div class="d-flex align-items-center justify-content-between">
-                                  <div class="wraper-status <?php echo $itemCoupon['customer_coupon_status_id']; ?>">
-                                    <?php if (isset($itemCoupon['customer_coupon_status_id']) && $itemCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
-                                      <span class="badge badge-approved">Valid</span>
-                                    <?php } else { ?>
-                                      <span class="badge badge-declined">Invalid</span>
-                                    <?php } ?>
+                          <div class="position-relative">
+                            <a href="<?php echo $couponDetailUrl; ?>"  class="card customer-coupon-item um-coupon-item position-relative">
+                              <span class="customer-coupon-img">
+                                <img src="<?php echo COUPONS_PATH . $itemCoupon['coupon_image']; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
+                              </span>
+                              <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                                <div class="customer-coupon-body">
+                                  <h6 class="card-title page-text-sm"><span><?php echo $itemCoupon['coupon_subject']; ?></span></h6>
+                                  <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
+                                  <div class="d-flex align-items-center justify-content-between">
+                                    <div class="wraper-status <?php echo $itemCoupon['customer_coupon_status_id']; ?>">
+                                      <?php if (isset($itemCoupon['customer_coupon_status_id']) && $itemCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
+                                        <span class="badge badge-approved">Valid</span>
+                                      <?php } else { ?>
+                                        <span class="badge badge-declined">Invalid</span>
+                                      <?php } ?>
+                                    </div>
                                   </div>
-                                  <a href="<?php echo $couponDetailUrl; ?>" class="btn btn-outline-red btn-outline-red-md btn-viewcode">View code</a>
                                 </div>
                               </div>
-                            </div>
+                            </a>
+                            <a href="<?php echo $couponDetailUrl; ?>" class="btn btn-outline-red btn-outline-red-md btn-viewcode">View code</a>
                           </div>
                         </div>
                       <?php } ?>
