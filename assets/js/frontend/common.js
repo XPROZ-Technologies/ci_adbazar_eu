@@ -160,7 +160,7 @@ $(document).ready(function () {
         });
     });
     $("body").on("click", ".btn-toast-close", function(){
-        $(".toast").removeClass('show');
+        $(".toast").fadeOut(2000);
     }).on("click", ".open-hour-item .switch-btn .switch", function(){
         $(this).closest('.open-hour-item .switch-btn').toggleClass('disabled');
         $(this).closest('.open-hour-item').toggleClass('disabled-item');
