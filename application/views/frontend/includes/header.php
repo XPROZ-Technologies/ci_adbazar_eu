@@ -335,7 +335,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle  <?php if (isset($activeMenu) && $activeMenu == "services") {
                                                       echo "active";
-                                                    } ?>" href="#" id="serviceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    } ?>" href="<?php echo base_url('services.html') ?>" id="serviceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Services
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
