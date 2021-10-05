@@ -12,7 +12,7 @@
           </div>
           <div class="col-lg-9">
             <div class="um-right">
-              <div class="um-coupon bm-coupon">
+              <div class="um-coupon bm-coupon p-0">
                 <div class="coupon-top">
                   <div class="d-flex flex-column flex-xl-row justify-content-xl-between">
                     <form class="d-flex mb-3 mb-xl-0">

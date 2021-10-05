@@ -141,16 +141,15 @@
     <div class="modal fade" id="bmEventModal" tabindex="-1" aria-labelledby="bmEventModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header border-bottom-0">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
           <div class="modal-body">
             <p class="page-text-lg text-center">Are you sure want to remove the coupon
               <b>50% OFF for all new customers?</b>
             </p>
+
             <div class="d-flex justify-content-center modal-btn mt-60">
               <a href="javascript:void(0)" class="btn btn-red btn-yes" data-bs-dismiss="modal">Yes</a>
               <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md ml-10 btn-cancel" data-bs-dismiss="modal">Cancel</a>
+
             </div>
           </div>
         </div>

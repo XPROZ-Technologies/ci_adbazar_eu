@@ -435,7 +435,7 @@
                         <span class="mt-3 d-block">John</span>
                       </div>
                       <div class="comment-body">
-                        <p>08/31/2021</p>
+                        <p class="font500">08/31/2021</p>
                         <ul class="list-inline list-rating">
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
@@ -464,7 +464,7 @@
                         <span class="mt-3 d-block">John</span>
                       </div>
                       <div class="comment-body">
-                        <p>08/31/2021</p>
+                        <p class="font500">08/31/2021</p>
                         <ul class="list-inline list-rating">
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
@@ -483,7 +483,7 @@
 
                     <div class="d-flex flex-column flex-lg-row comment-item no-avatar">
                       <div class="comment-body">
-                        <p>08/31/2021</p>
+                        <p class="font500">08/31/2021</p>
                         <ul class="list-inline list-rating">
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
@@ -506,7 +506,7 @@
                         <span class="mt-3 d-block ">John</span>
                       </div>
                       <div class="comment-body">
-                        <p>08/31/2021</p>
+                        <p class="font500">08/31/2021</p>
                         <ul class="list-inline list-rating">
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
@@ -529,7 +529,7 @@
                         <span class="mt-3 d-block ">John</span>
                       </div>
                       <div class="comment-body">
-                        <p>08/31/2021</p>
+                        <p class="font500">08/31/2021</p>
                         <ul class="list-inline list-rating">
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
@@ -552,7 +552,7 @@
                         <span class="mt-3 d-block">John</span>
                       </div>
                       <div class="comment-body">
-                        <p>08/31/2021</p>
+                        <p class="font500">08/31/2021</p>
                         <ul class="list-inline list-rating">
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
                           <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
