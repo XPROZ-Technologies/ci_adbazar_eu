@@ -2755,6 +2755,15 @@ span.switch-left {
 .page-business-profile .container{
     padding: 0;
 }
+#pills-photo .tab-photo-wrap .photo-list .row.g-3 > div[class^="col-"] {
+    padding-left: 6.5px;
+    padding-right: 6.5px;
+}
+#pills-photo .tab-photo-wrap .photo-list .row.g-3 {
+    margin-right: -6.5px;
+    margin-left: -6.5px;
+}
+.bm-content>.container .row,
 .bm-content>.container>.wrapper-bm-profile>.row,
     .um-content>.container>.row,
     .bp-coupon-detail>.container>.row,

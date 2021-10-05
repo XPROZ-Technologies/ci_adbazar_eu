@@ -64,10 +64,6 @@
     <div class="modal fade" id="removeEventModal" tabindex="-1" aria-labelledby="removeEventModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
-                <div class="modal-header border-bottom-0">
-                    <!-- <h5 class="modal-title" id="savedCouponModalLabel">Modal title</h5> -->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
                 <div class="modal-body">
                     <p class="text-center">Are you sure want to remove the coupon
                         "<b><?php echo $detailInfo['event_subject']; ?></b>"</p>

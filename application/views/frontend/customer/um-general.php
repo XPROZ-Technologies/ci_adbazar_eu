@@ -21,7 +21,7 @@
                   </div>
                   <div class="general-icon js-camera-profile-icon">
                     <img src="assets/img/frontend/icon-camera.png" alt="icon-camera">
-                    <span>Change profile picture</span>
+                    <span class="text-decoration-underline">Change profile picture</span>
                   </div>
                 </div>
 

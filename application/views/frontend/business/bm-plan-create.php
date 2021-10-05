@@ -18,7 +18,7 @@
                     </div>
                     <div class="cover-icon" id="cover-icon">
                       <img src="assets/img/frontend/icon-camera.png" alt="icon-camera">
-                      <span id="cover-text">Upload cover photo</span>
+                      <span id="cover-text text-decoration-underline">Upload cover photo</span>
                     </div>
                   </div>
                 </div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="general-icon js-profile-icon">
                       <img src="assets/img/frontend/icon-camera.png" alt="icon-camera">
-                      <span>Upload profile photo</span>
+                      <span class="text-decoration-underline">Upload profile photo</span>
                     </div>
                   </div>
                 </div>
@@ -132,21 +132,21 @@
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[0][start_time]" id="timePicker1" data-toggle="datetimepicker" data-target="#timePicker1" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[0][start_time]" id="timePicker1" data-toggle="datetimepicker" data-target="#timePicker1" placeholder="Open at" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[0][start_time]" id="timePicker2" data-toggle="datetimepicker" data-target="#timePicker2" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[0][start_time]" id="timePicker2" data-toggle="datetimepicker" data-target="#timePicker2" placeholder="Open at" />
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item">
+                        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item ">
                           <div class="page-text-lg text-date">
                             Tuesday
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
-                            <div class="d-flex align-items-center switch-btn">
+                            <div class="d-flex align-items-center switch-btn disabled">
                               <input id="checkboxTuesday" type="checkbox" class="checkbox" name="open_hours[1][opening_hours_status_id]" />
                               <label for="checkboxTuesday" class="switch">
                                 <span class="switch-circle">
@@ -155,15 +155,15 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Open</p>
+                              <p class="mb-0 switch-text">Closed</p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[1][start_time]" id="timePicker3" data-toggle="datetimepicker" data-target="#timePicker3" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[1][start_time]" id="timePicker3" data-toggle="datetimepicker" data-target="#timePicker3" placeholder="Open at" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[1][end_time]" id="timePicker4" data-toggle="datetimepicker" data-target="#timePicker4" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[1][end_time]" id="timePicker4" data-toggle="datetimepicker" data-target="#timePicker4" placeholder="Open at" />
                               </div>
                             </div>
                           </div>
@@ -173,7 +173,7 @@
                             Wednesday
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
-                            <div class="d-flex align-items-center switch-btn">
+                            <div class="d-flex align-items-center switch-btn disabled">
                               <input id="checkboxWed" type="checkbox" class="checkbox" name="open_hours[2][opening_hours_status_id]" />
                               <label for="checkboxWed" class="switch">
                                 <span class="switch-circle">
@@ -182,15 +182,15 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Open</p>
+                              <p class="mb-0 switch-text">Closed</p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[2][start_time]" id="timePicker5" data-toggle="datetimepicker" data-target="#timePicker5" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[2][start_time]" id="timePicker5" data-toggle="datetimepicker" data-target="#timePicker5" placeholder="Open at" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[2][end_time]" id="timePicker6" data-toggle="datetimepicker" data-target="#timePicker6" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[2][end_time]" id="timePicker6" data-toggle="datetimepicker" data-target="#timePicker6" placeholder="Open at" />
                               </div>
                             </div>
                           </div>
@@ -200,7 +200,7 @@
                             Thursday
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
-                            <div class="d-flex align-items-center switch-btn">
+                            <div class="d-flex align-items-center switch-btn disabled">
                               <input id="checkboxThursday" type="checkbox" class="checkbox" name="open_hours[3][opening_hours_status_id]" />
                               <label for="checkboxThursday" class="switch">
                                 <span class="switch-circle">
@@ -209,15 +209,15 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Open</p>
+                              <p class="mb-0 switch-text">Closed</p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[3][start_time]" id="timePicker7" data-toggle="datetimepicker" data-target="#timePicker7" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[3][start_time]" id="timePicker7" data-toggle="datetimepicker" data-target="#timePicker7" placeholder="Open at" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[3][end_time]" id="timePicker8" data-toggle="datetimepicker" data-target="#timePicker8" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[3][end_time]" id="timePicker8" data-toggle="datetimepicker" data-target="#timePicker8" placeholder="Open at" />
                               </div>
                             </div>
                           </div>
@@ -227,7 +227,7 @@
                             Friday
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
-                            <div class="d-flex align-items-center switch-btn">
+                            <div class="d-flex align-items-center switch-btn disabled">
                               <input id="checkboxFriday" type="checkbox" class="checkbox" name="open_hours[4][opening_hours_status_id]" />
                               <label for="checkboxFriday" class="switch">
                                 <span class="switch-circle">
@@ -236,15 +236,15 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Open</p>
+                              <p class="mb-0 switch-text">Closed</p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[4][start_time]" id="timePicker9" data-toggle="datetimepicker" data-target="#timePicker9" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[4][start_time]" id="timePicker9" data-toggle="datetimepicker" data-target="#timePicker9" placeholder="Open at" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[4][end_time]" id="timePicker10" data-toggle="datetimepicker" data-target="#timePicker10" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[4][end_time]" id="timePicker10" data-toggle="datetimepicker" data-target="#timePicker10" placeholder="Open at" />
                               </div>
                             </div>
                           </div>
@@ -254,7 +254,7 @@
                             Saturday
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
-                            <div class="d-flex align-items-center switch-btn">
+                            <div class="d-flex align-items-center switch-btn disabled">
                               <input id="checkboxSaturday" type="checkbox" class="checkbox" name="open_hours[5][opening_hours_status_id]" />
                               <label for="checkboxSaturday" class="switch">
                                 <span class="switch-circle">
@@ -263,15 +263,15 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Open</p>
+                              <p class="mb-0 switch-text">Closed</p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[5][start_time]" id="timePicker11" data-toggle="datetimepicker" data-target="#timePicker11" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[5][start_time]" id="timePicker11" data-toggle="datetimepicker" data-target="#timePicker11" placeholder="Open at" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[5][end_time]" id="timePicker12" data-toggle="datetimepicker" data-target="#timePicker12" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[5][end_time]" id="timePicker12" data-toggle="datetimepicker" data-target="#timePicker12" placeholder="Open at" />
                               </div>
                             </div>
                           </div>
@@ -281,7 +281,7 @@
                             Sunday
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
-                            <div class="d-flex align-items-center switch-btn">
+                            <div class="d-flex align-items-center switch-btn disabled">
                               <input id="checkboxSunday" type="checkbox" class="checkbox" name="open_hours[6][opening_hours_status_id]" />
                               <label for="checkboxSunday" class="switch">
                                 <span class="switch-circle">
@@ -290,15 +290,15 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Open</p>
+                              <p class="mb-0 switch-text">Closed</p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[6][start_time]" id="timePicker13" data-toggle="datetimepicker" data-target="#timePicker13" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[6][start_time]" id="timePicker13" data-toggle="datetimepicker" data-target="#timePicker13" placeholder="Open at" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" name="open_hours[6][end_time]" id="timePicker14" data-toggle="datetimepicker" data-target="#timePicker14" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[6][end_time]" id="timePicker14" data-toggle="datetimepicker" data-target="#timePicker14" placeholder="Open at" />
                               </div>
                             </div>
                           </div>
