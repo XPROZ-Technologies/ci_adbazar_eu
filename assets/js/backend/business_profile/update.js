@@ -306,6 +306,15 @@ app.submits = function() {
                 $('.submit').prop('disabled', false);
                 return false;
             }
+
+            var country_code_id = $("select#country_code_id").val();
+            if(country_code_id == null || country_code_id == 'null'){
+                showNotification(phoneCode, 0);
+                $('select#country_code_id').focus();
+                $('.submit').prop('disabled', false);
+                return false;
+            }
+            
             var serviceId = $("select#serviceId").val();
             if(serviceId == null || serviceId == 'null'){
                 showNotification(typeOfServiceText, 0);

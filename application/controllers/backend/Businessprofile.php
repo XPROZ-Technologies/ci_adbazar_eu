@@ -68,7 +68,7 @@ class Businessprofile extends MY_Controller {
                     $data['servicetypes'] = $this->Mservicetypes->getBy(array('service_id' => $profile['service_id']));
                     $data['businessservicetypes'] = $this->Mbusinessservicetype->getListFieldValue(array('business_profile_id' => $profile['id']), 'service_type_id');
                     $data['openinghours'] = $this->Mopeninghours->getBy(array('business_profile_id' => $businessProfileId), false, 'day_id', '',0,0, 'asc');
-                    $data['phonecode'] = $this->Mphonecodes->get($profile['country_code_id']);
+                    $data['phonecode'] = $this->Mphonecodes->get($profile['business_phone_code']);
                     $data['businessInLocation'] = $this->Mbusinessprofiles->getBusinessInLocation($businessProfileId);
                     $data['businessphotos'] = $this->Mbusinessphotos->getBy(array('business_profile_id' => $businessProfileId));
                     $data['businessvideos'] = $this->Mbusinessvideos->getBy(array('business_profile_id' => $businessProfileId));

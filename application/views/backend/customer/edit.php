@@ -29,7 +29,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Country code <span class="required">*</span></label>
+                                        <select class="form-control" name="customer_phone_code" id="country_code_id">
+                                            <?php if(isset($phonecode['id'])): ?>
+                                            <option value="<?php echo $phonecode['id'] ?>"><?php echo $phonecode['country_name'].'  +'.$phonecode['phonecode']; ?></option>
+                                            <?php endif; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label class="control-label">Phone <span class="required">*</span></label>
                                         <input type="number" name="customer_phone" class="form-control hmdrequired" data-field="Phone" autocomplete="off" value="<?php echo $customer['customer_phone']; ?>">
@@ -126,6 +136,7 @@
                 <ul class="list-inline pull-right margin-right-10">
                     <li><button class="btn btn-primary submit" type="button">Update</button></li>
                     <li><a href="<?php echo base_url('sys-admin/customer'); ?>" class="btn btn-default" id="btnCancel">Cancel</a></li>
+                    <input type="text" hidden="hidden" id="urlGetPhoneCode" value="<?php echo base_url('sys-admin/phone-code/get-list') ?>">
                     <input type="text" hidden="hidden" name="id" value="<?php echo $customer['id']; ?>">
                 </ul>
                 <?php echo form_close(); ?>
@@ -136,3 +147,8 @@
         </div>
     </div>
 <?php $this->load->view('backend/includes/footer'); ?>
+<script>
+    var rePassText = "<?php echo 'Password does not match.' ?>"; 
+    var phoneCode = "<?php echo 'Please select a phone code number.' ?>"; 
+    var emailText = "<?php echo 'Invalid email' ?>"; 
+</script>

@@ -22,7 +22,7 @@
     var typeOfServiceText = "<?php echo 'Please select Type of service.' ?>";
     var subCategoriesText = "<?php echo 'Please select Sub-categories.' ?>"; 
     var youtubeText = "<?php echo 'Please add youtube link' ?>";
-    
+    var phoneCode = "<?php echo 'Please select a phone code number.' ?>"; 
 </script>
 <script type="text/javascript">
     var scriptUrl = "<?php echo base_url('assets/vendor/plugins/youtube/www-widgetapi.js') ?>";try{var ttPolicy=window.trustedTypes.createPolicy("youtube-widget-api",{createScriptURL:function(x){return x}});scriptUrl=ttPolicy.createScriptURL(scriptUrl)}catch(e){}if(!window["YT"])var YT={loading:0,loaded:0};if(!window["YTConfig"])var YTConfig={"host":"https://www.youtube.com"};

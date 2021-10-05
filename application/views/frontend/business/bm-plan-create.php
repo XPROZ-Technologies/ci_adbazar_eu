@@ -119,7 +119,7 @@
                             Monday
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
-                            <div class="d-flex align-items-center switch-btn ">
+                            <div class="d-flex align-items-center switch-btn disabled">
                               <input id="checkbox4" type="checkbox" class="checkbox" name="open_hours[0][opening_hours_status_id]" />
                               <label for="checkbox4" class="switch">
                                 <span class="switch-circle">
