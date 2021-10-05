@@ -2774,7 +2774,7 @@ span.switch-left {
     .bp-tabs>.container>.row>.col-lg-4{
         padding-right: 20px;
         padding-left: 20px;
-        width: 37%;
+        width: 36.19%;
     }
     .bm-content>.container>.wrapper-bm-profile>.row>.col-lg-9,
     .bm-content>.container>.row>.col-lg-9,
@@ -2782,7 +2782,7 @@ span.switch-left {
     .um-event-detail>.container>.row>.col-lg-8,
     .bp-coupon-detail>.container>.row>.col-lg-8,
     .bp-tabs>.container>.row>.col-lg-8{
-        width: 63%;
+        width: 63.81%;
         padding-right: 20px;
         padding-left: 20px;
     }
@@ -2804,24 +2804,30 @@ span.switch-left {
         padding-right: 10px;
         padding-left: 10px;
     }
+    .bp-about .col-lg-5 {
+        width: 39.3%;
+    }
+    .bp-about .col-lg-7 {
+        width: 60.7%;
+    }
     .customer-contact .col-lg-9 {
         width: 85.33333%;
     }
- .signin-box-right{
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
- }   
- .signin-box-right .signin-right{
-    width: 433px;
-    max-width: 100%;
-    margin: 0;
- }
- .mt-lg-4 {
-    margin-top: 20px !important;
+    .signin-box-right{
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }   
+    .signin-box-right .signin-right{
+        width: 433px;
+        max-width: 100%;
+        margin: 0;
     }
- .mb-lg-4 {
+    .mt-lg-4 {
+        margin-top: 20px !important;
+        }
+    .mb-lg-4 {
     margin-bottom: 20px !important;
     }
 }

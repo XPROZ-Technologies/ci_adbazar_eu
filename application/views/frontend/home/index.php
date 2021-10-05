@@ -253,11 +253,11 @@
           if(response.code == 1){
             $(".notiPopup .text-secondary").html(response.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").addClass('show');
+           $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }else{
             $(".notiPopup .text-secondary").html(response.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").addClass('show');
+           $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
         },
         error: function(response) {}

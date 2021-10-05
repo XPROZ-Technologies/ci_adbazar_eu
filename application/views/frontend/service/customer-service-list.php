@@ -1,17 +1,8 @@
 <?php $this->load->view('frontend/includes/header'); ?>
-<main>
+<main class="main-customer">
   <div class="page-customer-service">
     <div class="customer-service-list">
       <div class="container">
-        <div class="service-list-top">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a href="<?php echo base_url(HOME_URL); ?>">Home</a></li>
-              <li class="breadcrumb-item"><a href="<?php echo base_url('services.html'); ?>">Services</a></li>
-              <li class="breadcrumb-item active" aria-current="page"><?php echo $serviceInfo['service_name']; ?></li>
-            </ol>
-          </nav>
-        </div>
         <div class="row">
           <div class="col-xl-3 d-none d-xl-block">
             <div class="customer-service-left">
@@ -116,7 +107,7 @@
                             </select>
                           </div>
                           <span class="ms-2">/</span>
-                          <span class="">Page</span>
+                          <span class=""> Page</span>
                         </div>
                       </div>
                       <div class="pagination-right">

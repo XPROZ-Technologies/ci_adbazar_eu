@@ -124,7 +124,7 @@
         if($('#gridCheck').is(':checked')){
             this.submit();
         }else{
-            $(".notiPopup").addClass('show');
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
             $(".notiPopup .text-secondary").html('Please agree with our term and condition!');
             $(".ico-noti-error").removeClass('ico-hidden');
         }

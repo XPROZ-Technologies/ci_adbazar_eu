@@ -93,7 +93,7 @@
                     </select>
                   </div> 
                   <span class="ms-2">/</span>
-                  <span class="">Page</span>
+                  <span class=""> Page</span>
                 </div>
               </div>
               <div class="pagination-right">

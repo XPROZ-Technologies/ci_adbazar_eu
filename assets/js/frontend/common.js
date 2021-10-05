@@ -161,6 +161,17 @@ $(document).ready(function () {
     });
     $("body").on("click", ".btn-toast-close", function(){
         $(".toast").removeClass('show');
+    }).on("click", ".open-hour-item .switch-btn .switch", function(){
+        $(this).closest('.open-hour-item .switch-btn').toggleClass('disabled');
+        $(this).closest('.open-hour-item').toggleClass('disabled-item');
+        if($(this).closest('.open-hour-item').hasClass('disabled-item')){
+            $(this).closest('.open-hour-item').find('.wrapper-time input').prop('disabled', true);
+            $(this).closest('.open-hour-item').find('.switch-text').text('Closed');
+        }
+        else{
+            $(this).closest('.open-hour-item').find('.wrapper-time input').prop('disabled', false);
+            $(this).closest('.open-hour-item').find('.switch-text').text('Open');
+        }
     });
 });
 
