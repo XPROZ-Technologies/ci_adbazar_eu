@@ -61,6 +61,7 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                     }
                     var isOpen = '<a href="javascript:void(0)" class="text-success">Opening</a>';
                     if(!item.isOpen) isOpen = '<a href="javascript:void(0)" class="customer-location-close">Closed</a>';
+                    
                     html += 
                     `<div class="card rounded-0 customer-location-item mb-2">
                         <div class="row g-0">
@@ -197,7 +198,7 @@ jQuery(function() {
             evaluate_info = `<li class="list-inline-item me-0">(${item.evaluateInfo})</li>`;
         }
         
-
+        /*
         const infoMap = `<div class="card rounded-0 customer-location-item mb-2">
             <div class="row g-0">
                 <div class="col-3">
@@ -220,6 +221,9 @@ jQuery(function() {
                 </div>
             </div>
         </div>`;
+        */
+        const infoMap = `<h6 class="card-title mb-1 page-text-xs text-center"><a target="_blank" href="./${item.business_url}" title="">${item.business_name}</a></h6>`;
+
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(parseFloat(item.locationInfo.lat), parseFloat(item.locationInfo.lng)),
             map: map,
