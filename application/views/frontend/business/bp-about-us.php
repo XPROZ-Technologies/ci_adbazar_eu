@@ -61,22 +61,26 @@
                     </div>
                   </div>
                   <div class="col-lg-5 order-first order-lg-last">
-                    
-                    <div class="bp-about-right">
-                      <div class="open-hour">
-                        <h5 class="text-center page-text-lg">OPENING HOUR</h5>
-                        <ul class="list-unstyled mb-0">
-                          <li><span class="date">Mon</span> <span class="time">8:00 - 17:00</span></li>
-                          <li><span class="date">Mon</span> <span class="badge badge-cancel">Closed</span></li>
-                          <li><span class="date">Mon</span> <span class="time">8:00 - 17:00</span></li>
-                          <li><span class="date">Mon</span> <span class="time">8:00 - 17:00</span></li>
-                          <li><span class="date">Mon</span> <span class="time">8:00 - 17:00</span></li>
-                          <li><span class="date">Mon</span> <span class="time">8:00 - 17:00</span></li>
-                          <li><span class="date">Mon</span> <span class="time">8:00 - 17:00</span></li>
-                        </ul>
+                    <?php if(!empty($businessOpeningHours)){ ?>
+                      <div class="bp-about-right">
+                        <div class="open-hour">
+                          <h5 class="text-center page-text-lg">OPENING HOUR</h5>
+                          <ul class="list-unstyled mb-0">
+                            <?php foreach ($businessOpeningHours as $open_hours) { ?>
+                                <li>
+                                  <span class="date"><?php echo $this->Mconstants->dayShortIds[$open_hours['day_id']]; ?></span>
+                                  <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
+                                    <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
+                                      <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
+                                  <?php } else { ?>
+                                    <span class="badge badge-cancel">Closed</span>
+                                  <?php } ?>
+                                </li>
+                              <?php } ?>
+                          </ul>
+                        </div>
                       </div>
-                    </div>
-                   
+                    <?php } ?>
                   </div>
                 </div>
                 <?php if(!empty($businessInfo['business_description'])){ ?>
