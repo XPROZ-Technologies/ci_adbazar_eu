@@ -60,6 +60,16 @@ class Mconstants extends CI_Model {
         6 => 'Sunday'
     );
 
+    public $dayShortIds = array(
+        0 => 'Mon',
+        1 => 'Tue',
+        2 => 'Wed',
+        3 => 'Thu',
+        4 => 'Fri',
+        5 => 'Sat',
+        6 => 'Sun'
+    );
+
     public $isHot = array(
         1 => 'Not stand out', // không nổi bật 
         2 => 'Highlights' // nổi bật
