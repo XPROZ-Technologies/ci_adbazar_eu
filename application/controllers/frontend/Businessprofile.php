@@ -22,7 +22,7 @@ class Businessprofile extends MY_Controller
             redirect(base_url(HOME_URL));
         }
         $businessURL = trim($slug);
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations', 'Mopeninghours'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -57,6 +57,16 @@ class Businessprofile extends MY_Controller
         }
         $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
         $data['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($businessProfileId, $service_type_name);
+
+        $businessOpeningHours = $this->Mopeninghours->getBy(array('business_profile_id' => $businessProfileId));
+        $data['businessOpeningHours'] = array();
+        foreach($businessOpeningHours as $itemHours){
+            $data['businessOpeningHours'][$itemHours['day_id']]['day_id'] = $itemHours['day_id'];
+            $data['businessOpeningHours'][$itemHours['day_id']]['start_time'] = $itemHours['start_time'];
+            $data['businessOpeningHours'][$itemHours['day_id']]['end_time'] = $itemHours['end_time'];
+            $data['businessOpeningHours'][$itemHours['day_id']]['opening_hours_status_id'] = $itemHours['opening_hours_status_id'];
+        }
+        if(!empty($data['businessOpeningHours'])) ksort($data['businessOpeningHours']);
 
         $this->load->view('frontend/business/bp-about-us', $data);
     }
