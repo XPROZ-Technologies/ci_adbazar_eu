@@ -2658,6 +2658,12 @@ span.switch-left {
 #removeCouponModal .modal-medium p, #removeEventModal .modal-medium p {
     margin-bottom: 16px;
 }
+.toast:not(.showing):not(.show) {
+    opacity: 1;
+}
+.toast{
+    display: none;
+}
 @media (min-width: 1366px){
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
         max-width: 1320px;
