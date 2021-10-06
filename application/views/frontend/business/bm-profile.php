@@ -82,7 +82,7 @@
                         <?php } ?>
                       </div>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-5 order-first order-lg-last">
                     <?php if(!empty($businessOpeningHours)){ ?>
                       <div class="bp-about-right">
                         <div class="open-hour">

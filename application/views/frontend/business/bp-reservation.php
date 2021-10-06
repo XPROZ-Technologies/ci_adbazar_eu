@@ -321,7 +321,10 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-4">
-              <div class="bp-tabs-left">
+              <div class="bp-tabs-left  show-mobile-ic">
+                <div class="text-center">
+                  <a href="javascript:void(0)" class="icon-show-mobile"><img src="assets/img/frontend/icon-mobile.png" alt=""></a>
+                </div>
                  <aside class="bp-sidebar">
                     <ul class="list-unstyled">
                         <li class="active"><a href="bp-about-us.html">About us</a></li>

@@ -41,12 +41,6 @@
           <img src="<?php echo CONFIG_PATH . $configs['LOGO_IMAGE_HEADER']; ?>" alt="<?php echo $configs['TEXT_LOGO_HEADER']; ?>" class="img-fluid">
         </a>
         <div class="header-right-mobile">
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-            <div class="d-flex align-items-center">
-              <i class="bi bi-list"></i>
-              <!-- <span>Menu</span> -->
-            </div>
-          </button>
           <div class="d-flex align-items-center d-xl-none">
             <!-- Notitfication -->
             <?php if (isset($customer) && $customer['is_logged_in'] == 1) { ?>
@@ -159,6 +153,12 @@
             <!-- END. Languages -->
 
           </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-list"></i>
+              <!-- <span>Menu</span> -->
+            </div>
+          </button>
         </div>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -171,7 +171,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle  <?php if (isset($activeMenu) && $activeMenu == "services") {
                                                     echo "active";
-                                                  } ?>" href="" id="serviceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  } ?>" href="<?php echo base_url('services.html') ?>" id="serviceDropdown">
                 Services
               </a>
               <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
@@ -335,9 +335,10 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle  <?php if (isset($activeMenu) && $activeMenu == "services") {
                                                       echo "active";
-                                                    } ?>" href="<?php echo base_url('services.html') ?>" id="serviceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    } ?>" href="<?php echo base_url('services.html') ?>" id="serviceDropdown">
                   Services
                 </a>
+                <span class="nav-link dropdown-toggle dropdown-toggle-mobile-not-link" role="button" data-bs-toggle="dropdown" aria-expanded="false"></span>
                 <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
                   <li><a class="dropdown-item <?php if (isset($activeMenuService) && $activeMenuService === 0) {
                                                 echo "active";
