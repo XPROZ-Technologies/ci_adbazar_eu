@@ -142,6 +142,9 @@ html {
 main{
     padding-top: 57px;
 }
+.icon-show-mobile{
+    display: none;
+}
 @media (min-width: 1366px){
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
         max-width: 1146px;
@@ -585,10 +588,9 @@ min-height: 320px;
 .list-inline-item:not(:last-child) {
     margin-right: 6px;
 }
-.bp-tabs-right .open-hour li .badge-cancel {
-    padding: 2px 28.25px;
+.avatar-img{
+    border-radius: 50%;
 }
-
 .card.rounded-0.customer-location-item .col-3{
     width: 20%;
 }
@@ -729,13 +731,101 @@ min-height: 320px;
         width: calc(33.33% - 20px)!important;
     }
 }
+@media (max-width: 1200px){
+    .dropdown-toggle-mobile-not-link::after,
+    .dropdown-toggle-mobile-not-link::before{
+        display: none;
+    }
+    .dropdown-toggle-mobile-not-link{
+        position: absolute;
+        top: 12px;
+        width: 40px!important;
+        height: 40px;
+        right: 12px;
+        z-index: 4;
+        background: transparent;
+    }
+    .header-notification {
+        margin-right: 8px;
+    }
+    .header-right-mobile .dropdown.dropdown-language.mx-3{
+        margin: 0 8px!important;
+    }
+    .header-right-mobile .navbar-toggler i{
+        color: #C20000;
+    }
+    .header-right-mobile .user-info-img {
+        margin-right: 0;
+    }
+}
 @media (max-width: 991px){
+    .bp-about-left .page-title-xs {
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 10px;
+    }
+    .bp-about-right .open-hour{
+        margin-top: 12px!important;
+        width: 218px;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+    .bp-header img {
+        margin: 0px auto 15px;
+    }
+    .bp-tabs {
+        margin-top: 12px;
+    }
+    .show-mobile-ic .bp-sidebar{
+        display: none;
+        margin: 8px 0px;
+        position: absolute;
+        width: 171px;
+        left: 50%;
+        margin-left: -85.5px;
+        box-shadow: 0px 2px 6px rgb(77 78 78 / 20%);
+    }
+    .icon-show-mobile{
+        display: inline-block;
+    }
+    .bm-content .container, .page-user-manager .container, .page-business-profile .container {
+        min-height: 300px;
+    }
+    .bp-top .container {
+        height: 300px;
+    }
+    .bp-header {
+        margin-top: -110px;
+    }
+    .bp-header img {
+        width: 150px;
+        height: 150px;
+    }
     .discover_more {
         padding: 8.5px 73.5px!important;
         width: calc(50% - 10px)!important;
     }
+    .bp-top .container {
+        padding: 0px;
+    }
+    .page-business-profile, .customer-event, .customer-coupon {
+        padding: 0 0 12px;
+    }
 }
 @media (max-width: 768px){
+    .bm-content .container, .page-user-manager .container, .page-business-profile .container {
+        min-height: 280px;
+    }
+    .bp-top .container {
+        height: 280px;
+    }
+    .bp-header {
+        margin-top: -100px;
+    }
+    .bp-header img {
+        width: 120px;
+        height: 120px;
+    }
     .discover_more {
         padding: 8.5px 0!important;
         width: calc(50% - 10px)!important;
@@ -744,8 +834,34 @@ min-height: 320px;
         padding: 0px 15px;
         margin-top: 0;
     }
+    .bp-tabs-right .open-hour li .badge-cancel {
+        width: auto;
+    }
 }
 @media screen and (max-width: 576px){
+    .bp-introduce .fw-bold.page-title-xs{
+        text-align: center;
+    }
+    .bp-introduce{
+        width: 300px;
+        margin: 30px auto;
+    }
+    .bp-about-left{
+        width: 218px;
+        margin: auto;
+    }
+    .bp-about-left .list-info li {
+        margin-bottom: 10px !important;
+    }
+    .list-unstyled.list-info {
+        font-size: 14px;
+    }
+    .bm-content .container, .page-user-manager .container, .page-business-profile .container {
+        min-height: 250px;
+    }
+    .bp-top .container {
+        height: 250px;
+    }
     .posting .slider .slick-slide a,
     .posting .slider .slick-slide img {
         height: 400px;

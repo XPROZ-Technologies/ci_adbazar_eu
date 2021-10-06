@@ -927,3 +927,7 @@ $('.progress').each(function () {
   num = (parseInt(first) / parseInt(last)) * 100;
   $(this).find('.progress-bar').css('width', num + '%')
 })
+
+$(".icon-show-mobile").click(function () {
+  $(this).closest('.show-mobile-ic').find('.bp-sidebar').toggle();
+});

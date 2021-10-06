@@ -1,4 +1,7 @@
-<div class="bm-left">
+<div class="bm-left show-mobile-ic">
+    <div class="text-center">
+        <a href="javascript:void(0)" class="icon-show-mobile"><img src="assets/img/frontend/icon-mobile.png" alt=""></a>
+    </div>
     <aside class="bp-sidebar">
         <ul class="list-unstyled">
             <li class="<?php if(isset($activeBusinessMenu) && $activeBusinessMenu == 'about-us'){ echo 'active'; } ?>"><a href="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/about-us') ?>" class="btn-join-as-guest">My profile</a></li>
