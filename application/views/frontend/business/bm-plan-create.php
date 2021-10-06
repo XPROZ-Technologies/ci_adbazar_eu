@@ -9,6 +9,7 @@
             <div class="bm-create-content">
               <h3 class="fw-bold page-title-md text-center">Create a business</h3>
               <div class="bm-create-cover">
+                <!-- cover -->
                 <div class="cover-top">
                   <div class="cover-wrap">
                     <div class="cover-avatar">
@@ -22,6 +23,8 @@
                     </div>
                   </div>
                 </div>
+                <!-- END. cover -->
+                <!-- avatar -->
                 <div class="bm-create-profile">
                   <div class="general-top">
                     <div class="general-avatar">
@@ -35,6 +38,7 @@
                     </div>
                   </div>
                 </div>
+                <!-- END. avatar -->
                 <form action="<?php echo base_url('business-profile/create-business'); ?>" class="row create-form" method="POST" id="formCreateBusiness" enctype="multipart/form-data">
                   <input type="hidden" id="businessAvatarUpload" name="business_avatar_upload" value="" />
                   <input type="hidden" id="businessCoverUpload" name="business_cover_upload" value="" />
@@ -50,7 +54,7 @@
                       <label for="bm-slogan" class="form-label">Slogan</label>
                       <div class="slogan-wrap">
                         <input maxlength="100" type="text" class="form-control form-control-lg" id="bm-slogan" aria-label="Business Slogan" name="business_slogan">
-                        <!--<span class="text-secondary page-text-sm slogan-counter">0/100</span>-->
+                        <span class="text-secondary page-text-sm slogan-counter">0/100</span>
                       </div>
                     </div>
                   </div>
@@ -79,7 +83,7 @@
                     <div class="form-group mb-3">
                       <label class="form-label">Contry code<span class="text-danger required">*</span></label>
                       <div class="dropdown dropdown-country page-text-lg">
-                        <input type="hidden" class="form-control" id="businessPhoneCode" name="country_code_id" value="">
+                        <input type="hidden" class="form-control" id="businessPhoneCode" name="country_code_id" value="0">
                         <a href="#" class="wrapper-btn dropdown-toggle current js-country" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">
                           <img src="assets/img/frontend/ger.png" alt="english flag" class="img-fluid me-2">
                           <span class="country-text">Germany</span>
@@ -318,6 +322,7 @@
                       <textarea class="form-control form-control-lg" id="bm-desc" rows="4" name="business_description"></textarea>
                     </div>
                   </div>
+
                   <div class="col-12">
                     <div class="form-group mb-3">
                       <label class="form-label">Type of service <span class="required text-danger">*</span></label>

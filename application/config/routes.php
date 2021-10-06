@@ -214,6 +214,7 @@ $route['business-management/(:any)/create-event'] = 'frontend/businessprofile/ma
 $route['business-management/(:any)/reviews'] = 'frontend/businessprofile/manage_reviews/$1';
 $route['business-management/(:any)/reservations'] = 'frontend/businessprofile/manage_reservations/$1';
 $route['business-management/(:any)/subscriptions'] = 'frontend/businessprofile/manage_subscriptions/$1';
+$route['business-management/(:any)/edit'] = 'frontend/businessprofile/manage_profile_edit/$1';
 
 
 $route['business-management/create-coupon'] = 'frontend/coupon/update';

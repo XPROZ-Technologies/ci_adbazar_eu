@@ -3,12 +3,10 @@
   <div class="page-business-manager">
     <div class="bm-content">
       <div class="container">
-        <div class="content-top">
-          <h2 class="page-title-md text-center fw-bold">Manage my business</h2>
-        </div>
+        <?php $this->load->view('frontend/includes/bm_header'); ?>
 
         <div class="d-flex justify-content-center edit-bm">
-          <a href="javascript:void(0)" class="btn btn-red btn-join-as-guest">
+          <a href="<?php echo base_url('business-management/'.$businessInfo['business_url'].'/edit'); ?>" class="btn btn-red">
             <img src="assets/img/frontend/ic-edit.png" alt="ic-edit">
             Edit My Profile
           </a>
@@ -41,16 +39,16 @@
                     <div class="col-lg-7">
                       <div class="bp-about-left">
                         <h4 class="fw-bold page-title-xs">BUSINESS INFORMATION</h4>
-                        <div class="d-flex align-items-center mb-5px"> 
-                          <div class="star-rating on line  mr-8px relative"> 
-                              <div class="star-base">
-                                <div class="star-rate" data-rate="3.5"></div> 
-                                <a dt-value="1" href="#1"></a> 
-                                <a dt-value="2" href="#2"></a> 
-                                <a dt-value="3" href="#3"></a> 
-                                <a dt-value="4" href="#4"></a> 
-                                <a dt-value="5" href="#5"></a>
-                              </div>
+                        <div class="d-flex align-items-center mb-5px">
+                          <div class="star-rating on line  mr-8px relative">
+                            <div class="star-base">
+                              <div class="star-rate" data-rate="3.5"></div>
+                              <a dt-value="1" href="#1"></a>
+                              <a dt-value="2" href="#2"></a>
+                              <a dt-value="3" href="#3"></a>
+                              <a dt-value="4" href="#4"></a>
+                              <a dt-value="5" href="#5"></a>
+                            </div>
                           </div>
                           <!-- <span class="star-rating-number">(10)</span> -->
                         </div>
@@ -89,25 +87,25 @@
                       </div>
                     </div>
                     <div class="col-lg-5 order-first order-lg-last">
-                    <?php if(!empty($businessOpeningHours)){ ?>
-                      <div class="bp-about-right">
-                        <div class="open-hour">
-                          <h5 class="text-center page-text-lg">OPENING HOUR</h5>
-                          <ul class="list-unstyled mb-0">
-                            <?php foreach ($businessOpeningHours as $open_hours) { ?>
-                              <li>
-                                <span class="date"><?php echo $this->Mconstants->dayShortIds[$open_hours['day_id']]; ?></span>
-                                <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
-                                  <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
-                                    <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
-                                <?php } else { ?>
-                                  <span class="badge badge-cancel">Closed</span>
-                                <?php } ?>
-                              </li>
-                            <?php } ?>
-                          </ul>
+                      <?php if (!empty($businessOpeningHours)) { ?>
+                        <div class="bp-about-right">
+                          <div class="open-hour">
+                            <h5 class="text-center page-text-lg">OPENING HOUR</h5>
+                            <ul class="list-unstyled mb-0">
+                              <?php foreach ($businessOpeningHours as $open_hours) { ?>
+                                <li>
+                                  <span class="date"><?php echo $this->Mconstants->dayShortIds[$open_hours['day_id']]; ?></span>
+                                  <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
+                                    <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
+                                      <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
+                                  <?php } else { ?>
+                                    <span class="badge badge-cancel">Closed</span>
+                                  <?php } ?>
+                                </li>
+                              <?php } ?>
+                            </ul>
+                          </div>
                         </div>
-                      </div>
                       <?php } ?>
                     </div>
                   </div>
@@ -164,7 +162,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 <script>
   $('.btn-join-as-guest').click(function() {
-    $("#eventJoinAsGuest").modal('show');
+    /* $("#eventJoinAsGuest").modal('show'); */
   });
   if ($('#map_business').length > 0) {
     let map;

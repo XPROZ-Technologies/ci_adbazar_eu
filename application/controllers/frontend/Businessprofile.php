@@ -46,8 +46,8 @@ class Businessprofile extends MY_Controller
 
         $data['businessInfo'] = $businessInfo;
         $data['phoneCodeInfo'] = array();
-        if ($businessInfo['business_phone_code'] > 0) {
-            $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['business_phone_code']);
+        if ($businessInfo['country_code_id'] > 0) {
+            $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['country_code_id']);
         }
 
         $businessLocationId = $this->Mbusinessprofilelocations->getFieldValue(array('business_profile_id' => $businessInfo['id'], 'business_profile_location_status_id' => STATUS_ACTIVED), 'location_id', 0);
@@ -443,7 +443,7 @@ class Businessprofile extends MY_Controller
     public function updateBusiness()
     {
         try {
-            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices'));
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours'));
 
             /**
              * Commons data
@@ -462,39 +462,52 @@ class Businessprofile extends MY_Controller
             $postData['created_at'] = getCurentDateTime();
             $postData['created_by'] = 0; //customer create business
 
-            /*
+            
             $open_hours = $this->input->post('open_hours');
+            
             $openingHours = array();
-            foreach($open_hours as $day_id => $itemHours){
-                $itemDay = array();
-                $itemDay['day_id'] = $day_id;
-                if(isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on'){
-                    $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
-                }else{
-                    $itemDay['opening_hours_status_id'] = 1;
-                }   
+            foreach($this->Mconstants->dayIds as $day_id => $itemHours){
                 
-                if(!empty($itemHours['start_time'])){
-                    $itemDay['start_time'] = $itemHours['start_time'];
-                }else{
-                    $itemDay['start_time'] = "00:00";
-                }
-
-                if(!empty($itemHours['end_time'])){
-                    $itemDay['end_time'] = $itemHours['end_time'];
-                }else{
-                    $itemDay['end_time'] = "23:59";
-                }
-                $openingHours[] = $itemDay;
-            }
-            $businessServiceTypes = array();
-            */
-            
-            
-
-            $businessProfileId = $this->Mbusinessprofiles->update($postData);
-            if ($businessProfileId > 0) {
+                if(isset($open_hours[$day_id])){
+                    $itemHours = $open_hours[$day_id];
+                    $itemDay = array();
+                    $itemDay['day_id'] = $day_id;
+                    if(isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on'){
+                        $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
+                    }else{
+                        $itemDay['opening_hours_status_id'] = 1;
+                    }   
                     
+                    if(!empty($itemHours['start_time'])){
+                        $itemDay['start_time'] = $itemHours['start_time'];
+                    }else{
+                        $itemDay['start_time'] = "00:00";
+                    }
+
+                    if(!empty($itemHours['end_time'])){
+                        $itemDay['end_time'] = $itemHours['end_time'];
+                    }else{
+                        $itemDay['end_time'] = "23:59";
+                    }
+                    
+                }else{
+                    $itemDay = array();
+                    $itemDay['day_id'] = $day_id;
+                    $itemDay['opening_hours_status_id'] = 1;
+                    $itemDay['start_time'] = "00:00";
+                    $itemDay['end_time'] = "00:00";
+                }
+
+                $openingHours[] = $itemDay;
+                
+            }
+            //echo "<pre>";print_r($openingHours);die;
+
+            $businessServiceTypes = array();
+
+            $businessProfileId = $this->Mbusinessprofiles->save($postData);
+            if ($businessProfileId > 0) {
+                   
                     $dataUpdate = array();
                     $businessAvatarUpload = $this->input->post('business_avatar_upload');
                     if(!empty($businessAvatarUpload)){
@@ -509,7 +522,9 @@ class Businessprofile extends MY_Controller
                     if(!empty($dataUpdate)){
                         $businessProfileId = $this->Mbusinessprofiles->update($dataUpdate, $businessProfileId);
                     }
+
                     
+                    $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $businessProfileId);
                     
                     
                     $this->session->set_flashdata('notice_message', "Create your business profile successfully");
@@ -647,6 +662,66 @@ class Businessprofile extends MY_Controller
         if(!empty($data['businessOpeningHours'])) ksort($data['businessOpeningHours']);
 
         $this->load->view('frontend/business/bm-profile', $data);
+    }
+
+    public function manage_profile_edit($slug = "")
+    {
+        if (empty($slug)) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+        $businessURL = trim($slug);
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations', 'Mopeninghours'));
+
+        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+        if ($businessProfileId == 0) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+        $businessInfo = $this->Mbusinessprofiles->get($businessProfileId);
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer("My Profile - ".$businessInfo['business_name']);
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+        
+
+        $data['activeBusinessMenu'] = "about-us";
+
+        $data['businessInfo'] = $businessInfo;
+        $data['phoneCodeInfo'] = array();
+        if ($businessInfo['country_code_id'] > 0) {
+            $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['country_code_id']);
+        }
+
+        
+        $businessLocationId = $this->Mbusinessprofilelocations->getFieldValue(array('business_profile_id' => $businessProfileId, 'business_profile_location_status_id' => STATUS_ACTIVED), 'location_id', 0);
+        $data['locationInfo'] = array();
+        if ($businessLocationId > 0) {
+            $data['locationInfo'] = $this->Mlocations->get($businessLocationId);
+        }
+        
+        $businessOpeningHours = $this->Mopeninghours->getBy(array('business_profile_id' => $businessProfileId));
+        $data['businessOpeningHours'] = array();
+        foreach($businessOpeningHours as $itemHours){
+            $data['businessOpeningHours'][$itemHours['day_id']]['day_id'] = $itemHours['day_id'];
+            $data['businessOpeningHours'][$itemHours['day_id']]['start_time'] = $itemHours['start_time'];
+            $data['businessOpeningHours'][$itemHours['day_id']]['end_time'] = $itemHours['end_time'];
+            $data['businessOpeningHours'][$itemHours['day_id']]['opening_hours_status_id'] = $itemHours['opening_hours_status_id'];
+        }
+        if(!empty($data['businessOpeningHours'])) ksort($data['businessOpeningHours']);
+
+        $data['listServices'] = $this->Mservices->getHighlightListByLang($data['language_id']);
+
+        $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
+        $data['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($businessProfileId, $service_type_name);
+
+        $this->load->view('frontend/business/bm-profile-edit', $data);
     }
 
     public function manage_gallery($slug = "")

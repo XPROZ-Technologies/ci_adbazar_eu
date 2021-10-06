@@ -3,9 +3,8 @@
   <div class="page-business-manager">
     <div class="bm-content v1">
       <div class="container">
-        <div class="content-top">
-          <h2 class="page-title-md text-center fw-bold">Manage my business</h2>
-        </div>
+        <?php $this->load->view('frontend/includes/bm_header'); ?>
+
 
         <div class="row">
           <div class="col-lg-3">
@@ -14,97 +13,97 @@
           <div class="col-lg-9">
             <div class="bp-review bm-review">
               <div class="review-top">
-              <div class="col-review">
+                <div class="col-review">
                   <div class="d-flex flex-column justify-content-center align-items-center overall-rate">
                     <h5 class="page-title-xs">Overall rating</h5>
-                    <div class="d-flex align-items-center mb-5px"> 
-                        <div class="star-rating on line relative"> 
-                            <div class="star-base">
-                              <div class="star-rate" data-rate="3.5"></div> 
-                              <a dt-value="1" href="#1"></a> 
-                              <a dt-value="2" href="#2"></a> 
-                              <a dt-value="3" href="#3"></a> 
-                              <a dt-value="4" href="#4"></a> 
-                              <a dt-value="5" href="#5"></a>
-                            </div>
+                    <div class="d-flex align-items-center mb-5px">
+                      <div class="star-rating on line relative">
+                        <div class="star-base">
+                          <div class="star-rate" data-rate="3.5"></div>
+                          <a dt-value="1" href="#1"></a>
+                          <a dt-value="2" href="#2"></a>
+                          <a dt-value="3" href="#3"></a>
+                          <a dt-value="4" href="#4"></a>
+                          <a dt-value="5" href="#5"></a>
                         </div>
                       </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-review">
-                  <div class="d-flex align-items-center mb-5px"> 
-                    <div class="star-rating on line relative mr-8px"> 
-                        <div class="star-base">
-                          <div class="star-rate" data-rate="5"></div> 
-                          <a dt-value="1" href="#1"></a> 
-                          <a dt-value="2" href="#2"></a> 
-                          <a dt-value="3" href="#3"></a> 
-                          <a dt-value="4" href="#4"></a> 
-                          <a dt-value="5" href="#5"></a>
-                        </div>
+                  <div class="d-flex align-items-center mb-5px">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="5"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
                   </div>
-                  <div class="d-flex align-items-center mb-5px"> 
-                    <div class="star-rating on line relative mr-8px"> 
-                        <div class="star-base">
-                          <div class="star-rate" data-rate="4"></div> 
-                          <a dt-value="1" href="#1"></a> 
-                          <a dt-value="2" href="#2"></a> 
-                          <a dt-value="3" href="#3"></a> 
-                          <a dt-value="4" href="#4"></a> 
-                          <a dt-value="5" href="#5"></a>
-                        </div>
+                  <div class="d-flex align-items-center mb-5px">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="4"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
                   </div>
-                  <div class="d-flex align-items-center mb-5px"> 
-                    <div class="star-rating on line relative mr-8px"> 
-                        <div class="star-base">
-                          <div class="star-rate" data-rate="3"></div> 
-                          <a dt-value="1" href="#1"></a> 
-                          <a dt-value="2" href="#2"></a> 
-                          <a dt-value="3" href="#3"></a> 
-                          <a dt-value="4" href="#4"></a> 
-                          <a dt-value="5" href="#5"></a>
-                        </div>
+                  <div class="d-flex align-items-center mb-5px">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="3"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
                   </div>
-                  <div class="d-flex align-items-center mb-5px"> 
-                    <div class="star-rating on line relative mr-8px"> 
-                        <div class="star-base">
-                          <div class="star-rate" data-rate="2"></div> 
-                          <a dt-value="1" href="#1"></a> 
-                          <a dt-value="2" href="#2"></a> 
-                          <a dt-value="3" href="#3"></a> 
-                          <a dt-value="4" href="#4"></a> 
-                          <a dt-value="5" href="#5"></a>
-                        </div>
+                  <div class="d-flex align-items-center mb-5px">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="2"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
                   </div>
-                  <div class="d-flex align-items-center mb-5px"> 
-                    <div class="star-rating on line relative mr-8px"> 
-                        <div class="star-base">
-                          <div class="star-rate" data-rate="1"></div> 
-                          <a dt-value="1" href="#1"></a> 
-                          <a dt-value="2" href="#2"></a> 
-                          <a dt-value="3" href="#3"></a> 
-                          <a dt-value="4" href="#4"></a> 
-                          <a dt-value="5" href="#5"></a>
-                        </div>
+                  <div class="d-flex align-items-center mb-5px">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="1"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
                   </div>
                 </div>
                 <div class="col-review">
-                    <div class="d-flex justify-content-lg-end">
-                      <a href="#" class="review-btn btn btn-red">
-                        <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
-                        Leave a review</a>
-                    </div>
+                  <div class="d-flex justify-content-lg-end">
+                    <a href="#" class="review-btn btn btn-red">
+                      <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
+                      Leave a review</a>
                   </div>
+                </div>
               </div>
 
               <div class="bp-comment">

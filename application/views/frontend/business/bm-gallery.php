@@ -3,9 +3,7 @@
         <div class="page-business-manager">
             <div class="bm-content">
                 <div class="container">
-                    <div class="content-top">
-                        <h2 class="page-title-md text-center fw-bold">Manage my business</h2>
-                    </div>
+                    <?php $this->load->view('frontend/includes/bm_header'); ?>
 
                     <div class="row">
                         <div class="col-lg-3">

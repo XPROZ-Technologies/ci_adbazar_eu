@@ -107,8 +107,13 @@ class Customer extends MY_Controller
 
                     $customerId = $this->Mcustomers->update($postData);
                     if ($customerId > 0) {
-                        //send email active account
-
+                        /* Email
+                        $this->load->model('Memailqueue');
+                        $dataEmail = array(
+                            'name' => $postData['customer_email']
+                        );
+                        $emailResult = $this->Memailqueue->createEmail($dataEmail, 1);
+                        */
                         $this->session->set_flashdata('notice_message', 'Successfully register account');
                         $this->session->set_flashdata('notice_type', 'success');
                         redirect(base_url('login.html'));

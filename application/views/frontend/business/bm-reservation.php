@@ -3,9 +3,8 @@
   <div class="page-business-manager">
     <div class="bm-content v1">
       <div class="container">
-        <div class="content-top">
-          <h2 class="page-title-md text-center fw-bold">Manage my business</h2>
-        </div>
+        <?php $this->load->view('frontend/includes/bm_header'); ?>
+
 
         <div class="row">
           <div class="col-lg-3">
@@ -133,29 +132,29 @@
                     <input class="form-control" type="text" placeholder="Search" aria-label="Search">
                   </form>
                   <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
-                  <div class="d-flex align-items-center inner-filter">
-                    <span class="me-2 page-text-lg fw-bold">Filter by</span>
-                    <div class="notification-filter">
-                      <div class="custom-select">
+                    <div class="d-flex align-items-center inner-filter">
+                      <span class="me-2 page-text-lg fw-bold">Filter by</span>
+                      <div class="notification-filter">
+                        <div class="custom-select">
+                          <select>
+                            <option value="0" selected>All</option>
+                            <option value="1">Personal</option>
+                            <option value="2">The Rice Bowl</option>
+                            <option value="3">Inspire Beauty Salon</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center notification-sort">
+                      <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
+                      <div class="custom-select mb-0">
                         <select>
-                          <option value="0" selected>All</option>
-                          <option value="1">Personal</option>
-                          <option value="2">The Rice Bowl</option>
-                          <option value="3">Inspire Beauty Salon</option>
+                          <option value="0" selected>Newest</option>
+                          <option value="1">Oldest</option>
                         </select>
                       </div>
                     </div>
                   </div>
-                  <div class="d-flex align-items-center notification-sort">
-                    <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
-                    <div class="custom-select mb-0">
-                      <select>
-                        <option value="0" selected>Newest</option>
-                        <option value="1">Oldest</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
                   <div class="table-responsive reservation-table">
                     <table class="table page-text-lg">
                       <thead>
