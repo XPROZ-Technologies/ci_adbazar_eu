@@ -13,71 +13,98 @@
           </div>
           <div class="col-lg-9">
             <div class="bp-review bm-review">
-              <div class="row review-top">
-                <div class="col-lg-4">
+              <div class="review-top">
+              <div class="col-review">
                   <div class="d-flex flex-column justify-content-center align-items-center overall-rate">
                     <h5 class="page-title-xs">Overall rating</h5>
-                    <ul class="list-inline mb-0 list-rating">
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    </ul>
+                    <div class="d-flex align-items-center mb-5px"> 
+                        <div class="star-rating on line relative"> 
+                            <div class="star-base">
+                              <div class="star-rate" data-rate="3.5"></div> 
+                              <a dt-value="1" href="#1"></a> 
+                              <a dt-value="2" href="#2"></a> 
+                              <a dt-value="3" href="#3"></a> 
+                              <a dt-value="4" href="#4"></a> 
+                              <a dt-value="5" href="#5"></a>
+                            </div>
+                        </div>
+                      </div>
                   </div>
                 </div>
-                <div class="col-lg-8">
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0">(15)</li>
-                  </ul>
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0">(10)</li>
-                  </ul>
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0">(3)</li>
-                  </ul>
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0">(2)</li>
-                  </ul>
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a>
-                    </li>
-                    <li class="list-inline-item me-0">(1)</li>
-                  </ul>
+                <div class="col-review">
+                  <div class="d-flex align-items-center mb-5px"> 
+                    <div class="star-rating on line relative mr-8px"> 
+                        <div class="star-base">
+                          <div class="star-rate" data-rate="5"></div> 
+                          <a dt-value="1" href="#1"></a> 
+                          <a dt-value="2" href="#2"></a> 
+                          <a dt-value="3" href="#3"></a> 
+                          <a dt-value="4" href="#4"></a> 
+                          <a dt-value="5" href="#5"></a>
+                        </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(10)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-5px"> 
+                    <div class="star-rating on line relative mr-8px"> 
+                        <div class="star-base">
+                          <div class="star-rate" data-rate="4"></div> 
+                          <a dt-value="1" href="#1"></a> 
+                          <a dt-value="2" href="#2"></a> 
+                          <a dt-value="3" href="#3"></a> 
+                          <a dt-value="4" href="#4"></a> 
+                          <a dt-value="5" href="#5"></a>
+                        </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(10)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-5px"> 
+                    <div class="star-rating on line relative mr-8px"> 
+                        <div class="star-base">
+                          <div class="star-rate" data-rate="3"></div> 
+                          <a dt-value="1" href="#1"></a> 
+                          <a dt-value="2" href="#2"></a> 
+                          <a dt-value="3" href="#3"></a> 
+                          <a dt-value="4" href="#4"></a> 
+                          <a dt-value="5" href="#5"></a>
+                        </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(10)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-5px"> 
+                    <div class="star-rating on line relative mr-8px"> 
+                        <div class="star-base">
+                          <div class="star-rate" data-rate="2"></div> 
+                          <a dt-value="1" href="#1"></a> 
+                          <a dt-value="2" href="#2"></a> 
+                          <a dt-value="3" href="#3"></a> 
+                          <a dt-value="4" href="#4"></a> 
+                          <a dt-value="5" href="#5"></a>
+                        </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(10)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-5px"> 
+                    <div class="star-rating on line relative mr-8px"> 
+                        <div class="star-base">
+                          <div class="star-rate" data-rate="1"></div> 
+                          <a dt-value="1" href="#1"></a> 
+                          <a dt-value="2" href="#2"></a> 
+                          <a dt-value="3" href="#3"></a> 
+                          <a dt-value="4" href="#4"></a> 
+                          <a dt-value="5" href="#5"></a>
+                        </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(10)</span>
+                  </div>
                 </div>
+                <div class="col-review">
+                    <div class="d-flex justify-content-lg-end">
+                      <a href="#" class="review-btn btn btn-red">
+                        <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
+                        Leave a review</a>
+                    </div>
+                  </div>
               </div>
 
               <div class="bp-comment">

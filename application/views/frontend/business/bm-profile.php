@@ -41,13 +41,19 @@
                     <div class="col-lg-7">
                       <div class="bp-about-left">
                         <h4 class="fw-bold page-title-xs">BUSINESS INFORMATION</h4>
-                        <ul class="list-inline list-rating">
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star"></i></a></li>
-                        </ul>
+                        <div class="d-flex align-items-center mb-5px"> 
+                          <div class="star-rating on line  mr-8px relative"> 
+                              <div class="star-base">
+                                <div class="star-rate" data-rate="3.5"></div> 
+                                <a dt-value="1" href="#1"></a> 
+                                <a dt-value="2" href="#2"></a> 
+                                <a dt-value="3" href="#3"></a> 
+                                <a dt-value="4" href="#4"></a> 
+                                <a dt-value="5" href="#5"></a>
+                              </div>
+                          </div>
+                          <!-- <span class="star-rating-number">(10)</span> -->
+                        </div>
                         <ul class="list-unstyled list-info">
                           <li class="mb-3">
                             <div class="img">
@@ -205,65 +211,11 @@
       ];
       // Create markers.
       for (let i = 0; i < features.length; i++) {
-        var rank = ``;
-        if (features[i].starInfo === 0) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 1) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 2) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 3) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 4) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 5) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              `;
-        }
         var open_status = "";
         if (features[i].linkClose == 1) {
           open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
         } else {
           open_status = `<a href="javascript:void(0);" class="customer-location-close">Closed</a>`;
-        }
-        var evaluate_info = "";
-        if (features[i].evaluateInfo !== 0) {
-          evaluate_info = `<li class="list-inline-item me-0">(${features[i].evaluateInfo})</li>`;
         }
         var link_location = "";
         if (features[i].linkLocation !== "") {
@@ -279,8 +231,21 @@
                   <div class="col-9">
                       <div class="card-body p-0 ml-2">
                           <h6 class="card-title mb-1 page-text-xs"><a href="${features[i].linkInfo}" title="">${features[i].titleInfo}</a></h6>
+                          <div class="d-flex align-items-center mb-5px"> 
+                            <div class="star-rating on line  mr-8px relative"> 
+                                <div class="star-base">
+                                <div class="star-rate" data-rate="${features[i].starInfo}"></div> 
+                                <a dt-value="1" href="#1"></a> 
+                                <a dt-value="2" href="#2"></a> 
+                                <a dt-value="3" href="#3"></a> 
+                                <a dt-value="4" href="#4"></a> 
+                                <a dt-value="5" href="#5"></a>
+                                </div>
+                            </div>
+                            <span>(${features[i].evaluateInfo})</span>
+                        </div>
                           <ul class="list-inline mb-2 list-rating-sm">
-                            ${rank}
+                            ${features[i].starInfo}
                             ${evaluate_info}
                           </ul>
                           <p class="card-text mb-0 page-text-xxs text-secondary">${features[i].servicetypes}
@@ -296,6 +261,7 @@
         const infowindow = new google.maps.InfoWindow({
           content: infoMap,
         });
+        starRate();
         const marker = new google.maps.Marker({
           position: features[i].position,
           icon: icons[features[i].type].icon,

@@ -931,3 +931,14 @@ $('.progress').each(function () {
 $(".icon-show-mobile").click(function () {
   $(this).closest('.show-mobile-ic').find('.bp-sidebar').toggle();
 });
+if($('.star-rate').length > 0){
+  starRate();
+}
+function starRate(){
+  $('.star-rate').each(function(){
+    var rate = $(this).attr('data-rate');
+    var width = 0;
+    width = rate * 21.43;
+    $(this).css('width',width);
+  });
+}

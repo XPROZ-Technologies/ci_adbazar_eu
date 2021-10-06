@@ -205,8 +205,15 @@ main{
         padding-left: 17px;
     }
 }
+.nav-pills .nav-item:not(:last-child) {
+    margin-right: 80px;
+}
+
 .customer-item-list .view-more {
+    width: 90px;
     bottom: 64px;
+    right: 12px;
+    text-align: center;
 }
 .view-more-list-cus{
     font-size: 14px;
@@ -705,7 +712,7 @@ min-height: 320px;
     border-color: #CFCFCF;
 }
 .bm-create-content .open-hour-item.disabled-item .time-content::after {
-    background-image: url(../../img/frontend/ic-timepicker.png);
+    background-image: url('../../img/frontend/ic-timepicker.png');
 }
 .customer-location .text-success{
     font-size: 10px;
@@ -724,6 +731,47 @@ min-height: 320px;
 }
 .form-label .text-danger {
     color: #949494!important;
+}
+.slider1 .slick-slide img,
+.tab-photo-wrap .photo-item img {
+    object-fit: contain;
+}
+
+.star-rating.line .star-base, .star-rating.line .rating-review {
+    display: inline-flex;
+    
+}
+.mb-5px{
+    margin-bottom: 5px;
+}
+.mr-8px{
+    margin-right: 8px;
+}
+.star-rating-number{
+    position: relative;
+    top: 2px;
+}
+.star-base {
+    width: 107px;
+	display: inline-block;
+	vertical-align: middle;
+	height: 15px;
+	background: url('../../img/frontend/rating1.png');
+	font-size: 0;
+	position: relative;
+}
+.star-base .star-rate {
+	background: url('../../img/frontend/rating.png');
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	pointer-events: none;
+}
+.star-base a {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
 }
 @media (max-width: 1366px){
     .discover_more {
@@ -759,6 +807,9 @@ min-height: 320px;
     }
 }
 @media (max-width: 991px){
+    .bm-left.show-mobile-ic{
+        margin-bottom: 10px;
+    }
     .bp-about-left .page-title-xs {
         font-size: 16px;
         line-height: 20px;
@@ -778,6 +829,7 @@ min-height: 320px;
     }
     .show-mobile-ic .bp-sidebar{
         display: none;
+        z-index: 1;
         margin: 8px 0px;
         position: absolute;
         width: 171px;

@@ -18,14 +18,19 @@
                     <div class="bp-about-left">
                       <h4 class="fw-bold page-title-xs">BUSINESS INFORMATION</h4>
 
-                      <ul class="list-inline list-rating">
-                        <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="bi bi-star"></i></a></li>
-                        <li class="list-inline-item fw-bold">(10)</li>
-                      </ul>
+                      <div class="d-flex align-items-center mb-20"> 
+                        <div class="star-rating on line  mr-8px relative"> 
+                            <div class="star-base">
+                            <div class="star-rate" data-rate="3.5"></div> 
+                            <a dt-value="1" href="#1"></a> 
+                            <a dt-value="2" href="#2"></a> 
+                            <a dt-value="3" href="#3"></a> 
+                            <a dt-value="4" href="#4"></a> 
+                            <a dt-value="5" href="#5"></a>
+                            </div>
+                        </div>
+                        <span class="fw-bold star-rating-number">(10)</span>
+                    </div>
 
                       <ul class="list-unstyled list-info">
                         <li class="mb-3">
