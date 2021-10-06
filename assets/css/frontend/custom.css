@@ -468,12 +468,6 @@ object-fit: contain;
 .customer-event-item {
     padding: 14px 8px;
 }
-.toast:not(.showing):not(.show) {
-    opacity: 1;
-}
-.toast{
-    display: none;
-}
 .bm-content .bm-right,
 .um-coupon.bm-coupon.p-0,
 .bm-gallery .bp-gallery,
