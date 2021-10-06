@@ -71,14 +71,19 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                             <div class="col-9">
                                 <div class="card-body p-0">
                                     <h6 class="card-title mb-1 page-text-xs"><a href="${urlProfileBusiness+item.business_url}" title="">${item.business_name}</a></h6>
-                                    <ul class="list-inline mb-2 list-rating-sm">
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0">(10)</li>
-                                    </ul>
+                                    <div class="d-flex align-items-center mb-5px"> 
+                                        <div class="star-rating on line  mr-8px relative"> 
+                                            <div class="star-base">
+                                            <div class="star-rate" data-rate="3.5"></div> 
+                                            <a dt-value="1" href="#1"></a> 
+                                            <a dt-value="2" href="#2"></a> 
+                                            <a dt-value="3" href="#3"></a> 
+                                            <a dt-value="4" href="#4"></a> 
+                                            <a dt-value="5" href="#5"></a>
+                                            </div>
+                                        </div>
+                                        <span class="star-rating-number">(10)</span>
+                                    </div>
                                     <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                     ${isOpen}
                                     <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
@@ -113,6 +118,7 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                     $("#profilePagging").html(retVal);
                 }
                 $(".customer-location-list").html(html);
+                starRate();
                 
                 var listProfilesMap = json.listProfilesMap;
 
