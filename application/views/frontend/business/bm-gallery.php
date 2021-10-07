@@ -64,17 +64,17 @@
                                                             <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500">1 – 10</span> of <span class="fw-500">50</span>
                                                                 results</p>
                                                             <div class="page-text-sm mb-0 d-flex align-items-center">
-                                                                <span class="fw-500">50</span>
-                                                                <span class="ms-2">/</span>
-                                                                <div class="custom-select">
-                                                                    <select>
-                                                                        <option value="0" selected>10</option>
-                                                                        <option value="1">20</option>
-                                                                        <option value="2">30</option>
-                                                                        <option value="3">40</option>
-                                                                        <option value="4">50</option>
-                                                                    </select>
+                                                                <div class="custom-select choose-perpage">
+                                                                <select>
+                                                                    <option value="10" selected>10</option>
+                                                                    <option value="20" >20</option>
+                                                                    <option value="30" >30</option>
+                                                                    <option value="40" >40</option>
+                                                                    <option value="50" >50</option>
+                                                                </select>
                                                                 </div>
+                                                                <span class="ms-2">/</span>
+                                                                <span class=""> Page</span>
                                                             </div>
                                                         </div>
                                                         <div class="pagination-right">

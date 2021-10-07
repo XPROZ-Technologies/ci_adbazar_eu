@@ -66,7 +66,7 @@
                   <div class="form-group mb-3">
                     <label for="bm-slogan" class="form-label">Slogan</label>
                     <div class="slogan-wrap">
-                      <input maxlength="100" type="text" class="form-control form-control-lg" id="bm-slogan" aria-label="Business Slogan" name="business_slogan" value="<?php echo $businessInfo['business_slogan']; ?>">
+                      <input maxlength="100" onkeyup="countChar(this)" type="text" class="form-control form-control-lg" id="bm-slogan" aria-label="Business Slogan" name="business_slogan" value="<?php echo $businessInfo['business_slogan']; ?>">
                       <span class="text-secondary page-text-sm slogan-counter">0/100</span>
                     </div>
                   </div>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="col-12">
                   <div class="form-group mb-3">
-                    <label for="bm-url" class="form-label">Custom URL</label>
+                    <label for="bm-url" class="form-label">Custom URL <span class="required">*</span></label>
                     <div class="position-relative text-url">
                       <span>adbazar.eu/</span>
                       <input type="url" disabled class="form-control form-control-lg" placeholder="" aria-label="Custom URL" id="business_url" value="<?php echo $businessInfo['business_url']; ?>">

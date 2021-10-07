@@ -6,12 +6,14 @@
         <div class="col-lg-8">
           <div class="notification">
             <div class="bg-white notification-content">
-              <h2 class="page-heading page-title-xs mb-3 mb-md-4">Notifications</h2>
-              <div class="wrapper-content">
+              <div class="d-flex justify-content-between align-items-center">
+                <h2 class="page-heading page-title-xs mb-3 mb-md-4">Notifications</h2>
                 <form class="d-flex search-box">
                   <a href="#" class="search-box-icon"><img src="assets/img/frontend/ic-search.svg" alt="search icon"></a>
                   <input class="form-control" type="text" placeholder="Search" aria-label="Search">
                 </form>
+              </div>
+              <div class="wrapper-content">
                 <div class="notification-wrapper-filter d-flex flex-column flex-md-row align-items-md-center justify-content-between">
                   <div class="d-flex align-items-center inner-filter">
                     <span class="me-2 page-text-lg">Filter by</span>

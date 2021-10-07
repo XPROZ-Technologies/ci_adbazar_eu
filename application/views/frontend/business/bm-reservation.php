@@ -89,7 +89,7 @@
 
                           <!-- Remove disabled when validate content -->
                           <div class="modal-footer justify-content-center border-0 p-0">
-                            <button type="button" class="btn btn-red btn-red-disabled" disabled>Save
+                            <button type="button" class="btn btn-red btn-red">Save
                               changes</button>
                             <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal">Cancel</button>
                           </div>
@@ -111,7 +111,7 @@
                     </label>
                     <p class="mb-0 switch-text fw-bold">Receive reservation(s)</p>
                   </div>
-                  <button class="btn btn-red" type="button" data-bs-toggle="modal" data-bs-target="#configModal"><img src="assets/img/frontend/ic-setting.png" alt="reservation-config"> Reservation Setting</button>
+                  <button class="btn btn-red mr-24" type="button" data-bs-toggle="modal" data-bs-target="#configModal"><img src="assets/img/frontend/ic-setting.png" alt="reservation-config"> Reservation Setting</button>
                 </div>
 
 
@@ -159,7 +159,6 @@
                     <table class="table page-text-lg">
                       <thead>
                         <tr>
-                          <th>Date</th>
                           <th>Time</th>
                           <th>ID</th>
                           <th>People</th>
@@ -170,7 +169,6 @@
                       <tbody>
                         <tr>
                           <td>21/10/2021<br>10:00</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-approved">Approved</span></td>
@@ -182,7 +180,6 @@
                         </tr>
                         <tr>
                           <td>21/10/2021</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-declined">Declined</span></td>
@@ -194,7 +191,6 @@
                         </tr>
                         <tr>
                           <td>21/10/2021</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-expire">Expired</span></td>
@@ -206,7 +202,6 @@
                         </tr>
                         <tr>
                           <td>21/10/2021</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-approved">Approved</span></td>
@@ -218,7 +213,6 @@
                         </tr>
                         <tr>
                           <td>21/10/2021</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-approved">Approved</span></td>
@@ -230,7 +224,6 @@
                         </tr>
                         <tr>
                           <td>21/10/2021</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-approved">Approved</span></td>
@@ -242,7 +235,6 @@
                         </tr>
                         <tr>
                           <td>21/10/2021</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-declined">Declined</span></td>
@@ -254,7 +246,6 @@
                         </tr>
                         <tr>
                           <td>21/10/2021</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-expire">Expired</span></td>
@@ -266,7 +257,6 @@
                         </tr>
                         <tr>
                           <td>21/10/2021</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-approved">Approved</span></td>
@@ -278,7 +268,6 @@
                         </tr>
                         <tr>
                           <td>21/10/2021</td>
-                          <td>10:00</td>
                           <td>ABCD123</td>
                           <td>1</td>
                           <td><span class="badge badge-approved">Approved</span></td>

@@ -12,11 +12,11 @@
           </div>
           <div class="col-lg-9">
             <div class="bp-review bm-review">
-              <div class="review-top">
+              <div class="review-top v1">
                 <div class="col-review">
                   <div class="d-flex flex-column justify-content-center align-items-center overall-rate">
                     <h5 class="page-title-xs">Overall rating</h5>
-                    <div class="d-flex align-items-center mb-5px">
+                    <div class="d-flex align-items-center mb-14">
                       <div class="star-rating on line relative">
                         <div class="star-base">
                           <div class="star-rate" data-rate="3.5"></div>
@@ -30,8 +30,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-review">
-                  <div class="d-flex align-items-center mb-5px">
+                <div class="col-review ml-32">
+                  <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="5"></div>
@@ -44,7 +44,7 @@
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
                   </div>
-                  <div class="d-flex align-items-center mb-5px">
+                  <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="4"></div>
@@ -57,7 +57,7 @@
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
                   </div>
-                  <div class="d-flex align-items-center mb-5px">
+                  <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="3"></div>
@@ -70,7 +70,7 @@
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
                   </div>
-                  <div class="d-flex align-items-center mb-5px">
+                  <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="2"></div>
@@ -83,7 +83,7 @@
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
                   </div>
-                  <div class="d-flex align-items-center mb-5px">
+                  <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="1"></div>
@@ -95,13 +95,6 @@
                       </div>
                     </div>
                     <span class="fw-bold star-rating-number">(10)</span>
-                  </div>
-                </div>
-                <div class="col-review">
-                  <div class="d-flex justify-content-lg-end">
-                    <a href="#" class="review-btn btn btn-red">
-                      <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
-                      Leave a review</a>
                   </div>
                 </div>
               </div>
@@ -156,10 +149,20 @@
                           onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
                         </p>
                         <div class="text-right">
-                          <a href="" title="" class="btn btn-red d-inline-block">Reply</a>
-                          <a href="" title="" class="btn btn-outline-red d-inline-block"><img src="assets/img/frontend/icon-del.png" alt=""> Delete</a>
+                          <a href="javascript:void(0)" title="" class="btn btn-red d-inline-block reply-comment">Reply</a>
+                          <a href="javascript:void(0)" title="" class="btn btn-outline-red d-inline-block"><img src="assets/img/frontend/icon-del.png" alt=""> Delete</a>
                         </div>
                       </div>
+                    </div>
+                    <div class="comment-item no-avatar comment-reply">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <p class="page-text-md text-secondary mb-2">Reply to customer:</p>
+                        <div class="d-flex mb-10">
+                          <button type="submit" class="btn btn-red">Submit</button>
+                          <button type="submit" class="btn btn-red ml-8px reply-cancel">cancel</button>
+                        </div>
+                      </div>
+                      <textarea name="comment-post" id="bmReplyComment"></textarea>
                     </div>
                   </div>
 
@@ -186,12 +189,6 @@
                         </p>
                       </div>
                     </div>
-
-                    <div class="comment-item no-avatar comment-reply">
-                      <p class="page-text-md text-secondary mb-2">Reply to customer:</p>
-                      <textarea name="comment-post" id="bmReplyComment"></textarea>
-                    </div>
-
                     <div class="d-flex flex-column flex-lg-row comment-item">
                       <div class="comment-img">
                         <img src="assets/img/frontend/review-avatar.jpg" alt="comment avatar" class="img-fluid">
@@ -268,21 +265,21 @@
             <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
               <div class="d-flex align-items-center pagination-left">
                 <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500">1 – 10</span> of <span class="fw-500">50</span>
-                  results</p>
+                    results</p>
                 <div class="page-text-sm mb-0 d-flex align-items-center">
-                  <span class="fw-500">50</span>
-                  <span class="ms-2">/</span>
-                  <div class="custom-select">
+                    <div class="custom-select choose-perpage">
                     <select>
-                      <option value="0" selected>10</option>
-                      <option value="1">20</option>
-                      <option value="2">30</option>
-                      <option value="3">40</option>
-                      <option value="4">50</option>
+                        <option value="10" selected>10</option>
+                        <option value="20" >20</option>
+                        <option value="30" >30</option>
+                        <option value="40" >40</option>
+                        <option value="50" >50</option>
                     </select>
-                  </div>
+                    </div>
+                    <span class="ms-2">/</span>
+                    <span class=""> Page</span>
                 </div>
-              </div>
+            </div>
               <div class="pagination-right">
                 <!-- Page pagination -->
                 <nav>
