@@ -1,7 +1,7 @@
 <?php $this->load->view('frontend/includes/header'); ?>
 <main>
   <div class="page-business-manager">
-    <div class="bm-content v1">
+    <div class="bm-content">
       <div class="container">
         <?php $this->load->view('frontend/includes/bm_header'); ?>
 
