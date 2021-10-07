@@ -12,7 +12,7 @@ class Customer extends MY_Controller
 
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
-        $this->lang->load('customer', $this->language);
+        //$this->lang->load('customer', $this->language);
     }
 
     public function index()
@@ -53,7 +53,7 @@ class Customer extends MY_Controller
 
                     $user['SessionId'] = uniqid();
 
-                    $this->session->set_flashdata('notice_message', $this->lang->line('customer_login_success'));
+                    $this->session->set_flashdata('notice_message', "Login successfull");
                     $this->session->set_flashdata('notice_type', 'success');
                     if(!empty($postData['redirectOldUrl'])){
                         redirect($postData['redirectOldUrl']);
@@ -62,7 +62,7 @@ class Customer extends MY_Controller
                     }
                     
                 } else {
-                    $this->session->set_flashdata('notice_message', $this->lang->line('customer_login_failed'));
+                    $this->session->set_flashdata('notice_message', "Login failed");
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('login.html?1'));
                 }
@@ -94,7 +94,7 @@ class Customer extends MY_Controller
                 $postData['customer_email'] = strtolower($postData['customer_email']);
                 $this->load->model('Mcustomers');
                 if ($this->Mcustomers->checkExist(0, $postData['customer_email'])) {
-                    $this->session->set_flashdata('notice_message', $this->lang->line('customer_phone_or_email_exists'));
+                    $this->session->set_flashdata('notice_message', "Customer phone or email already exist");
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('signup.html?2'));
                 } else {

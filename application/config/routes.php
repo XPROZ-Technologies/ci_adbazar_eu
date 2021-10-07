@@ -208,6 +208,7 @@ $route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
 //busines profile management
 $route['business-management/(:any)/about-us'] = 'frontend/businessprofile/manage_about_us/$1';
 $route['business-management/(:any)/gallery'] = 'frontend/businessprofile/manage_gallery/$1';
+$route['business-management/(:any)/update-gallery'] = 'frontend/businessprofile/updateGallery/$1';
 $route['business-management/(:any)/coupons'] = 'frontend/businessprofile/manage_coupons/$1';
 $route['business-management/(:any)/create-coupon'] = 'frontend/businessprofile/manage_create_coupon/$1';
 $route['business-management/(:any)/events'] = 'frontend/businessprofile/manage_events/$1';

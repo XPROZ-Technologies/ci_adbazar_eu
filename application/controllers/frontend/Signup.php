@@ -9,7 +9,7 @@ class Signup extends MY_Controller {
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
-        $this->lang->load('signup', $this->language);
+        //$this->lang->load('signup', $this->language);
 
 
     }

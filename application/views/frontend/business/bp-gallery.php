@@ -88,7 +88,7 @@
                                         <?php } else { ?>
                                             <div class="gallery-zero zero-box">
                                                 <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid mx-auto d-block">
-                                                <p class="text-secondary page-text-lg text-center"><php echo $businessInfo['business_name']; ?> not have any photo yet. </p>
+                                                <p class="text-secondary page-text-lg text-center"><?php echo $businessInfo['business_name']; ?> not have any photo yet. </p>
                                             </div>
                                         <?php } ?>
                                     </div>
@@ -154,7 +154,7 @@
                                         <?php } else { ?>
                                             <div class="gallery-zero zero-box">
                                                 <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid mx-auto d-block">
-                                                <p class="text-secondary page-text-lg text-center"><php echo $businessInfo['business_name']; ?> does not have any video yet. </p>
+                                                <p class="text-secondary page-text-lg text-center"><?php echo $businessInfo['business_name']; ?> does not have any video yet. </p>
                                             </div>
                                         <?php } ?>
                                     </div>

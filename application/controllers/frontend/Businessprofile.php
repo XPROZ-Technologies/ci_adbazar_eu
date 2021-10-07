@@ -11,7 +11,7 @@ class Businessprofile extends MY_Controller
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
-        $this->lang->load('login', $this->language);
+        //$this->lang->load('login', $this->language);
     }
 
     public function index($slug = "")
@@ -907,6 +907,40 @@ class Businessprofile extends MY_Controller
         $data['businessVideos'] = $this->Mbusinessvideos->getBy(array('business_profile_id' => $businessProfileId));
 
         $this->load->view('frontend/business/bm-gallery', $data);
+    }
+
+    public function updateGallery($slug = "")
+    {
+        //echo "<pre>".print_r($_POST);die;
+
+        $this->loadModel(array('Mbusinessphotos', 'Mbusinessprofiles'));
+
+        $businessURL = trim($slug);
+
+        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+        if ($businessProfileId == 0) {
+            echo json_encode(array('code' => 0, 'message' => "Business profile not exist"));die;
+        }
+        //$businessInfo = $this->Mbusinessprofiles->get($businessProfileId);
+
+        $images = $this->input->post('images');
+        $uploadedImage = [];
+        if(!empty($images)){
+            $images = json_decode($images);
+            foreach($images as $itemImg){
+                if(!empty($itemImg)){
+                    $imageUpload = $this->uploadImageBase64($itemImg, 7);
+                    $uploadedImage[] = replaceFileUrl($imageUpload, BUSINESS_PROFILE_PATH);
+                }
+            }
+            if(!empty($uploadedImage)){
+                $resultUpload = $this->Mbusinessphotos->savePhotos($uploadedImage, $businessProfileId);
+                if($resultUpload){
+                    echo json_encode(array('code' => 1, 'message' => "Upload success"));die;
+                }
+            }
+        }
+        echo json_encode(array('code' => 0, 'message' => "Upload failed"));die;
     }
 
     public function manage_coupons($slug = "")

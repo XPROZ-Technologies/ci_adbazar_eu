@@ -820,6 +820,7 @@ $(document).ready(function () {
 
 */
 
+/*
 $(document).ready(function () {
   if (window.File && window.FileList && window.FileReader) {
     $("#files").on("change", function (e) {
@@ -891,6 +892,7 @@ $(document).ready(function () {
     })
   }
 });
+*/
 
 // function youtubeParser(url){
 //   var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;

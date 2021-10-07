@@ -44,10 +44,8 @@
                                                                         <img src="assets/img/frontend/ic-edit-gallery.png" alt="ic-edit-gallery">
                                                                     </a>
                                                                     <ul class="dropdown-menu dropdown-gallery">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-user.svg" alt="ic-gallery-user">Use as profile
-                                                                                photo</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-cover.svg" alt="ic-gallery-user">Use as cover
-                                                                                photo</a></li>
+                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-user.svg" alt="ic-gallery-user">Use as profile photo</a></li>
+                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-cover.svg" alt="ic-gallery-user">Use as cover photo</a></li>
                                                                         <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-download.svg" alt="ic-gallery-user">Download</a></li>
                                                                         <li><a class="dropdown-item" data-bs-toggle="modal" href="#deletePhotoModal"><img src="assets/img/frontend/ic-gallery-trash.svg" alt="ic-gallery-user">Delete</a>
                                                                         </li>
@@ -56,7 +54,6 @@
                                                             </div>
                                                         <?php } ?>
                                                         <!-- END. photo item -->
-
                                                     </div>
                                                     <!--
                                                     <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
@@ -102,7 +99,7 @@
                                                 <div class="gallery-zero zero-box">
                                                     <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid mx-auto d-block">
                                                     <p class="text-secondary page-text-lg text-center">
-                                                        <php echo $businessInfo['business_name']; ?> not have any photo yet.
+                                                        <?php echo $businessInfo['business_name']; ?> not have any photo yet.
                                                     </p>
                                                 </div>
                                             <?php } ?>
@@ -124,10 +121,8 @@
                                                                         <img src="assets/img/frontend/ic-trash-white.png" alt="icon delete" class="img-fluid">
                                                                     </a>
                                                                 </div>
-                                                                
                                                             </div>
                                                         <?php } ?>
-
                                                     </div>
                                                     <!--
                                                     <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
@@ -172,7 +167,7 @@
                                                 <div class="gallery-zero zero-box">
                                                     <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid mx-auto d-block">
                                                     <p class="text-secondary page-text-lg text-center">
-                                                        <php echo $businessInfo['business_name']; ?> does not have any video yet.
+                                                        <?php echo $businessInfo["business_name"]; ?> does not have any video yet.
                                                     </p>
                                                 </div>
                                             <?php } ?>
@@ -220,32 +215,32 @@
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <!-- <form action="#"> -->
-                        <div id="image_preview"></div>
-                        <div class="upload-more">
-                            <div class="text-right">
-                                <div class="position-relative">
-                                    <div class="drop-zone__prompt">
-                                        <img src="assets/img/frontend/ic-cloud.png" alt="ic-cloud image" class="img-fluid">
-                                        <p class="mb-2 text-black fw-500">Drop files to upload or
-                                            <span>browse</span>
-                                        </p>
-                                        <span class="d-block page-text-xs text-black">Supports JPEG, PNG,
-                                            GIF</span>
+                        <form method="POST" id="formImages" action="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/update-gallery'); ?>">
+                            <div id="image_preview"></div>
+                            <div class="upload-more">
+                                <div class="text-right">
+                                    <div class="position-relative">
+                                        <div class="drop-zone__prompt">
+                                            <img src="assets/img/frontend/ic-cloud.png" alt="ic-cloud image" class="img-fluid">
+                                            <p class="mb-2 text-black fw-500">Drop files to upload or
+                                                <span>browse</span>
+                                            </p>
+                                            <span class="d-block page-text-xs text-black">Supports JPEG, PNG,
+                                                GIF</span>
+                                        </div>
+                                        <div class="add-more-img text-center mt-3">
+                                            <p><img src="assets/img/frontend/iconimg.png" alt=""> + Add more photos</p>
+                                        </div>
+                                        <input type="file" id="files" name="files[]" multiple />
                                     </div>
-                                    <div class="add-more-img text-center mt-3">
-                                        <p><img src="assets/img/frontend/iconimg.png" alt=""> + Add more photos</p>
-                                    </div>
-                                    <input type="file" id="files" name="files[]" multiple />
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer justify-content-center border-0 p-0 upload-more-img">
-                            <button type="submit" class="btn btn-red">
-                                <img src="assets/img/frontend/ic-upload.png" alt="ic-upload">
-                                Upload</button>
-                        </div>
-                        <!-- </form> -->
+                            <div class="modal-footer justify-content-center border-0 p-0 upload-more-img">
+                                <button type="button" class="btn btn-red">
+                                    <img src="assets/img/frontend/ic-upload.png" alt="ic-upload">
+                                    Upload</button>
+                            </div>
+                        </form>
                     </div>
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <form action="#" id="list-url">
@@ -339,3 +334,83 @@
     </div>
 </div>
 <!-- End Modal Delete Photo -->
+<script>
+    $(document).ready(function() {
+        if (window.File && window.FileList && window.FileReader) {
+            $("#files").on("change", function(e) {
+                var files = e.target.files,
+                    filesLength = files.length;
+                for (var i = 0; i < filesLength; i++) {
+                    var f = files[i]
+                    var fileReader = new FileReader();
+                    fileReader.onload = (function(e) {
+                        $('#image_preview').append("<span class='pip position-relative'><img src='" + e.target.result + "'><span class=\"remove-img\"><img src='assets/img/frontend/ic-remove.svg'></span></span>");
+                        $(".remove-img").click(function() {
+                            $(this).parent(".pip").remove();
+                            if ($('#image_preview .pip').length == 0) {
+                                $('.drop-zone__prompt').show();
+                                $('.add-more-img').hide();
+                                $('.upload-more-img').hide();
+                            }
+                        });
+                        $('.drop-zone__prompt').hide();
+                        $('.add-more-img').show();
+                        $('.upload-more-img').show();
+                    });
+                    fileReader.readAsDataURL(f);
+                }
+            });
+            $('.hide-loading').click(function(e) {
+                e.stopPropagation();
+                $(this).closest('.uploading').hide();
+            })
+            $('.upload-more-img button').click(function(e) {
+                e.stopPropagation();
+                $('#addGalleryModal').modal('hide');
+                $('.uploading .uploading-body table').empty();
+                var count = 0;
+                var imageLists = [];
+                $('#image_preview .pip ').each(function(index, element) {
+                    count += 1;
+                    var html = ``;
+                    var src = $(this).find('img').attr('src');
+                    imageLists.push(src);
+                    html = `<tr>
+                    <td><img src="${src}" alt=""></td>
+                    <td>${src}</td>
+                    <td class="text-right"><img src="assets/img/frontend/spinner.gif" alt=""></td>
+                    </tr>`;
+                    $('.uploading .uploading-body table').append(html);
+                })
+                $('.uploading-head p span').text(count);
+                $('.uploading').show();
+
+                if (imageLists.length > 0) {
+                    //var formImages = $("#formImages");
+                    //console.log(JSON.stringify(imageLists));
+
+                    $.ajax({
+                        type: 'POST',
+                        url: $("#formImages").attr('action'),
+                        data: {
+                            images: JSON.stringify(imageLists)
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            //  setTimeout fake loading
+                            //setTimeout(function() {
+                            $('.uploading .uploading-body tr td.text-right img').attr("src", "assets/img/frontend/ic-check-mask.png");
+                            //}, 1000);
+                            redirect(true);
+                        },
+                        error: function(data) {
+
+                        }
+                    });
+                }
+
+
+            })
+        }
+    });
+</script>
