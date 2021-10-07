@@ -98,7 +98,7 @@
                     <div class="dropdown dropdown-country page-text-lg">
                       <input type="hidden" class="form-control" id="businessPhoneCode" name="country_code_id" value="0">
                       <a href="#" class="wrapper-btn dropdown-toggle current js-country" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">
-                        <img src="<?php if(!empty($phoneCodeInfo['country_name'])){ echo "assets/img/iso_flags/".$phoneCodeInfo['image'].".png"; }else{ echo "assets/img/frontend/ger.png"; } ?>" alt="<?php if(!empty($phoneCodeInfo['country_name'])){ echo $phoneCodeInfo['country_name']; }else{ echo "Germany"; } ?>" class="img-fluid me-2">
+                        <img src="<?php if(!empty($phoneCodeInfo['country_name'])){ echo "assets/img/iso_flags/".$phoneCodeInfo['image']; }else{ echo "assets/img/frontend/ger.png"; } ?>" alt="<?php if(!empty($phoneCodeInfo['country_name'])){ echo $phoneCodeInfo['country_name']; }else{ echo "Germany"; } ?>" class="img-fluid me-2">
                         <span class="country-text"><?php if(!empty($phoneCodeInfo['country_name'])){ echo $phoneCodeInfo['country_name']; }else{ echo "Germany"; } ?></span>
                         <span class="country-code">+<?php if(!empty($phoneCodeInfo['phonecode'])){ echo $phoneCodeInfo['phonecode']; }else{ echo "49"; } ?></span>
                       </a>
@@ -140,7 +140,7 @@
 
                       <?php if (!empty($businessOpeningHours)) { ?>
                         <?php foreach ($businessOpeningHours as $indexHours => $itemOpenHous) { ?>
-                          <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item">
+                          <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item <?php if ($itemOpenHous['opening_hours_status_id'] == 2) { echo "disabled-item"; } ?>">
                             <div class="page-text-lg text-date">
                               <?php echo $this->Mconstants->dayIds[$itemOpenHous['day_id']]; ?>
                             </div>
@@ -174,7 +174,7 @@
                                 <div class="position-relative time-content">
                                   <input value="<?php echo ddMMyyyy($itemOpenHous['end_time'], 'H:i'); ?>" type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" <?php if ($itemOpenHous['opening_hours_status_id'] == 1) {
                                                                                                                                                                                                   echo "disabled";
-                                                                                                                                                                                                } ?> name="open_hours[<?php echo $itemOpenHous['day_id']; ?>][start_time]" id="timePicker<?php echo $itemOpenHous['day_id']; ?>" data-toggle="datetimepicker" data-target="#timePicker<?php echo $itemOpenHous['day_id']; ?>" placeholder="Open at" />
+                                                                                                                                                                                                } ?> name="open_hours[<?php echo $itemOpenHous['day_id']; ?>][start_time]" id="timePicker<?php echo $itemOpenHous['day_id']; ?>" data-toggle="datetimepicker" data-target="#timePicker<?php echo $itemOpenHous['day_id']; ?>" placeholder="Close at" />
                                 </div>
                               </div>
                             </div>

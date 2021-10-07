@@ -122,7 +122,7 @@
       error: function(response) {
         $('.btn-create').prop('disabled', false);
 
-        $(".notiPopup .text-secondary").html(<?php echo ERROR_COMMON_MESSAGE; ?>);
+        $(".notiPopup .text-secondary").html('<?php echo ERROR_COMMON_MESSAGE; ?>');
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(4000);
       }
