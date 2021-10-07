@@ -65,7 +65,13 @@
                           <div class="position-relative">
                             <a href="<?php echo $couponDetailUrl; ?>" class="card customer-coupon-item um-coupon-item bm-coupon-item position-relative">
                               <span class="customer-coupon-img">
-                                <img src="<?php echo COUPONS_PATH . $itemCoupon['coupon_image']; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
+                                <?php
+                                  $couponImg = COUPONS_PATH . NO_IMAGE;
+                                  if (!empty($itemCoupon['coupon_image'])) {
+                                    $couponImg = COUPONS_PATH . $itemCoupon['coupon_image'];
+                                  }
+                                ?>
+                                <img src="<?php echo $couponImg; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
                               </span>
                               <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
                                 <div class="customer-coupon-body">

@@ -14,8 +14,8 @@
               <div class="bp-coupon grid-60">
                 <div class="d-flex justify-content-end">
                   <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
-                    <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();" ><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>" >
+                    <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
                   </form>
                 </div>
                 <?php if (count($lists) > 0) { ?>
@@ -28,7 +28,13 @@
                           <div class="position-relative">
                             <a class="card customer-coupon-item" href="<?php echo $couponDetailUrl; ?>">
                               <p class="customer-coupon-img mb-0">
-                                <img src="<?php echo COUPONS_PATH . $itemCoupon['coupon_image']; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
+                                <?php
+                                  $couponImg = COUPONS_PATH . NO_IMAGE;
+                                  if (!empty($itemCoupon['coupon_image'])) {
+                                    $couponImg = COUPONS_PATH . $itemCoupon['coupon_image'];
+                                  }
+                                ?>
+                                <img src="<?php echo $couponImg; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
                               </p>
                               <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
                                 <div class="customer-coupon-body">
