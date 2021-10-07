@@ -45,6 +45,22 @@ class Mservicetypes extends MY_Model {
         return $this->getByQuery($query);
     }
 
+    public function getSelectedByListBusinessId($businessId = 0, $service_type_name = "service_type_name_de") {
+        if($businessId > 0){
+            $query = "SELECT
+                        DISTINCT
+                        service_types.id
+                    FROM
+                        service_types
+                    LEFT JOIN business_service_types ON business_service_types.service_type_id = service_types.id
+                    WHERE business_service_types.business_profile_id = ". $businessId;
+            return $this->getByQuery($query);
+        }else{
+            return array();
+        }
+        
+    }
+
     public function getListByServices($postData = array(), $service_type_name = "service_type_name_de") {
         $query = "SELECT
                         DISTINCT

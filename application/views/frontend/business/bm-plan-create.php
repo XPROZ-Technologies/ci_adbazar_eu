@@ -339,7 +339,7 @@
 
                   <div class="col-12 serviceTypeBlock">
                     <label class="form-label" for="sub-category">Sub-categories<span class="required text-danger">*</span></label>
-                    <select name="service_type_ids" id="serviceTypeId" class="form-control form-control-lg js-tags-select" multiple="multiple">
+                    <select name="service_type_ids[]" id="serviceTypeId" class="form-control form-control-lg js-tags-select" multiple="multiple">
                       
                     </select>
 

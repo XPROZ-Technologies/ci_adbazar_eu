@@ -94,7 +94,7 @@
                     <div class="bp-introduce">
                       <h5 class="fw-bold page-title-xs">INTRODUCTION</h5>
                       <div class="">
-                        <?php echo $businessInfo['business_description']; ?>
+                        <?php echo nl2br($businessInfo['business_description']); ?>
                         <!--
                         <p class="page-text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce
                           vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet

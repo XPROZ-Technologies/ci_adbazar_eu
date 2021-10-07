@@ -8,9 +8,12 @@ class Mopeninghours extends MY_Model {
         $this->_table_name = "opening_hours";
         $this->_primary_key = "id";
     }
-    public function saveOpenHours($openingHours = array(), $businessProfileId = 0){
+    public function saveOpenHours($openingHours = array(), $businessProfileId = 0, $isEdit = false){
         //Save open hours
         if(!empty($openingHours) && $businessProfileId > 0) {
+            if($isEdit){
+                $this->db->delete('opening_hours', array('business_profile_id' => $businessProfileId));
+            }
             $arrOpenHours = array();
             foreach ($openingHours as $u) {
                 $arrOpenHours[] = array(

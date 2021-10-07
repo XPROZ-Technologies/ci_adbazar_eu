@@ -440,10 +440,10 @@ class Businessprofile extends MY_Controller
         $this->load->view('frontend/business/bm-plan-create', $data);
     }
 
-    public function updateBusiness()
+    public function createBusiness()
     {
         try {
-            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours'));
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours', 'Mbusinessservicetype'));
 
             /**
              * Commons data
@@ -501,9 +501,12 @@ class Businessprofile extends MY_Controller
                 $openingHours[] = $itemDay;
                 
             }
-            //echo "<pre>";print_r($openingHours);die;
-
+            
+            $service_type_ids = $this->input->post('service_type_ids');
             $businessServiceTypes = array();
+            if(!empty($service_type_ids)){
+                $businessServiceTypes  = $service_type_ids;  
+            }
 
             $businessProfileId = $this->Mbusinessprofiles->save($postData);
             if ($businessProfileId > 0) {
@@ -523,10 +526,16 @@ class Businessprofile extends MY_Controller
                         $businessProfileId = $this->Mbusinessprofiles->update($dataUpdate, $businessProfileId);
                     }
 
-                    
-                    $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $businessProfileId);
-                    
-                    
+                    //open hours
+                    if(!empty($openingHours)){
+                        $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $businessProfileId);
+                    }
+
+                    //service types
+                    if(!empty($businessServiceTypes)){
+                        $resultServiceTypes = $this->Mbusinessservicetype->saveServiceType($businessServiceTypes, $businessProfileId);
+                    }
+                                        
                     $this->session->set_flashdata('notice_message', "Create your business profile successfully");
                     $this->session->set_flashdata('notice_type', 'success');
                     redirect(base_url('my-business-profile'));
@@ -534,12 +543,134 @@ class Businessprofile extends MY_Controller
             } else {
                 $this->session->set_flashdata('notice_message', "Create business profile failed");
                 $this->session->set_flashdata('notice_type', 'error');
-                redirect(base_url('my-business-profile?1'));
+                redirect(base_url('my-business-profile'));
             }
         } catch (Exception $e) {
             $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url('my-business-profile?2'));
+            redirect(base_url('my-business-profile'));
+        }
+    }
+    public function updateBusiness()
+    {
+        try {
+            
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours', 'Mbusinessservicetype'));
+
+            /**
+             * Commons data
+             */
+            $data = $this->commonDataCustomer('');
+            $data['activeMenu'] = "";
+            /**
+             * Commons data
+             */
+
+            $postData = $this->arrayFromPost(array('service_id', 'business_name', 'business_slogan', 'business_email', 'business_address', 'business_whatsapp', 'business_phone', 'business_description', 'country_code_id'));
+
+            $getBusinessId = $this->input->post('business_id');
+            $getBusinessUrl = $this->input->post('business_url');
+            $busId = $this->Mbusinessprofiles->getFieldValue(array('id' => $getBusinessId, 'business_url' => $getBusinessUrl), 'id', 0);
+
+            if($busId == 0){
+                $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url(HOME_URL));
+            }
+
+            $postData['business_status_id'] = STATUS_ACTIVED;
+            $postData['customer_id'] = $data['customer']['id'];
+            $postData['updated_at'] = getCurentDateTime();
+            $postData['updated_by'] = 0; //customer create business
+
+            
+            $open_hours = $this->input->post('open_hours');
+            
+            $openingHours = array();
+            foreach($this->Mconstants->dayIds as $day_id => $itemHours){
+                
+                if(isset($open_hours[$day_id])){
+                    $itemHours = $open_hours[$day_id];
+                    $itemDay = array();
+                    $itemDay['day_id'] = $day_id;
+                    if(isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on'){
+                        $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
+                    }else{
+                        $itemDay['opening_hours_status_id'] = 1;
+                    }   
+                    
+                    if(!empty($itemHours['start_time'])){
+                        $itemDay['start_time'] = $itemHours['start_time'];
+                    }else{
+                        $itemDay['start_time'] = "00:00";
+                    }
+
+                    if(!empty($itemHours['end_time'])){
+                        $itemDay['end_time'] = $itemHours['end_time'];
+                    }else{
+                        $itemDay['end_time'] = "23:59";
+                    }
+                    
+                }else{
+                    $itemDay = array();
+                    $itemDay['day_id'] = $day_id;
+                    $itemDay['opening_hours_status_id'] = 1;
+                    $itemDay['start_time'] = "00:00";
+                    $itemDay['end_time'] = "00:00";
+                }
+
+                $openingHours[] = $itemDay;
+                
+            }
+            //echo "<pre>";print_r($openingHours);die;
+
+            $service_type_ids = $this->input->post('service_type_ids');
+            $businessServiceTypes = array();
+            if(!empty($service_type_ids)){
+                $businessServiceTypes  = $service_type_ids;  
+            }
+
+            $businessProfileId = $this->Mbusinessprofiles->save($postData, $busId);
+            if ($businessProfileId > 0) {
+                   
+                    $dataUpdate = array();
+                    $businessAvatarUpload = $this->input->post('business_avatar_upload');
+                    if(!empty($businessAvatarUpload)){
+                        $avatarUpload = $this->uploadImageBase64($businessAvatarUpload, 7);
+                        $dataUpdate['business_avatar'] = replaceFileUrl($avatarUpload, BUSINESS_PROFILE_PATH);
+                    }
+                    $businessCoverUpload = $this->input->post('business_cover_upload');
+                    if(!empty($businessCoverUpload)){
+                        $coverUpload = $this->uploadImageBase64($businessCoverUpload, 7);
+                        $dataUpdate['business_image_cover'] = replaceFileUrl($coverUpload, BUSINESS_PROFILE_PATH);
+                    }
+                    if(!empty($dataUpdate)){
+                        $businessProfileId = $this->Mbusinessprofiles->update($dataUpdate, $businessProfileId);
+                    }
+
+                    //open hours
+                    if(!empty($openingHours)){
+                        $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $businessProfileId, true);
+                    }
+
+                    //service types
+                    if(!empty($businessServiceTypes)){
+                        $resultServiceTypes = $this->Mbusinessservicetype->saveServiceType($businessServiceTypes, $businessProfileId, true);
+                    }
+                    
+                    $this->session->set_flashdata('notice_message', "Update your business profile successfully");
+                    $this->session->set_flashdata('notice_type', 'success');
+                    redirect(base_url('business-management/'.$getBusinessUrl.'/about-us'));
+                
+            } else {
+                $this->session->set_flashdata('notice_message', "Update business profile failed");
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url('business-management/'.$getBusinessUrl.'/about-us'));
+            }
+        } catch (Exception $e) {
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('my-business-profile'));
         }
     }
     /**
@@ -719,7 +850,19 @@ class Businessprofile extends MY_Controller
         $data['listServices'] = $this->Mservices->getHighlightListByLang($data['language_id']);
 
         $service_type_name = "service_type_name_" . $this->Mconstants->languageShortCodes[$data['language_id']];
-        $data['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($businessProfileId, $service_type_name);
+        $data['businessServiceTypes'] = $this->Mservicetypes->getListByServices(array('service_id' => $businessInfo['service_id']), $service_type_name);
+
+        $selectedServiceTypes = $this->Mservicetypes->getSelectedByListBusinessId($businessInfo['id'], $service_type_name);
+        $data['selectedTypes'] = array();
+        foreach($selectedServiceTypes  as $selectItemService){
+            $data['selectedTypes'][] = $selectItemService['id'];
+        }
+
+        $data['phoneCodes'] = $this->Mphonecodes->get();
+        $data['phoneCodeInfo'] = array();
+        if ($businessInfo['country_code_id'] > 0) {
+            $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['country_code_id']);
+        }
 
         $this->load->view('frontend/business/bm-profile-edit', $data);
     }

@@ -192,7 +192,8 @@ $route['business-profile/select-plan'] = 'frontend/businessprofile/select_plan';
 $route['business-profile/submit-select-plan'] = 'frontend/businessprofile/submitSelectPlan';
 $route['business-profile/got-free-trial'] = 'frontend/businessprofile/got_free_trial';
 $route['business-profile/create-new-business'] = 'frontend/businessprofile/create_new_business';
-$route['business-profile/create-business'] = 'frontend/businessprofile/updateBusiness';
+$route['business-profile/create-business'] = 'frontend/businessprofile/createBusiness';
+$route['business-profile/update-business'] = 'frontend/businessprofile/updateBusiness';
 
 
 $route['fb-login'] = 'frontend/customer/loginFb';
