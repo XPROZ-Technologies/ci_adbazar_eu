@@ -129,5 +129,5 @@ define('ZOOM_MAP_ADMIN', 17);
 
 
 //email default
-define('EMAIl_FROM', 'admin@adbazar.eu');
-define('EMAIl_FROM_NAME', 'AdBazar.eu');
+define('EMAIL_FROM', 'admin@adbazar.eu');
+define('EMAIL_FROM_NAME', 'AdBazar.eu');

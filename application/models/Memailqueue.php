@@ -53,7 +53,7 @@ class Memailqueue extends MY_Model
                     $dataInsert = array(
                         'email_subject' => "Your account was successfully created",
                         'email_content' => $emailContent,
-                        'email_from' => EMAIl_FROM,
+                        'email_from' => EMAIL_FROM,
                         'email_from_name' => EMAIL_FROM_NAME,
                         'email_to' => $emailData['email_to'],
                         'email_to_name' => $emailData['email_to_name'],
