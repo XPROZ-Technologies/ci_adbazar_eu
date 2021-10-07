@@ -528,9 +528,9 @@ class Customer extends MY_Controller
          * Commons data
          */
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $per_page = $this->input->get('per_page');
@@ -607,9 +607,9 @@ class Customer extends MY_Controller
         $data['activeCustomerNav'] = "general-information";
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $data['customerInfo'] = $this->Mcustomers->get($data['customer']['id']);
@@ -636,9 +636,9 @@ class Customer extends MY_Controller
         $data['activeCustomerNav'] = "change-password";
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $this->load->view('frontend/customer/um-change-password', $data);
@@ -659,9 +659,9 @@ class Customer extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $data['activeMenuService'] = 0;

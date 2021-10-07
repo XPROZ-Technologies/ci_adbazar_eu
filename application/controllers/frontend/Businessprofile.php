@@ -277,9 +277,9 @@ class Businessprofile extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $businessProfiles = $this->Mbusinessprofiles->getCount(array('customer_id' => $data['customer']['id']));
@@ -307,9 +307,9 @@ class Businessprofile extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL . '?e1'));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $this->load->view('frontend/business/bm-plan', $data);
@@ -341,9 +341,9 @@ class Businessprofile extends MY_Controller
              */
 
             if ($data['customer']['id'] == 0) {
-                $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+                $this->session->set_flashdata('notice_message', "Please login to view this page");
                 $this->session->set_flashdata('notice_type', 'error');
-                redirect(base_url(HOME_URL . '?e2'));
+                redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
             }
 
             $customerId = $this->Mcustomers->getFieldValue(array('id' => $data['customer']['id'], 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
@@ -390,9 +390,9 @@ class Businessprofile extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $data['plan'] = $this->input->get('plan');
@@ -420,9 +420,9 @@ class Businessprofile extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $data['plan'] = $this->input->get('plan');
