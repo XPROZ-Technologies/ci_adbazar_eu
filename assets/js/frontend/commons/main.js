@@ -919,6 +919,10 @@ $(document).on('click', '.page-select', function () {
   $(this).addClass('active');
   $(this).closest('.page-text-sm').find('.show-page-text').text(text);
   $(this).closest('ul').hide();
+}).on('click', '.reply-comment', function (e) {
+  $(this).closest('.list-comment').find('.comment-reply').show();
+}).on('click', '.reply-cancel', function (e) {
+  $(this).closest('.comment-reply').hide();
 });
 $('.progress').each(function () {
   var first = $(this).find('.progress-first').text();
@@ -942,3 +946,9 @@ function starRate(){
     $(this).css('width',width);
   });
 }
+
+
+function countChar(val) {
+  var len = val.value.length ;
+  $('.slogan-counter').text(len+"/100")
+};

@@ -145,7 +145,46 @@ main{
 .icon-show-mobile{
     display: none;
 }
+.page-pagination .nice-select .option
+{
+    display: flex;
+    align-items: center;
+}
+.page-pagination .nice-select .option.selected.focus::after {
+    width: 10px;
+    height: 8px;
+    right: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.page-pagination .nice-select .current{
+    font-weight: 600;
+}
+.general-avatar {
+    height: 200px;
+    width: 200px;
+}
+.sign-social {
+    justify-content: center;
+}
+.general-form .nice-select {
+    display: flex;
+    align-items: center;
+}
+.page-user-manager.page-um-general .um-general {
+    padding-left: 32px;
+}
+.page-user-manager.page-um-general .um-content .container>.row>.col-lg-3{
+    width: 38.3%;
+}
+.page-user-manager.page-um-general .um-content .container>.row>.col-lg-9{
+    width: 61.7%;
+}
+.page-user-manager.page-um-general .um-content .container{
+    max-width: 900px;
+}
 @media (min-width: 1366px){
+    .home-service .container-owl, .home-coupon .container-owl,
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
         max-width: 1146px;
         padding: 0;
@@ -163,6 +202,23 @@ main{
     }
 }
 @media (min-width: 1200px){
+    .page-customer-event>.customer-event>.container>.row>.col-xl-4{
+        width: 29.92%;
+        padding-right:22px;
+        padding-left: 22px;
+    }
+    .page-customer-event>.customer-event>.container>.row>.col-xl-8{
+        width: 70.08%;
+        padding-right:22px;
+        padding-left: 22px;
+    }
+    .page-customer-event>.customer-event>.container>.row{
+        margin-right:-22px;
+        margin-left: -22px;
+    }
+    .page-customer-event>.customer-event>.container{
+        max-width: 1300px;
+    }
     .main-customer .page-customer-service .customer-service-list .col-xl-3 {
         width: 34.19%;
     }
@@ -204,6 +260,33 @@ main{
         padding-right: 17px;
         padding-left: 17px;
     }
+}
+.mr-24{
+    margin-right: 24px;
+}
+.ml-32{
+    margin-left: 32px;
+}
+.page-pagination .nice-select {
+    margin-top: 0;
+}
+.bp-review .review-top.v1 {
+    justify-content: flex-start;
+}
+.mb-14{
+    margin-bottom: 14px;
+}
+.bp-review .overall-rate {
+    padding: 15px 19px;
+}
+.um-coupon.bm-coupon .coupon-top .d-flex.justify-content-xl-between .btn.btn-create-coupon{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 23px;
+    padding: 7px 12px!important;
+}
+.page-customer-event .customer-event-list {
+    padding: 0;
 }
 .nav-pills .nav-item:not(:last-child) {
     margin-right: 80px;
@@ -772,6 +855,41 @@ min-height: 320px;
 	display: inline-block;
 	width: 15px;
 	height: 15px;
+}
+.comment-reply .ck-content {
+    min-height: 80px;
+}
+.comment-reply{
+    display: none;
+}
+.comment-item .btn{
+font-size: 14px;
+    line-height: 17px;
+}
+.ck.ck-dropdown,
+.ck.ck-toolbar>.ck.ck-toolbar__grouped-dropdown{
+    display: none!important;
+}
+.serviceTypeBlock ul.form-control-lg{
+    list-style-type: none;
+}
+.serviceTypeBlock ul li input{
+    border: none;
+}
+.customer-video-content iframe {
+    height: 500px;
+}
+#contact-us .col-12.btn-submit{
+    margin-top: 40px;
+}
+#contact-us .col-12{
+    margin-top: 24px;
+}
+#contact-us .form-control{
+    height: 36px;
+}
+#contact-us textarea.form-control{
+    height: 70px;
 }
 @media (max-width: 1366px){
     .discover_more {

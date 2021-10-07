@@ -14,11 +14,11 @@
                             <h1 class="text-center page-title mb-20">Log in with your account</h1>
                             <div class="signup-form">
                                 <form class="form-signin"  id="formLogin" method="POST" action="<?php echo base_url('customer-login'); ?>" >
-                                    <div class="form-group mx-auto mb-3">
+                                    <div class="form-group mx-auto mb-16">
                                         <label for="inputEmail" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="inputEmail" placeholder="" name="customer_email" required >
                                     </div>
-                                    <div class="mx-auto mb-3">
+                                    <div class="mx-auto mb-16">
                                         <label for="inputPassword" class="form-label">Password
                                             <!--<img src="assets/img/frontend/ic-info-outline.png" alt="">-->
                                         </label>
@@ -41,7 +41,7 @@
                                         <a href="#forgotPasswordModal" data-bs-toggle="modal" class=" page-text-lg fw-bold">Forgot your password?</a>
                                     </div>
                                     <div class="col-12 d-flex justify-content-center mb-3 mt-lg-4">
-                                        <button type="submit" class="btn btn-red px-3">Login</button>
+                                        <button type="submit" class="btn btn-red px-3">Log in</button>
                                     </div>
                                     <p class="text-center mb-2 mb-lg-4 text-black">Not have an account yet? <a href="<?php echo base_url('signup.html'); ?>" class="ms-3 text-black fw-bold">Sign up</a></p>
                                     <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span>Or</span></p>

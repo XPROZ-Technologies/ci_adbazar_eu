@@ -716,6 +716,10 @@ box-shadow: 0px 2px 6px rgba(77, 78, 78, 0.2);
 
 .page-signin .btn-outline-red,
 .page-signin .btn-red{
+    padding: 7px 19px!important;
+    border-radius: 2px;
+}
+.page-signin .btn-outline-red.login-gg{
     padding: 8px 11px!important;
     border-radius: 2px;
 }
@@ -923,8 +927,8 @@ border-radius: 5px;
     font-weight: bold;
 }
 .form-check-input {
-    width: 25px;
-    height: 25px
+    width: 20px;
+    height: 20px
 }
 .form-label {
     margin-bottom: 4px;
@@ -2663,6 +2667,10 @@ span.switch-left {
 }
 .toast{
     display: none;
+}
+.has-validation label.form-label img{
+    width: 16px;
+    margin-left: 8px;
 }
 @media (min-width: 1366px){
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {

@@ -10,11 +10,11 @@
               <h1 class="text-center page-title mb-20">Sign in with your account</h1>
               <div class="signup-form">
                 <form class="form-signin" id="formLogin" method="POST" action="<?php echo base_url('customer-login'); ?>">
-                  <div class="form-group mx-auto mb-3 pb-lg-3">
+                  <div class="form-group mx-auto mb-16 pb-lg-3">
                     <label for="inputEmail" class="form-label">Email</label>
                     <input type="email" class="form-control" id="inputEmail" name="customer_email" placeholder="Email" required>
                   </div>
-                  <div class="mx-auto mb-3">
+                  <div class="mx-auto mb-16">
                     <label for="inputPassword" class="form-label">Password</label>
                     <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="customer_password" required >
                   </div>

@@ -55,7 +55,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label class="control-label">Custom URL</label>
+                                        <label class="control-label">Custom URL <span class="required">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-default"><?php echo base_url(BUSINESS_PROFILE_URL); ?></button>
