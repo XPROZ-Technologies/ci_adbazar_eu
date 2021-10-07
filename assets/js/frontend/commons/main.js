@@ -272,6 +272,7 @@ $(window).ready(() => {
     }
   });
 
+  /*
   // Dropdown photo gallery
   $(".js-dropdown-gallery").each(function () {
     $(this).click(function (e) {
@@ -293,7 +294,9 @@ $(window).ready(() => {
       $(".dropdown-gallery").removeClass("show");
     }
   });
+  */
 
+  /*
   // Add more input video url
   $(".add-more").click(function (e) {
     e.preventDefault();
@@ -301,6 +304,7 @@ $(window).ready(() => {
       '<input type="url" class="form-control form-control-lg mb-3">'
     );
   });
+  */
 
   /*
   // Multiselect tags dropdown

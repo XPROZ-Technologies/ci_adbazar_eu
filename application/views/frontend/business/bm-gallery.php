@@ -17,14 +17,14 @@
                             <div class="bp-gallery">
                                 <ul class="nav nav-pills justify-content-center page-text-lg" id="pills-tab" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="pills-photo-tab" data-bs-toggle="pill" data-bs-target="#pills-photo" type="button" role="tab" aria-controls="pills-photo" aria-selected="true">Photos</button>
+                                        <button class="nav-link <?php if(!isset($_GET['tab']) || isset($_GET['tab']) && $_GET['tab'] != 'video'){ echo 'active'; } ?>" id="pills-photo-tab" data-bs-toggle="pill" data-bs-target="#pills-photo" type="button" role="tab" aria-controls="pills-photo" aria-selected="true">Photos</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-video-tab" data-bs-toggle="pill" data-bs-target="#pills-video" type="button" role="tab" aria-controls="pills-video" aria-selected="false">Videos</button>
+                                        <button class="nav-link <?php if(isset($_GET['tab']) && $_GET['tab'] == 'video'){ echo 'active'; } ?>" id="pills-video-tab" data-bs-toggle="pill" data-bs-target="#pills-video" type="button" role="tab" aria-controls="pills-video" aria-selected="false">Videos</button>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="pills-tabContent">
-                                    <div class="tab-pane fade show active" id="pills-photo" role="tabpanel" aria-labelledby="pills-photo-tab">
+                                    <div class="tab-pane fade <?php if(!isset($_GET['tab']) || isset($_GET['tab']) && $_GET['tab'] != 'video'){ echo 'show active'; } ?>" id="pills-photo" role="tabpanel" aria-labelledby="pills-photo-tab">
                                         <div class="tab-photo-wrap">
                                             <?php if (!empty($businessPhotos)) { ?>
                                                 <div class="photo-list">
@@ -34,11 +34,16 @@
                                                             <div class="col-6 col-lg-3">
                                                                 <div class="photo-item">
                                                                     <a href="javascript:void(0)" class="d-block c-img">
-                                                                        <img src="<?php if (!empty($itemPhoto['photo_image'])) {
-                                                                                        echo BUSINESS_PROFILE_PATH . $itemPhoto['photo_image'];
-                                                                                    } else {
-                                                                                        echo BUSINESS_PROFILE_PATH . NO_IMAGE;
-                                                                                    } ?>" alt="<?php echo $businessInfo['business_name']; ?>" alt="photo image" class="img-fluid">
+                                                                        <?php
+                                                                            $imgName = "";
+                                                                            if (!empty($itemPhoto['photo_image'])) {
+                                                                                $imgItemUrl = BUSINESS_PROFILE_PATH . $itemPhoto['photo_image'];
+                                                                                $imgName = $itemPhoto['photo_image'];
+                                                                            } else {
+                                                                                $imgItemUrl = BUSINESS_PROFILE_PATH . NO_IMAGE;
+                                                                            }
+                                                                        ?>
+                                                                        <img src="<?php echo $imgItemUrl; ?>" alt="<?php echo $businessInfo['business_name']; ?>" alt="photo image" class="img-fluid">
                                                                     </a>
                                                                     <a href="javascript:void(0)" class="photo-icon js-dropdown-gallery">
                                                                         <img src="assets/img/frontend/ic-edit-gallery.png" alt="ic-edit-gallery">
@@ -47,8 +52,7 @@
                                                                         <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-user.svg" alt="ic-gallery-user">Use as profile photo</a></li>
                                                                         <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-cover.svg" alt="ic-gallery-user">Use as cover photo</a></li>
                                                                         <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-download.svg" alt="ic-gallery-user">Download</a></li>
-                                                                        <li><a class="dropdown-item" data-bs-toggle="modal" href="#deletePhotoModal"><img src="assets/img/frontend/ic-gallery-trash.svg" alt="ic-gallery-user">Delete</a>
-                                                                        </li>
+                                                                        <li><a class="dropdown-item js-delete-image" data-bs-toggle="modal" href="javascript:void(0)" data-id="<?php echo $itemPhoto['id']; ?>" data-name="<?php echo $imgName; ?>" data-img="<?php echo $imgItemUrl; ?>"><img src="assets/img/frontend/ic-gallery-trash.svg" alt="ic-gallery-user">Delete</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -105,7 +109,7 @@
                                             <?php } ?>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="pills-video" role="tabpanel" aria-labelledby="pills-video-tab">
+                                    <div class="tab-pane fade <?php if(isset($_GET['tab']) && $_GET['tab'] == 'video'){ echo 'show active'; } ?>" id="pills-video" role="tabpanel" aria-labelledby="pills-video-tab">
                                         <div class="tab-video-wrap">
                                             <?php if (!empty($businessVideos)) { ?>
                                                 <div class="tab-video-list">
@@ -113,11 +117,11 @@
                                                         <?php foreach ($businessVideos as $itemVideo) { ?>
                                                             <div class="col-lg-6">
                                                                 <div class="video-item">
-                                                                    <a class="icon-video js-play-video" data-id="<?php echo $itemVideo['id'] ?>" data-business="<?php echo $businessInfo['id']; ?>">
+                                                                    <a class="icon-video js-play-video">
                                                                         <img src="assets/img/frontend/ic-play-video-white.png" alt="icon play" class="img-fluid">
                                                                     </a>
                                                                     <img src="https://img.youtube.com/vi/<?php echo $itemVideo['video_code'] ?>/hqdefault.jpg" alt="<?php echo $businessInfo['business_name']; ?>" class="img-fluid">
-                                                                    <a href="#deleteVideoModal" data-bs-toggle="modal" class="icon-delete">
+                                                                    <a href="javascript:void(0)" data-bs-toggle="modal" class="icon-delete js-delete-video" data-id="<?php echo $itemVideo['id'] ?>" data-url="<?php echo $itemVideo['video_url'] ?>" data-img="https://img.youtube.com/vi/<?php echo $itemVideo['video_code'] ?>/hqdefault.jpg">
                                                                         <img src="assets/img/frontend/ic-trash-white.png" alt="icon delete" class="img-fluid">
                                                                     </a>
                                                                 </div>
@@ -225,8 +229,7 @@
                                             <p class="mb-2 text-black fw-500">Drop files to upload or
                                                 <span>browse</span>
                                             </p>
-                                            <span class="d-block page-text-xs text-black">Supports JPEG, PNG,
-                                                GIF</span>
+                                            <span class="d-block page-text-xs text-black">Supports JPEG, PNG, GIF</span>
                                         </div>
                                         <div class="add-more-img text-center mt-3">
                                             <p><img src="assets/img/frontend/iconimg.png" alt=""> + Add more photos</p>
@@ -243,10 +246,10 @@
                         </form>
                     </div>
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <form action="#" id="list-url">
+                        <form method="POST" id="formVideos" action="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/update-video'); ?>">
                             <div class="form-group">
                                 <label for="" class="form-label">Video URL</label>
-                                <input type="url" class="form-control form-control-lg mb-3">
+                                <input name="" type="url" class="form-control form-control-lg mb-3 videoItem">
                             </div>
                             <!--
                             <div class="form-group has-validation">
@@ -259,8 +262,8 @@
                             <div class="text-center">
                                 <a href="#" class="text-underline add-more fw-500">+ Add more </a>
                             </div>
-                            <div class="modal-footer justify-content-center border-0 p-0">
-                                <button type="submit" class="btn btn-red">
+                            <div class="modal-footer justify-content-center border-0 p-0 upload-more-video">
+                                <button type="button" class="btn btn-red">
                                     <img src="assets/img/frontend/ic-upload.png" alt="ic-upload">
                                     Upload</button>
                             </div>
@@ -284,20 +287,19 @@
             <div class="modal-body">
                 <p class="mb-0 text-center page-text-lg">
                     Are you sure that you want to delete the video
-                    <b class="d-block fw-500">https://www.youtube.com/watch?v=semp2yGKmsk</b>
+                    <b class="d-block fw-500 video-url-delete"></b>
                 </p>
                 <div class="video-item">
+                    <!--
                     <a href="#" class="icon-video js-play-video">
                         <img src="assets/img/frontend/ic-play-video-white.png" alt="icon play" class="img-fluid">
                     </a>
-                    <video poster="assets/img/frontend/poster-video2.png" class="js-video">
-                        <source src="assets/img/frontend/demo.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    -->
+                    <img src="https://img.youtube.com/vi/semp2yGKmsk/hqdefault.jpg" alt="" class="img-fluid video-img-delete">
                 </div>
-
+                <input type="hidden" id="deleteVideoId" value="0" />
                 <div class="modal-footer justify-content-center border-0 p-0">
-                    <button type="button" class="btn btn-red">Yes</button>
+                    <button type="button" class="btn btn-red btn-delete-video">Yes</button>
                     <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -316,17 +318,17 @@
             <div class="modal-body">
                 <p class="mb-0 text-center page-text-lg">
                     Are you sure that you want to delete the photo
-                    <b class="d-block fw-500">62fff943d7e386c33823.png</b>
+                    <b class="d-block fw-500 img-name-delete"></b>
                 </p>
 
                 <div class="photo-item">
-                    <a href="#" class="d-block">
-                        <img src="assets/img/frontend/photo1.png" alt="photo image" class="img-fluid">
+                    <a href="javascript:void(0)" class="d-block">
+                        <img src="assets/img/frontend/photo1.png" alt="photo image" class="img-fluid img-img-delete">
                     </a>
                 </div>
-
+                <input type="hidden" id="deleteImgId" value="0" />
                 <div class="modal-footer justify-content-center border-0 p-0">
-                    <button type="button" class="btn btn-red">Yes</button>
+                    <button type="button" class="btn btn-red btn-delete-image">Yes</button>
                     <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -386,8 +388,6 @@
                 $('.uploading').show();
 
                 if (imageLists.length > 0) {
-                    //var formImages = $("#formImages");
-                    //console.log(JSON.stringify(imageLists));
 
                     $.ajax({
                         type: 'POST',
@@ -397,10 +397,9 @@
                         },
                         dataType: "json",
                         success: function(data) {
-                            //  setTimeout fake loading
-                            //setTimeout(function() {
+
                             $('.uploading .uploading-body tr td.text-right img').attr("src", "assets/img/frontend/ic-check-mask.png");
-                            //}, 1000);
+
                             redirect(true);
                         },
                         error: function(data) {
@@ -410,7 +409,175 @@
                 }
 
 
-            })
+            });
         }
+
+        // Dropdown photo gallery
+        $(".js-dropdown-gallery").each(function() {
+            $(this).click(function(e) {
+                $(".dropdown-gallery").removeClass("show");
+                e.preventDefault();
+                $(this).parents(".photo-item").find(".dropdown-gallery").addClass("show");
+            });
+        });
+
+        $(".dropdown-gallery .dropdown-item").click(function() {
+            $(".dropdown-gallery .dropdown-item").removeClass("active");
+            $(this).addClass("active");
+            $(".dropdown-gallery").removeClass("show");
+        });
+
+        $(document).on("click", function(event) {
+            var $trigger = $(".photo-item");
+            if ($trigger !== event.target && !$trigger.has(event.target).length) {
+                $(".dropdown-gallery").removeClass("show");
+            }
+        });
+
+        // Add more input video url
+        $(".add-more").click(function(e) {
+            e.preventDefault();
+            $("#formVideos .form-group").append('<input type="url" class="form-control form-control-lg mb-3 videoItem">');
+        });
+
+        //do upload videos
+        $('.upload-more-video button').click(function(e) {
+            e.stopPropagation();
+            $('#addGalleryModal').modal('hide');
+            var videoLists = [];
+            $('.videoItem').each(function(index, element) {
+                videoLists.push($(this).val());
+            });
+            if (videoLists.length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: $("#formVideos").attr('action'),
+                    data: {
+                        videos: JSON.stringify(videoLists)
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        $("#formVideos .form-group").append('<label for="" class="form-label">Video URL</label><input type="url" class="form-control form-control-lg mb-3 videoItem">');
+
+                        if (data.code == 1) {
+                            $(".notiPopup .text-secondary").html(data.message);
+                            $(".ico-noti-success").removeClass('ico-hidden');
+                            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                        } else {
+                            $(".notiPopup .text-secondary").html(data.message);
+                            $(".ico-noti-error").removeClass('ico-hidden');
+                            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                        }
+
+                        redirect(true);
+                    },
+                    error: function(data) {
+                        $("#formVideos .form-group").append('<label for="" class="form-label">Video URL</label><input type="url" class="form-control form-control-lg mb-3 videoItem">');
+
+                        $(".notiPopup .text-secondary").html("Upload video failed");
+                        $(".ico-noti-error").removeClass('ico-hidden');
+                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    }
+                });
+            }
+
+
+        });
+
+        //confirm delete video
+        $('.js-delete-video').click(function(e) {
+            $("#deleteVideoId").val($(this).data('id'));
+            $(".img-name-delete").html($(this).data('name'));
+            $(".img-img-delete").attr('src', $(this).data('img'));
+            $('#deleteVideoModal').modal('show');
+        });
+
+        //delete video
+        $('.btn-delete-video').click(function(e) {
+            var videoId = $("#deleteVideoId").val();
+
+            if (videoId == 0) {
+                $(".notiPopup .text-secondary").html("Video not exist");
+                $(".ico-noti-error").removeClass('ico-hidden');
+                $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            }
+
+            $('#deleteVideoModal').modal('hide');
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('business-management/delete-video'); ?>',
+                data: {
+                    video_id: videoId
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.code == 1) {
+                        $(".notiPopup .text-secondary").html(data.message);
+                        $(".ico-noti-success").removeClass('ico-hidden');
+                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    } else {
+                        $(".notiPopup .text-secondary").html(data.message);
+                        $(".ico-noti-error").removeClass('ico-hidden');
+                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    }
+                    redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery?tab=video'); ?>');
+                },
+                error: function(data) {
+                    $(".notiPopup .text-secondary").html("Delete video failed");
+                    $(".ico-noti-error").removeClass('ico-hidden');
+                    $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery?tab=video'); ?>');
+                }
+            });
+        });
+
+        //confirm delete image
+        $('.js-delete-image').click(function(e) {
+            $("#deleteImgId").val($(this).data('id'));
+            $(".video-url-delete").html($(this).data('url'));
+            $(".img-img-delete").attr('src', $(this).data('img'));
+            $('#deletePhotoModal').modal('show');
+        });
+
+        //delete image
+        $('.btn-delete-image').click(function(e) {
+            var imgId = $("#deleteImgId").val();
+
+            if (imgId == 0) {
+                $(".notiPopup .text-secondary").html("Video not exist");
+                $(".ico-noti-error").removeClass('ico-hidden');
+                $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            }
+
+            $('#deletePhotoModal').modal('hide');
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('business-management/delete-image'); ?>',
+                data: {
+                    image_id: imgId
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.code == 1) {
+                        $(".notiPopup .text-secondary").html(data.message);
+                        $(".ico-noti-success").removeClass('ico-hidden');
+                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    } else {
+                        $(".notiPopup .text-secondary").html(data.message);
+                        $(".ico-noti-error").removeClass('ico-hidden');
+                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    }
+                    redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery'); ?>');
+                },
+                error: function(data) {
+                    $(".notiPopup .text-secondary").html("Delete video failed");
+                    $(".ico-noti-error").removeClass('ico-hidden');
+                    $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery'); ?>');
+                }
+            });
+        });
     });
 </script>

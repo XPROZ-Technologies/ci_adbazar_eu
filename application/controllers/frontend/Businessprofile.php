@@ -943,6 +943,61 @@ class Businessprofile extends MY_Controller
         echo json_encode(array('code' => 0, 'message' => "Upload failed"));die;
     }
 
+    public function updateVideo($slug = "")
+    {
+        //echo "<pre>".print_r($_POST);die;
+
+        $this->loadModel(array('Mbusinessvideos', 'Mbusinessprofiles'));
+
+        $businessURL = trim($slug);
+
+        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+        if ($businessProfileId == 0) {
+            echo json_encode(array('code' => 0, 'message' => "Business profile not exist"));die;
+        }
+        //$businessInfo = $this->Mbusinessprofiles->get($businessProfileId);
+
+        $videos = $this->input->post('videos');
+        $uploadedVideo = [];
+        if(!empty($videos)){
+            $videos = json_decode($videos);
+           
+            if(!empty($videos)){
+                $resultUpload = $this->Mbusinessvideos->saveVideos($videos, $businessProfileId);
+                if($resultUpload){
+                    echo json_encode(array('code' => 1, 'message' => "Upload success"));die;
+                }
+            }
+        }
+        echo json_encode(array('code' => 0, 'message' => "Upload failed"));die;
+    }
+
+    public function deleteVideo($slug = "")
+    {
+        $this->loadModel(array('Mbusinessvideos'));
+        $video_id = $this->input->post('video_id');
+        if($video_id > 0){
+            $resultDel = $this->Mbusinessvideos->delete($video_id);
+            if($resultDel){
+                echo json_encode(array('code' => 1, 'message' => "Successfully deleted video"));die;
+            } 
+        }
+        echo json_encode(array('code' => 0, 'message' => "Delete failed"));die;
+    }
+
+    public function deleteImage($slug = "")
+    {
+        $this->loadModel(array('Mbusinessphotos'));
+        $image_id = $this->input->post('image_id');
+        if($image_id > 0){
+            $resultDel = $this->Mbusinessphotos->delete($image_id);
+            if($resultDel){
+                echo json_encode(array('code' => 1, 'message' => "Successfully deleted video"));die;
+            } 
+        }
+        echo json_encode(array('code' => 0, 'message' => "Delete failed"));die;
+    }
+
     public function manage_coupons($slug = "")
     {
         if (empty($slug)) {
