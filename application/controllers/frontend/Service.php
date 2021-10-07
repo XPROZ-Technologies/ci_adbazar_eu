@@ -57,10 +57,10 @@ class Service extends MY_Controller {
 
         $data['activeMenuService'] = $serviceId;
 
-        $service_name = "service_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $service_name = "service_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
         $data['serviceInfo'] = $this->Mservices->get($serviceId, true, '', "{$service_name} as service_name, id, service_name_en as service_slug");
 
-        $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
         $data['serviceTypes'] = $this->Mservicetypes->getBy(array('service_id' => $serviceId), false, "display_order", "{$service_type_name} as service_type_name, id");
         
         $per_page = $this->input->get('per_page');
@@ -101,7 +101,7 @@ class Service extends MY_Controller {
 
     public function getListServiceTypeSelect2Ajax(){
         $data = $this->commonDataCustomer('');
-        $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
         $serviceId = $this->input->post('service_id');
         $this->load->model('Mservicetypes');
         if(empty($serviceId)) $serviceId = 0;

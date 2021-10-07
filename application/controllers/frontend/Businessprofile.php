@@ -55,7 +55,7 @@ class Businessprofile extends MY_Controller
         if ($businessLocationId > 0) {
             $data['locationInfo'] = $this->Mlocations->get($businessLocationId);
         }
-        $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
+        $service_type_name = "service_type_name_" . $this->Mconstants->languageShortCodes[$data['language_id']];
         $data['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($businessProfileId, $service_type_name);
 
         $businessOpeningHours = $this->Mopeninghours->getBy(array('business_profile_id' => $businessProfileId));
@@ -646,7 +646,7 @@ class Businessprofile extends MY_Controller
         
 
 
-        $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
+        $service_type_name = "service_type_name_" . $this->Mconstants->languageShortCodes[$data['language_id']];
         $data['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($businessProfileId, $service_type_name);
 
         
@@ -718,7 +718,7 @@ class Businessprofile extends MY_Controller
 
         $data['listServices'] = $this->Mservices->getHighlightListByLang($data['language_id']);
 
-        $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
+        $service_type_name = "service_type_name_" . $this->Mconstants->languageShortCodes[$data['language_id']];
         $data['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($businessProfileId, $service_type_name);
 
         $this->load->view('frontend/business/bm-profile-edit', $data);

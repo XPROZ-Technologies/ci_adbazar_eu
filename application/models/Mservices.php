@@ -67,7 +67,7 @@ class Mservices extends MY_Model {
 
     public function getHighlightListByLang($language = 0, $isAll = false) {
         if($language == 0) $language = $this->Mconstants->languageDefault;
-        $service_name = "service_name_".$this->Mconstants->languageCodes[$language];
+        $service_name = "service_name_".$this->Mconstants->languageShortCodes[$language];
         $query = "SELECT id, service_image, service_name_en as service_slug, {$service_name} as service_name FROM services";
         if($isAll){
             $query .= " WHERE is_hot = ".STATUS_ACTIVED." AND service_status_id > 0";
@@ -79,7 +79,7 @@ class Mservices extends MY_Model {
 
     public function getByIds($postData = array(), $language = 0, $isAll = false) {
         if($language == 0) $language = $this->Mconstants->languageDefault;
-        $service_name = "service_name_".$this->Mconstants->languageCodes[$language];
+        $service_name = "service_name_".$this->Mconstants->languageShortCodes[$language];
         $query = "SELECT id, service_image, service_name_en as service_slug, {$service_name} as service_name FROM services";
         if($isAll){
             $query .= " WHERE service_status_id > 0";
@@ -92,7 +92,7 @@ class Mservices extends MY_Model {
 
     public function getServiceMenus($language = 0) {
         if($language == 0) $language = $this->Mconstants->languageDefault;
-        $service_name = "service_name_".$this->Mconstants->languageCodes[$language];
+        $service_name = "service_name_".$this->Mconstants->languageShortCodes[$language];
         $query = "SELECT id, service_name_en as service_slug, {$service_name} as service_name FROM services";
         $query .= " WHERE service_status_id > 0";
         

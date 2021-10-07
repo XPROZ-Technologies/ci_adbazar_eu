@@ -67,12 +67,12 @@ abstract class MY_Controller extends CI_Controller {
             $customers = $this->Mcustomers->get($customers['id'], true, "", "customer_email, customer_first_name, customer_last_name, customer_avatar, customer_phone, customer_phone_code, id, language_id, login_type_id");
             $customers['is_logged_in'] = 1;
             $customers['language_id'] = $customers['language_id'] == 0 ? 1 : $customers['language_id'];
-            $customers['language_name'] = $customers['language_id'] == 0 ? 'en' : $this->Mconstants->languageCodes[$customers['language_id']];
+            $customers['language_name'] = $customers['language_id'] == 0 ? 'english' : $this->Mconstants->languageCodes[$customers['language_id']];
         } else {
             // customer not login
             if (empty($customers) || $customers == NULL) {
                 // nếu customer ko chọn ngôn ngữ sẽ gán ngôn ngữ tiếng anh
-                $customers = array('language_id' => 1, 'language_name' => 'en', 'id' => 0);
+                $customers = array('language_id' => 1, 'language_name' => 'english', 'id' => 0);
             } else {
                 $customers = array('language_id' => $customers['language_id'], 'language_name' => $customers['language_name'], 'id' => 0);
             }
@@ -157,14 +157,14 @@ abstract class MY_Controller extends CI_Controller {
      * Send email
      */
 
-    protected function sendMail($emailFrom, $nameFrom, $emailTo, $subject, $message){
+    protected function sendMail($emailFrom, $nameFrom, $emailTo, $nameTo, $subject, $message){
         //$this->load->library('email');
         $config = Array(
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_port' => '465',
-            'smtp_user' => 'dkh.mailout@gmail.com',
-            'smtp_pass' => '12345@54321',
+            'smtp_user' => 'mailout.dkh@gmail.com',
+            'smtp_pass' => 'fqvpygxkmeotvqfz',
             'mailtype'  => 'html',
             'starttls'  => true,
             'newline'   => "\r\n"
@@ -173,7 +173,7 @@ abstract class MY_Controller extends CI_Controller {
         $this->email->set_mailtype("html");
         $this->email->set_newline("\r\n");
         $this->email->from($emailFrom, $nameFrom);
-        $this->email->to($emailTo);
+        $this->email->to($emailTo, $nameTo);
         $this->email->subject($subject);
         $this->email->message($message);
         if($this->email->send()) return true;

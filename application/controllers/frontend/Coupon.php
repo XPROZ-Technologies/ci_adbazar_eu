@@ -62,7 +62,7 @@ class Coupon extends MY_Controller {
 
         $data['listServices'] = $this->Mservices->getByIds(array('service_ids' => $serviceIds), $data['language_id']);
         if(!empty($serviceId) && $serviceId > 0){
-            $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+            $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
             $data['serviceTypes'] = $this->Mservicetypes->getListByServices(array('service_id' => $serviceId), $service_type_name);
         }
         

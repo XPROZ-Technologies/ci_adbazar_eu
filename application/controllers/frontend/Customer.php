@@ -7,7 +7,7 @@ class Customer extends MY_Controller
     function __construct()
     {
         parent::__construct();
-
+        
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
@@ -39,7 +39,7 @@ class Customer extends MY_Controller
                     if (empty($customer['language_id'])) {
                         $customer['language_id'] = $this->Mconstants->languageDefault;
                     }
-                    //$customer_cookie = array('login_type_id' => $customer['login_type_id'], 'customer_name' => $customer['customer_first_name'], 'language_id' => $customer['language_id'], 'language_name' => $this->Mconstants->languageCodes[$customer['language_id']], 'customer_avatar' => $customer['customer_avatar'], 'id' => $customer['id']);
+                    //$customer_cookie = array('login_type_id' => $customer['login_type_id'], 'customer_name' => $customer['customer_first_name'], 'language_id' => $customer['language_id'], 'language_name' => $this->Mconstants->languageShortCodes[$customer['language_id']], 'customer_avatar' => $customer['customer_avatar'], 'id' => $customer['id']);
 
                     $customer['language_name'] = $this->Mconstants->languageCodes[$customer['language_id']];
 
@@ -107,13 +107,20 @@ class Customer extends MY_Controller
 
                     $customerId = $this->Mcustomers->update($postData);
                     if ($customerId > 0) {
-                        /* Email
+                        /**
+                         * Save Email
+                         */
                         $this->load->model('Memailqueue');
                         $dataEmail = array(
-                            'name' => $postData['customer_email']
+                            'name' => $postData['customer_email'],
+                            'email_to' => $postData['customer_email'],
+                            'email_to_name' => $postData['customer_email']
                         );
                         $emailResult = $this->Memailqueue->createEmail($dataEmail, 1);
-                        */
+                        /**
+                         * END. Save Email
+                         */
+                        
                         $this->session->set_flashdata('notice_message', 'Successfully register account');
                         $this->session->set_flashdata('notice_type', 'success');
                         redirect(base_url('login.html'));
@@ -129,9 +136,56 @@ class Customer extends MY_Controller
                 redirect(base_url('signup.html?4'));
             }
         } catch (Exception $e) {
-            $this->session->set_flashdata('notice_message', $e->getMessage());
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('signup.html?5'));
+        }
+    }
+
+    public function forgotPassword(){
+        try {
+            $postData = $this->arrayFromPost(array('customer_email'));
+
+            if (!empty($postData['customer_email'])) {
+                
+
+                $customer_email = strtolower($postData['customer_email']);
+
+                $this->load->model('Mcustomers');
+                
+
+                $customerId = $this->Mcustomers->update($postData);
+                if ($customerId > 0) {
+                    /**
+                     * Save Email
+                     */
+                    $this->load->model('Memailqueue');
+                    $dataEmail = array(
+                        'name' => $postData['customer_email']
+                    );
+                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 1);
+                    /**
+                     * END. Save Email
+                     */
+                    
+                    $this->session->set_flashdata('notice_message', 'Successfully register account');
+                    $this->session->set_flashdata('notice_type', 'success');
+                    redirect(base_url('login.html'));
+                } else {
+                    $this->session->set_flashdata('notice_message', 'Register failed, please try again!');
+                    $this->session->set_flashdata('notice_type', 'error');
+                    redirect(base_url('login.html?3'));
+                }
+                
+            } else {
+                $this->session->set_flashdata('notice_message', "Please enter email");
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url('login.html?4'));
+            }
+        } catch (Exception $e) {
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?5'));
         }
     }
 
@@ -164,7 +218,7 @@ class Customer extends MY_Controller
             $flag = $this->Mcustomers->save($postData, $customerId);
             if ($flag > 0) {
                 $customer = $this->Mcustomers->get($flag);
-                $customer['language_name'] = $customer['language_id'] == 0 ? 'en' : $this->Mconstants->languageCodes[$customer['language_id']];
+                $customer['language_name'] = $customer['language_id'] == 0 ? 'english' : $this->Mconstants->languageCodes[$customer['language_id']];
                 $this->load->helper('cookie');
                 $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '3600'));
                 echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
@@ -501,7 +555,7 @@ class Customer extends MY_Controller
             $data['businessProfiles'] = array();
             $data['serviceTypes'] = array();
             if (!empty($businessProfileIds) && count($businessProfileIds) > 0) {
-                $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
+                $service_type_name = "service_type_name_" . $this->Mconstants->languageShortCodes[$data['language_id']];
                 $data['serviceTypes'] = $this->Mservicetypes->getListByListBusinessId(array('business_profile_ids' => $businessProfileIds), $service_type_name);
 
                 $data['businessProfiles'] = $this->Mbusinessprofiles->search(array('business_profile_ids' => $businessProfileIds));

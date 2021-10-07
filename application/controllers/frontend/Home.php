@@ -46,7 +46,7 @@ class Home extends MY_Controller {
         /**
          * Business profile on Map
          */
-        $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
         $service_id = $this->input->get('service_id');
         if(empty($service_id)){ $service_id = 0; }
         $data['service_id'] = $service_id;
@@ -124,7 +124,7 @@ class Home extends MY_Controller {
             if(is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
             $rowCount = $this->Mbusinessprofiles->getCount($postData);
 
-            $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+            $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
 
             $listProfiles = $this->Mbusinessprofiles->search($postData, $perPage, $page);
             for($i = 0; $i < count($listProfiles); $i++){
