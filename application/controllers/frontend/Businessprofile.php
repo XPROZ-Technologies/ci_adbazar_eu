@@ -405,11 +405,11 @@ class Businessprofile extends MY_Controller
                 echo json_encode(array('code' => 1, 'message' => "Leave a review successfully"));
                 die;
             } else {
-                echo json_encode(array('code' => 1, 'message' => "Leave a review failed"));
+                echo json_encode(array('code' => 0, 'message' => "Leave a review failed"));
                 die;
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => 1, 'message' => ERROR_COMMON_MESSAGE));
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
             die;
         }
     }
@@ -445,15 +445,15 @@ class Businessprofile extends MY_Controller
                     echo json_encode(array('code' => 1, 'message' => "Reply customer review successfully"));
                     die;
                 } else {
-                    echo json_encode(array('code' => 1, 'message' => "Reply customer review failed"));
+                    echo json_encode(array('code' => 0, 'message' => "Reply customer review failed"));
                     die;
                 }
             } else {
-                echo json_encode(array('code' => 1, 'message' => "Customer review not exist"));
+                echo json_encode(array('code' => 0, 'message' => "Customer review not exist"));
                 die;
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => 1, 'message' => ERROR_COMMON_MESSAGE));
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
             die;
         }
     }
@@ -487,15 +487,15 @@ class Businessprofile extends MY_Controller
                     echo json_encode(array('code' => 1, 'message' => "Delete review successfully"));
                     die;
                 } else {
-                    echo json_encode(array('code' => 1, 'message' => "Delete review failed"));
+                    echo json_encode(array('code' => 0, 'message' => "Delete review failed"));
                     die;
                 }
             } else {
-                echo json_encode(array('code' => 1, 'message' => "Review not exist"));
+                echo json_encode(array('code' => 0, 'message' => "Review not exist"));
                 die;
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => 1, 'message' => ERROR_COMMON_MESSAGE));
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
             die;
         }
     }
@@ -583,9 +583,11 @@ class Businessprofile extends MY_Controller
             redirect(base_url(HOME_URL));
         }
 
+        
+
         $businessURL = trim($slug);
 
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents'));
+        $this->loadModel(array( 'Mconfigs', 'Mbusinessprofiles', 'Mphonecodes'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -604,9 +606,17 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
         $data['activeBusinessMenu'] = "reservation";
 
         $data['businessInfo'] = $businessInfo;
+
+        $data['phoneCodes'] = $this->Mphonecodes->get();
 
         $this->load->view('frontend/business/bp-reservation-book', $data);
     }
@@ -1707,7 +1717,7 @@ class Businessprofile extends MY_Controller
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mreservationconfigs'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -1729,6 +1739,14 @@ class Businessprofile extends MY_Controller
         $data['activeBusinessMenu'] = "reservations";
 
         $data['businessInfo'] = $businessInfo;
+
+        //get config reservation
+        $reservationConfigs = $this->Mreservationconfigs->getBy(array('business_profile_id' => $businessProfileId), false, 'day_id', '',0,0, 'asc');
+        $data['reservationConfigs'] = array();
+        foreach($reservationConfigs as $itemConfig){
+            $data['reservationConfigs'][$itemConfig['day_id']] = $itemConfig;
+        }
+        //echo "<pre>";print_r($data['reservationConfigs']);exit;
 
         $this->load->view('frontend/business/bm-reservation', $data);
     }

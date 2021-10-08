@@ -214,6 +214,8 @@ $route['business/(:any)/reviews'] = 'frontend/businessprofile/reviews/$1';
 $route['business/leave-a-review'] = 'frontend/businessprofile/leaveReview/$1';
 $route['business/leave-a-reply'] = 'frontend/businessprofile/leaveReply/$1';
 $route['business/remove-review'] = 'frontend/businessprofile/removeComment/$1';
+//reservation
+$route['business/book-reservation'] = 'frontend/reservation/bookReservation';
 
 //busines profile management
 $route['business-management/(:any)/about-us'] = 'frontend/businessprofile/manage_about_us/$1';
@@ -230,6 +232,12 @@ $route['business-management/(:any)/reviews'] = 'frontend/businessprofile/manage_
 $route['business-management/(:any)/reservations'] = 'frontend/businessprofile/manage_reservations/$1';
 $route['business-management/(:any)/subscriptions'] = 'frontend/businessprofile/manage_subscriptions/$1';
 $route['business-management/(:any)/edit'] = 'frontend/businessprofile/manage_profile_edit/$1';
+
+//manage reservation
+$route['business-management/get-reservation-config'] = 'frontend/reservation/getReservation';
+$route['business-management/save-reservation-config'] = 'frontend/reservation/saveReservation';
+
+
 
 
 $route['business-management/create-coupon'] = 'frontend/coupon/update';

@@ -13,92 +13,7 @@
           <div class="col-lg-9">
             <div class="bp-reservation bm-reservation">
               <div class="bp-reservation-inner um-reservation-inner">
-                <!-- Modal Config -->
-                <div class="modal fade bm-modal-config" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-body">
-                        <form action="#">
-                          <h3 class="text-center page-title-sm text-config">Setting up reservation
-                          </h3>
 
-                          <div class="weekdays-selector">
-                            <input type="checkbox" id="weekday-mon" class="weekday" />
-                            <label for="weekday-mon">Mon</label>
-                            <input type="checkbox" id="weekday-tue" class="weekday" />
-                            <label for="weekday-tue">Tue</label>
-                            <input type="checkbox" id="weekday-wed" class="weekday" />
-                            <label for="weekday-wed">Wed</label>
-                            <input type="checkbox" id="weekday-thu" class="weekday" />
-                            <label for="weekday-thu">Thu</label>
-                            <input type="checkbox" id="weekday-fri" class="weekday" />
-                            <label for="weekday-fri">Fri</label>
-                            <input type="checkbox" id="weekday-sat" class="weekday" />
-                            <label for="weekday-sat">Sat</label>
-                            <input type="checkbox" id="weekday-sun" class="weekday" />
-                            <label for="weekday-sun">Sun</label>
-                          </div>
-
-                          <div class="wrapper-config">
-                            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-                              <label for="config-max-people-per-time" class="page-text-lg fw-500">Max number of people to
-                                be served at a time</label>
-                              <div class="wrapper-input">
-                                <input type="number" id="config-max-people-per-time" class="form-control square-input">
-                              </div>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-                              <label for="config-max-people-per-reservation" class="page-text-lg fw-500">Max number of people per
-                                reservation</label>
-                              <div class="wrapper-input">
-                                <input type="number" id="config-max-people-per-reservation" class="form-control  square-input">
-                              </div>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-                              <label for="config-time-between-reservation" class="page-text-lg fw-500">Time between
-                                reservations</label>
-                              <div class="d-flex align-items-center wrapper-input">
-                                <input type="text" id="config-time-between-reservation" class="form-control  square-input">
-                                <span class="page-text-lg fw-500 ms-2">Minute(s)</span>
-                              </div>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-                              <label for="config-time-start" class="page-text-lg fw-500">Start taking reservation
-                                at</label>
-                              <div class="timepicker-wraper wrapper-input time-content">
-                                <input type="text" class="js-time-picker form-control datetimepicker-input" id="config-time-start" data-toggle="datetimepicker" />
-                              </div>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-                              <label for="config-time-close" class="page-text-lg fw-500">Closing time</label>
-                              <div class="timepicker-wraper wrapper-input time-content">
-                                <input type="text" class="js-time-picker form-control datetimepicker-input" id="config-time-close" data-toggle="datetimepicker" />
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="d-flex justify-content-center form-check apply-everyday">
-                            <input class="form-check-input" type="checkbox" id="config-everyday">
-                            <label class="form-check-label" for="config-everyday">
-                              Apply to everyday
-                            </label>
-                          </div>
-
-                          <!-- Remove this line when valid content -->
-                          <p class="page-text-lg text-danger text-center fw-500">IMPORTANT: You need to fill in all information to save changes.</p>
-
-                          <!-- Remove disabled when validate content -->
-                          <div class="modal-footer justify-content-center border-0 p-0">
-                            <button type="button" class="btn btn-red btn-red">Save
-                              changes</button>
-                            <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal">Cancel</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Modal Config  -->
                 <div class="d-flex justify-content-between reservation-config">
                   <div class="d-flex align-items-center switch-btn">
                     <input id="reservation-config" type="checkbox" class="checkbox" checked>
@@ -336,3 +251,242 @@
   </div>
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
+
+<!-- Modal Config -->
+<div class="modal fade bm-modal-config" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form action="#">
+          <h3 class="text-center page-title-sm text-config">Setting up reservation
+          </h3>
+
+          <div class="weekdays-selector">
+            <input type="checkbox" id="weekday-mon" data-id="0" class="weekday <?php if (isset($reservationConfigs[0])) {
+                                                                                  echo "saved";
+                                                                                } ?>" />
+            <label for="weekday-mon">Mon</label>
+            <input type="checkbox" id="weekday-tue" data-id="1" class="weekday <?php if (isset($reservationConfigs[1])) {
+                                                                                  echo "saved";
+                                                                                } ?>" />
+            <label for="weekday-tue">Tue</label>
+            <input type="checkbox" id="weekday-wed" data-id="2" class="weekday <?php if (isset($reservationConfigs[2])) {
+                                                                                  echo "saved";
+                                                                                } ?>" />
+            <label for="weekday-wed">Wed</label>
+            <input type="checkbox" id="weekday-thu" data-id="3" class="weekday <?php if (isset($reservationConfigs[3])) {
+                                                                                  echo "saved";
+                                                                                } ?>" />
+            <label for="weekday-thu">Thu</label>
+            <input type="checkbox" id="weekday-fri" data-id="4" class="weekday <?php if (isset($reservationConfigs[4])) {
+                                                                                  echo "saved";
+                                                                                } ?>" />
+            <label for="weekday-fri">Fri</label>
+            <input type="checkbox" id="weekday-sat" data-id="5" class="weekday <?php if (isset($reservationConfigs[5])) {
+                                                                                  echo "saved";
+                                                                                } ?>" />
+            <label for="weekday-sat">Sat</label>
+            <input type="checkbox" id="weekday-sun" data-id="6" class="weekday <?php if (isset($reservationConfigs[6])) {
+                                                                                  echo "saved";
+                                                                                } ?>" />
+            <label for="weekday-sun">Sun</label>
+          </div>
+
+          <div class="wrapper-config">
+            <input type="hidden" id="selecteDay" value="" />
+            <input type="hidden" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
+              <label for="maxPeople" class="page-text-lg fw-500">Max number of people to
+                be served at a time</label>
+              <div class="wrapper-input">
+                <input type="number" id="maxPeople" class="form-control square-input required-input">
+              </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
+              <label for="maxPerReservation" class="page-text-lg fw-500">Max number of people per
+                reservation</label>
+              <div class="wrapper-input">
+                <input type="number" id="maxPerReservation" class="form-control  square-input required-input">
+              </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
+              <label for="duration" class="page-text-lg fw-500">Time between
+                reservations</label>
+              <div class="d-flex align-items-center wrapper-input">
+                <input type="text" id="duration" class="form-control  square-input required-input">
+                <span class="page-text-lg fw-500 ms-2">Minute(s)</span>
+              </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
+              <label for="startTime" class="page-text-lg fw-500">Start taking reservation
+                at</label>
+              <div class="timepicker-wraper wrapper-input time-content">
+                <input type="text" class="js-time-picker form-control datetimepicker-input required-input" id="startTime" data-toggle="datetimepicker" />
+              </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
+              <label for="endTime" class="page-text-lg fw-500">Closing time</label>
+              <div class="timepicker-wraper wrapper-input time-content">
+                <input type="text" class="js-time-picker form-control datetimepicker-input required-input" id="endTime" data-toggle="datetimepicker" />
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center form-check apply-everyday">
+            <input class="form-check-input" type="checkbox" id="config-everyday">
+            <label class="form-check-label" for="config-everyday">
+              Apply to everyday
+            </label>
+          </div>
+
+          <!-- Remove this line when valid content -->
+          <p class="page-text-lg text-danger text-center fw-500">IMPORTANT: You need to fill in all information to save changes.</p>
+
+          <!-- Remove disabled when validate content -->
+          <div class="modal-footer justify-content-center border-0 p-0">
+            <button type="button" class="btn btn-red btn-red btn-save-config">Save changes</button>
+            <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Config  -->
+
+<script>
+  // Config everday bm reservation
+  $("#config-everyday").click(function() {
+    $("input[class='weekday']").prop("checked", $(this).prop("checked"));
+    $("input[class='weekday']").addClass('saved');
+  });
+
+  $("input[class='weekday']").click(function() {
+    if (!$(this).prop("checked")) {
+      $("#config-everyday").prop("checked", false);
+      $("input[class='weekday']").removeClass('saved');
+    }
+  });
+
+  $(".weekday").click(function() {
+    var business_id = $("#businessId").val();
+    var day_id = $(this).data('id');
+    $('#selecteDay').val(day_id);
+
+    $(".weekday").prop('checked', false);
+    $(this).prop('checked', true);
+
+    $("#config-everyday").prop('checked', false);
+
+    /* clear data */
+    $("#maxPeople").val("");
+    $("#maxPerReservation").val("");
+    $("#duration").val("");
+    $("#startTime").val("");
+    $("#endTime").val("");
+
+    if (day_id !== '') {
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('business-management/get-reservation-config'); ?>',
+        data: {
+          day_id: day_id,
+          business_id: business_id
+        },
+        dataType: "json",
+        success: function(json) {
+          if (json.code == 1) {
+            /* console.log(json.data); */
+            var configData = json.data;
+
+            /* load data */
+            $("#maxPeople").val(configData.max_people);
+            $("#maxPerReservation").val(configData.max_per_reservation);
+            $("#duration").val(configData.duration);
+            $("#startTime").val(configData.start_time);
+            $("#endTime").val(configData.end_time);
+
+          } else {
+            $(".notiPopup .text-secondary").html(json.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          }
+        },
+        error: function(json) {
+          $(".notiPopup .text-secondary").html("Reply review failed");
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        }
+      });
+    } else {
+      $(".notiPopup .text-secondary").html("Selected day not exist");
+      $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").fadeIn('slow').fadeOut(4000);
+    }
+  });
+
+
+  /* Save config */
+  $(".btn-save-config").click(function() {
+    var business_id = $("#businessId").val();
+    var day_id = $("#selecteDay").val();
+
+    var isAll = 0;
+    if($("#config-everyday").is(":checked")){
+      isAll = 1;
+    }
+
+    /* clear data */
+    var max_people = $("#maxPeople").val();
+    var max_per_reservation = $("#maxPerReservation").val();
+    var duration = $("#duration").val();
+    var start_time = $("#startTime").val();
+    var end_time = $("#endTime").val();
+
+    if(max_people == '' || max_per_reservation == '' || duration == '' || start_time == '' || end_time == ''){
+      $(".notiPopup .text-secondary").html("Please fulfill information");
+      $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").fadeIn('slow').fadeOut(4000);
+    }
+
+    if (day_id !== '') {
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('business-management/save-reservation-config'); ?>',
+        data: {
+          day_id: day_id,
+          business_id: business_id,
+          max_people: max_people,
+          max_per_reservation: max_per_reservation,
+          duration: duration,
+          start_time: start_time,
+          end_time: end_time,
+          isAll: isAll
+        },
+        dataType: "json",
+        success: function(json) {
+          if (json.code == 1) {
+            $(".notiPopup .text-secondary").html("Save config successfully");
+            $(".ico-noti-success").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+
+          } else {
+            $(".notiPopup .text-secondary").html(json.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          }
+        },
+        error: function(json) {
+          $(".notiPopup .text-secondary").html("Save config failed");
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        }
+      });
+    } else {
+      $(".notiPopup .text-secondary").html("Save config failed");
+      $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").fadeIn('slow').fadeOut(4000);
+    }
+  });
+
+</script>

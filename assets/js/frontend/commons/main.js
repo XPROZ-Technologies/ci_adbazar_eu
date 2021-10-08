@@ -8,7 +8,7 @@ $(window).ready(() => {
     $("#eventModal").modal("show");
   */
   $("#eventCancelModal").modal("show");
-  $("#reservationModal").modal("show");
+  /*$("#reservationModal").modal("show");*/
   /*$("#bmCannotCreateModal").modal("show");*/
   $("#bmCouponAlertModal").modal("show");
   /*
@@ -260,16 +260,20 @@ $(window).ready(() => {
   }
   */
 
+  /*
   // Config everday bm reservation
   $("#config-everyday").click(function () {
     $("input[class='weekday']").prop("checked", $(this).prop("checked"));
+    $("input[class='weekday']").addClass('saved');
   });
 
   $("input[class='weekday']").click(function () {
     if (!$(this).prop("checked")) {
       $("#config-everyday").prop("checked", false);
+      $("input[class='weekday']").removeClass('saved');
     }
   });
+  */
 
   // Add class selected business manager plan
   $(".plan-input-radio").on("change", function () {
