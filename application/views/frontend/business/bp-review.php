@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-review">
                   <div class="d-flex justify-content-lg-end">
-                    <a href="javascript:void(0)" class="review-btn btn btn-red">
+                    <a href="javascript:void(0)" class="review-btn btn btn-red" data-bs-target="#leaveReview" data-bs-toggle="modal">
                       <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
                       Leave a review</a>
                   </div>
@@ -295,3 +295,77 @@
 </main>
 <input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
+
+<!-- Modal -->
+<div class="modal fade" id="leaveReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <h2>Leave a review</h2>
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="star-rating on line  mr-8px relative">
+          <div class="star-base">
+            <div class="star-rate" data-rate="3.5"></div>
+            <a dt-value="1" href="#1"></a>
+            <a dt-value="2" href="#2"></a>
+            <a dt-value="3" href="#3"></a>
+            <a dt-value="4" href="#4"></a>
+            <a dt-value="5" href="#5"></a>
+          </div>
+        </div>
+      </div>
+      <p class="leaveReview-text">Write your review</p>
+      <input type="hidden" id="businessId" value="<?php if(isset($businessInfo['id'])){ echo $businessInfo['id']; }else{ echo 0; } ?>" />
+      <input type="hidden" id="customerId" value="<?php if(isset($customer['id'])){ echo $customer['id']; }else{ echo 0; } ?>" />
+      <textarea name="comment-post" id="leaveReviewComment"></textarea>
+      <div class="d-flex align-items-center  justify-content-end mt-20">
+        <button type="submit" class="btn btn-red">Submit</button>
+        <button type="submit" class="btn btn-outline-red ml-8px reply-cancel" data-bs-dismiss="modal" aria-label="Close">cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('.btn-delete-image').click(function(e) {
+      var businessId = $("#businessId").val();
+      var customerId = $("#customerId").val();
+      var comment = $("#leaveReviewComment").val();
+
+      if (imgId == 0) {
+        $(".notiPopup .text-secondary").html("Video not exist");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      }
+
+      $('#deletePhotoModal').modal('hide');
+
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('business/leave-a-review'); ?>',
+        data: {
+          image_id: imgId
+        },
+        dataType: "json",
+        success: function(data) {
+          if (data.code == 1) {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-success").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          } else {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          }
+          redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
+        },
+        error: function(data) {
+          $(".notiPopup .text-secondary").html("Delete video failed");
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
+        }
+      });
+    });
+  });
+</script>
