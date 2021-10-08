@@ -183,6 +183,12 @@ main{
 .page-user-manager.page-um-general .um-content .container{
     max-width: 900px;
 }
+.mystyle .fc-daygrid-day-number{
+    color: #fff;
+}
+.mystyle{
+    background-color: #C20000!important;
+}
 @media (min-width: 1366px){
     .home-service .container-owl, .home-coupon .container-owl,
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
@@ -260,6 +266,18 @@ main{
         padding-right: 17px;
         padding-left: 17px;
     }
+}
+.fc .fc-view-harness {
+    min-height: inherit!important;
+    height: 235px!important;
+}
+
+.fc .fc-daygrid-body  table.fc-scrollgrid-sync-table {
+    height: 233px!important;
+}
+#calendar {
+   width: 356px;
+   max-width: 100%;
 }
 .dropdown-country .dropdown-menu {
     min-width: inherit;
@@ -965,8 +983,8 @@ font-size: 14px;
     margin-top: 20px;
 }
 #leaveReview  .star-base a {
-    width: 22px;
-    margin-right: 8px;
+    width: 26px;
+    margin-right: 4px;
 }
 .page-business-profile.page-bp-reservation .form-control {
     height: 40px;
@@ -974,6 +992,13 @@ font-size: 14px;
 .form-control {
     line-height: 15px;
 }
+.fc .fc-daygrid-day-top {
+    height: auto;
+}
+.fc .fc-daygrid-day-number {
+    margin-top: 10px;
+}
+
 @media (max-width: 1366px){
     .discover_more {
         padding: 8.5px 73.5px!important;
