@@ -261,6 +261,9 @@ main{
         padding-left: 17px;
     }
 }
+.dropdown-country .dropdown-menu {
+    min-width: inherit;
+}
 .mr-24{
     margin-right: 24px;
 }
@@ -703,7 +706,7 @@ min-height: 320px;
     position: relative;
     padding-top: 100%; 
 }
-.c-img img, .c-img .bg {
+.c-img img, .c-img .bg,.c-img td {
     position: absolute;
     top: 0;
     right: 0;
@@ -866,9 +869,14 @@ min-height: 320px;
 font-size: 14px;
     line-height: 17px;
 }
+.ck.ck-toolbar__separator,
+.ck.ck-button.ck-off,
 .ck.ck-dropdown,
 .ck.ck-toolbar>.ck.ck-toolbar__grouped-dropdown{
     display: none!important;
+}
+.ck-file-dialog-button .ck.ck-button.ck-off{
+    display: block!important;
 }
 .serviceTypeBlock ul.form-control-lg{
     list-style-type: none;
@@ -890,6 +898,71 @@ font-size: 14px;
 }
 #contact-us textarea.form-control{
     height: 70px;
+}
+.toast {
+    width: auto;
+    padding: 0;
+}
+.toast-body {
+    padding: 10px 20px 10px;
+}
+.toast-header .btn-close {
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    margin: 0;
+}
+.fc-theme-standard td {
+    height: 40px;
+}
+ .fc .fc-scrollgrid-section table tr:last-child {
+    display: none;
+}
+.icon-delete.js-delete-video,
+.photo-item .photo-icon {
+    background: #adadad;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+#leaveReview .modal-dialog .modal-content{
+    padding: 40px;
+}
+#leaveReview .modal-dialog p.leaveReview-text{
+    font-size: 16px;
+    line-height: 23px;
+    color: #949494;
+    margin: 10px 0;
+}
+#leaveReview .modal-dialog h2{
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 36px;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 16px;
+}
+#leaveReview .modal-dialog .ck.ck-editor__main>.ck-editor__editable,
+#leaveReview .modal-dialog .ck.ck-editor__main>.ck-editor__editable{
+    height: 234px;
+    overflow: hidden;
+    min-height: inherit;
+}
+#leaveReview .modal-dialog .btn{
+    padding: 7px 18px!important;
+}
+#leaveReview .modal-dialog{
+    width: 930px;
+    max-width: 90%;
+}
+.mt-20{
+    margin-top: 20px;
 }
 @media (max-width: 1366px){
     .discover_more {
