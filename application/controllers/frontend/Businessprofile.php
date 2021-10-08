@@ -273,7 +273,7 @@ class Businessprofile extends MY_Controller
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomerreviews', 'Mcustomers'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -299,15 +299,18 @@ class Businessprofile extends MY_Controller
 
         $per_page = $this->input->get('per_page');
         $data['per_page'] = $per_page;
-        $search_text = $this->input->get('keyword');
-        $data['keyword'] = $search_text;
+        $order_by = $this->input->get('order_by');
+        $data['order_by'] =  $order_by;
+        $review_star = $this->input->get('review_star');
+        $data['review_star'] =  $review_star;
 
         $getData = array(
-            'event_status_id' => STATUS_ACTIVED,
-            'search_text_fe' => $search_text,
-            'business_id' => $businessProfileId
+            'customer_review_status_id' => STATUS_ACTIVED,
+            'business_id' => $businessProfileId,
+            'order_by' => $order_by,
+            'review_star' => $review_star
         );
-        $rowCount = $this->Mevents->getCount($getData);
+        $rowCount = $this->Mcustomerreviews->getCount($getData);
         $data['lists'] = array();
 
         /**
@@ -328,11 +331,13 @@ class Businessprofile extends MY_Controller
          * END - PAGINATION
          */
 
-        $data['lists'] = $this->Mevents->search($getData, $perPage, $page);
+        $data['lists'] = $this->Mcustomerreviews->search($getData, $perPage, $page);
         for ($i = 0; $i < count($data['lists']); $i++) {
-            $data['lists'][$i]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $data['lists'][$i]['business_profile_id'], 'business_status_id' => STATUS_ACTIVED), 'business_name', '');
-            $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH . $data['lists'][$i]['event_image'] : EVENTS_PATH . NO_IMAGE;
+            $data['lists'][$i]['customerInfo'] = $this->Mcustomers->getBy(array('id' => $data['lists'][$i]['customer_id'], 'customer_status_id' => STATUS_ACTIVED), false, 'customer_first_name, customer_last_name, customer_avatar', '',0,0, 'asc');
         }
+
+        echo "<pre>";
+        print_r($data['lists']);die;
 
 
         $this->load->view('frontend/business/bp-review', $data);

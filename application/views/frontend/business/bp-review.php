@@ -304,27 +304,20 @@
       <div class="d-flex align-items-center justify-content-center">
         <div class="star-rating on line  mr-8px relative">
           <div class="star-base">
-            <div class="star-rate" data-rate="3.5"></div>
-            <a dt-value="1" href="#1"></a>
-            <a dt-value="2" href="#2"></a>
-            <a dt-value="3" href="#3"></a>
-            <a dt-value="4" href="#4"></a>
-            <a dt-value="5" href="#5"></a>
+            <div class="star-rate" data-rate="5"></div>
+            <a dt-value="1" href="javascript:void(0)"></a>
+            <a dt-value="2" href="javascript:void(0)"></a>
+            <a dt-value="3" href="javascript:void(0)"></a>
+            <a dt-value="4" href="javascript:void(0)"></a>
+            <a dt-value="5" href="javascript:void(0)"></a>
           </div>
         </div>
       </div>
       <p class="leaveReview-text">Write your review</p>
-      <input type="hidden" id="reviewStar" value="5" />
-      <input type="hidden" id="businessId" value="<?php if (isset($businessInfo['id'])) {
-                                                    echo $businessInfo['id'];
-                                                  } else {
-                                                    echo 0;
-                                                  } ?>" />
-      <input type="hidden" id="customerId" value="<?php if (isset($customer['id'])) {
-                                                    echo $customer['id'];
-                                                  } else {
-                                                    echo 0;
-                                                  } ?>" />
+
+      <input type="hidden" id="rankStar" value="5" />
+      <input type="hidden" id="businessId" value="<?php if(isset($businessInfo['id'])){ echo $businessInfo['id']; }else{ echo 0; } ?>" />
+      <input type="hidden" id="customerId" value="<?php if(isset($customer['id'])){ echo $customer['id']; }else{ echo 0; } ?>" />
       <textarea name="comment-post" id="leaveReviewComment"></textarea>
       <div class="d-flex align-items-center  justify-content-end mt-20">
         <button type="button" class="btn btn-red btn-leave-review">Submit</button>
@@ -336,6 +329,14 @@
 
 <script>
   $(document).ready(function() {
+
+    $('#leaveReview .star-base a').click(function(e) {
+      var rate = $(this).attr('dt-value');
+      var width = 0;
+      width = rate * 21.43;
+      $("#rankStar").val(rate);
+      $(this).closest('.star-base').find('.star-rate').css('width',width);
+    });
 
     let editorReview;
     const leaveReviewComment = document.querySelector("#leaveReviewComment");
@@ -350,7 +351,7 @@
       var business_id = $("#businessId").val();
       var customer_id = $("#customerId").val();
       var customer_comment = editorReview.getData();
-      var review_star = $("#reviewStar").val();
+      var review_star = $("#rankStar").val();
 
       if (business_id == 0) {
         $(".notiPopup .text-secondary").html("Business profile not exist");
