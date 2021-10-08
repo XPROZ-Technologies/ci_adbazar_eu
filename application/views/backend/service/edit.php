@@ -112,7 +112,7 @@
                                                     <?php foreach($this->Mconstants->languageTexts as $key2 => $text): ?>
                                                         <div class="tab-pane fade <?php echo $key2 == 'en' ? 'active':''; ?> service_type_title_all_content in service-type-name-<?php echo $key2; ?>-tab" data-key="<?php echo $key2; ?>">
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control service_type_name_text_<?php echo $key2; ?>" readonly value="<?php echo $st['service_type_name_vi']; ?>">
+                                                                <input type="text" class="form-control service_type_name_text_<?php echo $key2; ?>" readonly value="<?php echo $st['service_type_name_'.$key2]; ?>">
                                                             </div>
                                                         </div>
                                                     <?php endforeach; ?>
@@ -120,7 +120,7 @@
                                                 </td>
                                                 <td><?php echo $st['display_order'] ?></td>
                                                 <td service-type-id="<?php echo $st['id'] ?>">
-                                                    <a href="javascript:void(0)" class="link_edit" title="Update"><i class="fa fa-pencil"></i></a>&nbsp;
+                                                    <a href="javascript:void(0)" class="link_edit" service-type-id="<?php echo  $st['id'] ?>" title="Update"><i class="fa fa-pencil"></i></a>&nbsp;
                                                     <?php if(empty($st['service_type_id'])): ?>
                                                     <a href="javascript:void(0)" class="link_delete" title="Delete"><i class="fa fa-times"></i></a>
                                                     <?php endif; ?>
