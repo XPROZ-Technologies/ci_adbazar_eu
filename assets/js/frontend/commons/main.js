@@ -251,6 +251,10 @@ $(window).ready(() => {
   if (replyComment) {
     ClassicEditor.create(replyComment);
   }
+  const leaveReviewComment = document.querySelector("#leaveReviewComment");
+  if (leaveReviewComment) {
+    ClassicEditor.create(leaveReviewComment);
+  }
 
   // Config everday bm reservation
   $("#config-everyday").click(function () {

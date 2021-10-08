@@ -132,7 +132,7 @@
       <!-- Customer Video -->
       <section class="customer-video">
         <div class="container">
-          <div class="justify-content-center">
+          <div class="justify-content-center d-flex">
               <div class="customer-video-content">
                 <iframe width="1000" height="500" src="https://www.youtube.com/embed/<?php echo getYoutubeIdFromUrl($configs['VIDEO_URL']); ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
