@@ -304,4 +304,36 @@
     </div>
   </div>
 </main>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#leaveReview">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="leaveReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+        <h2>Leave a review</h2>
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="star-rating on line  mr-8px relative">
+            <div class="star-base">
+                <div class="star-rate" data-rate="3.5"></div>
+                <a dt-value="1" href="#1"></a>
+                <a dt-value="2" href="#2"></a>
+                <a dt-value="3" href="#3"></a>
+                <a dt-value="4" href="#4"></a>
+                <a dt-value="5" href="#5"></a>
+            </div>
+          </div>
+      </div>
+      <p class="leaveReview-text">Write your review</p>
+      <textarea name="comment-post" id="leaveReviewComment"></textarea>
+      <div class="d-flex align-items-center  justify-content-end mt-20">
+        <button type="submit" class="btn btn-red">Submit</button>
+        <button type="submit" class="btn btn-outline-red ml-8px reply-cancel">cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php $this->load->view('frontend/includes/footer'); ?>

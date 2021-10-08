@@ -109,14 +109,14 @@
   if ($('#calendar').length > 0) {
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
-
+      var selectedDate = GetURLParameter('selected_date');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
           left: 'prev',
           center: 'title',
           right: 'next'
         },
-        // initialDate: '2021-09-12',
+        initialDate: selectedDate,
         navLinks: false,
         businessHours: false,
         editable: false,
@@ -124,18 +124,15 @@
         events: [
           <?php if (!empty($dateRanges) > 0) {
             foreach ($dateRanges as $itemDate) { ?> {
-                start: '<?php echo $itemDate; ?>',
-                constraint: '',
-                color: '#C20000'
-              },
+              start: '<?php echo $itemDate; ?>',
+              constraint: '',
+              color: '#C20000',
+            },
           <?php }
           } ?>
         ],
         dateClick: function(info) {
           //get date
-          console.log(info.dateStr);// ngày click
-          console.log(info.dayEl);// html ngày click
-          info.dayEl.style.backgroundColor = 'red';
           redirect(false, '<?php echo base_url('events.html'); ?>?selected_date=' + info.dateStr);
         }
       });
@@ -143,4 +140,14 @@
       calendar.render();
     });
   }
+  function GetURLParameter(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('?');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+        }
+    }
+}
 </script>
