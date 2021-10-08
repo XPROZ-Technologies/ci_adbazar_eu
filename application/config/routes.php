@@ -157,6 +157,7 @@ $route['customer/my-coupons'] = 'frontend/customer/my_coupons';
 $route['customer/general-information'] = 'frontend/customer/general_information';
 $route['customer/change-password'] = 'frontend/customer/change_password';
 $route['customer/my-events'] = 'frontend/customer/my_events';
+$route['customer/my-reservation'] = 'frontend/customer/my_reservation';
 
 $route['notifications.html'] = 'frontend/notification/index';
 
@@ -207,6 +208,8 @@ $route['(:any)'] = 'frontend/businessprofile/index/$1';
 $route['business/(:any)/gallery'] = 'frontend/businessprofile/gallery/$1';
 $route['business/(:any)/coupons'] = 'frontend/businessprofile/coupons/$1';
 $route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
+$route['business/(:any)/reservation'] = 'frontend/businessprofile/reservation/$1';
+$route['business/(:any)/reviews'] = 'frontend/businessprofile/reviews/$1';
 
 //busines profile management
 $route['business-management/(:any)/about-us'] = 'frontend/businessprofile/manage_about_us/$1';

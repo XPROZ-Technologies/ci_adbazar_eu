@@ -706,4 +706,67 @@ class Customer extends MY_Controller
 
         $this->load->view('frontend/customer/um-event', $data);
     }
+
+    public function my_reservation()
+    {
+        $this->loadModel(array('Mconfigs', 'Mservices', 'Mevents', 'Mbusinessprofiles', 'Mcustomerevents'));
+
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer('Services');
+        $data['activeMenu'] = "";
+        $data['activeCustomerNav'] = "my-reservation";
+        /**
+         * Commons data
+         */
+
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
+        }
+
+        $data['activeMenuService'] = 0;
+
+        $per_page = $this->input->get('per_page');
+        $data['per_page'] = $per_page;
+        $search_text = $this->input->get('keyword');
+        $data['keyword'] = $search_text;
+        $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
+        $data['joinedEvents'] = $joinedEvents;
+        $getData = array(
+            'event_status_id' => STATUS_ACTIVED,
+            'search_text_fe' => $search_text,
+            'event_ids' => $joinedEvents
+        );
+        $rowCount = $this->Mevents->getCount($getData);
+        $data['lists'] = array();
+
+        /**
+         * PAGINATION
+         */
+        $perPage = DEFAULT_LIMIT_BUSINESS_PROFILE;
+        //$perPage = 2;
+        if (is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
+        $pageCount = ceil($rowCount / $perPage);
+        $page = $this->input->get('page');
+        if (!is_numeric($page) || $page < 1) $page = 1;
+        $data['basePagingUrl'] = base_url('customer/my-events');
+        $data['perPage'] = $perPage;
+        $data['page'] = $page;
+        $data['rowCount'] = $rowCount;
+        $data['paggingHtml'] = getPaggingHtmlFront($page, $pageCount, $data['basePagingUrl'] . '?page={$1}');
+        /**
+         * END - PAGINATION
+         */
+
+        $data['lists'] = $this->Mevents->search($getData, $perPage, $page);
+        for ($i = 0; $i < count($data['lists']); $i++) {
+            $data['lists'][$i]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $data['lists'][$i]['business_profile_id'], 'business_status_id' => STATUS_ACTIVED), 'business_name', '');
+            $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH . $data['lists'][$i]['event_image'] : EVENTS_PATH . NO_IMAGE;
+        }
+
+        $this->load->view('frontend/customer/um-reservation', $data);
+    }
 }

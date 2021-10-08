@@ -1,11 +1,6 @@
 <?php $this->load->view('frontend/includes/header'); ?>
   <main>
     <div class="page-business-profile page-bp-reservation">
-      <div class="bp-top">
-          <div class="container">
-            <img src="./images/bg-business-profile.jpeg" alt="business profile image" class="img-fluid">
-          </div>
-      </div>
       
       <?php $this->load->view('frontend/includes/business_top_header'); ?>
 
@@ -26,7 +21,7 @@
                     </div>
                     <div class="bg-f5">
                       <form class="d-flex search-box">
-                          <a href="#" class="search-box-icon"><img src="./images/ic-search.png" alt="search icon"></a>
+                          <a href="#" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
                           <input class="form-control" type="text" placeholder="Search" aria-label="Search">
                       </form>
   

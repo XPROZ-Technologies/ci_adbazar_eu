@@ -16,14 +16,14 @@
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'events') {
                             echo 'active';
                         } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/events'); ?>">Events</a></li>
-            <!--
+            
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'reviews') {
                             echo 'active';
                         } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/reviews'); ?>">Reviews</a></li>
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'reservation') {
                             echo 'active';
                         } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/reservation'); ?>">Reservation</a></li>
-            -->
+            
         </ul>
     </aside>
 </div>
