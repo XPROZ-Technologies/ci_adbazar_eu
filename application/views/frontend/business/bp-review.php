@@ -314,12 +314,21 @@
         </div>
       </div>
       <p class="leaveReview-text">Write your review</p>
-      <input type="hidden" id="businessId" value="<?php if(isset($businessInfo['id'])){ echo $businessInfo['id']; }else{ echo 0; } ?>" />
-      <input type="hidden" id="customerId" value="<?php if(isset($customer['id'])){ echo $customer['id']; }else{ echo 0; } ?>" />
+      <input type="hidden" id="reviewStar" value="5" />
+      <input type="hidden" id="businessId" value="<?php if (isset($businessInfo['id'])) {
+                                                    echo $businessInfo['id'];
+                                                  } else {
+                                                    echo 0;
+                                                  } ?>" />
+      <input type="hidden" id="customerId" value="<?php if (isset($customer['id'])) {
+                                                    echo $customer['id'];
+                                                  } else {
+                                                    echo 0;
+                                                  } ?>" />
       <textarea name="comment-post" id="leaveReviewComment"></textarea>
       <div class="d-flex align-items-center  justify-content-end mt-20">
-        <button type="submit" class="btn btn-red">Submit</button>
-        <button type="submit" class="btn btn-outline-red ml-8px reply-cancel" data-bs-dismiss="modal" aria-label="Close">cancel</button>
+        <button type="button" class="btn btn-red btn-leave-review">Submit</button>
+        <button type="button" class="btn btn-outline-red ml-8px reply-cancel" data-bs-dismiss="modal" aria-label="Close">cancel</button>
       </div>
     </div>
   </div>
@@ -327,24 +336,46 @@
 
 <script>
   $(document).ready(function() {
-    $('.btn-delete-image').click(function(e) {
-      var businessId = $("#businessId").val();
-      var customerId = $("#customerId").val();
-      var comment = $("#leaveReviewComment").val();
 
-      if (imgId == 0) {
-        $(".notiPopup .text-secondary").html("Video not exist");
+    let editorReview;
+    const leaveReviewComment = document.querySelector("#leaveReviewComment");
+    if (leaveReviewComment) {
+      ClassicEditor.create(leaveReviewComment).then(newEditor => {
+        editorReview = newEditor;
+      });
+    }
+
+
+    $('.btn-leave-review').click(function(e) {
+      var business_id = $("#businessId").val();
+      var customer_id = $("#customerId").val();
+      var customer_comment = editorReview.getData();
+      var review_star = $("#reviewStar").val();
+
+      if (business_id == 0) {
+        $(".notiPopup .text-secondary").html("Business profile not exist");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+
+        redirect(false, '<?php echo base_url(HOME_URL); ?>');
+      }
+
+      if (customer_id == 0) {
+        $(".notiPopup .text-secondary").html("Please login to leave a review");
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(4000);
       }
 
-      $('#deletePhotoModal').modal('hide');
+      $('#leaveReview').modal('hide');
 
       $.ajax({
         type: 'POST',
         url: '<?php echo base_url('business/leave-a-review'); ?>',
         data: {
-          image_id: imgId
+          customer_id: customer_id,
+          business_id: business_id,
+          customer_comment: customer_comment,
+          review_star: review_star
         },
         dataType: "json",
         success: function(data) {
@@ -357,15 +388,18 @@
             $(".ico-noti-error").removeClass('ico-hidden');
             $(".notiPopup").fadeIn('slow').fadeOut(4000);
           }
-          redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
+          redirect(true);
         },
         error: function(data) {
-          $(".notiPopup .text-secondary").html("Delete video failed");
+          $(".notiPopup .text-secondary").html("Leave a review failed");
           $(".ico-noti-error").removeClass('ico-hidden');
           $(".notiPopup").fadeIn('slow').fadeOut(4000);
-          redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
+
+          redirect(true);
         }
       });
+
     });
+
   });
 </script>
