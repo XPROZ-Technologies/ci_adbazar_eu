@@ -132,6 +132,9 @@ $route['sys-admin/event-update/(:num)'] = 'backend/event/edit/$1';
 $route['sys-admin/event/insert-update'] = 'backend/event/update'; 
 $route['sys-admin/event/change-status'] = 'backend/event/changeStatus';
 
+$route['sys-admin/config/term-of-use'] = 'backend/config/termOfUse';
+$route['sys-admin/config/policy'] = 'backend/config/policy';
+
 /**
  * FRONT-END ROUTES
  */

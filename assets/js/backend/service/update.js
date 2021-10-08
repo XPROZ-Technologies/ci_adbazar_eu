@@ -80,7 +80,7 @@ app.handle = function(serviceId) {
         $this.eq(0).find('.tab-pane').each(function() {
             var key = $(this).attr('data-key');
             var serviceTypeName = $(this).find('input').val();
-            $("#service_type_name").val(serviceTypeName)
+            $("#service_type_name_"+key).val(serviceTypeName)
         });
         var serviceTypeId = $this.eq(2).attr('service-type-id');
         var displayOrder = $this.eq(1).text();

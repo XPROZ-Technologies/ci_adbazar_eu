@@ -203,26 +203,6 @@
                             </div>
                         </div>
                     </div>    
-                    <div class="col-sm-6">
-                        <div class="box box-default padding15">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Term of use</h3>
-                            </div>
-                            <div class="box-body">
-                                <textarea class="form-control" name="TERM_OF_USE"><?php echo $listConfigs['TERM_OF_USE']; ?></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="box box-default padding15">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Privacy Policy</h3>
-                            </div>
-                            <div class="box-body">
-                                <textarea class="form-control" name="PRIVACY_POLICY"><?php echo $listConfigs['PRIVACY_POLICY']; ?></textarea>
-                            </div>
-                        </div>
-                    </div>
                     <ul class="list-inline pull-right margin-right-10">
                         <li><input class="btn btn-primary submit" type="submit" name="submit" value="Update"></li>
                         <input type="text" hidden="hidden" id="autoLoad" value="1">
