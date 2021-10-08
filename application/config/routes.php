@@ -212,6 +212,8 @@ $route['business/(:any)/reservation'] = 'frontend/businessprofile/reservation/$1
 $route['business/(:any)/book-reservation'] = 'frontend/businessprofile/book_reservation/$1';
 $route['business/(:any)/reviews'] = 'frontend/businessprofile/reviews/$1';
 $route['business/leave-a-review'] = 'frontend/businessprofile/leaveReview/$1';
+$route['business/leave-a-reply'] = 'frontend/businessprofile/leaveReply/$1';
+$route['business/remove-review'] = 'frontend/businessprofile/removeComment/$1';
 
 //busines profile management
 $route['business-management/(:any)/about-us'] = 'frontend/businessprofile/manage_about_us/$1';

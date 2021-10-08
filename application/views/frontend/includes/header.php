@@ -175,9 +175,6 @@
                 Services
               </a>
               <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
-                <li><a class="dropdown-item <?php if (isset($activeMenuService) && $activeMenuService === 0) {
-                                              echo "active";
-                                            } ?>" href="<?php echo base_url('services.html'); ?>">Services</a></li>
                 <?php if (!empty($menuServices) && count($menuServices) > 0) {
                   for ($i = 0; $i < count($menuServices); $i++) {
                     $menuServiceUrl = base_url('service/' . makeSlug($menuServices[$i]['service_slug']) . '-' . $menuServices[$i]['id']) . '.html'; ?>
@@ -340,9 +337,6 @@
                 </a>
                 <span class="nav-link dropdown-toggle dropdown-toggle-mobile-not-link" role="button" data-bs-toggle="dropdown" aria-expanded="false"></span>
                 <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
-                  <li><a class="dropdown-item <?php if (isset($activeMenuService) && $activeMenuService === 0) {
-                                                echo "active";
-                                              } ?>" href="<?php echo base_url('services.html'); ?>">Services</a></li>
                   <?php if (!empty($menuServices) && count($menuServices) > 0) {
                     for ($i = 0; $i < count($menuServices); $i++) {
                       $menuServiceUrl = base_url('service/' . makeSlug($menuServices[$i]['service_slug']) . '-' . $menuServices[$i]['id']) . '.html'; ?>

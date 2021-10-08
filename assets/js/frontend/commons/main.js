@@ -247,10 +247,12 @@ $(window).ready(() => {
   }
 
   // CK editor Post Reply
+  /*
   const replyComment = document.querySelector("#bmReplyComment");
   if (replyComment) {
     ClassicEditor.create(replyComment);
   }
+  */
   /*
   const leaveReviewComment = document.querySelector("#leaveReviewComment");
   if (leaveReviewComment) {
@@ -932,7 +934,8 @@ $(document).on('click', '.page-select', function () {
   $(this).closest('.page-text-sm').find('.show-page-text').text(text);
   $(this).closest('ul').hide();
 }).on('click', '.reply-comment', function (e) {
-  $(this).closest('.list-comment').find('.comment-reply').show();
+  var selectComment = $(this).data('review');
+  $(this).closest('.list-comment').find('.comment-reply-' + selectComment).show();
 }).on('click', '.reply-cancel', function (e) {
   $(this).closest('.comment-reply').hide();
 });

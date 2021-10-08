@@ -65,7 +65,7 @@
                     <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
                       <div class="customer-coupon-body">
                         <h6 class="card-title"><span><?php echo $itemCoupon['coupon_subject']; ?></span></h6>
-                        <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
+                        <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="wraper-progress">
                             <div class="progress">
