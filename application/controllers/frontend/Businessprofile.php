@@ -305,7 +305,7 @@ class Businessprofile extends MY_Controller
         $getData = array(
             'event_status_id' => STATUS_ACTIVED,
             'search_text_fe' => $search_text,
-            'business_profile_id' => $businessProfileId
+            'business_id' => $businessProfileId
         );
         $rowCount = $this->Mevents->getCount($getData);
         $data['lists'] = array();
@@ -319,7 +319,7 @@ class Businessprofile extends MY_Controller
         $pageCount = ceil($rowCount / $perPage);
         $page = $this->input->get('page');
         if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('business/' . $businessInfo['business_url'] . '/events');
+        $data['basePagingUrl'] = base_url('business/' . $businessInfo['business_url'] . '/reviews');
         $data['perPage'] = $perPage;
         $data['page'] = $page;
         $data['rowCount'] = $rowCount;
@@ -336,6 +336,41 @@ class Businessprofile extends MY_Controller
 
 
         $this->load->view('frontend/business/bp-review', $data);
+    }
+
+    public function leaveReview()
+    {
+        try {
+            
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews'));
+
+            /**
+             * Commons data
+             */
+            $data = $this->commonDataCustomer('');
+            $data['activeMenu'] = "";
+            /**
+             * Commons data
+             */
+
+            $postData = $this->arrayFromPost(array('customer_id', 'review_star', 'customer_comment'));
+
+            $getBusinessId = $this->input->post('business_id');
+            
+            $postData['business_id'] = $getBusinessId;
+            $postData['customer_review_status_id'] = STATUS_ACTIVED;
+            $postData['created_at'] = getCurentDateTime();
+            $postData['created_by'] = 0; //customer create business
+            //echo "<pre>";print_r($postData);exit;
+            $reviewId = $this->Mcustomerreviews->save($postData);
+            if ($reviewId > 0) {
+                echo json_encode(array('code' => 1, 'message' => "Leave a review successfully"));die;
+            } else {
+                echo json_encode(array('code' => 1, 'message' => "Leave a review failed"));die;
+            }
+        } catch (Exception $e) {
+            echo json_encode(array('code' => 1, 'message' => ERROR_COMMON_MESSAGE));die;
+        }
     }
 
     public function reservation($slug = "")
@@ -411,6 +446,42 @@ class Businessprofile extends MY_Controller
 
 
         $this->load->view('frontend/business/bp-reservation', $data);
+    }
+
+    public function book_reservation($slug = "")
+    {
+        if (empty($slug)) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+
+        $businessURL = trim($slug);
+
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents'));
+
+        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+        if ($businessProfileId == 0) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+        $businessInfo = $this->Mbusinessprofiles->get($businessProfileId);
+
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer($businessInfo['business_name']);
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $data['activeBusinessMenu'] = "reservation";
+
+        $data['businessInfo'] = $businessInfo;
+
+        $this->load->view('frontend/business/bp-reservation-book', $data);
     }
     /**
      * END. USER MANAGEMENT

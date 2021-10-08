@@ -17,7 +17,7 @@
                     <div
                       class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between reservation-top">
                       <h5 class="page-title-xs mb-lg-0">My reservation(s) at Inspire Beauty Salon</h5>
-                      <a href="bp-reservation-book.html" class="btn btn-red">Book a reservation</a>
+                      <a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/book-reservation'); ?>" class="btn btn-red">Book a reservation</a>
                     </div>
                     <div class="bg-f5">
                       <form class="d-flex search-box">
@@ -212,4 +212,5 @@
       </div>
     </div>
   </main>
+  <input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
   <?php $this->load->view('frontend/includes/footer'); ?>

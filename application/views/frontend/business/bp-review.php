@@ -1,11 +1,6 @@
 <?php $this->load->view('frontend/includes/header'); ?>
 <main>
   <div class="page-business-profile">
-    <div class="bp-top">
-      <div class="container">
-        <img src="assets/img/frontend/bg-business-profile.jpeg" alt="business profile image" class="img-fluid">
-      </div>
-    </div>
 
     <?php $this->load->view('frontend/includes/business_top_header'); ?>
 
@@ -74,7 +69,7 @@
                 </div>
                 <div class="col-review">
                   <div class="d-flex justify-content-lg-end">
-                    <a href="#" class="review-btn btn btn-red">
+                    <a href="javascript:void(0)" class="review-btn btn btn-red">
                       <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
                       Leave a review</a>
                   </div>
@@ -86,6 +81,7 @@
                 <div class="bp-inner-content">
                   <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                     <div class="d-flex align-items-center inner-filter">
+                      <!--
                       <span class="me-2 page-text-lg fw-bold">Filter by</span>
                       <div class="notification-filter">
                         <div class="custom-select">
@@ -97,6 +93,7 @@
                           </select>
                         </div>
                       </div>
+                      -->
                     </div>
                     <div class="d-flex align-items-center notification-sort">
                       <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
@@ -296,4 +293,5 @@
     </div>
   </div>
 </main>
+<input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>

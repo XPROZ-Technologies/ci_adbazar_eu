@@ -209,7 +209,9 @@ $route['business/(:any)/gallery'] = 'frontend/businessprofile/gallery/$1';
 $route['business/(:any)/coupons'] = 'frontend/businessprofile/coupons/$1';
 $route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
 $route['business/(:any)/reservation'] = 'frontend/businessprofile/reservation/$1';
+$route['business/(:any)/book-reservation'] = 'frontend/businessprofile/book_reservation/$1';
 $route['business/(:any)/reviews'] = 'frontend/businessprofile/reviews/$1';
+$route['business/leave-a-review'] = 'frontend/businessprofile/leaveReview/$1';
 
 //busines profile management
 $route['business-management/(:any)/about-us'] = 'frontend/businessprofile/manage_about_us/$1';
