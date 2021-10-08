@@ -116,6 +116,7 @@
           center: 'title',
           right: 'next'
         },
+        initialView: 'dayGridMonth',
         initialDate: selectedDate,
         navLinks: false,
         businessHours: false,
@@ -136,6 +137,9 @@
           redirect(false, '<?php echo base_url('events.html'); ?>?selected_date=' + info.dateStr);
         }
       });
+      $( ".fc-daygrid-day" ).attr( '[data-date='+selectedDate+']' ).style.backgroundColor = 'red';
+
+      // $('.fc-daygrid-day[data-date='+selectedDate+']').style.backgroundColor = 'red';
 
       calendar.render();
     });

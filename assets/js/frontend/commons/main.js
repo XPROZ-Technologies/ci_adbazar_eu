@@ -954,6 +954,7 @@ function starRate(){
     var width = 0;
     width = rate * 21.43;
     $(this).css('width',width);
+    $('#rankStar').val(rate);
   });
 }
 

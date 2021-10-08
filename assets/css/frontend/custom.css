@@ -964,6 +964,16 @@ font-size: 14px;
 .mt-20{
     margin-top: 20px;
 }
+#leaveReview  .star-base a {
+    width: 22px;
+    margin-right: 8px;
+}
+.page-business-profile.page-bp-reservation .form-control {
+    height: 40px;
+}
+.form-control {
+    line-height: 15px;
+}
 @media (max-width: 1366px){
     .discover_more {
         padding: 8.5px 73.5px!important;
