@@ -304,16 +304,17 @@
       <div class="d-flex align-items-center justify-content-center">
         <div class="star-rating on line  mr-8px relative">
           <div class="star-base">
-            <div class="star-rate" data-rate="3.5"></div>
-            <a dt-value="1" href="#1"></a>
-            <a dt-value="2" href="#2"></a>
-            <a dt-value="3" href="#3"></a>
-            <a dt-value="4" href="#4"></a>
-            <a dt-value="5" href="#5"></a>
+            <div class="star-rate" data-rate="5"></div>
+            <a dt-value="1" href="javascript:void(0)"></a>
+            <a dt-value="2" href="javascript:void(0)"></a>
+            <a dt-value="3" href="javascript:void(0)"></a>
+            <a dt-value="4" href="javascript:void(0)"></a>
+            <a dt-value="5" href="javascript:void(0)"></a>
           </div>
         </div>
       </div>
       <p class="leaveReview-text">Write your review</p>
+      <input type="hidden" id="rankStar" value="5" />
       <input type="hidden" id="businessId" value="<?php if(isset($businessInfo['id'])){ echo $businessInfo['id']; }else{ echo 0; } ?>" />
       <input type="hidden" id="customerId" value="<?php if(isset($customer['id'])){ echo $customer['id']; }else{ echo 0; } ?>" />
       <textarea name="comment-post" id="leaveReviewComment"></textarea>
@@ -327,6 +328,14 @@
 
 <script>
   $(document).ready(function() {
+    $('#leaveReview .star-base a').click(function(e) {
+      var rate = $(this).attr('dt-value');
+      var width = 0;
+      width = rate * 21.43;
+      console.log(rate);
+      console.log(width);
+      $(this).closest('.star-base').find('.star-rate').css('width',width);
+    });
     $('.btn-delete-image').click(function(e) {
       var businessId = $("#businessId").val();
       var customerId = $("#customerId").val();

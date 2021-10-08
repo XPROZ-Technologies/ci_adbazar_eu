@@ -83,9 +83,15 @@
               <div class="col-lg-6">
                 <div class="form-group mb-3 form-group-timepicker">
                   <label for="timepicker1" class="form-label">Select a time</label>
-                  <div class="timepicker-wraper position-relative">
-                    <input type="text" class="js-time-picker form-control datetimepicker-input" id="timepicker1" data-toggle="datetimepicker" data-target="#timepicker1" />
-                  </div>
+                  <select  class="form-control">
+                    <option value="0">--Select a time--</option>
+                    <option value="1">Dog</option>
+                    <option value="2">Cat</option>
+                    <option value="hamster">Hamster</option>
+                    <option value="parrot">Parrot</option>
+                    <option value="spider">Spider</option>
+                    <option value="goldfish">Goldfish</option>
+                </select>
                 </div>
               </div>
               <div class="d-flex justify-content-center book-btn">
