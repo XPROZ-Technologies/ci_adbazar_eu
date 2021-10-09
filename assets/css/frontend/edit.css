@@ -3222,7 +3222,7 @@ span.switch-left {
         font-size: 14px;
     }
     .sign-social .btn-outline-red:last-child,
-    .sign-social .btn-outline-red {
+    .sign-social .btn-outline-red, .page-signin .btn-outline-red.login-gg {
         justify-content: flex-start;
         padding-left: 50px!important;
     }

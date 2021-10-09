@@ -97,7 +97,7 @@
     </div>
     <?php $this->load->view('frontend/includes/popup_noti'); ?>
 </main>
-
+<input type="hidden" value="1" id="typeSocial" />
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>

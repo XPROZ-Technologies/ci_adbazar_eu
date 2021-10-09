@@ -126,10 +126,11 @@
             <!-- customer info -->
             <?php if (isset($customer) && $customer['is_logged_in'] == 1) { ?>
               <div class="user-info-img">
-                <img src="assets/img/frontend/avatar.svg" alt="avatar" class="img-fluid avatar-img">
+                <?php $avatar = empty($customer['customer_avatar']) ? NO_IMAGE : $customer['customer_avatar']; ?>
+                <img src="<?php echo CUSTOMER_PATH . $avatar; ?>" alt="avatar" class="img-fluid avatar-img">
                 <div class="user-info-text">
-                  <a href="javascript:void(0)">John</a>
-                  <a href=""><img src="assets/img/frontend/bot-avata.png" alt="avatar" class="img-fluid"></a>
+                  <a href="javascript:void(0)"><?php echo $customer['customer_first_name']; ?></a>
+                  <a href="javascript:void(0)"><img src="assets/img/frontend/bot-avata.png" alt="avatar" class="img-fluid"></a>
                 </div>
               </div>
             <?php } ?>
