@@ -73,7 +73,10 @@ class Event extends MY_Controller {
             $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH.$data['lists'][$i]['event_image'] : EVENTS_PATH.NO_IMAGE ;
         }
 
-        $getDataEvent = array('event_status_id' => STATUS_ACTIVED, 'start_date' => date('Y-m-d'));
+        $getDataEvent = array(
+            'event_status_id' => STATUS_ACTIVED
+        );
+        //'start_date' => date('Y-m-d')
         $data['listEvents'] = $this->Mevents->search($getDataEvent);
         
         
