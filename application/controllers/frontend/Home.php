@@ -9,9 +9,10 @@ class Home extends MY_Controller {
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
-        //$this->lang->load('home', $this->language);
-
-
+        $this->lang->load('customer', $this->language);
+        $this->lang->load('login', $this->language);
+        $this->lang->load('user_account_management', $this->language);
+        $this->lang->load('business_profile', $this->language);
     }
 
     public function index() {
@@ -22,7 +23,7 @@ class Home extends MY_Controller {
          */
 
 
-        $data = $this->commonDataCustomer('Home');
+        $data = $this->commonDataCustomer($this->lang->line('homepage'));
         $data['activeMenu'] = "home";
         /**
          * Commons data

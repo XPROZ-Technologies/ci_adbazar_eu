@@ -4,7 +4,7 @@
     <div class="customer-coupon">
       <div class="container">
         <div class="wrapper-search d-md-flex  justify-content-between">
-          <h2 class="page-heading page-title-md text-black mb-3 mb-md-0 fw-bold">All coupons</h2>
+          <h2 class="page-heading page-title-md text-black mb-3 mb-md-0 fw-bold"><?php echo $this->lang->line('all_coupons'); ?></h2>
           <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
             <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
             <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
@@ -16,7 +16,7 @@
             <div class="notification-filter">
               <div class="custom-select choose-service">
                 <select>
-                  <option value="0" selected>All</option>
+                  <option value="0" selected><?php echo $this->lang->line('all'); ?></option>
                   <?php if ($listServices) { foreach($listServices as $itemService){ ?>
                     <option value="<?php echo $itemService['id']; ?>" <?php  if(isset($service) && $itemService['id'] == $service){ echo 'selected="selected"'; } ?> ><?php echo $itemService['service_name']; ?></option>
                   <?php } } ?>

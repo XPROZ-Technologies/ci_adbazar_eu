@@ -1,5 +1,4 @@
 <?php
-
 $lang["sign_in_with_your_account"] = "Đăng nhập vào tài khoản của bạn";
 $lang["email"] = "Địa chỉ Email";
 $lang["password"] = "Mật khẩu";
@@ -12,7 +11,7 @@ $lang["or_sign_in_with_your_social_network"] = "Hoặc đăng nhập bằng tài
 $lang["sign_in_with_google"] = "Đăng nhập bằng Google";
 $lang["sign_in_with_facebook"] = "Đăng nhập bằng Facebook";
 $lang["confirm_password"] = "Xác nhận mật khẩu";
-$lang["agree_with_our_terms_and_conditions"] = "Đồng ý với các điều kiện và điều khoản của chúng tôi";
+$lang["agree_with_our_terms_and_conditions"] = 'Đồng ý với các <a class="fw-bold text-underline" href="javascript:void(0)">điều kiện và điều khoản của chúng tôi</a>';
 $lang["already_have_an_account"] = "Bạn đã có tài khoản?";
 $lang["or_sign_up_with_your_social_network"] = "Hoặc đăng ký bằng tài khoản mạng xã hội";
 $lang["sign_up_with_google"] = "Đăng ký bằng Google";

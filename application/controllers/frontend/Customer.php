@@ -12,7 +12,10 @@ class Customer extends MY_Controller
 
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
-        //$this->lang->load('customer', $this->language);
+        $this->lang->load('customer', $this->language);
+        $this->lang->load('business_profile', $this->language);
+        $this->lang->load('business_management', $this->language);
+        $this->lang->load('user_account_management', $this->language);
     }
 
     public function index()
@@ -602,7 +605,7 @@ class Customer extends MY_Controller
         /**
          * Commons data
          */
-        $data = $this->commonDataCustomer('General Information');
+        $data = $this->commonDataCustomer($this->lang->line('general_information'));
         $data['activeMenu'] = "";
         $data['activeCustomerNav'] = "general-information";
 

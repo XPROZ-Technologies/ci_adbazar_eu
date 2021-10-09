@@ -12,7 +12,7 @@ $lang["or_sign_in_with_your_social_network"] = "Přihlásit se jiným sociální
 $lang["sign_in_with_google"] = "Přihlásit se pomocí Google";
 $lang["sign_in_with_facebook"] = "Přihlasit se pomocí Facebook";
 $lang["confirm_password"] = "Potvrdit heslo";
-$lang["agree_with_our_terms_and_conditions"] = "Souhlasit s našimi podmínkami";
+$lang["agree_with_our_terms_and_conditions"] = '<a class="fw-bold text-underline" href="javascript:void(0)">Souhlasit s našimi podmínkami<a>';
 $lang["already_have_an_account"] = "Už máte účet?";
 $lang["or_sign_up_with_your_social_network"] = "Přihlásit se jiným sociálním účtem";
 $lang["sign_up_with_google"] = "Přihlásit se pomocí Google";

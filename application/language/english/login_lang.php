@@ -12,7 +12,7 @@ $lang["or_sign_in_with_your_social_network"] = "Or sign in with your social netw
 $lang["sign_in_with_google"] = "Sign in with Google";
 $lang["sign_in_with_facebook"] = "Sign in with Facebook";
 $lang["confirm_password"] = "Confirm password";
-$lang["agree_with_our_terms_and_conditions"] = "Agree with our terms and conditions";
+$lang["agree_with_our_terms_and_conditions"] = 'Agree with our <a class="fw-bold text-underline" href="javascript:void(0)">terms and conditions</a>';
 $lang["already_have_an_account"] = "Already have an account?";
 $lang["or_sign_up_with_your_social_network"] = "Or sign up with your social network";
 $lang["sign_up_with_google"] = "Sign up with Google";

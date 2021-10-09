@@ -29,7 +29,7 @@
       <!-- Customer Service -->
       <section class="home-service">
         <div class="container container-owl">
-          <h2 class="page-heading fw-bold page-title">Services</h2>
+          <h2 class="page-heading fw-bold page-title"><?php echo $this->lang->line('services'); ?></h2>
           <div class="owl-carousel owl-customer-service">
             <?php for ($i = 0; $i < count($services); $i++) {
               $serviceUrl = base_url('service/' . makeSlug($services[$i]['service_slug']) . '-' . $services[$i]['id']) . '.html'; ?>
@@ -48,7 +48,7 @@
               </div>
             <?php } ?>
           </div>
-          <a href="<?php echo base_url('services.html'); ?>" class="btn btn-red discover_more">Discover more</a>
+          <a href="<?php echo base_url('services.html'); ?>" class="btn btn-red discover_more"><?php echo $this->lang->line('discover_more'); ?></a>
         </div>
       </section>
       <!-- End Customer Service -->
@@ -74,7 +74,7 @@
                 <div class="carousel-caption">
                   <div class="container">
                     <h4 class="page-title"><?php echo $configs['EVENT_BANNER_TEXT']; ?></h4>
-                    <p><a href="<?php echo base_url('events.html'); ?>" class="btn btn-red discover_more">Discover more</a></p>
+                    <p><a href="<?php echo base_url('events.html'); ?>" class="btn btn-red discover_more"><?php echo $this->lang->line('discover_more'); ?></a></p>
                   </div>
                 </div>
               </div>
@@ -91,7 +91,7 @@
       <!-- Customer Coupon -->
       <section class="home-coupon">
         <div class="container container-owl">
-          <h2 class="text-center page-title">Coupons</h2>
+          <h2 class="text-center page-title"><?php echo $this->lang->line('coupons'); ?></h2>
           <div class="owl-carousel owl-coupon">
             <!-- item coupon -->
             <?php foreach ($listCoupons as $indexCoupon => $itemCoupon) {
@@ -146,7 +146,7 @@
     <!-- Customer Location -->
     <section class="customer-location" id="maps">
       <div class="container">
-        <h2 class="page-heading page-title">Location</h2>
+        <h2 class="page-heading page-title"><?php echo $this->lang->line('location'); ?></h2>
         <div class="row">
           <div class="col-lg-4">
             <div class="customer-location-dropdown">
@@ -166,7 +166,7 @@
               <div class="wrapper-search">
                 <div class="d-flex search-box">
                   <a href="javascript:void(0)" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                  <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
+                  <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="Search" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
                 </div>
               </div>
             </div>
@@ -191,18 +191,18 @@
                   <div class="customer-contact-left d-flex align-items-center">
                     <form class="row g-3" action="<?php echo base_url('customer/send-contact-us'); ?>" id="formContactUs" method="POST">
                       <input name="customer_id" id="contactCustomer" type="hidden" value="<?php if (isset($customer['id'])) { echo $customer['id']; } else { echo 0; } ?>" />
-                      <h3 class="fw-bold text-center mb-4">Contact Us </h3>
+                      <h3 class="fw-bold text-center mb-4"><?php echo $this->lang->line('contact_us'); ?></h3>
                       <div class="col-12">
                         <input type="text" class="form-control" name="contact_name" id="contactName" placeholder="Name" required>
                       </div>
                       <div class="col-12">
-                        <input type="email" class="form-control" name="contact_email" id="contactEmail" placeholder="Email" required>
+                        <input type="email" class="form-control" name="contact_email" id="contactEmail" placeholder="<?php echo $this->lang->line('email'); ?>" required>
                       </div>
                       <div class="col-12">
                         <textarea class="form-control" name="contact_message" id="contactMessage" rows="3" placeholder="Type your message here" required></textarea>
                       </div>
                       <div class="col-12 d-flex justify-content-center btn-submit">
-                        <button type="submit" class="btn btn-red">Submit</button>
+                        <button type="submit" class="btn btn-red"><?php echo $this->lang->line('submit'); ?></button>
                       </div>
                     </form>
                   </div>
@@ -226,6 +226,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 
 <script>
+  var please_enter_your_contact_information = "<?php echo 'Please enter your contact information' ?>";
   var iconMap = "<?php echo (isset($configs['MARKER_MAP_IMAGE']) && !empty($configs['MARKER_MAP_IMAGE'])) ? CONFIG_PATH . $configs['MARKER_MAP_IMAGE'] : CONFIG_PATH . "iconmap.png" ?>";
 
   $("#formContactUs").submit(function(event) {
@@ -261,7 +262,7 @@
         error: function(response) {}
       });
     } else {
-      $(".notiPopup .text-secondary").html('Please enter your contact information');
+      $(".notiPopup .text-secondary").html(please_enter_your_contact_information);
       $(".ico-noti-error").removeClass('ico-hidden');
       $(".notiPopup").fadeIn('slow').fadeOut(4000);
     }

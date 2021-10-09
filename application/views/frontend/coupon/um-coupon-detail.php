@@ -4,7 +4,8 @@
     <div class="bp-coupon-back mb-3 mb-md-4">
       <div class="container">
         <a href="<?php echo $backUrl; ?>" class="text-dark text-decoration-underline">
-          <img src="assets/img/frontend/icon-goback.png" alt="icon-goback" class="img-fluid me-1">Back
+          <img src="assets/img/frontend/icon-goback.png" alt="icon-goback" class="img-fluid me-1">
+          <?php echo $this->lang->line('go_back'); ?>
         </a>
       </div>
     </div>
@@ -30,7 +31,7 @@
                       <div class="d-flex align-items-center ">
                         <?php if (!empty($customerCoupon)) { ?>
                           <!-- Saved -->
-                          <span class="page-text-sm me-1">Status:</span>
+                          <span class="page-text-sm me-1"><?php echo $this->lang->line('Status'); ?>:</span>
                           <?php if ($customerCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
                             <span class="badge badge-approved">Valid</span>
                           <?php } else { ?>
@@ -50,10 +51,10 @@
                   <?php if (!empty($customerCoupon)) { ?>
                     <!-- Logged In - Coupon Saved -->
                     <div class="coupon-code"><?php echo $customerCoupon['customer_coupon_code']; ?></div>
-                    <p class="text-danger text-desc">Please show your coupon to the vendor when you arrive.</p>
+                    <p class="text-danger text-desc"><?php echo $this->lang->line('please_show_your_coupon_to_the'); ?></p>
                   <?php } else { ?>
                     <!-- Not Saved -->
-                    <button type="button" class="btn btn-red w-100 btn-getnow btn-get-coupon mb-80">Get now</button>
+                    <button type="button" class="btn btn-red w-100 btn-getnow btn-get-coupon mb-80"><?php echo $this->lang->line('get_now'); ?></button>
                     <button type="button" disabled="" class="btn btn-outline-red btn-outline-red-disabled w-100 btn-getnow btn-saved btn-hidden">Saved</button>
                   <?php } ?>
                   <div class="d-flex align-items-center detail-horizontal">
@@ -69,7 +70,7 @@
                   <?php if (!empty($customerCoupon) && $customerCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
                     <!-- Logged In - Coupon Saved -->
                     <div class="btn-remove d-flex justify-content-end">
-                      <a href="#removeCouponModal" data-bs-toggle="modal" class="fw-bold">Remove</a>
+                      <a href="#removeCouponModal" data-bs-toggle="modal" class="fw-bold"><?php echo $this->lang->line('remove'); ?></a>
                     </div>
                   <?php } ?>
                 </div>
@@ -81,7 +82,7 @@
         <div class="row mt-3 mt-lg-0">
           <div class="col-12">
             <div class="description">
-              <h5 class="mb-3 mb-md-4 page-text-lg fw-bold">Conditions and Descriptions:</h5>
+              <h5 class="mb-3 mb-md-4 page-text-lg fw-bold"><?php echo $this->lang->line('conditions_and_descriptions'); ?></h5>
               <p><?php echo $detailInfo['coupon_description']; ?>
               </p>
             </div>
@@ -96,12 +97,12 @@
     <div class="modal-dialog modal-dialog-centered modal-medium">
       <div class="modal-content">
         <div class="modal-body">
-          <p class="text-center page-text-lg">Are you sure want to remove the coupon
+          <p class="text-center page-text-lg"><?php echo $this->lang->line('are_you_sure_want_to_remove_th'); ?>
             <b><?php echo $detailInfo['coupon_subject']; ?></b>?
           </p>
           <div class="d-flex justify-content-center">
-            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-coupon" data-bs-dismiss="modal">Yes</a>
-            <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
+            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-coupon" data-bs-dismiss="modal"><?php echo $this->lang->line('yes'); ?></a>
+            <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></a>
           </div>
         </div>
       </div>
@@ -116,9 +117,9 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <h4 class="text-center fw-bold page-title-sm">Successfully removed!</h4>
+        <h4 class="text-center fw-bold page-title-sm"><?php echo $this->lang->line('cancel'); ?>Successfully removed!</h4>
         <div class="d-flex justify-content-center">
-          <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel btn-close-removed" >Close</a>
+          <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel btn-close-removed" ><?php echo $this->lang->line('closed'); ?></a>
         </div>
       </div>
     </div>

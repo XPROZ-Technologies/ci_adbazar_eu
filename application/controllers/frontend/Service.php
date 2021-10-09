@@ -9,7 +9,7 @@ class Service extends MY_Controller {
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
-        //$this->lang->load('login', $this->language);
+        $this->lang->load('customer', $this->language);
 
 
     }
@@ -50,6 +50,7 @@ class Service extends MY_Controller {
          * Commons data
          */
         $data = $this->commonDataCustomer('Service Detail');
+       
         $data['activeMenu'] = "services";
         /**
          * Commons data

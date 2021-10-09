@@ -9,8 +9,8 @@ class Signup extends MY_Controller {
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
-        //$this->lang->load('signup', $this->language);
-
+        $this->lang->load('login', $this->language);
+        $this->lang->load('customer', $this->language);
 
     }
 
@@ -20,7 +20,7 @@ class Signup extends MY_Controller {
         /**
          * Commons data
          */
-        $data = $this->commonDataCustomer('Signup');
+        $data = $this->commonDataCustomer($this->lang->line('sign_up'));
         $data['activeMenu'] = "";
         /**
          * Commons data
