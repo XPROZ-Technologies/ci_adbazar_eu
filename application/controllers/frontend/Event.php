@@ -89,6 +89,7 @@ class Event extends MY_Controller {
             $dateRanges = array_unique($dateRanges);
         }
         $data['dateRanges'] = $dateRanges;
+        //echo "<pre>";print_r($data['dateRanges']);die;
         
 
         $this->load->view('frontend/event/customer-event', $data);

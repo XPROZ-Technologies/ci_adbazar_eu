@@ -34,8 +34,10 @@ class Coupon extends MY_Controller {
         $data['order_by'] =  $order_by;
         $serviceId = $this->input->get('service');
         $data['service'] =  $serviceId;
+        $service_types = $this->input->get('service_types');
+        $data['service_types'] =  explode(',', $service_types);
         $savedCoupons = $this->Mcustomercoupons->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_coupon_status_id >' => 0), 'coupon_id');
-
+        
         $serviceIds = $this->Mbusinessprofiles->getListFieldValue(array('business_status_id >' => 0), 'service_id', 0);
         if(!empty($serviceIds)) $serviceIds = array_unique($serviceIds);
         
