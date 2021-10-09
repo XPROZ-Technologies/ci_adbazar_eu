@@ -1,4 +1,7 @@
-<div class="um-left">
+<div class="um-left show-mobile-ic mb-20">
+<div class="text-center">
+        <a href="javascript:void(0)" class="icon-show-mobile"><img src="assets/img/frontend/icon-mobile.png" alt=""></a>
+    </div>
     <div class="um-links">
         <ul class="list-unstyled">
             <li class="<?php if(isset($activeCustomerNav) && $activeCustomerNav == 'general-information'){ echo "active"; } ?>"><a href="<?php echo base_url('customer/general-information') ?>"><?php echo $this->lang->line('general_information'); ?></a></li>

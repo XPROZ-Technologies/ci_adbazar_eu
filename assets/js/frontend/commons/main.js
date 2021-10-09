@@ -953,6 +953,7 @@ $('.progress').each(function () {
 
 $(".icon-show-mobile").click(function () {
   $(this).closest('.show-mobile-ic').find('.bp-sidebar').toggle();
+  $(this).closest('.show-mobile-ic').find('.um-links').toggle();
 });
 if($('.star-rate').length > 0){
   starRate();

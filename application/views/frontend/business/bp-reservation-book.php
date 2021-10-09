@@ -1,6 +1,6 @@
 <?php $this->load->view('frontend/includes/header'); ?>
 <main>
-  <div class="page-business-profile page-bp-reservation">
+  <div class="page-business-profile page-bp-reservation v1">
     <div class="bp-reservation-book">
       <div class="container">
         <div class="book-content">
