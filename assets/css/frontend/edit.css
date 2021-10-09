@@ -177,8 +177,8 @@
 }
 .page-footer .img-paypal {
     margin-bottom: 20px;
-    width: 102px;
-    height: 36px;
+    width: 150px;
+
 }
 .page-footer-info li img {
     margin-right: 8px;
@@ -279,7 +279,7 @@
     padding: 8px 20px!important;
 }
 .sign-social .btn-outline-red:last-child{
-    padding: 8px 11px!important;
+    padding: 8px 11px 8px 15px !important;
 }
 .sign-social{
     width: 559px;
@@ -719,10 +719,12 @@ box-shadow: 0px 2px 6px rgba(77, 78, 78, 0.2);
     padding: 7px 19px!important;
     border-radius: 2px;
 }
+
 .page-signin .btn-outline-red.login-gg{
-    padding: 8px 11px!important;
+    padding: 8px 30px 8px 15px!important;
     border-radius: 2px;
 }
+
 .btn-outline-red,
 .btn-red{
     padding: 5px 10px!important;
@@ -2101,7 +2103,8 @@ span.switch-left {
 }
 .signup-form .icon-google, .signup-form .icon-fb, .signin-right .icon-google, .signin-right .icon-fb {
     max-width: 14px;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
+    margin-right: 5px;
 }
 .dropdown-language .selected .dropdown-item,
 .page-header .btn-register ,
