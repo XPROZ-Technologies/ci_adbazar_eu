@@ -39,7 +39,7 @@
           <ul class="list-unstyled list-inline">
             <?php if (!empty($serviceTypes)) {
               for ($i = 0; $i < count($serviceTypes); $i++) { ?>
-                <li class="list-inline-item page-text-xs fw-500 li_service_type <?php if(in_array($serviceTypes[$i]['id'], $service_types)){ echo "selected"; } ?>">
+                <li class="list-inline-item page-text-xs fw-500 li_service_type <?php if(isset($service_types) && in_array($serviceTypes[$i]['id'], $service_types)){ echo "selected"; } ?>">
                   <a href="javascript:void(0)" class="service_type_selected" data-id="<?php echo $serviceTypes[$i]['id']; ?>"><?php echo $serviceTypes[$i]['service_type_name']; ?></a>
                 </li>
             <?php }
