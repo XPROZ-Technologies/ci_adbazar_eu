@@ -20,6 +20,7 @@
                       <a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/book-reservation'); ?>" class="btn btn-red">Book a reservation</a>
                     <?php } ?>
                   </div>
+                  <?php if(!empty($lists)){ ?>
                   <div class="bg-f5">
                     <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                       <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
@@ -53,14 +54,17 @@
                                   <?php if ($itemBook['book_status_id'] == 1) { ?>
                                     <span class="badge badge-expire">Expired</span>
                                   <?php } ?>
-                                  <?php if ($itemBook['book_status_id'] == 3 || $itemBook['book_status_id'] == 4) { ?>
+                                  <?php if ($itemBook['book_status_id'] == 3) { ?>
+                                    <span class="badge badge-declined">Cancelled</span>
+                                  <?php } ?>
+                                  <?php if ($itemBook['book_status_id'] == 4) { ?>
                                     <span class="badge badge-declined">Declined</span>
                                   <?php } ?>
                                 </td>
                                 <td>
                                   <div class="d-flex justify-content-center">
                                     <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                      <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
+                                      <button data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>" type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" >Cancel</button>
                                     <?php } ?>
                                     <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
                                       <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
@@ -117,6 +121,12 @@
                     <?php } ?>
 
                   </div>
+                  <?php }else{ ?>
+                  <div class="zero-event zero-box">
+                    <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
+                    <p class="text-secondary page-text-lg">No reservations</p>
+                  </div>
+                  <?php } ?>
                 </div>
               </div>
             </div>
@@ -126,6 +136,7 @@
     </div>
   </div>
 </main>
+<input type="hidden" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
 <input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
 
@@ -134,7 +145,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <h5 class="page-title-xs text-center">Your reservation at Inspire Beauty Salon at 10:00AM on Thursday, July 10, 2021 for 2 people has been booked.</h5>
+        <h5 class="page-title-xs text-center">Your reservation at <?php echo $businessInfo['business_name']; ?> at <?php echo $bookInfo['time_arrived']; ?> on <?php echo $this->Mconstants->dayIds[(int)ddMMyyyy($bookInfo['date_arrived'], 'w')]; ?>, <?php echo ddMMyyyy($bookInfo['date_arrived'], 'F m,Y'); ?> for <?php echo $bookInfo['number_of_people']; ?> people has been booked.</h5>
         <p class="text-warning text-center page-text-lg">
           <img src="assets/img/frontend/ic-warning.svg" alt="ic-warning" class="img-fluid">
           Please, arrive no later than 15 minutes for your scheduled appointment time.
@@ -155,6 +166,28 @@
 </div>
 <!-- End Reservation Modal -->
 
+<!-- Modal confirm remove -->
+<div class="modal fade" id="removeEventModal" tabindex="-1" aria-labelledby="removeEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-medium">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-center page-text-lg">Are you sure want to cancel the reservation
+            "<b id="reservationCode"></b>"?
+          </p>
+          <input type="hidden" id="selectedBookId" value="" />
+          <div class="d-flex justify-content-center">
+            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-cancel-reservation">Yes</a>
+            <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal confirm remove -->
+
 <script>
   $(window).ready(() => {
     <?php
@@ -166,6 +199,52 @@
 
     $(".btn-other-reservation").click(function() {
       redirect(false, '<?php echo base_url('business/' . $businessInfo['business_url'] . '/book-reservation'); ?>');
+    });
+
+    $(".btn-ask-cancel-reservation").click(function() {
+      var book_id = $(this).data('book');
+      $("#selectedBookId").val(book_id);
+      var book_code = $(this).data('code');
+      $("#reservationCode").html(book_code);
+      $("#removeEventModal").modal('show');
+    });
+
+
+    $(".btn-cancel-reservation").click(function() {
+      var book_id = $("#selectedBookId").val();
+      var business_id = $('#businessId').val();
+
+      //action
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('reservation/customer-cancel-reservation'); ?>',
+        data: {
+          book_id: book_id,
+          business_id: business_id
+        },
+        dataType: "json",
+        success: function(data) {
+          $("#removeEventModal").modal('hide');
+          if (data.code == 1) {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-success").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          } else {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          }
+          redirect(true);
+        },
+        error: function(data) {
+          $(".notiPopup .text-secondary").html("Cancellation failed");
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+
+          redirect(true);
+        }
+      });
+
     });
   });
 </script>

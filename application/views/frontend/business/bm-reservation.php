@@ -35,60 +35,62 @@
                 <div class="w-275">
                   <div class="reservation-select-date">
                     <div class="form-group form-group-datepicker">
-                      <label for="reservation-date" class="form-label">Select a date</label>
+                      <label for="selecteDate" class="form-label">Select a date</label>
                       <div class="datepicker-wraper position-relative">
                         <img src="assets/img/frontend/icon-calendar.png" alt="calendar icon" class="img-fluid icon-calendar" />
-                        <input type="text" class="form-control datetimepicker-input" id="reservation-date" data-toggle="datetimepicker" value="" />
+                        <input type="text" class="form-control datetimepicker-input" id="selecteDate" data-toggle="datetimepicker" value="" />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="bg-f5">
-                  <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
-                    <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
-                  </form>
-                  <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
-                    <div class="d-flex align-items-center inner-filter">
-                      <!--
-                      <span class="me-2 page-text-lg fw-bold">Filter by</span>
-                      <div class="notification-filter">
-                        <div class="custom-select">
+                <?php if (!empty($lists)) { ?>
+                  <div class="bg-f5">
+                    <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
+                      <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                      <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
+                    </form>
+                    <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
+                      <div class="d-flex align-items-center inner-filter">
+
+                        <span class="me-2 page-text-lg fw-bold">Filter by</span>
+                        <div class="notification-filter">
+                          <div class="custom-select">
+                            <select>
+                              <option value="0" selected>All</option>
+                              <option value="1">Personal</option>
+                              <option value="2">The Rice Bowl</option>
+                              <option value="3">Inspire Beauty Salon</option>
+                            </select>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="d-flex align-items-center notification-sort">
+                        <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
+                        <div class="custom-select mb-0 choose-order">
                           <select>
-                            <option value="0" selected>All</option>
-                            <option value="1">Personal</option>
-                            <option value="2">The Rice Bowl</option>
-                            <option value="3">Inspire Beauty Salon</option>
+                            <option value="desc" selected>Newest</option>
+                            <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
+                                                  echo 'selected="selected"';
+                                                } ?>>Oldest</option>
                           </select>
                         </div>
                       </div>
-                                                                                  -->
                     </div>
-                    <div class="d-flex align-items-center notification-sort">
-                      <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
-                      <div class="custom-select mb-0 choose-order">
-                        <select>
-                          <option value="desc" selected>Newest</option>
-                          <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
-                                                echo 'selected="selected"';
-                                              } ?>>Oldest</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="table-responsive reservation-table">
-                    <table class="table page-text-lg">
-                      <thead>
-                        <tr>
-                          <th>Time</th>
-                          <th>ID</th>
-                          <th>People</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php if (!empty($lists)) {
+
+                    <div class="table-responsive reservation-table">
+                      <table class="table page-text-lg">
+                        <thead>
+                          <tr>
+                            <th>Time</th>
+                            <th>ID</th>
+                            <th>People</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
                           foreach ($lists as $itemBook) { ?>
                             <tr>
                               <td><?php echo $itemBook['date_arrived']; ?><br><?php echo $itemBook['time_arrived']; ?></td>
@@ -101,14 +103,17 @@
                                 <?php if ($itemBook['book_status_id'] == 1) { ?>
                                   <span class="badge badge-expire">Expired</span>
                                 <?php } ?>
-                                <?php if ($itemBook['book_status_id'] == 3 || $itemBook['book_status_id'] == 4) { ?>
+                                <?php if ($itemBook['book_status_id'] == 3) { ?>
+                                  <span class="badge badge-declined">Cancelled</span>
+                                <?php } ?>
+                                <?php if ($itemBook['book_status_id'] == 4) { ?>
                                   <span class="badge badge-declined">Declined</span>
                                 <?php } ?>
                               </td>
                               <td>
                                 <div class="d-flex justify-content-center">
                                   <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
+                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>">Cancel</button>
                                   <?php } ?>
                                   <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
                                     <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
@@ -116,55 +121,68 @@
                                 </div>
                               </td>
                             </tr>
-                        <?php }
-                        } ?>
+                          <?php }
+                          ?>
 
-                      </tbody>
-                    </table>
-                  </div>
+                        </tbody>
+                      </table>
+                    </div>
 
-                  <?php if (count($lists) > 0) { ?>
-                    <!-- Pagination -->
-                    <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
-                      <div class="d-flex align-items-center pagination-left">
-                        <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                          results</p>
-                        <div class="page-text-sm mb-0 d-flex align-items-center">
-                          <div class="custom-select choose-perpage">
-                            <select>
-                              <option value="10" <?php if (isset($per_page) && $per_page == 20) {
-                                                    echo 'selected';
-                                                  } ?>>10</option>
-                              <option value="20" <?php if (isset($per_page) && $per_page == 20) {
-                                                    echo 'selected';
-                                                  } ?>>20</option>
-                              <option value="30" <?php if (isset($per_page) && $per_page == 30) {
-                                                    echo 'selected';
-                                                  } ?>>30</option>
-                              <option value="40" <?php if (isset($per_page) && $per_page == 40) {
-                                                    echo 'selected';
-                                                  } ?>>40</option>
-                              <option value="50" <?php if (isset($per_page) && $per_page == 50) {
-                                                    echo 'selected';
-                                                  } ?>>50</option>
-                            </select>
+
+
+                    <?php if (count($lists) > 0) { ?>
+                      <!-- Pagination -->
+                      <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
+                        <div class="d-flex align-items-center pagination-left">
+                          <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                            results</p>
+                          <div class="page-text-sm mb-0 d-flex align-items-center">
+                            <div class="custom-select choose-perpage">
+                              <select>
+                                <option value="10" <?php if (isset($per_page) && $per_page == 20) {
+                                                      echo 'selected';
+                                                    } ?>>10</option>
+                                <option value="20" <?php if (isset($per_page) && $per_page == 20) {
+                                                      echo 'selected';
+                                                    } ?>>20</option>
+                                <option value="30" <?php if (isset($per_page) && $per_page == 30) {
+                                                      echo 'selected';
+                                                    } ?>>30</option>
+                                <option value="40" <?php if (isset($per_page) && $per_page == 40) {
+                                                      echo 'selected';
+                                                    } ?>>40</option>
+                                <option value="50" <?php if (isset($per_page) && $per_page == 50) {
+                                                      echo 'selected';
+                                                    } ?>>50</option>
+                              </select>
+                            </div>
+                            <span class="ms-2">/</span>
+                            <span class=""> Page</span>
                           </div>
-                          <span class="ms-2">/</span>
-                          <span class=""> Page</span>
+                        </div>
+                        <div class="pagination-right">
+                          <!-- Page pagination -->
+                          <nav>
+                            <?php echo $paggingHtml; ?>
+                          </nav>
+                          <!-- End Page pagination -->
                         </div>
                       </div>
-                      <div class="pagination-right">
-                        <!-- Page pagination -->
-                        <nav>
-                          <?php echo $paggingHtml; ?>
-                        </nav>
-                        <!-- End Page pagination -->
-                      </div>
-                    </div>
-                    <!-- END. Pagination -->
-                  <?php } ?>
+                      <!-- END. Pagination -->
+                    <?php } ?>
 
-                </div>
+                  </div>
+
+                  <!-- END -->
+
+                <?php } else { ?>
+                  <div class="zero-event zero-box">
+                    <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
+                    <p class="text-secondary page-text-lg">No reservations</p>
+                  </div>
+                <?php } ?>
+
+
               </div>
             </div>
           </div>
@@ -173,6 +191,7 @@
     </div>
   </div>
 </main>
+<input type="hidden" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
 <input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
 
@@ -278,8 +297,63 @@
 </div>
 <!-- End Modal Config  -->
 
+
+<!-- Modal confirm remove -->
+<div class="modal fade" id="removeEventModal" tabindex="-1" aria-labelledby="removeEventModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-medium">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center page-text-lg">Are you sure want to decline the reservation
+          "<b id="reservationCode"></b>"?
+        </p>
+        <input type="hidden" id="selectedBookId" value="" />
+        <div class="d-flex justify-content-center">
+          <a href="javascript:void(0)" class="btn btn-red btn-yes btn-cancel-reservation">Yes</a>
+          <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal confirm remove -->
+
 <script>
   $(document).ready(function() {
+    // change date 
+    var dateNow = new Date();
+    $("#selecteDate").datetimepicker({
+      defaultDate: dateNow,
+      //minDate: moment(),
+      // onChangeDateTime:function(dp,$input){
+      //   alert($input.val())
+      //   console.log(213);
+      // },
+      format: "MMMM DD, YYYY",
+      allowInputToggle: true,
+      // inline: true,
+      // debug: true,
+      // allowMultidate: true,
+      // multidateSeparator: ',',
+      icons: {
+        time: "bi bi-clock",
+        date: "bi bi-calendar2-check-fillr",
+        up: "bi bi-chevron-up",
+        down: "bi bi-chevron-down",
+        previous: "bi bi-chevron-left",
+        next: "bi bi-chevron-right",
+      },
+    });
+
+    $('#selecteDate').on('dp.change', function(e) {
+      var formatedValue = e.date.format(e.date._f);
+      var formatDay = moment(formatedValue).format('YYYY-MM-DD');
+      console.log(formatDay);
+      redirect(false, '<?php echo $basePagingUrl; ?>?selected_day=' + formatDay);
+    });
+
     // Config everday bm reservation
     $("#config-everyday").click(function() {
       $("input[class='weekday']").prop("checked", $(this).prop("checked"));
@@ -451,7 +525,8 @@
     // change date 
     var dateNow = new Date();
     $("#reservation-date").datetimepicker({
-      defaultDate:dateNow,
+      defaultDate: dateNow,
+      startDate: dateNow,
       // onChangeDateTime:function(dp,$input){
       //   alert($input.val())
       //   console.log(213);
@@ -476,5 +551,54 @@
       var formatedValue = e.date.format(e.date._f);
       console.log(formatedValue);
     });
+
+
+    $(".btn-ask-cancel-reservation").click(function() {
+      var book_id = $(this).data('book');
+      $("#selectedBookId").val(book_id);
+      var book_code = $(this).data('code');
+      $("#reservationCode").html(book_code);
+      $("#removeEventModal").modal('show');
+    });
+
+
+    $(".btn-cancel-reservation").click(function() {
+      var book_id = $("#selectedBookId").val();
+      var business_id = $('#businessId').val();
+
+      //action
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('reservation/business-decline-reservation'); ?>',
+        data: {
+          book_id: book_id,
+          business_id: business_id
+        },
+        dataType: "json",
+        success: function(data) {
+          $("#removeEventModal").modal('hide');
+          if (data.code == 1) {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-success").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          } else {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          }
+          redirect(true);
+        },
+        error: function(data) {
+          $(".notiPopup .text-secondary").html("Declined failed");
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+
+          redirect(true);
+        }
+      });
+
+    });
+
+
   });
 </script>

@@ -6,7 +6,7 @@
         <div class="book-content">
           <h3 class="text-center page-title-md">Book a reservation at <?php echo $businessInfo['business_name']; ?></h3>
           <div class="d-flex justify-content-center">
-            <form class="row" action="<?php echo base_url('business/book-reservation'); ?>" id="formBookReservation" method="POST">
+            <form class="row" action="<?php echo base_url('business/submit-book-reservation'); ?>" id="formBookReservation" method="POST">
               <input type="hidden" name="business_profile_id" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
               <input type="hidden" name="customer_id" id="customerId" value="<?php echo $customer['id']; ?>" />
               <input type="hidden" name="selected_day" id="selecteDate" value="<?php echo date('Y-m-d'); ?>" />
@@ -69,7 +69,7 @@
                   <label for="dateArrived" class="form-label">Select a date</label>
                   <div class="datepicker-wraper position-relative">
                     <img src="assets/img/frontend/icon-calendar.png" alt="calendar icon" class="img-fluid icon-calendar" />
-                    <input type="text" class="js-datepicker form-control datetimepicker-input" name="date_arrived" id="dateArrived" data-toggle="datetimepicker" data-target="#dateArrived" />
+                    <input type="text" class="form-control datetimepicker-input" name="date_arrived" id="dateArrived" data-toggle="datetimepicker" data-target="#dateArrived" value="" />
                   </div>
                 </div>
               </div>
@@ -91,8 +91,9 @@
                 -->
                 <div class="form-group mb-3">
                   <label class="form-label">Select a time <span class="required text-danger">*</span></label>
-                  <div class="custom-select js-select-service">
-                    <select name="time_arrived" required id="timeArrived">
+                  <input type="hidden" name="time_arrived" id="getTimeArrived" value="0" />
+                  <div class="custom-select js-select-time">
+                    <select required id="timeArrived">
                       <option value="0">Select a time</option>
                       <?php if (!empty($listHours)) {
                         foreach ($listHours as $itemHours) { ?>
@@ -119,71 +120,141 @@
 <?php $this->load->view('frontend/includes/footer'); ?>
 
 <script>
-  $("body").on("click", ".js-list-country li a", function() {
-    //alert($(this).data('id'));
-    $("#countryCodeId").val($(this).data('id'));
-  });
+  $(document).ready(function() {
+    
+    $("body").on("click", ".js-list-country li a", function() {
+      $("#countryCodeId").val($(this).data('id'));
+    });
 
-  $(".btn-confirm").click(function(e) {
-    e.preventDefault();
+    $("body").on("click", ".js-select-time li", function() {
+      $("#getTimeArrived").val($(this).data('value'));
+    });
 
-    var business_id = $("#businessId").val();
-    var book_name = $("#bookName").val();
-    var number_of_people = $("#numOfPeople").val();
-    var country_code_id = $("#countryCodeId").val();
-    var book_phone = $("#bookPhone").val();
-    var date_arrived = $("#dateArrived").val();
-    var time_arrived = $("#timeArrived").val();
+    $(".btn-confirm").click(function(e) {
+      e.preventDefault();
 
-    var selectedDay = $("#selecteDate").val();
-    var selectTime = $('.js-select-service ul li.selected').data('value');
-    var maxPerReservation = $("#maxPerReservation").val();
-    //console.log(number_of_people + '____' + maxPerReservation);
+      var business_id = $("#businessId").val();
+      var book_name = $("#bookName").val();
+      var number_of_people = $("#numOfPeople").val();
+      var country_code_id = $("#countryCodeId").val();
+      var book_phone = $("#bookPhone").val();
+      var date_arrived = $("#dateArrived").val();
+      var time_arrived = $("#timeArrived").val();
 
-    if (number_of_people > maxPerReservation) {
-      $(".notiPopup .text-secondary").html("Maximum of people is: " + maxPerReservation);
-      $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(5000);
-      return false;
-    }
+      var selectedDay = $("#selecteDate").val();
+      var selectTime = $('.js-select-service ul li.selected').data('value');
+      var maxPerReservation = $("#maxPerReservation").val();
+      //console.log(number_of_people + '____' + maxPerReservation);
+      
+      /*
+      if (number_of_people > maxPerReservation) {
+        $(".notiPopup .text-secondary").html("Maximum of people is: " + maxPerReservation);
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
+        return false;
+      }
+      */
 
-    if (selectedDay == 0 || selectedDay == "") {
-      $(".notiPopup .text-secondary").html("Please select a day");
-      $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(4000);
-      return false;
-    }
+      if (selectedDay == 0 || selectedDay == "") {
+        $(".notiPopup .text-secondary").html("Please select a day");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        return false;
+      }
 
-    if (selectTime == "0" || selectTime == "") {
-      $(".notiPopup .text-secondary").html("Please select a time");
-      $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(4000);
-      return false;
-    }
+      if (selectTime == "0" || selectTime == "") {
+        $(".notiPopup .text-secondary").html("Please select a time");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        return false;
+      }
 
-    if (book_name == '' || number_of_people == '' || country_code_id == '' || book_phone == '' || date_arrived == '' || time_arrived == '') {
-      $(".notiPopup .text-secondary").html("Please fulfill information");
-      $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(4000);
-      return false;
-    } else {
-      $("#formBookReservation").submit();
-    }
-  });
+      if (book_name == '' || number_of_people == '' || country_code_id == '' || book_phone == '' || date_arrived == '' || time_arrived == '') {
+        $(".notiPopup .text-secondary").html("Please fulfill information");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        return false;
+      } else {
+        $("#formBookReservation").submit();
+      }
+    });
 
-  $(".btn-cancel").click(function(e) {
-    redirect(false, '<?php echo base_url('business/' . $businessInfo['business_url'] . '/reservation'); ?>');
-  });
+    $(".btn-cancel").click(function(e) {
+      redirect(false, '<?php echo base_url('business/' . $businessInfo['business_url'] . '/reservation'); ?>');
+    });
 
+    /*
+    $('#numOfPeople').on('change', function() {
+      console.log($(this).val());
+      var maxPerReservation = $("#maxPerReservation").val();
+      if ($(this).val() > maxPerReservation) {
+        $(".notiPopup .text-secondary").html("Maximum of people is: " + maxPerReservation);
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
+        $(this).val(maxPerReservation);
+      }
+    });
+    */
 
-  $('#numOfPeople').on('change', function() {
-    console.log($(this).val());
-    var maxPerReservation = $("#maxPerReservation").val();
-    if($(this).val() > maxPerReservation){
-      $(".notiPopup .text-secondary").html("Maximum of people is: " + maxPerReservation);
-      $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(5000);
-      $(this).val(maxPerReservation);
-    }
+    // change date 
+    var dateNow = new Date();
+    $("#dateArrived").datetimepicker({
+      defaultDate: dateNow,
+      //minDate: moment(),
+      // onChangeDateTime:function(dp,$input){
+      //   alert($input.val())
+      //   console.log(213);
+      // },
+      //format: "MMMM DD, YYYY",
+      format: "MMMM DD, YYYY",
+      allowInputToggle: true,
+      // inline: true,
+      // debug: true,
+      // allowMultidate: true,
+      // multidateSeparator: ',',
+      icons: {
+        time: "bi bi-clock",
+        date: "bi bi-calendar2-check-fillr",
+        up: "bi bi-chevron-up",
+        down: "bi bi-chevron-down",
+        previous: "bi bi-chevron-left",
+        next: "bi bi-chevron-right",
+      },
+    });
+
+    $('#dateArrived').on('dp.change', function(e) {
+      var formatedValue = e.date.format(e.date._f);
+      var business_id = $("#businessId").val();
+      
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('reservation/get-avail-time'); ?>',
+        data: {
+          selected_day: formatedValue,
+          business_id: business_id
+        },
+        dataType: "json",
+        success: function(data) {
+
+          if (data.code == 1) {
+            console.log(data.data);
+            $("#timeArrived").html(data.data);
+            $(".custom-select").niceSelect('update');
+          } else {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          }
+
+        },
+        error: function(data) {
+          $(".notiPopup .text-secondary").html("Reply review failed");
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        }
+      });
+
+    });
+
   });
 </script>

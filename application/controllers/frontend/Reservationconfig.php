@@ -33,21 +33,23 @@ class Reservationconfig extends MY_Controller
                 die;
             }
 
+            $selected_day = date('Y-m-d', strtotime($postData['selected_day']));
+
             $configTimes = array();
             if($allow_book == STATUS_ACTIVED){
-                $day_id = ddMMyyyy($postData['selected_day'], 'N');
+                $day_id = ddMMyyyy($selected_day, 'N');
                 $configTimes = $this->Mreservationconfigs->getBy(array('day_id' => ($day_id - 1), 'business_profile_id' => $postData['business_id']));
             }
             
             if(!empty($configTimes)){
                 $isCurrent = false;
-                if(date('Y-m-d') == $postData['selected_day']){
+                if(date('Y-m-d') == $selected_day){
                     $isCurrent = true;
                 }
                 $listHours = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration'], $isCurrent);
                 $dataHours = "";
                 foreach($listHours as $itemHours){
-                    $numberBooked = $this->Mcustomerreservations->getCount(array('time_arrived' => $itemHours.':00', 'date_arrived' => $postData['selected_day']));
+                    $numberBooked = $this->Mcustomerreservations->getCount(array('time_arrived' => $itemHours.':00', 'date_arrived' => $selected_day));
                     if($numberBooked < $configTimes[0]['max_people']){
                         $dataHours .= '<option value="'.$itemHours.'">'.$itemHours.'</option>';
                     }
