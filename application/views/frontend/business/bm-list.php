@@ -1,6 +1,6 @@
 <?php $this->load->view('frontend/includes/header'); ?>
 <main>
-    <div class="page-business-profile">
+    <div class="page-business-profile v2">
         <?php $this->load->view('frontend/includes/bm_top_header'); ?>
 
         <div class="bm-list">

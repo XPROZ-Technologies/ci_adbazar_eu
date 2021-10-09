@@ -3080,6 +3080,12 @@ span.switch-left {
 }
 }
 @media all and (max-width: 992px){
+    .bm-create-content h3, .bm-create-content .h3 {
+        margin-bottom: 30px;
+    }
+    .page-business-manager{
+        padding: 20px;
+    }
     .user-info-box {
         padding-top: 10px;
     }
@@ -3224,10 +3230,14 @@ span.switch-left {
     .nice-select .current {
         font-size: 14px;
     }
+    .page-signin .btn-outline-red.login-gg,
     .sign-social .btn-outline-red:last-child,
     .sign-social .btn-outline-red, .page-signin .btn-outline-red.login-gg {
         justify-content: flex-start;
         padding-left: 50px!important;
+    }
+    .row.create-form [class^='col-']{
+        padding: 0;
     }
 }
 
@@ -3387,6 +3397,12 @@ span.switch-left {
     }
 }
 @media screen and (max-width: 576px){
+    .page-business-profile.v2 .bm-list .container{
+        padding: 0 5px;
+    }
+    .page-business-profile.v2{
+        margin: 20px 15px 0;
+    }
     .reservation-config {
         display: block!important;
     }

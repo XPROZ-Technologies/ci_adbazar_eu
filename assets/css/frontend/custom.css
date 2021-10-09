@@ -174,12 +174,6 @@ main{
 .page-user-manager.page-um-general .um-general {
     padding-left: 32px;
 }
-.page-user-manager.page-um-general .um-content .container>.row>.col-lg-3{
-    width: 38.3%;
-}
-.page-user-manager.page-um-general .um-content .container>.row>.col-lg-9{
-    width: 61.7%;
-}
 .page-user-manager.page-um-general .um-content .container{
     max-width: 900px;
 }
@@ -243,6 +237,15 @@ main{
     }
 }
 @media (min-width: 992px) {
+    .page-user-manager.page-um-general .um-content .container>.row>.col-lg-3{
+        width: 38.3%;
+    }
+    .page-user-manager.page-um-general .um-content .container>.row>.col-lg-9{
+        width: 61.7%;
+    }
+    .bp-reservation .reservation-top .page-title-xs {
+        max-width: calc(100% - 200px);
+    }
     .customer-coupon-content.grid-60.all-coupon .row {
         margin-left: -15px;
         margin-right: -15px;
@@ -266,6 +269,14 @@ main{
         padding-right: 17px;
         padding-left: 17px;
     }
+}
+.bp-reservation-book .book-btn .btn-confirm {
+    margin-right: 25px;
+    margin-left: -4px;
+}
+.bm-create .create-form .action-btn .btn {
+    margin-right: 12.5px;
+    margin-left: 12.5px;
 }
 .fc .fc-view-harness {
     min-height: inherit!important;
@@ -1033,6 +1044,39 @@ font-size: 14px;
     }
 }
 @media (max-width: 991px){
+    .customer-service-list,
+    .customer-service-grid {
+        padding: 20px 0 ;
+    }
+    .show-mobile-ic ul.list-unstyled{
+        margin-bottom: 0;
+    }
+    .um-top {
+        margin-bottom: 20px;
+    }
+    .um-top .list-inline-item:first-child a,
+    .um-top .list-inline-item a {
+        padding: 9px 30px;
+    }
+    .page-customer-event{
+
+        margin-top: 20px;
+    }
+    .page-business-profile {
+        margin-top: 20px;
+        /* padding: 15px!important; */
+    }
+    .page-um-change-pass .um-top, .page-um-general .um-top {
+        margin: 0 15px 10px;
+    }
+    .page-user-manager.page-um-general .um-general {
+        padding-left: 0;
+    }
+    .header-right-mobile .btn-red, .header-right-mobile .btn-outline-red {
+        width: 100%!important;
+        white-space: nowrap;
+    }
+    .bp-tabs-left.show-mobile-ic,
     .bm-left.show-mobile-ic{
         margin-bottom: 10px;
     }
@@ -1053,9 +1097,14 @@ font-size: 14px;
     .bp-tabs {
         margin-top: 12px;
     }
+    .um-links {
+        text-align: center;
+        background-color: #fff;
+    }
+    .show-mobile-ic .um-links,
     .show-mobile-ic .bp-sidebar{
         display: none;
-        z-index: 1;
+        z-index: 3;
         margin: 8px 0px;
         position: absolute;
         width: 171px;
@@ -1089,8 +1138,41 @@ font-size: 14px;
     .page-business-profile, .customer-event, .customer-coupon {
         padding: 0 0 12px;
     }
+    .page-customer-coupon{
+        margin-top: 20px;
+    }
+    .bp-coupon-detail .detail-right .detail-right-item .wraper-progress {
+        margin-top: 10px;
+    }
+    .mb-80 {
+        margin-bottom: 30px!important;
+    }
+    .um-coupon-detail .detail-horizontal {
+        margin-bottom: 20px;
+    }
+    .bp-coupon-detail.um-coupon-detail .col-12 .description {
+        margin-top: 20px;
+    }
 }
 @media (max-width: 768px){
+    .customer-location {
+        margin-top: 10px;
+    }
+    .home-coupon {
+        padding-bottom: 40px;
+    }
+    main {
+        padding-top: 50px;
+    }
+    .home-service {
+        padding: 31px 0 40px;
+    }
+    .home-coupon h2, .home-coupon .h2 {
+        height: auto;
+    }
+    .home-event-slider .carousel-caption {
+        margin-left: 0;
+    }
     .bm-content .container, .page-user-manager .container, .page-business-profile .container {
         min-height: 280px;
     }
@@ -1117,6 +1199,31 @@ font-size: 14px;
     }
 }
 @media screen and (max-width: 576px){
+    .page-business-profile.page-bp-reservation.v1{
+        margin: 0;
+        padding: 0;
+    }
+    .page-title-md {
+        font-size: 20px;
+        line-height: 20px;
+    }
+    .form-group-quantity .form-control {
+        width: 100%;
+    }
+    .customer-item-list .view-more {
+        white-space: nowrap;
+        position: absolute;
+    }
+    .bp-reservation-book .book-content {
+        padding: 30px 30px;
+    }
+    .navbar-brand img {
+        max-height: 40px;
+        max-width: 80px;
+    }
+    .page-header .btn-outline-red, .page-header .btn-red {
+        padding: 5px 10px!important;
+    }
     .bp-introduce .fw-bold.page-title-xs{
         text-align: center;
     }

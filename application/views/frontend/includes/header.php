@@ -132,6 +132,24 @@
                   <a href="javascript:void(0)"><?php echo $customer['customer_first_name']; ?></a>
                   <a href="javascript:void(0)"><img src="assets/img/frontend/bot-avata.png" alt="avatar" class="img-fluid"></a>
                 </div>
+                <div class="user-info-box">
+                  <div class="user-info-item">
+                    <div class="user-info-box-top">
+                      <img src="<?php echo CUSTOMER_PATH . $avatar; ?>" alt="avatar" class="img-fluid">
+                      <div class="user-info-box-name">
+                        <p><?php echo $customer['customer_first_name']; ?></p>
+                        <a href="<?php echo base_url('customer/general-information') ?>">See my profile</a>
+                      </div>
+                    </div>
+                    <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('my-business-profile'); ?>'">My Business Profile</button>
+                    <?php if (isset($customer['login_type_id']) && $customer['login_type_id'] == 2) { ?>
+                      <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
+                    <?php } else { ?>
+                      <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Log Out</button>
+                    <?php } ?>
+
+                  </div>
+                </div>
               </div>
             <?php } ?>
             <!-- END. customer info -->
