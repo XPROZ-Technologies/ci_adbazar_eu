@@ -3230,6 +3230,8 @@ span.switch-left {
     .nice-select .current {
         font-size: 14px;
     }
+    .sign-social.signup .btn-outline-red:last-child,
+    .sign-social.signup .btn-outline-red ,
     .page-signin .btn-outline-red.login-gg,
     .sign-social .btn-outline-red:last-child,
     .sign-social .btn-outline-red, .page-signin .btn-outline-red.login-gg {

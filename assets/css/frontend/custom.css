@@ -7,6 +7,16 @@
 .card-body {
     padding: 10px 16px 22px;
 }
+.customer-service-item .card-body {
+    padding: 16px;
+}
+.customer-service-item .card-title{
+    font-size: 18px;
+
+}
+.user-info-item {
+    height: auto;
+}
 #signinSuccessResetPassModal .page-text-sm{
     font-size: 12px;
     line-height: 16px;

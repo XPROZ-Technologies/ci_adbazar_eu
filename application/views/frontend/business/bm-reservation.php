@@ -38,7 +38,7 @@
                       <label for="reservation-date" class="form-label">Select a date</label>
                       <div class="datepicker-wraper position-relative">
                         <img src="assets/img/frontend/icon-calendar.png" alt="calendar icon" class="img-fluid icon-calendar" />
-                        <input type="text" class="form-control datetimepicker-input" id="reservation-date" data-toggle="datetimepicker" value="October 13, 2021" />
+                        <input type="text" class="form-control datetimepicker-input" id="reservation-date" data-toggle="datetimepicker" value="" />
                       </div>
                     </div>
                   </div>
@@ -449,8 +449,13 @@
     });
 
     // change date 
-
+    var dateNow = new Date();
     $("#reservation-date").datetimepicker({
+      defaultDate:dateNow,
+      // onChangeDateTime:function(dp,$input){
+      //   alert($input.val())
+      //   console.log(213);
+      // },
       format: "MMMM DD, YYYY",
       allowInputToggle: true,
       // inline: true,
