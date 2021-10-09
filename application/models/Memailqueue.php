@@ -45,7 +45,7 @@ class Memailqueue extends MY_Model
 
     public function forgotPassword($emailData = array())
     {
-        $urlAction = base_url('password_assistance?token='.$emailData['token']);
+        $urlAction = base_url('password-assistance?token='.$emailData['token']);
 
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
                             font-size: 20px;line-height: 24px;text-align: center;">Password assistance</p>
