@@ -219,7 +219,8 @@ class Customer extends MY_Controller
                 if ($customerId > 0) {
                     
                     $dataUpdate = array(
-                        'customer_password' => md5($postData['customer_password'])
+                        'customer_password' => md5($postData['customer_password']),
+                        'token_reset' => ''
                     );
                     $customerId = $this->Mcustomers->save($dataUpdate, $customerId);
                     if($customerId > 0){
