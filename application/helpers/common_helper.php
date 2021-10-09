@@ -382,3 +382,33 @@ if(!function_exists('getDatesFromRange')) {
         range(strtotime($start) + ($start < $end ? 4000 : 8000), strtotime($end) + ($start < $end ? 8000 : 4000), 86400));
     }
 }
+
+if(!function_exists('getRangeHours')) {
+    function getRangeHours($start_time, $end_time, $duration = 1){
+        $exStartTime = explode(":", $start_time);
+        $minuteStart = $exStartTime[0]*60 + $exStartTime[1];
+
+        $exEndTime = explode(":", $end_time);
+        $minuteEnd = $exEndTime[0]*60 + $exEndTime[1];
+
+        $current_time = date('H:i');
+        $exCurrentTime = explode(":", $current_time);
+        $minuteCurrent = $exStartTime[0]*60 + $exStartTime[1];
+
+        $startPoint = $minuteStart;
+        if($minuteCurrent > $minuteStart){
+            $startPoint = $minuteCurrent;
+        }
+
+        $endPoint = $minuteEnd - $duration;
+
+
+        //Use startPoint & endPoint
+        $arrHours = array();
+        for($i = $startPoint; $i <= $endPoint; $i = $i + $duration){
+            $arrHours[] = intdiv($i, 60).':'. ($i % 60);
+        }
+
+        return $arrHours;
+    }
+}
