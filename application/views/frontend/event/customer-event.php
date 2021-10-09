@@ -6,14 +6,14 @@
         <div class="row">
           <div class="col-xl-4 mb-4 mb-lg-0 pe-lg-4">
             <div class="customer-event-left">
-              <h2 class="page-heading page-title-md fw-bold">Events</h2>
+              <h2 class="page-heading page-title-md fw-bold"><?php echo $this->lang->line('events'); ?></h2>
               <div id='calendar'></div>
             </div>
           </div>
           <div class="col-xl-8">
             <div class="customer-event-content">
               <div class="text-white text-center customer-event-top">
-                <h4 class="card-title mb-0 page-title-md fw-bold">Upcoming Events</h4>
+                <h4 class="card-title mb-0 page-title-md fw-bold"><?php echo $this->lang->line('upcoming_events'); ?></h4>
               </div>
               <div class="wrapper-search">
                 <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
@@ -41,7 +41,7 @@
                             <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?> <span class="dot-black"></span> <?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
                           </div>
                         </a>
-                        <a href="javscript:void(0)" class="event-join btn btn-outline-red mt-2 mt-lg-0 join-event-in-list" data-id="<?php echo $eventItem['id']; ?>" data-customer="<?php echo $customer['id']; ?>" >Join</a>
+                        <a href="javscript:void(0)" class="event-join btn btn-outline-red mt-2 mt-lg-0 join-event-in-list" data-id="<?php echo $eventItem['id']; ?>" data-customer="<?php echo $customer['id']; ?>" ><?php echo $this->lang->line('join'); ?></a>
                       </div>
                     <?php } ?>
 
@@ -92,7 +92,7 @@
               <?php } else { ?>
                 <div class="zero-event zero-box">
                   <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
-                  <p class="text-secondary page-text-lg">No upcoming events on this day</p>
+                  <p class="text-secondary page-text-lg"><?php echo $this->lang->line('no_upcoming_event_on_this_day'); ?></p>
                 </div>
               <?php } ?>
             </div>

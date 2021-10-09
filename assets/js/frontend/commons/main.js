@@ -1,14 +1,14 @@
 $(window).ready(() => {
   // Show modal login/signup success reset password
   $("#signupSucess").modal("show");
-  $("#signinSuccessResetPassModal").modal("show");
+  /*$("#signinSuccessResetPassModal").modal("show");*/
   $("#profileChangePassModal").modal("show");
   $("#joinModal").modal("show");
   /*
     $("#eventModal").modal("show");
   */
   $("#eventCancelModal").modal("show");
-  $("#reservationModal").modal("show");
+  /*$("#reservationModal").modal("show");*/
   /*$("#bmCannotCreateModal").modal("show");*/
   $("#bmCouponAlertModal").modal("show");
   /*
@@ -247,25 +247,33 @@ $(window).ready(() => {
   }
 
   // CK editor Post Reply
+  /*
   const replyComment = document.querySelector("#bmReplyComment");
   if (replyComment) {
     ClassicEditor.create(replyComment);
   }
+  */
+  /*
   const leaveReviewComment = document.querySelector("#leaveReviewComment");
   if (leaveReviewComment) {
     ClassicEditor.create(leaveReviewComment);
   }
+  */
 
+  /*
   // Config everday bm reservation
   $("#config-everyday").click(function () {
     $("input[class='weekday']").prop("checked", $(this).prop("checked"));
+    $("input[class='weekday']").addClass('saved');
   });
 
   $("input[class='weekday']").click(function () {
     if (!$(this).prop("checked")) {
       $("#config-everyday").prop("checked", false);
+      $("input[class='weekday']").removeClass('saved');
     }
   });
+  */
 
   // Add class selected business manager plan
   $(".plan-input-radio").on("change", function () {
@@ -930,7 +938,8 @@ $(document).on('click', '.page-select', function () {
   $(this).closest('.page-text-sm').find('.show-page-text').text(text);
   $(this).closest('ul').hide();
 }).on('click', '.reply-comment', function (e) {
-  $(this).closest('.list-comment').find('.comment-reply').show();
+  var selectComment = $(this).data('review');
+  $(this).closest('.list-comment').find('.comment-reply-' + selectComment).show();
 }).on('click', '.reply-cancel', function (e) {
   $(this).closest('.comment-reply').hide();
 });

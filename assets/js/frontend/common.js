@@ -22,7 +22,12 @@ $(document).ready(function () {
   });
     $("body").on("click", ".choose-order li.option", function(){
           var url = $("#currentBaseUrl").val();
-          redirect(false, url + '?order_by=' + $(this).data('value') + '&service=' + $('.choose-service li.option.selected').data('value'));
+          if($('.choose-service li.option.selected').length > 0){
+            redirect(false, url + '?order_by=' + $(this).data('value') + '&service=' + $('.choose-service li.option.selected').data('value'));
+          }else{
+            redirect(false, url + '?order_by=' + $(this).data('value'));
+          } 
+          
     });
 
     

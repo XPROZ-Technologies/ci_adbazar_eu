@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 05, 2021 at 12:08 AM
+-- Generation Time: Oct 08, 2021 at 07:57 PM
 -- Server version: 10.3.21-MariaDB
 -- PHP Version: 7.0.33
 
@@ -62,7 +62,9 @@ INSERT INTO `actions` (`id`, `action_name`, `action_url`, `parent_action_id`, `d
 (12, 'Event', 'sys-admin/event', 0, 6, '', 1, 2, '2021-09-16 14:29:35', '2021-09-16 14:29:35', 1, 1),
 (13, 'Slider', '', 0, 1, '', 1, 2, '2021-09-28 23:45:23', '2021-09-28 23:45:23', 1, 1),
 (14, 'Home Banner', 'sys-admin/slider/1', 13, 4, '', 2, 2, '2021-09-28 23:45:14', '2021-09-28 23:45:14', 1, 1),
-(15, 'Event Banner', 'sys-admin/slider/2', 13, 5, '', 2, 2, '2021-09-28 23:47:37', '2021-09-28 23:47:37', 1, 1);
+(15, 'Event Banner', 'sys-admin/slider/2', 13, 5, '', 2, 2, '2021-09-28 23:47:37', '2021-09-28 23:47:37', 1, 1),
+(16, 'Term of use', 'sys-admin/config/term-of-use', 3, 3, '', 2, 2, '2021-10-08 08:50:22', '2021-10-08 08:50:22', 1, 1),
+(17, 'Privacy Policy', 'sys-admin/config/policy', 3, 4, '', 2, 2, '2021-10-08 08:50:42', '2021-10-08 08:50:42', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -118,15 +120,20 @@ INSERT INTO `business_photos` (`id`, `business_profile_id`, `photo_image`, `crea
 (161, 5, '2021-09-23/614bdf39cb609.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
 (160, 5, '2021-09-23/614bdf377ccf0.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
 (159, 5, '2021-09-23/614bdf3556bec.png', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
-(180, 6, '2021-10-03/615983317567b.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(179, 6, '2021-10-03/6159832dd23b3.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(178, 6, '2021-10-03/6159832a960e7.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(177, 6, '2021-10-01/6156c5a774bfb.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(176, 6, '2021-10-01/6156c5ad3a451.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(175, 6, '2021-10-01/6156c5b2333c1.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(181, 6, '2021-10-03/61598336bc894.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(182, 6, '2021-10-03/6159833ab0a9f.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(183, 6, '2021-10-03/61598342a3ed1.png', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL);
+(215, 6, '2021-10-06/615d44f7358dd.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(214, 6, '2021-10-06/615d44f2eb265.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(213, 6, '2021-10-06/615d44eeea992.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(212, 6, '2021-10-06/615d44e7f3210.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(211, 6, '2021-10-06/615d44e23dab6.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(210, 6, '2021-10-03/61598342a3ed1.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(209, 6, '2021-10-03/6159833ab0a9f.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(208, 6, '2021-10-03/61598336bc894.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(207, 6, '2021-10-01/6156c5b2333c1.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(206, 6, '2021-10-01/6156c5ad3a451.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(205, 6, '2021-10-01/6156c5a774bfb.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(204, 6, '2021-10-03/6159832a960e7.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(203, 6, '2021-10-03/6159832dd23b3.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(202, 6, '2021-10-03/615983317567b.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -140,24 +147,23 @@ CREATE TABLE `business_profiles` (
   `service_id` int(10) NOT NULL,
   `business_name` varchar(250) NOT NULL,
   `business_slogan` varchar(250) DEFAULT NULL,
-  `business_email` varchar(250) NOT NULL,
-  `business_address` varchar(250) NOT NULL,
-  `business_whatsapp` varchar(100) NOT NULL,
-  `business_url` text NOT NULL,
-  `country_code_id` int(10) NOT NULL,
-  `business_phone` varchar(100) NOT NULL,
-  `business_phone_code` int(10) NOT NULL DEFAULT 0,
-  `business_description` text NOT NULL,
+  `business_email` varchar(250) DEFAULT NULL,
+  `business_address` varchar(250) DEFAULT NULL,
+  `business_whatsapp` varchar(100) DEFAULT NULL,
+  `business_url` text DEFAULT NULL,
+  `country_code_id` int(10) DEFAULT NULL,
+  `business_phone` varchar(100) DEFAULT NULL,
+  `business_description` text DEFAULT NULL,
   `business_avatar` text DEFAULT NULL,
   `business_image_cover` text DEFAULT NULL,
-  `is_annual_payment` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1: annual, 0: one time',
+  `is_annual_payment` tinyint(4) DEFAULT 0 COMMENT '1: annual, 0: one time',
   `expired_date` datetime DEFAULT NULL,
   `is_hot` tinyint(4) DEFAULT 0,
   `payment_status_id` tinyint(4) DEFAULT 0,
   `business_status_id` tinyint(4) DEFAULT 0,
   `updated_by` int(11) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `created_by` int(11) NOT NULL,
+  `created_by` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -166,12 +172,15 @@ CREATE TABLE `business_profiles` (
 -- Dumping data for table `business_profiles`
 --
 
-INSERT INTO `business_profiles` (`id`, `customer_id`, `service_id`, `business_name`, `business_slogan`, `business_email`, `business_address`, `business_whatsapp`, `business_url`, `country_code_id`, `business_phone`, `business_phone_code`, `business_description`, `business_avatar`, `business_image_cover`, `is_annual_payment`, `expired_date`, `is_hot`, `payment_status_id`, `business_status_id`, `updated_by`, `updated_at`, `created_by`, `created_at`, `deleted_at`) VALUES
-(3, 0, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', 0, '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-04 20:29:37', 1, '2021-09-22 17:25:13', NULL),
-(4, 0, 2, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', 0, '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:00:50', 1, '2021-09-23 08:58:38', NULL),
-(5, 0, 3, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', 0, '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:01:08', 1, '2021-09-23 08:58:46', NULL),
-(6, 26, 8, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 57, '89729822123', 0, 'Hair Salon Spa desc', '2021-10-03/61598314185a4.png', '2021-10-03/61598320230c8.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:17:40', 1, '2021-10-01 15:24:43', NULL),
-(7, 0, 1, 'Business demo location', 'Business demo location slogan', 'a@gmail.com', 'Ho Chi Minh', '0886765544', 'business-demo-location', 14, '0938893675', 0, 'Business demo location desc', 'no_image.png', 'no_image.png', 0, NULL, 0, 0, 2, 1, '2021-10-03 18:44:31', 1, '2021-10-02 20:23:42', NULL);
+INSERT INTO `business_profiles` (`id`, `customer_id`, `service_id`, `business_name`, `business_slogan`, `business_email`, `business_address`, `business_whatsapp`, `business_url`, `country_code_id`, `business_phone`, `business_description`, `business_avatar`, `business_image_cover`, `is_annual_payment`, `expired_date`, `is_hot`, `payment_status_id`, `business_status_id`, `updated_by`, `updated_at`, `created_by`, `created_at`, `deleted_at`) VALUES
+(3, 0, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-04 20:29:37', 1, '2021-09-22 17:25:13', NULL),
+(4, 0, 2, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:00:50', 1, '2021-09-23 08:58:38', NULL),
+(5, 0, 3, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:01:08', 1, '2021-09-23 08:58:46', NULL),
+(6, 26, 3, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 0, '89729822123', 'Hair Salon Spa desc', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-06 14:09:37', 1, '2021-10-01 15:24:43', NULL),
+(7, 0, 1, 'Business demo location', 'Business demo location slogan', 'a@gmail.com', 'Ho Chi Minh', '0886765544', 'business-demo-location', 14, '0938893675', 'Business demo location desc', 'no_image.png', 'no_image.png', 0, NULL, 0, 0, 2, 1, '2021-10-03 18:44:31', 1, '2021-10-02 20:23:42', NULL),
+(12, 32, 1, 'Busines profile test 05102021', 'Busines profile test 05102021 slogan', 'business1@gmail.com', 'Ho Chi Minh', '0778678855', 'busines-profile-test-05102021', 6, '0778678855', '0778678855\r\n0778678855\r\n0778678855\r\n0778678855', '2021-10-05/615c218e563f7.png', '2021-10-05/615c218e5916c.png', 0, NULL, 0, 0, 2, NULL, NULL, 0, '2021-10-05 16:57:34', NULL),
+(13, 27, 1, 'dfghfg', '', 'dfgdfgdfgdfg', 'fdgdfgdfg', '456456456', 'dfghfg', 3, '565456', '', NULL, '2021-10-05/615c2de3eed8e.png', 0, NULL, 0, 0, 2, NULL, NULL, 0, '2021-10-05 17:50:11', NULL),
+(14, 36, 1, 'Business pròile create by customer 07102021', 'Slogan here or Short description sentences (Hair - Nails - Wimpers)', 'hai2@gmail.com', '203 Bo Bao Tan Thang, Ho Chi Minh', '0886917766', 'business-proile-create-by-customer-0710', 0, '0377731910', 'Slogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\n\r\n\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\n\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)', '2021-10-07/615ebaa24e60e.png', '2021-10-07/615ebaa25078f.png', 0, NULL, 0, 0, 2, 0, '2021-10-07 16:17:52', 0, '2021-10-07 16:15:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -231,8 +240,10 @@ INSERT INTO `business_service_types` (`id`, `business_profile_id`, `service_type
 (69, 3, 7),
 (64, 5, 14),
 (63, 5, 13),
-(67, 6, 5),
-(68, 7, 9);
+(72, 6, 13),
+(77, 14, 14),
+(68, 7, 9),
+(76, 14, 13);
 
 -- --------------------------------------------------------
 
@@ -259,8 +270,8 @@ CREATE TABLE `business_videos` (
 INSERT INTO `business_videos` (`id`, `business_profile_id`, `video_url`, `video_code`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
 (354, 4, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-03 17:00:50', 1, '2021-10-03 17:00:50', 1, NULL),
 (355, 5, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
-(361, 6, 'https://www.youtube.com/watch?v=_PgWxvu9rCw', '_PgWxvu9rCw', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(360, 6, 'https://www.youtube.com/watch?v=PTR8MIIT5Sw', 'PTR8MIIT5Sw', '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(366, 6, 'https://www.youtube.com/watch?v=PTR8MIIT5Sw', 'PTR8MIIT5Sw', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(365, 6, 'https://www.youtube.com/watch?v=_PgWxvu9rCw', '_PgWxvu9rCw', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
 (362, 3, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL);
 
 -- --------------------------------------------------------
@@ -644,7 +655,9 @@ INSERT INTO `coupons` (`id`, `business_profile_id`, `coupon_code`, `coupon_subje
 (7, 4, '9cl9bdb37', 'Coupon 7', '2021-10-02/61582248f0d13.png', 0, 'Coupon 7 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 00:17:09', 1, '2021-10-02 16:11:37', 1, NULL),
 (8, 6, '4i4dqjin8', 'Coupon Demo 1', '2021-10-02/615816c816038.png', 20, 'Coupon Demo 1 desc', '2021-10-02 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 15:22:32', 1, '2021-10-02 19:47:52', 1, NULL),
 (9, 6, '0idk2g009', 'Coupon Demo 2', '2021-10-02/615816e6cd628.png', 20, 'Coupon Demo 2 desc', '2021-10-08 00:00:00', '2021-12-29 00:00:00', 2, 2, '2021-10-02 15:23:03', 1, '2021-10-02 19:47:51', 1, NULL),
-(10, 6, '08mu20f910', 'Coupon Demo 3', '2021-10-02/61581700477fa.png', 50, 'Coupon Demo 3 desc', '2021-10-20 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 15:23:29', 1, '2021-10-02 19:47:52', 1, NULL);
+(10, 6, '08mu20f910', 'Coupon Demo 3', '2021-10-02/61581700477fa.png', 50, 'Coupon Demo 3 desc', '2021-10-20 00:00:00', '2021-11-30 00:00:00', 2, 2, '2021-10-02 15:23:29', 1, '2021-10-02 19:47:52', 1, NULL),
+(11, 14, '946r9sis11', 'coupon test 07102021', '2021-10-07/615ebcd1e55d6.png', 10, 'coupon test 07102021', '2021-10-13 00:00:00', '2021-10-30 00:00:00', 0, 2, '2021-10-07 16:24:33', 0, NULL, NULL, NULL),
+(12, 14, '41q0b7ar12', 'coupon test 07102021 - 2', '2021-10-07/615ebce9cd424.png', 100, 'coupon test 07102021 - 2', '2021-10-11 00:00:00', '2021-10-21 00:00:00', 0, 2, '2021-10-07 16:24:57', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -686,18 +699,25 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_phone_code`, `customer_occupation`, `customer_address`, `free_trial`, `free_trial_type`, `customer_status_id`, `language_id`, `facebook_id`, `google_id`, `login_type_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
 (18, 'thunh.uet@gmail.com', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, '2021-10-03 00:00:52', 0, '2021-10-03 00:09:25', 1, '2021-10-03 00:09:25'),
 (25, '', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '910613696502683', NULL, 2, '2021-10-03 09:51:03', 0, '2021-10-04 18:32:15', 0, NULL),
-(27, 'abc@gmail.com', '25f9e794323b453885f5181f1b624d0b', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-03 15:41:36', 0, NULL, NULL, NULL),
-(26, 'vienruachen@gmail.com', 'f2513d295ef85e3eab69ff1b244588f4', 'Vien', 'Chen', '2021-10-03/61594d106a957.png', '2021-10-07 00:00:00', 0, '0987666666', 3, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 4, NULL, NULL, 0, '2021-10-03 09:59:16', 0, NULL, NULL, NULL),
+(27, 'abc@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'fg', 'dfg', NULL, '0000-00-00 00:00:00', 0, '', 0, '', 'dsf', 0, 1, 2, 0, NULL, NULL, 0, '2021-10-03 15:41:36', 0, NULL, NULL, NULL),
+(26, 'vienruachen@gmail.com', 'f2513d295ef85e3eab69ff1b244588f4', 'Thien', 'Nguyen', '2021-10-05/615c1a6b8e074.png', '2021-10-07 00:00:00', 0, '0987666666', 49, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 1, NULL, NULL, 0, '2021-10-03 09:59:16', 0, '2021-10-06 01:34:06', 1, NULL),
 (14, '0866666666@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Thien', 'Nguyen', 'no_image.png', '2021-10-04 00:00:00', 1, '0866666666', 0, 'CS', 'Ho Chi Minh', 0, 1, 2, 0, NULL, '', 0, '2021-10-02 20:03:48', 1, NULL, NULL, NULL),
 (15, 'huongthien_93@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Thiên', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4368860993183697', '', 1, '2021-10-02 20:04:17', 0, '2021-10-03 15:23:55', 0, NULL),
 (16, 'paytherent@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-02 20:37:39', 0, NULL, NULL, NULL),
 (19, '16022388@vnu.edu.vn', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, '2021-10-03 00:01:41', 0, '2021-10-03 00:24:09', 1, '2021-10-03 00:24:09'),
 (20, 'levanhoanhtt@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Hoàn', 'Lê', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4762416737155785', '', 1, '2021-10-03 00:32:37', 0, NULL, NULL, NULL),
-(21, 'huyenthunguyeniser@gmail.com', '4531e8924edde928f341f7df3ab36c70', 'Nguyễn', 'Huyền Thư', NULL, '0000-00-00 00:00:00', 0, '', 0, '', 'fdf', 0, 2, 2, 0, NULL, '103952864733277509914', 2, '2021-10-03 00:51:04', 0, '2021-10-03 14:15:49', 0, NULL),
+(21, 'huyenthunguyeniser@gmail.com', '4531e8924edde928f341f7df3ab36c70', 'Thư', 'Thư', NULL, '0000-00-00 00:00:00', 0, '', 0, '', 'fdf', 0, 1, 2, 0, '1323285408132149', '103952864733277509914', 1, '2021-10-03 00:51:04', 0, '2021-10-05 08:08:33', 0, NULL),
 (24, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '102246103372895088198', 2, '2021-10-03 09:49:13', 0, NULL, NULL, NULL),
 (28, 'dangnam92chem@gmail.com', '953f98c64c598bf3764736454ee85bef', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 2, 2, 0, NULL, NULL, 0, '2021-10-03 23:56:46', 0, NULL, NULL, NULL),
 (29, 'ondrisvu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ondris', 'Vu', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '962429757654796', NULL, 1, '2021-10-04 03:43:06', 0, '2021-10-04 03:44:38', 0, NULL),
-(30, 'email@email.com', '4c38ca394d146abe6218714eb8821aac', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-04 03:45:19', 0, NULL, NULL, NULL);
+(30, 'email@email.com', '4c38ca394d146abe6218714eb8821aac', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-04 03:45:19', 0, NULL, NULL, NULL),
+(31, 'thunh.uet@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Huyền Thư', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '114740940842408338765', 2, '2021-10-05 07:54:13', 0, '2021-10-07 16:11:44', 0, NULL),
+(32, 'business1@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 1, 2, 0, NULL, NULL, 0, '2021-10-05 16:48:44', 0, NULL, NULL, NULL),
+(33, 'test@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 1, 2, 0, NULL, NULL, 0, '2021-10-07 08:12:13', 0, NULL, NULL, NULL),
+(34, 'test111@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-07 10:05:31', 0, NULL, NULL, NULL),
+(35, 'huongthien1993@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-07 15:33:17', 0, NULL, NULL, NULL),
+(36, 'haibaramailout@gmail.com', 'f2513d295ef85e3eab69ff1b244588f4', 'Haibara', 'Mail', '2021-10-07/615eb9b8506f5.png', '2021-10-19 00:00:00', 1, '0786543123', 14, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 4, NULL, NULL, 0, '2021-10-07 16:08:37', 0, NULL, NULL, NULL),
+(37, 'facebook12636@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mẫn', 'Hà', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '3210518352503578', NULL, 1, '2021-10-07 20:08:35', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -763,12 +783,22 @@ INSERT INTO `customer_coupons` (`id`, `customer_id`, `coupon_id`, `customer_coup
 (38, 25, 6, 'i6ml4fbi6-10003', 2, NULL, NULL, NULL, NULL, NULL),
 (39, 25, 1, '4b90k3ui1-10004', 2, NULL, NULL, NULL, NULL, NULL),
 (40, 26, 10, '08mu20f910-10002', 2, NULL, NULL, NULL, NULL, NULL),
-(41, 27, 10, '08mu20f910-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(41, 27, 10, '08mu20f910-10003', 0, NULL, NULL, NULL, NULL, NULL),
 (42, 26, 2, '5kl8e7u02-10003', 2, NULL, NULL, NULL, NULL, NULL),
 (43, 30, 9, '0idk2g009-10003', 2, NULL, NULL, NULL, NULL, NULL),
 (44, 30, 6, 'i6ml4fbi6-10004', 2, NULL, NULL, NULL, NULL, NULL),
 (45, 30, 5, '9j9i47bd5-10005', 2, NULL, NULL, NULL, NULL, NULL),
-(46, 30, 4, 'ugkgp2kf4-10002', 2, NULL, NULL, NULL, NULL, NULL);
+(46, 30, 4, 'ugkgp2kf4-10002', 2, NULL, NULL, NULL, NULL, NULL),
+(47, 26, 9, '0idk2g009-10004', 0, NULL, NULL, NULL, NULL, NULL),
+(48, 26, 9, '0idk2g009-10004', 2, NULL, NULL, NULL, NULL, NULL),
+(49, 27, 1, '4b90k3ui1-10005', 0, NULL, NULL, NULL, NULL, NULL),
+(50, 27, 10, '08mu20f910-10003', 2, NULL, NULL, NULL, NULL, NULL),
+(51, 27, 5, '9j9i47bd5-10006', 2, NULL, NULL, NULL, NULL, NULL),
+(52, 27, 9, '0idk2g009-10005', 2, NULL, NULL, NULL, NULL, NULL),
+(53, 27, 6, 'i6ml4fbi6-10005', 2, NULL, NULL, NULL, NULL, NULL),
+(54, 27, 1, '4b90k3ui1-10005', 2, NULL, NULL, NULL, NULL, NULL),
+(55, 36, 1, '4b90k3ui1-10006', 0, NULL, NULL, NULL, NULL, NULL),
+(56, 36, 1, '4b90k3ui1-10006', 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -810,10 +840,77 @@ INSERT INTO `customer_events` (`id`, `customer_id`, `event_id`, `customer_event_
 (16, 27, 5, 2, NULL, NULL, NULL, NULL, NULL),
 (17, 27, 4, 2, NULL, NULL, NULL, NULL, NULL),
 (18, 27, 1, 2, NULL, NULL, NULL, NULL, NULL),
-(19, 27, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(19, 27, 6, 0, NULL, NULL, NULL, NULL, NULL),
 (20, 27, 2, 2, NULL, NULL, NULL, NULL, NULL),
 (21, 28, 5, 0, NULL, NULL, NULL, NULL, NULL),
-(22, 28, 1, 0, NULL, NULL, NULL, NULL, NULL);
+(22, 28, 1, 0, NULL, NULL, NULL, NULL, NULL),
+(23, 26, 2, 0, NULL, NULL, NULL, NULL, NULL),
+(24, 27, 7, 2, NULL, NULL, NULL, NULL, NULL),
+(25, 27, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(26, 31, 6, 2, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_reservations`
+--
+
+CREATE TABLE `customer_reservations` (
+  `id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `book_name` varchar(250) DEFAULT NULL,
+  `number_of_people` int(10) DEFAULT NULL,
+  `country_code_id` int(11) DEFAULT NULL,
+  `book_phone` varchar(50) DEFAULT NULL,
+  `date_arrived` date DEFAULT NULL,
+  `time_arrived` time DEFAULT NULL,
+  `book_status_id` tinyint(4) NOT NULL COMMENT '2: approved, 1: Expired, 3: Cancelled, 4: Declined',
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_reviews`
+--
+
+CREATE TABLE `customer_reviews` (
+  `id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  `business_id` int(10) NOT NULL,
+  `review_star` float(10,1) DEFAULT NULL,
+  `customer_comment` text DEFAULT NULL,
+  `business_comment` text DEFAULT NULL,
+  `customer_review_status_id` tinyint(4) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(10) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `customer_reviews`
+--
+
+INSERT INTO `customer_reviews` (`id`, `customer_id`, `business_id`, `review_star`, `customer_comment`, `business_comment`, `customer_review_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 14, 3, 3.0, 'Hello xin chào', '<p>ádsađá</p>', 0, '2021-10-08 10:45:24', 0, '2021-10-08 14:48:59', 0, '2021-10-08 15:01:06'),
+(2, 21, 3, 3.0, 'Hello xin chào', '<p>adsađá</p>', 0, '2021-10-08 10:48:07', 0, '2021-10-08 14:48:52', 0, '2021-10-08 15:01:00'),
+(3, 21, 3, 3.0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula. Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum. onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula. Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum. onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.', 2, '2021-10-08 10:48:52', 0, '2021-10-08 13:48:52', NULL, NULL),
+(4, 26, 6, 3.0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula. Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum. onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.', NULL, 2, '2021-10-08 10:49:25', 0, NULL, NULL, NULL),
+(5, 26, 6, 5.0, '', NULL, 2, '2021-10-08 11:40:21', 0, NULL, NULL, NULL),
+(6, 26, 6, 5.0, '', NULL, 2, '2021-10-08 11:40:55', 0, NULL, NULL, NULL),
+(7, 26, 3, 5.0, '<p>editorReview</p><p>editorReview</p><p>editorReview</p><p>editorReview</p>', '<p>Thien Nguyen</p>', 0, '2021-10-08 11:54:00', 0, '2021-10-08 14:49:11', 0, '2021-10-08 15:00:41'),
+(8, 26, 3, 5.0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula. Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum. onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero.</p>', 2, '2021-10-08 11:55:03', 0, '2021-10-08 15:02:23', 0, NULL),
+(9, 26, 3, 3.0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula.</p>', '', 2, '2021-10-08 12:11:16', 0, '2021-10-08 15:00:07', 0, NULL),
+(10, 26, 6, 5.0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue</p>', NULL, 2, '2021-10-08 12:51:18', 0, NULL, NULL, NULL),
+(11, 26, 6, 1.0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue</p>', NULL, 2, '2021-10-08 12:51:28', 0, NULL, NULL, NULL),
+(12, 26, 6, 1.0, '<p>overall_rating</p><p>overall_rating</p><p>overall_rating</p>', '<p>thanks</p>', 2, '2021-10-08 12:54:26', 0, '2021-10-08 19:42:18', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1579,6 +1676,38 @@ INSERT INTO `districts` (`id`, `district_name`, `province_id`, `display_order`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `email_queue`
+--
+
+CREATE TABLE `email_queue` (
+  `id` int(10) NOT NULL,
+  `email_subject` varchar(250) NOT NULL,
+  `email_content` longtext NOT NULL,
+  `email_from` varchar(250) NOT NULL,
+  `email_from_name` varchar(250) NOT NULL,
+  `email_to` varchar(250) NOT NULL,
+  `email_to_name` varchar(250) NOT NULL,
+  `is_send` tinyint(4) DEFAULT 0,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `email_queue`
+--
+
+INSERT INTO `email_queue` (`id`, `email_subject`, `email_content`, `email_from`, `email_from_name`, `email_to`, `email_to_name`, `is_send`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(4, 'Your account was successfully created', '<!doctype html>\r\n<html lang=\"en\">\r\n <head>\r\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n  <title>email</title>\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\r\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\r\n</head>\r\n<style>\r\n</style>\r\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\r\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\r\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\r\n    </div>\r\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\r\n        <p style=\"margin-bottom: 32px;font-weight: bold;\r\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\r\n                            <p>Hello <strong>testque@gmail.com</user></strong> ,</p>\r\n                            <p>Thank you for creating your account at AdBazar</p>\r\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\r\n                            <p>Best,<br>AdBazar.</p>\r\n                            <p>You can view details of other events by clicking the button below.</p>\r\n                            <div style=\"text-align: center;margin-top: 32px;\">\r\n                                <a href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\r\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\r\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\r\n                            </div>    </div>\r\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\r\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\r\n        <div style=\"margin-bottom: 16px;\">\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\r\n        </div>\r\n        <div style=\"margin-bottom: 16px;text-align: center;\">\r\n            www.adbazar.eu\r\n        </div>\r\n        <div style=\"text-align: center;\">\r\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\r\n    </div>\r\n</body>\r\n</html>', 'mailout.dkh@gmail.com', 'AdBazar.eu', 'huongthien1993@gmail.com', 'Thien Nguyen', 2, '2021-10-07 09:01:48', NULL, NULL, NULL, NULL),
+(5, 'Your account was successfully created', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\n                            <p>Hello <strong>test111@gmail.com</user></strong> ,</p>\n                            <p>Thank you for creating your account at AdBazar</p>\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <p>You can view details of other events by clicking the button below.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'huongthien1993@gmail.com', 'Thien Nguyen', 2, '2021-10-07 10:05:31', NULL, NULL, NULL, NULL),
+(6, 'Your account was successfully created', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\n                            <p>Hello <strong>huongthien1993@gmail.com</user></strong> ,</p>\n                            <p>Thank you for creating your account at AdBazar</p>\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <p>You can view details of other events by clicking the button below.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'huongthien1993@gmail.com', 'huongthien1993@gmail.com', 2, '2021-10-07 15:33:18', NULL, NULL, NULL, NULL),
+(7, 'Your account was successfully created', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\n                            <p>Hello <strong>haibaramailout@gmail.com</user></strong> ,</p>\n                            <p>Thank you for creating your account at AdBazar</p>\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <p>You can view details of other events by clicking the button below.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'haibaramailout@gmail.com', 'haibaramailout@gmail.com', 2, '2021-10-07 16:08:37', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `events`
 --
 
@@ -1610,7 +1739,11 @@ INSERT INTO `events` (`id`, `business_profile_id`, `event_subject`, `event_image
 (3, 5, 'Event 3', '2021-10-01/61560907dd592.png', '2021-10-07', '09:00:00', '2021-10-09', '18:00:00', 'Event 3 desc', 0, '2021-10-01 01:59:20', 1, '2021-10-02 19:48:46', 1, '2021-10-02 19:48:46'),
 (4, 6, 'Event halloween 2021', '2021-10-02/6158213bcc869.png', '2021-10-04', '16:06:00', '2021-11-17', '16:06:00', 'Event halloween 2021 desc', 2, '2021-10-02 16:07:08', 1, NULL, NULL, NULL),
 (5, 6, 'Event halloween 2022', '2021-10-02/6158216ee914e.png', '2021-10-02', '16:07:00', '2021-10-31', '16:07:00', 'Event halloween 2022 desc', 2, '2021-10-02 16:07:59', 1, NULL, NULL, NULL),
-(6, 6, 'event demo 1', 'no_image.png', '2021-10-07', '19:50:00', '2021-10-31', '19:50:00', 'event demo 1 desc', 2, '2021-10-02 19:50:34', 1, NULL, NULL, NULL);
+(6, 6, 'event demo 1', 'no_image.png', '2021-10-07', '19:50:00', '2021-10-31', '19:50:00', 'event demo 1 desc', 2, '2021-10-02 19:50:34', 1, NULL, NULL, NULL),
+(7, 6, 'Event 05102021', '2021-10-05/615c1e278be1d.png', '2021-10-05', '16:36:00', '2021-10-10', '19:36:00', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n\r\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 2, '2021-10-05 16:43:03', 0, NULL, NULL, NULL),
+(8, 6, 'Event 05102021 2', '2021-10-05/615c1e6012a4c.png', '2021-10-07', '16:43:00', '2021-10-09', '23:43:00', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n\r\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 2, '2021-10-05 16:44:00', 0, NULL, NULL, NULL),
+(9, 14, 'event demo 0720021', '2021-10-07/615ebd1ff0c4f.png', '2021-10-19', '08:25:00', '2021-10-29', '20:25:00', 'event demo 0720021\r\nevent demo 0720021\r\nevent demo 0720021', 2, '2021-10-07 16:25:51', 0, NULL, NULL, NULL),
+(10, 14, 'event demo business', '2021-10-07/615ebd3fb275c.png', '2021-10-12', '16:26:00', '2021-10-21', '20:26:00', 'event demo business', 2, '2021-10-07 16:26:23', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1771,20 +1904,27 @@ INSERT INTO `opening_hours` (`id`, `business_profile_id`, `day_id`, `start_time`
 (220, 5, 2, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
 (219, 5, 1, NULL, NULL, 1, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
 (218, 5, 0, '07:00:00', '18:00:00', 2, '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
-(245, 6, 6, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(244, 6, 5, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(243, 6, 4, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(242, 6, 3, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(241, 6, 2, NULL, NULL, 1, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(240, 6, 1, '08:00:00', '19:00:00', 2, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
-(239, 6, 0, '08:00:00', '19:00:00', 2, '2021-10-03 17:17:40', 1, '2021-10-03 17:17:40', 1, NULL),
+(273, 6, 6, '08:00:00', '22:00:00', 2, '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(272, 6, 5, NULL, NULL, 1, '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(271, 6, 4, NULL, NULL, 1, '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(270, 6, 3, NULL, NULL, 1, '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(269, 6, 2, NULL, NULL, 1, '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(268, 6, 1, '08:00:00', '19:00:00', 2, '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(267, 6, 0, '08:00:00', '19:00:00', 2, '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
 (252, 7, 6, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
 (251, 7, 5, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
 (250, 7, 4, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
 (249, 7, 3, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
 (248, 7, 2, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
 (247, 7, 1, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
-(246, 7, 0, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL);
+(246, 7, 0, NULL, NULL, 1, '2021-10-03 18:44:31', 1, '2021-10-03 18:44:31', 1, NULL),
+(287, 14, 6, '20:00:00', '23:59:00', 2, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
+(286, 14, 5, '00:00:00', '00:00:00', 1, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
+(285, 14, 4, '00:00:00', '00:00:00', 1, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
+(284, 14, 3, '00:00:00', '00:00:00', 1, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
+(283, 14, 2, '00:00:00', '00:00:00', 1, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
+(282, 14, 1, '22:14:00', '23:59:00', 2, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
+(281, 14, 0, '23:59:00', '23:59:00', 2, '2021-10-07 16:17:52', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1835,7 +1975,6 @@ INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `num
 (26, 'BO', 'BOLIVIA', 'Bolivia', 'BOL', 68, 591, 'bo.png'),
 (27, 'BA', 'BOSNIA AND HERZEGOVINA', 'Bosnia and Herzegovina', 'BIH', 70, 387, 'ba.png'),
 (28, 'BW', 'BOTSWANA', 'Botswana', 'BWA', 72, 267, 'bw.png'),
-(29, 'BV', 'BOUVET ISLAND', 'Bouvet Island', NULL, NULL, 0, 'bv.png'),
 (30, 'BR', 'BRAZIL', 'Brazil', 'BRA', 76, 55, 'br.png'),
 (31, 'IO', 'BRITISH INDIAN OCEAN TERRITORY', 'British Indian Ocean Territory', NULL, NULL, 246, 'io.png'),
 (32, 'BN', 'BRUNEI DARUSSALAM', 'Brunei Darussalam', 'BRN', 96, 673, 'bn.png'),
@@ -1880,7 +2019,6 @@ INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `num
 (71, 'FJ', 'FIJI', 'Fiji', 'FJI', 242, 679, 'fj.png'),
 (72, 'FI', 'FINLAND', 'Finland', 'FIN', 246, 358, 'fi.png'),
 (73, 'FR', 'FRANCE', 'France', 'FRA', 250, 33, 'fr.png'),
-(74, 'GF', 'FRENCH GUIANA', 'French Guiana', 'GUF', 254, 594, 'gf.png'),
 (75, 'PF', 'FRENCH POLYNESIA', 'French Polynesia', 'PYF', 258, 689, 'pf.png'),
 (76, 'TF', 'FRENCH SOUTHERN TERRITORIES', 'French Southern Territories', NULL, NULL, 0, 'tf.png'),
 (77, 'GA', 'GABON', 'Gabon', 'GAB', 266, 241, 'ga.png'),
@@ -1981,7 +2119,6 @@ INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `num
 (172, 'PT', 'PORTUGAL', 'Portugal', 'PRT', 620, 351, 'pt.png'),
 (173, 'PR', 'PUERTO RICO', 'Puerto Rico', 'PRI', 630, 1787, 'pr.png'),
 (174, 'QA', 'QATAR', 'Qatar', 'QAT', 634, 974, 'qa.png'),
-(175, 'RE', 'REUNION', 'Reunion', 'REU', 638, 262, 're.png'),
 (176, 'RO', 'ROMANIA', 'Romania', 'ROM', 642, 40, 'ro.png'),
 (177, 'RU', 'RUSSIAN FEDERATION', 'Russian Federation', 'RUS', 643, 70, 'ru.png'),
 (178, 'RW', 'RWANDA', 'Rwanda', 'RWA', 646, 250, 'rw.png'),
@@ -1995,7 +2132,6 @@ INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `num
 (186, 'ST', 'SAO TOME AND PRINCIPE', 'Sao Tome and Principe', 'STP', 678, 239, 'st.png'),
 (187, 'SA', 'SAUDI ARABIA', 'Saudi Arabia', 'SAU', 682, 966, 'sa.png'),
 (188, 'SN', 'SENEGAL', 'Senegal', 'SEN', 686, 221, 'sn.png'),
-(189, 'CS', 'SERBIA AND MONTENEGRO', 'Serbia and Montenegro', NULL, NULL, 381, 'cs.png'),
 (190, 'SC', 'SEYCHELLES', 'Seychelles', 'SYC', 690, 248, 'sc.png'),
 (191, 'SL', 'SIERRA LEONE', 'Sierra Leone', 'SLE', 694, 232, 'sl.png'),
 (192, 'SG', 'SINGAPORE', 'Singapore', 'SGP', 702, 65, 'sg.png'),
@@ -2009,7 +2145,6 @@ INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `num
 (200, 'LK', 'SRI LANKA', 'Sri Lanka', 'LKA', 144, 94, 'lk.png'),
 (201, 'SD', 'SUDAN', 'Sudan', 'SDN', 736, 249, 'sd.png'),
 (202, 'SR', 'SURINAME', 'Suriname', 'SUR', 740, 597, 'sr.png'),
-(203, 'SJ', 'SVALBARD AND JAN MAYEN', 'Svalbard and Jan Mayen', 'SJM', 744, 47, 'sj.png'),
 (204, 'SZ', 'SWAZILAND', 'Swaziland', 'SWZ', 748, 268, 'sz.png'),
 (205, 'SE', 'SWEDEN', 'Sweden', 'SWE', 752, 46, 'se.png'),
 (206, 'CH', 'SWITZERLAND', 'Switzerland', 'CHE', 756, 41, 'ch.png'),
@@ -2033,7 +2168,6 @@ INSERT INTO `phonecodes` (`id`, `iso`, `main_name`, `country_name`, `iso3`, `num
 (224, 'AE', 'UNITED ARAB EMIRATES', 'United Arab Emirates', 'ARE', 784, 971, 'ae.png'),
 (225, 'GB', 'UNITED KINGDOM', 'United Kingdom', 'GBR', 826, 44, 'gb.png'),
 (226, 'US', 'UNITED STATES', 'United States', 'USA', 840, 1, 'us.png'),
-(227, 'UM', 'UNITED STATES MINOR OUTLYING ISLANDS', 'United States Minor Outlying Islands', NULL, NULL, 1, 'um.png'),
 (228, 'UY', 'URUGUAY', 'Uruguay', 'URY', 858, 598, 'uy.png'),
 (229, 'UZ', 'UZBEKISTAN', 'Uzbekistan', 'UZB', 860, 998, 'uz.png'),
 (230, 'VU', 'VANUATU', 'Vanuatu', 'VUT', 548, 678, 'vu.png'),
@@ -2132,6 +2266,49 @@ INSERT INTO `provinces` (`id`, `province_name`, `country_id`, `display_order`, `
 (61, 'Sóc Trăng', 235, 1, 0, '2021-06-17 16:40:40', 0, '0000-00-00 00:00:00'),
 (62, 'Bạc Liêu', 235, 1, 0, '2021-06-17 16:40:40', 0, '0000-00-00 00:00:00'),
 (63, 'Cà Mau', 235, 1, 0, '2021-06-17 16:40:40', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reservation_configs`
+--
+
+CREATE TABLE `reservation_configs` (
+  `id` int(10) NOT NULL,
+  `business_profile_id` int(10) NOT NULL,
+  `day_id` tinyint(4) NOT NULL,
+  `max_people` int(10) DEFAULT NULL,
+  `max_per_reservation` int(10) DEFAULT NULL,
+  `duration` int(10) DEFAULT NULL,
+  `start_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL,
+  `reservation_config_status_id` tinyint(4) DEFAULT 0,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `reservation_configs`
+--
+
+INSERT INTO `reservation_configs` (`id`, `business_profile_id`, `day_id`, `max_people`, `max_per_reservation`, `duration`, `start_time`, `end_time`, `reservation_config_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 6, 0, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(2, 6, 1, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(3, 6, 2, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(4, 6, 3, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(5, 6, 4, 70, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(6, 6, 5, 80, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(7, 6, 6, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(8, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
+(9, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
+(10, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
+(11, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
+(12, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
+(13, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
+(14, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13646,9 +13823,27 @@ ALTER TABLE `customer_events`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customer_reservations`
+--
+ALTER TABLE `customer_reservations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customer_reviews`
+--
+ALTER TABLE `customer_reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `email_queue`
+--
+ALTER TABLE `email_queue`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -13706,6 +13901,12 @@ ALTER TABLE `provinces`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `reservation_configs`
+--
+ALTER TABLE `reservation_configs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roleactions`
 --
 ALTER TABLE `roleactions`
@@ -13755,7 +13956,7 @@ ALTER TABLE `wards`
 -- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `business_payments`
@@ -13767,13 +13968,13 @@ ALTER TABLE `business_payments`
 -- AUTO_INCREMENT for table `business_photos`
 --
 ALTER TABLE `business_photos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- AUTO_INCREMENT for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `business_profile_locations`
@@ -13785,13 +13986,13 @@ ALTER TABLE `business_profile_locations`
 -- AUTO_INCREMENT for table `business_service_types`
 --
 ALTER TABLE `business_service_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `business_videos`
 --
 ALTER TABLE `business_videos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=363;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=367;
 
 --
 -- AUTO_INCREMENT for table `contact_us`
@@ -13809,31 +14010,49 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `customer_coupons`
 --
 ALTER TABLE `customer_coupons`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `customer_events`
 --
 ALTER TABLE `customer_events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `customer_reservations`
+--
+ALTER TABLE `customer_reservations`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `customer_reviews`
+--
+ALTER TABLE `customer_reviews`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `email_queue`
+--
+ALTER TABLE `email_queue`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `files`
@@ -13869,7 +14088,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `opening_hours`
 --
 ALTER TABLE `opening_hours`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
 
 --
 -- AUTO_INCREMENT for table `phonecodes`
@@ -13882,6 +14101,12 @@ ALTER TABLE `phonecodes`
 --
 ALTER TABLE `provinces`
   MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
+-- AUTO_INCREMENT for table `reservation_configs`
+--
+ALTER TABLE `reservation_configs`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `roleactions`

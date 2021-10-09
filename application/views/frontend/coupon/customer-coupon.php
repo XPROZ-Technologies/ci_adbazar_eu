@@ -4,7 +4,7 @@
     <div class="customer-coupon">
       <div class="container">
         <div class="wrapper-search d-md-flex  justify-content-between">
-          <h2 class="page-heading page-title-md text-black mb-3 mb-md-0 fw-bold">All coupons</h2>
+          <h2 class="page-heading page-title-md text-black mb-3 mb-md-0 fw-bold"><?php echo $this->lang->line('all_coupons'); ?></h2>
           <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
             <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
             <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
@@ -16,7 +16,7 @@
             <div class="notification-filter">
               <div class="custom-select choose-service">
                 <select>
-                  <option value="0" selected>All</option>
+                  <option value="0" selected><?php echo $this->lang->line('all'); ?></option>
                   <?php if ($listServices) { foreach($listServices as $itemService){ ?>
                     <option value="<?php echo $itemService['id']; ?>" <?php  if(isset($service) && $itemService['id'] == $service){ echo 'selected="selected"'; } ?> ><?php echo $itemService['service_name']; ?></option>
                   <?php } } ?>
@@ -39,7 +39,9 @@
           <ul class="list-unstyled list-inline">
             <?php if (!empty($serviceTypes)) {
               for ($i = 0; $i < count($serviceTypes); $i++) { ?>
-                <li class="list-inline-item page-text-xs fw-500 selected"><a href="<?php echo $basePagingUrl; ?>"><?php echo $serviceTypes[$i]['service_type_name']; ?></a></li>
+                <li class="list-inline-item page-text-xs fw-500 selected li_service_type">
+                  <a href="javascript:void(0)" class="service_type_selected" data-id="<?php echo $serviceTypes[$i]['id']; ?>"><?php echo $serviceTypes[$i]['service_type_name']; ?></a>
+                </li>
             <?php }
             } ?>
           </ul>
@@ -65,7 +67,7 @@
                     <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
                       <div class="customer-coupon-body">
                         <h6 class="card-title"><span><?php echo $itemCoupon['coupon_subject']; ?></span></h6>
-                        <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
+                        <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="wraper-progress">
                             <div class="progress">
@@ -125,3 +127,20 @@
 </main>
 <input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
+<script>
+  $(document).ready(function() {
+    $("body").on('click', '.service_type_selected', function(){
+      var keySearch = '';
+      if($(".li_service_type").hasClass('selected')) {
+        $(".service_type_selected").each(function() {
+          keySearch += $(this).attr('data-id')+',';
+        })
+      }
+      var repKeySearch = keySearch.replace(/,*$/, "")
+      var splitSearch = window.location.search.split("&");
+      console.log(window.location.search)
+      var search = splitSearch[0]+'&'+splitSearch[1]+'&key_search='+repKeySearch;
+      window.location.href = window.location.origin+window.location.pathname+search
+    })
+  })
+</script>

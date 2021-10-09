@@ -177,8 +177,8 @@
 }
 .page-footer .img-paypal {
     margin-bottom: 20px;
-    width: 102px;
-    height: 36px;
+    width: 150px;
+
 }
 .page-footer-info li img {
     margin-right: 8px;
@@ -279,7 +279,7 @@
     padding: 8px 20px!important;
 }
 .sign-social .btn-outline-red:last-child{
-    padding: 8px 11px!important;
+    padding: 8px 11px 8px 15px !important;
 }
 .sign-social{
     width: 559px;
@@ -681,7 +681,7 @@ box-shadow: 0px 2px 6px rgba(77, 78, 78, 0.2);
 .general-form .form-control{
     margin-bottom: 20px;
 }
-.general-form .nice-select {
+.general-form .nice-select, .js-select-service.nice-select {
     height: 40px;
     line-height: 40px;
 }
@@ -719,10 +719,12 @@ box-shadow: 0px 2px 6px rgba(77, 78, 78, 0.2);
     padding: 7px 19px!important;
     border-radius: 2px;
 }
+
 .page-signin .btn-outline-red.login-gg{
-    padding: 8px 11px!important;
+    padding: 8px 30px 8px 15px!important;
     border-radius: 2px;
 }
+
 .btn-outline-red,
 .btn-red{
     padding: 5px 10px!important;
@@ -880,6 +882,9 @@ line-height: 28px;
 }
 .dropdown-menu .dropdown-item {
     font-size: 14px;
+}
+.page-text-xsm {
+    font-size: 12px;
 }
 .page-text-sm,
 .page-text-md,
@@ -1429,6 +1434,12 @@ border-radius: 2px;;
     border-radius: 0;
     height: 40px;
 }
+.page-business-profile .dropdown-country-book {
+    position: relative;
+    border: 1px solid #404040;
+    border-radius: 0;
+    height: 40px;
+}
 .page-business-profile .dropdown-country input{
     padding-left: 168px;
 }
@@ -1464,6 +1475,10 @@ border-radius: 2px;;
     left: 0;
     width: 160px;
 }
+.page-business-profile .dropdown-country .dropdown-toggle.country_book {
+    width: 95%;
+}
+
 .form-group-quantity .form-control {
     background: #FFFFFF;
     border: 1px solid #C20000;
@@ -2091,7 +2106,8 @@ span.switch-left {
 }
 .signup-form .icon-google, .signup-form .icon-fb, .signin-right .icon-google, .signin-right .icon-fb {
     max-width: 14px;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
+    margin-right: 5px;
 }
 .dropdown-language .selected .dropdown-item,
 .page-header .btn-register ,
@@ -3216,7 +3232,7 @@ span.switch-left {
     }
     .page-signin .btn-outline-red.login-gg,
     .sign-social .btn-outline-red:last-child,
-    .sign-social .btn-outline-red {
+    .sign-social .btn-outline-red, .page-signin .btn-outline-red.login-gg {
         justify-content: flex-start;
         padding-left: 50px!important;
     }

@@ -16,57 +16,85 @@
                 <div class="col-review">
                   <div class="d-flex flex-column justify-content-center align-items-center overall-rate">
                     <h5 class="page-title-xs">Overall rating</h5>
-                    <ul class="list-inline mb-0 list-rating">
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                      <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    </ul>
+                    <div class="star-base">
+                      <div class="star-rate" data-rate="<?php echo $overall_rating; ?>"></div>
+                      <a dt-value="1" href="#1"></a>
+                      <a dt-value="2" href="#2"></a>
+                      <a dt-value="3" href="#3"></a>
+                      <a dt-value="4" href="#4"></a>
+                      <a dt-value="5" href="#5"></a>
+                    </div>
                   </div>
                 </div>
-                <div class="col-review">
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0">(15)</li>
-                  </ul>
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0">(10)</li>
-                  </ul>
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0">(3)</li>
-                  </ul>
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0">(2)</li>
-                  </ul>
-                  <ul class="list-inline list-rating">
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                    <li class="list-inline-item me-0">(1)</li>
-                  </ul>
+
+                <div class="col-review ml-32">
+                  <div class="d-flex align-items-center mb-14">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="5"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(<?php echo $count_five_star; ?>)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-14">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="4"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(<?php echo $count_four_star; ?>)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-14">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="3"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(<?php echo $count_three_star; ?>)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-14">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="2"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(<?php echo $count_two_star; ?>)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-14">
+                    <div class="star-rating on line relative mr-8px">
+                      <div class="star-base">
+                        <div class="star-rate" data-rate="1"></div>
+                        <a dt-value="1" href="#1"></a>
+                        <a dt-value="2" href="#2"></a>
+                        <a dt-value="3" href="#3"></a>
+                        <a dt-value="4" href="#4"></a>
+                        <a dt-value="5" href="#5"></a>
+                      </div>
+                    </div>
+                    <span class="fw-bold star-rating-number">(<?php echo $count_one_star; ?>)</span>
+                  </div>
                 </div>
+
                 <div class="col-review">
                   <div class="d-flex justify-content-lg-end">
                     <a href="javascript:void(0)" class="review-btn btn btn-red" data-bs-target="#leaveReview" data-bs-toggle="modal">
@@ -77,7 +105,7 @@
               </div>
 
               <div class="bp-comment">
-                <h4 class="page-title-rv">Reviews (31)</h4>
+                <h4 class="page-title-rv">Reviews (<?php echo $rowCount; ?>)</h4>
                 <div class="bp-inner-content">
                   <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                     <div class="d-flex align-items-center inner-filter">
@@ -97,15 +125,17 @@
                     </div>
                     <div class="d-flex align-items-center notification-sort">
                       <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
-                      <div class="custom-select mb-0">
+                      <div class="custom-select mb-0 choose-order">
                         <select>
-                          <option value="0" selected>Newest</option>
-                          <option value="1">Oldest</option>
+                          <option value="desc">Newest</option>
+                          <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
+                                                echo 'selected="selected"';
+                                              } ?>>Oldest</option>
                         </select>
                       </div>
                     </div>
                   </div>
-
+                  <!-- 
                   <div class="list-comment">
                     <div class="d-flex flex-column flex-lg-row comment-item">
                       <div class="comment-img">
@@ -134,159 +164,114 @@
                       </div>
                     </div>
                   </div>
+                  -->
 
-                  <div class="list-comment">
-                    <div class="d-flex flex-column flex-lg-row comment-item">
-                      <div class="comment-img">
-                        <img src="assets/img/frontend/review-avatar.jpg" alt="comment avatar" class="img-fluid">
-                        <span class="mt-3 d-block">John</span>
-                      </div>
-                      <div class="comment-body">
-                        <p class="font500">08/31/2021</p>
-                        <ul class="list-inline list-rating">
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                        </ul>
-                        <p class="page-text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce
-                          vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin
-                          nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula.
-                          Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                          onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                        </p>
-                      </div>
-                    </div>
+                  <?php if (!empty($lists) > 0) { ?>
+                    <div class="list-comment">
 
-                    <div class="d-flex flex-column flex-lg-row comment-item no-avatar">
-                      <div class="comment-body">
-                        <p class="font500">08/31/2021</p>
-                        <ul class="list-inline list-rating">
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                        </ul>
-                        <p class="page-text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce
-                          vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin
-                          nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula.
-                          Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                          onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                        </p>
-                      </div>
-                    </div>
+                      <!-- ITEM COMMENT -->
+                      <?php foreach ($lists as $itemReview) { ?>
+                        <!-- comment -->
+                        <div class="d-flex flex-column flex-lg-row comment-item">
+                          <div class="comment-img">
+                            <?php
+                            $customerImg = CUSTOMER_PATH . NO_IMAGE;
+                            if (!empty($itemReview['customer_avatar'])) {
+                              $customerImg = CUSTOMER_PATH . $itemReview['customer_avatar'];
+                            }
+                            ?>
+                            <img src="<?php echo $customerImg; ?>" alt="comment avatar" class="img-fluid">
+                            <span class="mt-3 d-block"><?php echo $itemReview['customerInfo']['customer_first_name']; ?></span>
+                          </div>
+                          <div class="comment-body">
+                            <p class="font500"><?php echo ddMMyyyy($itemReview['created_at'], 'd/m/Y H:i'); ?></p>
+                            <div class="star-rating on line relative mr-8px">
+                              <div class="star-base">
+                                <div class="star-rate" data-rate="<?php echo $itemReview['review_star']; ?>"></div>
+                                <a dt-value="1" href="#1"></a>
+                                <a dt-value="2" href="#2"></a>
+                                <a dt-value="3" href="#3"></a>
+                                <a dt-value="4" href="#4"></a>
+                                <a dt-value="5" href="#5"></a>
+                              </div>
+                            </div>
+                            <p class="page-text-sm"><?php echo $itemReview['customer_comment']; ?>
+                            </p>
+                          </div>
+                        </div>
+                        <!-- reply -->
+                        <?php if (!empty($itemReview['business_comment'])) { ?>
+                          <div class="d-flex flex-column flex-lg-row comment-item no-avatar">
+                            <div class="comment-body">
+                              <p class="font500"><?php echo ddMMyyyy($itemReview['updated_at'], 'd/m/Y H:i'); ?></p>
+                              <ul class="list-inline list-rating">
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                              </ul>
+                              <p class="page-text-sm"><?php echo $itemReview['business_comment']; ?></p>
+                            </div>
+                          </div>
+                        <?php } ?>
+                      <?php } ?>
+                      <!-- END. ITEM COMMENT -->
 
-                    <div class="d-flex flex-column flex-lg-row comment-item">
-                      <div class="comment-img">
-                        <img src="assets/img/frontend/review-avatar.jpg" alt="comment avatar" class="img-fluid">
-                        <span class="mt-3 d-block ">John</span>
-                      </div>
-                      <div class="comment-body">
-                        <p class="font500">08/31/2021</p>
-                        <ul class="list-inline list-rating">
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                        </ul>
-                        <p class="page-text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce
-                          vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin
-                          nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula.
-                          Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                          onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                        </p>
-                      </div>
-                    </div>
 
-                    <div class="d-flex flex-column flex-lg-row comment-item">
-                      <div class="comment-img">
-                        <img src="assets/img/frontend/review-avatar.jpg" alt="comment avatar" class="img-fluid">
-                        <span class="mt-3 d-block ">John</span>
-                      </div>
-                      <div class="comment-body">
-                        <p class="font500">08/31/2021</p>
-                        <ul class="list-inline list-rating">
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                        </ul>
-                        <p class="page-text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce
-                          vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin
-                          nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula.
-                          Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                          onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                        </p>
-                      </div>
-                    </div>
 
-                    <div class="d-flex flex-column flex-lg-row comment-item">
-                      <div class="comment-img">
-                        <img src="assets/img/frontend/review-avatar.jpg" alt="comment avatar" class="img-fluid">
-                        <span class="mt-3 d-block">John</span>
-                      </div>
-                      <div class="comment-body">
-                        <p class="font500">08/31/2021</p>
-                        <ul class="list-inline list-rating">
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                        </ul>
-                        <img src="assets/img/frontend/review-img-comment.svg" alt="comment avatar" class="img-fluid">
-                        <p class="page-text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce
-                          vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin
-                          nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula.
-                          Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                          onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.
-                        </p>
-                      </div>
                     </div>
-                  </div>
+                  <?php } else { ?>
+                    <div class="zero-event zero-box">
+                      <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
+                      <p class="text-secondary page-text-lg">No reviews</p>
+                    </div>
+                  <?php } ?>
                 </div>
               </div>
             </div>
-            <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
-              <div class="d-flex align-items-center pagination-left">
-                <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500">1 – 10</span> of <span class="fw-500">50</span>
-                  results</p>
-                <div class="page-text-sm mb-0 d-flex align-items-center">
-                  <span class="fw-500">50</span>
-                  <span class="ms-2">/</span>
-                  <div class="custom-select">
-                    <select>
-                      <option value="0" selected>10</option>
-                      <option value="1">20</option>
-                      <option value="2">30</option>
-                      <option value="3">40</option>
-                      <option value="4">50</option>
-                    </select>
+
+            <!-- Pagination -->
+            <?php if (!empty($lists) > 0) { ?>
+              <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
+                <div class="d-flex align-items-center pagination-left">
+                  <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                    results</p>
+                  <div class="page-text-sm mb-0 d-flex align-items-center">
+                    <div class="custom-select choose-perpage">
+                      <select>
+                        <option value="10" <?php if (isset($per_page) && $per_page == 20) {
+                                              echo 'selected';
+                                            } ?>>10</option>
+                        <option value="20" <?php if (isset($per_page) && $per_page == 20) {
+                                              echo 'selected';
+                                            } ?>>20</option>
+                        <option value="30" <?php if (isset($per_page) && $per_page == 30) {
+                                              echo 'selected';
+                                            } ?>>30</option>
+                        <option value="40" <?php if (isset($per_page) && $per_page == 40) {
+                                              echo 'selected';
+                                            } ?>>40</option>
+                        <option value="50" <?php if (isset($per_page) && $per_page == 50) {
+                                              echo 'selected';
+                                            } ?>>50</option>
+                      </select>
+                    </div>
+                    <span class="ms-2">/</span>
+                    <span class=""> Page</span>
                   </div>
                 </div>
+                <div class="pagination-right">
+                  <!-- Page pagination -->
+                  <nav>
+                    <?php echo $paggingHtml; ?>
+                  </nav>
+                  <!-- End Page pagination -->
+                </div>
               </div>
-              <div class="pagination-right">
-                <!-- Page pagination -->
-                <nav>
-                  <ul class="pagination justify-content-end mb-0">
-                    <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
-                    </li>
-                  </ul>
-                </nav>
-                <!-- End Page pagination -->
-              </div>
-            </div>
+            <?php } ?>
+            <!-- END. Pagination -->
+
           </div>
         </div>
       </div>
@@ -314,13 +299,22 @@
         </div>
       </div>
       <p class="leaveReview-text">Write your review</p>
+
       <input type="hidden" id="rankStar" value="5" />
-      <input type="hidden" id="businessId" value="<?php if(isset($businessInfo['id'])){ echo $businessInfo['id']; }else{ echo 0; } ?>" />
-      <input type="hidden" id="customerId" value="<?php if(isset($customer['id'])){ echo $customer['id']; }else{ echo 0; } ?>" />
+      <input type="hidden" id="businessId" value="<?php if (isset($businessInfo['id'])) {
+                                                    echo $businessInfo['id'];
+                                                  } else {
+                                                    echo 0;
+                                                  } ?>" />
+      <input type="hidden" id="customerId" value="<?php if (isset($customer['id'])) {
+                                                    echo $customer['id'];
+                                                  } else {
+                                                    echo 0;
+                                                  } ?>" />
       <textarea name="comment-post" id="leaveReviewComment"></textarea>
       <div class="d-flex align-items-center  justify-content-end mt-20">
-        <button type="submit" class="btn btn-red">Submit</button>
-        <button type="submit" class="btn btn-outline-red ml-8px reply-cancel" data-bs-dismiss="modal" aria-label="Close">cancel</button>
+        <button type="button" class="btn btn-red btn-leave-review">Submit</button>
+        <button type="button" class="btn btn-outline-red ml-8px reply-cancel" data-bs-dismiss="modal" aria-label="Close">cancel</button>
       </div>
     </div>
   </div>
@@ -328,32 +322,55 @@
 
 <script>
   $(document).ready(function() {
+    // star rating
     $('#leaveReview .star-base a').click(function(e) {
       var rate = $(this).attr('dt-value');
       var width = 0;
       width = rate * 21.43;
-      console.log(rate);
-      console.log(width);
-      $(this).closest('.star-base').find('.star-rate').css('width',width);
+      $("#rankStar").val(rate);
+      $(this).closest('.star-base').find('.star-rate').css('width', width);
     });
-    $('.btn-delete-image').click(function(e) {
-      var businessId = $("#businessId").val();
-      var customerId = $("#customerId").val();
-      var comment = $("#leaveReviewComment").val();
+    
+    //editor
+    let editorReview;
+    const leaveReviewComment = document.querySelector("#leaveReviewComment");
+    if (leaveReviewComment) {
+      ClassicEditor.create(leaveReviewComment).then(newEditor => {
+        editorReview = newEditor;
+      });
+    }
 
-      if (imgId == 0) {
-        $(".notiPopup .text-secondary").html("Video not exist");
+    //customer leave a review
+    $('.btn-leave-review').click(function(e) {
+      var business_id = $("#businessId").val();
+      var customer_id = $("#customerId").val();
+      var customer_comment = editorReview.getData();
+      var review_star = $("#rankStar").val();
+
+      if (business_id == 0) {
+        $(".notiPopup .text-secondary").html("Business profile not exist");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+
+        redirect(false, '<?php echo base_url(HOME_URL); ?>');
+      }
+
+      if (customer_id == 0) {
+        $(".notiPopup .text-secondary").html("Please login to leave a review");
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(4000);
       }
 
-      $('#deletePhotoModal').modal('hide');
+      $('#leaveReview').modal('hide');
 
       $.ajax({
         type: 'POST',
         url: '<?php echo base_url('business/leave-a-review'); ?>',
         data: {
-          image_id: imgId
+          customer_id: customer_id,
+          business_id: business_id,
+          customer_comment: customer_comment,
+          review_star: review_star
         },
         dataType: "json",
         success: function(data) {
@@ -366,15 +383,18 @@
             $(".ico-noti-error").removeClass('ico-hidden');
             $(".notiPopup").fadeIn('slow').fadeOut(4000);
           }
-          redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
+          redirect(true);
         },
         error: function(data) {
-          $(".notiPopup .text-secondary").html("Delete video failed");
+          $(".notiPopup .text-secondary").html("Leave a review failed");
           $(".ico-noti-error").removeClass('ico-hidden');
           $(".notiPopup").fadeIn('slow').fadeOut(4000);
-          redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
+
+          redirect(true);
         }
       });
+
     });
+
   });
 </script>

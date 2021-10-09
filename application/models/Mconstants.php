@@ -57,6 +57,14 @@ class Mconstants extends CI_Model {
         2 => 'Event Slider'
     );
 
+    public $bookStatusId = array(
+        0 => 'Deleted',
+        1 => 'Expired',
+        2 => 'Approved',
+        3 => 'Cancelled',
+        4 => 'Declined'
+    );
+
     public $dayIds = array(
         0 => 'Monday',
         1 => 'Tuesday',

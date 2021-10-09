@@ -12,7 +12,7 @@ $lang["or_sign_in_with_your_social_network"] = "Melden Sie sich mit Ihrem Sozial
 $lang["sign_in_with_google"] = "Mit Google anmelden";
 $lang["sign_in_with_facebook"] = "Mit Facebook anmelden";
 $lang["confirm_password"] = "Passwort bestätigung";
-$lang["agree_with_our_terms_and_conditions"] = "Stimme unseren AGB zu";
+$lang["agree_with_our_terms_and_conditions"] = '<a class="fw-bold text-underline" href="javascript:void(0)">Stimme unseren AGB zu</a>';
 $lang["already_have_an_account"] = "Haben Sie bereits ein Konto?";
 $lang["or_sign_up_with_your_social_network"] = "Melden Sie sich mit Ihrem Sozialennetzwerk an";
 $lang["sign_up_with_google"] = "Mit Google anmelden";

@@ -8690,15 +8690,36 @@ video {
   color: #404040;
   transition: all .25s ease;
   font-weight: 500; }
-  .bm-modal-config .weekdays-selector input[type=checkbox] + label:hover {
+/*
+  .bm-modal-config .weekdays-selector input[type=checkbox] + label:hover, .bm-modal-config .weekdays-selector input[type=checkbox].next-day + label {
     background: #FF7272;
     color: #ffffff; }
-  .bm-modal-config .weekdays-selector input[type=checkbox] + label:not(:last-child) {
-    margin-right: 4px; }
+*/
+.bm-modal-config .weekdays-selector input[type=checkbox].next-day + label {
+  background: #FF7272;
+  color: #ffffff; 
+}
 
+.bm-modal-config .weekdays-selector input[type=checkbox] + label:not(:last-child) {
+    margin-right: 4px; }
+.bm-modal-config .weekdays-selector input[type=checkbox]:checked.saved + label {
+    background: #FF7272;
+    color: #ffffff; 
+}
+.bm-modal-config .weekdays-selector input[type=checkbox]:checked + label {
+  background: #FF7272;
+  color: #ffffff; 
+}
+/*
 .bm-modal-config .weekdays-selector input[type=checkbox]:checked + label {
   background: #C20000;
-  color: #ffffff; }
+  color: #ffffff; 
+}
+*/
+.bm-modal-config .weekdays-selector input[type=checkbox].saved + label {
+  background: #C20000;
+  color: #ffffff; 
+}
 
 .photo-item {
   position: relative; }

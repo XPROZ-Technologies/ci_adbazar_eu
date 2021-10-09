@@ -54,8 +54,8 @@
                     <div class="spacer"></div>
                     <div class="inner-notify">
                       <div class="d-flex align-items-center justify-content-between notify-top">
-                        <span>Notifications</span>
-                        <a href="customer-notification.html">See all</a>
+                        <span><?php echo $this->lang->line('notifications'); ?></span>
+                        <a href="customer-notification.html"><?php echo $this->lang->line('see_all'); ?></a>
                       </div>
                       <div class="list-notify">
                         <a href="customer-notification.html" class="notify-item">
@@ -117,8 +117,8 @@
             <!-- login / signup -->
             <?php if (isset($customer) && $customer['is_logged_in'] == 0) { ?>
               <div class="d-flex btn-user">
-                <a href="<?php echo base_url('signup.html'); ?>" title="" class="btn btn-outline-red btn-register">Sign up</a>
-                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login">Login</a>
+                <a href="<?php echo base_url('signup.html'); ?>" title="" class="btn btn-outline-red btn-register"><?php echo $this->lang->line('sign_up'); ?></a>
+                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login"><?php echo $this->lang->line('login'); ?></a>
               </div>
             <?php } ?>
             <!-- END. login / signup -->
@@ -130,7 +130,7 @@
                 <img src="<?php echo CUSTOMER_PATH . $avatar; ?>" alt="avatar" class="img-fluid avatar-img">
                 <div class="user-info-text">
                   <a href="javascript:void(0)"><?php echo $customer['customer_first_name']; ?></a>
-                  <a href=""><img src="assets/img/frontend/bot-avata.png" alt="avatar" class="img-fluid"></a>
+                  <a href="javascript:void(0)"><img src="assets/img/frontend/bot-avata.png" alt="avatar" class="img-fluid"></a>
                 </div>
                 <div class="user-info-box">
                   <div class="user-info-item">
@@ -185,18 +185,15 @@
             <li class="nav-item">
               <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "about-us") {
                                     echo "active";
-                                  } ?>" href="<?php echo base_url('about-us.html') ?>">About Us</a>
+                                  } ?>" href="<?php echo base_url('about-us.html') ?>"><?php echo $this->lang->line('about_us'); ?></a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle  <?php if (isset($activeMenu) && $activeMenu == "services") {
                                                     echo "active";
                                                   } ?>" href="<?php echo base_url('services.html') ?>" id="serviceDropdown">
-                Services
+                <?php echo $this->lang->line('services'); ?>
               </a>
               <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
-                <li><a class="dropdown-item <?php if (isset($activeMenuService) && $activeMenuService === 0) {
-                                              echo "active";
-                                            } ?>" href="<?php echo base_url('services.html'); ?>">Services</a></li>
                 <?php if (!empty($menuServices) && count($menuServices) > 0) {
                   for ($i = 0; $i < count($menuServices); $i++) {
                     $menuServiceUrl = base_url('service/' . makeSlug($menuServices[$i]['service_slug']) . '-' . $menuServices[$i]['id']) . '.html'; ?>
@@ -210,22 +207,22 @@
             <li class="nav-item">
               <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "coupons") {
                                     echo "active";
-                                  } ?>" href="<?php echo base_url('coupons.html'); ?>">Coupons</a>
+                                  } ?>" href="<?php echo base_url('coupons.html'); ?>"><?php echo $this->lang->line('coupons'); ?></a>
             </li>
             <li class="nav-item">
               <a class="nav-link  <?php if (isset($activeMenu) && $activeMenu == "events") {
                                     echo "active";
-                                  } ?>" href="<?php echo base_url('events.html'); ?>">Events</a>
+                                  } ?>" href="<?php echo base_url('events.html'); ?>"><?php echo $this->lang->line('events'); ?></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url(HOME_URL); ?>#contact-us">Contact Us</a>
+              <a class="nav-link" href="<?php echo base_url(HOME_URL); ?>#contact-us"><?php echo $this->lang->line('contact_us'); ?></a>
             </li>
           </ul>
           <div class="d-flex align-items-center navbar-right">
             <?php if (isset($customer) && $customer['is_logged_in'] == 0) { ?>
               <div class="d-flex btn-user">
-                <a href="<?php echo base_url('signup.html'); ?>" title="" class="btn btn-outline-red btn-register">Sign up</a>
-                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login">Login</a>
+                <a href="<?php echo base_url('signup.html'); ?>" title="" class="btn btn-outline-red btn-register"><?php echo $this->lang->line('sign_up'); ?></a>
+                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login"><?php echo $this->lang->line('login'); ?></a>
               </div>
             <?php } ?>
             <!-- Languages -->
@@ -245,10 +242,10 @@
               <input type="hidden" name="UrlOld" value="<?php echo $this->uri->uri_string(); ?>" />
               <?php echo form_close(); ?>
               <ul class="dropdown-menu js-list-language" aria-labelledby="languageDropdown">
-                <li class="change-language-menu <?php echo $customer['language_id'] == 1 ? 'selected' : ''; ?>" data-language-id="1"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value="en" data-language-id="1"><img src="assets/img/frontend/en.png" alt="english flag" class="img-fluid me-2">English</a></li>
-                <li class="change-language-menu <?php echo $customer['language_id'] == 4 ? 'selected' : ''; ?>" data-language-id="4"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='vn' data-language-id="4"><img src="assets/img/frontend/vn.png" alt="vietnam flag" class="img-fluid me-2">Vietnamese</a></li>
-                <li class="change-language-menu <?php echo $customer['language_id'] == 3 ? 'selected' : ''; ?>" data-language-id="3"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='ger' data-language-id="3"><img src="assets/img/frontend/ger.png" alt="germany flag" class="img-fluid me-2">German</a></li>
-                <li class="change-language-menu <?php echo $customer['language_id'] == 2 ? 'selected' : ''; ?>" data-language-id="2"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='cre' data-language-id="2"><img src="assets/img/frontend/cre.png" alt="czech flag" class="img-fluid me-2">Czech</a></li>
+                <li class="change-language-menu <?php echo $customer['language_id'] == 1 ? 'selected' : ''; ?>" data-language-id="1"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value="en" data-language-id="1"><img src="assets/img/frontend/en.png" alt="english flag" class="img-fluid me-2"><?php echo $this->lang->line('english'); ?></a></li>
+                <li class="change-language-menu <?php echo $customer['language_id'] == 4 ? 'selected' : ''; ?>" data-language-id="4"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='vn' data-language-id="4"><img src="assets/img/frontend/vn.png" alt="vietnam flag" class="img-fluid me-2"><?php echo $this->lang->line('vietnamese'); ?></a></li>
+                <li class="change-language-menu <?php echo $customer['language_id'] == 3 ? 'selected' : ''; ?>" data-language-id="3"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='ger' data-language-id="3"><img src="assets/img/frontend/ger.png" alt="germany flag" class="img-fluid me-2"><?php echo $this->lang->line('german'); ?></a></li>
+                <li class="change-language-menu <?php echo $customer['language_id'] == 2 ? 'selected' : ''; ?>" data-language-id="2"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='cre' data-language-id="2"><img src="assets/img/frontend/cre.png" alt="czech flag" class="img-fluid me-2"><?php echo $this->lang->line('czech'); ?></a></li>
               </ul>
             </div>
             <!-- END. Languages -->
@@ -268,14 +265,14 @@
                       <img src="<?php echo CUSTOMER_PATH . $avatar; ?>" alt="avatar" class="img-fluid">
                       <div class="user-info-box-name">
                         <p><?php echo $customer['customer_first_name']; ?></p>
-                        <a href="<?php echo base_url('customer/general-information') ?>">See my profile</a>
+                        <a href="<?php echo base_url('customer/general-information') ?>"><?php echo $this->lang->line('see_my_profile'); ?></a>
                       </div>
                     </div>
-                    <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('my-business-profile'); ?>'">My Business Profile</button>
+                    <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('my-business-profile'); ?>'"><?php echo $this->lang->line('my_business_profile'); ?></button>
                     <?php if (isset($customer['login_type_id']) && $customer['login_type_id'] == 2) { ?>
-                      <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
+                      <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();"><?php echo $this->lang->line('logout'); ?></button>
                     <?php } else { ?>
-                      <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Log Out</button>
+                      <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>"><?php echo $this->lang->line('logout'); ?></button>
                     <?php } ?>
 
                   </div>
@@ -293,8 +290,8 @@
                   <div class="spacer"></div>
                   <div class="inner-notify">
                     <div class="d-flex align-items-center justify-content-between notify-top">
-                      <span>Notifications</span>
-                      <a href="<?php echo base_url('notifications.html'); ?>">See all</a>
+                      <span><?php echo $this->lang->line('notifications'); ?></span>
+                      <a href="<?php echo base_url('notifications.html'); ?>"><?php echo $this->lang->line('see_all'); ?></a>
                     </div>
 
                     <!-- List noti -->
@@ -315,7 +312,7 @@
                       <?php }else{ ?>
                         <div class="notification-zero zero-box">
                           <img src="assets/img/frontend/img-empty-box.svg" alt="empty box" class="img-fluid d-block mx-auto">
-                          <p class="page-text-lg text-center text-secondary">You do not have any notification yet</p>
+                          <p class="page-text-lg text-center text-secondary"><?php echo $this->lang->line('you_do_not_have_any_notification_yet'); ?></p>
                         </div>
                       <?php } ?>
                       
@@ -349,7 +346,7 @@
               <li class="nav-item">
                 <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "about-us") {
                                       echo "active";
-                                    } ?>" href="<?php echo base_url('about-us.html') ?>">About Us</a>
+                                    } ?>" href="<?php echo base_url('about-us.html') ?>"><?php echo $this->lang->line('about_us'); ?></a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle  <?php if (isset($activeMenu) && $activeMenu == "services") {
@@ -359,9 +356,6 @@
                 </a>
                 <span class="nav-link dropdown-toggle dropdown-toggle-mobile-not-link" role="button" data-bs-toggle="dropdown" aria-expanded="false"></span>
                 <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
-                  <li><a class="dropdown-item <?php if (isset($activeMenuService) && $activeMenuService === 0) {
-                                                echo "active";
-                                              } ?>" href="<?php echo base_url('services.html'); ?>">Services</a></li>
                   <?php if (!empty($menuServices) && count($menuServices) > 0) {
                     for ($i = 0; $i < count($menuServices); $i++) {
                       $menuServiceUrl = base_url('service/' . makeSlug($menuServices[$i]['service_slug']) . '-' . $menuServices[$i]['id']) . '.html'; ?>
@@ -375,17 +369,17 @@
               <li class="nav-item">
                 <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "coupons") {
                                       echo "active";
-                                    } ?>" href="<?php echo base_url('coupons.html'); ?>">Coupons</a>
+                                    } ?>" href="<?php echo base_url('coupons.html'); ?>"><?php echo $this->lang->line('coupons'); ?></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "events") {
                                       echo "active";
-                                    } ?>" href="<?php echo base_url('events.html'); ?>">Events</a>
+                                    } ?>" href="<?php echo base_url('events.html'); ?>"><?php echo $this->lang->line('events'); ?></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "home-contact-us") {
                                       echo "active";
-                                    } ?>" href="<?php echo base_url(HOME_URL); ?>#contact-us">Contact Us</a>
+                                    } ?>" href="<?php echo base_url(HOME_URL); ?>#contact-us"><?php echo $this->lang->line('contact_us'); ?></a>
               </li>
             </ul>
 

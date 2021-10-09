@@ -151,6 +151,8 @@ $route['customer-join-event'] = 'frontend/customer/customerJoinEvent';
 $route['customer-left-event'] = 'frontend/customer/customerLeftEvent';
 $route['customer-change-password'] = 'frontend/customer/customerChangePassword';
 $route['customer-update-information'] = 'frontend/customer/customerUpdateInformation';
+$route['forgot-password'] = 'frontend/customer/forgotPassword';
+$route['submit-change-password'] = 'frontend/customer/submitChangePassword';
 
 //user management
 $route['customer/my-coupons'] = 'frontend/customer/my_coupons';
@@ -163,6 +165,7 @@ $route['notifications.html'] = 'frontend/notification/index';
 
 $route['login.html'] = 'frontend/login';
 $route['signup.html'] = 'frontend/signup';
+$route['password-assistance'] = 'frontend/login/password_assistance';
 
 $route['home'] = 'frontend/home';
 $route['about-us.html'] = 'frontend/home/about';
@@ -190,6 +193,7 @@ $route['notifications.html'] = 'frontend/notification/index';
 $route['customer/send-contact-us'] = 'frontend/contact/saveContactForm';
 
 
+
 //business management
 $route['my-business-profile'] = 'frontend/businessprofile/my_business';
 $route['business-profile/select-plan'] = 'frontend/businessprofile/select_plan';
@@ -212,6 +216,10 @@ $route['business/(:any)/reservation'] = 'frontend/businessprofile/reservation/$1
 $route['business/(:any)/book-reservation'] = 'frontend/businessprofile/book_reservation/$1';
 $route['business/(:any)/reviews'] = 'frontend/businessprofile/reviews/$1';
 $route['business/leave-a-review'] = 'frontend/businessprofile/leaveReview/$1';
+$route['business/leave-a-reply'] = 'frontend/businessprofile/leaveReply/$1';
+$route['business/remove-review'] = 'frontend/businessprofile/removeComment/$1';
+//reservation
+$route['business/book-reservation'] = 'frontend/reservation/bookReservation';
 
 //busines profile management
 $route['business-management/(:any)/about-us'] = 'frontend/businessprofile/manage_about_us/$1';
@@ -228,6 +236,13 @@ $route['business-management/(:any)/reviews'] = 'frontend/businessprofile/manage_
 $route['business-management/(:any)/reservations'] = 'frontend/businessprofile/manage_reservations/$1';
 $route['business-management/(:any)/subscriptions'] = 'frontend/businessprofile/manage_subscriptions/$1';
 $route['business-management/(:any)/edit'] = 'frontend/businessprofile/manage_profile_edit/$1';
+
+//manage reservation
+$route['business-management/get-reservation-config'] = 'frontend/reservation/getReservation';
+$route['business-management/save-reservation-config'] = 'frontend/reservation/saveReservation';
+$route['business-management/change-allow-book'] = 'frontend/reservation/changeAllowBook';
+
+
 
 
 $route['business-management/create-coupon'] = 'frontend/coupon/update';

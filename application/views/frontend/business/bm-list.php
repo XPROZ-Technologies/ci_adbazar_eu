@@ -18,7 +18,7 @@
                                     <div class="card-body pt-0">
                                         <h5 class="card-title page-text-lg text-black text-center"><?php echo $itemBusiness['business_name']; ?></h5>
                                         <div class="text-center">
-                                            <a href="<?php echo base_url('business-management/'.$itemBusiness['business_url'].'/about-us'); ?>" class="btn btn-red btn-manager btn-red-md">Manage</a>
+                                            <a href="<?php echo base_url('business-management/'.$itemBusiness['business_url'].'/about-us'); ?>" class="btn btn-red btn-manager btn-red-md"><?php echo $this->lang->line('manage'); ?></a>
                                         </div>
                                     </div>
                                 </div>
@@ -84,9 +84,8 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
-                <p class="page-text-lg text-center">You cannot create a second business while using your three-month free trial.
-                    If you have any special request, please contact our admin for further help.</p>
-                    <a href="<?php echo base_url(HOME_URL); ?>#contact-us" class="btn btn-red btn-contact-ad">Contact us</a>
+                <p class="page-text-lg text-center"><?php echo $this->lang->line('manage'); ?><?php echo $this->lang->line('you_cannot_create_a_second_bus'); ?></p>
+                    <a href="<?php echo base_url(HOME_URL); ?>#contact-us" class="btn btn-red btn-contact-ad"><?php echo $this->lang->line('contact_us'); ?></a>
             </div>
         </div>
     </div>

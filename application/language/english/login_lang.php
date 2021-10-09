@@ -1,20 +1,20 @@
 <?php
 
-$lang["sign_in_with_your_account"] = "Sign in with your account";
+$lang["sign_in_with_your_account"] = "Log in with your account";
 $lang["email"] = "Email";
 $lang["password"] = "Password";
 $lang["remember_me"] = "Remember me";
 $lang["forgot_your_password"] = "Forgot your password?";
-$lang["sign_in"] = "Sign in";
+$lang["sign_in"] = "Logn In";
 $lang["not_have_an_account_yet"] = "Not have an account yet?";
 $lang["sign_up"] = "Sign up";
-$lang["or_sign_in_with_your_social_network"] = "Or sign in with your social network";
-$lang["sign_in_with_google"] = "Sign in with Google";
-$lang["sign_in_with_facebook"] = "Sign in with Facebook";
+$lang["or_sign_in_with_your_social_network"] = "Or";
+$lang["sign_in_with_google"] = "Log in with Google";
+$lang["sign_in_with_facebook"] = "Log in with Facebook";
 $lang["confirm_password"] = "Confirm password";
-$lang["agree_with_our_terms_and_conditions"] = "Agree with our terms and conditions";
+$lang["agree_with_our_terms_and_conditions"] = 'Agree with our <a class="fw-bold text-underline" href="javascript:void(0)">terms and conditions</a>';
 $lang["already_have_an_account"] = "Already have an account?";
-$lang["or_sign_up_with_your_social_network"] = "Or sign up with your social network";
+$lang["or_sign_up_with_your_social_network"] = "Or";
 $lang["sign_up_with_google"] = "Sign up with Google";
 $lang["sign_up_with_facebook"] = "Sign up with Facebook";
 $lang["your_password_is_incorrect_please_try_again"] = "*Your password is incorrect. Please try again";

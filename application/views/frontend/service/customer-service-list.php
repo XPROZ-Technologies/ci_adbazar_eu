@@ -17,7 +17,7 @@
                     <h2 class="page-heading page-title-md text-black mb-3 mb-md-0 fw-bold"><?php echo $serviceInfo['service_name']; ?></h2>
                     <form class="d-flex search-box" action="<?php echo $baseServiceUrl; ?>" method="GET" name="searchForm">
                       <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                      <input class="form-control" type="text" name="keyword" placeholder="Search" aria-label="Search" value="<?php echo $keyword; ?>">
+                      <input class="form-control" type="text" name="keyword" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="Search" value="<?php echo $keyword; ?>">
                     </form>
                   </div>
                   <div class="list-tags text-right">
