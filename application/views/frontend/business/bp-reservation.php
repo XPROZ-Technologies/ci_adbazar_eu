@@ -16,11 +16,13 @@
                 <div class="bp-reservation-inner">
                   <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between reservation-top">
                     <h5 class="page-title-xs mb-lg-0">My reservation(s) at <?php echo $businessInfo['business_name']; ?></h5>
-                    <a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/book-reservation'); ?>" class="btn btn-red">Book a reservation</a>
+                    <?php if ($businessInfo['allow_book'] == STATUS_ACTIVED) { ?>
+                      <a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/book-reservation'); ?>" class="btn btn-red">Book a reservation</a>
+                    <?php } ?>
                   </div>
                   <div class="bg-f5">
                     <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
-                      <a  href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                      <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
                       <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
                     </form>
 
@@ -68,7 +70,7 @@
                               </tr>
                           <?php }
                           } ?>
-                          
+
                         </tbody>
                       </table>
                     </div>

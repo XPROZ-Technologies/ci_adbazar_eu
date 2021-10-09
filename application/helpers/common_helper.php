@@ -384,23 +384,27 @@ if(!function_exists('getDatesFromRange')) {
 }
 
 if(!function_exists('getRangeHours')) {
-    function getRangeHours($start_time, $end_time, $duration = 1){
+    function getRangeHours($start_time, $end_time, $duration = 1, $isCurrent = false){
         $exStartTime = explode(":", $start_time);
         $minuteStart = $exStartTime[0]*60 + $exStartTime[1];
 
         $exEndTime = explode(":", $end_time);
         $minuteEnd = $exEndTime[0]*60 + $exEndTime[1];
 
-        $current_time = date('H:i');
-        $exCurrentTime = explode(":", $current_time);
-        $minuteCurrent = $exStartTime[0]*60 + $exStartTime[1];
+        $minuteCurrent = 0;
+        if($isCurrent){
+            $current_time = date('H:i');
+            $exCurrentTime = explode(":", $current_time);
+            $minuteCurrent = $exCurrentTime[0]*60 + $exCurrentTime[1];
+        }
+        
 
         $startPoint = $minuteStart;
         if($minuteCurrent > $minuteStart){
             $startPoint = $minuteCurrent;
         }
 
-        $endPoint = $minuteEnd - $duration;
+        $endPoint = $minuteEnd;
 
 
         //Use startPoint & endPoint

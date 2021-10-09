@@ -9,6 +9,7 @@
             <form class="row" action="<?php echo base_url('business/book-reservation'); ?>" id="formBookReservation" method="POST">
               <input type="hidden" name="business_profile_id" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
               <input type="hidden" name="customer_id" id="customerId" value="<?php echo $customer['id']; ?>" />
+              <input type="hidden" name="selected_day" id="selecteDate" value="<?php echo date('Y-m-d'); ?>" />
               <div class="col-lg-12">
                 <div class="form-group mb-3">
                   <label for="bookName" class="form-label">Your name<span class="required text-danger">*</span></label>
@@ -22,7 +23,9 @@
                     <button type="button" class="minus">
                       <img src="assets/img/frontend/ic-minus.png" alt="icon minus">
                     </button>
-                    <input type="number" class="form-control quantity" id="numOfPeople" name="number_of_people" value="1" min="1" />
+                    <input type="number" class="form-control quantity" id="numOfPeople" name="number_of_people" value="1" min="1" max="<?php if (!empty($configTimes['max_per_reservation'])) {
+                                                                                                                                          echo $configTimes['max_per_reservation'];
+                                                                                                                                        } ?>" />
                     <button type="button" class="plus">
                       <img src="assets/img/frontend/ic-plus.png" alt="icon plus">
                     </button>
@@ -90,10 +93,12 @@
                   <label class="form-label">Select a time <span class="required text-danger">*</span></label>
                   <div class="custom-select js-select-service">
                     <select name="time_arrived" required id="timeArrived">
-                      <option value="10:00">10:00</option>
-                      <option value="11:00">11:00</option>
-                      <option value="12:00">12:00</option>
-                      <option value="13:00">13:00</option>
+                      <option value="0">Select a time</option>
+                      <?php if (!empty($listHours)) {
+                        foreach ($listHours as $itemHours) { ?>
+                          <option value="<?php echo $itemHours; ?>"><?php echo $itemHours; ?></option>
+                      <?php }
+                      } ?>
                     </select>
                   </div>
                 </div>
@@ -110,31 +115,75 @@
     </div>
   </div>
 </main>
+<input type="hidden" id="maxPerReservation" value="<?php echo $configTimes['max_per_reservation']; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
 
 <script>
+  $("body").on("click", ".js-list-country li a", function() {
+    //alert($(this).data('id'));
+    $("#countryCodeId").val($(this).data('id'));
+  });
+
   $(".btn-confirm").click(function(e) {
     e.preventDefault();
 
     var business_id = $("#businessId").val();
-
     var book_name = $("#bookName").val();
-    var number_of_people = $("#numberOfPeople").val();
+    var number_of_people = $("#numOfPeople").val();
     var country_code_id = $("#countryCodeId").val();
     var book_phone = $("#bookPhone").val();
     var date_arrived = $("#dateArrived").val();
     var time_arrived = $("#timeArrived").val();
 
+    var selectedDay = $("#selecteDate").val();
+    var selectTime = $('.js-select-service ul li.selected').data('value');
+    var maxPerReservation = $("#maxPerReservation").val();
+    //console.log(number_of_people + '____' + maxPerReservation);
+
+    if (number_of_people > maxPerReservation) {
+      $(".notiPopup .text-secondary").html("Maximum of people is: " + maxPerReservation);
+      $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").fadeIn('slow').fadeOut(5000);
+      return false;
+    }
+
+    if (selectedDay == 0 || selectedDay == "") {
+      $(".notiPopup .text-secondary").html("Please select a day");
+      $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      return false;
+    }
+
+    if (selectTime == "0" || selectTime == "") {
+      $(".notiPopup .text-secondary").html("Please select a time");
+      $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      return false;
+    }
+
     if (book_name == '' || number_of_people == '' || country_code_id == '' || book_phone == '' || date_arrived == '' || time_arrived == '') {
       $(".notiPopup .text-secondary").html("Please fulfill information");
       $(".ico-noti-error").removeClass('ico-hidden');
       $(".notiPopup").fadeIn('slow').fadeOut(4000);
-    }else{
+      return false;
+    } else {
       $("#formBookReservation").submit();
     }
   });
 
   $(".btn-cancel").click(function(e) {
     redirect(false, '<?php echo base_url('business/' . $businessInfo['business_url'] . '/reservation'); ?>');
+  });
+
+
+  $('#numOfPeople').on('change', function() {
+    console.log($(this).val());
+    var maxPerReservation = $("#maxPerReservation").val();
+    if($(this).val() > maxPerReservation){
+      $(".notiPopup .text-secondary").html("Maximum of people is: " + maxPerReservation);
+      $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").fadeIn('slow').fadeOut(5000);
+      $(this).val(maxPerReservation);
+    }
   });
 </script>

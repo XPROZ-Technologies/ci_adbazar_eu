@@ -241,8 +241,7 @@ $route['business-management/(:any)/edit'] = 'frontend/businessprofile/manage_pro
 $route['business-management/get-reservation-config'] = 'frontend/reservation/getReservation';
 $route['business-management/save-reservation-config'] = 'frontend/reservation/saveReservation';
 $route['business-management/change-allow-book'] = 'frontend/reservation/changeAllowBook';
-
-
+$route['reservation/get-avail-time'] = 'frontend/Reservationconfig/getListTime';
 
 
 $route['business-management/create-coupon'] = 'frontend/coupon/update';

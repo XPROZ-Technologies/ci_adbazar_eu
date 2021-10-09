@@ -119,12 +119,12 @@ class Reservation extends MY_Controller
                 
                 $preNameCode = str_replace('-', '', $businessInfo['business_url']);
                 $preNameCode = strtoupper(substr($preNameCode, 0,4));
-                $dateCode = date('Y-m-d');
+                $dateCode = date('m-d');
                 $dateCode = str_replace('-', '', $dateCode);
 
                 $codeName = $preNameCode.$dateCode;
                 $numOfCode = $this->Mcustomerreservations->getCount(array('code_name' => $codeName));
-                $genCode = $codeName.(1000 + $numOfCode + 1);
+                $genCode = $codeName.'-'.(1000 + $numOfCode + 1);
                 
                 $postData['book_code'] = $genCode;
                 $postData['created_at'] = getCurentDateTime();

@@ -25,20 +25,45 @@ class Reservationconfig extends MY_Controller
                 die;
             }
 
-            $this->loadModel(array('Mreservationconfigs'));
+            $this->loadModel(array('Mreservationconfigs', 'Mbusinessprofiles', 'Mcustomerreservations'));
 
-            $configTimes = $this->Mreservationconfigs->getBy(array('day_id' => $postData['day_id'], 'business_profile_id' => $postData['business_id']));
-        
-            $listHours = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration']);
-
-            if ($customerContactId) {
-                echo json_encode(array('code' => 1, 'message' => "Thank you for contacting. We will contact you as soon as possible"));
-                die;
-            }else{
-                echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+            $allow_book = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id']), 'allow_book', 0);
+            if($allow_book != STATUS_ACTIVED){
+                echo json_encode(array('code' => 2, 'message' => "Business suspends reservations", 'data' => ""));
                 die;
             }
 
+            $configTimes = array();
+            if($allow_book == STATUS_ACTIVED){
+                $day_id = ddMMyyyy($postData['selected_day'], 'N');
+                $configTimes = $this->Mreservationconfigs->getBy(array('day_id' => ($day_id - 1), 'business_profile_id' => $postData['business_id']));
+            }
+            
+            if(!empty($configTimes)){
+                $isCurrent = false;
+                if(date('Y-m-d') == $postData['selected_day']){
+                    $isCurrent = true;
+                }
+                $listHours = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration'], $isCurrent);
+                $dataHours = "";
+                foreach($listHours as $itemHours){
+                    $numberBooked = $this->Mcustomerreservations->getCount(array('time_arrived' => $itemHours.':00', 'date_arrived' => $postData['selected_day']));
+                    if($numberBooked < $configTimes[0]['max_people']){
+                        $dataHours .= '<option value="'.$itemHours.'">'.$itemHours.'</option>';
+                    }
+                }
+                if (!empty($dataHours)) {
+                    $dataHours = '<option value="0">Select a time</option>'.$dataHours;
+                    echo json_encode(array('code' => 1, 'message' => "Successfull", 'day_id' => $day_id, 'data' => $dataHours));
+                    die;
+                }else{
+                    echo json_encode(array('code' => 2, 'message' => "There is no time period", 'data' => ""));
+                    die;
+                }
+            }else{
+                echo json_encode(array('code' => 2, 'message' => "Business suspends reservations", 'data' => ""));
+                die;
+            }
         } catch (Exception $e) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
             die;

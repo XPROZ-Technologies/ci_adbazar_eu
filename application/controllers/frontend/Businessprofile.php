@@ -618,12 +618,14 @@ class Businessprofile extends MY_Controller
         $data['phoneCodes'] = $this->Mphonecodes->get();
 
         $day_id = date('N') - 1;
-
-        $configTimes = $this->Mreservationconfigs->getBy(array('day_id' => $day_id, 'business_profile_id' => $businessProfileId));
         
-        $listHours = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration']);
+        $configTimes = $this->Mreservationconfigs->getBy(array('day_id' => $day_id, 'business_profile_id' => $businessProfileId));
 
-        echo "<pre>";print_r($listHours);exit;
+        $data['configTimes'] = $configTimes['0'];
+
+        $data['listHours'] = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration'], true);
+
+        //echo "<pre>";print_r($listHours);exit;
 
         $this->load->view('frontend/business/bp-reservation-book', $data);
     }

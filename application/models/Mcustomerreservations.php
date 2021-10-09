@@ -39,6 +39,9 @@ class Mcustomerreservations extends MY_Model {
         if(isset($postData['code_name']) && !empty($postData['code_name'])) $query.=" AND book_code like '%".$postData['customer_id']."%'";
         if(isset($postData['search_text_fe']) && !empty($postData['search_text_fe'])) $query.=" AND (book_code like '%".$postData['search_text_fe']."%' OR book_name like '%".$postData['search_text_fe']."%' OR book_phone like '%".$postData['search_text_fe']."%')";
 
+        if(isset($postData['time_arrived']) && !empty($postData['time_arrived']))  $query.=" AND time_arrived = '".$postData['time_arrived']."'";
+        if(isset($postData['date_arrived']) && !empty($postData['date_arrived']))  $query.=" AND date_arrived = '".$postData['date_arrived']."'";
+
         return $query;
     }
 }
