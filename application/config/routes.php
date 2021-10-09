@@ -151,6 +151,8 @@ $route['customer-join-event'] = 'frontend/customer/customerJoinEvent';
 $route['customer-left-event'] = 'frontend/customer/customerLeftEvent';
 $route['customer-change-password'] = 'frontend/customer/customerChangePassword';
 $route['customer-update-information'] = 'frontend/customer/customerUpdateInformation';
+$route['forgot-password'] = 'frontend/customer/forgotPassword';
+$route['submit-change-password'] = 'frontend/customer/submitChangePassword';
 
 //user management
 $route['customer/my-coupons'] = 'frontend/customer/my_coupons';
@@ -163,6 +165,7 @@ $route['notifications.html'] = 'frontend/notification/index';
 
 $route['login.html'] = 'frontend/login';
 $route['signup.html'] = 'frontend/signup';
+$route['password-assistance'] = 'frontend/login/password_assistance';
 
 $route['home'] = 'frontend/home';
 $route['about-us.html'] = 'frontend/home/about';
@@ -188,6 +191,7 @@ $route['notifications.html'] = 'frontend/notification/index';
 
 //contact
 $route['customer/send-contact-us'] = 'frontend/contact/saveContactForm';
+
 
 
 //business management

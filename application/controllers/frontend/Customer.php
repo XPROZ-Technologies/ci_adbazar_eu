@@ -148,48 +148,96 @@ class Customer extends MY_Controller
 
     public function forgotPassword(){
         try {
-            $postData = $this->arrayFromPost(array('customer_email'));
+            $postData = $this->arrayFromPost(array('email'));
 
-            if (!empty($postData['customer_email'])) {
+            if (!empty($postData['email'])) {
                 
 
-                $customer_email = strtolower($postData['customer_email']);
+                $customer_email = strtolower($postData['email']);
 
                 $this->load->model('Mcustomers');
                 
 
-                $customerId = $this->Mcustomers->update($postData);
+                $customerId = $this->Mcustomers->getFieldValue(array('customer_email' => $customer_email), 'id', 0);
                 if ($customerId > 0) {
-                    /**
-                     * Save Email
-                     */
-                    $this->load->model('Memailqueue');
-                    $dataEmail = array(
-                        'name' => $postData['customer_email']
+                    $token = guidV4('reset-passs');
+                    $dataUpdate = array(
+                        'token_reset' => $token
                     );
-                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 1);
-                    /**
-                     * END. Save Email
-                     */
+                    $customerId = $this->Mcustomers->save($dataUpdate, $customerId);
+                    if($customerId > 0){
+                        $customerInfo = $this->Mcustomers->get($customerId);
+                        /**
+                         * Save Email
+                         */
+                        $this->load->model('Memailqueue');
+                        $dataEmail = array(
+                            'name' => $customerInfo['customer_first_name'],
+                            'email_to' => $customerInfo['customer_email'],
+                            'email_to_name' => $customerInfo['customer_first_name'],
+                            'token' => $token
+                        );
+                        $emailResult = $this->Memailqueue->createEmail($dataEmail, 2);
+                        /**
+                         * END. Save Email
+                         */
+                        if($emailResult){
+                            echo json_encode(array('code' => 1, 'message' => 'Successfully sent password recover'));die;
+                        }else{
+                            echo json_encode(array('code' => 0, 'message' => 'Send password recover failed 1'));die;
+                        }
+                    }else{
+                        echo json_encode(array('code' => 0, 'message' => 'Send password recover failed 2'));die;
+                    }
                     
-                    $this->session->set_flashdata('notice_message', 'Successfully register account');
-                    $this->session->set_flashdata('notice_type', 'success');
-                    redirect(base_url('login.html'));
                 } else {
-                    $this->session->set_flashdata('notice_message', 'Register failed, please try again!');
-                    $this->session->set_flashdata('notice_type', 'error');
-                    redirect(base_url('login.html?3'));
+                    echo json_encode(array('code' => 0, 'message' => 'Email not exist'));die;
                 }
                 
             } else {
-                $this->session->set_flashdata('notice_message', "Please enter email");
-                $this->session->set_flashdata('notice_type', 'error');
-                redirect(base_url('login.html?4'));
+                echo json_encode(array('code' => 0, 'message' => 'Please enter your email'));die;
             }
         } catch (Exception $e) {
-            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
-            $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url('login.html?5'));
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));die;
+        }
+    }
+
+    public function submitChangePassword(){
+        try {
+            $postData = $this->arrayFromPost(array('customer_password', 'rePassword', 'token'));
+
+            if (!empty($postData['customer_password']) && !empty($postData['rePassword'])) {
+                
+                if($postData['customer_password'] != $postData['rePassword']){
+                    echo json_encode(array('code' => 0, 'message' => 'Password does not match'));die;
+                }
+              
+                $this->load->model('Mcustomers');
+                
+
+                $customerId = $this->Mcustomers->getFieldValue(array('token_reset' => $postData['token']), 'id', 0);
+                if ($customerId > 0) {
+                    
+                    $dataUpdate = array(
+                        'customer_password' => md5($postData['customer_password'])
+                    );
+                    $customerId = $this->Mcustomers->save($dataUpdate, $customerId);
+                    if($customerId > 0){
+                       echo json_encode(array('code' => 1, 'message' => 'Successfully reset password'));die;
+                      
+                    }else{
+                        echo json_encode(array('code' => 0, 'message' => 'Reset password failed'));die;
+                    }
+                    
+                } else {
+                    echo json_encode(array('code' => 0, 'message' => 'Token not exist or expired'));die;
+                }
+                
+            } else {
+                echo json_encode(array('code' => 0, 'message' => 'Please enter your new password'));die;
+            }
+        } catch (Exception $e) {
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));die;
         }
     }
 

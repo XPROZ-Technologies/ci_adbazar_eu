@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="col-12 d-flex justify-content-center mb-2">
-                            <button type="submit" class="btn btn-red">Submit</button>
+                            <button type="button" class="btn btn-red btn-forgot-password">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -114,6 +114,7 @@
     </div>
     <!-- End Modal forgot password -->
 </main>
+<input type="hidden" value="1" id="typeSocial" />
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
@@ -129,4 +130,5 @@
             $(".notiPopup").fadeIn('slow').fadeOut(4000);
         }
     });
+
 </script>

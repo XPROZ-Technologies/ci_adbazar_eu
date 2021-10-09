@@ -1,7 +1,7 @@
 $(window).ready(() => {
   // Show modal login/signup success reset password
   $("#signupSucess").modal("show");
-  $("#signinSuccessResetPassModal").modal("show");
+  /*$("#signinSuccessResetPassModal").modal("show");*/
   $("#profileChangePassModal").modal("show");
   $("#joinModal").modal("show");
   /*

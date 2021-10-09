@@ -39,7 +39,9 @@
           <ul class="list-unstyled list-inline">
             <?php if (!empty($serviceTypes)) {
               for ($i = 0; $i < count($serviceTypes); $i++) { ?>
-                <li class="list-inline-item page-text-xs fw-500 selected"><a href="<?php echo $basePagingUrl; ?>"><?php echo $serviceTypes[$i]['service_type_name']; ?></a></li>
+                <li class="list-inline-item page-text-xs fw-500 selected li_service_type">
+                  <a href="javascript:void(0)" class="service_type_selected" data-id="<?php echo $serviceTypes[$i]['id']; ?>"><?php echo $serviceTypes[$i]['service_type_name']; ?></a>
+                </li>
             <?php }
             } ?>
           </ul>
@@ -125,3 +127,20 @@
 </main>
 <input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
+<script>
+  $(document).ready(function() {
+    $("body").on('click', '.service_type_selected', function(){
+      var keySearch = '';
+      if($(".li_service_type").hasClass('selected')) {
+        $(".service_type_selected").each(function() {
+          keySearch += $(this).attr('data-id')+',';
+        })
+      }
+      var repKeySearch = keySearch.replace(/,*$/, "")
+      var splitSearch = window.location.search.split("&");
+      console.log(window.location.search)
+      var search = splitSearch[0]+'&'+splitSearch[1]+'&key_search='+repKeySearch;
+      window.location.href = window.location.origin+window.location.pathname+search
+    })
+  })
+</script>

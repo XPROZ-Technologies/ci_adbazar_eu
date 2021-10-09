@@ -883,6 +883,9 @@ line-height: 28px;
 .dropdown-menu .dropdown-item {
     font-size: 14px;
 }
+.page-text-xsm {
+    font-size: 12px;
+}
 .page-text-sm,
 .page-text-md,
 .page-item .page-link,
