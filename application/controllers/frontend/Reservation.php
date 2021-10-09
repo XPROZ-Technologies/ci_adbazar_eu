@@ -69,24 +69,18 @@ class Reservation extends MY_Controller
                                 $saveAllData = $postData;
                                 $saveAllData['day_id'] = $day_id;
                                 $saveAllData['business_profile_id'] = $mainData['business_id'];
-                                $configId = $this->Mreservationconfigs->save($postData);
+                                $configId = $this->Mreservationconfigs->save($saveAllData);
                             }
                         }
                     }
                 }
 
-                if (!empty($configId)) {
-                    echo json_encode(array('code' => 1, 'message' => "Save config sucessfully"));
-                    die;
-                } else {
-                    echo json_encode(array('code' => 0, 'message' => "Reservation config not exist"));
-                    die;
-                }
+                echo json_encode(array('code' => 1, 'message' => "Save config sucessfully")); die;
             } else {
                 $saveAllData = $postData;
                 $saveAllData['day_id'] = $mainData['day_id'];
                 $saveAllData['business_profile_id'] = $mainData['business_id'];
-                $configId = $this->Mreservationconfigs->save($postData);
+                $configId = $this->Mreservationconfigs->save($saveAllData);
 
                 if ($mainData['isAll'] == 1) {
                     $listDays = $this->Mconstants->dayIds;
@@ -99,11 +93,12 @@ class Reservation extends MY_Controller
                                 $saveAllData = $postData;
                                 $saveAllData['day_id'] = $day_id;
                                 $saveAllData['business_profile_id'] = $mainData['business_id'];
-                                $configId = $this->Mreservationconfigs->save($postData);
+                                $configId = $this->Mreservationconfigs->save($saveAllData);
                             }
                         }
                     }
                 }
+                echo json_encode(array('code' => 1, 'message' => "Save config sucessfully")); die;
             }
         } catch (Exception $e) {
             echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
@@ -120,8 +115,18 @@ class Reservation extends MY_Controller
 
             $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_profile_id']), 'id', 0);
             if ($businessProfileId > 0) {
-                $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_profile_id']), 'business_url', '');
+                $businessInfo = $this->Mbusinessprofiles->get($postData['business_profile_id']);
                 
+                $preNameCode = str_replace('-', '', $businessInfo['business_url']);
+                $preNameCode = strtoupper(substr($preNameCode, 0,4));
+                $dateCode = date('Y-m-d');
+                $dateCode = str_replace('-', '', $dateCode);
+
+                $codeName = $preNameCode.$dateCode;
+                $numOfCode = $this->Mcustomerreservations->getCount(array('code_name' => $codeName));
+                $genCode = $codeName.(1000 + $numOfCode + 1);
+                
+                $postData['book_code'] = $genCode;
                 $postData['created_at'] = getCurentDateTime();
                 $postData['created_by'] = 0;
                 $postData['date_arrived'] = ddMMyyyy($postData['date_arrived'], 'Y/m/d');
@@ -130,11 +135,11 @@ class Reservation extends MY_Controller
                 $bookId = $this->Mcustomerreservations->save($postData);
                 if($bookId > 0){
                     $this->session->set_flashdata('book_success', '1');
-                    redirect('business/'.$businessUrl.'/reservation?1');
+                    redirect('business/'.$businessInfo['business_url'].'/reservation?1');
                 }else{
                     $this->session->set_flashdata('notice_message', "Business profile not exist");
                     $this->session->set_flashdata('notice_type', 'success');
-                    redirect('business/'.$businessUrl.'/reservation?2');
+                    redirect('business/'.$businessInfo['business_url'].'/reservation?2');
                 }
               
             } else {
@@ -144,9 +149,41 @@ class Reservation extends MY_Controller
             }
         } catch (Exception $e) {
           
-            $this->session->set_flashdata('notice_message', $e->getMessage());
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'success');
             redirect(base_url(HOME_URL));
+        }
+    }
+
+    public function changeAllowBook()
+    {
+        try {
+            $this->loadModel(array('Mconfigs', 'Mbusinessprofiles'));
+
+            $postData = $this->arrayFromPost(array('business_id', 'allow_book'));
+
+            $message = "Turn off";
+            if($postData['allow_book'] == STATUS_ACTIVED){
+                $message = "Turn on";
+            }
+
+            $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id']), 'id', 0);
+            if ($businessProfileId > 0) {
+
+                $postData['updated_at'] = getCurentDateTime();
+                unset($postData['business_id']);
+ 
+                $businessId = $this->Mbusinessprofiles->save($postData, $businessProfileId);
+                if($businessId > 0){
+                    echo json_encode(array('code' => 1, 'message' => $message." receive reservations successfully")); die;
+                }else{
+                    echo json_encode(array('code' => 0, 'message' => $message." receive reservations failed")); die;
+                }
+            } else {
+                echo json_encode(array('code' => 0, 'message' => "Business profile not exist")); die;
+            }
+        } catch (Exception $e) {
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE)); die;
         }
     }
 }

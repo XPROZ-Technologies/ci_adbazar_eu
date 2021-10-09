@@ -19,65 +19,65 @@
                   <div class="d-flex justify-content-end">
                     <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                       <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                      <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">>
+                      <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>" >
                     </form>
                   </div>
 
                   <?php if (!empty($lists) > 0) { ?>
-                  <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
-                    
-                    <div class="d-flex align-items-center inner-filter">
-                      <span class="me-2 page-text-lg fw-bold">Filter by</span>
-                      <div class="notification-filter">
-                        <div class="custom-select">
+                    <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
+
+                      <div class="d-flex align-items-center inner-filter">
+                        <span class="me-2 page-text-lg fw-bold">Filter by</span>
+                        <div class="notification-filter">
+                          <div class="custom-select">
+                            <select>
+                              <option value="0" selected>All</option>
+                              <option value="1">Personal</option>
+                              <option value="2">The Rice Bowl</option>
+                              <option value="3">Inspire Beauty Salon</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="d-flex align-items-center notification-sort">
+                        <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
+                        <div class="custom-select mb-0 choose-order">
                           <select>
-                            <option value="0" selected>All</option>
-                            <option value="1">Personal</option>
-                            <option value="2">The Rice Bowl</option>
-                            <option value="3">Inspire Beauty Salon</option>
+                            <option value="desc" selected>Newest</option>
+                            <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
+                                                  echo 'selected="selected"';
+                                                } ?>>Oldest</option>
                           </select>
                         </div>
                       </div>
                     </div>
 
-                    <div class="d-flex align-items-center notification-sort">
-                      <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
-                      <div class="custom-select mb-0 choose-order">
-                        <select>
-                        <option value="desc" selected>Newest</option>
-                        <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
-                                              echo 'selected="selected"';
-                                            } ?>>Oldest</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="bp-event-list bm-event-list">
-                    <?php foreach ($lists as $key => $eventItem) {
+                    <div class="bp-event-list bm-event-list">
+                      <?php foreach ($lists as $key => $eventItem) {
                         $eventDetailUrl = base_url('event/' . makeSlug($eventItem['event_subject']) . '-' . $eventItem['id']) . '.html'; ?>
-                    <div class="position-elative">
-                      <a href="<?php echo $eventDetailUrl; ?>" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
-                        <span class="event-img">
-                          <img src="<?php echo $eventItem['event_image']; ?>" alt="<?php echo $eventItem['event_subject']; ?>">
-                        </span>
-                        <div class="event-text">
-                          <span class="event-header page-text-lg fw-500"><?php echo $eventItem['event_subject']; ?></span>
-                          <p class="mb-0">By <?php echo $eventItem['business_name']; ?></p>
-                          <hr class="my-2 my-lg-3">
-                          <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?></p>
-                          <p class="mb-0 event-time page-text-sm"><?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
+                        <div class="position-elative">
+                          <a href="<?php echo $eventDetailUrl; ?>" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
+                            <span class="event-img">
+                              <img src="<?php echo $eventItem['event_image']; ?>" alt="<?php echo $eventItem['event_subject']; ?>">
+                            </span>
+                            <div class="event-text">
+                              <span class="event-header page-text-lg fw-500"><?php echo $eventItem['event_subject']; ?></span>
+                              <p class="mb-0">By <?php echo $eventItem['business_name']; ?></p>
+                              <hr class="my-2 my-lg-3">
+                              <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?></p>
+                              <p class="mb-0 event-time page-text-sm"><?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
 
-                          <div class="badge badge-primary bm-event-status">Upcomming</div>
+                              <div class="badge badge-primary bm-event-status">Upcomming</div>
+                            </div>
+                          </a>
+                          <div class="bm-event-actions">
+                            <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
+                            <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
+                          </div>
                         </div>
-                      </a>
-                      <div class="bm-event-actions">
-                        <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline">Edit</a>
-                        <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline">Cancel</a>
-                      </div>
+                      <?php } ?>
                     </div>
-                    <?php } ?>
-                  </div>
                   <?php } else { ?>
                     <div class="zero-event zero-box">
                       <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
@@ -122,7 +122,7 @@
                         </nav>
                         <!-- End Page pagination -->
                       </div>
-                    </a>
+                    </div>
                     <!-- END. Pagination -->
                   <?php } ?>
 

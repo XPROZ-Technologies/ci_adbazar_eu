@@ -510,7 +510,7 @@ class Businessprofile extends MY_Controller
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomerreservations'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -540,11 +540,11 @@ class Businessprofile extends MY_Controller
         $data['keyword'] = $search_text;
 
         $getData = array(
-            'event_status_id' => STATUS_ACTIVED,
+            'book_status_id' => STATUS_ACTIVED,
             'search_text_fe' => $search_text,
-            'business_profile_id' => $businessProfileId
+            'customer_id' => $data['customer']['id']
         );
-        $rowCount = $this->Mevents->getCount($getData);
+        $rowCount = $this->Mcustomerreservations->getCount($getData);
         $data['lists'] = array();
 
         /**
@@ -556,7 +556,7 @@ class Businessprofile extends MY_Controller
         $pageCount = ceil($rowCount / $perPage);
         $page = $this->input->get('page');
         if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('business/' . $businessInfo['business_url'] . '/events');
+        $data['basePagingUrl'] = base_url('business/' . $businessInfo['business_url'] . '/reservation');
         $data['perPage'] = $perPage;
         $data['page'] = $page;
         $data['rowCount'] = $rowCount;
@@ -565,13 +565,9 @@ class Businessprofile extends MY_Controller
          * END - PAGINATION
          */
 
-        $data['lists'] = $this->Mevents->search($getData, $perPage, $page);
-        for ($i = 0; $i < count($data['lists']); $i++) {
-            $data['lists'][$i]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $data['lists'][$i]['business_profile_id'], 'business_status_id' => STATUS_ACTIVED), 'business_name', '');
-            $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH . $data['lists'][$i]['event_image'] : EVENTS_PATH . NO_IMAGE;
-        }
+        $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
 
-
+      
         $this->load->view('frontend/business/bp-reservation', $data);
     }
 
@@ -1717,7 +1713,7 @@ class Businessprofile extends MY_Controller
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mreservationconfigs'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mreservationconfigs', 'Mcustomerreservations'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -1747,6 +1743,42 @@ class Businessprofile extends MY_Controller
             $data['reservationConfigs'][$itemConfig['day_id']] = $itemConfig;
         }
         //echo "<pre>";print_r($data['reservationConfigs']);exit;
+
+
+        $per_page = $this->input->get('per_page');
+        $data['per_page'] = $per_page;
+        $search_text = $this->input->get('keyword');
+        $data['keyword'] = $search_text;
+
+        $getData = array(
+            'book_status_id' => STATUS_ACTIVED,
+            'search_text_fe' => $search_text,
+            'business_profile_id' => $businessProfileId
+        );
+        $rowCount = $this->Mcustomerreservations->getCount($getData);
+        $data['lists'] = array();
+
+        /**
+         * PAGINATION
+         */
+        $perPage = DEFAULT_LIMIT_BUSINESS_PROFILE;
+        //$perPage = 2;
+        if (is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
+        $pageCount = ceil($rowCount / $perPage);
+        $page = $this->input->get('page');
+        if (!is_numeric($page) || $page < 1) $page = 1;
+        $data['basePagingUrl'] = base_url('business-management/' . $businessInfo['business_url'] . '/reservations');
+        $data['perPage'] = $perPage;
+        $data['page'] = $page;
+        $data['rowCount'] = $rowCount;
+        $data['paggingHtml'] = getPaggingHtmlFront($page, $pageCount, $data['basePagingUrl'] . '?page={$1}');
+        /**
+         * END - PAGINATION
+         */
+
+        $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
+
+        
 
         $this->load->view('frontend/business/bm-reservation', $data);
     }

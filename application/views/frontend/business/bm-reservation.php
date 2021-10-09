@@ -16,7 +16,9 @@
 
                 <div class="d-flex justify-content-between reservation-config">
                   <div class="d-flex align-items-center switch-btn">
-                    <input id="reservation-config" type="checkbox" class="checkbox" checked>
+                    <input id="reservation-config" type="checkbox" class="checkbox" <?php if ($businessInfo['allow_book'] == STATUS_ACTIVED) {
+                                                                                      echo "checked";
+                                                                                    } ?>>
                     <label for="reservation-config" class="switch">
                       <span class="switch-circle">
                         <span class="switch-circle-inner"></span>
@@ -36,18 +38,19 @@
                       <label for="reservation-date" class="form-label">Select a date</label>
                       <div class="datepicker-wraper position-relative">
                         <img src="assets/img/frontend/icon-calendar.png" alt="calendar icon" class="img-fluid icon-calendar" />
-                        <input type="text" class="js-datepicker form-control datetimepicker-input" id="reservation-date" data-toggle="datetimepicker" value="October 13, 2021" />
+                        <input type="text" class="form-control datetimepicker-input" id="reservation-date" data-toggle="datetimepicker" value="October 13, 2021" />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="bg-f5">
-                  <form class="d-flex search-box">
-                    <a href="#" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                  <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
+                    <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
                   </form>
                   <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                     <div class="d-flex align-items-center inner-filter">
+                      <!--
                       <span class="me-2 page-text-lg fw-bold">Filter by</span>
                       <div class="notification-filter">
                         <div class="custom-select">
@@ -59,13 +62,16 @@
                           </select>
                         </div>
                       </div>
+                                                                                  -->
                     </div>
                     <div class="d-flex align-items-center notification-sort">
                       <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
-                      <div class="custom-select mb-0">
+                      <div class="custom-select mb-0 choose-order">
                         <select>
-                          <option value="0" selected>Newest</option>
-                          <option value="1">Oldest</option>
+                          <option value="desc" selected>Newest</option>
+                          <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
+                                                echo 'selected="selected"';
+                                              } ?>>Oldest</option>
                         </select>
                       </div>
                     </div>
@@ -82,165 +88,82 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>21/10/2021<br>10:00</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-approved">Approved</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>21/10/2021</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-declined">Declined</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>21/10/2021</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-expire">Expired</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled="">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>21/10/2021</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-approved">Approved</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>21/10/2021</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-approved">Approved</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>21/10/2021</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-approved">Approved</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>21/10/2021</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-declined">Declined</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>21/10/2021</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-expire">Expired</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled="">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>21/10/2021</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-approved">Approved</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>21/10/2021</td>
-                          <td>ABCD123</td>
-                          <td>1</td>
-                          <td><span class="badge badge-approved">Approved</span></td>
-                          <td>
-                            <div class="d-flex justify-content-center">
-                              <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                            </div>
-                          </td>
-                        </tr>
+                        <?php if (!empty($lists)) {
+                          foreach ($lists as $itemBook) { ?>
+                            <tr>
+                              <td><?php echo $itemBook['date_arrived']; ?><br><?php echo $itemBook['time_arrived']; ?></td>
+                              <td><?php echo $itemBook['book_code']; ?></td>
+                              <td><?php echo $itemBook['number_of_people']; ?></td>
+                              <td>
+                                <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
+                                  <span class="badge badge-approved">Approved</span>
+                                <?php } ?>
+                                <?php if ($itemBook['book_status_id'] == 1) { ?>
+                                  <span class="badge badge-expire">Expired</span>
+                                <?php } ?>
+                                <?php if ($itemBook['book_status_id'] == 3 || $itemBook['book_status_id'] == 4) { ?>
+                                  <span class="badge badge-declined">Declined</span>
+                                <?php } ?>
+                              </td>
+                              <td>
+                                <div class="d-flex justify-content-center">
+                                  <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
+                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
+                                  <?php } ?>
+                                  <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
+                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
+                                  <?php } ?>
+                                </div>
+                              </td>
+                            </tr>
+                        <?php }
+                        } ?>
+
                       </tbody>
                     </table>
                   </div>
 
-                  <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
-                    <div class="d-flex align-items-center pagination-left">
-                      <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500">1 – 10</span> of <span class="fw-500">50</span>
-                        results</p>
-                      <div class="page-text-sm mb-0 d-flex align-items-center">
-                        <span class="fw-500">50</span>
-                        <span class="ms-2">/</span>
-                        <div class="custom-select" style="display: none;">
-                          <select>
-                            <option value="0" selected="">10</option>
-                            <option value="1">20</option>
-                            <option value="2">30</option>
-                            <option value="3">40</option>
-                            <option value="4">50</option>
-                          </select>
-                        </div>
-                        <div class="nice-select custom-select" tabindex="0"><span class="current">10</span>
-                          <ul class="list">
-                            <li data-value="0" class="option selected">10</li>
-                            <li data-value="1" class="option">20</li>
-                            <li data-value="2" class="option">30</li>
-                            <li data-value="3" class="option">40</li>
-                            <li data-value="4" class="option">50</li>
-                          </ul>
+                  <?php if (count($lists) > 0) { ?>
+                    <!-- Pagination -->
+                    <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
+                      <div class="d-flex align-items-center pagination-left">
+                        <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                          results</p>
+                        <div class="page-text-sm mb-0 d-flex align-items-center">
+                          <div class="custom-select choose-perpage">
+                            <select>
+                              <option value="10" <?php if (isset($per_page) && $per_page == 20) {
+                                                    echo 'selected';
+                                                  } ?>>10</option>
+                              <option value="20" <?php if (isset($per_page) && $per_page == 20) {
+                                                    echo 'selected';
+                                                  } ?>>20</option>
+                              <option value="30" <?php if (isset($per_page) && $per_page == 30) {
+                                                    echo 'selected';
+                                                  } ?>>30</option>
+                              <option value="40" <?php if (isset($per_page) && $per_page == 40) {
+                                                    echo 'selected';
+                                                  } ?>>40</option>
+                              <option value="50" <?php if (isset($per_page) && $per_page == 50) {
+                                                    echo 'selected';
+                                                  } ?>>50</option>
+                            </select>
+                          </div>
+                          <span class="ms-2">/</span>
+                          <span class=""> Page</span>
                         </div>
                       </div>
+                      <div class="pagination-right">
+                        <!-- Page pagination -->
+                        <nav>
+                          <?php echo $paggingHtml; ?>
+                        </nav>
+                        <!-- End Page pagination -->
+                      </div>
                     </div>
-                    <div class="pagination-right">
-                      <!-- Page pagination -->
-                      <nav>
-                        <ul class="pagination justify-content-end mb-0">
-                          <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
-                          </li>
-                          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">4</a></li>
-                          <li class="page-item"><a class="page-link" href="#">...</a></li>
-                          <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
-                          </li>
-                        </ul>
-                      </nav>
-                      <!-- End Page pagination -->
-                    </div>
-                  </div>
+                    <!-- END. Pagination -->
+                  <?php } ?>
+
                 </div>
               </div>
             </div>
@@ -250,6 +173,7 @@
     </div>
   </div>
 </main>
+<input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
 
 <!-- Modal Config -->
@@ -355,118 +279,158 @@
 <!-- End Modal Config  -->
 
 <script>
-  // Config everday bm reservation
-  $("#config-everyday").click(function() {
-    $("input[class='weekday']").prop("checked", $(this).prop("checked"));
-    $("input[class='weekday']").addClass('saved');
-  });
+  $(document).ready(function() {
+    // Config everday bm reservation
+    $("#config-everyday").click(function() {
+      $("input[class='weekday']").prop("checked", $(this).prop("checked"));
+      $("input[class='weekday']").addClass('saved');
+    });
 
-  $("input[class='weekday']").click(function() {
-    if (!$(this).prop("checked")) {
-      $("#config-everyday").prop("checked", false);
-      $("input[class='weekday']").removeClass('saved');
-    }
-  });
+    $("input[class='weekday']").click(function() {
+      if (!$(this).prop("checked")) {
+        $("#config-everyday").prop("checked", false);
+        $("input[class='weekday']").removeClass('saved');
+      }
+    });
 
-  $(".weekday").click(function() {
-    var business_id = $("#businessId").val();
-    var day_id = $(this).data('id');
-    $('#selecteDay').val(day_id);
+    $(".weekday").click(function() {
+      var business_id = $("#businessId").val();
+      var day_id = $(this).data('id');
+      $('#selecteDay').val(day_id);
 
-    $(".weekday").prop('checked', false);
-    $(this).prop('checked', true);
+      $(".weekday").prop('checked', false);
+      $(this).prop('checked', true);
 
-    $("#config-everyday").prop('checked', false);
+      $("#config-everyday").prop('checked', false);
 
-    /* clear data */
-    $("#maxPeople").val("");
-    $("#maxPerReservation").val("");
-    $("#duration").val("");
-    $("#startTime").val("");
-    $("#endTime").val("");
+      /* clear data */
+      $("#maxPeople").val("");
+      $("#maxPerReservation").val("");
+      $("#duration").val("");
+      $("#startTime").val("");
+      $("#endTime").val("");
 
-    if (day_id !== '') {
+      if (day_id !== '') {
+        $.ajax({
+          type: 'POST',
+          url: '<?php echo base_url('business-management/get-reservation-config'); ?>',
+          data: {
+            day_id: day_id,
+            business_id: business_id
+          },
+          dataType: "json",
+          success: function(json) {
+            if (json.code == 1) {
+              /* console.log(json.data); */
+              var configData = json.data;
+
+              /* load data */
+              $("#maxPeople").val(configData.max_people);
+              $("#maxPerReservation").val(configData.max_per_reservation);
+              $("#duration").val(configData.duration);
+              $("#startTime").val(configData.start_time);
+              $("#endTime").val(configData.end_time);
+
+            }
+          },
+          error: function(json) {
+            $(".notiPopup .text-secondary").html("Reply review failed");
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          }
+        });
+      } else {
+        $(".notiPopup .text-secondary").html("Selected day not exist");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      }
+    });
+
+
+    /* Save config */
+    $(".btn-save-config").click(function() {
+      var business_id = $("#businessId").val();
+      var day_id = $("#selecteDay").val();
+
+      var isAll = 0;
+      if ($("#config-everyday").is(":checked")) {
+        isAll = 1;
+      }
+
+      /* clear data */
+      var max_people = $("#maxPeople").val();
+      var max_per_reservation = $("#maxPerReservation").val();
+      var duration = $("#duration").val();
+      var start_time = $("#startTime").val();
+      var end_time = $("#endTime").val();
+
+      if (max_people == '' || max_per_reservation == '' || duration == '' || start_time == '' || end_time == '') {
+        $(".notiPopup .text-secondary").html("Please fulfill information");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      }
+
+      if (day_id !== '') {
+        $.ajax({
+          type: 'POST',
+          url: '<?php echo base_url('business-management/save-reservation-config'); ?>',
+          data: {
+            day_id: day_id,
+            business_id: business_id,
+            max_people: max_people,
+            max_per_reservation: max_per_reservation,
+            duration: duration,
+            start_time: start_time,
+            end_time: end_time,
+            isAll: isAll
+          },
+          dataType: "json",
+          success: function(json) {
+            if (json.code == 1) {
+              $(".notiPopup .text-secondary").html("Save config successfully");
+              $(".ico-noti-success").removeClass('ico-hidden');
+              $(".notiPopup").fadeIn('slow').fadeOut(4000);
+
+            } else {
+              $(".notiPopup .text-secondary").html(json.message);
+              $(".ico-noti-error").removeClass('ico-hidden');
+              $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            }
+          },
+          error: function(json) {
+            $(".notiPopup .text-secondary").html("Save config failed 2");
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          }
+        });
+      } else {
+        $(".notiPopup .text-secondary").html("Save config failed 1");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      }
+    });
+
+
+    //on-off receive notification
+    $("#reservation-config").on('change', function() {
+      var statusReservation = 1
+      if ($(this).is(":checked")) {
+        statusReservation = 2;
+      }
+      console.log(statusReservation);
+      var business_id = $("#businessId").val();
+
       $.ajax({
         type: 'POST',
-        url: '<?php echo base_url('business-management/get-reservation-config'); ?>',
+        url: '<?php echo base_url('business-management/change-allow-book'); ?>',
         data: {
-          day_id: day_id,
+          allow_book: statusReservation,
           business_id: business_id
         },
         dataType: "json",
         success: function(json) {
           if (json.code == 1) {
-            /* console.log(json.data); */
-            var configData = json.data;
-
-            /* load data */
-            $("#maxPeople").val(configData.max_people);
-            $("#maxPerReservation").val(configData.max_per_reservation);
-            $("#duration").val(configData.duration);
-            $("#startTime").val(configData.start_time);
-            $("#endTime").val(configData.end_time);
-
-          } else {
             $(".notiPopup .text-secondary").html(json.message);
-            $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
-          }
-        },
-        error: function(json) {
-          $(".notiPopup .text-secondary").html("Reply review failed");
-          $(".ico-noti-error").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
-        }
-      });
-    } else {
-      $(".notiPopup .text-secondary").html("Selected day not exist");
-      $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(4000);
-    }
-  });
-
-
-  /* Save config */
-  $(".btn-save-config").click(function() {
-    var business_id = $("#businessId").val();
-    var day_id = $("#selecteDay").val();
-
-    var isAll = 0;
-    if($("#config-everyday").is(":checked")){
-      isAll = 1;
-    }
-
-    /* clear data */
-    var max_people = $("#maxPeople").val();
-    var max_per_reservation = $("#maxPerReservation").val();
-    var duration = $("#duration").val();
-    var start_time = $("#startTime").val();
-    var end_time = $("#endTime").val();
-
-    if(max_people == '' || max_per_reservation == '' || duration == '' || start_time == '' || end_time == ''){
-      $(".notiPopup .text-secondary").html("Please fulfill information");
-      $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(4000);
-    }
-
-    if (day_id !== '') {
-      $.ajax({
-        type: 'POST',
-        url: '<?php echo base_url('business-management/save-reservation-config'); ?>',
-        data: {
-          day_id: day_id,
-          business_id: business_id,
-          max_people: max_people,
-          max_per_reservation: max_per_reservation,
-          duration: duration,
-          start_time: start_time,
-          end_time: end_time,
-          isAll: isAll
-        },
-        dataType: "json",
-        success: function(json) {
-          if (json.code == 1) {
-            $(".notiPopup .text-secondary").html("Save config successfully");
             $(".ico-noti-success").removeClass('ico-hidden');
             $(".notiPopup").fadeIn('slow').fadeOut(4000);
 
@@ -477,16 +441,35 @@
           }
         },
         error: function(json) {
-          $(".notiPopup .text-secondary").html("Save config failed");
+          $(".notiPopup .text-secondary").html("Change status failed");
           $(".ico-noti-error").removeClass('ico-hidden');
           $(".notiPopup").fadeIn('slow').fadeOut(4000);
         }
       });
-    } else {
-      $(".notiPopup .text-secondary").html("Save config failed");
-      $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(4000);
-    }
-  });
+    });
 
+    // change date 
+
+    $("#reservation-date").datetimepicker({
+      format: "MMMM DD, YYYY",
+      allowInputToggle: true,
+      // inline: true,
+      // debug: true,
+      // allowMultidate: true,
+      // multidateSeparator: ',',
+      icons: {
+        time: "bi bi-clock",
+        date: "bi bi-calendar2-check-fillr",
+        up: "bi bi-chevron-up",
+        down: "bi bi-chevron-down",
+        previous: "bi bi-chevron-left",
+        next: "bi bi-chevron-right",
+      },
+    });
+
+    $('#reservation-date').on('dp.change', function(e) {
+      var formatedValue = e.date.format(e.date._f);
+      console.log(formatedValue);
+    });
+  });
 </script>

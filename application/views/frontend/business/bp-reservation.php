@@ -19,9 +19,9 @@
                     <a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/book-reservation'); ?>" class="btn btn-red">Book a reservation</a>
                   </div>
                   <div class="bg-f5">
-                    <form class="d-flex search-box">
-                      <a href="#" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                    <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
+                      <a  href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                      <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
                     </form>
 
                     <div class="table-responsive reservation-table">
@@ -37,166 +37,83 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-declined">Declined</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-expire">Expired</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-declined">Declined</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-expire">Expired</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>21/10/2021</td>
-                            <td>10:00</td>
-                            <td>ABCD123</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
-                              </div>
-                            </td>
-                          </tr>
+                          <?php if (!empty($lists)) {
+                            foreach ($lists as $itemBook) { ?>
+                              <tr>
+                                <td><?php echo $itemBook['date_arrived']; ?></td>
+                                <td><?php echo $itemBook['time_arrived']; ?></td>
+                                <td><?php echo $itemBook['book_code']; ?></td>
+                                <td><?php echo $itemBook['number_of_people']; ?></td>
+                                <td>
+                                  <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
+                                    <span class="badge badge-approved">Approved</span>
+                                  <?php } ?>
+                                  <?php if ($itemBook['book_status_id'] == 1) { ?>
+                                    <span class="badge badge-expire">Expired</span>
+                                  <?php } ?>
+                                  <?php if ($itemBook['book_status_id'] == 3 || $itemBook['book_status_id'] == 4) { ?>
+                                    <span class="badge badge-declined">Declined</span>
+                                  <?php } ?>
+                                </td>
+                                <td>
+                                  <div class="d-flex justify-content-center">
+                                    <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
+                                      <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold">Cancel</button>
+                                    <?php } ?>
+                                    <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
+                                      <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
+                                    <?php } ?>
+                                  </div>
+                                </td>
+                              </tr>
+                          <?php }
+                          } ?>
+                          
                         </tbody>
                       </table>
                     </div>
 
-                    <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
-                      <div class="d-flex align-items-center pagination-left">
-                        <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500">1 – 10</span> of <span class="fw-500">50</span>
-                          results</p>
-                        <div class="page-text-sm mb-0 d-flex align-items-center">
-                          <span class="fw-500">50</span>
-                          <span class="ms-2">/</span>
-                          <div class="custom-select">
-                            <select>
-                              <option value="0" selected>10</option>
-                              <option value="1">20</option>
-                              <option value="2">30</option>
-                              <option value="3">40</option>
-                              <option value="4">50</option>
-                            </select>
+                    <?php if (count($lists) > 0) { ?>
+                      <!-- Pagination -->
+                      <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
+                        <div class="d-flex align-items-center pagination-left">
+                          <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                            results</p>
+                          <div class="page-text-sm mb-0 d-flex align-items-center">
+                            <div class="custom-select choose-perpage">
+                              <select>
+                                <option value="10" <?php if (isset($per_page) && $per_page == 20) {
+                                                      echo 'selected';
+                                                    } ?>>10</option>
+                                <option value="20" <?php if (isset($per_page) && $per_page == 20) {
+                                                      echo 'selected';
+                                                    } ?>>20</option>
+                                <option value="30" <?php if (isset($per_page) && $per_page == 30) {
+                                                      echo 'selected';
+                                                    } ?>>30</option>
+                                <option value="40" <?php if (isset($per_page) && $per_page == 40) {
+                                                      echo 'selected';
+                                                    } ?>>40</option>
+                                <option value="50" <?php if (isset($per_page) && $per_page == 50) {
+                                                      echo 'selected';
+                                                    } ?>>50</option>
+                              </select>
+                            </div>
+                            <span class="ms-2">/</span>
+                            <span class=""> Page</span>
                           </div>
                         </div>
+                        <div class="pagination-right">
+                          <!-- Page pagination -->
+                          <nav>
+                            <?php echo $paggingHtml; ?>
+                          </nav>
+                          <!-- End Page pagination -->
+                        </div>
                       </div>
-                      <div class="pagination-right">
-                        <!-- Page pagination -->
-                        <nav>
-                          <ul class="pagination justify-content-end mb-0">
-                            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
-                            </li>
-                          </ul>
-                        </nav>
-                        <!-- End Page pagination -->
-                      </div>
-                    </div>
+                      <!-- END. Pagination -->
+                    <?php } ?>
+
                   </div>
                 </div>
               </div>
@@ -239,8 +156,8 @@
 <script>
   $(window).ready(() => {
     <?php
-      $bookSuccess = $this->session->flashdata('book_success');
-      if (!empty($bookSuccess)) {
+    $bookSuccess = $this->session->flashdata('book_success');
+    if (!empty($bookSuccess)) {
     ?>
       $("#reservationModal").modal('show');
     <?php } ?>

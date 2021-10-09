@@ -8706,6 +8706,10 @@ video {
     background: #FF7272;
     color: #ffffff; 
 }
+.bm-modal-config .weekdays-selector input[type=checkbox]:checked + label {
+  background: #FF7272;
+  color: #ffffff; 
+}
 /*
 .bm-modal-config .weekdays-selector input[type=checkbox]:checked + label {
   background: #C20000;

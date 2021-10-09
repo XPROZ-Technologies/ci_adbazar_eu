@@ -27,7 +27,7 @@
                           <li class="list-inline-item"><a href="<?php echo $configs['TWITTER_URL']; ?>"><img src="assets/img/frontend/ic-twitter-footer.png" alt="icon twitter"></a></li>
                           <li class="list-inline-item"><a href="<?php echo $configs['PINTEREST_URL']; ?>"><img src="assets/img/frontend/ic-pinterest.png" alt="icon pinterest"></a></li>
                       </ul>
-                      <img src="assets/img/frontend/paypal.jpeg" alt="paypal-img" class="img-fluid d-block mx-auto img-paypal">
+                      <img src="assets/img/frontend/paypal-logo.png" alt="paypal-img" class="img-fluid d-block mx-auto img-paypal">
                       <ul class="list-unstyled list-inline page-text-md list-links mb-0">
                           <li class="list-inline-item"><a href="<?php echo base_url('term-of-use.html'); ?>">Term of use</a></li>
                           <li class="list-inline-item"><a href="<?php echo base_url('privacy-policy.html'); ?>">Privacy Policy</a></li>

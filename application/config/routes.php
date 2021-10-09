@@ -236,6 +236,7 @@ $route['business-management/(:any)/edit'] = 'frontend/businessprofile/manage_pro
 //manage reservation
 $route['business-management/get-reservation-config'] = 'frontend/reservation/getReservation';
 $route['business-management/save-reservation-config'] = 'frontend/reservation/saveReservation';
+$route['business-management/change-allow-book'] = 'frontend/reservation/changeAllowBook';
 
 
 
