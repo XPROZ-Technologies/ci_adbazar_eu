@@ -2688,6 +2688,13 @@ span.switch-left {
     width: 16px;
     margin-left: 8px;
 }
+.fc-day-future {
+    cursor: pointer;
+}
+.fc-day-past {
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
 @media (min-width: 1366px){
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
         max-width: 1320px;

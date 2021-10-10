@@ -119,12 +119,12 @@ class Reservation extends MY_Controller
                 
                 $preNameCode = str_replace('-', '', $businessInfo['business_url']);
                 $preNameCode = strtoupper(substr($preNameCode, 0,4));
-                $dateCode = date('Y-m-d');
+                $dateCode = date('m-d');
                 $dateCode = str_replace('-', '', $dateCode);
 
                 $codeName = $preNameCode.$dateCode;
                 $numOfCode = $this->Mcustomerreservations->getCount(array('code_name' => $codeName));
-                $genCode = $codeName.(1000 + $numOfCode + 1);
+                $genCode = $codeName.'-'.(1000 + $numOfCode + 1);
                 
                 $postData['book_code'] = $genCode;
                 $postData['created_at'] = getCurentDateTime();
@@ -135,11 +135,12 @@ class Reservation extends MY_Controller
                 $bookId = $this->Mcustomerreservations->save($postData);
                 if($bookId > 0){
                     $this->session->set_flashdata('book_success', '1');
-                    redirect('business/'.$businessInfo['business_url'].'/reservation?1');
+                    $_SESSION['book'] = $bookId;
+                    redirect('business/'.$businessInfo['business_url'].'/reservation');
                 }else{
                     $this->session->set_flashdata('notice_message', "Business profile not exist");
                     $this->session->set_flashdata('notice_type', 'success');
-                    redirect('business/'.$businessInfo['business_url'].'/reservation?2');
+                    redirect('business/'.$businessInfo['business_url'].'/reservation');
                 }
               
             } else {
@@ -181,6 +182,58 @@ class Reservation extends MY_Controller
                 }
             } else {
                 echo json_encode(array('code' => 0, 'message' => "Business profile not exist")); die;
+            }
+        } catch (Exception $e) {
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE)); die;
+        }
+    }
+
+    public function customerCancelReservation(){
+        try {
+            $this->loadModel(array('Mconfigs', 'Mbusinessprofiles', 'Mcustomerreservations'));
+
+            $postData = $this->arrayFromPost(array('business_id', 'book_id'));
+
+            $bookId = $this->Mcustomerreservations->getFieldValue(array('id' => $postData['book_id'], 'business_profile_id' => $postData['business_id']), 'id', 0);
+            if ($bookId > 0) {
+
+                $updateData['book_status_id'] = 3; // Cancelled by customer
+                $updateData['updated_at'] = getCurentDateTime();
+                
+                $bookId = $this->Mcustomerreservations->save($updateData, $bookId);
+                if($bookId > 0){
+                    echo json_encode(array('code' => 1, 'message' => "Your reservation has been cancelled")); die;
+                }else{
+                    echo json_encode(array('code' => 0, 'message' => "Cancellation failed")); die;
+                }
+            } else {
+                echo json_encode(array('code' => 0, 'message' => "Reservation not exist")); die;
+            }
+        } catch (Exception $e) {
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE)); die;
+        }
+    }
+
+    public function businessDeclineReservation(){
+        try {
+            $this->loadModel(array('Mconfigs', 'Mbusinessprofiles', 'Mcustomerreservations'));
+
+            $postData = $this->arrayFromPost(array('business_id', 'book_id'));
+
+            $bookId = $this->Mcustomerreservations->getFieldValue(array('id' => $postData['book_id'], 'business_profile_id' => $postData['business_id']), 'id', 0);
+            if ($bookId > 0) {
+
+                $updateData['book_status_id'] = 4; // Declined by business
+                $updateData['updated_at'] = getCurentDateTime();
+                
+                $bookId = $this->Mcustomerreservations->save($updateData, $bookId);
+                if($bookId > 0){
+                    echo json_encode(array('code' => 1, 'message' => "Reservation has been declined")); die;
+                }else{
+                    echo json_encode(array('code' => 0, 'message' => "Declined failed")); die;
+                }
+            } else {
+                echo json_encode(array('code' => 0, 'message' => "Reservation not exist")); die;
             }
         } catch (Exception $e) {
             echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE)); die;

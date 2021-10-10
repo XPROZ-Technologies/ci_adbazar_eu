@@ -25,7 +25,7 @@
 
                       <?php if (!empty($serviceTypes)) {
                         for ($i = 0; $i < count($serviceTypes); $i++) { ?>
-                          <li class="list-inline-item page-text-xs fw-500"><a href="<?php echo $baseServiceUrl; ?>"><?php echo $serviceTypes[$i]['service_type_name']; ?></a></li>
+                          <li class="list-inline-item page-text-xs fw-500 li_service_type <?php if(isset($service_types) && in_array($serviceTypes[$i]['id'], $service_types)){ echo "selected"; } ?>"><a class="service_type_selected" data-id="<?php echo $serviceTypes[$i]['id']; ?>" href="javascript:void(0)"><?php echo $serviceTypes[$i]['service_type_name']; ?></a></li>
                       <?php }
                       } ?>
                     </ul>
@@ -133,3 +133,21 @@
 </main>
 <input type="hidden" id="currentBaseUrl" value="<?php echo $baseServiceUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
+<script>
+  $(document).ready(function() {
+    $("body").on('click', '.service_type_selected', function(){
+      $(this).parent('li').addClass('selected');
+      var keySearch = '';
+      if($(".li_service_type").hasClass('selected')) {
+        $(".selected .service_type_selected").each(function() {
+          keySearch += $(this).attr('data-id')+',';
+        })
+      }
+      var repKeySearch = keySearch.replace(/,*$/, "")
+      var splitSearch = window.location.search.split("&");
+      console.log(window.location.search)
+      var search = splitSearch[0]+'&'+splitSearch[1]+'&service_types='+repKeySearch;
+      //window.location.href = window.location.origin+window.location.pathname+search
+    })
+  })
+</script>

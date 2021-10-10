@@ -68,6 +68,8 @@ class Service extends MY_Controller {
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
+        $service_types = $this->input->get('service_types');
+        $data['service_types'] =  explode(',', $service_types);
         
         $getData = array('service_id' => $serviceId, 'business_status_id' => STATUS_ACTIVED, 'search_text_fe' => $search_text);
         $rowCount = $this->Mbusinessprofiles->getCount($getData);

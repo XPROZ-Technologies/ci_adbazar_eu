@@ -543,9 +543,9 @@ class Businessprofile extends MY_Controller
         $data['keyword'] = $search_text;
 
         $getData = array(
-            'book_status_id' => STATUS_ACTIVED,
             'search_text_fe' => $search_text,
-            'customer_id' => $data['customer']['id']
+            'customer_id' => $data['customer']['id'],
+            'business_profile_id' => $businessInfo['id']
         );
         $rowCount = $this->Mcustomerreservations->getCount($getData);
         $data['lists'] = array();
@@ -570,7 +570,13 @@ class Businessprofile extends MY_Controller
 
         $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
 
-      
+        $data['bookInfo'] = array();
+        if(isset($_SESSION['book'])){
+            $book_id = $_SESSION['book'];
+            $data['bookInfo'] = $this->Mcustomerreservations->get($book_id);
+            //echo "<pre>";print_r($data['bookInfo']);die;
+        }
+        
         $this->load->view('frontend/business/bp-reservation', $data);
     }
 
@@ -586,7 +592,7 @@ class Businessprofile extends MY_Controller
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array( 'Mconfigs', 'Mbusinessprofiles', 'Mphonecodes'));
+        $this->loadModel(array( 'Mconfigs', 'Mbusinessprofiles', 'Mphonecodes', 'Mreservationconfigs'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -616,6 +622,17 @@ class Businessprofile extends MY_Controller
         $data['businessInfo'] = $businessInfo;
 
         $data['phoneCodes'] = $this->Mphonecodes->get();
+
+        $day_id = date('N') - 1;
+        
+        $configTimes = $this->Mreservationconfigs->getBy(array('day_id' => $day_id, 'business_profile_id' => $businessProfileId));
+
+        $data['configTimes'] = $configTimes['0'];
+
+        $data['listHours'] = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration'], true);
+
+        //echo "<pre>";print_r($listHours);exit;
+        //echo date('Y-m-d', strtotime('October 09, 2021'));die;
 
         $this->load->view('frontend/business/bp-reservation-book', $data);
     }
@@ -1752,9 +1769,11 @@ class Businessprofile extends MY_Controller
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
+        $selected_day = $this->input->get('selected_day');
+        $data['selected_day'] = $selected_day;
 
         $getData = array(
-            'book_status_id' => STATUS_ACTIVED,
+            'date_arrived' => $selected_day,
             'search_text_fe' => $search_text,
             'business_profile_id' => $businessProfileId
         );

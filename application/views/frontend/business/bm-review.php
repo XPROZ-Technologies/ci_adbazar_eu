@@ -17,18 +17,24 @@
                 <div class="col-review">
                   <div class="d-flex flex-column justify-content-center align-items-center overall-rate">
                     <h5 class="page-title-xs">Overall rating</h5>
+
                     <div class="d-flex align-items-center mb-14">
-                      <div class="star-rating on line relative">
-                        <div class="star-base">
-                          <div class="star-rate" data-rate="<?php echo $overall_rating; ?>"></div>
-                          <a dt-value="1" href="#1"></a>
-                          <a dt-value="2" href="#2"></a>
-                          <a dt-value="3" href="#3"></a>
-                          <a dt-value="4" href="#4"></a>
-                          <a dt-value="5" href="#5"></a>
+                      <?php if (!empty($lists) > 0) { ?>
+                        <div class="star-rating on line relative">
+                          <div class="star-base">
+                            <div class="star-rate" data-rate="<?php echo $overall_rating; ?>"></div>
+                            <a dt-value="1" href="#1"></a>
+                            <a dt-value="2" href="#2"></a>
+                            <a dt-value="3" href="#3"></a>
+                            <a dt-value="4" href="#4"></a>
+                            <a dt-value="5" href="#5"></a>
+                          </div>
                         </div>
-                      </div>
+                      <?php } else { ?>
+                        No reviews
+                      <?php } ?>
                     </div>
+
                   </div>
                 </div>
 
@@ -171,7 +177,7 @@
                               <?php if (empty($itemReview['business_comment'])) { ?>
                                 <a href="javascript:void(0)" title="" class="btn btn-red d-inline-block reply-comment" data-review="<?php echo $itemReview['id']; ?>">Reply</a>
                               <?php } ?>
-                              <a href="javascript:void(0)" title="" class="btn btn-outline-red d-inline-block delete-comment" data-review="<?php echo $itemReview['id']; ?>" ><img src="assets/img/frontend/icon-del.png" alt=""> Delete</a>
+                              <a href="javascript:void(0)" title="" class="btn btn-outline-red d-inline-block delete-comment" data-review="<?php echo $itemReview['id']; ?>"><img src="assets/img/frontend/icon-del.png" alt=""> Delete</a>
                             </div>
 
                           </div>
@@ -300,7 +306,7 @@
       var business_id = $("#businessId").val();
       var review_id = $(this).data('id');
       var business_comment = editorGroup[review_id].getData();
-      
+
       if (review_id == 0) {
         $(".notiPopup .text-secondary").html("Review not exist");
         $(".ico-noti-error").removeClass('ico-hidden');
