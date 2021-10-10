@@ -59,7 +59,7 @@ class Service extends MY_Controller {
         $data['serviceInfo'] = $this->Mservices->get($serviceId, true, '', "{$service_name} as service_name, id, service_name_en as service_slug");
 
         $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
-        $data['serviceTypes'] = $this->Mservicetypes->getBy(array('service_id' => $serviceId), false, "display_order", "{$service_type_name} as service_type_name, id");
+        $data['serviceTypes'] = $this->Mservicetypes->getBy(array('service_id' => $serviceId), false, "display_order", "{$service_type_name} as service_type_name, id", 0, 0, 'asc');
         
         $per_page = $this->input->get('per_page');
         $data['per_page'] = $per_page;
@@ -69,17 +69,18 @@ class Service extends MY_Controller {
         $data['service_types'] = array();
         if(!empty($service_types)){
             $data['service_types'] =  explode(',', $service_types);
+        } else {
+            $data['service_types'] = [];
         }
-        //print_r( $data['service_types']);die; 
+        
         //filter with service types
         $businessProfileIds = array();
         if(!empty($data['service_types']) && count($data['service_types']) > 0){
             $listBusiness = $this->Mbusinessservicetype->search(array('service_type_ids' => $data['service_types'])); 
             foreach ($listBusiness as $itemBusiness) {
-                $businessProfileIds[] = $itemBusiness['id'];
+                $businessProfileIds[] = $itemBusiness['business_profile_id'];
             }
         }
-
         $getData = array(
             'service_id' => $serviceId, 
             'business_status_id' => STATUS_ACTIVED, 

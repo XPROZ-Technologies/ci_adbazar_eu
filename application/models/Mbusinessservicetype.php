@@ -49,7 +49,10 @@ class Mbusinessservicetype extends MY_Model {
     private function buildQuery($postData){
         $query = '';
         
-        if(isset($postData['service_type_ids']) && count($postData['service_type_ids']) > 0) $query.=" AND `service_type_id` IN (".implode(',', $postData['service_type_ids']).")";
+        if(isset($postData['service_type_ids']) && count($postData['service_type_ids']) > 0) {
+            $ids = join(",",$postData['service_type_ids']);
+            $query.=" AND `service_type_id` IN (".$ids.")";
+        }
         
         return $query;
     }
