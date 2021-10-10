@@ -6,18 +6,21 @@ $(document).ready(function() {
     $(".customer-location-list").html('');
     var current_page = 1;
     var records_per_page = 4;
-    loadProfile($("select#selectServiceMap").val(), $("input#search_text").val(), current_page, records_per_page);
+    var searchText = $("input#search_text").val();
+    loadProfile($("select#selectServiceMap").val(), searchText.trim(), current_page, records_per_page);
 
     $("body").on('click', 'a.page-link-click', function() {
         var page = parseInt($(this).attr('data-page'));
-        loadProfile($("select#selectServiceMap").val(), $("input#search_text").val(), page, records_per_page)
+        searchText = $("input#search_text").val();
+        loadProfile($("select#selectServiceMap").val(), searchText.trim(), page, records_per_page)
     }).on("click", ".customer-location-dropdown li.option", function(){
         var selectServiceMapId = $(this).data('value');
-        loadProfile(selectServiceMapId, $("input#search_text").val(), current_page, records_per_page)
+        searchText = $("input#search_text").val();
+        loadProfile(selectServiceMapId, searchText.trim(), current_page, records_per_page)
     }).on('keyup', 'input#search_text', function() {
         setTimeout(function(){ 
-            var searchText = $("input#search_text").val();
-            loadProfile($("select#selectServiceMap").val(), searchText, current_page, records_per_page)
+            searchText = $("input#search_text").val();
+            loadProfile($("select#selectServiceMap").val(), searchText.trim(), current_page, records_per_page)
         }, 1000);
     });
 });
@@ -135,6 +138,7 @@ jQuery(function() {
     
         
     jQuery.each( listProfilesMap, function(i, item) {
+
         var infowindow = new google.maps.InfoWindow({
             content: ''
         });
@@ -235,8 +239,11 @@ jQuery(function() {
             map: map,
             icon: iconMap,
         });
-        infowindow.setContent(infoMap);
-        infowindow.open(map,marker);
+        if(parseInt(service_id) != 0 || search_text_fe != ""){
+            infowindow.setContent(infoMap);
+            infowindow.open(map,marker);
+        }
+        
         //console.log(item)
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.close();
