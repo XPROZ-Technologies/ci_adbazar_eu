@@ -120,7 +120,7 @@
                                                 <?php $this->Mconstants->selectNumber(0, 100, 'display_order_0', 1, true); ?>
                                     		</td>
                                     		<td class="actions" service-type-id="0">
-                                                <a href="javascript:void(0)" id="link_add" title="Cập nhật"><i class="fa fa-save"></i></a>&nbsp;
+                                                <a href="javascript:void(0)" id="link_add" status-id="0" title="Cập nhật"><i class="fa fa-save"></i></a>&nbsp;
                                                 <a href="javascript:void(0)" id="link_cancel" title="Thôi"><i class="fa fa-times"></i></a>
                                             </td>
                                     	</tr>

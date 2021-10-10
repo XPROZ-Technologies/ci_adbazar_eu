@@ -30,6 +30,7 @@ app.library = function() {
 
 app.handle = function(serviceId) {
     $("body").on('click', '#link_add', function(){
+        var statusId = $(this).attr('status-id');
         var $this = $(this).parent().parent().find('td');
         var htmlServiceType = '<div class="tab-content">';
         var flag = true;
@@ -62,8 +63,8 @@ app.handle = function(serviceId) {
         var html = '<tr class="htmlServiceTypes">';
     	html += '<td>'+htmlServiceType+'</td>';
         html += '<td>'+displayOrder+'</td>';
-    	html += '<td service-type-id="'+serviceTypeId+'"><a href="javascript:void(0)" class="link_edit" title="Update"><i class="fa fa-pencil"></i></a>&nbsp;';
-        html += '<a href="javascript:void(0)" class="link_delete" title="Delete"><i class="fa fa-times"></i></a></td>';
+    	html += '<td service-type-id="'+serviceTypeId+'"><a href="javascript:void(0)" status-id="'+statusId+'" class="link_edit" title="Update"><i class="fa fa-pencil"></i></a>&nbsp;';
+        html += '<a href="javascript:void(0)" status-id="'+statusId+'" class="link_delete" title="Delete"><i class="fa fa-times"></i></a></td>';
     	html += '</tr>';
     	$("#tbodyServiceTypes").prepend(html);
         $(".service_type_title_all").removeClass('active');
@@ -75,21 +76,27 @@ app.handle = function(serviceId) {
         htmlServiceType = '';
         $("select#display_order_0").val(1).trigger('change');
     }).on('click', '.link_edit', function(){
-        
+        var statusId = $(this).attr('status-id');
         var $this = $(this).parent().parent().find('td');
         $this.eq(0).find('.tab-pane').each(function() {
             var key = $(this).attr('data-key');
             var serviceTypeName = $(this).find('input').val();
             $("#service_type_name_"+key).val(serviceTypeName)
         });
+        $("#link_add").attr('status-id', statusId);
         var serviceTypeId = $this.eq(2).attr('service-type-id');
         var displayOrder = $this.eq(1).text();
         $("select#display_order_0").val(displayOrder).trigger('change');
         $("td#td-edit").attr('service-type-id', serviceTypeId);
         $(this).parent().parent().remove();
     }).on('click', '.link_delete', function(){
+        var statusId = parseInt($(this).attr('status-id'));
         var $this = $(this).parent().parent().find('td');
-        $(this).parent().parent().remove();
+        if(statusId == 0 ) $(this).parent().parent().remove();
+        else {
+            $(this).parent().find('a.link_edit').attr('status-id',0)
+            $(this).parent().parent().hide();
+        }
     }).on('click', '#link_cancel', function(){
     	$("input#service_type_name").val('');
         $("select#display_order_0").val(1).trigger('change');
@@ -141,7 +148,9 @@ function getDataServiceType(){
             service_type_name_en: $(this).find('td').eq(0).find('.service_type_name_text_en').val(),
             service_type_name_de: $(this).find('td').eq(0).find('.service_type_name_text_de').val(),
             service_type_name_cz: $(this).find('td').eq(0).find('.service_type_name_text_cz').val(),
-            display_order: $(this).find('td').eq(1).text()
+            display_order: $(this).find('td').eq(1).text(),
+            status_id:$(this).find('td').eq(2).find('a.link_edit').attr('status-id'),
+            id:$(this).find('td').eq(2).attr('service-type-id')
         })
 	});
 	return arrDatas;

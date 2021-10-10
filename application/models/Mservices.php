@@ -39,21 +39,40 @@ class Mservices extends MY_Model {
         $serviceId = $this->save($postData, $serviceId);
         if ($serviceId > 0) {
             if($isUpdate){
-                $this->db->delete('service_types', array('service_id' => $serviceId));
-        	}
-            if(!empty($serviceTypes)) {
-                $arrServiceType = array();
-                foreach ($serviceTypes as $u) {
-                	$u['service_id'] = $serviceId;
-                    $u['created_by'] = $userId;
-                    $u['created_at'] = getCurentDateTime();
-                    $u['updated_by'] = $userId;
-                    $u['updated_at'] = getCurentDateTime();
-                    $arrServiceType[] = $u;
+                if(!empty($serviceTypes)) {
+                    $this->load->model('Mservicetypes');
+                    foreach ($serviceTypes as $u) {
+                       $serviceType = array(
+                            'service_id' => $serviceId,
+                            'updated_by' => $userId,
+                            'updated_at' => getCurentDateTime(),
+                            'service_type_name_vi' => $u['service_type_name_vi'],
+                            'service_type_name_en' => $u['service_type_name_en'],
+                            'service_type_name_de' => $u['service_type_name_de'],
+                            'service_type_name_cz' => $u['service_type_name_cz'],
+                            'display_order' => $u['display_order'],
+                            'status_id' => $u['status_id'],
+
+                        );
+                        $this->Mservicetypes->save($serviceType, $u['id']);
+                    }
                 }
-               
-                if (!empty($arrServiceType)) $this->db->insert_batch('service_types', $arrServiceType);
+        	} else {
+                if(!empty($serviceTypes)) {
+                    $arrServiceType = array();
+                    foreach ($serviceTypes as $u) {
+                        $u['service_id'] = $serviceId;
+                        $u['created_by'] = $userId;
+                        $u['created_at'] = getCurentDateTime();
+                        $u['updated_by'] = $userId;
+                        $u['updated_at'] = getCurentDateTime();
+                        $arrServiceType[] = $u;
+                    }
+                   
+                    if (!empty($arrServiceType)) $this->db->insert_batch('service_types', $arrServiceType);
+                }
             }
+            
         }
         if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();

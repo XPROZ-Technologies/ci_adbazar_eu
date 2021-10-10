@@ -16,9 +16,9 @@ class Mservicetypes extends MY_Model {
                     FROM
                         service_types
                     LEFT JOIN business_service_types ON business_service_types.service_type_id = service_types.id
-                    WHERE service_types.service_id = ?  group by service_types.id
+                    WHERE service_types.service_id = ? AND service_types.status_id = ?  group by service_types.id
                 ";
-        return $this->getByQuery($query, array($serviceId));
+        return $this->getByQuery($query, array($serviceId, STATUS_ACTIVED));
     }
 
     public function getListByBusiness($businessId = 0, $service_type_name = "service_type_name_de") {
