@@ -1,6 +1,6 @@
 <?php
 
-$lang["sign_in_with_your_account"] = "Log in with your account";
+$lang["sign_in_with_your_account"] = "Login with your account";
 $lang["email"] = "Email";
 $lang["password"] = "Password";
 $lang["remember_me"] = "Remember me";
@@ -9,8 +9,8 @@ $lang["sign_in"] = "Logn In";
 $lang["not_have_an_account_yet"] = "Not have an account yet?";
 $lang["sign_up"] = "Sign up";
 $lang["or_sign_in_with_your_social_network"] = "Or";
-$lang["sign_in_with_google"] = "Log in with Google";
-$lang["sign_in_with_facebook"] = "Log in with Facebook";
+$lang["sign_in_with_google"] = "Login with Google";
+$lang["sign_in_with_facebook"] = "Login with Facebook";
 $lang["confirm_password"] = "Confirm password";
 $lang["agree_with_our_terms_and_conditions"] = 'Agree with our <a class="fw-bold text-underline" href="javascript:void(0)">terms and conditions</a>';
 $lang["already_have_an_account"] = "Already have an account?";
