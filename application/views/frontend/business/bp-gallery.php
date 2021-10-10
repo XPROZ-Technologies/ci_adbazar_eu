@@ -335,5 +335,17 @@
             });
         }
 
+        if ($('.slider2').length > 0) {
+            $(".slider2 .video-item .video-item-ct").click(function (event) {
+                event.preventDefault();
+                var html = '<iframe width = "' + ($(this).closest('.video-item').attr('data-width')) + '"  height = "' + ($(this).height()) + '" src="https://www.youtube.com/embed/' + $(this).closest('.video-item').attr('data-src') + '?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                $(this).html(html);
+            });
+            $(window).resize(function () {
+                var height = $(".slider2 .video-item .video-item-ct").height();
+                $(".slider2 .video-item .video-item-ct iframe").height(height);
+            })
+        }
+
     });
 </script>

@@ -915,6 +915,7 @@ $(document).ready(function () {
 //   var match = url.match(regExp);
 //   return (match&&match[7].length==11)? match[7] : false;
 // }
+/*
 if ($('.slider2').length > 0) {
   $(".slider2 .video-item .video-item-ct").click(function (event) {
     event.preventDefault();
@@ -926,6 +927,7 @@ if ($('.slider2').length > 0) {
     $(".slider2 .video-item .video-item-ct iframe").height(height);
   })
 }
+*/
 // redirect link 
 $(document).on('click', '.page-select', function () {
   var ul = $(this).find('ul');
