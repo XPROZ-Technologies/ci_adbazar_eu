@@ -152,7 +152,7 @@
 <?php $this->load->view('frontend/includes/footer'); ?>
 
 <!-- Expire Avail Coupon Modal -->
-<div class="modal fade bm-coupon-modal" id="bmCouponAlertModalAvail" tabindex="-1" aria-labelledby="bmCouponAlertModalAvailLabel"
+<div class="modal fade bm-coupon-modal bm-found" id="bmCouponAlertModalAvail" tabindex="-1" aria-labelledby="bmCouponAlertModalAvailLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -177,7 +177,7 @@
 <!-- End Avail Coupon Modal -->
 
 <!-- Found Used Coupon Modal -->
-<div class="modal fade bm-coupon-modal bm-found" id="bmCouponAlertModalUsed" tabindex="-1" aria-labelledby="bmCouponAlertModalUsedLabel"
+<div class="modal fade bm-coupon-modal" id="bmCouponAlertModalUsed" tabindex="-1" aria-labelledby="bmCouponAlertModalUsedLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -191,7 +191,7 @@
                 </p>
 
                 <div class="modal-footer border-top-0 justify-content-center p-0">
-                    <button type="button" class="btn btn-red">OK</button>
+                    <button type="button" class="btn btn-red" data-bs-dismiss="modal">OK</button>
                   
                 </div>
             </div>
@@ -215,7 +215,7 @@
 
                 <div class="modal-footer border-top-0 justify-content-center p-0">
                     <button type="button" class="btn btn-red btn-ok"
-                        data-bs-dismiss="modal">OK</button>
+                        data-bs-dismiss="modal" data-bs-dismiss="modal">OK</button>
                     
                 </div>
             </div>
@@ -231,8 +231,44 @@
         $(".notiPopup .text-secondary").html("Please enter coupon");
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(4000);
-    }
 
+        
+        return false;
+    }
+    // used
+    $("#bmCouponAlertModalUsed").modal("show");
     
+    //avail
+    $("#bmCouponAlertModalAvail").modal("show");
+
+    //not found
+    $("#bmCouponAlertModalNone").modal("show");
+
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('business-management/check-coupon-code'); ?>',
+        data: {
+            image_id: imgId
+        },
+        dataType: "json",
+        success: function(data) {
+            if (data.code == 1) {
+                $(".notiPopup .text-secondary").html(data.message);
+                $(".ico-noti-success").removeClass('ico-hidden');
+                $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            } else {
+                $(".notiPopup .text-secondary").html(data.message);
+                $(".ico-noti-error").removeClass('ico-hidden');
+                $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            }
+            redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery'); ?>');
+        },
+        error: function(data) {
+            $(".notiPopup .text-secondary").html("Delete video failed");
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery'); ?>');
+        }
+    });
   });
 </script>

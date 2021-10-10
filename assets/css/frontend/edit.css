@@ -2370,12 +2370,19 @@ line-height: 23px;
     line-height: 23px;
     padding: 6px 18px!important;
 }
-#bmCouponAlertModal.bm-coupon-modal .modal-dialog {
+#bmCouponAlertModal.bm-coupon-modal .modal-dialog, #bmCouponAlertModalUsed.bm-coupon-modal .modal-dialog, #bmCouponAlertModalNone.bm-coupon-modal .modal-dialog {
     max-width: 288px;
 }
 #bmCouponAlertModal.bm-coupon-modal.bm-found .modal-dialog {
     max-width: 416px;
 }
+
+#bmCouponAlertModalAvail.bm-coupon-modal.bm-found .modal-dialog {
+    max-width: 416px;
+}
+
+
+
 .bm-coupon-modal .modal-body {
     padding: 40px!important;
 }
