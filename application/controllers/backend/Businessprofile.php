@@ -106,7 +106,6 @@ class Businessprofile extends MY_Controller {
                 $postData['updated_by'] = $user['id'];
                 $postData['updated_at'] = getCurentDateTime();
             }
-
             $openingHours = json_decode(trim($this->input->post('OpeningHours')), true); 
             if(!is_array($openingHours)) $openingHours = array();
 
