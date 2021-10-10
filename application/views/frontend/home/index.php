@@ -278,4 +278,5 @@
       $(".notiPopup").fadeIn('slow').fadeOut(4000);
     }
   });
+  var textView = "View";
 </script>

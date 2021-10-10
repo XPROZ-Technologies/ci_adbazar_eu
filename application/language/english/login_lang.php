@@ -32,3 +32,5 @@ $lang["set_up_your_new_password"] = "Set up your new password";
 $lang["new_password"] = "New password";
 $lang["confirm_new_password"] = "Confirm new password";
 $lang["your_password_does_not_match_please_try_again"] = "*Your password does not match. Please try again.";
+$lang["sign_up_with_google"] = "Sign up with Google";
+$lang["sign_up_with_facebook"] = "Sign up with Facebook";

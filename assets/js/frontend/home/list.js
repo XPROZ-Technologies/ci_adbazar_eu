@@ -89,7 +89,7 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                                     </div>
                                     <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                     ${isOpen}
-                                    <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
+                                    <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
                                 </div>
                             </div>
                         </div>

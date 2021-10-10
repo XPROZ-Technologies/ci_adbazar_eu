@@ -35,4 +35,6 @@ $lang["set_up_your_new_password"] = "Nastavit nové heslo";
 $lang["new_password"] = "Nové heslo";
 $lang["confirm_new_password"] = "Potvrdit nové heslo";
 $lang["your_password_does_not_match_please_try_again"] = "Vaše heslo se neshoduje. Zkuste to znovu";
+$lang["sign_up_with_google"] = "Přihlásit se pomocí Google";
+$lang["sign_up_with_facebook"] = "Přihlasit se pomocí Facebook";
 

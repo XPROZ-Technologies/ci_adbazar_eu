@@ -35,4 +35,6 @@ $lang["set_up_your_new_password"] = "Stellen Sie Ihr neues Passwort ein";
 $lang["new_password"] = "Neues Passwort";
 $lang["confirm_new_password"] = "Neues Passwort bestätigen";
 $lang["your_password_does_not_match_please_try_again"] = "Ihr Passwort stimmt nicht überein. Bitte versuche es wieder.";
+$lang["sign_up_with_google"] = "Mit Google anmelden";
+$lang["sign_up_with_facebook"] = "Mit Facebook anmelden";
 

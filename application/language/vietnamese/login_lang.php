@@ -34,4 +34,6 @@ $lang["set_up_your_new_password"] = "Đặt lại mật khẩu";
 $lang["new_password"] = "Nhập mật khẩu mới";
 $lang["confirm_new_password"] = "Xác nhận mật khẩu";
 $lang["your_password_does_not_match_please_try_again"] = "*Mật khẩu của bạn không khớp. Vui lòng thử lại.";
+$lang["sign_up_with_google"] = "Đăng ký bằng Google";
+$lang["sign_up_with_facebook"] = "Đăng ký bằng Facebook";
 
