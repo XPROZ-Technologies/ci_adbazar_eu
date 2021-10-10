@@ -3248,6 +3248,16 @@ span.switch-left {
     .row.create-form [class^='col-']{
         padding: 0;
     }
+    .toast-container .toast{
+        position: relative;
+    }
+    .toast-container {
+        left: 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        z-index: 10;
+    }
 }
 
 @media screen and (max-width: 768px){

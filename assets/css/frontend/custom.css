@@ -1019,6 +1019,13 @@ font-size: 14px;
 .fc .fc-daygrid-day-number {
     margin-top: 10px;
 }
+.page-business-profile.page-bp-reservation .bp-tabs .bp-reservation-inner .d-flex.search-box .form-control{
+    width: 100%;
+}
+.reservation-setting{
+    font-size: 14px!important;
+    line-height: 15px;
+}
 
 @media (max-width: 1366px){
     .discover_more {
@@ -1054,6 +1061,9 @@ font-size: 14px;
     }
 }
 @media (max-width: 991px){
+    .page-customer-event .customer-event-item .event-date{
+        max-width: calc(100% - 100px);
+    }
     .customer-service-list,
     .customer-service-grid {
         padding: 20px 0 ;

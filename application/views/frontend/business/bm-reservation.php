@@ -28,7 +28,7 @@
                     </label>
                     <p class="mb-0 switch-text fw-bold">Receive reservation(s)</p>
                   </div>
-                  <button class="btn btn-red mr-24" type="button" data-bs-toggle="modal" data-bs-target="#configModal"><img src="assets/img/frontend/ic-setting.png" alt="reservation-config"> Reservation Setting</button>
+                  <button class="btn btn-red mr-24  reservation-setting" type="button" data-bs-toggle="modal" data-bs-target="#configModal"><img src="assets/img/frontend/ic-setting.png" alt="reservation-config"> Reservation Setting</button>
                 </div>
 
 
@@ -525,13 +525,9 @@
     // change date 
     var dateNow = new Date();
     $("#reservation-date").datetimepicker({
-      defaultDate: dateNow,
-      startDate: dateNow,
-      // onChangeDateTime:function(dp,$input){
-      //   alert($input.val())
-      //   console.log(213);
-      // },
-      format: "MMMM DD, YYYY",
+      defaultDate:dateNow,
+      format: "YYYY-MM-DD",
+      minDate: moment(),
       allowInputToggle: true,
       // inline: true,
       // debug: true,
