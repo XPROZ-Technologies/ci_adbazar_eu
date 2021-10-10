@@ -28,7 +28,7 @@ class Memailqueue extends MY_Model
 
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
                             font-size: 20px;line-height: 24px;text-align: center;">Your account was successfully created.</p>
-                            <p>Hello <strong>' . $emailData['name'] . '</user></strong> ,</p>
+                            <p>Hello <strong>' . $emailData['name'] . '</strong> ,</p>
                             <p>Thank you for creating your account at AdBazar</p>
                             <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>
                             <p>Best,<br>AdBazar.</p>
@@ -49,7 +49,7 @@ class Memailqueue extends MY_Model
 
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
                             font-size: 20px;line-height: 24px;text-align: center;">Password assistance</p>
-                            <p>Hello <strong>' . $emailData['name'] . '</user></strong> ,</p>
+                            <p>Hello <strong>' . $emailData['name'] . '</strong> ,</p>
                             <p>We have received your request to change your password.</p>
                             <p>Please click the button below to set up your new password.</p>
                             <p>If you did not make this request, please reach out to us immediately.</p>
@@ -59,6 +59,25 @@ class Memailqueue extends MY_Model
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
                                 border-radius: 2px;padding: 10px 20px;color: #fff;">Reset Password</a>
                             </div>';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
+    public function sendContactForm($emailData = array())
+    {
+        
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Contact from website</p>
+                            <p>Dear <strong>Administrator</strong> ,</p>
+                            <p>&nbsp;</p>
+                            <p>Customer Name: ' . $emailData['customer_name'] . '</p>
+                            <p>Contact Name: ' . $emailData['contact_name'] . '</p>
+                            <p>Contact Email: ' . $emailData['contact_email'] . '</p>
+                            <p>Message: </p>
+                            <p>' . nl2br($emailData['contact_message']) . '</p>
+                            <p>&nbsp;</p>
+                           ';
 
         $data = $this->email_template($emailContent);
         return $data;
@@ -101,6 +120,29 @@ class Memailqueue extends MY_Model
                         'email_from_name' => EMAIL_FROM_NAME,
                         'email_to' => $emailData['email_to'],
                         'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if ($emailType == 3) {
+                    //contact form
+                    $emailContent = $this->sendContactForm($emailData);
+                    $dataInsert = array(
+                        'email_subject' => "Contact from website adbazar.eu",
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => $emailData['contact_name'],
+                        'email_to' => EMAIL_FROM,
+                        'email_to_name' => EMAIL_FROM_NAME,
                         'is_send' => 0,
                         'created_at' => getCurentDateTime()
                     );

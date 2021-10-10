@@ -67,11 +67,33 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="box box-default padding15">
+                            <!-- EN -->
                             <div class="box-header with-border">
-                                <h3 class="box-title">Home Banner Text</h3>
+                                <h3 class="box-title">Home Banner Text - EN</h3>
                             </div>
                             <div class="box-body">
                                 <textarea class="form-control" name="HOME_BANNER_TEXT"><?php echo $listConfigs['HOME_BANNER_TEXT']; ?></textarea>
+                            </div>
+                            <!-- VI -->
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Home Banner Text- VI</h3>
+                            </div>
+                            <div class="box-body">
+                                <textarea class="form-control" name="HOME_BANNER_TEXT_VI"><?php echo $listConfigs['HOME_BANNER_TEXT_VI']; ?></textarea>
+                            </div>
+                            <!-- DE -->
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Home Banner Text - DE</h3>
+                            </div>
+                            <div class="box-body">
+                                <textarea class="form-control" name="HOME_BANNER_TEXT_DE"><?php echo $listConfigs['HOME_BANNER_TEXT_DE']; ?></textarea>
+                            </div>
+                            <!-- VZ -->
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Home Banner Text - CZ</h3>
+                            </div>
+                            <div class="box-body">
+                                <textarea class="form-control" name="HOME_BANNER_TEXT_CZ"><?php echo $listConfigs['HOME_BANNER_TEXT_CZ']; ?></textarea>
                             </div>
                         </div>
                     </div>

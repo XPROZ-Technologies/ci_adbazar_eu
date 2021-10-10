@@ -185,6 +185,9 @@ $route['event/login.html'] = 'frontend/event/event_login';
 //coupons
 $route['coupons.html'] = 'frontend/coupon/index';
 $route['coupon/(:any)-(:num)\.html'] = 'frontend/coupon/detail/$1/$2';
+$route['business-management/check-coupon-code'] = 'frontend/coupon/checkCouponCode';
+$route['business-management/active-coupon-code'] = 'frontend/coupon/activeCouponCode';
+
 
 //notification
 $route['notifications.html'] = 'frontend/notification/index';

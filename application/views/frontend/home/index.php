@@ -8,7 +8,18 @@
         <div id="carouselCustomer" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-caption text-left">
             <div class="container">
-              <h5 class="fw-bold animate__animated animate__fadeInLeft"><?php echo $configs['HOME_BANNER_TEXT']; ?>
+              <h5 class="fw-bold animate__animated animate__fadeInLeft"><?php 
+                if($language_id == 1){
+                  echo $configs['HOME_BANNER_TEXT']; 
+                }else if($language_id == 2){
+                  echo $configs['HOME_BANNER_TEXT_CZ']; 
+                }else if($language_id == 3){
+                  echo $configs['HOME_BANNER_TEXT_DE']; 
+                }else if($language_id == 4){
+                  echo $configs['HOME_BANNER_TEXT_VI']; 
+                }
+                
+              ?>
               </h5>
             </div>
           </div>

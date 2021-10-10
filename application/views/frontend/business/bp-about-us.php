@@ -18,19 +18,21 @@
                     <div class="bp-about-left">
                       <h4 class="fw-bold page-title-xs"><?php echo $this->lang->line('business_information'); ?></h4>
 
-                      <div class="d-flex align-items-center mb-20"> 
-                        <div class="star-rating on line  mr-8px relative"> 
+                      <div class="d-flex align-items-center mb-20">
+                        <?php if (isset($reviewInfo) && $reviewInfo['sumReview'] > 0) { ?>
+                          <div class="star-rating on line  mr-8px relative">
                             <div class="star-base">
-                            <div class="star-rate" data-rate="3.5"></div> 
-                            <a dt-value="1" href="#1"></a> 
-                            <a dt-value="2" href="#2"></a> 
-                            <a dt-value="3" href="#3"></a> 
-                            <a dt-value="4" href="#4"></a> 
-                            <a dt-value="5" href="#5"></a>
+                              <div class="star-rate" data-rate="<?php echo $reviewInfo['star']; ?>"></div>
+                              <a dt-value="1" href="#1"></a>
+                              <a dt-value="2" href="#2"></a>
+                              <a dt-value="3" href="#3"></a>
+                              <a dt-value="4" href="#4"></a>
+                              <a dt-value="5" href="#5"></a>
                             </div>
-                        </div>
-                        <span class="fw-bold star-rating-number">(10)</span>
-                    </div>
+                          </div>
+                          <span class="star-rating-number">(<?php echo $reviewInfo['sumReview']; ?>)</span>
+                        <?php } ?>
+                      </div>
 
                       <ul class="list-unstyled list-info">
                         <li class="mb-3">
@@ -66,36 +68,36 @@
                     </div>
                   </div>
                   <div class="col-lg-5 order-first order-lg-last">
-                    <?php if(!empty($businessOpeningHours)){ ?>
+                    <?php if (!empty($businessOpeningHours)) { ?>
                       <div class="bp-about-right">
                         <div class="open-hour">
                           <h5 class="text-center page-text-lg"><?php echo $this->lang->line('opening_hours'); ?></h5>
                           <ul class="list-unstyled mb-0">
                             <?php foreach ($businessOpeningHours as $open_hours) { ?>
-                                <li>
-                                  <span class="date"><?php echo $this->Mconstants->dayShortIds[$open_hours['day_id']]; ?></span>
-                                  <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
-                                    <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
-                                      <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
-                                  <?php } else { ?>
-                                    <span class="badge badge-cancel"><?php echo $this->lang->line('closed'); ?></span>
-                                  <?php } ?>
-                                </li>
-                              <?php } ?>
+                              <li>
+                                <span class="date"><?php echo $this->Mconstants->dayShortIds[$open_hours['day_id']]; ?></span>
+                                <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
+                                  <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
+                                    <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
+                                <?php } else { ?>
+                                  <span class="badge badge-cancel"><?php echo $this->lang->line('closed'); ?></span>
+                                <?php } ?>
+                              </li>
+                            <?php } ?>
                           </ul>
                         </div>
                       </div>
                     <?php } ?>
                   </div>
                 </div>
-                <?php if(!empty($businessInfo['business_description'])){ ?>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="bp-introduce">
-                      <h5 class="fw-bold page-title-xs"><?php echo $this->lang->line('introduction'); ?></h5>
-                      <div class="">
-                        <?php echo nl2br($businessInfo['business_description']); ?>
-                        <!--
+                <?php if (!empty($businessInfo['business_description'])) { ?>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="bp-introduce">
+                        <h5 class="fw-bold page-title-xs"><?php echo $this->lang->line('introduction'); ?></h5>
+                        <div class="">
+                          <?php echo nl2br($businessInfo['business_description']); ?>
+                          <!--
                         <p class="page-text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce
                           vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet
                           sollicitudin nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu,
@@ -109,10 +111,10 @@
                           velit. Donec interdum.
                         </p>
                         -->
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 <?php } ?>
               </div>
             </div>

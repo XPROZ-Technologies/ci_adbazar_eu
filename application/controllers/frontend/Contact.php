@@ -28,9 +28,33 @@ class Contact extends MY_Controller
                 'contact_name' => $postData['contact_name'],
                 'contact_email' => $postData['contact_email'],
                 'contact_message' => $postData['contact_message'],
-                'customer_id' => $postData['customer_id']
+                'customer_id' => $postData['customer_id'],
+                'is_send' => 1,
+                'created_at' => getCurentDateTime(),
+                'created_by' => 0
             ));
             if ($customerContactId) {
+                $customerName = array();
+                if(!empty($postData['customer_id'])){
+                    $this->load->model('Mcustomers');
+                    $customerName = $this->Mcustomers->getFieldValue(array('id' => $postData['customer_id']), 'customer_first_name', "");
+                }
+                /**
+                 * Save Email
+                 */
+                $this->load->model('Memailqueue');
+                $dataEmail = array(
+                    'contact_name' => $postData['contact_name'],
+                    'contact_email' => $postData['contact_email'],
+                    'contact_message' => $postData['contact_message'],
+                    'customer_name' => $customerName
+                );
+                $emailResult = $this->Memailqueue->createEmail($dataEmail, 3);
+                /**
+                 * END. Save Email
+                 */
+
+
                 echo json_encode(array('code' => 1, 'message' => "Thank you for contacting. We will contact you as soon as possible"));
                 die;
             }else{

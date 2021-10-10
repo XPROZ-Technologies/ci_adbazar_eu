@@ -66,10 +66,10 @@
                             <a href="<?php echo $couponDetailUrl; ?>" class="card customer-coupon-item um-coupon-item bm-coupon-item position-relative">
                               <span class="customer-coupon-img">
                                 <?php
-                                  $couponImg = COUPONS_PATH . NO_IMAGE;
-                                  if (!empty($itemCoupon['coupon_image'])) {
-                                    $couponImg = COUPONS_PATH . $itemCoupon['coupon_image'];
-                                  }
+                                $couponImg = COUPONS_PATH . NO_IMAGE;
+                                if (!empty($itemCoupon['coupon_image'])) {
+                                  $couponImg = COUPONS_PATH . $itemCoupon['coupon_image'];
+                                }
                                 ?>
                                 <img src="<?php echo $couponImg; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
                               </span>
@@ -148,10 +148,12 @@
     </div>
   </div>
 </main>
+<input type="hidden" id="businessId" value="<?php echo $businessInfo['id'] ?>" />
 <input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
 
 <!-- Expire Avail Coupon Modal -->
+
 <div class="modal fade bm-coupon-modal bm-found" id="bmCouponAlertModalAvail" tabindex="-1" aria-labelledby="bmCouponAlertModalAvailLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -175,12 +177,16 @@
                         data-bs-dismiss="modal">No</button>
                 </div>
             </div>
+
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- End Avail Coupon Modal -->
 
 <!-- Found Used Coupon Modal -->
+
 <div class="modal fade bm-coupon-modal" id="bmCouponAlertModalUsed" tabindex="-1" aria-labelledby="bmCouponAlertModalUsedLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -199,85 +205,120 @@
                     
                 </p>
 
-                <div class="modal-footer border-top-0 justify-content-center p-0">
-                    <button type="button" class="btn btn-red" data-bs-dismiss="modal">OK</button>
-                  
-                </div>
-            </div>
+
+        <div class="modal-footer border-top-0 justify-content-center p-0">
+          <button type="button" class="btn btn-red" data-bs-dismiss="modal">OK</button>
+
+
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- End Used Coupon Modal -->
 
 <!-- Not found coupon Modal -->
-<div class="modal fade bm-coupon-modal" id="bmCouponAlertModalNone" tabindex="-1" aria-labelledby="bmCouponAlertModalAvailLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <p class="page-text-lg mb-0">
-                  We not found your code: <b>AH1234</b> 
-                </p>
-                <p class="page-text-lg mb-0">
-                    Please try another code.
-                </p>
+<div class="modal fade bm-coupon-modal" id="bmCouponAlertModalNone" tabindex="-1" aria-labelledby="bmCouponAlertModalNoneLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p class="page-text-lg mb-0">
+          We not found your code: <b class="couponCodeEntered">AH1234</b>
+        </p>
+        <p class="page-text-lg mb-0">
+          Please try another code.
+        </p>
 
-                <div class="modal-footer border-top-0 justify-content-center p-0">
-                    <button type="button" class="btn btn-red btn-ok"
-                        data-bs-dismiss="modal" data-bs-dismiss="modal">OK</button>
-                    
-                </div>
-            </div>
+        <div class="modal-footer border-top-0 justify-content-center p-0">
+          <button type="button" class="btn btn-red btn-ok" data-bs-dismiss="modal" data-bs-dismiss="modal">OK</button>
+
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- End Not found coupon Modal -->
 <script>
   $('.btn-check-coupon').click(function(e) {
     var coupon_code = $("#couponCodeValue").val();
+    var business_id = $("#businessId").val();
+    $(".couponCodeEntered").html(coupon_code);
+    if (coupon_code.length == 0) {
+      $(".notiPopup .text-secondary").html("Please enter coupon");
+      $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").fadeIn('slow').fadeOut(4000);
 
-    if(coupon_code.length == 0){
-        $(".notiPopup .text-secondary").html("Please enter coupon");
-        $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
-
-        
-        return false;
+      return false;
     }
-    // used
-    $("#bmCouponAlertModalUsed").modal("show");
-    
-    //avail
-    $("#bmCouponAlertModalAvail").modal("show");
-
-    //not found
-    $("#bmCouponAlertModalNone").modal("show");
 
     $.ajax({
+      type: 'POST',
+      url: '<?php echo base_url('business-management/check-coupon-code'); ?>',
+      data: {
+        coupon_code: coupon_code,
+        business_id: business_id
+      },
+      dataType: "json",
+      success: function(data) {
+        if (data.code == 1) {
+          //avail
+          $("#bmCouponAlertModalAvail").modal("show");
+        } else if (data.code == 2) {
+          //not found
+          $("#bmCouponAlertModalNone").modal("show");
+        } else if (data.code == 3) {
+          // used
+          $("#bmCouponAlertModalUsed").modal("show");
+        }
+      },
+      error: function(data) {
+        //$(".notiPopup .text-secondary").html("Delete video failed");
+        //$(".ico-noti-error").removeClass('ico-hidden');
+        //$(".notiPopup").fadeIn('slow').fadeOut(4000);
+        //redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
+      }
+    });
+  });
+
+    //active coupon
+    $('.btn-active-coupon').click(function(e) {
+      var coupon_code = $("#couponCodeValue").val();
+      var business_id = $("#businessId").val();
+      $.ajax({
         type: 'POST',
-        url: '<?php echo base_url('business-management/check-coupon-code'); ?>',
+        url: '<?php echo base_url('business-management/active-coupon-code'); ?>',
         data: {
-            image_id: imgId
+          coupon_code: coupon_code,
+          business_id: business_id
         },
         dataType: "json",
         success: function(data) {
-            if (data.code == 1) {
-                $(".notiPopup .text-secondary").html(data.message);
-                $(".ico-noti-success").removeClass('ico-hidden');
-                $(".notiPopup").fadeIn('slow').fadeOut(4000);
-            } else {
-                $(".notiPopup .text-secondary").html(data.message);
-                $(".ico-noti-error").removeClass('ico-hidden');
-                $(".notiPopup").fadeIn('slow').fadeOut(4000);
-            }
-            redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery'); ?>');
+          if (data.code == 1) {
+            //avail
+            $("#bmCouponAlertModalAvail").modal("hide");
+
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-success").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+
+            //reload(true);
+          } else if (data.code == 2) {
+            //not found
+            $("#bmCouponAlertModalNone").modal("show");
+          } else if (data.code == 3) {
+            // used
+            $("#bmCouponAlertModalUsed").modal("show");
+          }
+
+
+          //redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
         },
         error: function(data) {
-            $(".notiPopup .text-secondary").html("Delete video failed");
-            $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
-            redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery'); ?>');
+          //$(".notiPopup .text-secondary").html("Delete video failed");
+          //$(".ico-noti-error").removeClass('ico-hidden');
+          //$(".notiPopup").fadeIn('slow').fadeOut(4000);
+          //redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
         }
+      });
     });
-  });
 </script>

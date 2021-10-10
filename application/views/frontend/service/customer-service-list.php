@@ -88,6 +88,7 @@
                     <div class="zero-event zero-box">
                       <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
                       <p class="text-secondary page-text-lg"><?php echo $this->lang->line('no_upcoming_event_on_this_day'); ?></p>
+
                     </div>
                   <?php } ?>
 
@@ -136,7 +137,11 @@
 <script>
   $(document).ready(function() {
     $("body").on('click', '.service_type_selected', function(){
-      $(this).parent('li').addClass('selected');
+      if (!$(this).parent('li').hasClass("selected")) {
+        $(this).parent('li').addClass('selected');
+      }else{
+        $(this).parent('li').removeClass('selected');
+      }
       var keySearch = '';
       if($(".li_service_type").hasClass('selected')) {
         $(".selected .service_type_selected").each(function() {
@@ -146,8 +151,10 @@
       var repKeySearch = keySearch.replace(/,*$/, "")
       var splitSearch = window.location.search.split("&");
       console.log(window.location.search)
-      var search = splitSearch[0]+'&'+splitSearch[1]+'&service_types='+repKeySearch;
-      //window.location.href = window.location.origin+window.location.pathname+search
+      
+      var search = '?service_types='+repKeySearch;
+      
+      window.location.href = window.location.origin+window.location.pathname+search
     })
   })
 </script>

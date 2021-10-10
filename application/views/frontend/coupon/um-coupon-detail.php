@@ -83,7 +83,7 @@
           <div class="col-12">
             <div class="description">
               <h5 class="mb-3 mb-md-4 page-text-lg fw-bold"><?php echo $this->lang->line('conditions_and_descriptions'); ?></h5>
-              <p><?php echo $detailInfo['coupon_description']; ?>
+              <p><?php echo nl2br($detailInfo['coupon_description']); ?>
               </p>
             </div>
           </div>

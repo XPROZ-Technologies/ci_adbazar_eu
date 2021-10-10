@@ -137,7 +137,7 @@ if (!function_exists('makeSlug')){
             'Ù' => 'u', 'Ú' => 'u', 'Ủ' => 'u', 'Ũ' => 'u', 'Ụ' => 'u', 'Ư' => 'u', 'Ừ' => 'u', 'Ứ' => 'u', 'Ử' => 'u', 'Ữ' => 'u', 'Ự' => 'u',
             'ỳ' => 'y', 'ý' => 'y', 'ỷ' => 'y', 'ỹ' => 'y', 'ỵ' => 'y',
             'Ỳ' => 'y', 'Ý' => 'y', 'Ỷ' => 'y', 'Ỹ' => 'y', 'Ỵ' => 'y',
-            '/' => '-', ' ' => '-'
+            '/' => '-', ' ' => '-', '%' => '', '(' => '', ')' => ''
         );
         preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', $string);
         return strtolower(strtr($string, $table));
@@ -410,7 +410,13 @@ if(!function_exists('getRangeHours')) {
         //Use startPoint & endPoint
         $arrHours = array();
         for($i = $startPoint; $i <= $endPoint; $i = $i + $duration){
-            $arrHours[] = intdiv($i, 60).':'. ($i % 60);
+            $tmpHours = intdiv($i, 60);
+            if(strlen($tmpHours) == 1) $tmpHours = "0".$tmpHours;
+            
+            $tmpMin = ($i % 60);
+            if(strlen($tmpMin) == 1) $tmpMin = "0".$tmpMin;
+
+            $arrHours[] = $tmpHours.':'. $tmpMin;
         }
 
         return $arrHours;

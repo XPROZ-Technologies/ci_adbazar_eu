@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 08, 2021 at 07:57 PM
+-- Generation Time: Oct 10, 2021 at 03:41 PM
 -- Server version: 10.3.21-MariaDB
 -- PHP Version: 7.0.33
 
@@ -133,7 +133,13 @@ INSERT INTO `business_photos` (`id`, `business_profile_id`, `photo_image`, `crea
 (205, 6, '2021-10-01/6156c5a774bfb.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
 (204, 6, '2021-10-03/6159832a960e7.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
 (203, 6, '2021-10-03/6159832dd23b3.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
-(202, 6, '2021-10-03/615983317567b.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL);
+(202, 6, '2021-10-03/615983317567b.png', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
+(216, 6, '2021-10-09/6161b12563d84.png', '2021-10-09 22:11:33', 0, '2021-10-09 22:11:33', 0, NULL),
+(217, 6, '2021-10-09/6161b1256535e.png', '2021-10-09 22:11:33', 0, '2021-10-09 22:11:33', 0, NULL),
+(218, 6, '2021-10-09/6161b12566860.png', '2021-10-09 22:11:33', 0, '2021-10-09 22:11:33', 0, NULL),
+(219, 6, '2021-10-09/6161b12567d77.png', '2021-10-09 22:11:33', 0, '2021-10-09 22:11:33', 0, NULL),
+(220, 6, '2021-10-09/6161b125692e6.png', '2021-10-09 22:11:33', 0, '2021-10-09 22:11:33', 0, NULL),
+(221, 6, '2021-10-09/6161b1256a726.png', '2021-10-09 22:11:33', 0, '2021-10-09 22:11:33', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -160,6 +166,7 @@ CREATE TABLE `business_profiles` (
   `expired_date` datetime DEFAULT NULL,
   `is_hot` tinyint(4) DEFAULT 0,
   `payment_status_id` tinyint(4) DEFAULT 0,
+  `allow_book` tinyint(4) DEFAULT 2,
   `business_status_id` tinyint(4) DEFAULT 0,
   `updated_by` int(11) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -172,15 +179,16 @@ CREATE TABLE `business_profiles` (
 -- Dumping data for table `business_profiles`
 --
 
-INSERT INTO `business_profiles` (`id`, `customer_id`, `service_id`, `business_name`, `business_slogan`, `business_email`, `business_address`, `business_whatsapp`, `business_url`, `country_code_id`, `business_phone`, `business_description`, `business_avatar`, `business_image_cover`, `is_annual_payment`, `expired_date`, `is_hot`, `payment_status_id`, `business_status_id`, `updated_by`, `updated_at`, `created_by`, `created_at`, `deleted_at`) VALUES
-(3, 0, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-04 20:29:37', 1, '2021-09-22 17:25:13', NULL),
-(4, 0, 2, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:00:50', 1, '2021-09-23 08:58:38', NULL),
-(5, 0, 3, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-03 17:01:08', 1, '2021-09-23 08:58:46', NULL),
-(6, 26, 3, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 0, '89729822123', 'Hair Salon Spa desc', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 1, '2021-10-06 14:09:37', 1, '2021-10-01 15:24:43', NULL),
-(7, 0, 1, 'Business demo location', 'Business demo location slogan', 'a@gmail.com', 'Ho Chi Minh', '0886765544', 'business-demo-location', 14, '0938893675', 'Business demo location desc', 'no_image.png', 'no_image.png', 0, NULL, 0, 0, 2, 1, '2021-10-03 18:44:31', 1, '2021-10-02 20:23:42', NULL),
-(12, 32, 1, 'Busines profile test 05102021', 'Busines profile test 05102021 slogan', 'business1@gmail.com', 'Ho Chi Minh', '0778678855', 'busines-profile-test-05102021', 6, '0778678855', '0778678855\r\n0778678855\r\n0778678855\r\n0778678855', '2021-10-05/615c218e563f7.png', '2021-10-05/615c218e5916c.png', 0, NULL, 0, 0, 2, NULL, NULL, 0, '2021-10-05 16:57:34', NULL),
-(13, 27, 1, 'dfghfg', '', 'dfgdfgdfgdfg', 'fdgdfgdfg', '456456456', 'dfghfg', 3, '565456', '', NULL, '2021-10-05/615c2de3eed8e.png', 0, NULL, 0, 0, 2, NULL, NULL, 0, '2021-10-05 17:50:11', NULL),
-(14, 36, 1, 'Business pròile create by customer 07102021', 'Slogan here or Short description sentences (Hair - Nails - Wimpers)', 'hai2@gmail.com', '203 Bo Bao Tan Thang, Ho Chi Minh', '0886917766', 'business-proile-create-by-customer-0710', 0, '0377731910', 'Slogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\n\r\n\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\n\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)', '2021-10-07/615ebaa24e60e.png', '2021-10-07/615ebaa25078f.png', 0, NULL, 0, 0, 2, 0, '2021-10-07 16:17:52', 0, '2021-10-07 16:15:14', NULL);
+INSERT INTO `business_profiles` (`id`, `customer_id`, `service_id`, `business_name`, `business_slogan`, `business_email`, `business_address`, `business_whatsapp`, `business_url`, `country_code_id`, `business_phone`, `business_description`, `business_avatar`, `business_image_cover`, `is_annual_payment`, `expired_date`, `is_hot`, `payment_status_id`, `allow_book`, `business_status_id`, `updated_by`, `updated_at`, `created_by`, `created_at`, `deleted_at`) VALUES
+(3, 0, 1, 'Business Profile Demo', 'Business Profile Slogan', 'business-profile@gmail.com', 'Czech', '0886917766', 'business-profile-demo', 57, '0886917766', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 2, 1, '2021-10-04 20:29:37', 1, '2021-09-22 17:25:13', NULL),
+(4, 0, 2, 'Business Profile 2', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-2', 80, '0886918855', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 2, 1, '2021-10-03 17:00:50', 1, '2021-09-23 08:58:38', NULL),
+(5, 0, 3, 'Business Profile 3', 'Business Profile 2 slogan', 'business-man@gmail.com', 'Germany', '0886918855', 'business-profile-3', 80, '0886918855', '', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 2, 1, '2021-10-03 17:01:08', 1, '2021-09-23 08:58:46', NULL),
+(6, 26, 3, 'Hair Salon Spa all', 'Hair Salon Spa all slogan', 'hair@business.com', 'Germany', '89729822123', 'hair-salon-spa-all', 0, '89729822123', 'Hair Salon Spa desc', 'no_image.png', 'no_image.png', 0, NULL, 2, 0, 2, 2, 1, '2021-10-09 21:56:58', 1, '2021-10-01 15:24:43', NULL),
+(7, 0, 1, 'Business demo location', 'Business demo location slogan', 'a@gmail.com', 'Ho Chi Minh', '0886765544', 'business-demo-location', 14, '0938893675', 'Business demo location desc', 'no_image.png', 'no_image.png', 0, NULL, 0, 0, 2, 2, 1, '2021-10-03 18:44:31', 1, '2021-10-02 20:23:42', NULL),
+(12, 32, 1, 'Busines profile test 05102021', 'Busines profile test 05102021 slogan', 'business1@gmail.com', 'Ho Chi Minh', '0778678855', 'busines-profile-test-05102021', 6, '0778678855', '0778678855\r\n0778678855\r\n0778678855\r\n0778678855', '2021-10-05/615c218e563f7.png', '2021-10-05/615c218e5916c.png', 0, NULL, 0, 0, 2, 2, NULL, NULL, 0, '2021-10-05 16:57:34', NULL),
+(13, 27, 1, 'dfghfg', '', 'dfgdfgdfgdfg', 'fdgdfgdfg', '456456456', 'dfghfg', 3, '565456', '', NULL, '2021-10-05/615c2de3eed8e.png', 0, NULL, 0, 0, 2, 2, NULL, NULL, 0, '2021-10-05 17:50:11', NULL),
+(14, 36, 1, 'Business pròile create by customer 07102021', 'Slogan here or Short description sentences (Hair - Nails - Wimpers)', 'hai2@gmail.com', '203 Bo Bao Tan Thang, Ho Chi Minh', '0886917766', 'business-proile-create-by-customer-0710', 0, '0377731910', 'Slogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\n\r\n\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\n\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)\r\nSlogan here or Short description sentences (Hair - Nails - Wimpers)', '2021-10-07/615ebaa24e60e.png', '2021-10-07/615ebaa25078f.png', 0, NULL, 0, 0, 2, 2, 0, '2021-10-07 16:17:52', 0, '2021-10-07 16:15:14', NULL),
+(15, 35, 1, 'Business profile reservation', 'Business profile reservation', 'thien@gmail.com', 'Ho CHi Minh', '0886917766', 'business-profile-reservation', 0, '0886917766', 'Business profile reservation\r\nBusiness profile reservation\r\nBusiness profile reservation', '2021-10-09/61610824e19d9.png', '2021-10-09/61610824e2ce4.png', 0, NULL, 0, 0, 2, 2, NULL, NULL, 0, '2021-10-09 10:10:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -240,6 +248,7 @@ INSERT INTO `business_service_types` (`id`, `business_profile_id`, `service_type
 (69, 3, 7),
 (64, 5, 14),
 (63, 5, 13),
+(78, 15, 12),
 (72, 6, 13),
 (77, 14, 14),
 (68, 7, 9),
@@ -272,7 +281,9 @@ INSERT INTO `business_videos` (`id`, `business_profile_id`, `video_url`, `video_
 (355, 5, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-03 17:01:08', 1, '2021-10-03 17:01:08', 1, NULL),
 (366, 6, 'https://www.youtube.com/watch?v=PTR8MIIT5Sw', 'PTR8MIIT5Sw', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
 (365, 6, 'https://www.youtube.com/watch?v=_PgWxvu9rCw', '_PgWxvu9rCw', '2021-10-06 14:09:37', 1, '2021-10-06 14:09:37', 1, NULL),
-(362, 3, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL);
+(362, 3, 'https://www.youtube.com/watch?v=Qt2b2lF2Lew', 'Qt2b2lF2Lew', '2021-10-04 20:29:37', 1, '2021-10-04 20:29:37', 1, NULL),
+(367, 6, 'https://www.youtube.com/watch?v=C-nHVVExR9g', 'C-nHVVExR9g', '2021-10-09 22:12:31', 0, '2021-10-09 22:12:31', 0, NULL),
+(368, 6, 'https://www.youtube.com/watch?v=C-nHVVExR9g&list=RDC-nHVVExR9g&start_radio=1', 'C-nHVVExR9g', '2021-10-09 22:12:31', 0, '2021-10-09 22:12:31', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -333,13 +344,20 @@ CREATE TABLE `contact_us` (
   `contact_email` varchar(250) NOT NULL,
   `contact_message` text NOT NULL,
   `customer_id` int(10) DEFAULT 0,
-  `is_send` tinyint(4) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `created_by` int(10) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` int(10) NOT NULL,
-  `deleted_at` datetime NOT NULL
+  `is_send` tinyint(4) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(10) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(10) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `contact_us`
+--
+
+INSERT INTO `contact_us` (`id`, `contact_name`, `contact_email`, `contact_message`, `customer_id`, `is_send`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 'Uhj', 'thunh.uet@gmail.com', 'Nbn', 0, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -672,7 +690,7 @@ CREATE TABLE `customers` (
   `customer_first_name` varchar(250) NOT NULL,
   `customer_last_name` varchar(250) NOT NULL,
   `customer_avatar` text DEFAULT NULL,
-  `customer_birthday` datetime NOT NULL,
+  `customer_birthday` date NOT NULL,
   `customer_gender_id` tinyint(4) NOT NULL,
   `customer_phone` varchar(50) NOT NULL,
   `customer_phone_code` int(10) DEFAULT 0,
@@ -685,6 +703,7 @@ CREATE TABLE `customers` (
   `facebook_id` varchar(250) DEFAULT NULL,
   `google_id` varchar(250) DEFAULT NULL,
   `login_type_id` tinyint(4) DEFAULT 0 COMMENT '1: Facebook / 2: google',
+  `token_reset` varchar(250) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(10) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -696,28 +715,29 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_phone_code`, `customer_occupation`, `customer_address`, `free_trial`, `free_trial_type`, `customer_status_id`, `language_id`, `facebook_id`, `google_id`, `login_type_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(18, 'thunh.uet@gmail.com', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, '2021-10-03 00:00:52', 0, '2021-10-03 00:09:25', 1, '2021-10-03 00:09:25'),
-(25, '', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '910613696502683', NULL, 2, '2021-10-03 09:51:03', 0, '2021-10-04 18:32:15', 0, NULL),
-(27, 'abc@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'fg', 'dfg', NULL, '0000-00-00 00:00:00', 0, '', 0, '', 'dsf', 0, 1, 2, 0, NULL, NULL, 0, '2021-10-03 15:41:36', 0, NULL, NULL, NULL),
-(26, 'vienruachen@gmail.com', 'f2513d295ef85e3eab69ff1b244588f4', 'Thien', 'Nguyen', '2021-10-05/615c1a6b8e074.png', '2021-10-07 00:00:00', 0, '0987666666', 49, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 1, NULL, NULL, 0, '2021-10-03 09:59:16', 0, '2021-10-06 01:34:06', 1, NULL),
-(14, '0866666666@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Thien', 'Nguyen', 'no_image.png', '2021-10-04 00:00:00', 1, '0866666666', 0, 'CS', 'Ho Chi Minh', 0, 1, 2, 0, NULL, '', 0, '2021-10-02 20:03:48', 1, NULL, NULL, NULL),
-(15, 'huongthien_93@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Thiên', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4368860993183697', '', 1, '2021-10-02 20:04:17', 0, '2021-10-03 15:23:55', 0, NULL),
-(16, 'paytherent@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, '2021-10-02 20:37:39', 0, NULL, NULL, NULL),
-(19, '16022388@vnu.edu.vn', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, '2021-10-03 00:01:41', 0, '2021-10-03 00:24:09', 1, '2021-10-03 00:24:09'),
-(20, 'levanhoanhtt@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Hoàn', 'Lê', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '4762416737155785', '', 1, '2021-10-03 00:32:37', 0, NULL, NULL, NULL),
-(21, 'huyenthunguyeniser@gmail.com', '4531e8924edde928f341f7df3ab36c70', 'Thư', 'Thư', NULL, '0000-00-00 00:00:00', 0, '', 0, '', 'fdf', 0, 1, 2, 0, '1323285408132149', '103952864733277509914', 1, '2021-10-03 00:51:04', 0, '2021-10-05 08:08:33', 0, NULL),
-(24, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '102246103372895088198', 2, '2021-10-03 09:49:13', 0, NULL, NULL, NULL),
-(28, 'dangnam92chem@gmail.com', '953f98c64c598bf3764736454ee85bef', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 2, 2, 0, NULL, NULL, 0, '2021-10-03 23:56:46', 0, NULL, NULL, NULL),
-(29, 'ondrisvu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ondris', 'Vu', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '962429757654796', NULL, 1, '2021-10-04 03:43:06', 0, '2021-10-04 03:44:38', 0, NULL),
-(30, 'email@email.com', '4c38ca394d146abe6218714eb8821aac', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-04 03:45:19', 0, NULL, NULL, NULL),
-(31, 'thunh.uet@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Huyền Thư', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '114740940842408338765', 2, '2021-10-05 07:54:13', 0, '2021-10-07 16:11:44', 0, NULL),
-(32, 'business1@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 1, 2, 0, NULL, NULL, 0, '2021-10-05 16:48:44', 0, NULL, NULL, NULL),
-(33, 'test@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 1, 2, 0, NULL, NULL, 0, '2021-10-07 08:12:13', 0, NULL, NULL, NULL),
-(34, 'test111@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-07 10:05:31', 0, NULL, NULL, NULL),
-(35, 'huongthien1993@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, '2021-10-07 15:33:17', 0, NULL, NULL, NULL),
-(36, 'haibaramailout@gmail.com', 'f2513d295ef85e3eab69ff1b244588f4', 'Haibara', 'Mail', '2021-10-07/615eb9b8506f5.png', '2021-10-19 00:00:00', 1, '0786543123', 14, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 4, NULL, NULL, 0, '2021-10-07 16:08:37', 0, NULL, NULL, NULL),
-(37, 'facebook12636@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mẫn', 'Hà', NULL, '0000-00-00 00:00:00', 0, '', 0, '', '', 0, 0, 1, 0, '3210518352503578', NULL, 1, '2021-10-07 20:08:35', 0, NULL, NULL, NULL);
+INSERT INTO `customers` (`id`, `customer_email`, `customer_password`, `customer_first_name`, `customer_last_name`, `customer_avatar`, `customer_birthday`, `customer_gender_id`, `customer_phone`, `customer_phone_code`, `customer_occupation`, `customer_address`, `free_trial`, `free_trial_type`, `customer_status_id`, `language_id`, `facebook_id`, `google_id`, `login_type_id`, `token_reset`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(18, 'thunh.uet@gmail.com', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, '9769c4ed-9861-46d5-9941-d61737941986', '2021-10-03 00:00:52', 0, '2021-10-03 00:09:25', 1, '2021-10-03 00:09:25'),
+(25, '', 'e10adc3949ba59abbe56e057f20f883e', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 1, 0, '910613696502683', NULL, 2, NULL, '2021-10-03 09:51:03', 0, '2021-10-04 18:32:15', 0, NULL),
+(27, 'abc@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'fg', 'dfg', NULL, '0000-00-00', 0, '', 0, '', 'dsf', 0, 1, 2, 1, NULL, NULL, 0, NULL, '2021-10-03 15:41:36', 0, NULL, NULL, NULL),
+(26, 'vienruachen@gmail.com', 'f2513d295ef85e3eab69ff1b244588f4', 'Thien', 'Nguyen', '2021-10-05/615c1a6b8e074.png', '2021-10-07', 0, '0987666666', 49, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 1, NULL, NULL, 0, NULL, '2021-10-03 09:59:16', 0, '2021-10-06 01:34:06', 1, NULL),
+(14, '0866666666@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Thien', 'Nguyen', 'no_image.png', '2021-10-04', 1, '0866666666', 0, 'CS', 'Ho Chi Minh', 0, 1, 2, 0, NULL, '', 0, NULL, '2021-10-02 20:03:48', 1, NULL, NULL, NULL),
+(15, 'huongthien_93@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Thiên', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 1, 0, '4368860993183697', '', 1, NULL, '2021-10-02 20:04:17', 0, '2021-10-09 10:30:47', 0, NULL),
+(16, 'paytherent@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '', 0, NULL, '2021-10-02 20:37:39', 0, NULL, NULL, NULL),
+(19, '16022388@vnu.edu.vn', '85bbc879bfe6e11c9e02d8d3928c78bc', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 0, 0, NULL, '', 0, NULL, '2021-10-03 00:01:41', 0, '2021-10-03 00:24:09', 1, '2021-10-03 00:24:09'),
+(20, 'levanhoanhtt@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Hoàn', 'Lê', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 1, 0, '4762416737155785', '', 1, NULL, '2021-10-03 00:32:37', 0, NULL, NULL, NULL),
+(21, 'huyenthunguyeniser@gmail.com', '4531e8924edde928f341f7df3ab36c70', 'Thư', 'Thư', NULL, '0000-00-00', 0, '', 0, '', 'fdf', 0, 1, 2, 0, '1323285408132149', '103952864733277509914', 1, NULL, '2021-10-03 00:51:04', 0, '2021-10-05 08:08:33', 0, NULL),
+(24, 'haminhman2011@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hà', 'mẫn', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '102246103372895088198', 2, NULL, '2021-10-03 09:49:13', 0, NULL, NULL, NULL),
+(28, 'dangnam92chem@gmail.com', '953f98c64c598bf3764736454ee85bef', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 2, 2, 4, NULL, NULL, 0, NULL, '2021-10-03 23:56:46', 0, NULL, NULL, NULL),
+(29, 'ondrisvu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ondris', 'Vu', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 1, 0, '962429757654796', NULL, 1, NULL, '2021-10-04 03:43:06', 0, '2021-10-04 03:44:38', 0, NULL),
+(30, 'email@email.com', '4c38ca394d146abe6218714eb8821aac', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, NULL, '2021-10-04 03:45:19', 0, NULL, NULL, NULL),
+(31, 'thunh.uet@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn', 'Huyền Thư', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 1, 0, NULL, '114740940842408338765', 2, NULL, '2021-10-05 07:54:13', 0, '2021-10-09 22:05:51', 0, NULL),
+(32, 'business1@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 1, 2, 0, NULL, NULL, 0, NULL, '2021-10-05 16:48:44', 0, NULL, NULL, NULL),
+(33, 'test@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 1, 2, 0, NULL, NULL, 0, NULL, '2021-10-07 08:12:13', 0, NULL, NULL, NULL),
+(34, 'test111@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, NULL, '2021-10-07 10:05:31', 0, NULL, NULL, NULL),
+(35, 'huongthien1993@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', 'Nguyen', 'Thien', NULL, '0000-00-00', 0, '', 0, '', '', 0, 1, 2, 2, NULL, '106591027996676403298', 2, '4074bbce-342b-4636-88c4-9230f060bc39', '2021-10-07 15:33:17', 0, '2021-10-09 12:38:42', 0, NULL),
+(36, 'haibaramailout@gmail.com', 'f2513d295ef85e3eab69ff1b244588f4', 'Haibara', 'Mail', '2021-10-07/615eb9b8506f5.png', '2021-10-19', 1, '0786543123', 14, 'Developer IT', 'Ho Chi Minh', 0, 1, 2, 4, NULL, NULL, 0, NULL, '2021-10-07 16:08:37', 0, NULL, NULL, NULL),
+(37, 'facebook12636@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ha', 'hieu', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 1, 3, '3210518352503578', '118289838384603944292', 2, NULL, '2021-10-07 20:08:35', 0, '2021-10-09 12:28:42', 0, NULL),
+(38, 'quyen.nguyen010398@gmail.com', '936e88b7623c89f37d29d47acdbfec3f', '', '', NULL, '0000-00-00', 0, '', 0, '', '', 0, 0, 2, 0, NULL, NULL, 0, NULL, '2021-10-09 21:38:41', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -798,7 +818,9 @@ INSERT INTO `customer_coupons` (`id`, `customer_id`, `coupon_id`, `customer_coup
 (53, 27, 6, 'i6ml4fbi6-10005', 2, NULL, NULL, NULL, NULL, NULL),
 (54, 27, 1, '4b90k3ui1-10005', 2, NULL, NULL, NULL, NULL, NULL),
 (55, 36, 1, '4b90k3ui1-10006', 0, NULL, NULL, NULL, NULL, NULL),
-(56, 36, 1, '4b90k3ui1-10006', 2, NULL, NULL, NULL, NULL, NULL);
+(56, 36, 1, '4b90k3ui1-10006', 2, NULL, NULL, NULL, NULL, NULL),
+(57, 27, 11, '946r9sis11-10001', 2, NULL, NULL, NULL, NULL, NULL),
+(58, 27, 12, '41q0b7ar12-10001', 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -847,7 +869,11 @@ INSERT INTO `customer_events` (`id`, `customer_id`, `event_id`, `customer_event_
 (23, 26, 2, 0, NULL, NULL, NULL, NULL, NULL),
 (24, 27, 7, 2, NULL, NULL, NULL, NULL, NULL),
 (25, 27, 6, 2, NULL, NULL, NULL, NULL, NULL),
-(26, 31, 6, 2, NULL, NULL, NULL, NULL, NULL);
+(26, 31, 6, 2, NULL, NULL, NULL, NULL, NULL),
+(27, 26, 6, 0, NULL, NULL, NULL, NULL, NULL),
+(28, 35, 8, 0, NULL, NULL, NULL, NULL, NULL),
+(29, 26, 7, 2, NULL, NULL, NULL, NULL, NULL),
+(30, 26, 6, 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -857,6 +883,7 @@ INSERT INTO `customer_events` (`id`, `customer_id`, `event_id`, `customer_event_
 
 CREATE TABLE `customer_reservations` (
   `id` int(10) NOT NULL,
+  `book_code` varchar(50) DEFAULT NULL,
   `customer_id` int(10) NOT NULL,
   `business_profile_id` int(10) NOT NULL,
   `book_name` varchar(250) DEFAULT NULL,
@@ -872,6 +899,20 @@ CREATE TABLE `customer_reservations` (
   `updated_by` int(11) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `customer_reservations`
+--
+
+INSERT INTO `customer_reservations` (`id`, `book_code`, `customer_id`, `business_profile_id`, `book_name`, `number_of_people`, `country_code_id`, `book_phone`, `date_arrived`, `time_arrived`, `book_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(9, 'BUSI202110091001', 26, 15, 'Thien Nguyen', 10, 80, '0886917766', '2021-10-20', '10:00:00', 2, '2021-10-09 10:16:57', 0, NULL, NULL, NULL),
+(10, 'BUSI202110091002', 26, 15, 'Hoang Nguyen', 10, 80, '0886917766', '2021-10-20', '10:00:00', 4, '2021-10-09 10:19:10', 0, '2021-10-09 22:15:20', NULL, NULL),
+(11, 'HAIR1009-1003', 35, 6, 'Thien Hoang', 3, 80, '0909330619', '2021-10-13', '12:00:00', 3, '2021-10-09 22:02:08', 0, '2021-10-09 22:03:24', NULL, NULL),
+(12, 'HAIR1009-1004', 35, 6, 'Thien Nguyen', 3, 80, '0968963049', '2021-10-09', '22:47:00', 4, '2021-10-09 22:02:47', 0, '2021-10-09 22:03:15', NULL, NULL),
+(13, 'HAIR1009-1005', 35, 6, 'Thien Hoang 2', 1, 80, '0968963049', '2021-10-09', '22:48:00', 2, '2021-10-09 22:03:42', 0, NULL, NULL, NULL),
+(14, 'HAIR1009-1006', 35, 6, 'Thien Nguyen', 3, 80, '0909330619', '2021-10-09', '22:50:00', 2, '2021-10-09 22:05:12', 0, NULL, NULL, NULL),
+(15, 'HAIR1009-1007', 35, 6, 'Nguyen Duc Thang', 2, 80, '0909330619', '2021-10-26', '10:00:00', 2, '2021-10-09 22:05:57', 0, NULL, NULL, NULL),
+(16, 'HAIR1010-1008', 26, 6, 'Thien', 1, 80, '0886917766', '2021-10-27', '12:00:00', 2, '2021-10-10 08:18:46', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -909,8 +950,10 @@ INSERT INTO `customer_reviews` (`id`, `customer_id`, `business_id`, `review_star
 (8, 26, 3, 5.0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula. Donec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum. onec elementum fringilla rhoncus. Vestibulum in accumsan velit. Donec interdum.</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero.</p>', 2, '2021-10-08 11:55:03', 0, '2021-10-08 15:02:23', 0, NULL),
 (9, 26, 3, 3.0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue felis, luctus vitae enim eu, consectetur rhoncus ligula.</p>', '', 2, '2021-10-08 12:11:16', 0, '2021-10-08 15:00:07', 0, NULL),
 (10, 26, 6, 5.0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue</p>', NULL, 2, '2021-10-08 12:51:18', 0, NULL, NULL, NULL),
-(11, 26, 6, 1.0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue</p>', NULL, 2, '2021-10-08 12:51:28', 0, NULL, NULL, NULL),
-(12, 26, 6, 1.0, '<p>overall_rating</p><p>overall_rating</p><p>overall_rating</p>', '<p>thanks</p>', 2, '2021-10-08 12:54:26', 0, '2021-10-08 19:42:18', 0, NULL);
+(11, 26, 6, 1.0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in maximus libero. Fusce vulputate, lectus vitae rhoncus bibendum, eros purus dignissim sapien, sit amet sollicitudin nulla felis sit amet sem. Proin augue</p>', '<p>thanks</p>', 2, '2021-10-08 12:51:28', 0, '2021-10-09 10:00:22', 0, NULL),
+(12, 26, 6, 1.0, '<p>overall_rating</p><p>overall_rating</p><p>overall_rating</p>', '<p>thanks</p>', 0, '2021-10-08 12:54:26', 0, '2021-10-08 19:42:18', 0, '2021-10-09 10:00:29'),
+(13, 35, 6, 5.0, '<p>dánh giá business profile</p><p>&nbsp;</p><p>dánh giá business profile</p><p>dánh giá business profile</p><p>dánh giá business profile</p>', NULL, 2, '2021-10-09 10:02:56', 0, NULL, NULL, NULL),
+(14, 35, 6, 1.0, '<p>hello</p>', '<p>hello</p>', 2, '2021-10-09 10:04:29', 0, '2021-10-09 10:04:52', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1683,12 +1726,12 @@ CREATE TABLE `email_queue` (
   `id` int(10) NOT NULL,
   `email_subject` varchar(250) NOT NULL,
   `email_content` longtext NOT NULL,
-  `email_from` varchar(250) NOT NULL,
-  `email_from_name` varchar(250) NOT NULL,
-  `email_to` varchar(250) NOT NULL,
-  `email_to_name` varchar(250) NOT NULL,
+  `email_from` varchar(250) DEFAULT NULL,
+  `email_from_name` varchar(250) DEFAULT NULL,
+  `email_to` varchar(250) DEFAULT NULL,
+  `email_to_name` varchar(250) DEFAULT NULL,
   `is_send` tinyint(4) DEFAULT 0,
-  `created_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT NULL,
   `created_by` int(10) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(10) DEFAULT NULL,
@@ -1703,7 +1746,14 @@ INSERT INTO `email_queue` (`id`, `email_subject`, `email_content`, `email_from`,
 (4, 'Your account was successfully created', '<!doctype html>\r\n<html lang=\"en\">\r\n <head>\r\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n  <title>email</title>\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\r\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\r\n</head>\r\n<style>\r\n</style>\r\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\r\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\r\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\r\n    </div>\r\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\r\n        <p style=\"margin-bottom: 32px;font-weight: bold;\r\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\r\n                            <p>Hello <strong>testque@gmail.com</user></strong> ,</p>\r\n                            <p>Thank you for creating your account at AdBazar</p>\r\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\r\n                            <p>Best,<br>AdBazar.</p>\r\n                            <p>You can view details of other events by clicking the button below.</p>\r\n                            <div style=\"text-align: center;margin-top: 32px;\">\r\n                                <a href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\r\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\r\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\r\n                            </div>    </div>\r\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\r\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\r\n        <div style=\"margin-bottom: 16px;\">\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\r\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\r\n        </div>\r\n        <div style=\"margin-bottom: 16px;text-align: center;\">\r\n            www.adbazar.eu\r\n        </div>\r\n        <div style=\"text-align: center;\">\r\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\r\n    </div>\r\n</body>\r\n</html>', 'mailout.dkh@gmail.com', 'AdBazar.eu', 'huongthien1993@gmail.com', 'Thien Nguyen', 2, '2021-10-07 09:01:48', NULL, NULL, NULL, NULL),
 (5, 'Your account was successfully created', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\n                            <p>Hello <strong>test111@gmail.com</user></strong> ,</p>\n                            <p>Thank you for creating your account at AdBazar</p>\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <p>You can view details of other events by clicking the button below.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'huongthien1993@gmail.com', 'Thien Nguyen', 2, '2021-10-07 10:05:31', NULL, NULL, NULL, NULL),
 (6, 'Your account was successfully created', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\n                            <p>Hello <strong>huongthien1993@gmail.com</user></strong> ,</p>\n                            <p>Thank you for creating your account at AdBazar</p>\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <p>You can view details of other events by clicking the button below.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'huongthien1993@gmail.com', 'huongthien1993@gmail.com', 2, '2021-10-07 15:33:18', NULL, NULL, NULL, NULL),
-(7, 'Your account was successfully created', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\n                            <p>Hello <strong>haibaramailout@gmail.com</user></strong> ,</p>\n                            <p>Thank you for creating your account at AdBazar</p>\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <p>You can view details of other events by clicking the button below.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'haibaramailout@gmail.com', 'haibaramailout@gmail.com', 2, '2021-10-07 16:08:37', NULL, NULL, NULL, NULL);
+(7, 'Your account was successfully created', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\n                            <p>Hello <strong>haibaramailout@gmail.com</user></strong> ,</p>\n                            <p>Thank you for creating your account at AdBazar</p>\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <p>You can view details of other events by clicking the button below.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'haibaramailout@gmail.com', 'haibaramailout@gmail.com', 2, '2021-10-07 16:08:37', NULL, NULL, NULL, NULL),
+(8, 'Password assistance', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Password assistance</p>\n                            <p>Hello <strong>Nguyen</user></strong> ,</p>\n                            <p>We have received your request to change your password.</p>\n                            <p>Please click the button below to set up your new password.</p>\n                            <p>If you did not make this request, please reach out to us immediately.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a target=\"_blank\" href=\"https://adb.xproz.com/password_assistance?token=d9647fbb-c008-4bfc-878e-05e4fa7d99b0\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">Reset Password</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'huongthien1993@gmail.com', 'Nguyen', 2, '2021-10-09 15:57:48', NULL, NULL, NULL, NULL),
+(9, 'Password assistance', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Password assistance</p>\n                            <p>Hello <strong>Nguyen</user></strong> ,</p>\n                            <p>We have received your request to change your password.</p>\n                            <p>Please click the button below to set up your new password.</p>\n                            <p>If you did not make this request, please reach out to us immediately.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a target=\"_blank\" href=\"https://adb.xproz.com/password-assistance?token=67ad2c87-4a09-4e94-8f8b-61b407ed5873\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">Reset Password</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'huongthien1993@gmail.com', 'Nguyen', 2, '2021-10-09 21:35:54', NULL, NULL, NULL, NULL),
+(10, 'Your account was successfully created', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Your account was successfully created.</p>\n                            <p>Hello <strong>quyen.nguyen010398@gmail.com</user></strong> ,</p>\n                            <p>Thank you for creating your account at AdBazar</p>\n                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <p>You can view details of other events by clicking the button below.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a target=\"_blank\" href=\"https://adb.xproz.com/customer/general-information\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">See my profile</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'quyen.nguyen010398@gmail.com', 'quyen.nguyen010398@gmail.com', 2, '2021-10-09 21:38:41', NULL, NULL, NULL, NULL),
+(11, 'Password assistance', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Password assistance</p>\n                            <p>Hello <strong></user></strong> ,</p>\n                            <p>We have received your request to change your password.</p>\n                            <p>Please click the button below to set up your new password.</p>\n                            <p>If you did not make this request, please reach out to us immediately.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a target=\"_blank\" href=\"https://adb.xproz.com/password-assistance?token=9769c4ed-9861-46d5-9941-d61737941986\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">Reset Password</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'thunh.uet@gmail.com', '', 2, '2021-10-09 21:39:08', NULL, NULL, NULL, NULL),
+(12, 'Password assistance', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/uploads/configs/2021-09-26/61507620e94d5.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Password assistance</p>\n                            <p>Hello <strong>Nguyen</user></strong> ,</p>\n                            <p>We have received your request to change your password.</p>\n                            <p>Please click the button below to set up your new password.</p>\n                            <p>If you did not make this request, please reach out to us immediately.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a target=\"_blank\" href=\"https://adb.xproz.com/password-assistance?token=2b603775-9527-462f-936e-282060194907\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">Reset Password</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'huongthien1993@gmail.com', 'Nguyen', 2, '2021-10-10 08:53:10', NULL, NULL, NULL, NULL),
+(13, 'Password assistance', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/img/frontend/logo-email.svg\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Password assistance</p>\n                            <p>Hello <strong>Nguyen</user></strong> ,</p>\n                            <p>We have received your request to change your password.</p>\n                            <p>Please click the button below to set up your new password.</p>\n                            <p>If you did not make this request, please reach out to us immediately.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a target=\"_blank\" href=\"https://adb.xproz.com/password-assistance?token=07c7e89e-2c2c-4edb-9512-5a77ab74baf2\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">Reset Password</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'huongthien1993@gmail.com', 'Nguyen', 2, '2021-10-10 08:58:47', NULL, NULL, NULL, NULL),
+(14, 'Password assistance', '<!doctype html>\n<html lang=\"en\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <title>email</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <link href=\'http://fonts.googleapis.com/css?family=Roboto\' rel=\'stylesheet\' type=\'text/css\'>\n</head>\n<style>\n</style>\n<body style=\"background: #F5F5F5;overflow: auto; font-family: \'Roboto\', sans-serif;\">\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;\">\n        <img src=\"https://adb.xproz.com/assets/img/frontend/e-logo.png\" alt=\"\">\n    </div>\n    <div style=\"padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;\">\n        <p style=\"margin-bottom: 32px;font-weight: bold;\n                            font-size: 20px;line-height: 24px;text-align: center;\">Password assistance</p>\n                            <p>Hello <strong>Nguyen</user></strong> ,</p>\n                            <p>We have received your request to change your password.</p>\n                            <p>Please click the button below to set up your new password.</p>\n                            <p>If you did not make this request, please reach out to us immediately.</p>\n                            <p>Best,<br>AdBazar.</p>\n                            <div style=\"text-align: center;margin-top: 32px;\">\n                                <a target=\"_blank\" href=\"https://adb.xproz.com/password-assistance?token=4074bbce-342b-4636-88c4-9230f060bc39\" style=\"background: #C20000;font-style: normal;font-weight: 500;\n                                font-size: 18px; line-height: 21px;    text-decoration: inherit;\n                                border-radius: 2px;padding: 10px 20px;color: #fff;\">Reset Password</a>\n                            </div>    </div>\n    <div style=\"text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;\n    font-size: 10px;line-height: 12px;color: #FFFFFF;\">\n        <div style=\"margin-bottom: 16px;\">\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email1.png\" alt=\"Facebook AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email2.png\" alt=\"Instagram AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email3.png\" alt=\"Tiktok AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email4.png\" alt=\"Twitter AdBazar\"></a>\n            <a href=\"#\" style=\"padding: 0 12px;\"> <img src=\"https://adb.xproz.com/assets/img/frontend/icon-email5.png\" alt=\"Pinterest AdBazar\"></a>\n        </div>\n        <div style=\"margin-bottom: 16px;text-align: center;\">\n            www.adbazar.eu\n        </div>\n        <div style=\"text-align: center;\">\n            Svatý Kříž 281, 35002 Cheb,  Czech Republic        </div>\n    </div>\n</body>\n</html>', 'admin@adbazar.eu', 'AdBazar.eu', 'huongthien1993@gmail.com', 'Nguyen', 2, '2021-10-10 09:02:52', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1924,7 +1974,14 @@ INSERT INTO `opening_hours` (`id`, `business_profile_id`, `day_id`, `start_time`
 (284, 14, 3, '00:00:00', '00:00:00', 1, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
 (283, 14, 2, '00:00:00', '00:00:00', 1, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
 (282, 14, 1, '22:14:00', '23:59:00', 2, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
-(281, 14, 0, '23:59:00', '23:59:00', 2, '2021-10-07 16:17:52', 0, NULL, NULL, NULL);
+(281, 14, 0, '23:59:00', '23:59:00', 2, '2021-10-07 16:17:52', 0, NULL, NULL, NULL),
+(288, 15, 0, '17:10:00', '23:59:00', 2, '2021-10-09 10:10:28', 0, NULL, NULL, NULL),
+(289, 15, 1, '10:10:00', '16:10:00', 2, '2021-10-09 10:10:28', 0, NULL, NULL, NULL),
+(290, 15, 2, '00:00:00', '00:00:00', 1, '2021-10-09 10:10:28', 0, NULL, NULL, NULL),
+(291, 15, 3, '00:00:00', '00:00:00', 1, '2021-10-09 10:10:28', 0, NULL, NULL, NULL),
+(292, 15, 4, '00:00:00', '00:00:00', 1, '2021-10-09 10:10:28', 0, NULL, NULL, NULL),
+(293, 15, 5, '10:10:00', '13:10:00', 2, '2021-10-09 10:10:28', 0, NULL, NULL, NULL),
+(294, 15, 6, '04:10:00', '13:10:00', 2, '2021-10-09 10:10:28', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2295,20 +2352,27 @@ CREATE TABLE `reservation_configs` (
 --
 
 INSERT INTO `reservation_configs` (`id`, `business_profile_id`, `day_id`, `max_people`, `max_per_reservation`, `duration`, `start_time`, `end_time`, `reservation_config_status_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(1, 6, 0, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
-(2, 6, 1, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
-(3, 6, 2, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
-(4, 6, 3, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
-(5, 6, 4, 70, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
-(6, 6, 5, 80, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
-(7, 6, 6, 90, 10, 45, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(1, 6, 0, 60, 5, 60, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(2, 6, 1, 60, 5, 60, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(3, 6, 2, 60, 5, 60, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(4, 6, 3, 60, 5, 60, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(5, 6, 4, 60, 5, 60, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(6, 6, 5, 60, 5, 45, '09:00:00', '23:50:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
+(7, 6, 6, 60, 5, 60, '09:00:00', '20:00:00', 2, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52', NULL, '2021-10-08 09:04:52'),
 (8, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
 (9, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
 (10, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
 (11, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
 (12, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
 (13, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
-(14, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL);
+(14, 0, 0, 100, 20, 60, '08:38:00', '19:38:00', 0, NULL, NULL, NULL, NULL, NULL),
+(15, 15, 0, 60, 10, 60, '08:10:00', '20:20:00', 0, NULL, NULL, NULL, NULL, NULL),
+(16, 15, 2, 60, 10, 60, '08:10:00', '20:20:00', 0, NULL, NULL, NULL, NULL, NULL),
+(17, 15, 6, 60, 10, 60, '08:10:00', '20:20:00', 0, NULL, NULL, NULL, NULL, NULL),
+(18, 15, 1, 60, 10, 60, '08:10:00', '20:20:00', 0, NULL, NULL, NULL, NULL, NULL),
+(19, 15, 3, 60, 10, 60, '08:10:00', '20:20:00', 0, NULL, NULL, NULL, NULL, NULL),
+(20, 15, 4, 60, 10, 60, '08:10:00', '20:20:00', 0, NULL, NULL, NULL, NULL, NULL),
+(21, 15, 5, 60, 10, 60, '08:10:00', '20:20:00', 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13968,13 +14032,13 @@ ALTER TABLE `business_payments`
 -- AUTO_INCREMENT for table `business_photos`
 --
 ALTER TABLE `business_photos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 
 --
 -- AUTO_INCREMENT for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `business_profile_locations`
@@ -13986,19 +14050,19 @@ ALTER TABLE `business_profile_locations`
 -- AUTO_INCREMENT for table `business_service_types`
 --
 ALTER TABLE `business_service_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `business_videos`
 --
 ALTER TABLE `business_videos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=367;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=369;
 
 --
 -- AUTO_INCREMENT for table `contact_us`
 --
 ALTER TABLE `contact_us`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `countries`
@@ -14016,37 +14080,37 @@ ALTER TABLE `coupons`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `customer_coupons`
 --
 ALTER TABLE `customer_coupons`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `customer_events`
 --
 ALTER TABLE `customer_events`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `customer_reservations`
 --
 ALTER TABLE `customer_reservations`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `customer_reviews`
 --
 ALTER TABLE `customer_reviews`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `email_queue`
 --
 ALTER TABLE `email_queue`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -14088,7 +14152,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `opening_hours`
 --
 ALTER TABLE `opening_hours`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=295;
 
 --
 -- AUTO_INCREMENT for table `phonecodes`
@@ -14106,7 +14170,7 @@ ALTER TABLE `provinces`
 -- AUTO_INCREMENT for table `reservation_configs`
 --
 ALTER TABLE `reservation_configs`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `roleactions`

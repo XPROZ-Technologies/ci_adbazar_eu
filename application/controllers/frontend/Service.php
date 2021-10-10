@@ -66,9 +66,26 @@ class Service extends MY_Controller {
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
         $service_types = $this->input->get('service_types');
-        $data['service_types'] =  explode(',', $service_types);
-        
-        $getData = array('service_id' => $serviceId, 'business_status_id' => STATUS_ACTIVED, 'search_text_fe' => $search_text);
+        $data['service_types'] = array();
+        if(!empty($service_types)){
+            $data['service_types'] =  explode(',', $service_types);
+        }
+        //print_r( $data['service_types']);die; 
+        //filter with service types
+        $businessProfileIds = array();
+        if(!empty($data['service_types']) && count($data['service_types']) > 0){
+            $listBusiness = $this->Mbusinessservicetype->search(array('service_type_ids' => $data['service_types'])); 
+            foreach ($listBusiness as $itemBusiness) {
+                $businessProfileIds[] = $itemBusiness['id'];
+            }
+        }
+
+        $getData = array(
+            'service_id' => $serviceId, 
+            'business_status_id' => STATUS_ACTIVED, 
+            'search_text_fe' => $search_text,
+            'business_profile_ids' => $businessProfileIds
+        );
         $rowCount = $this->Mbusinessprofiles->getCount($getData);
         $data['listProfiles'] = array();
         

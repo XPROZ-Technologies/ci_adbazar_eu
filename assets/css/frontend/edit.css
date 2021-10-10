@@ -849,7 +849,7 @@ line-height: 28px;
 }
 .bp-tabs-right .open-hour li .badge-cancel {
     width: auto;
-    padding: 2px 30px;
+    padding: 2px 33px;
     font-weight: 500;
     font-size: 10px;
     line-height: 12px;
@@ -1084,6 +1084,10 @@ border-radius: 2px;
     text-align: center;
     background-color: #fff;
 }
+.zero-box.zero-gray {
+    background-color: #F5F5F5;
+}
+
 .customer-service-content .search-box,
 .customer-coupon .search-box {
     margin: 0;
@@ -2702,6 +2706,10 @@ span.switch-left {
     cursor: not-allowed;
     pointer-events: all !important;
 }
+.js-select-time.nice-select.open .list {
+    overflow-y: scroll;
+    max-height: 300px;
+} 
 @media (min-width: 1366px){
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
         max-width: 1320px;
