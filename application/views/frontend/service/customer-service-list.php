@@ -136,7 +136,7 @@
 <script>
   $(document).ready(function() {
     $("body").on('click', '.service_type_selected', function(){
-      if (!$(this).hasClass("test")) {
+      if (!$(this).parent('li').hasClass("selected")) {
         $(this).parent('li').addClass('selected');
       }else{
         $(this).parent('li').removeClass('selected');
