@@ -235,6 +235,7 @@ $route['business-management/(:any)/coupons'] = 'frontend/businessprofile/manage_
 $route['business-management/(:any)/create-coupon'] = 'frontend/businessprofile/manage_create_coupon/$1';
 $route['business-management/(:any)/events'] = 'frontend/businessprofile/manage_events/$1';
 $route['business-management/(:any)/create-event'] = 'frontend/businessprofile/manage_create_event/$1';
+$route['business-management/(:any)/edit-event/(:num)'] = 'frontend/businessprofile/manage_edit_event/$1/$2';
 $route['business-management/(:any)/reviews'] = 'frontend/businessprofile/manage_reviews/$1';
 $route['business-management/(:any)/reservations'] = 'frontend/businessprofile/manage_reservations/$1';
 $route['business-management/(:any)/subscriptions'] = 'frontend/businessprofile/manage_subscriptions/$1';
@@ -251,3 +252,4 @@ $route['reservation/business-decline-reservation'] = 'frontend/reservation/busin
 
 $route['business-management/create-coupon'] = 'frontend/coupon/update';
 $route['business-management/create-event'] = 'frontend/event/update';
+$route['business-management/edit-event'] = 'frontend/event/updateEdit';

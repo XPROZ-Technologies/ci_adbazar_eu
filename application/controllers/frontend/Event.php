@@ -155,6 +155,12 @@ class Event extends MY_Controller {
             $data['customerEvent'] = $this->Mcustomerevents->get($customerEventId);
         }
 
+        $editAble = $this->input->get('editable');
+        $data['editAble'] = false;
+        if(!empty($editAble) && $data['businessInfo']['customer_id'] == $data['customer']['id']){
+            $data['editAble'] = true;
+        }
+
         $this->load->view('frontend/event/bp-event-detail', $data);
     }
 
@@ -181,6 +187,54 @@ class Event extends MY_Controller {
     
 
     public function update(){
+        try {
+            $postData = $this->arrayFromPost(array('business_profile_id', 'event_subject', 'event_image', 'start_date', 'end_date', 'start_time', 'end_time','event_description'));
+            if(!empty($postData['event_subject'])  && !empty($postData['start_date'])) {
+                $eventId = $this->input->post('id');
+				$this->load->model('Mevents');
+
+                
+                
+                $postData['start_time'] = $postData['start_time'];
+                $postData['end_time'] = $postData['end_time'];
+
+                $postData['start_date'] = date("Y-m-d", strtotime($postData['start_date']));
+                $postData['end_date'] = date("Y-m-d", strtotime($postData['end_date']));
+
+                /**
+                 * Upload if customer choose image
+                 */
+                $eventImageUpload = $this->input->post('event_image_upload');
+                if(!empty($eventImageUpload)){
+                    $imageUpload = $this->uploadImageBase64($eventImageUpload, 9);
+                    $postData['event_image'] = replaceFileUrl($imageUpload, EVENTS_PATH);
+                }
+
+                $message = 'Create success';
+                if ($eventId == 0){
+                    $postData['event_status_id'] = STATUS_ACTIVED;
+                    $postData['created_by'] = 0;
+                    $postData['created_at'] = getCurentDateTime();
+                }
+                else {
+                    $message = 'Update successful';
+                    $postData['updated_by'] = 0;
+                    $postData['updated_at'] = getCurentDateTime();
+                }
+                
+                $eventId = $this->Mevents->save($postData, $eventId);
+                if ($eventId > 0) {
+                    echo json_encode(array('code' => 1, 'message' => $message, 'data' => $eventId));
+                }
+                else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+            }
+            else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+        } catch (\Throwable $th) {
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
+     	}
+    }
+
+    public function updateEdit(){
         try {
             $postData = $this->arrayFromPost(array('business_profile_id', 'event_subject', 'event_image', 'start_date', 'end_date', 'start_time', 'end_time','event_description'));
             if(!empty($postData['event_subject'])  && !empty($postData['start_date'])) {

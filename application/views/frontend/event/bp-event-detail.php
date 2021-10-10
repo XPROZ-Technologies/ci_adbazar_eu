@@ -53,6 +53,14 @@
 
                             <h5 class="mb-3 page-text-lg">Conditions and Descriptions:</h5>
                             <p class="page-text-md mb-0"><?php echo nl2br($detailInfo['event_description']); ?></p>
+                            <?php if($editAble){ ?>
+                                <!-- Edit event -->
+                                <div class="form-group d-flex justify-content-center groups-btn">
+                                    <a href="<?php echo base_url('business-management/'.$businessInfo['business_url'].'/edit-event/'.$detailInfo['id']); ?>" class="btn btn-red">Edit</a>
+                                    <a href="<?php echo $backUrl; ?>" class="btn btn-outline-red btn-outline-red-md" style="margin-left:10px">Cancel</a>
+                                </div>
+                                <!-- END. Edit event -->
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

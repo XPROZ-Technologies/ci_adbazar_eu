@@ -1704,6 +1704,45 @@ class Businessprofile extends MY_Controller
         $this->load->view('frontend/business/bm-event-create', $data);
     }
 
+    public function manage_edit_event($slug = "")
+    {
+        if (empty($slug)) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+
+        $businessURL = trim($slug);
+
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents'));
+
+        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+        if ($businessProfileId == 0) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+        $businessInfo = $this->Mbusinessprofiles->get($businessProfileId);
+
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer("Create Event - " . $businessInfo['business_name']);
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $data['activeBusinessMenu'] = "";
+
+        $data['businessInfo'] = $businessInfo;
+
+
+
+
+        $this->load->view('frontend/business/bm-event-edit', $data);
+    }
+
     public function manage_reviews($slug = "")
     {
         if (empty($slug)) {

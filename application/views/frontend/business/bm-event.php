@@ -55,7 +55,7 @@
 
                     <div class="bp-event-list bm-event-list">
                       <?php foreach ($lists as $key => $eventItem) {
-                        $eventDetailUrl = base_url('event/' . makeSlug($eventItem['event_subject']) . '-' . $eventItem['id']) . '.html'; ?>
+                        $eventDetailUrl = base_url('event/' . makeSlug($eventItem['event_subject']) . '-' . $eventItem['id']) . '.html?editable=1'; ?>
                         <div class="position-elative">
                           <a href="<?php echo $eventDetailUrl; ?>" class="w-100 d-flex flex-column flex-lg-row customer-event-item">
                             <span class="event-img">
