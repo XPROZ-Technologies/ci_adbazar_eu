@@ -28,7 +28,7 @@ class Mservicetypes extends MY_Model {
                     FROM
                         service_types
                     LEFT JOIN business_service_types ON business_service_types.service_type_id = service_types.id
-                    WHERE business_service_types.business_profile_id = ?
+                    WHERE  service_types.status_id = 2 AND  business_service_types.business_profile_id = ?
                 ";
         return $this->getByQuery($query, array($businessId));
     }
@@ -41,7 +41,7 @@ class Mservicetypes extends MY_Model {
                     FROM
                         service_types
                     LEFT JOIN business_service_types ON business_service_types.service_type_id = service_types.id
-                    WHERE business_service_types.business_profile_id > 0 ". $this->buildQuery($postData);
+                    WHERE  service_types.status_id = 2 AND  business_service_types.business_profile_id > 0 ". $this->buildQuery($postData);
         return $this->getByQuery($query);
     }
 
@@ -53,7 +53,7 @@ class Mservicetypes extends MY_Model {
                     FROM
                         service_types
                     LEFT JOIN business_service_types ON business_service_types.service_type_id = service_types.id
-                    WHERE business_service_types.business_profile_id = ". $businessId;
+                    WHERE service_types.status_id = 2 AND  business_service_types.business_profile_id = ". $businessId;
             return $this->getByQuery($query);
         }else{
             return array();
@@ -68,7 +68,7 @@ class Mservicetypes extends MY_Model {
                         service_types.id
                     FROM
                         service_types
-                    WHERE service_id > 0 ". $this->buildQuery($postData);
+                    WHERE status_id = 2 AND service_id > 0 ". $this->buildQuery($postData);
         return $this->getByQuery($query);
     }
 
@@ -85,13 +85,13 @@ class Mservicetypes extends MY_Model {
     public function getListServiceTypeSelect2Ajax($serviceId, $searchText){
         $where = '';
         if(!empty($searchText)) $where = " AND service_type_name_en LIKE '%".$searchText."%' ";
-        $query = "SELECT * FROM service_types WHERE service_id = ".$serviceId.$where." LIMIT 200";
+        $query = "SELECT * FROM service_types WHERE status_id = 2 AND service_id = ".$serviceId.$where." LIMIT 200";
         return $this->getByQuery($query);
     }
 
     public function getListServiceTypeSelect2AjaxFrontend($serviceId, $service_type_name = "service_type_name_de"){
         $where = '';
-        $query = "SELECT id, {$service_type_name} as service_type_name FROM service_types WHERE service_id = ".$serviceId.$where." LIMIT 50";
+        $query = "SELECT id, {$service_type_name} as service_type_name FROM service_types WHERE status_id = 2 AND  service_id = ".$serviceId.$where." LIMIT 50";
         return $this->getByQuery($query);
     }
 }
