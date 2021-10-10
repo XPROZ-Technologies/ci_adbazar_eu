@@ -1,6 +1,6 @@
 <div class="um-left show-mobile-ic mb-20">
 <div class="text-center">
-        <a href="javascript:void(0)" class="icon-show-mobile"><img src="assets/img/frontend/icon-mobile.png" alt=""></a>
+        <a href="javascript:void(0)" class="icon-show-mobile"><img src="assets/img/frontend/icon-mobile.svg" alt=""></a>
     </div>
     <div class="um-links">
         <ul class="list-unstyled">

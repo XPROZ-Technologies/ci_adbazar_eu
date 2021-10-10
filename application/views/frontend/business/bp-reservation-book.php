@@ -88,7 +88,7 @@
                 -->
                 <div class="form-group mb-3">
                   <label class="form-label">Select a time <span class="required text-danger">*</span></label>
-                  <div class="custom-select js-select-service">
+                  <div class="custom-select js-select-service ">
                     <select name="time_arrived" required id="timeArrived">
                       <option value="10:00">10:00</option>
                       <option value="11:00">11:00</option>
