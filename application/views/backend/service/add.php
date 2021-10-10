@@ -34,7 +34,7 @@
                                             <?php foreach($this->Mconstants->languageTexts as $key => $text): ?>
                                             <div class="tab-pane fade <?php echo $key == 'en' ? 'active':''; ?> in" id="service-name-<?php echo $key ?>-tab">
                                                 <div class="form-group">
-                                                    <input type="text" name="service_name_<?php echo $key ?>" id="service_name_<?php echo $key ?>" value="1" class="form-control hmdrequired" data-field="Service Name <?php echo $text ?>" autocomplete="off">
+                                                    <input type="text" name="service_name_<?php echo $key ?>" id="service_name_<?php echo $key ?>" class="form-control hmdrequired" data-field="Service Name <?php echo $text ?>" autocomplete="off">
                                                 </div>
                                             </div>
                                             <?php endforeach; ?>
@@ -110,7 +110,7 @@
                                                     <?php foreach($this->Mconstants->languageTexts as $key2 => $text): ?>
                                                     <div class="service_type_name tab-pane fade <?php echo $key2 == 'en' ? 'active':''; ?> in service-type-name-<?php echo $key2 ?>-tab" data-key="<?php echo $key2 ?>">
                                                         <div class="form-group">
-                                                            <input type="text" name="service_type_name_<?php echo $key2 ?>" id="service_type_name_<?php echo $key2 ?>" value="1" class="form-control clearAllText" data-field="Service Type Name <?php echo $text ?>" autocomplete="off">
+                                                            <input type="text" name="service_type_name_<?php echo $key2 ?>" id="service_type_name_<?php echo $key2 ?>"  class="form-control clearAllText" data-field="Service Type Name <?php echo $text ?>" autocomplete="off">
                                                         </div>
                                                     </div>
                                                     <?php endforeach; ?>
@@ -120,7 +120,7 @@
                                                 <?php $this->Mconstants->selectNumber(0, 100, 'display_order_0', 1, true); ?>
                                     		</td>
                                     		<td class="actions" service-type-id="0">
-                                                <a href="javascript:void(0)" id="link_add" status-id="0" title="Cập nhật"><i class="fa fa-save"></i></a>&nbsp;
+                                                <a href="javascript:void(0)" id="link_add" status-id="2" title="Cập nhật"><i class="fa fa-save"></i></a>&nbsp;
                                                 <a href="javascript:void(0)" id="link_cancel" title="Thôi"><i class="fa fa-times"></i></a>
                                             </td>
                                     	</tr>
