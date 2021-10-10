@@ -117,7 +117,7 @@
                     <?php if (isset($customer['login_type_id']) && $customer['login_type_id'] == 2) { ?>
                       <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
                     <?php } else { ?>
-                      <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>">Log Out</button>
+                      <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>"><?php echo $this->lang->line('logout'); ?></button>
                     <?php } ?>
 
                   </div>
