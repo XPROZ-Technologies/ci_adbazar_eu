@@ -223,4 +223,15 @@ abstract class MY_Controller extends CI_Controller {
         }
         return "";
     }
+
+    public function getLanguageFE() {
+        $this->load->helper('cookie');
+        $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
+        $this->language =  $language;
+        $this->lang->load('login', $this->language);
+        $this->lang->load('customer', $this->language);
+        $this->lang->load('business_profile', $this->language);
+        $this->lang->load('business_management', $this->language);
+        $this->lang->load('user_account_management', $this->language);
+    }
 }
