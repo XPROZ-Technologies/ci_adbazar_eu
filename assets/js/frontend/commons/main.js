@@ -10,7 +10,7 @@ $(window).ready(() => {
   $("#eventCancelModal").modal("show");
   /*$("#reservationModal").modal("show");*/
   /*$("#bmCannotCreateModal").modal("show");*/
-  $("#bmCouponAlertModal").modal("show");
+  /*$("#bmCouponAlertModal").modal("show"); */
   /*
   $('.btn-getnow').click(function(){
     $("#savedCouponModal").modal("show");

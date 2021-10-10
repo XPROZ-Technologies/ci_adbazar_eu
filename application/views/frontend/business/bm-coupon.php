@@ -15,8 +15,8 @@
                 <div class="coupon-top">
                   <div class="d-flex flex-column flex-xl-row justify-content-xl-between">
                     <form class="d-flex mb-3 mb-xl-0">
-                      <input class="form-control me-2" type="text" placeholder="Enter code here">
-                      <button class="btn btn-outline-red" type="submit">Check</button>
+                      <input class="form-control me-2" type="text" placeholder="Enter code here" id="couponCodeValue">
+                      <button class="btn btn-outline-red btn-check-coupon" type="button">Check</button>
                     </form>
                     <a href="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/create-coupon') ?>" class="btn btn-red btn-create-coupon">Create new coupon</a>
                   </div>
@@ -150,3 +150,89 @@
 </main>
 <input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
+
+<!-- Expire Avail Coupon Modal -->
+<div class="modal fade bm-coupon-modal" id="bmCouponAlertModalAvail" tabindex="-1" aria-labelledby="bmCouponAlertModalAvailLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p class="page-text-lg mb-0">
+                  We found your code: <b>AH1234</b> 
+                </p>
+                <p class="page-text-lg mb-0">
+                Do you want to activate it?
+                </p>
+
+                <div class="modal-footer border-top-0 justify-content-center p-0">
+                    <button type="button" class="btn btn-red btn-ok btn-active-coupon"
+                        data-bs-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-outline-red btn-ok"
+                        data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Avail Coupon Modal -->
+
+<!-- Found Used Coupon Modal -->
+<div class="modal fade bm-coupon-modal bm-found" id="bmCouponAlertModalUsed" tabindex="-1" aria-labelledby="bmCouponAlertModalUsedLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p class="page-text-lg mb-0">
+                  Your code <b>AH1234</b> has been used or is expired. 
+                </p>
+                <p class="page-text-lg mb-0">
+                  Please try another code.
+                    
+                </p>
+
+                <div class="modal-footer border-top-0 justify-content-center p-0">
+                    <button type="button" class="btn btn-red">OK</button>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Used Coupon Modal -->
+
+<!-- Not found coupon Modal -->
+<div class="modal fade bm-coupon-modal" id="bmCouponAlertModalNone" tabindex="-1" aria-labelledby="bmCouponAlertModalAvailLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p class="page-text-lg mb-0">
+                  We not found your code: <b>AH1234</b> 
+                </p>
+                <p class="page-text-lg mb-0">
+                    Please try another code.
+                </p>
+
+                <div class="modal-footer border-top-0 justify-content-center p-0">
+                    <button type="button" class="btn btn-red btn-ok"
+                        data-bs-dismiss="modal">OK</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Not found coupon Modal -->
+<script>
+  $('.btn-check-coupon').click(function(e) {
+    var coupon_code = $("#couponCodeValue").val();
+
+    if(coupon_code.length == 0){
+        $(".notiPopup .text-secondary").html("Please enter coupon");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+    }
+
+    
+  });
+</script>
