@@ -410,7 +410,13 @@ if(!function_exists('getRangeHours')) {
         //Use startPoint & endPoint
         $arrHours = array();
         for($i = $startPoint; $i <= $endPoint; $i = $i + $duration){
-            $arrHours[] = intdiv($i, 60).':'. ($i % 60);
+            $tmpHours = intdiv($i, 60);
+            if(strlen($tmpHours) == 1) $tmpHours = "0".$tmpHours;
+            
+            $tmpMin = ($i % 60);
+            if(strlen($tmpMin) == 1) $tmpMin = "0".$tmpMin;
+
+            $arrHours[] = $tmpHours.':'. $tmpMin;
         }
 
         return $arrHours;
