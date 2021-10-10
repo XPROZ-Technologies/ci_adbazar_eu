@@ -1084,6 +1084,10 @@ border-radius: 2px;
     text-align: center;
     background-color: #fff;
 }
+.zero-box.zero-gray {
+    background-color: #F5F5F5;
+}
+
 .customer-service-content .search-box,
 .customer-coupon .search-box {
     margin: 0;

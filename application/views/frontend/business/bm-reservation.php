@@ -43,8 +43,9 @@
                     </div>
                   </div>
                 </div>
-                <?php if (!empty($lists)) { ?>
+                
                   <div class="bg-f5">
+                    <?php if (!empty($lists)) { ?>
                     <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                       <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
                       <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
@@ -170,17 +171,18 @@
                       </div>
                       <!-- END. Pagination -->
                     <?php } ?>
-
+                    
+                    <?php } else { ?>
+                      <div class="zero-event zero-box zero-gray">
+                        <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
+                        <p class="text-secondary page-text-lg">No reservations</p>
+                      </div>
+                    <?php } ?>
                   </div>
 
                   <!-- END -->
 
-                <?php } else { ?>
-                  <div class="zero-event zero-box">
-                    <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
-                    <p class="text-secondary page-text-lg">No reservations</p>
-                  </div>
-                <?php } ?>
+                
 
 
               </div>
