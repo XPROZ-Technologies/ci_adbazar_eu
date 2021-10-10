@@ -87,7 +87,7 @@
                   <?php } else { ?>
                     <div class="zero-event zero-box">
                       <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
-                      <p class="text-secondary page-text-lg">No upcoming events on this day</p>
+                      <p class="text-secondary page-text-lg">No business profile</p>
                     </div>
                   <?php } ?>
 
