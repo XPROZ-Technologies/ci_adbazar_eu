@@ -164,8 +164,48 @@ class Home extends MY_Controller {
          * Commons data
          */
 
+        $data['content'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_TEXT', $data['language_id']);
         
 
         $this->load->view('frontend/home/about', $data);
+    }
+
+    public function term() {
+        $this->loadModel(array('Mcustomers','Mconfigs'));
+        
+        /**
+         * Commons data
+         */
+
+
+        $data = $this->commonDataCustomer('Term of Use');
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $data['content'] = $this->Mconfigs->getConfigValueByLang('TERM_OF_USE', $data['language_id']);
+
+        $this->load->view('frontend/home/term', $data);
+    }
+
+    public function privacy() {
+        $this->loadModel(array('Mcustomers','Mconfigs'));
+        
+        /**
+         * Commons data
+         */
+
+
+        $data = $this->commonDataCustomer('Privacy Policy');
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $data['content'] = $this->Mconfigs->getConfigValueByLang('PRIVACY_POLICY', $data['language_id']);
+        
+
+        $this->load->view('frontend/home/term', $data);
     }
 }

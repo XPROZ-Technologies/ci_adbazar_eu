@@ -6,7 +6,8 @@
                 <h2 class="page-heading page-title-md text-black fw-bold"><?php echo $this->lang->line('about_us'); ?></h2>
                 <div class="row">
                     <div class="">
-                        <p class="page-text-lg"><?php 
+                        <p class="page-text-lg">
+                            <?php 
                                  echo $content; 
                             ?>
                         </p>
