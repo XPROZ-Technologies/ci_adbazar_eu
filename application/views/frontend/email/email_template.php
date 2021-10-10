@@ -10,7 +10,7 @@
 </style>
 <body style="background: #F5F5F5;overflow: auto; font-family: 'Roboto', sans-serif;">
     <div style="text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;">
-        <img src="<?php echo base_url('assets/img/frontend/logo-email.svg'); ?>" alt="">
+        <img src="<?php echo base_url('assets/img/frontend/e-logo.png'); ?>" alt="">
     </div>
     <div style="padding: 32px;background: #fff;width: 576px;margin: 0 auto 16px;">
         <?php echo $content; ?>
