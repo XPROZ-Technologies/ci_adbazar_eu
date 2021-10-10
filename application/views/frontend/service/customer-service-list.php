@@ -87,7 +87,7 @@
                   <?php } else { ?>
                     <div class="zero-event zero-box">
                       <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
-                      <p class="text-secondary page-text-lg"><?php echo $this->lang->line('no_upcoming_event_on_this_day'); ?></p>
+                      <p class="text-secondary page-text-lg"><?php echo $this->lang->line('there_is_nothing_to_display_yet'); ?></p>
 
                     </div>
                   <?php } ?>
