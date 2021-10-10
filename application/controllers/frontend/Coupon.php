@@ -19,7 +19,7 @@ class Coupon extends MY_Controller
 
     public function index()
     {
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mbusinessservicetype'));
 
         /**
          * Commons data
@@ -38,7 +38,11 @@ class Coupon extends MY_Controller
         $serviceId = $this->input->get('service');
         $data['service'] =  $serviceId;
         $service_types = $this->input->get('service_types');
-        $data['service_types'] =  explode(',', $service_types);
+        $data['service_types'] = array();
+        if(!empty($service_types)){
+            $data['service_types'] =  explode(',', $service_types);
+        }
+        
         $savedCoupons = $this->Mcustomercoupons->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_coupon_status_id >' => 0), 'coupon_id');
 
         $serviceIds = $this->Mbusinessprofiles->getListFieldValue(array('business_status_id >' => 0), 'service_id', 0);
@@ -53,7 +57,15 @@ class Coupon extends MY_Controller
                 $businessProfileIds[] = $itemBusiness['id'];
             }
         }
-
+        
+        //filter with service types
+        if(!empty($data['service_types']) && count($data['service_types']) > 0){
+            $listBusiness = $this->Mbusinessservicetype->search(array('service_type_ids' => $data['service_types']));
+            $businessProfileIds = array();
+            foreach ($listBusiness as $itemBusiness) {
+                $businessProfileIds[] = $itemBusiness['id'];
+            }
+        }
 
         $getData = array(
             'coupon_status_id' => STATUS_ACTIVED,

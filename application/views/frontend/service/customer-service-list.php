@@ -146,8 +146,10 @@
       var repKeySearch = keySearch.replace(/,*$/, "")
       var splitSearch = window.location.search.split("&");
       console.log(window.location.search)
-      var search = splitSearch[0]+'&'+splitSearch[1]+'&service_types='+repKeySearch;
-      //window.location.href = window.location.origin+window.location.pathname+search
+      
+      var search = '?service_types='+repKeySearch;
+      
+      window.location.href = window.location.origin+window.location.pathname+search
     })
   })
 </script>
