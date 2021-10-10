@@ -760,6 +760,7 @@ min-height: 320px;
     border-radius: inherit; 
 }
 #pills-photo .photo-list .c-img {
+    border: 1px solid #ededed;
     padding-top: 126%;
 }
 .posting .slider .slick-slide a {
