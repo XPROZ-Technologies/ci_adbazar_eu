@@ -321,11 +321,14 @@ main{
 .bp-review .overall-rate {
     padding: 15px 19px;
 }
+.um-coupon.bm-coupon .coupon-top .d-flex.justify-content-xl-between .btn.btn-outline-red{
+    line-height: 15px;
+}
 .um-coupon.bm-coupon .coupon-top .d-flex.justify-content-xl-between .btn.btn-create-coupon{
     font-weight: 500;
     font-size: 16px;
     line-height: 23px;
-    padding: 7px 12px!important;
+    padding: 6px 12px!important;
 }
 .page-customer-event .customer-event-list {
     padding: 0;
