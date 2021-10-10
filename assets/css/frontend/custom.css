@@ -1026,7 +1026,13 @@ font-size: 14px;
     font-size: 14px!important;
     line-height: 15px;
 }
-
+.bm-content .bp-reservation.bm-reservation .bg-f5 .d-flex.search-box{
+    margin: 2px 0 16px;
+}
+.bp-tabs .what-app {
+    height: 27px!important;
+    line-height: 15px;
+}
 @media (max-width: 1366px){
     .discover_more {
         padding: 8.5px 73.5px!important;
@@ -1062,7 +1068,7 @@ font-size: 14px;
 }
 @media (max-width: 991px){
     .page-customer-event .customer-event-item .event-date{
-        max-width: calc(100% - 100px);
+        max-width: calc(100% - 125px);
     }
     .customer-service-list,
     .customer-service-grid {
@@ -1219,6 +1225,9 @@ font-size: 14px;
     }
 }
 @media screen and (max-width: 576px){
+    .list-tags li{
+        margin-bottom: 5px;
+    }
     .page-business-profile.page-bp-reservation.v1{
         margin: 0;
         padding: 0;
