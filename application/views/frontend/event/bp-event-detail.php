@@ -52,7 +52,7 @@
                             <hr>
 
                             <h5 class="mb-3 page-text-lg">Conditions and Descriptions:</h5>
-                            <p class="page-text-md mb-0"><?php echo $detailInfo['event_description']; ?></p>
+                            <p class="page-text-md mb-0"><?php echo nl2br($detailInfo['event_description']); ?></p>
                         </div>
                     </div>
                 </div>
