@@ -324,7 +324,7 @@
                 <a class="nav-link dropdown-toggle  <?php if (isset($activeMenu) && $activeMenu == "services") {
                                                       echo "active";
                                                     } ?>" href="<?php echo base_url('services.html') ?>" id="serviceDropdown">
-                  Services
+                  <?php echo $this->lang->line('services'); ?>
                 </a>
                 <span class="nav-link dropdown-toggle dropdown-toggle-mobile-not-link" role="button" data-bs-toggle="dropdown" aria-expanded="false"></span>
                 <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
