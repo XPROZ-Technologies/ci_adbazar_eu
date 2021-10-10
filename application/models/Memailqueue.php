@@ -66,12 +66,11 @@ class Memailqueue extends MY_Model
 
     public function sendContactForm($emailData = array())
     {
-        
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
                             font-size: 20px;line-height: 24px;text-align: center;">Contact from website</p>
                             <p>Dear <strong>Administrator</strong> ,</p>
                             <p>&nbsp;</p>
-                            <p>Customer Name: ' . $emailData['customer_name'] . '</p>
+                            <p>Customer Name: ' . $emailData['contact_name'] . '</p>
                             <p>Contact Name: ' . $emailData['contact_name'] . '</p>
                             <p>Contact Email: ' . $emailData['contact_email'] . '</p>
                             <p>Message: </p>
