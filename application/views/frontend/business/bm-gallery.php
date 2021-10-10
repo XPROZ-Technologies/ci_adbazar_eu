@@ -12,15 +12,15 @@
                     <div class="col-lg-9">
                         <div class="bm-gallery">
                             <div class="d-flex justify-content-end add-gallery">
-                                <button class="btn btn-red" data-bs-toggle="modal" data-bs-target="#addGalleryModal"><img src="assets/img/frontend/ic-upload.png" alt="ic-upload"> Add photos/videos</button>
+                                <button class="btn btn-red" data-bs-toggle="modal" data-bs-target="#addGalleryModal"><img src="assets/img/frontend/ic-upload.png" alt="ic-upload"><?php echo $this->lang->line('add_photos_videos'); ?></button>
                             </div>
                             <div class="bp-gallery">
                                 <ul class="nav nav-pills justify-content-center page-text-lg" id="pills-tab" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link <?php if(!isset($_GET['tab']) || isset($_GET['tab']) && $_GET['tab'] != 'video'){ echo 'active'; } ?>" id="pills-photo-tab" data-bs-toggle="pill" data-bs-target="#pills-photo" type="button" role="tab" aria-controls="pills-photo" aria-selected="true">Photos</button>
+                                        <button class="nav-link <?php if(!isset($_GET['tab']) || isset($_GET['tab']) && $_GET['tab'] != 'video'){ echo 'active'; } ?>" id="pills-photo-tab" data-bs-toggle="pill" data-bs-target="#pills-photo" type="button" role="tab" aria-controls="pills-photo" aria-selected="true"><?php echo $this->lang->line('photos'); ?></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link <?php if(isset($_GET['tab']) && $_GET['tab'] == 'video'){ echo 'active'; } ?>" id="pills-video-tab" data-bs-toggle="pill" data-bs-target="#pills-video" type="button" role="tab" aria-controls="pills-video" aria-selected="false">Videos</button>
+                                        <button class="nav-link <?php if(isset($_GET['tab']) && $_GET['tab'] == 'video'){ echo 'active'; } ?>" id="pills-video-tab" data-bs-toggle="pill" data-bs-target="#pills-video" type="button" role="tab" aria-controls="pills-video" aria-selected="false"><?php echo $this->lang->line('videos'); ?></button>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="pills-tabContent">
@@ -49,10 +49,10 @@
                                                                         <img src="assets/img/frontend/ic-edit-gallery.png" alt="ic-edit-gallery">
                                                                     </a>
                                                                     <ul class="dropdown-menu dropdown-gallery">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-user.svg" alt="ic-gallery-user">Use as profile photo</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-cover.svg" alt="ic-gallery-user">Use as cover photo</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-download.svg" alt="ic-gallery-user">Download</a></li>
-                                                                        <li><a class="dropdown-item js-delete-image" data-bs-toggle="modal" href="javascript:void(0)" data-id="<?php echo $itemPhoto['id']; ?>" data-name="<?php echo $imgName; ?>" data-img="<?php echo $imgItemUrl; ?>"><img src="assets/img/frontend/ic-gallery-trash.svg" alt="ic-gallery-user">Delete</a></li>
+                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-user.svg" alt="ic-gallery-user"><?php echo $this->lang->line('use_as_profile_photo'); ?></a></li>
+                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-cover.svg" alt="ic-gallery-user"><?php echo $this->lang->line('use_as_cover_photo'); ?></a></li>
+                                                                        <li><a class="dropdown-item" href="javascript:void(0)"><img src="assets/img/frontend/ic-gallery-download.svg" alt="ic-gallery-user"><?php echo $this->lang->line('download'); ?></a></li>
+                                                                        <li><a class="dropdown-item js-delete-image" data-bs-toggle="modal" href="javascript:void(0)" data-id="<?php echo $itemPhoto['id']; ?>" data-name="<?php echo $imgName; ?>" data-img="<?php echo $imgItemUrl; ?>"><img src="assets/img/frontend/ic-gallery-trash.svg" alt="ic-gallery-user"><?php echo $this->lang->line('delete'); ?></a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -190,7 +190,11 @@
 
 <div class="uploading">
     <div class="uploading-head">
-        <p class="mb-0">Uploading (<span></span>) files</p>
+        <?php 
+            $uploading_3_files =  $this->lang->line('uploading_3_files'); 
+            $expuploading_3_files = explode("<(3)>", $uploading_3_files);
+        ?>
+        <p class="mb-0"><?php echo $expuploading_3_files[0]; ?>(<span></span>) <?php echo $expuploading_3_files[1]; ?></p>
         <a href="javascript:void(0)" class="hide-loading">
             <img src="assets/img/frontend/ic_ remove_upload.png" alt="icon delete" class="img-fluid">
         </a>
@@ -211,7 +215,7 @@
             <div class="modal-body">
                 <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Upload Photos</button>
+                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true"><?php echo $this->lang->line('upload_photos'); ?></button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Upload Videos</button>
@@ -226,13 +230,12 @@
                                     <div class="position-relative">
                                         <div class="drop-zone__prompt">
                                             <img src="assets/img/frontend/ic-cloud.png" alt="ic-cloud image" class="img-fluid">
-                                            <p class="mb-2 text-black fw-500">Drop files to upload or
-                                                <span>browse</span>
+                                            <p class="mb-2 text-black fw-500"><?php echo $this->lang->line('drop_files_to_upload_or_browse'); ?>
                                             </p>
-                                            <span class="d-block page-text-xs text-black">Supports JPEG, PNG, GIF</span>
+                                            <span class="d-block page-text-xs text-black"><?php echo $this->lang->line('supports_jpeg_png_gif_jpg'); ?></span>
                                         </div>
                                         <div class="add-more-img text-center mt-3">
-                                            <p><img src="assets/img/frontend/iconimg.png" alt=""> + Add more photos</p>
+                                            <p><img src="assets/img/frontend/iconimg.png" alt=""> + <?php echo $this->lang->line('add_more_photos'); ?></p>
                                         </div>
                                         <input type="file" id="files" name="files[]" multiple />
                                     </div>
@@ -241,7 +244,7 @@
                             <div class="modal-footer justify-content-center border-0 p-0 upload-more-img">
                                 <button type="button" class="btn btn-red">
                                     <img src="assets/img/frontend/ic-upload.png" alt="ic-upload">
-                                    Upload</button>
+                                    <?php echo $this->lang->line('upload'); ?></button>
                             </div>
                         </form>
                     </div>
@@ -260,12 +263,12 @@
                             </div>
                             -->
                             <div class="text-center">
-                                <a href="#" class="text-underline add-more fw-500">+ Add more </a>
+                                <a href="#" class="text-underline add-more fw-500">+ <?php echo $this->lang->line('add_more'); ?> </a>
                             </div>
                             <div class="modal-footer justify-content-center border-0 p-0 upload-more-video">
                                 <button type="button" class="btn btn-red">
                                     <img src="assets/img/frontend/ic-upload.png" alt="ic-upload">
-                                    Upload</button>
+                                    <?php echo $this->lang->line('upload'); ?></button>
                             </div>
                         </form>
                     </div>
@@ -285,9 +288,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+            <?php $are_you_sure_that_you_want_to_video = $this->lang->line('are_you_sure_that_you_want_to_video'); 
+                $are_you_sure_that_you_want_to_video = explode('<URL>', $are_you_sure_that_you_want_to_video);
+            ?>
                 <p class="mb-0 text-center page-text-lg">
-                    Are you sure that you want to delete the video
+                    <?php echo $are_you_sure_that_you_want_to_video[0]; ?>
                     <b class="d-block fw-500 video-url-delete"></b>
+                    <?php echo $are_you_sure_that_you_want_to_video[1]; ?>
                 </p>
                 <div class="video-item">
                     <!--
@@ -299,8 +306,8 @@
                 </div>
                 <input type="hidden" id="deleteVideoId" value="0" />
                 <div class="modal-footer justify-content-center border-0 p-0">
-                    <button type="button" class="btn btn-red btn-delete-video">Yes</button>
-                    <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-red btn-delete-video"><?php echo $this->lang->line('yes'); ?></button>
+                    <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></button>
                 </div>
             </div>
         </div>
@@ -316,9 +323,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+            <?php $are_you_sure_that_you_want_to_photo = $this->lang->line('are_you_sure_that_you_want_to_photo'); 
+                $are_you_sure_that_you_want_to_photo = explode('<3d7e386c33823.png>', $are_you_sure_that_you_want_to_photo);
+            ?>
                 <p class="mb-0 text-center page-text-lg">
-                    Are you sure that you want to delete the photo
+                <?php echo $are_you_sure_that_you_want_to_photo[0]; ?>
                     <b class="d-block fw-500 img-name-delete"></b>
+                    <?php echo isset($are_you_sure_that_you_want_to_photo[1]) ? $are_you_sure_that_you_want_to_photo[1]:''; ?>
                 </p>
 
                 <div class="photo-item">
@@ -328,8 +339,8 @@
                 </div>
                 <input type="hidden" id="deleteImgId" value="0" />
                 <div class="modal-footer justify-content-center border-0 p-0">
-                    <button type="button" class="btn btn-red btn-delete-image">Yes</button>
-                    <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-red btn-delete-image"><?php echo $this->lang->line('yes'); ?></button>
+                    <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></button>
                 </div>
             </div>
         </div>

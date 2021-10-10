@@ -15,51 +15,63 @@
               <div class="bp-reservation">
                 <div class="bp-reservation-inner">
                   <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between reservation-top">
-                    <h5 class="page-title-xs mb-lg-0">My reservation(s) at <?php echo $businessInfo['business_name']; ?></h5>
+                  <?php $my_reservations_at_inspire_beauty_salon = $this->lang->line('my_reservations_at_inspire_beauty_salon'); 
+                $my_reservations_at_inspire_beauty_salon = explode('<Inspire Beauty Salon>', $my_reservations_at_inspire_beauty_salon);
+            ?>
+                    <h5 class="page-title-xs mb-lg-0"><?php echo $my_reservations_at_inspire_beauty_salon[0]; ?> <?php echo $businessInfo['business_name']; ?><?php echo $my_reservations_at_inspire_beauty_salon[1]; ?></h5>
                     <?php if ($businessInfo['allow_book'] == STATUS_ACTIVED) { ?>
-                      <a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/book-reservation'); ?>" class="btn btn-red">Book a reservation</a>
+                      <a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/book-reservation'); ?>" class="btn btn-red"><?php echo $this->lang->line('book_a_reservation'); ?></a>
                     <?php } ?>
                   </div>
 
                   <div class="bg-f5">
                     <?php if (!empty($lists)) { ?>
-                      <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
-                        <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                        <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
-                      </form>
+                    <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
+                      <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                      <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
+                    </form>
 
-                      <div class="table-responsive reservation-table">
-                        <table class="table page-text-lg">
-                          <thead>
-                            <tr>
-                              <th>Date</th>
-                              <th>Time</th>
-                              <th>ID</th>
-                              <th>People</th>
-                              <th>Status</th>
-                              <th>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php if (!empty($lists)) {
-                              foreach ($lists as $itemBook) { ?>
-                                <tr>
-                                  <td><?php echo $itemBook['date_arrived']; ?></td>
-                                  <td><?php echo $itemBook['time_arrived']; ?></td>
-                                  <td><?php echo $itemBook['book_code']; ?></td>
-                                  <td><?php echo $itemBook['number_of_people']; ?></td>
-                                  <td>
+                    <div class="table-responsive reservation-table">
+                      <table class="table page-text-lg">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>ID</th>
+                            <th>People</th>
+                            <th><?php echo $this->lang->line('status'); ?></th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php if (!empty($lists)) {
+                            foreach ($lists as $itemBook) { ?>
+                              <tr>
+                                <td><?php echo $itemBook['date_arrived']; ?></td>
+                                <td><?php echo $itemBook['time_arrived']; ?></td>
+                                <td><?php echo $itemBook['book_code']; ?></td>
+                                <td><?php echo $itemBook['number_of_people']; ?></td>
+                                <td>
+                                  <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
+                                    <span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span>
+                                  <?php } ?>
+                                  <?php if ($itemBook['book_status_id'] == 1) { ?>
+                                    <span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span>
+                                  <?php } ?>
+                                  <?php if ($itemBook['book_status_id'] == 3) { ?>
+                                    <span class="badge badge-declined"><?php echo $this->lang->line('cancelled'); ?></span>
+                                  <?php } ?>
+                                  <?php if ($itemBook['book_status_id'] == 4) { ?>
+                                    <span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span>
+                                  <?php } ?>
+                                </td>
+                                <td>
+                                  <div class="d-flex justify-content-center">
                                     <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                      <span class="badge badge-approved">Approved</span>
+                                      <button data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>" type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" ><?php echo $this->lang->line('cancel'); ?></button>
                                     <?php } ?>
-                                    <?php if ($itemBook['book_status_id'] == 1) { ?>
-                                      <span class="badge badge-expire">Expired</span>
-                                    <?php } ?>
-                                    <?php if ($itemBook['book_status_id'] == 3) { ?>
-                                      <span class="badge badge-declined">Cancelled</span>
-                                    <?php } ?>
-                                    <?php if ($itemBook['book_status_id'] == 4) { ?>
-                                      <span class="badge badge-declined">Declined</span>
+                                    <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
+                                      <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
                                     <?php } ?>
                                   </td>
                                   <td>
@@ -146,20 +158,19 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <h5 class="page-title-xs text-center">Your reservation at <?php echo $businessInfo['business_name']; ?> at <?php echo $bookInfo['time_arrived']; ?> on <?php echo $this->Mconstants->dayIds[(int)ddMMyyyy($bookInfo['date_arrived'], 'w')]; ?>, <?php echo ddMMyyyy($bookInfo['date_arrived'], 'F m,Y'); ?> for <?php echo $bookInfo['number_of_people']; ?> people has been booked.</h5>
+        <h5 class="page-title-xs text-center"><?php echo $this->lang->line('your_reservation_at__inspire_beauty_salon_at_1'); ?><?php echo $businessInfo['business_name']; ?> <?php echo $this->lang->line('your_reservation_at__inspire_beauty_salon_at_1'); ?> <?php echo $bookInfo['time_arrived']; ?> <?php echo $this->lang->line('your_reservation_at__inspire_beauty_salon_at_3'); ?> <?php echo $this->Mconstants->dayIds[(int)ddMMyyyy($bookInfo['date_arrived'], 'w')]; ?>, <?php echo ddMMyyyy($bookInfo['date_arrived'], 'F m,Y'); ?> for <?php echo $bookInfo['number_of_people']; ?> <?php echo $this->lang->line('your_reservation_at__inspire_beauty_salon_at_4'); ?></h5>
         <p class="text-warning text-center page-text-lg">
           <img src="assets/img/frontend/ic-warning.svg" alt="ic-warning" class="img-fluid">
-          Please, arrive no later than 15 minutes for your scheduled appointment time.
+          <?php echo $this->lang->line('please_arrive_no_later_than_15_minutes_for_yo'); ?>
         </p>
-        <p class="page-text-md text-center">We will send you a notification if your reservation is declined by the business owner.
-          <br> Thank you so much.
+        <p class="page-text-md text-center"><?php echo $this->lang->line('we_will_send_you_a_notification_if_your_reser'); ?>
         </p>
         <div class="d-sm-flex justify-content-center wrapper-btn">
           <button class="btn btn-outline-red btn-ok " data-bs-dismiss="modal">OK</button>
-          <button class="btn btn-red btn-other-reservation">Make another reservation</button>
+          <button class="btn btn-red btn-other-reservation"><?php echo $this->lang->line('make_another_reservation'); ?></button>
         </div>
         <div class="text-center">
-          <a href="<?php echo base_url('customer/my-reservation'); ?>" class="page-text-md text-underline fw-bold">See all of my reservation</a>
+          <a href="<?php echo base_url('customer/my-reservation'); ?>" class="page-text-md text-underline fw-bold"><?php echo $this->lang->line('see_all_of_my_reservation'); ?></a>
         </div>
       </div>
     </div>
@@ -169,20 +180,22 @@
 
 <!-- Modal confirm remove -->
 <div class="modal fade" id="removeEventModal" tabindex="-1" aria-labelledby="removeEventModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-medium">
-    <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p class="text-center page-text-lg">Are you sure want to cancel the reservation
-          "<b id="reservationCode"></b>"?
-        </p>
-        <input type="hidden" id="selectedBookId" value="" />
-        <div class="d-flex justify-content-center">
-          <a href="javascript:void(0)" class="btn btn-red btn-yes btn-cancel-reservation">Yes</a>
-          <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
+
+    <div class="modal-dialog modal-dialog-centered modal-medium">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <p class="text-center page-text-lg">Are you sure want to cancel the reservation
+            "<b id="reservationCode"></b>"?
+          </p>
+          <input type="hidden" id="selectedBookId" value="" />
+          <div class="d-flex justify-content-center">
+            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-cancel-reservation"><?php echo $this->lang->line('yes'); ?></a>
+            <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
+          </div>
+
       </div>
     </div>
   </div>

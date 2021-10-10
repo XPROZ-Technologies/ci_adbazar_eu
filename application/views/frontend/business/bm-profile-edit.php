@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-10">
             <div class="bm-create-content">
-              <h3 class="fw-bold page-title-md text-center">Edit my profile</h3>
+              <h3 class="fw-bold page-title-md text-center"><?php echo $this->lang->line('edit_my_profile'); ?></h3>
               <!-- cover -->
               <div class="cover-top">
                 <div class="cover-wrap">
@@ -24,7 +24,7 @@
                   </div>
                   <div class="cover-icon" id="cover-icon">
                     <img src="assets/img/frontend/icon-camera.png" alt="icon-camera">
-                    <span id="cover-text" class="text-decoration-underline">Upload cover photo</span>
+                    <span id="cover-text" class="text-decoration-underline"><?php echo $this->lang->line('upload_cover_photo'); ?></span>
                   </div>
                 </div>
               </div>
@@ -45,7 +45,7 @@
                   </div>
                   <div class="general-icon js-profile-icon">
                     <img src="assets/img/frontend/icon-camera.png" alt="icon-camera">
-                    <span class="text-decoration-underline">Upload profile photo</span>
+                    <span class="text-decoration-underline"><?php echo $this->lang->line('upload_profile_photo'); ?></span>
                   </div>
                 </div>
               </div>
@@ -58,8 +58,8 @@
                 <input type="hidden" name="business_url" value="<?php echo $businessInfo['business_url']; ?>" />
                 <div class="col-12">
                   <div class="form-group mb-3">
-                    <label for="bm-name" class="form-label">Business Name<span class="text-danger required">*</span></label>
-                    <input type="text" class="form-control form-control-lg" aria-label="Business name" name="business_name" id="business_name" required value="<?php echo $businessInfo['business_name']; ?>">
+                    <label for="bm-name" class="form-label"><?php echo $this->lang->line('business_name'); ?><span class="text-danger required">*</span></label>
+                    <input type="text" class="form-control form-control-lg" aria-label="<?php echo $this->lang->line('business_name'); ?>" name="business_name" id="business_name" required value="<?php echo $businessInfo['business_name']; ?>">
                   </div>
                 </div>
                 <div class="col-12">
@@ -73,22 +73,22 @@
                 </div>
                 <div class="col-12">
                   <div class="form-group mb-3">
-                    <label for="bm-email" class="form-label">Business Email<span class="text-danger required">*</span></label>
-                    <input type="email" class="form-control form-control-lg" id="bm-email" aria-label="Business email" name="business_email" required value="<?php echo $businessInfo['business_email']; ?>">
+                    <label for="bm-email" class="form-label"><?php echo $this->lang->line('business_email'); ?><span class="text-danger required">*</span></label>
+                    <input type="email" class="form-control form-control-lg" id="bm-email" aria-label="<?php echo $this->lang->line('business_email'); ?>" name="business_email" required value="<?php echo $businessInfo['business_email']; ?>">
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-group mb-3">
-                    <label for="bm-address" class="form-label">Business Address<span class="text-danger required">*</span></label>
-                    <input type="text" class="form-control form-control-lg" id="bm-address" aria-label="Business address" name="business_address" required value="<?php echo $businessInfo['business_address']; ?>">
+                    <label for="bm-address" class="form-label"><?php echo $this->lang->line('business_address'); ?><span class="text-danger required">*</span></label>
+                    <input type="text" class="form-control form-control-lg" id="bm-address" aria-label="<?php echo $this->lang->line('business_address'); ?>" name="business_address" required value="<?php echo $businessInfo['business_address']; ?>">
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-group mb-3">
-                    <label for="bm-url" class="form-label">Custom URL <span class="required">*</span></label>
+                    <label for="bm-url" class="form-label"><?php echo $this->lang->line('custom_url'); ?> <span class="required">*</span></label>
                     <div class="position-relative text-url">
                       <span>adbazar.eu/</span>
-                      <input type="url" disabled class="form-control form-control-lg" placeholder="" aria-label="Custom URL" id="business_url" value="<?php echo $businessInfo['business_url']; ?>">
+                      <input type="url" disabled class="form-control form-control-lg" placeholder="" aria-label="<?php echo $this->lang->line('custom_url'); ?>" id="business_url" value="<?php echo $businessInfo['business_url']; ?>">
                     </div>
                   </div>
                 </div>
@@ -98,8 +98,8 @@
                     <div class="dropdown dropdown-country page-text-lg">
                       <input type="hidden" class="form-control" id="businessPhoneCode" name="country_code_id" value="0">
                       <a href="#" class="wrapper-btn dropdown-toggle current js-country" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">
-                        <img src="<?php if(!empty($phoneCodeInfo['country_name'])){ echo "assets/img/iso_flags/".$phoneCodeInfo['image']; }else{ echo "assets/img/frontend/ger.png"; } ?>" alt="<?php if(!empty($phoneCodeInfo['country_name'])){ echo $phoneCodeInfo['country_name']; }else{ echo "Germany"; } ?>" class="img-fluid me-2">
-                        <span class="country-text"><?php if(!empty($phoneCodeInfo['country_name'])){ echo $phoneCodeInfo['country_name']; }else{ echo "Germany"; } ?></span>
+                        <img src="<?php if(!empty($phoneCodeInfo['country_name'])){ echo "assets/img/iso_flags/".$phoneCodeInfo['image']; }else{ echo "assets/img/frontend/ger.png"; } ?>" alt="<?php if(!empty($phoneCodeInfo['country_name'])){ echo $phoneCodeInfo['country_name']; }else{ echo $this->lang->line('german'); } ?>" class="img-fluid me-2">
+                        <span class="country-text"><?php if(!empty($phoneCodeInfo['country_name'])){ echo $phoneCodeInfo['country_name']; }else{ echo $this->lang->line('german'); } ?></span>
                         <span class="country-code">+<?php if(!empty($phoneCodeInfo['phonecode'])){ echo $phoneCodeInfo['phonecode']; }else{ echo "49"; } ?></span>
                       </a>
                       <ul class="dropdown-menu js-list-country" aria-labelledby="countryDropdown">
@@ -120,14 +120,14 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group mb-3">
-                    <label for="bm-phone" class="form-label">Phone number<span class="text-danger required">*</span></label>
-                    <input type="tel" class="form-control form-control-lg" id="bm-phone" aria-label="Phone number" name="business_phone" value="<?php echo $businessInfo['business_phone']; ?>">
+                    <label for="bm-phone" class="form-label"><?php echo $this->lang->line('phone_number'); ?><span class="text-danger required">*</span></label>
+                    <input type="tel" class="form-control form-control-lg" id="bm-phone" aria-label="<?php echo $this->lang->line('phone_number'); ?>" name="business_phone" value="<?php echo $businessInfo['business_phone']; ?>">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group mb-3">
-                    <label for="bm-whatapp" class="form-label">WhatsApp number<span class="text-danger required">*</span></label>
-                    <input type="tel" class="form-control form-control-lg" id="bm-whatapp" aria-label="WhatsApp number" name="business_whatsapp" value="<?php echo $businessInfo['business_whatsapp']; ?>">
+                    <label for="bm-whatapp" class="form-label"><?php echo $this->lang->line('whatsapp_number'); ?><span class="text-danger required">*</span></label>
+                    <input type="tel" class="form-control form-control-lg" id="bm-whatapp" aria-label="<?php echo $this->lang->line('whatsapp_number'); ?>" name="business_whatsapp" value="<?php echo $businessInfo['business_whatsapp']; ?>">
                   </div>
                 </div>
 
@@ -135,7 +135,7 @@
                 <!-- Open Hours -->
                 <div class="col-12">
                   <div class="form-group mb-3">
-                    <label class="form-label">Opening hour<span class="text-danger required">*</span></label>
+                    <label class="form-label"><?php echo $this->lang->line('opening_hours'); ?><span class="text-danger required">*</span></label>
                     <div class="open-hour">
 
                       <?php if (!empty($businessOpeningHours)) { ?>
@@ -159,22 +159,22 @@
                                   <span class="switch-right">On</span>
                                 </label>
                                 <p class="mb-0 switch-text"><?php if ($itemOpenHous['opening_hours_status_id'] == 2) {
-                                                              echo "Open";
+                                                              echo $this->lang->line('open');
                                                             } else {
-                                                              echo "Closed";
+                                                              echo $this->lang->line('closed');
                                                             } ?></p>
                               </div>
                               <div class="d-flex align-items-center wrapper-time">
                                 <div class="position-relative time-content">
                                   <input value="<?php echo ddMMyyyy($itemOpenHous['start_time'], 'H:i'); ?>" type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" <?php if ($itemOpenHous['opening_hours_status_id'] == 1) {
                                                                                                                                                                                                     echo "disabled";
-                                                                                                                                                                                                  } ?> name="open_hours[<?php echo $itemOpenHous['day_id']; ?>][start_time]" id="timePicker_<?php echo $itemOpenHous['day_id']; ?>" data-toggle="datetimepicker" data-target="#timePicker_<?php echo $itemOpenHous['day_id']; ?>" placeholder="Open at" />
+                                                                                                                                                                                                  } ?> name="open_hours[<?php echo $itemOpenHous['day_id']; ?>][start_time]" id="timePicker_<?php echo $itemOpenHous['day_id']; ?>" data-toggle="datetimepicker" data-target="#timePicker_<?php echo $itemOpenHous['day_id']; ?>" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>
                                 <span class="text-to">to</span>
                                 <div class="position-relative time-content">
                                   <input value="<?php echo ddMMyyyy($itemOpenHous['end_time'], 'H:i'); ?>" type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" <?php if ($itemOpenHous['opening_hours_status_id'] == 1) {
                                                                                                                                                                                                   echo "disabled";
-                                                                                                                                                                                                } ?> name="open_hours[<?php echo $itemOpenHous['day_id']; ?>][start_time]" id="timePicker<?php echo $itemOpenHous['day_id']; ?>" data-toggle="datetimepicker" data-target="#timePicker<?php echo $itemOpenHous['day_id']; ?>" placeholder="Close at" />
+                                                                                                                                                                                                } ?> name="open_hours[<?php echo $itemOpenHous['day_id']; ?>][start_time]" id="timePicker<?php echo $itemOpenHous['day_id']; ?>" data-toggle="datetimepicker" data-target="#timePicker<?php echo $itemOpenHous['day_id']; ?>" placeholder="<?php echo $this->lang->line('close_at'); ?>" />
                                 </div>
                               </div>
                             </div>
@@ -189,14 +189,14 @@
 
                 <div class="col-12">
                   <div class="form-group mb-3">
-                    <label for="bm-desc" class="form-label">Description</label>
+                    <label for="bm-desc" class="form-label"><?php echo $this->lang->line('description'); ?></label>
                     <textarea class="form-control form-control-lg" id="bm-desc" rows="4" name="business_description"><?php echo $businessInfo['business_description']; ?></textarea>
                   </div>
                 </div>
                 <!-- service -->
                 <div class="col-12">
                   <div class="form-group mb-3">
-                    <label class="form-label">Type of service <span class="required text-danger">*</span></label>
+                    <label class="form-label"><?php echo $this->lang->line('type_of_service'); ?> <span class="required text-danger">*</span></label>
                     <div class="custom-select js-select-service">
                       <select name="service_id" required id="serviceId">
                         <?php foreach ($listServices as $itemService) { ?>
@@ -208,7 +208,7 @@
                 </div>
                 <!-- service types -->
                 <div class="col-12 serviceTypeBlock">
-                  <label class="form-label" for="sub-category">Sub-categories<span class="required text-danger">*</span></label>
+                  <label class="form-label" for="sub-category"><?php echo $this->lang->line('sub-categories'); ?><span class="required text-danger">*</span></label>
                   <select name="service_type_ids[]" id="serviceTypeId" class="form-control form-control-lg js-tags-select" multiple="multiple">
                           <?php if(!empty($businessServiceTypes)){ foreach($businessServiceTypes as $itemServiceType){ ?>
                             <option value="<?php echo $itemServiceType['id']; ?>" <?php if(!empty($selectedTypes) && in_array($itemServiceType['id'], $selectedTypes)){ echo 'selected="selected"'; } ?> ><?php echo $itemServiceType['service_type_name']; ?></option>
@@ -219,7 +219,7 @@
                 <div class="col-12">
                   <div class="form-group d-flex justify-content-center action-btn">
                     <a href="javascript:void(0)" class="btn btn-red btn-create-business">Update</a>
-                    <a href="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/about-us'); ?>" class="btn btn-outline-red">Cancel</a>
+                    <a href="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/about-us'); ?>" class="btn btn-outline-red"><?php echo $this->lang->line('cancel'); ?></a>
                   </div>
                 </div>
             </div>
@@ -294,7 +294,7 @@
 
   $("#cover-profile-upload").on("change", function() {
     readURL(this, $("#cover-photo"), $('#businessCoverUpload'));
-    $("#cover-text").text("Change cover photo");
+    $("#cover-text").text(change_cover_photo);
   });
 
 

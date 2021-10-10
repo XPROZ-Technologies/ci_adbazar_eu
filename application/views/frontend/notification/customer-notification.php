@@ -16,7 +16,7 @@
               <div class="wrapper-content">
                 <div class="notification-wrapper-filter d-flex flex-column flex-md-row align-items-md-center justify-content-between">
                   <div class="d-flex align-items-center inner-filter">
-                    <span class="me-2 page-text-lg">Filter by</span>
+                    <span class="me-2 page-text-lg"><?php echo $this->lang->line('filter_by'); ?></span>
                     <div class="notification-filter">
                       <div class="custom-select">
                         <select>

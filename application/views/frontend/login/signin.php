@@ -99,13 +99,13 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body text-center">
-                                        <h3 class="mb-16 page-title-xs">Check your email
+                                        <h3 class="mb-16 page-title-xs"><?php echo $this->lang->line('check_your_email'); ?>
                                         </h3>
                                         <p class="mb-30">We have sent a password recover instructions to your email.</p>
                                         <div class="d-flex justify-content-center mb-40">
                                             <div class="col-lg-10">
-                                                <p class="page-text-xsm">Did not receive the email? Check your spam filter,
-                                                    or <a href="javascript:void(0)" class="fw-bold" id="tryAnotherEmail">try another email address</a>.</p>
+                                                <p class="page-text-xsm"><?php echo $this->lang->line('did_not_receive_the_email_check_your_spam_filter'); ?>,
+                                                    <a href="javascript:void(0)" class="fw-bold" id="tryAnotherEmail"><?php echo $this->lang->line('or_try_another_email_address'); ?></a>.</p>
                                             </div>
                                         </div>
                                     </div>

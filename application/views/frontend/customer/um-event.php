@@ -35,7 +35,7 @@
                             <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?></p>
                             <p class="mb-0 event-time page-text-sm"><?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
 
-                            <a href="javascript:void(0)" data-bs-toggle="modal" class="event-remove mt-2 fw-bold" data-id="<?php echo $eventItem['id']; ?>" data-name="<?php echo $eventItem['event_subject']; ?>">Remove</a>
+                            <a href="javascript:void(0)" data-bs-toggle="modal" class="event-remove mt-2 fw-bold" data-id="<?php echo $eventItem['id']; ?>" data-name="<?php echo $eventItem['event_subject']; ?>"><?php echo $this->lang->line('remove'); ?></a>
                           </div>
                         </div>
                       <?php } ?>
@@ -106,14 +106,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p class="text-center page-text-lg" id="selected-name-event">Are you sure want to remove the event
-            "<b></b>"?
+          <p class="text-center page-text-lg" id="selected-name-event"><?php echo $this->lang->line('are_you_sure_want_to_remove_th'); ?>
+            "<b></b>"<?php echo $this->lang->line('wirklich_entfernen'); ?>?
           </p>
           <input type="hidden" id="selected-customer-event" value="<?php echo $customer['id']; ?>" />
           <input type="hidden" id="selected-id-event" value="0" />
           <div class="d-flex justify-content-center">
-            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-event">Yes</a>
-            <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
+            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-event"><?php echo $this->lang->line('yes'); ?></a>
+            <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></a>
           </div>
         </div>
       </div>
