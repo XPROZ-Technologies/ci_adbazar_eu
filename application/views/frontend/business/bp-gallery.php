@@ -330,8 +330,11 @@
                 $('.slider').resize();
                 $('.slider2').resize();
             });
-            $('.posting').click(function(event) {
+            $('.posting .posting-box').click(function(event) {
                 event.stopPropagation();
+            });
+            $('.posting .posting-modal').click(function(e) {
+                $('.posting').hide();
             });
         }
 
