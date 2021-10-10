@@ -19,7 +19,9 @@
                                     <div class="form-group">
                                         <label class="control-label">Customer Name <span class="required">*</span></label>
                                         <select class="form-control" name="customer_id" id="customer_id">
+                                            <?php if(isset($customer['id']) && $customer['id'] > 0): ?>
                                             <option value="<?php echo $customer['id'] ?>"><?php echo $customer['customer_first_name'].' '.$customer['customer_last_name']; ?></option>
+                                            <?php endif; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -69,8 +71,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="control-label">Country code <span class="required">*</span></label>
-                                        <select class="form-control" name="business_phone_code" id="country_code_id"> 
-                                        <option value="<?php echo $phonecode['id'] ?>"><?php echo $phonecode['country_name'].'  +'.$phonecode['phonecode']; ?></option>
+                                        <select class="form-control" name="country_code_id" id="country_code_id"> 
+                                            <?php if(isset($phonecode['id']) && $phonecode['id'] > 0): ?>
+                                                <option value="<?php echo $phonecode['id'] ?>"><?php echo $phonecode['country_name'].'  +'.$phonecode['phonecode']; ?></option>
+                                            <?php endif; ?>
                                         </select>
                                     </div>
                                 </div>
