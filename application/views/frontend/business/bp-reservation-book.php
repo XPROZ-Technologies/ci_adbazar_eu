@@ -92,7 +92,7 @@
                 <div class="form-group mb-3">
                   <label class="form-label">Select a time <span class="required text-danger">*</span></label>
                   <input type="hidden" name="time_arrived" id="getTimeArrived" value="0" />
-                  <div class="custom-select js-select-time">
+                  <div class="custom-select js-select-time js-select-service">
                     <select required id="timeArrived">
                       <option value="0">Select a time</option>
                       <?php if (!empty($listHours)) {
