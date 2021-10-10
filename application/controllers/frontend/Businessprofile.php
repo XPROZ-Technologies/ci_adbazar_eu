@@ -28,7 +28,7 @@ class Businessprofile extends MY_Controller
             redirect(base_url(HOME_URL));
         }
         $businessURL = trim($slug);
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations', 'Mopeninghours'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mcustomerreviews', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations', 'Mopeninghours'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -73,6 +73,52 @@ class Businessprofile extends MY_Controller
             $data['businessOpeningHours'][$itemHours['day_id']]['opening_hours_status_id'] = $itemHours['opening_hours_status_id'];
         }
         if (!empty($data['businessOpeningHours'])) ksort($data['businessOpeningHours']);
+
+
+        /**
+         * REVIEWS
+         */
+        $data['count_one_star'] = $this->Mcustomerreviews->getCount(array(
+            'customer_review_status_id' => STATUS_ACTIVED,
+            'business_id' => $businessProfileId,
+            'review_star' => 1
+        ));
+
+        $data['count_two_star'] = $this->Mcustomerreviews->getCount(array(
+            'customer_review_status_id' => STATUS_ACTIVED,
+            'business_id' => $businessProfileId,
+            'review_star' => 2
+        ));
+
+        $data['count_three_star'] = $this->Mcustomerreviews->getCount(array(
+            'customer_review_status_id' => STATUS_ACTIVED,
+            'business_id' => $businessProfileId,
+            'review_star' => 3
+        ));
+
+        $data['count_four_star'] = $this->Mcustomerreviews->getCount(array(
+            'customer_review_status_id' => STATUS_ACTIVED,
+            'business_id' => $businessProfileId,
+            'review_star' => 4
+        ));
+
+        $data['count_five_star'] = $this->Mcustomerreviews->getCount(array(
+            'customer_review_status_id' => STATUS_ACTIVED,
+            'business_id' => $businessProfileId,
+            'review_star' => 5
+        ));
+
+        $sumReview = ($data['count_one_star'] + $data['count_two_star'] + $data['count_three_star'] + $data['count_four_star'] + $data['count_five_star']);
+        $data['reviewInfo'] = array();
+        $overall_rating = 0;
+        if ($sumReview > 0) {
+            $overall_rating = ($data['count_one_star'] * 1 + $data['count_two_star'] * 2 + $data['count_three_star'] * 3 + $data['count_four_star'] * 4 + $data['count_five_star'] * 5) / ($data['count_one_star'] + $data['count_two_star'] + $data['count_three_star'] + $data['count_four_star'] + $data['count_five_star']);
+        }
+        $data['reviewInfo']['star'] = $overall_rating;
+        $data['reviewInfo']['sumReview'] = $sumReview;
+        /**
+         * END. REVIEWS
+         */
 
         $this->load->view('frontend/business/bp-about-us', $data);
     }
