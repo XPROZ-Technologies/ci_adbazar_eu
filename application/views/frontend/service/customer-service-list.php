@@ -136,7 +136,11 @@
 <script>
   $(document).ready(function() {
     $("body").on('click', '.service_type_selected', function(){
-      $(this).parent('li').addClass('selected');
+      if (!$(this).hasClass("test")) {
+        $(this).parent('li').addClass('selected');
+      }else{
+        $(this).parent('li').removeClass('selected');
+      }
       var keySearch = '';
       if($(".li_service_type").hasClass('selected')) {
         $(".selected .service_type_selected").each(function() {
