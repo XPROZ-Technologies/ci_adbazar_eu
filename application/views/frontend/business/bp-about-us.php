@@ -38,7 +38,14 @@
                         <li class="mb-3">
                           <div class="img">
                             <img src="assets/img/frontend/icon-tag.png" alt="tag icon" class="img-fluid">
-                          </div><?php echo $this->lang->line('nails'); ?>
+                          </div>
+                          <?php 
+                          $tag = '';
+                          $langName = $this->Mconstants->languageShortCodes[$customer['language_id']];
+                          foreach($serviceTypeList as $t){
+                            $tag .= $t['service_type_name_'.$langName].', ';
+                          } 
+                          echo rtrim($tag, ', '); ?>
                         </li>
                         <li class="mb-3">
                           <div class="img"><img src="assets/img/frontend/bp-open.png" alt="tag open" class="img-fluid"></div>

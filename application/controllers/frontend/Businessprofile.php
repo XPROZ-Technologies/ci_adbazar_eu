@@ -22,7 +22,7 @@ class Businessprofile extends MY_Controller
             redirect(base_url(HOME_URL));
         }
         $businessURL = trim($slug);
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mcustomerreviews', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations', 'Mopeninghours'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mcustomerreviews', 'Mbusinessprofiles','Mbusinessservicetype', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations', 'Mopeninghours'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -67,7 +67,7 @@ class Businessprofile extends MY_Controller
             $data['businessOpeningHours'][$itemHours['day_id']]['opening_hours_status_id'] = $itemHours['opening_hours_status_id'];
         }
         if (!empty($data['businessOpeningHours'])) ksort($data['businessOpeningHours']);
-
+        $data['serviceTypeList'] = $this->Mbusinessservicetype->getGetListServiceType($businessInfo['id']);
 
         /**
          * REVIEWS

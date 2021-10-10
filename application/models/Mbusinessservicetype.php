@@ -56,4 +56,9 @@ class Mbusinessservicetype extends MY_Model {
         
         return $query;
     }
+
+    public function getGetListServiceType($business_profile_id = 0) {
+        $query = "SELECT * FROM service_types LEFT JOIN business_service_types ON service_types.id = business_service_types.service_type_id WHERE business_service_types.business_profile_id = ".$business_profile_id;
+        return $this->getByQuery($query);
+    }
 }
