@@ -21,11 +21,11 @@
               <?php if (count($lists) > 0) { ?>
                 <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                   <div class="d-flex align-items-center inner-filter">
-                    <span class="me-2 page-text-lg fw-bold">Filter by</span>
+                    <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                     <div class="notification-filter">
                       <div class="custom-select choose-business">
                         <select>
-                          <option value="0" selected>All</option>
+                          <option value="0" selected><?php echo $this->lang->line('all'); ?></option>
                           <?php if ($businessProfiles) {
                             foreach ($businessProfiles as $itemBusiness) { ?>
                               <option value="<?php echo $itemBusiness['id']; ?>" <?php if (isset($business) && $itemBusiness['id'] == $business) {
@@ -85,7 +85,7 @@
                                   <div class="d-flex align-items-center justify-content-between">
                                     <div class="wraper-status <?php echo $itemCoupon['customer_coupon_status_id']; ?>">
                                       <?php if (isset($itemCoupon['customer_coupon_status_id']) && $itemCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
-                                        <span class="badge badge-approved">Valid</span>
+                                        <span class="badge badge-approved"><?php echo $this->lang->line('valid'); ?></span>
                                       <?php } else { ?>
                                         <span class="badge badge-declined">Invalid</span>
                                       <?php } ?>
@@ -94,7 +94,7 @@
                                 </div>
                               </div>
                             </a>
-                            <a href="<?php echo $couponDetailUrl; ?>" class="btn btn-outline-red btn-outline-red-md btn-viewcode">View code</a>
+                            <a href="<?php echo $couponDetailUrl; ?>" class="btn btn-outline-red btn-outline-red-md btn-viewcode"><?php echo $this->lang->line('view_code'); ?></a>
                           </div>
                         </div>
                       <?php } ?>

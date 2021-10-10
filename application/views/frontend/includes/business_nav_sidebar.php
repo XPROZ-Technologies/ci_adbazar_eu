@@ -6,23 +6,23 @@
         <ul class="list-unstyled">
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'about-us') {
                             echo 'active';
-                        } ?>"><a href="<?php echo base_url(BUSINESS_PROFILE_URL . $businessInfo['business_url']); ?>">About us</a></li>
+                        } ?>"><a href="<?php echo base_url(BUSINESS_PROFILE_URL . $businessInfo['business_url']); ?>"><?php echo $this->lang->line('about_us'); ?></a></li>
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'gallery') {
                             echo 'active';
-                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/gallery'); ?>">Gallery</a></li>
+                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/gallery'); ?>"><?php echo $this->lang->line('gallery'); ?></a></li>
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'coupons') {
                             echo 'active';
-                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/coupons'); ?>">Coupons</a></li>
+                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/coupons'); ?>"><?php echo $this->lang->line('coupons'); ?></a></li>
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'events') {
                             echo 'active';
-                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/events'); ?>">Events</a></li>
+                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/events'); ?>"><?php echo $this->lang->line('events'); ?></a></li>
             
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'reviews') {
                             echo 'active';
-                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/reviews'); ?>">Reviews</a></li>
+                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/reviews'); ?>"><?php echo $this->lang->line('reviews'); ?></a></li>
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'reservation') {
                             echo 'active';
-                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/reservation'); ?>">Reservation</a></li>
+                        } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/reservation'); ?>"><?php echo $this->lang->line('reservations'); ?></a></li>
             
         </ul>
     </aside>

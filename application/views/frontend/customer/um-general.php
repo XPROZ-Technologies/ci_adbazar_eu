@@ -66,13 +66,13 @@
                         <input type="hidden" id="customerGender" name="customer_gender_id" value="<?php echo $customerInfo['customer_gender_id']; ?>" />
                         <div class="custom-select js-list-gender">
                           <select id="profileGender">
-                            <option value="0">Male</option>
+                            <option value="0"><?php echo $this->lang->line('male'); ?></option>
                             <option value="1" <?php if ($customerInfo['customer_gender_id'] == 1) {
                                                 echo "selected";
-                                              } ?>>Female</option>
+                                              } ?>><?php echo $this->lang->line('female'); ?></option>
                             <option value="2" <?php if ($customerInfo['customer_gender_id'] == 2) {
                                                 echo "selected";
-                                              } ?>>Other</option>
+                                              } ?>><?php echo $this->lang->line('other'); ?></option>
                           </select>
                         </div>
                       </div>
@@ -143,7 +143,7 @@
                     </div>
                     <div class="col-lg-5">
                       <div class="form-group mb-3">
-                        <label class="form-label">Country code</label>
+                        <label class="form-label"><?php echo $this->lang->line('country_code'); ?></label>
                         <input type="hidden" name="customer_phone_code" id="customerPhoneCode" value="<?php echo $customerInfo['customer_phone_code']; ?>" />
                         <div class="dropdown dropdown-country page-text-lg">
                           <a href="#" class="wrapper-btn dropdown-toggle current js-country" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">

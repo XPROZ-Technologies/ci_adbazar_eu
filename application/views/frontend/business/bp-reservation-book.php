@@ -4,7 +4,11 @@
     <div class="bp-reservation-book">
       <div class="container">
         <div class="book-content">
-          <h3 class="text-center page-title-md">Book a reservation at <?php echo $businessInfo['business_name']; ?></h3>
+          
+          <?php $book_a_reservation_at_inpire_beauty_salon = $this->lang->line('book_a_reservation_at_inpire_beauty_salon'); 
+                $book_a_reservation_at_inpire_beauty_salon = explode('<Inspire Beauty Salon>', $book_a_reservation_at_inpire_beauty_salon);
+            ?>
+          <h3 class="text-center page-title-md"><?php echo $book_a_reservation_at_inpire_beauty_salon[0]; ?> <?php echo $businessInfo['business_name']; ?></h3>
           <div class="d-flex justify-content-center">
             <form class="row" action="<?php echo base_url('business/submit-book-reservation'); ?>" id="formBookReservation" method="POST">
               <input type="hidden" name="business_profile_id" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
@@ -12,13 +16,13 @@
               <input type="hidden" name="selected_day" id="selecteDate" value="<?php echo date('Y-m-d'); ?>" />
               <div class="col-lg-12">
                 <div class="form-group mb-3">
-                  <label for="bookName" class="form-label">Your name<span class="required text-danger">*</span></label>
+                  <label for="bookName" class="form-label"><?php echo $this->lang->line('your_name'); ?><span class="required text-danger">*</span></label>
                   <input type="text" class="form-control" id="bookName" name="book_name" required>
                 </div>
               </div>
               <div class="col-lg-12">
                 <div class="form-group mb-3 form-group-quantity">
-                  <label class="d-block form-label" for="numOfPeople">Number of people</label>
+                  <label class="d-block form-label" for="numOfPeople"><?php echo $this->lang->line('number_of_people'); ?></label>
                   <div class="d-flex">
                     <button type="button" class="minus">
                       <img src="assets/img/frontend/ic-minus.png" alt="icon minus">
@@ -34,12 +38,12 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group mb-3">
-                  <label class="form-label">Country code</label>
+                  <label class="form-label"><?php echo $this->lang->line('country_code'); ?></label>
                   <input type="hidden" name="country_code_id" id="countryCodeId" value="80" />
                   <div class="dropdown dropdown-country dropdown-country-book page-text-lg">
                     <a href="#" class="wrapper-btn dropdown-toggle current js-country country_book" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">
-                      <img src="assets/img/iso_flags/de.png" alt="Germany" class="img-fluid me-2">
-                      <span class="country-text">Germany</span>
+                      <img src="assets/img/iso_flags/de.png" alt="<?php echo $this->lang->line('german'); ?>" class="img-fluid me-2">
+                      <span class="country-text"><?php echo $this->lang->line('german'); ?></span>
                       <span class="country-code">+49</span>
                     </a>
                     <ul class="dropdown-menu js-list-country" aria-labelledby="countryDropdown">
@@ -60,13 +64,13 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group mb-3">
-                  <label for="bookPhone" class="form-label">Phone number</label>
+                  <label for="bookPhone" class="form-label"><?php echo $this->lang->line('phone_number'); ?></label>
                   <input type="tel" class="form-control" id="bookPhone" name="book_phone" value="">
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-group mb-3 form-group-datepicker">
-                  <label for="dateArrived" class="form-label">Select a date</label>
+                  <label for="dateArrived" class="form-label"><?php echo $this->lang->line('select_a_date'); ?></label>
                   <div class="datepicker-wraper position-relative">
                     <img src="assets/img/frontend/icon-calendar.png" alt="calendar icon" class="img-fluid icon-calendar" />
                     <input type="text" class="form-control datetimepicker-input" name="date_arrived" id="dateArrived" data-toggle="datetimepicker" data-target="#dateArrived" value="" />
@@ -90,11 +94,11 @@
                 </div>
                 -->
                 <div class="form-group mb-3">
-                  <label class="form-label">Select a time <span class="required text-danger">*</span></label>
+                  <label class="form-label"><?php echo $this->lang->line('select_a_time'); ?> <span class="required text-danger">*</span></label>
                   <input type="hidden" name="time_arrived" id="getTimeArrived" value="0" />
                   <div class="custom-select js-select-time js-select-service">
                     <select required id="timeArrived">
-                      <option value="0">Select a time</option>
+                      <option value="0"><?php echo $this->lang->line('select_a_time'); ?></option>
                       <?php if (!empty($listHours)) {
                         foreach ($listHours as $itemHours) { ?>
                           <option value="<?php echo $itemHours; ?>"><?php echo $itemHours; ?></option>
@@ -107,7 +111,7 @@
 
               <div class="d-flex justify-content-center book-btn">
                 <button type="submit" class="btn btn-red btn-confirm">Confirm</button>
-                <button type="button" class="btn btn-outline-red btn-cancel">Cancel</button>
+                <button type="button" class="btn btn-outline-red btn-cancel"><?php echo $this->lang->line('cancel'); ?></button>
               </div>
             </form>
           </div>
