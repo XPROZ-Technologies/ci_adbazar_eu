@@ -55,10 +55,10 @@
                     <div class="inner-notify">
                       <div class="d-flex align-items-center justify-content-between notify-top">
                         <span><?php echo $this->lang->line('notifications'); ?></span>
-                        <a href="customer-notification.html"><?php echo $this->lang->line('see_all'); ?></a>
+                        <a href="javascript:void(0)"><?php echo $this->lang->line('see_all'); ?></a>
                       </div>
                       <div class="list-notify">
-                        <a href="customer-notification.html" class="notify-item">
+                        <a href="javascript:void(0)" class="notify-item">
                           <div class="notify-img">
                             <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
                           </div>
@@ -68,7 +68,7 @@
                           </div>
                           <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
                         </a>
-                        <a href="customer-notification.html" class="notify-item">
+                        <a href="javascript:void(0)" class="notify-item">
                           <div class="notify-img">
                             <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
                           </div>
@@ -77,35 +77,7 @@
                             <small>2 days ago</small>
                           </div>
                         </a>
-                        <a href="customer-notification.html" class="notify-item">
-                          <div class="notify-img">
-                            <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
-                          </div>
-                          <div class="notify-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                            <small>2 days ago</small>
-                          </div>
-                          <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
-                        </a>
-                        <a href="customer-notification.html" class="notify-item">
-                          <div class="notify-img">
-                            <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
-                          </div>
-                          <div class="notify-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                            <small>2 days ago</small>
-                          </div>
-                          <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
-                        </a>
-                        <a href="customer-notification.html" class="notify-item">
-                          <div class="notify-img">
-                            <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
-                          </div>
-                          <div class="notify-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                            <small>2 days ago</small>
-                          </div>
-                        </a>
+                        
                       </div>
                     </div>
                   </div>
