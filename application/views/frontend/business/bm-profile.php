@@ -40,17 +40,19 @@
                       <div class="bp-about-left">
                         <h4 class="fw-bold page-title-xs">BUSINESS INFORMATION</h4>
                         <div class="d-flex align-items-center mb-5px">
-                          <div class="star-rating on line  mr-8px relative">
-                            <div class="star-base">
-                              <div class="star-rate" data-rate="3.5"></div>
-                              <a dt-value="1" href="#1"></a>
-                              <a dt-value="2" href="#2"></a>
-                              <a dt-value="3" href="#3"></a>
-                              <a dt-value="4" href="#4"></a>
-                              <a dt-value="5" href="#5"></a>
+                          <?php if(isset($reviewInfo) && $reviewInfo['sumReview'] > 0){ ?>
+                            <div class="star-rating on line  mr-8px relative">
+                              <div class="star-base">
+                                <div class="star-rate" data-rate="<?php echo $reviewInfo['star']; ?>"></div>
+                                <a dt-value="1" href="#1"></a>
+                                <a dt-value="2" href="#2"></a>
+                                <a dt-value="3" href="#3"></a>
+                                <a dt-value="4" href="#4"></a>
+                                <a dt-value="5" href="#5"></a>
+                              </div>
                             </div>
-                          </div>
-                          <!-- <span class="star-rating-number">(10)</span> -->
+                            <span class="star-rating-number">(<?php echo $reviewInfo['sumReview']; ?>)</span>
+                          <?php } ?>
                         </div>
                         <ul class="list-unstyled list-info">
                           <li class="mb-3">
@@ -99,7 +101,7 @@
                                     <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
                                       <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
                                   <?php } else { ?>
-                                    <span class="badge badge-cancel">Closed</span>
+                                    <span class="badge badge-cancel">Close</span>
                                   <?php } ?>
                                 </li>
                               <?php } ?>
