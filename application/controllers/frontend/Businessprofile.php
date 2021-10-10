@@ -672,10 +672,14 @@ class Businessprofile extends MY_Controller
         $day_id = date('N') - 1;
         
         $configTimes = $this->Mreservationconfigs->getBy(array('day_id' => $day_id, 'business_profile_id' => $businessProfileId));
+        $data['listHours'] = array();
+        $data['configTimes'] = array();
+        if(!empty($configTimes)){
+            $data['configTimes'] = $configTimes['0'];
 
-        $data['configTimes'] = $configTimes['0'];
-
-        $data['listHours'] = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration'], true);
+            $data['listHours'] = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration'], true);
+        }
+      
 
         //echo "<pre>";print_r($listHours);exit;
         //echo date('Y-m-d', strtotime('October 09, 2021'));die;
