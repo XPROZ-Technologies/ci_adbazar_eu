@@ -23,7 +23,7 @@
 
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-between">
                       <div class="d-flex align-items-center inner-filter">
-                        <span class="me-2 page-text-lg">Filter by</span>
+                        <span class="me-2 page-text-lg"><?php echo $this->lang->line('filter_by'); ?></span>
                         <div class="notification-filter">
                           <div class="custom-select">
                             <select>
@@ -53,7 +53,7 @@
                             <th>Time</th>
                             <th>ID</th>
                             <th>People</th>
-                            <th>Status</th>
+                            <th><?php echo $this->lang->line('status'); ?></th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -62,10 +62,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
+                            <td><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md">Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>
@@ -73,10 +73,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-declined">Declined</span></td>
+                            <td><span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md">Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>
@@ -84,10 +84,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-expire">Expired</span></td>
+                            <td><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>
@@ -95,10 +95,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-cancel">Cancelled</span></td>
+                            <td><span class="badge badge-cancel"><?php echo $this->lang->line('cancelled'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md">Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>
@@ -106,10 +106,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
+                            <td><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md">Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>
@@ -117,10 +117,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
+                            <td><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md">Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>
@@ -128,10 +128,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-declined">Declined</span></td>
+                            <td><span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md">Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>
@@ -139,10 +139,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-expire">Expired</span></td>
+                            <td><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>
@@ -150,10 +150,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-cancel">Cancelled</span></td>
+                            <td><span class="badge badge-cancel"><?php echo $this->lang->line('cancelled'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md">Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>
@@ -161,10 +161,10 @@
                             <td class="text-center">21/10/2021 </br>10</td>
                             <td>ADVFD</td>
                             <td>1</td>
-                            <td><span class="badge badge-approved">Approved</span></td>
+                            <td><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></td>
                             <td>
                               <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md">Cancel</button>
+                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </td>
                           </tr>

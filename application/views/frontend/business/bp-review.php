@@ -15,7 +15,7 @@
               <div class="review-top">
                 <div class="col-review">
                   <div class="d-flex flex-column justify-content-center align-items-center overall-rate">
-                    <h5 class="page-title-xs">Overall rating</h5>
+                    <h5 class="page-title-xs"><?php echo $this->lang->line('overall_rating'); ?></h5>
                     <div class="star-base">
                       <div class="star-rate" data-rate="<?php echo $overall_rating; ?>"></div>
                       <a dt-value="1" href="#1"></a>
@@ -99,7 +99,7 @@
                   <div class="d-flex justify-content-lg-end">
                     <a href="javascript:void(0)" class="review-btn btn btn-red" data-bs-target="#leaveReview" data-bs-toggle="modal">
                       <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
-                      Leave a review</a>
+                      <?php echo $this->lang->line('leave_a_review'); ?></a>
                   </div>
                 </div>
               </div>
@@ -110,7 +110,7 @@
                   <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                     <div class="d-flex align-items-center inner-filter">
                       <!--
-                      <span class="me-2 page-text-lg fw-bold">Filter by</span>
+                      <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                       <div class="notification-filter">
                         <div class="custom-select">
                           <select>
@@ -298,7 +298,7 @@
           </div>
         </div>
       </div>
-      <p class="leaveReview-text">Write your review</p>
+      <p class="leaveReview-text"><?php echo $this->lang->line('write_your_review'); ?></p>
 
       <input type="hidden" id="rankStar" value="5" />
       <input type="hidden" id="businessId" value="<?php if (isset($businessInfo['id'])) {
@@ -314,7 +314,7 @@
       <textarea name="comment-post" id="leaveReviewComment"></textarea>
       <div class="d-flex align-items-center  justify-content-end mt-20">
         <button type="button" class="btn btn-red btn-leave-review">Submit</button>
-        <button type="button" class="btn btn-outline-red ml-8px reply-cancel" data-bs-dismiss="modal" aria-label="Close">cancel</button>
+        <button type="button" class="btn btn-outline-red ml-8px reply-cancel" data-bs-dismiss="modal" aria-label="Close"><?php echo $this->lang->line('cancel'); ?></button>
       </div>
     </div>
   </div>

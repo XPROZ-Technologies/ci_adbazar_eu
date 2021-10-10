@@ -138,10 +138,10 @@
                       <img src="<?php echo CUSTOMER_PATH . $avatar; ?>" alt="avatar" class="img-fluid">
                       <div class="user-info-box-name">
                         <p><?php echo $customer['customer_first_name']; ?></p>
-                        <a href="<?php echo base_url('customer/general-information') ?>">See my profile</a>
+                        <a href="<?php echo base_url('customer/general-information') ?>"><?php echo $this->lang->line('see_my_profile'); ?></a>
                       </div>
                     </div>
-                    <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('my-business-profile'); ?>'">My Business Profile</button>
+                    <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('my-business-profile'); ?>'"><?php echo $this->lang->line('my_business_profile'); ?></button>
                     <?php if (isset($customer['login_type_id']) && $customer['login_type_id'] == 2) { ?>
                       <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
                     <?php } else { ?>
@@ -163,10 +163,10 @@
                 <?php if (isset($customer['language_id']) && ($customer['language_id'] == 4)) { ?><img src="assets/img/frontend/vn.png" alt="Việt Nam" class="img-fluid"><?php } ?>
               </a>
               <ul class="dropdown-menu js-list-language" aria-labelledby="languageDropdown">
-                <li class="change-language-menu <?php echo $customer['language_id'] == 1 ? 'selected' : ''; ?>" data-language-id="1"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value="en" data-language-id="1"><img src="assets/img/frontend/en.png" alt="english flag" class="img-fluid me-2">English</a></li>
-                <li class="change-language-menu <?php echo $customer['language_id'] == 4 ? 'selected' : ''; ?>" data-language-id="4"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='vn' data-language-id="4"><img src="assets/img/frontend/vn.png" alt="vietnam flag" class="img-fluid me-2">Vietnamese</a></li>
-                <li class="change-language-menu <?php echo $customer['language_id'] == 3 ? 'selected' : ''; ?>" data-language-id="3"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='ger' data-language-id="3"><img src="assets/img/frontend/ger.png" alt="germany flag" class="img-fluid me-2">German</a></li>
-                <li class="change-language-menu <?php echo $customer['language_id'] == 2 ? 'selected' : ''; ?>" data-language-id="2"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='cre' data-language-id="2"><img src="assets/img/frontend/cre.png" alt="czech flag" class="img-fluid me-2">Czech</a></li>
+                <li class="change-language-menu <?php echo $customer['language_id'] == 1 ? 'selected' : ''; ?>" data-language-id="1"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value="en" data-language-id="1"><img src="assets/img/frontend/en.png" alt="english flag" class="img-fluid me-2"><?php echo $this->lang->line('english'); ?></a></li>
+                <li class="change-language-menu <?php echo $customer['language_id'] == 4 ? 'selected' : ''; ?>" data-language-id="4"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='vn' data-language-id="4"><img src="assets/img/frontend/vn.png" alt="vietnam flag" class="img-fluid me-2"><?php echo $this->lang->line('vietnamese'); ?></a></li>
+                <li class="change-language-menu <?php echo $customer['language_id'] == 3 ? 'selected' : ''; ?>" data-language-id="3"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='ger' data-language-id="3"><img src="assets/img/frontend/ger.png" alt="germany flag" class="img-fluid me-2"><?php echo $this->lang->line('german'); ?></a></li>
+                <li class="change-language-menu <?php echo $customer['language_id'] == 2 ? 'selected' : ''; ?>" data-language-id="2"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value='cre' data-language-id="2"><img src="assets/img/frontend/cre.png" alt="czech flag" class="img-fluid me-2"><?php echo $this->lang->line('czech'); ?></a></li>
               </ul>
             </div>
             <!-- END. Languages -->
@@ -341,7 +341,7 @@
               <li class="nav-item">
                 <a class="nav-link  <?php if (isset($activeMenu) && $activeMenu == "home") {
                                       echo "active";
-                                    } ?>" aria-current="page" href="<?php echo base_url(HOME_URL); ?>">Homepage</a>
+                                    } ?>" aria-current="page" href="<?php echo base_url(HOME_URL); ?>"><?php echo $this->lang->line('homepage'); ?></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link <?php if (isset($activeMenu) && $activeMenu == "about-us") {

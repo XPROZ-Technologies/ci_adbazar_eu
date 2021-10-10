@@ -6,16 +6,15 @@
     <div class="bm-plan">
       <div class="bm-plan-top">
         <div class="container">
-          <h2 class="text-center page-title-md">You will need to make a payment to create a business
-            profile.</h2>
+          <h2 class="text-center page-title-md"><?php echo $this->lang->line('you_will_need_to_make_a_paymen'); ?></h2>
           <div class="d-flex flex-column flex-md-row justify-content-center align-items-center paypal">
-            <p class="mb-0 text-secondary fw-500 page-title-xs">Secured payment through Paypal</p>
+            <p class="mb-0 text-secondary fw-500 page-title-xs"><?php echo $this->lang->line('secured_payment_through_paypal'); ?></p>
             <img src="assets/img/frontend/bm-paypal.png" alt="paypal image" class="img-fluid">
           </div>
-          <p class="page-title-sm fw-bold text-center text-primary mb-0">Three-month free trial is available for your first business</p>
+          <p class="page-title-sm fw-bold text-center text-primary mb-0"><?php echo $this->lang->line('3-month_free_trial_is_availabl'); ?></p>
           <!-- Change currency -->
           <div class="d-flex align-items-center justify-content-center currency-wrap">
-            <span class="fw-500">Currency</span>
+            <span class="fw-500"><?php echo $this->lang->line('currency'); ?></span>
             <div class="d-flex align-items-center justify-content-center switch-btn">
               <input id="checkbox" type="checkbox" class="checkbox" checked />
               <label for="checkbox" class="switch">
@@ -44,26 +43,26 @@
                         <input type="radio" name="bm-plan" id="plan1" class="plan-input-radio" checked value="1" />
                         <span class="checkmark"></span>
                       </div>
-                      <span class="text-header fw-bold">MONTHLY PAYMENT</span>
+                      <span class="text-header fw-bold"><?php echo $this->lang->line('monthly_payment'); ?></span>
                     </div>
 
                     <div class="card-body plan-card fw-500">
                       <div class="month text-success">
-                        <span class="text-month fw-bold">1299 CZK/ Month</span>
+                        <span class="text-month fw-bold">1299 <?php echo $this->lang->line('czk_month'); ?></span>
                       </div>
                       <ul class="list-text fw-500">
-                        <li>Create Business profile</li>
-                        <li>Show on map</li>
-                        <li>Marketing</li>
+                        <li><?php echo $this->lang->line('create_business_profile'); ?></li>
+                        <li><?php echo $this->lang->line('show_on_map'); ?></li>
+                        <li><?php echo $this->lang->line('marketing'); ?></li>
                       </ul>
                       <div class="page-text-lg description">
                         <div class="wrapper-text">
                           <p class="mb-1 text-bill text-primary">Monthly anually
                           </p>
-                          <p class="mb-1 text-payment">As one payment of 1299 CZK
+                          <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of_1299_czk'); ?>
                           </p>
                         </div>
-                        <p class="mb-0 text-warning text-vat">VAT and local taxes may apply</p>
+                        <p class="mb-0 text-warning text-vat"><?php echo $this->lang->line('vat_and_local_taxes_may_apply'); ?></p>
                       </div>
                     </div>
                   </div>
@@ -80,18 +79,18 @@
                         <input type="radio" name="bm-plan" id="plan2" class="plan-input-radio" value="2" />
                         <span class="checkmark"></span>
                       </div>
-                      <span class="text-header fw-bold">ANNUAL PAYMENT</span>
+                      <span class="text-header fw-bold"><?php echo $this->lang->line('annual_payment'); ?></span>
                     </div>
 
                     <div class="card-body plan-card fw-500">
                       <div class="month text-success">
-                        <span class="text-month fw-bold">1099 CZK/ Month</span>
-                        <small class="page-text-sm fw-500">(Save 200 CZK/Month)</small>
+                        <span class="text-month fw-bold">1099 <?php echo $this->lang->line('czk_month'); ?></span>
+                        <small class="page-text-sm fw-500">(<?php echo $this->lang->line('save_200_czk_month'); ?>)</small>
                       </div>
                       <ul class="list-text fw-500">
-                        <li>Create Business profile</li>
-                        <li>Show on map</li>
-                        <li>Marketing</li>
+                        <li><?php echo $this->lang->line('create_business_profile'); ?></li>
+                        <li><?php echo $this->lang->line('show_on_map'); ?></li>
+                        <li><?php echo $this->lang->line('marketing'); ?></li>
                       </ul>
                       <div class="page-text-lg description">
                         <div class="wrapper-text">
@@ -100,7 +99,7 @@
                           <p class="mb-1 text-payment">As one payment of 1099 CZK
                           </p>
                         </div>
-                        <p class="mb-0 text-warning text-vat">VAT and local taxes may apply</p>
+                        <p class="mb-0 text-warning text-vat"><?php echo $this->lang->line('vat_and_local_taxes_may_apply'); ?></p>
                       </div>
                     </div>
                   </div>
@@ -115,9 +114,9 @@
               <div class="d-flex justify-content-end">
                 <div class="d-flex flex-column align-items-end">
                   <div class="d-flex align-items-center">
-                    <a href="javascript:void(0)" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-select-plan">Start 3-month free trial</a>
+                    <a href="javascript:void(0)" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-select-plan"><?php echo $this->lang->line('start_3-month_free_trial'); ?></a>
                     <!--
-                      <a href="#" class="btn btn-outline-red btn-outline-red-md btn-no-trail">No, I don’t need a free trial</a>
+                      <a href="#" class="btn btn-outline-red btn-outline-red-md btn-no-trail"><?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?></a>
                     -->
                   </div>
                   <p class="text-danger text-center page-text-sm align-items-center fw-500">

@@ -92,20 +92,20 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h3 class="text-center mb-4 pb-lg-2 page-title-sm">Password assistance
+                    <h3 class="text-center mb-4 pb-lg-2 page-title-sm"><?php echo $this->lang->line('password_assistance'); ?>
                     </h3>
-                    <p class="mb-0 text-center mb-32">Enter your username or email to recover your password. You will receive an email with instructions.</p>
+                    <p class="mb-0 text-center mb-32"><?php echo $this->lang->line('enter_your_username_or_email_to_recover_your_password_you_will_receive_an_email_with_instructions'); ?></p>
                     <form class="row">
                         <div class="col-12 mx-auto mb-4 has-validation">
-                            <label for="inputForgotPassEmail" class="form-label">Email</label>
+                            <label for="inputForgotPassEmail" class="form-label"><?php echo $this->lang->line('email'); ?></label>
                             <input type="email" class="form-control is-invalid" id="inputForgotPassEmail">
                             <div class="invalid-feedback">
-                                *Your email is incorrect. Please try again.
+                            <?php echo $this->lang->line('your_email_is_incorrect_please_try_again'); ?>
                             </div>
                         </div>
 
                         <div class="col-12 d-flex justify-content-center mb-2">
-                            <button type="button" class="btn btn-red btn-forgot-password">Submit</button>
+                            <button type="button" class="btn btn-red btn-forgot-password"><?php echo $this->lang->line('submit'); ?></button>
                         </div>
                     </form>
                 </div>

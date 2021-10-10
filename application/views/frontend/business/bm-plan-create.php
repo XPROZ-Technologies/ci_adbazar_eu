@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-10">
             <div class="bm-create-content">
-              <h3 class="fw-bold page-title-md text-center">Create a business</h3>
+              <h3 class="fw-bold page-title-md text-center"><?php echo $this->lang->line('create_a_business'); ?></h3>
               <div class="bm-create-cover">
                 <!-- cover -->
                 <div class="cover-top">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="cover-icon" id="cover-icon">
                       <img src="assets/img/frontend/icon-camera.png" alt="icon-camera">
-                      <span id="cover-text" class="text-decoration-underline">Upload cover photo</span>
+                      <span id="cover-text" class="text-decoration-underline"><?php echo $this->lang->line('upload_cover_photo'); ?></span>
                     </div>
                   </div>
                 </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="general-icon js-profile-icon">
                       <img src="assets/img/frontend/icon-camera.png" alt="icon-camera">
-                      <span class="text-decoration-underline">Upload profile photo</span>
+                      <span class="text-decoration-underline"><?php echo $this->lang->line('upload_profile_photo'); ?></span>
                     </div>
                   </div>
                 </div>
@@ -45,8 +45,8 @@
                   <input type="hidden" name="customer_id" value="<?php echo $customer['id']; ?>" />
                   <div class="col-12">
                     <div class="form-group mb-3">
-                      <label for="bm-name" class="form-label">Business Name<span class="text-danger required">*</span></label>
-                      <input type="text" class="form-control form-control-lg" aria-label="Business name" name="business_name" id="business_name" required>
+                      <label for="bm-name" class="form-label"><?php echo $this->lang->line('business_name'); ?><span class="text-danger required">*</span></label>
+                      <input type="text" class="form-control form-control-lg" aria-label="<?php echo $this->lang->line('business_name'); ?>" name="business_name" id="business_name" required>
                     </div>
                   </div>
                   <div class="col-12">
@@ -60,22 +60,22 @@
                   </div>
                   <div class="col-12">
                     <div class="form-group mb-3">
-                      <label for="bm-email" class="form-label">Business Email<span class="text-danger required">*</span></label>
-                      <input type="email" class="form-control form-control-lg" id="bm-email" aria-label="Business email" name="business_email" required>
+                      <label for="bm-email" class="form-label"><?php echo $this->lang->line('business_email'); ?><span class="text-danger required">*</span></label>
+                      <input type="email" class="form-control form-control-lg" id="bm-email" aria-label="<?php echo $this->lang->line('business_email'); ?>" name="business_email" required>
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="form-group mb-3">
-                      <label for="bm-address" class="form-label">Business Address<span class="text-danger required">*</span></label>
-                      <input type="text" class="form-control form-control-lg" id="bm-address" aria-label="Business address" name="business_address" required>
+                      <label for="bm-address" class="form-label"><?php echo $this->lang->line('business_address'); ?><span class="text-danger required">*</span></label>
+                      <input type="text" class="form-control form-control-lg" id="bm-address" aria-label="<?php echo $this->lang->line('business_address'); ?>" name="business_address" required>
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="form-group mb-3">
-                      <label for="bm-url" class="form-label">Custom URL <span class="required">*</span></label>
+                      <label for="bm-url" class="form-label"><?php echo $this->lang->line('custom_url'); ?> <span class="required">*</span></label>
                       <div class="position-relative text-url">
                         <span>adbazar.eu/</span>
-                        <input type="url" class="form-control form-control-lg" placeholder="" aria-label="Custom URL" name="business_url" id="business_url">
+                        <input type="url" class="form-control form-control-lg" placeholder="" aria-label="<?php echo $this->lang->line('custom_url'); ?>" name="business_url" id="business_url">
                       </div>
                     </div>
                   </div>
@@ -86,7 +86,7 @@
                         <input type="hidden" class="form-control" id="businessPhoneCode" name="country_code_id" value="0">
                         <a href="#" class="wrapper-btn dropdown-toggle current js-country" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">
                           <img src="assets/img/frontend/ger.png" alt="english flag" class="img-fluid me-2">
-                          <span class="country-text">Germany</span>
+                          <span class="country-text"><?php echo $this->lang->line('german'); ?></span>
                           <span class="country-code">+49</span>
                         </a>
                         <ul class="dropdown-menu js-list-country" aria-labelledby="countryDropdown">
@@ -105,25 +105,25 @@
                   </div>
                   <div class="col-md-4">
                     <div class="form-group mb-3">
-                      <label for="bm-phone" class="form-label">Phone number<span class="text-danger required">*</span></label>
-                      <input type="tel" class="form-control form-control-lg" id="bm-phone" aria-label="Phone number" name="business_phone">
+                      <label for="bm-phone" class="form-label"><?php echo $this->lang->line('phone_number'); ?><span class="text-danger required">*</span></label>
+                      <input type="tel" class="form-control form-control-lg" id="bm-phone" aria-label="<?php echo $this->lang->line('phone_number'); ?>" name="business_phone">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group mb-3">
-                      <label for="bm-whatapp" class="form-label">WhatsApp number<span class="text-danger required">*</span></label>
-                      <input type="tel" class="form-control form-control-lg" id="bm-whatapp" aria-label="WhatsApp number" name="business_whatsapp" value="">
+                      <label for="bm-whatapp" class="form-label"><?php echo $this->lang->line('whatsapp_number'); ?><span class="text-danger required">*</span></label>
+                      <input type="tel" class="form-control form-control-lg" id="bm-whatapp" aria-label="<?php echo $this->lang->line('whatsapp_number'); ?>" name="business_whatsapp" value="">
                     </div>
                   </div>
 
                   <!-- Opening hours -->
                   <div class="col-12">
                     <div class="form-group mb-3">
-                      <label class="form-label">Opening hour<span class="text-danger required">*</span></label>
+                      <label class="form-label"><?php echo $this->lang->line('opening_hours'); ?><span class="text-danger required">*</span></label>
                       <div class="open-hour">
                         <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item">
                           <div class="page-text-lg text-date">
-                            Monday
+                            <?php echo $this->lang->line('monday'); ?>
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn disabled">
@@ -135,22 +135,22 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Closed</p>
+                              <p class="mb-0 switch-text"><?php echo $this->lang->line('closed'); ?></p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[0][start_time]" id="timePicker1" data-toggle="datetimepicker" data-target="#timePicker1" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[0][start_time]" id="timePicker1" data-toggle="datetimepicker" data-target="#timePicker1" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[0][start_time]" id="timePicker2" data-toggle="datetimepicker" data-target="#timePicker2" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[0][start_time]" id="timePicker2" data-toggle="datetimepicker" data-target="#timePicker2" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item ">
                           <div class="page-text-lg text-date">
-                            Tuesday
+                            <?php echo $this->lang->line('tuesday'); ?>
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn disabled">
@@ -162,22 +162,22 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Closed</p>
+                              <p class="mb-0 switch-text"><?php echo $this->lang->line('closed'); ?></p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[1][start_time]" id="timePicker3" data-toggle="datetimepicker" data-target="#timePicker3" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[1][start_time]" id="timePicker3" data-toggle="datetimepicker" data-target="#timePicker3" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[1][end_time]" id="timePicker4" data-toggle="datetimepicker" data-target="#timePicker4" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[1][end_time]" id="timePicker4" data-toggle="datetimepicker" data-target="#timePicker4" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item">
                           <div class="page-text-lg text-date">
-                            Wednesday
+                            <?php echo $this->lang->line('wednesday'); ?>
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn disabled">
@@ -189,22 +189,22 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Closed</p>
+                              <p class="mb-0 switch-text"><?php echo $this->lang->line('closed'); ?></p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[2][start_time]" id="timePicker5" data-toggle="datetimepicker" data-target="#timePicker5" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[2][start_time]" id="timePicker5" data-toggle="datetimepicker" data-target="#timePicker5" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[2][end_time]" id="timePicker6" data-toggle="datetimepicker" data-target="#timePicker6" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[2][end_time]" id="timePicker6" data-toggle="datetimepicker" data-target="#timePicker6" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item">
                           <div class="page-text-lg text-date">
-                            Thursday
+                          <?php echo $this->lang->line('thursday'); ?>
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn disabled">
@@ -216,22 +216,22 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Closed</p>
+                              <p class="mb-0 switch-text"><?php echo $this->lang->line('closed'); ?></p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[3][start_time]" id="timePicker7" data-toggle="datetimepicker" data-target="#timePicker7" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[3][start_time]" id="timePicker7" data-toggle="datetimepicker" data-target="#timePicker7" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[3][end_time]" id="timePicker8" data-toggle="datetimepicker" data-target="#timePicker8" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[3][end_time]" id="timePicker8" data-toggle="datetimepicker" data-target="#timePicker8" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item">
                           <div class="page-text-lg text-date">
-                            Friday
+                          <?php echo $this->lang->line('friday'); ?>
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn disabled">
@@ -243,22 +243,22 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Closed</p>
+                              <p class="mb-0 switch-text"><?php echo $this->lang->line('closed'); ?></p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[4][start_time]" id="timePicker9" data-toggle="datetimepicker" data-target="#timePicker9" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[4][start_time]" id="timePicker9" data-toggle="datetimepicker" data-target="#timePicker9" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[4][end_time]" id="timePicker10" data-toggle="datetimepicker" data-target="#timePicker10" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[4][end_time]" id="timePicker10" data-toggle="datetimepicker" data-target="#timePicker10" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item">
                           <div class="page-text-lg text-date">
-                            Saturday
+                            <?php echo $this->lang->line('saturday'); ?>
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn disabled">
@@ -270,22 +270,22 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Closed</p>
+                              <p class="mb-0 switch-text"><?php echo $this->lang->line('closed'); ?></p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[5][start_time]" id="timePicker11" data-toggle="datetimepicker" data-target="#timePicker11" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[5][start_time]" id="timePicker11" data-toggle="datetimepicker" data-target="#timePicker11" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[5][end_time]" id="timePicker12" data-toggle="datetimepicker" data-target="#timePicker12" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[5][end_time]" id="timePicker12" data-toggle="datetimepicker" data-target="#timePicker12" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between open-hour-item">
                           <div class="page-text-lg text-date">
-                            Sunday
+                            <?php echo $this->lang->line('sunday'); ?>
                           </div>
                           <div class="d-flex flex-column flex-md-row align-items-md-center body-content">
                             <div class="d-flex align-items-center switch-btn disabled">
@@ -297,15 +297,15 @@
                                 <span class="switch-left">Off</span>
                                 <span class="switch-right">On</span>
                               </label>
-                              <p class="mb-0 switch-text">Closed</p>
+                              <p class="mb-0 switch-text"><?php echo $this->lang->line('closed'); ?></p>
                             </div>
                             <div class="d-flex align-items-center wrapper-time">
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[6][start_time]" id="timePicker13" data-toggle="datetimepicker" data-target="#timePicker13" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[6][start_time]" id="timePicker13" data-toggle="datetimepicker" data-target="#timePicker13" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                               <span class="text-to">to</span>
                               <div class="position-relative time-content">
-                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[6][end_time]" id="timePicker14" data-toggle="datetimepicker" data-target="#timePicker14" placeholder="Open at" />
+                                <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[6][end_time]" id="timePicker14" data-toggle="datetimepicker" data-target="#timePicker14" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                               </div>
                             </div>
                           </div>
@@ -318,14 +318,14 @@
                   <!--END. opening hours -->
                   <div class="col-12">
                     <div class="form-group mb-3">
-                      <label for="bm-desc" class="form-label">Description</label>
+                      <label for="bm-desc" class="form-label"><?php echo $this->lang->line('description'); ?></label>
                       <textarea class="form-control form-control-lg" id="bm-desc" rows="4" name="business_description"></textarea>
                     </div>
                   </div>
 
                   <div class="col-12">
                     <div class="form-group mb-3">
-                      <label class="form-label">Type of service <span class="required text-danger">*</span></label>
+                      <label class="form-label"><?php echo $this->lang->line('type_of_service'); ?> <span class="required text-danger">*</span></label>
                       <div class="custom-select js-select-service">
                         <select name="service_id" required id="serviceId">
                           <?php foreach ($listServices as $itemService) { ?>
@@ -338,7 +338,7 @@
 
 
                   <div class="col-12 serviceTypeBlock">
-                    <label class="form-label" for="sub-category">Sub-categories<span class="required text-danger">*</span></label>
+                    <label class="form-label" for="sub-category"><?php echo $this->lang->line('sub-categories'); ?><span class="required text-danger">*</span></label>
                     <select name="service_type_ids[]" id="serviceTypeId" class="form-control form-control-lg js-tags-select" multiple="multiple">
                       
                     </select>
@@ -348,8 +348,8 @@
 
                   <div class="col-12">
                     <div class="form-group d-flex justify-content-center action-btn">
-                      <a href="javascript:void(0)" class="btn btn-red btn-create-business">Create</a>
-                      <a href="<?php echo base_url('business/my-business-profile'); ?>" class="btn btn-outline-red">Cancel</a>
+                      <a href="javascript:void(0)" class="btn btn-red btn-create-business"><?php echo $this->lang->line('create'); ?></a>
+                      <a href="<?php echo base_url('business/my-business-profile'); ?>" class="btn btn-outline-red"><?php echo $this->lang->line('cancel'); ?></a>
                     </div>
                   </div>
               </div>
@@ -363,6 +363,7 @@
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
 <script>
+  var change_cover_photo = "<?php echo $this->lang->line('change_cover_photo'); ?>";
   $(".serviceTypeBlock").hide();
 
   $("body").on("click", ".js-list-country li a", function() {
@@ -418,7 +419,7 @@
 
   $("#cover-profile-upload").on("change", function() {
     readURL(this, $("#cover-photo"), $('#businessCoverUpload'));
-    $("#cover-text").text("Change cover photo");
+    $("#cover-text").text(change_cover_photo);
   });
 
 

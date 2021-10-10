@@ -16,7 +16,7 @@
 
                 <div class="col-review">
                   <div class="d-flex flex-column justify-content-center align-items-center overall-rate">
-                    <h5 class="page-title-xs">Overall rating</h5>
+                    <h5 class="page-title-xs"><?php echo $this->lang->line('overall_rating'); ?></h5>
 
                     <div class="d-flex align-items-center mb-14">
                       <?php if (!empty($lists) > 0) { ?>
@@ -108,13 +108,13 @@
               </div>
 
               <div class="bp-comment">
-                <h4 class="page-title-rv">Reviews (<?php echo $rowCount; ?>)</h4>
+                <h4 class="page-title-rv"><?php echo $this->lang->line('reviews'); ?> (<?php echo $rowCount; ?>)</h4>
                 <div class="bp-inner-content">
                   <?php if (!empty($lists) > 0) { ?>
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                       <div class="d-flex align-items-center inner-filter">
                         <!--
-                      <span class="me-2 page-text-lg fw-bold">Filter by</span>
+                      <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                       <div class="notification-filter">
                         <div class="custom-select">
                           <select>
@@ -175,9 +175,9 @@
 
                             <div class="text-right">
                               <?php if (empty($itemReview['business_comment'])) { ?>
-                                <a href="javascript:void(0)" title="" class="btn btn-red d-inline-block reply-comment" data-review="<?php echo $itemReview['id']; ?>">Reply</a>
+                                <a href="javascript:void(0)" title="" class="btn btn-red d-inline-block reply-comment" data-review="<?php echo $itemReview['id']; ?>"><?php echo $this->lang->line('reply'); ?></a>
                               <?php } ?>
-                              <a href="javascript:void(0)" title="" class="btn btn-outline-red d-inline-block delete-comment" data-review="<?php echo $itemReview['id']; ?>"><img src="assets/img/frontend/icon-del.png" alt=""> Delete</a>
+                              <a href="javascript:void(0)" title="" class="btn btn-outline-red d-inline-block delete-comment" data-review="<?php echo $itemReview['id']; ?>"><img src="assets/img/frontend/icon-del.png" alt=""> <?php echo $this->lang->line('delete'); ?></a>
                             </div>
 
                           </div>
@@ -201,10 +201,10 @@
                         <?php } else { ?>
                           <div class="comment-item no-avatar comment-reply comment-reply-<?php echo $itemReview['id']; ?>">
                             <div class="d-flex align-items-center justify-content-between">
-                              <p class="page-text-md text-secondary mb-2">Reply to customer:</p>
+                              <p class="page-text-md text-secondary mb-2"><?php echo $this->lang->line('reply_to_customer'); ?></p>
                               <div class="d-flex mb-10">
-                                <button type="button" class="btn btn-red btn-bm-reply" data-id="<?php echo $itemReview['id']; ?>">Submit</button>
-                                <button type="submit" class="btn btn-outline-red ml-8px reply-cancel">cancel</button>
+                                <button type="button" class="btn btn-red btn-bm-reply" data-id="<?php echo $itemReview['id']; ?>"><?php echo $this->lang->line('submit'); ?></button>
+                                <button type="submit" class="btn btn-outline-red ml-8px reply-cancel"><?php echo $this->lang->line('cancel'); ?></button>
                               </div>
                             </div>
                             <textarea name="comment-post" id="bmReplyComment-<?php echo $itemReview['id']; ?>"></textarea>

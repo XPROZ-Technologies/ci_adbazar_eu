@@ -6,7 +6,7 @@
       <button type="button" class="btn-close ms-auto btn-toast-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body">
-      <p class="text-center text-secondary">Your information has been succesfully saved.</p>
+      <p class="text-center text-secondary"><?php echo $this->lang->line('your_information_has_been_succ'); ?></p>
       <img src="assets/img/frontend/ic-check-mask.png" alt="ic-check-mask" class="mx-auto img-fluid ico-noti-success ico-hidden"  >
       <img src="assets/img/frontend/ic-cancel.png" alt="ic-check-mask" class="mx-auto img-fluid ico-noti-error ico-hidden" >
     </div>

@@ -33,7 +33,7 @@
                           <!-- Saved -->
                           <span class="page-text-sm me-1"><?php echo $this->lang->line('Status'); ?>:</span>
                           <?php if ($customerCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
-                            <span class="badge badge-approved">Valid</span>
+                            <span class="badge badge-approved"><?php echo $this->lang->line('valid'); ?></span>
                           <?php } else { ?>
                             <span class="badge badge-declined">Invalid</span>
                           <?php } ?>
@@ -55,7 +55,7 @@
                   <?php } else { ?>
                     <!-- Not Saved -->
                     <button type="button" class="btn btn-red w-100 btn-getnow btn-get-coupon mb-80"><?php echo $this->lang->line('get_now'); ?></button>
-                    <button type="button" disabled="" class="btn btn-outline-red btn-outline-red-disabled w-100 btn-getnow btn-saved btn-hidden">Saved</button>
+                    <button type="button" disabled="" class="btn btn-outline-red btn-outline-red-disabled w-100 btn-getnow btn-saved btn-hidden"><?php echo $this->lang->line('save'); ?></button>
                   <?php } ?>
                   <div class="d-flex align-items-center detail-horizontal">
                     <div class="horizontal-img">
@@ -98,7 +98,7 @@
       <div class="modal-content">
         <div class="modal-body">
           <p class="text-center page-text-lg"><?php echo $this->lang->line('are_you_sure_want_to_remove_th'); ?>
-            <b><?php echo $detailInfo['coupon_subject']; ?></b>?
+            <b><?php echo $detailInfo['coupon_subject']; ?></b><?php echo $this->lang->line('wirklich_entfernen'); ?>?
           </p>
           <div class="d-flex justify-content-center">
             <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-coupon" data-bs-dismiss="modal"><?php echo $this->lang->line('yes'); ?></a>

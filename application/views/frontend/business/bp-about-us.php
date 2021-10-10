@@ -239,7 +239,7 @@
         if (features[i].linkClose == 1) {
           open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
         } else {
-          open_status = `<a href="javascript:void(0);" class="customer-location-close">Closed</a>`;
+          open_status = `<a href="javascript:void(0);" class="customer-location-close"><?php echo $this->lang->line('closed'); ?></a>`;
         }
         var evaluate_info = "";
         if (features[i].evaluateInfo !== 0) {

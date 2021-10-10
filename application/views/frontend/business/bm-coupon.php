@@ -15,10 +15,10 @@
                 <div class="coupon-top">
                   <div class="d-flex flex-column flex-xl-row justify-content-xl-between">
                     <form class="d-flex mb-3 mb-xl-0">
-                      <input class="form-control me-2" type="text" placeholder="Enter code here" id="couponCodeValue">
-                      <button class="btn btn-outline-red btn-check-coupon" type="button">Check</button>
+                      <input class="form-control me-2" type="text" placeholder="<?php echo $this->lang->line('enter_code_here'); ?>" id="couponCodeValue">
+                      <button class="btn btn-outline-red btn-check-coupon" type="button"><?php echo $this->lang->line('check'); ?></button>
                     </form>
-                    <a href="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/create-coupon') ?>" class="btn btn-red btn-create-coupon">Create new coupon</a>
+                    <a href="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/create-coupon') ?>" class="btn btn-red btn-create-coupon"><?php echo $this->lang->line('create_new_coupon'); ?></a>
                   </div>
                 </div>
                 <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
@@ -30,7 +30,7 @@
 
                     <div class="d-flex align-items-center inner-filter">
                       <!--
-                      <span class="me-2 page-text-lg fw-bold">Filter by</span>
+                      <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                       <div class="notification-filter">
                         <div class="custom-select">
                           <select>
@@ -79,7 +79,7 @@
                                   <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
                                   <div class="d-flex align-items-center justify-content-between">
                                     <div class="wraper-status">
-                                      <div class="badge badge-primary">Upcoming</div>
+                                      <div class="badge badge-primary"><?php echo $this->lang->line('upcoming'); ?></div>
                                       <!-- <div class="badge badge-primary">Upcoming</div> -->
                                       <!-- <div class="badge badge-cancel">End</div> -->
                                     </div>
@@ -157,16 +157,20 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body text-center">
+            <?php $we_found_your_code_ah1234do_y = $this->lang->line('we_found_your_code_ah1234do_y'); 
+                $we_found_your_code_ah1234do_y = explode('<AH1234>', $we_found_your_code_ah1234do_y);
+            ?>
                 <p class="page-text-lg mb-0">
-                  We found your code: <b>AH1234</b> 
+                <?php echo $we_found_your_code_ah1234do_y[0]; ?>
+                   <b>AH1234</b> 
                 </p>
                 <p class="page-text-lg mb-0">
-                Do you want to activate it?
+                <?php echo $we_found_your_code_ah1234do_y[1]; ?>
                 </p>
 
                 <div class="modal-footer border-top-0 justify-content-center p-0">
                     <button type="button" class="btn btn-red btn-ok btn-active-coupon"
-                        data-bs-dismiss="modal">Yes</button>
+                        data-bs-dismiss="modal"><?php echo $this->lang->line('yes'); ?></button>
                     <button type="button" class="btn btn-outline-red btn-ok"
                         data-bs-dismiss="modal">No</button>
                 </div>
@@ -182,11 +186,16 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body text-center">
+            <?php $your_code_ah1234_has_been_used_all = $this->lang->line('your_code_ah1234_has_been_used'); 
+                $your_code_ah1234_has_been_used = explode(' <AH1234> ', $your_code_ah1234_has_been_used_all);
+
+                $your_code_ah1234_has_been_used2 = explode('. ', $your_code_ah1234_has_been_used_all);
+            ?>
                 <p class="page-text-lg mb-0">
-                  Your code <b>AH1234</b> has been used or is expired. 
+                <?php echo $your_code_ah1234_has_been_used[0]; ?><b>AH1234</b> <?php echo $your_code_ah1234_has_been_used[1]; ?>
                 </p>
                 <p class="page-text-lg mb-0">
-                  Please try another code.
+                <?php echo $your_code_ah1234_has_been_used2[1]; ?>
                     
                 </p>
 

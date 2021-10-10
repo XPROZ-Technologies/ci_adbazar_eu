@@ -26,16 +26,16 @@
                       <span class="switch-left">Off</span>
                       <span class="switch-right">On</span>
                     </label>
-                    <p class="mb-0 switch-text fw-bold">Receive reservation(s)</p>
+                    <p class="mb-0 switch-text fw-bold"><?php echo $this->lang->line('receive_reservations'); ?></p>
                   </div>
-                  <button class="btn btn-red mr-24  reservation-setting" type="button" data-bs-toggle="modal" data-bs-target="#configModal"><img src="assets/img/frontend/ic-setting.png" alt="reservation-config"> Reservation Setting</button>
+                  <button class="btn btn-red mr-24  reservation-setting" type="button" data-bs-toggle="modal" data-bs-target="#configModal"><img src="assets/img/frontend/ic-setting.png" alt="reservation-config"><?php echo $this->lang->line('reservation_setting'); ?></button>
                 </div>
 
 
                 <div class="w-275">
                   <div class="reservation-select-date">
                     <div class="form-group form-group-datepicker">
-                      <label for="selecteDate" class="form-label">Select a date</label>
+                      <label for="selecteDate" class="form-label"><?php echo $this->lang->line('select_a_date'); ?></label>
                       <div class="datepicker-wraper position-relative">
                         <img src="assets/img/frontend/icon-calendar.png" alt="calendar icon" class="img-fluid icon-calendar" />
                         <input type="text" class="form-control datetimepicker-input" id="selecteDate" data-toggle="datetimepicker" value="" />
@@ -52,7 +52,7 @@
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                       <div class="d-flex align-items-center inner-filter">
 
-                        <span class="me-2 page-text-lg fw-bold">Filter by</span>
+                        <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                         <div class="notification-filter">
                           <div class="custom-select">
                             <select>
@@ -98,25 +98,25 @@
                               <td><?php echo $itemBook['number_of_people']; ?></td>
                               <td>
                                 <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                  <span class="badge badge-approved">Approved</span>
+                                  <span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span>
                                 <?php } ?>
                                 <?php if ($itemBook['book_status_id'] == 1) { ?>
-                                  <span class="badge badge-expire">Expired</span>
+                                  <span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span>
                                 <?php } ?>
                                 <?php if ($itemBook['book_status_id'] == 3) { ?>
-                                  <span class="badge badge-declined">Cancelled</span>
+                                  <span class="badge badge-declined"><?php echo $this->lang->line('cancelled'); ?></span>
                                 <?php } ?>
                                 <?php if ($itemBook['book_status_id'] == 4) { ?>
-                                  <span class="badge badge-declined">Declined</span>
+                                  <span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span>
                                 <?php } ?>
                               </td>
                               <td>
                                 <div class="d-flex justify-content-center">
                                   <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>">Cancel</button>
+                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>"><?php echo $this->lang->line('cancel'); ?></button>
                                   <?php } ?>
                                   <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
-                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
+                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
                                   <?php } ?>
                                 </div>
                               </td>
@@ -201,74 +201,70 @@
     <div class="modal-content">
       <div class="modal-body">
         <form action="#">
-          <h3 class="text-center page-title-sm text-config">Setting up reservation
+          <h3 class="text-center page-title-sm text-config"><?php echo $this->lang->line('setting_up_reservation'); ?>
           </h3>
 
           <div class="weekdays-selector">
             <input type="checkbox" id="weekday-mon" data-id="0" class="weekday <?php if (isset($reservationConfigs[0])) {
-                                                                                  echo "saved";
+                                                                                  echo $this->lang->line('save');
                                                                                 } ?>" />
-            <label for="weekday-mon">Mon</label>
+            <label for="weekday-mon"><?php echo $this->lang->line('mon'); ?></label>
             <input type="checkbox" id="weekday-tue" data-id="1" class="weekday <?php if (isset($reservationConfigs[1])) {
-                                                                                  echo "saved";
+                                                                                  echo $this->lang->line('save');
                                                                                 } ?>" />
-            <label for="weekday-tue">Tue</label>
+            <label for="weekday-tue"><?php echo $this->lang->line('tue'); ?></label>
             <input type="checkbox" id="weekday-wed" data-id="2" class="weekday <?php if (isset($reservationConfigs[2])) {
-                                                                                  echo "saved";
+                                                                                  echo $this->lang->line('save');
                                                                                 } ?>" />
-            <label for="weekday-wed">Wed</label>
+            <label for="weekday-wed"><?php echo $this->lang->line('wed'); ?></label>
             <input type="checkbox" id="weekday-thu" data-id="3" class="weekday <?php if (isset($reservationConfigs[3])) {
-                                                                                  echo "saved";
+                                                                                  echo $this->lang->line('save');
                                                                                 } ?>" />
-            <label for="weekday-thu">Thu</label>
+            <label for="weekday-thu"><?php echo $this->lang->line('thu'); ?></label>
             <input type="checkbox" id="weekday-fri" data-id="4" class="weekday <?php if (isset($reservationConfigs[4])) {
-                                                                                  echo "saved";
+                                                                                  echo $this->lang->line('save');
                                                                                 } ?>" />
-            <label for="weekday-fri">Fri</label>
+            <label for="weekday-fri"><?php echo $this->lang->line('fri'); ?></label>
             <input type="checkbox" id="weekday-sat" data-id="5" class="weekday <?php if (isset($reservationConfigs[5])) {
-                                                                                  echo "saved";
+                                                                                  echo $this->lang->line('save');
                                                                                 } ?>" />
-            <label for="weekday-sat">Sat</label>
+            <label for="weekday-sat"><?php echo $this->lang->line('sat'); ?></label>
             <input type="checkbox" id="weekday-sun" data-id="6" class="weekday <?php if (isset($reservationConfigs[6])) {
-                                                                                  echo "saved";
+                                                                                  echo $this->lang->line('save');
                                                                                 } ?>" />
-            <label for="weekday-sun">Sun</label>
+            <label for="weekday-sun"><?php echo $this->lang->line('sun'); ?></label>
           </div>
 
           <div class="wrapper-config">
             <input type="hidden" id="selecteDay" value="" />
             <input type="hidden" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="maxPeople" class="page-text-lg fw-500">Max number of people to
-                be served at a time</label>
+              <label for="maxPeople" class="page-text-lg fw-500"><?php echo $this->lang->line('max_number_of_people_to_be_ser'); ?></label>
               <div class="wrapper-input">
                 <input type="number" id="maxPeople" class="form-control square-input required-input">
               </div>
             </div>
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="maxPerReservation" class="page-text-lg fw-500">Max number of people per
-                reservation</label>
+              <label for="maxPerReservation" class="page-text-lg fw-500"><?php echo $this->lang->line('max_number_of_people_per_reser'); ?></label>
               <div class="wrapper-input">
                 <input type="number" id="maxPerReservation" class="form-control  square-input required-input">
               </div>
             </div>
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="duration" class="page-text-lg fw-500">Time between
-                reservations</label>
+              <label for="duration" class="page-text-lg fw-500"><?php echo $this->lang->line('time_between_reservations'); ?></label>
               <div class="d-flex align-items-center wrapper-input">
                 <input type="text" id="duration" class="form-control  square-input required-input">
-                <span class="page-text-lg fw-500 ms-2">Minute(s)</span>
+                <span class="page-text-lg fw-500 ms-2"><?php echo $this->lang->line('minutes'); ?></span>
               </div>
             </div>
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="startTime" class="page-text-lg fw-500">Start taking reservation
-                at</label>
+              <label for="startTime" class="page-text-lg fw-500"><?php echo $this->lang->line('start_taking_reservation_at'); ?></label>
               <div class="timepicker-wraper wrapper-input time-content">
                 <input type="text" class="js-time-picker form-control datetimepicker-input required-input" id="startTime" data-toggle="datetimepicker" />
               </div>
             </div>
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="endTime" class="page-text-lg fw-500">Closing time</label>
+              <label for="endTime" class="page-text-lg fw-500"><?php echo $this->lang->line('closing_time'); ?></label>
               <div class="timepicker-wraper wrapper-input time-content">
                 <input type="text" class="js-time-picker form-control datetimepicker-input required-input" id="endTime" data-toggle="datetimepicker" />
               </div>
@@ -278,17 +274,17 @@
           <div class="d-flex justify-content-center form-check apply-everyday">
             <input class="form-check-input" type="checkbox" id="config-everyday">
             <label class="form-check-label" for="config-everyday">
-              Apply to everyday
+            <?php echo $this->lang->line('apply_to_everyday'); ?>
             </label>
           </div>
 
           <!-- Remove this line when valid content -->
-          <p class="page-text-lg text-danger text-center fw-500">IMPORTANT: You need to fill in all information to save changes.</p>
+          <p class="page-text-lg text-danger text-center fw-500"><?php echo $this->lang->line('important_you_need_to_fill_in_'); ?></p>
 
           <!-- Remove disabled when validate content -->
           <div class="modal-footer justify-content-center border-0 p-0">
-            <button type="button" class="btn btn-red btn-red btn-save-config">Save changes</button>
-            <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-red btn-red btn-save-config"><?php echo $this->lang->line('save_changes'); ?></button>
+            <button type="button" class="btn btn-outline-red" data-bs-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></button>
           </div>
         </form>
       </div>
@@ -311,8 +307,8 @@
         </p>
         <input type="hidden" id="selectedBookId" value="" />
         <div class="d-flex justify-content-center">
-          <a href="javascript:void(0)" class="btn btn-red btn-yes btn-cancel-reservation">Yes</a>
-          <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
+          <a href="javascript:void(0)" class="btn btn-red btn-yes btn-cancel-reservation"><?php echo $this->lang->line('yes'); ?></a>
+          <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></a>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
         <div class="d-flex justify-content-center edit-bm">
           <a href="<?php echo base_url('business-management/'.$businessInfo['business_url'].'/edit'); ?>" class="btn btn-red">
             <img src="assets/img/frontend/ic-edit.png" alt="ic-edit">
-            Edit My Profile
+            <?php echo $this->lang->line('edit_my_profile'); ?>
           </a>
         </div>
 
@@ -38,7 +38,7 @@
                   <div class="row justify-content-between">
                     <div class="col-lg-7">
                       <div class="bp-about-left">
-                        <h4 class="fw-bold page-title-xs">BUSINESS INFORMATION</h4>
+                        <h4 class="fw-bold page-title-xs"><?php echo $this->lang->line('business_information'); ?></h4>
                         <div class="d-flex align-items-center mb-5px">
                           <div class="star-rating on line  mr-8px relative">
                             <div class="star-base">
@@ -60,7 +60,7 @@
                           </li>
                           <li class="mb-3">
                             <div class="img"><img src="assets/img/frontend/bp-open.png" alt="tag open" class="img-fluid"></div>
-                            <div class="badge badge-approved">Open now</div>
+                            <div class="badge badge-approved"><?php echo $this->lang->line('open_now'); ?></div>
                           </li>
                           <li class="mb-3">
                             <div class="img"><img src="assets/img/frontend/bp-telephone.png" alt="telephone icon" class="img-fluid"></div>
@@ -73,7 +73,7 @@
                             <div>
                               <p class="mb-0"><?php echo $businessInfo['business_address']; ?></p>
                               <?php if (!empty($locationInfo)) { ?>
-                                <a data-bs-toggle="modal" href="#aboutMapModal" class="d-inline-block">View map</a>
+                                <a data-bs-toggle="modal" href="#aboutMapModal" class="d-inline-block"><?php echo $this->lang->line('view_map'); ?></a>
                               <?php } ?>
                             </div>
                           <li class="mb-3"><img src="assets/img/frontend/ic-mail.png" alt="email icon" class="img-fluid"><?php echo $businessInfo['business_email']; ?></li>
@@ -81,7 +81,7 @@
                         <?php if (!empty($businessInfo['business_whatsapp'])) { ?>
                           <a target="_blank" href="https://wa.me/<?php echo $businessInfo['business_whatsapp']; ?>" class="btn btn-red what-app fw-medium">
                             <div class="img"><img src="assets/img/frontend/ic-whatapp.png" alt="bp-what-app"></div>
-                            Contact us on WhatsApp
+                            <?php echo $this->lang->line('contact_us_on_whatsapp'); ?>
                           </a>
                         <?php } ?>
                       </div>
@@ -90,7 +90,7 @@
                       <?php if (!empty($businessOpeningHours)) { ?>
                         <div class="bp-about-right">
                           <div class="open-hour">
-                            <h5 class="text-center page-text-lg">OPENING HOUR</h5>
+                            <h5 class="text-center page-text-lg"><?php echo strtoupper($this->lang->line('opening_hours')); ?></h5>
                             <ul class="list-unstyled mb-0">
                               <?php foreach ($businessOpeningHours as $open_hours) { ?>
                                 <li>
@@ -99,7 +99,7 @@
                                     <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
                                       <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
                                   <?php } else { ?>
-                                    <span class="badge badge-cancel">Closed</span>
+                                    <span class="badge badge-cancel"><?php echo $this->lang->line('closed'); ?></span>
                                   <?php } ?>
                                 </li>
                               <?php } ?>
@@ -113,7 +113,7 @@
                     <div class="row">
                       <div class="col-12">
                         <div class="bp-introduce">
-                          <h5 class="fw-bold page-title-xs">INTRODUCTION</h5>
+                          <h5 class="fw-bold page-title-xs"><?php echo $this->lang->line('introduction'); ?></h5>
                           <div class="">
                             <?php echo nl2br($businessInfo['business_description']); ?>
                           </div>
@@ -213,7 +213,7 @@
         if (features[i].linkClose == 1) {
           open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
         } else {
-          open_status = `<a href="javascript:void(0);" class="customer-location-close">Closed</a>`;
+          open_status = `<a href="javascript:void(0);" class="customer-location-close"><?php echo $this->lang->line('closed'); ?></a>`;
         }
         var link_location = "";
         if (features[i].linkLocation !== "") {
