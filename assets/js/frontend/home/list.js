@@ -69,7 +69,8 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                     `<div class="card rounded-0 customer-location-item mb-2">
                         <div class="row g-0">
                             <div class="col-3">
-                                <a href="${urlProfileBusiness+item.business_url}" class="customer-location-img"><img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="${item.business_name}"></a>
+                                <a href="${urlProfileBusiness+item.business_url}" class="customer-location-img">
+                                <img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="${item.business_name}" style="height: 70px;"></a>
                             </div>
                             <div class="col-9">
                                 <div class="card-body p-0">
