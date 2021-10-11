@@ -70,7 +70,7 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                         <div class="row g-0">
                             <div class="col-3">
                                 <a href="${urlProfileBusiness+item.business_url}" class="customer-location-img">
-                                <img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="${item.business_name}" style="height: 70px;"></a>
+                                <img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="${item.business_name}" style="height: 70px;object-fit: contain;"></a>
                             </div>
                             <div class="col-9">
                                 <div class="card-body p-0">

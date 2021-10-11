@@ -27,7 +27,7 @@
 
                           <div class="position-relative">
                             <a class="card customer-coupon-item" href="<?php echo $couponDetailUrl; ?>">
-                              <p class="customer-coupon-img mb-0">
+                              <p class="customer-coupon-img mb-0 c-img">
                                 <?php
                                   $couponImg = COUPONS_PATH . NO_IMAGE;
                                   if (!empty($itemCoupon['coupon_image'])) {
