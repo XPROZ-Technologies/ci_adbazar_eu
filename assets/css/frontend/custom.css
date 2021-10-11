@@ -1050,13 +1050,13 @@ font-size: 14px;
 .page-header .btn-outline-red.l1,.page-header .btn-red.l1{
     width: 84px!important;
 }
-.page-header .btn-outline-red.l2,.page-header .btn-red.l2{
+.page-header .btn-outline-red.l4,.page-header .btn-red.l4{
     width: 99px!important;
 }
 .page-header .btn-outline-red.l3,.page-header .btn-red.l3{
     width: 105px!important;
 }
-.page-header .btn-outline-red.l4,.page-header .btn-red.l4{
+.page-header .btn-outline-red.l2,.page-header .btn-red.l2{
     width: 103px!important;
 }
 @media (max-width: 1366px){
