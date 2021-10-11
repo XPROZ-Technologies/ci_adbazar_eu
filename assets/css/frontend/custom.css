@@ -1037,6 +1037,28 @@ font-size: 14px;
     height: 27px!important;
     line-height: 15px;
 }
+.customer-coupon-img.c-img img{
+    object-fit: contain;
+}
+.customer-coupon-img.c-img{
+    padding-top: 56.8%;
+}
+.customer-service-img.c-img,
+.customer-coupon-img.c-img{
+    background-color: #e9e9e9;
+}
+.page-header .btn-outline-red.l1,.page-header .btn-red.l1{
+    width: 84px!important;
+}
+.page-header .btn-outline-red.l4,.page-header .btn-red.l4{
+    width: 99px!important;
+}
+.page-header .btn-outline-red.l3,.page-header .btn-red.l3{
+    width: 105px!important;
+}
+.page-header .btn-outline-red.l2,.page-header .btn-red.l2{
+    width: 103px!important;
+}
 @media (max-width: 1366px){
     .discover_more {
         padding: 8.5px 73.5px!important;

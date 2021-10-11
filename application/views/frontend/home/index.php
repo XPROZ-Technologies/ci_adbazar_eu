@@ -46,7 +46,7 @@
               $serviceUrl = base_url('service/' . makeSlug($services[$i]['service_slug']) . '-' . $services[$i]['id']) . '.html'; ?>
               <div class="item">
                 <div class="card customer-service-item">
-                  <a href="<?php echo $serviceUrl; ?>" class="customer-service-img">
+                  <a href="<?php echo $serviceUrl; ?>" class="customer-service-img c-img">
                     <img src="<?php echo SERVICE_PATH . $services[$i]['service_image'] ?>" class="card-img-top img-fluid" alt="<?php echo $services[$i]['service_name']; ?>">
                   </a>
                   <div class="card-body text-center">
@@ -109,7 +109,7 @@
               $couponDetailUrl = base_url('coupon/' . makeSlug($itemCoupon['coupon_subject']) . '-' . $itemCoupon['id']) . '.html'; ?>
               <div class="item position-relative coupon-item-<?php echo $itemCoupon['id']; ?>">
                 <a class="card customer-coupon-item" href="<?php echo $couponDetailUrl; ?>">
-                  <p class="customer-coupon-img mb-0">
+                  <p class="customer-coupon-img mb-0 c-img">
                     <img src="<?php echo COUPONS_PATH . $itemCoupon['coupon_image']; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
                   </p>
                   <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">

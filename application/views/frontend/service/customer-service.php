@@ -10,7 +10,7 @@
                             <!-- service item -->
                             <div class="col-md-6 col-lg-3">
                                 <a href="<?php echo $serviceUrl; ?>" class="card customer-service-item">
-                                    <span class="customer-service-img">
+                                    <span class="customer-service-img c-img">
                                         <img src="<?php echo SERVICE_PATH.$services[$i]['service_image'] ?>" class="card-img-top img-fluid"
                                             alt="<?php echo $services[$i]['service_name']; ?>">
                                     </span>
