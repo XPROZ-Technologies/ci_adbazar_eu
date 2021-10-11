@@ -122,6 +122,7 @@ class Businessprofile extends MY_Controller {
             $flag = $this->Mbusinessprofiles->update($postData, $businessProfileId, $businessServiceTypes, $openingHours, $user['id'], $businessPhotos, $businessVideos);
             if($flag) {
                 $businessProfileLocation = $this->arrayFromPost(array('location_id', 'expired_date')); 
+                $this->db->update('business_profile_locations', array('business_profile_location_status_id' => 0), array('business_profile_id' => $flag));
                 if($businessProfileLocation['location_id'] > 0) {
                     $businessProfileLocationId = $this->input->post('business_profile_location_id');
                     $businessProfileLocation['expired_date'] = !empty($businessProfileLocation['expired_date']) ? ddMMyyyyToDate($businessProfileLocation['expired_date'], 'd/m/Y H:i', 'Y-m-d H:i') : NULL;
