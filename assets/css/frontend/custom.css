@@ -890,7 +890,7 @@ min-height: 320px;
 	position: relative;
 }
 .star-base .star-rate {
-	background: url('../../img/frontend/rating.png');
+	background: url('../../img/frontend/rating.svg');
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -1037,7 +1037,7 @@ font-size: 14px;
     height: 27px!important;
     line-height: 15px;
 }
-.customer-coupon-img.c-img img{
+.c-img img{
     object-fit: contain;
 }
 .customer-coupon-img.c-img{
@@ -1059,13 +1059,16 @@ font-size: 14px;
 .page-header .btn-outline-red.l2,.page-header .btn-red.l2{
     width: 103px!important;
 }
+.customer-location-img{
+    text-align: center;
+}
 @media (max-width: 1366px){
+}
+@media (max-width: 1200px){
     .discover_more {
         padding: 8.5px 73.5px!important;
         width: calc(33.33% - 20px)!important;
     }
-}
-@media (max-width: 1200px){
     .dropdown-toggle-mobile-not-link::after,
     .dropdown-toggle-mobile-not-link::before{
         display: none;
@@ -1277,7 +1280,7 @@ font-size: 14px;
         max-width: 80px;
     }
     .page-header .btn-outline-red, .page-header .btn-red {
-        padding: 5px 10px!important;
+        padding: 5px 5px!important;
     }
     .bp-introduce .fw-bold.page-title-xs{
         text-align: center;
@@ -1305,6 +1308,9 @@ font-size: 14px;
     .posting .slider .slick-slide a,
     .posting .slider .slick-slide img {
         height: 400px;
+    }
+    .navbar-expand-xl .navbar-brand{
+        margin-right: 4px;
     }
 }
 @media screen and (max-width: 375px){
