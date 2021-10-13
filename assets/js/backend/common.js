@@ -235,34 +235,39 @@ function pagging(pageId) {
 
 function chooseFile(inputFileImage, fileProgress, fileTypeId, fnSuccess) {
     inputFileImage.change(function (e) {
-        var file = this.files[0];
-        if(!validateImage(file.name)) return;
-        var reader = new FileReader();
-        reader.addEventListener("load", function () {
-            fileProgress.show();
-            $.ajax({
-                xhr: function () {
-                    return progressBarUpload(fileProgress);
-                },
-                type: 'POST',
-                url: $('input#uploadFileUrl').val(),
-                data: {
-                    FileBase64: reader.result,
-                    FileTypeId: fileTypeId
-                },
-                success: function (response) {
-                    var json = $.parseJSON(response);
-                    if(json.code == 1) fnSuccess(json.data);
-                    else showNotification(json.message, json.code);
-                    fileProgress.hide();
-                },
-                error: function (response) {
-                    fileProgress.hide();
-                    showNotification($('input#errorCommonMessage').val(), 0);
-                }
-            });
-        }, false);
-        if (file) reader.readAsDataURL(file);
+       
+        for (var i = 0; i < e.target.files.length; i++) {
+            (function(file) {
+               
+                var reader = new FileReader();
+                reader.addEventListener("load", function (e) {
+                    fileProgress.show();
+                    $.ajax({
+                        xhr: function () {
+                            return progressBarUpload(fileProgress);
+                        },
+                        type: 'POST',
+                        url: $('input#uploadFileUrl').val(),
+                        data: {
+                            FileBase64: e.target.result,
+                            FileTypeId: fileTypeId
+                        },
+                        success: function (response) {
+                            var json = $.parseJSON(response);
+                            if(json.code == 1) fnSuccess(json.data);
+                            else showNotification(json.message, json.code);
+                            fileProgress.hide();
+                        },
+                        error: function (response) {
+                            fileProgress.hide();
+                            showNotification($('input#errorCommonMessage').val(), 0);
+                        }
+                    });
+                }, false)
+                if (file) reader.readAsDataURL(file);
+            })(e.target.files[i]); // pass current File to closure 
+        }
+
     });
 }
 

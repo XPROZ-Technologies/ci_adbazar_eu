@@ -38,6 +38,7 @@
                                     <th style="width:60px;">#</th>
                                     <th>Business Name</th>
                                     <th>Customer Name</th>
+                                    <th>Location Name</th>
                                     <th>Service Name</th>
                                     <th>Business Phone</th>
                                     <th>Business Whatsapp</th>
@@ -53,11 +54,14 @@
                                     $i++; 
                                     $fullName = $this->Mcustomers->getFieldValue(array('id' => $s['customer_id']), 'concat(customer_first_name, " ", customer_last_name)', '');
                                     $serviceName = $this->Mservices->getFieldValue(array('id' => $s['service_id']), 'service_name_en', '');
+
+                                    $businessInLocation = $this->Mbusinessprofiles->getBusinessInLocation($s['id']);
                             ?>
                                 <tr id="business_profile_<?php echo $s['id']; ?>">
                                     <td><?php echo $i; ?></td>
                                     <td><a href="<?php echo base_url('sys-admin/business-profile-update/'.$s['id']); ?>"><?php echo $s['business_name']; ?></a></td>
                                     <td><?php echo $fullName; ?></td>
+                                    <td><?php echo isset($businessInLocation['location_name']) ? $businessInLocation['location_name']:''; ?></td>
                                     <td><?php echo $serviceName; ?></td>
                                     <td><?php echo $s['business_phone']; ?></td>
                                     <td><?php echo $s['business_whatsapp']; ?></td>

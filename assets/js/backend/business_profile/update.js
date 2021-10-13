@@ -81,12 +81,14 @@ app.library = function() {
     });
     
     chooseFile($('#inputFileImage'), $('#fileProgress'), 7, function(fileUrl){
+        console.log("==fileUrl==",fileUrl)
         $('#ulImages').append('<li><a href="' + fileUrl + '"  target="_blank"><img  src="' + fileUrl + '" style="width:80px!important"></a><i class="fa fa-times"></i></li>');
     });
 
     $('#ulImages').on('click', 'i', function(){
         $(this).parent().remove();
     });
+
 }
 
 app.handle = function() {

@@ -97,12 +97,15 @@ class Location extends MY_Controller {
 
 				if ($locationId > 0) {
 					$businessProfileLocationId = $this->input->post('business_profile_location_id');
+					$this->db->update('business_profile_locations', array('business_profile_location_status_id' => 0), array('location_id' => $locationId));
 					$businessProfileLocation = $this->arrayFromPost(array('business_profile_id', 'expired_date')); 
-					$businessProfileLocation['expired_date'] = !empty($businessProfileLocation['expired_date']) ? ddMMyyyyToDate($businessProfileLocation['expired_date'], 'd/m/Y H:i', 'Y-m-d H:i') : NULL;
-					$businessProfileLocation['location_id'] = $locationId;
-					$businessProfileLocation['business_profile_location_status_id'] = STATUS_ACTIVED;
-					$this->load->model('Mbusinessprofilelocations');
-					$this->Mbusinessprofilelocations->save($businessProfileLocation, $businessProfileLocationId);
+					if($businessProfileLocation['business_profile_id'] > 0) {
+						$businessProfileLocation['expired_date'] = !empty($businessProfileLocation['expired_date']) ? ddMMyyyyToDate($businessProfileLocation['expired_date'], 'd/m/Y H:i', 'Y-m-d H:i') : NULL;
+						$businessProfileLocation['location_id'] = $locationId;
+						$businessProfileLocation['business_profile_location_status_id'] = STATUS_ACTIVED;
+						$this->load->model('Mbusinessprofilelocations');
+						$this->Mbusinessprofilelocations->save($businessProfileLocation, $businessProfileLocationId);
+					}
 					echo json_encode(array('code' => 1, 'message' => $message, 'data' => $locationId));
 				}
 				else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));

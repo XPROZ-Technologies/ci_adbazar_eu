@@ -216,7 +216,7 @@
                                     <?php } ?>
                                 </ul>
                                 <img src="" style="display: none;" id="photoImage">
-                                <input type="file" style="display: none;" id="inputFileImage">
+                                <input type="file" style="display: none;" id="inputFileImage" multiple="">
                             </div>
                         </div>
 

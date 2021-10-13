@@ -190,7 +190,7 @@
                             <div class="box-body">
                                 <ul class="list-inline" id="ulImages"></ul>
                                 <img src="" style="display: none;" id="photoImage">
-                                <input type="file" style="display: none;" id="inputFileImage">
+                                <input type="file" style="display: none;" id="inputFileImage" multiple="">
                             </div>
                         </div>
                         <div class="box box-default padding15">
