@@ -29,10 +29,10 @@
                                 </ul>
                                 <div>
                                     <?php if (empty($customerEvent)) { ?>
-                                        <button type="button" class="btn btn-red btn-join btn-join-event" data-id="<?php echo $detailInfo['id']; ?>" data-customer="<?php echo $customer['id']; ?>">Join</button>
+                                        <button type="button" class="btn btn-red btn-join btn-join-event" data-id="<?php echo $detailInfo['id']; ?>" data-customer="<?php echo $customer['id']; ?>"><?php echo $this->lang->line('join'); ?></button>
                                         <button type="button" class="btn btn-red btn-red-disabled btn-join btn-saved btn-hidden" disabled>Joined</button>
                                     <?php } else { ?>
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeEventModal" class="btn btn-outline-red">Remove</button>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeEventModal" class="btn btn-outline-red"><?php echo $this->lang->line('remove'); ?></button>
                                     <?php } ?>
                                 </div>
                             </div>
