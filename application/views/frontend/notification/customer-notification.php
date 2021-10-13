@@ -34,8 +34,8 @@
                     <img src="assets/img/frontend/ic-sort.svg" alt="sort icon" class="img-fluid me-2">
                     <div class="custom-select mb-0">
                       <select>
-                        <option value="0" selected>Newest</option>
-                        <option value="1">Oldest</option>
+                        <option value="0" selected><?php echo $this->lang->line('1310_newest'); ?></option>
+                        <option value="1"><?php echo $this->lang->line('1310_oldest'); ?></option>
                       </select>
                     </div>
                   </div>

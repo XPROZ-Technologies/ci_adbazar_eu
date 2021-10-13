@@ -50,7 +50,7 @@
                                 </div>
                               </div>
                             </a>
-                            <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>">Get now</a>
+                            <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>"><?php echo $this->lang->line('1310_get-now'); ?></a>
                           </div>
                         </div>
                       <?php } ?>
@@ -67,8 +67,8 @@
                   <!-- Pagination -->
                   <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                     <div class="d-flex align-items-center pagination-left">
-                      <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                        results</p>
+                      <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                      <?php echo $this->lang->line('1310_results'); ?></p>
                       <div class="page-text-sm mb-0 d-flex align-items-center">
                         <div class="custom-select choose-perpage">
                           <select>
@@ -90,7 +90,7 @@
                           </select>
                         </div>
                         <span class="ms-2">/</span>
-                        <span class=""> Page</span>
+                        <span class=""> <?php echo $this->lang->line('1310_page'); ?></span>
                       </div>
                     </div>
                     <div class="pagination-right">

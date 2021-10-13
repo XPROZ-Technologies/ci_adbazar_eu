@@ -88,3 +88,14 @@ $lang["all_coupons"] = "Tất cả phiếu giảm giá";
 $lang["get_now"] = "Nhận ngay";
 $lang["successfully_saved"] = "Lưu thành công!";
 $lang["view_my_coupons"] = "Xem phiếu giảm giá của tôi";
+
+$lang["1310_view"] = "Xem";
+$lang["1310_view-all"] = "Xem tất cả";
+$lang["1310_view-more"] = "Xem thêm";
+$lang["1310_get-now"] = "Nhận ngay";
+$lang["1310_page"] = "Trang";
+$lang["1310_showing"] = "Hiển thị";
+$lang["1310_results"] = "kết quả";
+$lang["1310_oldest"] = "Cũ nhất";
+$lang["1310_newest"] = "Mới nhất";
+$lang["1310_of"] = "của";

@@ -88,3 +88,15 @@ $lang["all_coupons"] = "Alle Gutscheine";
 $lang["get_now"] = "Jetzt bekommen";
 $lang["successfully_saved"] = "Erfolgreich gespeichert";
 $lang["view_my_coupons"] = "Meine Gutscheine ansehen";
+
+
+$lang["1310_view"] = "Ansehen";
+$lang["1310_view-all"] = "Alles anzeigen";
+$lang["1310_view-more"] = "Mehr anzeigen";
+$lang["1310_get-now"] = "Jetzt holen";
+$lang["1310_page"] = "Seite";
+$lang["1310_showing"] = "Angezeigt";
+$lang["1310_results"] = "Ergebnisse";
+$lang["1310_oldest"] = "Älteste";
+$lang["1310_newest"] = "Neueste";
+$lang["1310_of"] = "von";

@@ -88,3 +88,14 @@ $lang["all_coupons"] = "Všechny poukázky";
 $lang["get_now"] = "Získat";
 $lang["successfully_saved"] = "Úspěšně uloženo";
 $lang["view_my_coupons"] = "Zobrazit mé kupóny";
+
+$lang["1310_view"] = "Zobrazit";
+$lang["1310_view-all"] = "Zobrazit vše";
+$lang["1310_view-more"] = "Zobrazit více";
+$lang["1310_get-now"] = "Získat nyní";
+$lang["1310_page"] = "Stránka";
+$lang["1310_showing"] = "Zobrazeno";
+$lang["1310_results"] = "Výsledky";
+$lang["1310_oldest"] = "Nejstarší";
+$lang["1310_newest"] = "Nejnovější";
+$lang["1310_of"] = "z";

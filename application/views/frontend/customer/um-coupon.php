@@ -41,10 +41,10 @@
                     <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
                     <div class="custom-select mb-0 choose-order">
                       <select>
-                        <option value="desc">Newest</option>
+                        <option value="desc"><?php echo $this->lang->line('1310_newest'); ?></option>
                         <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
                                               echo 'selected="selected"';
-                                            } ?>>Oldest</option>
+                                            } ?>><?php echo $this->lang->line('1310_oldest'); ?></option>
                       </select>
                     </div>
                   </div>
@@ -115,8 +115,8 @@
               <!-- Pagination -->
               <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                 <div class="d-flex align-items-center pagination-left">
-                  <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                    results</p>
+                  <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                  <?php echo $this->lang->line('1310_results'); ?></p>
                   <div class="page-text-sm mb-0 d-flex align-items-center">
                     <div class="custom-select choose-perpage">
                       <select>
@@ -138,7 +138,7 @@
                       </select>
                     </div>
                     <span class="ms-2">/</span>
-                    <span class=""> Page</span>
+                    <span class=""> <?php echo $this->lang->line('1310_page'); ?></span>
                   </div>
                 </div>
                 <div class="pagination-right">

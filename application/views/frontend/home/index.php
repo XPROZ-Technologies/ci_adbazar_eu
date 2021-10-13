@@ -126,13 +126,13 @@
                     </div>
                   </div>
                 </a>
-                <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>" data-index="<?php echo $indexCoupon; ?>">Get now</a>
+                <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>" data-index="<?php echo $indexCoupon; ?>"><?php echo $this->lang->line('1310_get-now'); ?></a>
               </div>
             <?php } ?>
             <!-- item coupon -->
           </div>
           <div class="text-right">
-            <a href="<?php echo base_url('coupons.html'); ?>" class="view-all">View all</a>
+            <a href="<?php echo base_url('coupons.html'); ?>" class="view-all"><?php echo $this->lang->line('1310_view-all'); ?></a>
           </div>
         </div>
       </section>

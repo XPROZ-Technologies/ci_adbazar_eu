@@ -39,8 +39,8 @@
                         <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
                         <div class="custom-select mb-0">
                           <select>
-                            <option value="0" selected>Newest</option>
-                            <option value="1">Oldest</option>
+                            <option value="0" selected><?php echo $this->lang->line('1310_newest'); ?></option>
+                            <option value="1"><?php echo $this->lang->line('1310_oldest'); ?></option>
                           </select>
                         </div>
                       </div>
@@ -174,8 +174,8 @@
 
                     <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                       <div class="d-flex align-items-center pagination-left">
-                        <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500">1 – 10</span> of <span class="fw-500">50</span>
-                          results</p>
+                        <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500">1 – 10</span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500">50</span>
+                        <?php echo $this->lang->line('1310_results'); ?></p>
                         <div class="page-text-sm mb-0 d-flex align-items-center">
                           <span class="fw-500 show-page-text">50</span>
                           <span class="ms-2">/</span>

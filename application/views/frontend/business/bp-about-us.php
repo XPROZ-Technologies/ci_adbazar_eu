@@ -277,7 +277,7 @@
                           ${open_status}
                           
                           <a target="_blank" href="${features[i].linkView}"
-                              class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
+                              class="btn btn-outline-red btn-outline-red-xs btn-view">${text_view}</a>
                       </div>
                   </div>
               </div>

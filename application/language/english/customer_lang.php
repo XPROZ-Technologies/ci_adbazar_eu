@@ -89,4 +89,14 @@ $lang["get_now"] = "Get now";
 $lang["successfully_saved"] = "Successfully Saved!";
 $lang["view_my_coupons"] = "View My Coupons";
 
+$lang["1310_view"] = "View";
+$lang["1310_view-all"] = "View all";
+$lang["1310_view-more"] = "View more";
+$lang["1310_get-now"] = "Get now";
+$lang["1310_page"] = "Page";
+$lang["1310_showing"] = "Showing";
+$lang["1310_results"] = "Results";
+$lang["1310_oldest"] = "Oldest";
+$lang["1310_newest"] = "Newest";
+$lang["1310_of"] = "of";
 
