@@ -13,7 +13,9 @@
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card bm-item">
                                     <a href="<?php echo base_url('business-management/'.$itemBusiness['business_url'].'/about-us'); ?>" class="d-block bm-item-img">
-                                        <img src="<?php echo BUSINESS_PROFILE_PATH . $itemBusiness['business_avatar']; ?>" class="card-img-top img-fluid" alt="<?php echo $itemBusiness['business_name']; ?>">
+                                    <span class="c-img">
+                                    <img src="<?php echo BUSINESS_PROFILE_PATH . $itemBusiness['business_avatar']; ?>" class="card-img-top img-fluid" alt="<?php echo $itemBusiness['business_name']; ?>">
+                                    </span>
                                     </a>
                                     <div class="card-body pt-0">
                                         <h5 class="card-title page-text-lg text-black text-center"><?php echo $itemBusiness['business_name']; ?></h5>
