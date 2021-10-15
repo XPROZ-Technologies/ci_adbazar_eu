@@ -174,7 +174,7 @@ abstract class MY_Controller extends CI_Controller {
 
         $config = Array(
             'protocol'  => 'smtp',
-            'smtp_host' => 'smtpout.asia.secureserver.net',
+            'smtp_host' => 'ssl://smtpout.asia.secureserver.net',
             'smtp_port' => '465',
             'smtp_user' => 'server@adbazar.eu',
             'smtp_pass' => 'changeM3!!Adbazar12345',
