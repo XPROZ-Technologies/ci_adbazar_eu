@@ -1,6 +1,6 @@
 <?php
 
-$lang["see_my_profile"] = "Xem hồ sơ của tôi";
+$lang["see_my_profile"] = "Tài khoản";
 $lang["go_to_my_business_profile"] = "Đi tới hồ sơ doanh nghiệp của tôi";
 $lang["logout"] = "Đăng xuất";
 $lang["account_information"] = "Thông tin tài khoản";
