@@ -157,7 +157,16 @@ class Home extends MY_Controller {
          * Commons data
          */
 
-        $data['content'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_TEXT', $data['language_id']);
+        $data['about']['img_banner'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_IMAGE_BANNER', $data['language_id']);
+        $data['about']['child_text_1'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_TEXT_1', $data['language_id']);
+        $data['about']['child_img_1'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_1', $data['language_id']);
+        $data['about']['child_text_2'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_TEXT_2', $data['language_id']);
+        $data['about']['child_img_2'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_2', $data['language_id']);
+        $data['about']['about_text_bottom'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_TEXT', $data['language_id']);
+
+        // echo "<pre>";
+        // print_r($data['about']);
+        // echo "</pre>";
         
 
         $this->load->view('frontend/home/about', $data);
