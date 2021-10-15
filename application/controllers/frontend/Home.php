@@ -129,14 +129,18 @@ class Home extends MY_Controller {
             $pageCount = ceil($rowCount / $perPage);
 
             $listProfilesMap = $this->Mbusinessprofiles->search($postData);
+            $listLocations = array();
             for($i = 0; $i < count($listProfilesMap); $i++){
                 if(isset($listProfilesMap[$i])){
                     $listProfilesMap[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfilesMap[$i]['id'], $service_type_name);
                     $listProfilesMap[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfilesMap[$i]['id']);
                     $listProfilesMap[$i]['locationInfo'] = $this->Mbusinessprofiles->getBusinessInLocation($listProfilesMap[$i]['id']);
+                    if(!empty($listProfilesMap[$i]['locationInfo'])){
+                        $listLocations[] = $listProfilesMap[$i];
+                    }
                 }
             }
-            echo json_encode(array('code' => 1, 'message' => 'Data', 'data' => $listProfiles, 'page' => $page, 'per_page' => $perPage, 'page_count' => $pageCount, 'listProfilesMap' => $listProfilesMap));
+            echo json_encode(array('code' => 1, 'message' => 'Data', 'data' => $listProfiles, 'page' => $page, 'per_page' => $perPage, 'page_count' => $pageCount, 'listProfilesMap' => $listLocations));
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
         }
