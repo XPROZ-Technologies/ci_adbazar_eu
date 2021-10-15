@@ -151,7 +151,7 @@ class Home extends MY_Controller {
          */
 
 
-        $data = $this->commonDataCustomer('About Us');
+        $data = $this->commonDataCustomer($this->lang->line('about_us'));
         $data['activeMenu'] = "about-us";
         /**
          * Commons data

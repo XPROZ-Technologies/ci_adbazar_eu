@@ -375,10 +375,16 @@ class Businessprofile extends MY_Controller
          */
 
         $data['lists'] = $this->Mcustomerreviews->search($getData, $perPage, $page);
-        for ($i = 0; $i < count($data['lists']); $i++) {
-            $customerInfo = $this->Mcustomers->getBy(array('id' => $data['lists'][$i]['customer_id'], 'customer_status_id' => STATUS_ACTIVED), false, 'created_at', 'customer_first_name, customer_last_name, customer_avatar', 0, 0, 'asc');
-            $data['lists'][$i]['customerInfo'] = $customerInfo[0];
+        if(!empty($data['lists']) && count($data['lists']) > 0){
+            for ($i = 0; $i < count($data['lists']); $i++) {
+                $customerInfo = $this->Mcustomers->getBy(array('id' => $data['lists'][$i]['customer_id'], 'customer_status_id' => STATUS_ACTIVED), false, 'created_at', 'customer_first_name, customer_last_name, customer_avatar', 0, 0, 'asc');
+                if(!empty($customerInfo)){
+                    $data['lists'][$i]['customerInfo'] = $customerInfo[0];
+                }
+                
+            }
         }
+        
 
         $data['count_one_star'] = $this->Mcustomerreviews->getCount(array(
             'customer_review_status_id' => STATUS_ACTIVED,

@@ -159,16 +159,30 @@ abstract class MY_Controller extends CI_Controller {
 
     protected function sendMail($emailFrom, $nameFrom, $emailTo, $nameTo, $subject, $message){
         //$this->load->library('email');
+        // $config = Array(
+        //     'protocol'  => 'smtp',
+        //     'smtp_host' => 'ssl://smtp.googlemail.com',
+        //     'smtp_port' => '465',
+        //     'smtp_user' => 'mailout.dkh@gmail.com',
+        //     'smtp_pass' => 'fqvpygxkmeotvqfz',
+        //     'mailtype'  => 'html',
+        //     'starttls'  => true,
+        //     'newline'   => "\r\n"
+        // );
+
+        //smtpout.asia.secureserver.net
+
         $config = Array(
             'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_host' => 'smtpout.asia.secureserver.net',
             'smtp_port' => '465',
-            'smtp_user' => 'mailout.dkh@gmail.com',
-            'smtp_pass' => 'fqvpygxkmeotvqfz',
+            'smtp_user' => 'server@adbazar.eu',
+            'smtp_pass' => 'changeM3!!Adbazar12345',
             'mailtype'  => 'html',
             'starttls'  => true,
             'newline'   => "\r\n"
         );
+
         $this->load->library('email', $config);
         $this->email->set_mailtype("html");
         $this->email->set_newline("\r\n");
