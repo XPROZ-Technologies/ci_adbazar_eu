@@ -14,6 +14,7 @@ $lang["sign_in_with_facebook"] = "Facebook";
 $lang["confirm_password"] = "Confirm password";
 $lang["agree_with_our_terms_and_conditions"] = 'Agree with our <a class="fw-bold text-underline" href="javascript:void(0)">terms and conditions</a>';
 $lang["already_have_an_account"] = "Already have an account?";
+$lang["or_sign_up_with_your_social_network"] = "Or";
 $lang["your_password_is_incorrect_please_try_again"] = "*Your password is incorrect. Please try again";
 $lang["please_enter_a_valid_email"] = "*Please enter a valid email.";
 $lang["password_assistance"] = "Password assistance";
