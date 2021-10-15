@@ -3089,8 +3089,8 @@ span.switch-left {
 }
 
 .header-right-mobile .btn-outline-red {
-    padding: 0 8px;
-    font-size: 16px;
+    /* padding: 0 8px; */
+    /* font-size: 16px; */
 }
 .header-right-mobile .navbar-toggler{
     padding: 0;
