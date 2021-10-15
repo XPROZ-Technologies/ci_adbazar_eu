@@ -227,7 +227,7 @@ class Reservation extends MY_Controller
                 $bookId = $this->Mcustomerreservations->save($updateData, $bookId);
                 if($bookId > 0){
 
-                    $this->loadModel(array('Mcustomers', 'Mbusinessprofiles'));
+                    $this->loadModel(array('Mcustomers'));
                     $reservationInfo = $this->Mcustomerreservations->get($postData['book_id']);
                     $customerInfo = $this->Mcustomers->get($reservationInfo['customer_id']);
                     $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id']), 'business_name', '');
