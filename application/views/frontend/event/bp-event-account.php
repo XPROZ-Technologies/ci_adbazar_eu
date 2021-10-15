@@ -42,7 +42,7 @@
                     </a>
                     <a style="display:none;" href="javascript:void(0);" class="g-signin2 btn btn-outline-red" data-onsuccess="onSignIn">
                                         </a>
-                    <a href="#" class="btn btn-outline-red mt-3 mt-lg-0" onclick="fbLogin();" id="fbLink">
+                    <a href="#" class="btn btn-outline-red" onclick="fbLogin();" id="fbLink">
                       <img src="assets/img/frontend/ic-facebook.png" class="icon-fb" alt="icon fb">
                       <?php echo $this->lang->line('sign_up_with_facebook'); ?></a>
                   </div>

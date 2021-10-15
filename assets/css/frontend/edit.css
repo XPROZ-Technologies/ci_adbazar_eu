@@ -270,6 +270,7 @@
     padding: 8px 8px!important;
 }
 .sign-social .btn-outline-red{
+    width: 150px!important;
     line-height: 19px;
     font-weight: bold;
     flex: none;
@@ -285,6 +286,7 @@
     width: 559px;
     max-width: 100%;
     display: flex;
+    justify-content: center;
 }
   .modal-body{
     padding: 80px!important;
@@ -702,7 +704,7 @@ box-shadow: 0px 2px 6px rgba(77, 78, 78, 0.2);
     height: 604px;
 }
 .customer-location-right {
-    padding-bottom: 48px;
+    padding-bottom: 54px;
 }
 
 .dropdown-toggle::after {
@@ -1627,7 +1629,7 @@ input[type=number] {
 .user-info-item{
     background: #FFFFFF;
     box-shadow: 0px 2px 6px rgb(77 78 78 / 20%);
-    width: 197px;
+    width: 200px;
     height: 162px;
     border-radius: 5px;
     padding: 20px 25px 20px;
@@ -3242,23 +3244,12 @@ span.switch-left {
     .customer-location-right {
         height: 300px;
     }
-    .sign-social{
-        display: block;
-    }
     .sign-social a:first-child{
-        margin-right: 0;
+        margin-right: 20px;
     }
     .nice-select .option,
     .nice-select .current {
         font-size: 14px;
-    }
-    .sign-social.signup .btn-outline-red:last-child,
-    .sign-social.signup .btn-outline-red ,
-    .page-signin .btn-outline-red.login-gg,
-    .sign-social .btn-outline-red:last-child,
-    .sign-social .btn-outline-red, .page-signin .btn-outline-red.login-gg {
-        justify-content: flex-start;
-        padding-left: 50px!important;
     }
     .row.create-form [class^='col-']{
         padding: 0;
@@ -3667,8 +3658,20 @@ span.switch-left {
     .bm-plan-trail .btn-checkout {
         margin-bottom: 10px;
     }
+    .sign-social a:first-child{
+        margin-right: 10px;
+    }
 }
 @media screen and (max-width: 360px){
+    .sign-social a:first-child{
+        margin-right: 0px;
+    }
+    .sign-social a{
+        margin: 10px auto!important;
+    }
+    .sign-social {
+        display: block;
+    }
     .navbar-brand img {
         height: 40px;
         width: 60px;

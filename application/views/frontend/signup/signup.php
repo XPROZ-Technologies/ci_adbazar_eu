@@ -73,7 +73,7 @@
                                         <?php echo $this->lang->line('sign_up_with_google'); ?>
                                     </a>
                                     <a style="display:none;" href="javascript:void(0);" class="g-signin2 btn btn-outline-red" data-onsuccess="onSignIn">
-                                        <a href="javascript:void(0);" class="btn btn-outline-red mt-3 mt-lg-0" onclick="fbLogin();" id="fbLink">
+                                        <a href="javascript:void(0);" class="btn btn-outline-red" onclick="fbLogin();" id="fbLink">
                                             <img src="./assets/img/frontend/ic-facebook.png" class="icon-fb" alt="icon fb">
                                             <?php echo $this->lang->line('sign_up_with_facebook'); ?></a>
                                 </div>
