@@ -230,7 +230,7 @@ class Reservation extends MY_Controller
                     $this->loadModel(array('Mcustomers'));
                     $reservationInfo = $this->Mcustomerreservations->get($postData['book_id']);
                     $customerInfo = $this->Mcustomers->get($reservationInfo['customer_id']);
-                    $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id']), 'business_name', '');
+                    $businessInfo = $this->Mbusinessprofiles->get($postData['business_id']);
                     /**
                      * Save Email
                      */
@@ -242,8 +242,8 @@ class Reservation extends MY_Controller
                         'email_to_name' => $customerInfo['customer_first_name'],
                         'reservation_date' => $reservationInfo['date_arrived'],
                         'reservation_time' => $time[0].':'.$time[1],
-                        'contact_url' => base_url(HOME_URL . '#contact-us'),
-                        'business_name' => $businessName
+                        'business_whatsapp' => $businessInfo['business_whatsapp'],
+                        'business_name' => $businessInfo['business_name']
                     );
                     $emailResult = $this->Memailqueue->createEmail($dataEmail, 5);
                     /**

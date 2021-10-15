@@ -116,16 +116,14 @@ class Memailqueue extends MY_Model
                             <p>&nbsp;</p>
                             <p> This email serves as a notification that you have cancelled your appointment at '. $emailData['business_name'] .' on '. $emailData['reservation_date'] .' at '. $emailData['reservation_time'] .'. </p>
                             <p>&nbsp;</p>
-                            <p>If you would like to reschedule, please contact us by clicking the button below. We will try to accommodate you at your earliest convenience.</p>
+                            <p>If you would like to reschedule, please contact '. $emailData['business_name'] .' by clicking the button below.</p>
                             <p>&nbsp;</p>
-                            <p>Looking forward to seeing you.</p>
-                            <p>&nbsp;</p>
-                            <p>Kind regards,<br>'. $emailData['business_name'] .'.</p>
+                            <p>Kind regards,<br>Adbazar.</p>
                             <p>&nbsp;</p>
                             <div style="text-align: center;margin-top: 32px;">
-                                <a target="_blank" href="' . $emailData['contact_url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                <a target="_blank" href="https://wa.me/' . $emailData['business_whatsapp'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">Contact us</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">Contact Business</a>
                             </div>
                            ';
 
