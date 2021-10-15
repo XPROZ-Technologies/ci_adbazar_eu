@@ -27,9 +27,7 @@
                     <button type="button" class="minus">
                       <img src="assets/img/frontend/ic-minus.png" alt="icon minus">
                     </button>
-                    <input type="number" class="form-control quantity" id="numOfPeople" name="number_of_people" value="1" min="1" max="<?php if (!empty($configTimes['max_per_reservation'])) {
-                                                                                                                                          echo $configTimes['max_per_reservation'];
-                                                                                                                                        } ?>" />
+                    <input type="number" class="form-control quantity" id="numOfPeople" name="number_of_people" value="1" min="1"  />
                     <button type="button" class="plus">
                       <img src="assets/img/frontend/ic-plus.png" alt="icon plus">
                     </button>
@@ -120,7 +118,7 @@
     </div>
   </div>
 </main>
-<input type="hidden" id="maxPerReservation" value="<?php echo $configTimes['max_per_reservation']; ?>" />
+<input type="hidden" id="maxPerReservation" value="<?php if(isset($configTimes['max_per_reservation'])) { echo $configTimes['max_per_reservation']; }else{ echo "100"; } ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
 
 <script>
