@@ -82,10 +82,38 @@ class Memailqueue extends MY_Model
         return $data;
     }
 
+    public function joinEvent($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">You have successfully registered to join
+                            ' . $emailData['event_name'] . '.</p>
+                            <p>Hello <strong>' . $emailData['name'] . '</strong> ,</p>
+                            <p>&nbsp;</p>
+                            <p>This email serves as a notification that your registration to join the event ' . $emailData['event_name'] . ' at ' . $emailData['business_name'] . ' has been confirmed.</p>
+                            <p>&nbsp;</p>
+                            <p>You can check the event detail by clicking the button below.</p>
+                            <p>&nbsp;</p>
+                            <p>Looking forward to seeing you.</p>
+                            <p>&nbsp;</p>
+                            <p>Best,<br>AdBazar.</p>
+                            <p>&nbsp;</p>
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="' . $emailData['event_url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">See event details</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
     public function createEmail($emailData = array(), $emailType = 0)
     {
         try {
             if ($emailType > 0) {
+                $this->load->model('Mconfigs');
+                $email_recieve = $this->Mconfigs->getConfigValueByLang('NOTIFICATION_EMAIL_ADMIN', 1);
                 if ($emailType == 1) {
                     //create account
                     $emailContent = $this->successCreateAccount($emailData);
@@ -140,8 +168,32 @@ class Memailqueue extends MY_Model
                         'email_content' => $emailContent,
                         'email_from' => EMAIL_FROM,
                         'email_from_name' => $emailData['contact_name'],
-                        'email_to' => EMAIL_FROM,
+                        'email_to' => $email_recieve,
                         'email_to_name' => EMAIL_FROM_NAME,
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if ($emailType == 4) {
+                    //join event
+                    $emailContent = $this->joinEvent($emailData);
+                    $dataInsert = array(
+                        'email_subject' => 'You have successfully registered to join
+                        ' . $emailData['event_name'],
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
                         'is_send' => 0,
                         'created_at' => getCurentDateTime()
                     );

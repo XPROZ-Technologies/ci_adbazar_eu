@@ -120,7 +120,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: url + '/customer-get-coupon',
+            url: url + 'customer-get-coupon',
             data: {
               coupon_id: current_button.data('id'),
               customer_id: customer_id
@@ -150,7 +150,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: url + '/customer-join-event',
+            url: url + 'customer-join-event',
             data: {
               event_id: current_button.data('id'),
               customer_id: customer_id

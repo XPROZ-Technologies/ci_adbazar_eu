@@ -313,6 +313,7 @@ class Customer extends MY_Controller
                         'customer_coupon_status_id' => STATUS_ACTIVED,
                         'customer_coupon_code' => $customer_coupon_code
                     ));
+
                     echo json_encode(array('code' => 1, 'message' => "Successfully Saved!"));
                     die;
                 } else {
@@ -387,6 +388,30 @@ class Customer extends MY_Controller
                     'event_id' => $postData['event_id'],
                     'customer_event_status_id' => STATUS_ACTIVED
                 ));
+
+                if($customerEventId > 0){
+                    $this->loadModel(array('Mcustomers', 'Mbusinessprofiles'));
+                    $customerInfo = $this->Mcustomers->get($postData['customer_id']);
+                    $eventInfo = $this->Mevents->get($postData['event_id']);
+                    $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' => $eventInfo['business_profile_id']), 'business_name', '');
+                    /**
+                     * Save Email
+                     */
+                    $this->load->model('Memailqueue');
+                    $dataEmail = array(
+                        'name' => $customerInfo['customer_first_name'],
+                        'email_to' => $customerInfo['customer_email'],
+                        'email_to_name' => $customerInfo['customer_first_name'],
+                        'event_name' => $eventInfo['event_subject'],
+                        'event_url' => base_url('event/'.makeSlug($eventInfo['event_subject']) . '-' . $eventInfo['id'].'.html'),
+                        'business_name' => $businessName
+                    );
+                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 4);
+                    /**
+                     * END. Save Email
+                     */
+                }
+
                 echo json_encode(array('code' => 1, 'message' => "You have been successfully registered for the event!"));
                 die;
             } else {
