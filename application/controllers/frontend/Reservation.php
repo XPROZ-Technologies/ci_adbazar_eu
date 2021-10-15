@@ -226,6 +226,30 @@ class Reservation extends MY_Controller
                 
                 $bookId = $this->Mcustomerreservations->save($updateData, $bookId);
                 if($bookId > 0){
+
+                    $this->loadModel(array('Mcustomers', 'Mbusinessprofiles'));
+                    $reservationInfo = $this->Mcustomerreservations->get($postData['book_id']);
+                    $customerInfo = $this->Mcustomers->get($reservationInfo['customer_id']);
+                    $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id']), 'business_name', '');
+                    /**
+                     * Save Email
+                     */
+                    $this->load->model('Memailqueue');
+                    $time = explode(':', $reservationInfo['time_arrived']);
+                    $dataEmail = array(
+                        'name' => $customerInfo['customer_first_name'],
+                        'email_to' => $customerInfo['customer_email'],
+                        'email_to_name' => $customerInfo['customer_first_name'],
+                        'reservation_date' => $reservationInfo['date_arrived'],
+                        'reservation_time' => $time[0].':'.$time[1],
+                        'contact_url' => base_url(HOME_URL . '#contact-us'),
+                        'business_name' => $businessName
+                    );
+                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 4);
+                    /**
+                     * END. Save Email
+                     */
+
                     echo json_encode(array('code' => 1, 'message' => "Reservation has been declined")); die;
                 }else{
                     echo json_encode(array('code' => 0, 'message' => "Declined failed")); die;

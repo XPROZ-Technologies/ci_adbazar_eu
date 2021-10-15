@@ -49,7 +49,7 @@ class Memailqueue extends MY_Model
 
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
                             font-size: 20px;line-height: 24px;text-align: center;">Password assistance</p>
-                            <p>Hello <strong>' . $emailData['name'] . '</strong> ,</p>
+                            <p>Hello ' . $emailData['name'] . ',</p>
                             <p>We have received your request to change your password.</p>
                             <p>Please click the button below to set up your new password.</p>
                             <p>If you did not make this request, please reach out to us immediately.</p>
@@ -68,7 +68,7 @@ class Memailqueue extends MY_Model
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
                             font-size: 20px;line-height: 24px;text-align: center;">Contact from website</p>
-                            <p>Dear <strong>Administrator</strong> ,</p>
+                            <p>Dear Administrator,</p>
                             <p>&nbsp;</p>
                             <p>Customer Name: ' . $emailData['contact_name'] . '</p>
                             <p>Contact Name: ' . $emailData['contact_name'] . '</p>
@@ -87,7 +87,7 @@ class Memailqueue extends MY_Model
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
                             font-size: 20px;line-height: 24px;text-align: center;">You have successfully registered to join
                             ' . $emailData['event_name'] . '.</p>
-                            <p>Hello <strong>' . $emailData['name'] . '</strong> ,</p>
+                            <p>Hello ' . $emailData['name'] . ',</p>
                             <p>&nbsp;</p>
                             <p>This email serves as a notification that your registration to join the event ' . $emailData['event_name'] . ' at ' . $emailData['business_name'] . ' has been confirmed.</p>
                             <p>&nbsp;</p>
@@ -101,6 +101,31 @@ class Memailqueue extends MY_Model
                                 <a target="_blank" href="' . $emailData['event_url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
                                 border-radius: 2px;padding: 10px 20px;color: #fff;">See event details</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
+    public function declineReservation($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Your reservation has been declined.</p>
+                            <p>Dear ' . $emailData['name'] . ',</p>
+                            <p>&nbsp;</p>
+                            <p> This email serves as a notification that you have cancelled your appointment at '. $emailData['business_name'] .' on '. $emailData['reservation_date'] .' at '. $emailData['reservation_time'] .'. </p>
+                            <p>&nbsp;</p>
+                            <p>If you would like to reschedule, please contact us by clicking the button below. We will try to accommodate you at your earliest convenience.</p>
+                            <p>&nbsp;</p>
+                            <p>Looking forward to seeing you.</p>
+                            <p>&nbsp;</p>
+                            <p>Kind regards,<br>'. $emailData['business_name'] .'.</p>
+                            <p>&nbsp;</p>
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="' . $emailData['contact_url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">Contact us</a>
                             </div>
                            ';
 
