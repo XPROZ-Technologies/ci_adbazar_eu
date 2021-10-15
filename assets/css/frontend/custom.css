@@ -601,7 +601,7 @@ object-fit: contain;
 #maps .customer-location-list{
     margin-bottom: 20px;
 }
-#maps .card-title a{
+#maps .customer-location-right .card-title a{
 
     color: #0044b7;
 }
@@ -614,7 +614,7 @@ object-fit: contain;
 .pagination-left .page-text-sm,.pagination-left  .page-text-md,.pagination  .page-item .page-link,.pagination-left  .btn-red,.pagination-left  .btn-outline-red, .pagination-left .form-label {
     font-size: 14px;
 }
-#maps .card-title {
+#maps .customer-location-right .card-title {
     padding-right: 0;
     max-width: 150px;
     overflow: inherit;
