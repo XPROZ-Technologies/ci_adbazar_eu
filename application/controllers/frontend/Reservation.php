@@ -245,7 +245,7 @@ class Reservation extends MY_Controller
                         'contact_url' => base_url(HOME_URL . '#contact-us'),
                         'business_name' => $businessName
                     );
-                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 4);
+                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 5);
                     /**
                      * END. Save Email
                      */

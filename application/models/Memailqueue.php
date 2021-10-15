@@ -231,6 +231,29 @@ class Memailqueue extends MY_Model
                         return false;
                     }
                 }
+
+                if ($emailType == 5) {
+                    //decline reservation
+                    $emailContent = $this->declineReservation($emailData);
+                    $dataInsert = array(
+                        'email_subject' => 'Your reservation has been declined.',
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             }
         } catch (Exception $e) {
             echo $e->getMessage();
