@@ -104,7 +104,7 @@ class Config extends MY_Controller{
         $param = $this->input->post();
         foreach($listConfigs as $c){
             $configValue = isset($param[$c['config_code']]) ? trim($param[$c['config_code']]) : '';
-            $arrImg = array('MARKER_MAP_IMAGE', 'LOGO_IMAGE_HEADER', 'SERVICE_IMAGE', 'ABOUT_US_IMAGE', 'CONTACT_US_IMAGE', 'LOGO_FOOTER_IMAGE');
+            $arrImg = array('MARKER_MAP_IMAGE', 'LOGO_IMAGE_HEADER', 'SERVICE_IMAGE', 'ABOUT_US_IMAGE', 'CONTACT_US_IMAGE', 'LOGO_FOOTER_IMAGE', 'ABOUT_US_IMAGE_BANNER', 'ABOUT_US_CHILD_IMAGE_1', 'ABOUT_US_CHILD_IMAGE_2');
             if(in_array($c['config_code'], $arrImg)) $configValue = replaceFileUrl($configValue, CONFIG_PATH);
             // else if($c['config_code'] == 'PAY_IMAGES' || $c['config_code'] == 'ICON_PAYMENT_UNIT') {
             //     $images = json_decode($configValue, true);
