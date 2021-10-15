@@ -407,7 +407,7 @@ button:focus,button:active{
     top: 8px;
 }
 .customer-location-item {
-    padding: 5px 14px 5px 6px;
+    padding: 7px 14px 5px 6px;
     box-shadow: 0px 2px 6px rgb(77 78 78 / 20%);
     border: none;
 }
