@@ -44,8 +44,10 @@
                           </tr>
                         </thead>
                         <tbody>
+                          
                           <?php if (!empty($lists)) {
                             foreach ($lists as $itemBook) { ?>
+                           
                               <tr>
                                 <td><?php echo $itemBook['date_arrived']; ?></td>
                                 <td><?php echo $itemBook['time_arrived']; ?></td>
@@ -69,21 +71,11 @@
                                   <div class="d-flex justify-content-center">
                                     <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
                                       <button data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>" type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" ><?php echo $this->lang->line('cancel'); ?></button>
-                                    <?php } ?>
-                                    <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
+                                    <?php }else if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
                                       <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
                                     <?php } ?>
                                   </td>
-                                  <td>
-                                    <div class="d-flex justify-content-center">
-                                      <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                        <button data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>" type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation">Cancel</button>
-                                      <?php } ?>
-                                      <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
-                                        <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
-                                      <?php } ?>
-                                    </div>
-                                  </td>
+                                  
                                 </tr>
                             <?php }
                             } ?>

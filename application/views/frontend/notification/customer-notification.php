@@ -32,10 +32,12 @@
                   </div>
                   <div class="d-flex align-items-center notification-sort">
                     <img src="assets/img/frontend/ic-sort.svg" alt="sort icon" class="img-fluid me-2">
-                    <div class="custom-select mb-0">
+                    <div class="custom-select mb-0 choose-order">
                       <select>
-                        <option value="0" selected><?php echo $this->lang->line('1310_newest'); ?></option>
-                        <option value="1"><?php echo $this->lang->line('1310_oldest'); ?></option>
+                        <option value="desc" ><?php echo $this->lang->line('1310_newest'); ?></option>
+                        <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
+                                                echo 'selected="selected"';
+                                              } ?> ><?php echo $this->lang->line('1310_oldest'); ?></option>
                       </select>
                     </div>
                   </div>
@@ -47,117 +49,20 @@
                   </div>
                 <?php } else { ?>
                   <div class="notification-list">
-                    <!--
-                    <div class="notification-item">
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge"/>
+                    <?php foreach ($lists as $itemNoti) { ?>
+                      <div class="notification-item">
+                        <?php if($itemNoti['notification_status_id'] == STATUS_ACTIVED){ ?>
+                          <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge" />
+                        <?php } ?>
                         <div class="notification-img">
-                            <img src="https://loremflickr.com/70/70" alt="notification image" class="img-fluid">
+                          <img src="<?php echo $itemNoti['image']; ?>" alt="notification image" class="img-fluid">
                         </div>
                         <div class="notification-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied your comment.</p>
-                            <span class="notification-date">Yesterday at 14:35</span>
+                          <p><?php echo $itemNoti['text']; ?></p>
+                          <span class="notification-date"><?php echo ddMMyyyy($itemNoti['created_at'] ,'Y-m-d H:i'); ?></span>
                         </div>
-                    </div>
-                    <div class="notification-item">
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge"/>
-                        <div class="notification-img">
-                            <img src="https://loremflickr.com/70/70" alt="notification image" class="img-fluid">
-                        </div>
-                        <div class="notification-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied your comment.</p>
-                            <span class="notification-date">Yesterday at 14:35</span>
-                        </div>
-                    </div>
-                    <div class="notification-item">
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge"/>
-                        <div class="notification-img">
-                            <img src="https://loremflickr.com/70/70" alt="notification image" class="img-fluid">
-                        </div>
-                        <div class="notification-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied your comment.</p>
-                            <span class="notification-date">Yesterday at 14:35</span>
-                        </div>
-                    </div>
-                    <div class="notification-item">
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge"/>
-                        <div class="notification-img">
-                            <img src="https://loremflickr.com/70/70" alt="notification image" class="img-fluid">
-                        </div>
-                        <div class="notification-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied your comment.</p>
-                            <span class="notification-date">Yesterday at 14:35</span>
-                        </div>
-                    </div>
-                    <div class="notification-item">
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge"/>
-                        <div class="notification-img">
-                            <img src="https://loremflickr.com/70/70" alt="notification image" class="img-fluid">
-                        </div>
-                        <div class="notification-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied your comment.</p>
-                            <span class="notification-date">Yesterday at 14:35</span>
-                        </div>
-                    </div>
-                    <div class="notification-item">
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge"/>
-                        <div class="notification-img">
-                            <img src="https://loremflickr.com/70/70" alt="notification image" class="img-fluid">
-                        </div>
-                        <div class="notification-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied your comment.</p>
-                            <span class="notification-date">Yesterday at 14:35</span>
-                        </div>
-                    </div>
-                    <div class="notification-item">
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge"/>
-                        <div class="notification-img">
-                            <img src="https://loremflickr.com/70/70" alt="notification image" class="img-fluid">
-                        </div>
-                        <div class="notification-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied your comment.</p>
-                            <span class="notification-date">Yesterday at 14:35</span>
-                        </div>
-                    </div>
-                    -->
-
-                    <!-- Pagination
-                    <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
-                        <div class="d-flex align-items-center pagination-left">
-                            <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500">1 – 10</span> of <span class="fw-500">50</span>
-                                results</p>
-                            <div class="page-text-sm mb-0 d-flex align-items-center">
-                                <span class="fw-500">50</span>
-                                <span class="ms-2">/</span>
-                                <div class="custom-select">
-                                    <select>
-                                        <option value="0" selected>10</option>
-                                        <option value="1">20</option>
-                                        <option value="2">30</option>
-                                        <option value="3">40</option>
-                                        <option value="4">50</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pagination-right">
-                            
-                            <nav>
-                                <ul class="pagination justify-content-end mb-0">
-                                    <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                    <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            
-                        </div>
-                    </div>
-                    END. Pagination -->
+                      </div>
+                    <?php } ?>
                   </div>
                 <?php } ?>
               </div>
@@ -168,4 +73,5 @@
     </div>
   </div>
 </main>
+<input type="hidden" id="currentBaseUrl" value="<?php echo base_url('notifications.html'); ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>

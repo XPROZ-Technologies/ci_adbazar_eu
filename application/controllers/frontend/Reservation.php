@@ -188,7 +188,7 @@ class Reservation extends MY_Controller
 
     public function customerCancelReservation(){
         try {
-            $this->loadModel(array('Mconfigs', 'Mbusinessprofiles', 'Mcustomerreservations'));
+            $this->loadModel(array('Mconfigs', 'Mbusinessprofiles', 'Mcustomerreservations', 'Mcustomernotifications'));
 
             $postData = $this->arrayFromPost(array('business_id', 'book_id'));
 
@@ -200,6 +200,23 @@ class Reservation extends MY_Controller
                 
                 $bookId = $this->Mcustomerreservations->save($updateData, $bookId);
                 if($bookId > 0){
+                    $customerId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id']), 'customer_id', 0);
+                    /**
+                     * Add notification
+                     */
+                    $dataNoti = array(
+                        'notification_type' => 4, //business reply customer comment
+                        'customer_id'   => $customerId,
+                        'business_id'   => $postData['business_id'],
+                        'item_id'   => $bookId,
+                        'notification_status_id'    => STATUS_ACTIVED,
+                        'created_at'    => $updateData['updated_at']
+                    );
+                    $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                    /**
+                     * END. Add notification
+                     */
+
                     echo json_encode(array('code' => 1, 'message' => "Your reservation has been cancelled")); die;
                 }else{
                     echo json_encode(array('code' => 0, 'message' => "Cancellation failed")); die;
@@ -214,7 +231,7 @@ class Reservation extends MY_Controller
 
     public function businessDeclineReservation(){
         try {
-            $this->loadModel(array('Mconfigs', 'Mbusinessprofiles', 'Mcustomerreservations'));
+            $this->loadModel(array('Mconfigs', 'Mbusinessprofiles', 'Mcustomerreservations', 'Mcustomernotifications'));
 
             $postData = $this->arrayFromPost(array('business_id', 'book_id'));
 
@@ -231,6 +248,23 @@ class Reservation extends MY_Controller
                     $reservationInfo = $this->Mcustomerreservations->get($postData['book_id']);
                     $customerInfo = $this->Mcustomers->get($reservationInfo['customer_id']);
                     $businessInfo = $this->Mbusinessprofiles->get($postData['business_id']);
+
+                    /**
+                     * Add notification
+                     */
+                    $dataNoti = array(
+                        'notification_type' => 7, //business reply customer comment
+                        'customer_id'   => $reservationInfo['customer_id'],
+                        'business_id'   => $postData['business_id'],
+                        'item_id'   => $bookId,
+                        'notification_status_id'    => STATUS_ACTIVED,
+                        'created_at'    => $updateData['updated_at']
+                    );
+                    $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                    /**
+                     * END. Add notification
+                     */
+                
                     /**
                      * Save Email
                      */

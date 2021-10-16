@@ -174,13 +174,6 @@
                           <div class="d-flex flex-column flex-lg-row comment-item no-avatar">
                             <div class="comment-body">
                               <p class="font500"><?php echo ddMMyyyy($itemReview['updated_at'], 'd/m/Y H:i'); ?></p>
-                              <ul class="list-inline list-rating">
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              </ul>
                               <p class="page-text-sm"><?php echo $itemReview['business_comment']; ?></p>
                             </div>
                           </div>

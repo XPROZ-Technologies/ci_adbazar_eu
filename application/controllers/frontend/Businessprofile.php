@@ -429,7 +429,7 @@ class Businessprofile extends MY_Controller
     {
         try {
 
-            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews'));
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews', 'Mcustomernotifications', 'Mbusinessprofiles'));
 
             /**
              * Commons data
@@ -451,6 +451,23 @@ class Businessprofile extends MY_Controller
             //echo "<pre>";print_r($postData);exit;
             $reviewId = $this->Mcustomerreviews->save($postData);
             if ($reviewId > 0) {
+                $customerId = $this->Mbusinessprofiles->getFieldValue(array('id' => $getBusinessId), 'customer_id', 0);
+                /**
+                 * Add notification
+                 */
+                $dataNoti = array(
+                    'notification_type' => 0, //business has review
+                    'customer_id'   => $customerId,
+                    'business_id'   => $getBusinessId,
+                    'item_id'   => $reviewId,
+                    'notification_status_id'    => STATUS_ACTIVED,
+                    'created_at' => $postData['created_at']
+                );
+                $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                /**
+                 * END. Add notification
+                 */
+
                 echo json_encode(array('code' => 1, 'message' => "Leave a review successfully"));
                 die;
             } else {
@@ -467,7 +484,7 @@ class Businessprofile extends MY_Controller
     {
         try {
 
-            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews'));
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews', 'Mcustomernotifications'));
 
             /**
              * Commons data
@@ -491,6 +508,24 @@ class Businessprofile extends MY_Controller
 
                 $reviewId = $this->Mcustomerreviews->save($postData, $getReviewId);
                 if ($reviewId > 0) {
+                    $customerId = $this->Mcustomerreviews->getFieldValue(array('id' => $reviewId), 'customer_id', 0);
+
+                    /**
+                     * Add notification
+                     */
+                    $dataNoti = array(
+                        'notification_type' => 1, //business reply customer comment
+                        'customer_id'   => $customerId,
+                        'business_id'   => $getBusinessId,
+                        'item_id'   => $reviewId,
+                        'notification_status_id'    => STATUS_ACTIVED,
+                        'created_at'    => $postData['updated_at']
+                    );
+                    $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                    /**
+                     * END. Add notification
+                     */
+
                     echo json_encode(array('code' => 1, 'message' => "Reply customer review successfully"));
                     die;
                 } else {
@@ -1814,7 +1849,10 @@ class Businessprofile extends MY_Controller
         $data['lists'] = $this->Mcustomerreviews->search($getData, $perPage, $page);
         for ($i = 0; $i < count($data['lists']); $i++) {
             $customerInfo = $this->Mcustomers->getBy(array('id' => $data['lists'][$i]['customer_id'], 'customer_status_id' => STATUS_ACTIVED), false, 'created_at', 'customer_first_name, customer_last_name, customer_avatar', 0, 0, 'asc');
-            $data['lists'][$i]['customerInfo'] = $customerInfo[0];
+            $data['lists'][$i]['customerInfo'] = array();
+            if(isset($customerInfo[0]) && !empty($customerInfo[0])){
+                $data['lists'][$i]['customerInfo'] = $customerInfo[0];
+            }
         }
 
         $data['count_one_star'] = $this->Mcustomerreviews->getCount(array(

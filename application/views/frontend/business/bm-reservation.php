@@ -100,14 +100,11 @@
                               <td>
                                 <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
                                   <span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span>
-                                <?php } ?>
-                                <?php if ($itemBook['book_status_id'] == 1) { ?>
+                                <?php } else  if ($itemBook['book_status_id'] == 1 || strtotime($itemBook['date_arrived'].' '.$itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
                                   <span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span>
-                                <?php } ?>
-                                <?php if ($itemBook['book_status_id'] == 3) { ?>
+                                <?php } else if ($itemBook['book_status_id'] == 3) { ?>
                                   <span class="badge badge-declined"><?php echo $this->lang->line('cancelled'); ?></span>
-                                <?php } ?>
-                                <?php if ($itemBook['book_status_id'] == 4) { ?>
+                                <?php } else if ($itemBook['book_status_id'] == 4) { ?>
                                   <span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span>
                                 <?php } ?>
                               </td>

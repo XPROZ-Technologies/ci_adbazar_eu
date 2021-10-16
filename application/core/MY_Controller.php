@@ -248,4 +248,61 @@ abstract class MY_Controller extends CI_Controller {
         $this->lang->load('business_management', $this->language);
         $this->lang->load('user_account_management', $this->language);
     }
+
+    public function getNotificationLists($searchData = array(), $perPage = 50, $page = 0)
+    {
+        $this->loadModel(array('Mbusinessprofiles', 'Mcustomernotifications', 'Mcustomers', 'Mcustomerreservations', 'Mcustomerreviews'));
+        
+        $lists = $this->Mcustomernotifications->search($searchData, $perPage, $page);
+      
+        if (!empty($lists)) {
+            foreach($lists as $i => $notificationInfo){
+            
+                $notificationText = "";
+                $notificationImg = CUSTOMER_PATH . NO_IMAGE;
+                if($notificationInfo['notification_type'] == 0){
+                   //busines has review
+                   $customerImg = $this->Mcustomers->getFieldValue(array('id' =>  $notificationInfo['customer_id']), 'customer_avatar', '');
+                   if(!empty($customerImg)){
+                    $notificationImg = CUSTOMER_PATH . $customerImg;
+                   }
+                   $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
+                   $notificationText = $businessName." had just a review";
+                }else if($notificationInfo['notification_type'] == 1){
+                    // business reply customer review
+                    $businessImg = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_avatar', '');
+                    if(!empty($businessImg)){
+                        $notificationImg = BUSINESS_PROFILE_PATH . $businessImg;
+                    }
+                    $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
+                    $notificationText = $businessName." replied to your comment";
+                }else if($notificationInfo['notification_type'] == 2){
+                }else if($notificationInfo['notification_type'] == 3){
+                }else if($notificationInfo['notification_type'] == 4){
+                    // customer cancel reservation
+                    $customerImg = $this->Mcustomers->getFieldValue(array('id' =>  $notificationInfo['customer_id']), 'customer_avatar', '');
+                    if(!empty($customerImg)){
+                        $notificationImg = CUSTOMER_PATH . $customerImg;
+                    }
+                    $reservationCode = $this->Mcustomerreservations->getFieldValue(array('id' => $notificationInfo['item_id']), 'book_code', '');
+                    $notificationText = "Reservation ".$reservationCode." has been cancelled";
+                }else if($notificationInfo['notification_type'] == 5){
+                }else if($notificationInfo['notification_type'] == 6){
+                }else if($notificationInfo['notification_type'] == 7){
+                    // business decline reservation
+                    $businessImg = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_avatar', '');
+                    if(!empty($businessImg)){
+                        $notificationImg = BUSINESS_PROFILE_PATH . $businessImg;
+                    }
+                    $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
+                    $reservationCode = $this->Mcustomerreservations->getFieldValue(array('id' => $notificationInfo['item_id']), 'book_code', '');
+                    $notificationText = "Reservation ".$reservationCode." at ".$businessName." has been declined";
+                }
+                    
+                $lists[$i]['text'] = $notificationText;
+                $lists[$i]['image'] = $notificationImg;
+            }
+        }
+        return $lists;
+    }
 }
