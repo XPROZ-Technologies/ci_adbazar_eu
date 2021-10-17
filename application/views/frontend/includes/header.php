@@ -67,7 +67,7 @@
                         
                         <!-- noti item -->
                           <?php foreach($notiHeader as $noti){ ?>
-                            <a href="javascript:void(0)" class="notify-item">
+                            <a href="<?php echo $noti['url']; ?>" class="notify-item">
                               <div class="notify-img">
                                 <img src="<?php echo $noti['image']; ?>" alt="notification img" class="img-fluid">
                               </div>
@@ -282,7 +282,7 @@
                         
                         <!-- noti item -->
                         <?php foreach($notiHeader as $noti){ ?>
-                          <a href="javascript:void(0)" class="notify-item">
+                          <a href="<?php echo $noti['url']; ?>" class="notify-item">
                             <div class="notify-img">
                               <img src="<?php echo $noti['image']; ?>" alt="notification img" class="img-fluid">
                             </div>

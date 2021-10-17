@@ -278,6 +278,7 @@ abstract class MY_Controller extends CI_Controller
 
                 $notificationText = "";
                 $notificationImg = CUSTOMER_PATH . NO_IMAGE;
+                $notificationUrl = "javascript:void(0);";
                 if ($notificationInfo['notification_type'] == 0) {
                     //busines has review
                     $customerImg = $this->Mcustomers->getFieldValue(array('id' =>  $notificationInfo['customer_id']), 'customer_avatar', '');
@@ -285,7 +286,9 @@ abstract class MY_Controller extends CI_Controller
                         $notificationImg = CUSTOMER_PATH . $customerImg;
                     }
                     $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
+                    $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_url', '');
                     $notificationText = $businessName . " had just a review";
+                    $notificationUrl = base_url('business-management/'.$businessUrl.'/reviews');
                 } else if ($notificationInfo['notification_type'] == 1) {
                     // business reply customer review
                     $businessImg = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_avatar', '');
@@ -293,7 +296,9 @@ abstract class MY_Controller extends CI_Controller
                         $notificationImg = BUSINESS_PROFILE_PATH . $businessImg;
                     }
                     $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
+                    $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_url', '');
                     $notificationText = $businessName . " replied to your comment";
+                    $notificationUrl = base_url('business/'.$businessUrl.'/reviews');
                 } else if ($notificationInfo['notification_type'] == 2) {
                 } else if ($notificationInfo['notification_type'] == 3) {
                 } else if ($notificationInfo['notification_type'] == 4) {
@@ -302,8 +307,10 @@ abstract class MY_Controller extends CI_Controller
                     if (!empty($customerImg)) {
                         $notificationImg = CUSTOMER_PATH . $customerImg;
                     }
+                    $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_url', '');
                     $reservationCode = $this->Mcustomerreservations->getFieldValue(array('id' => $notificationInfo['item_id']), 'book_code', '');
                     $notificationText = "Reservation " . $reservationCode . " has been cancelled";
+                    $notificationUrl = base_url('business-management/'.$businessUrl.'/reservations');
                 } else if ($notificationInfo['notification_type'] == 5) {
                 } else if ($notificationInfo['notification_type'] == 6) {
                 } else if ($notificationInfo['notification_type'] == 7) {
@@ -315,10 +322,12 @@ abstract class MY_Controller extends CI_Controller
                     $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
                     $reservationCode = $this->Mcustomerreservations->getFieldValue(array('id' => $notificationInfo['item_id']), 'book_code', '');
                     $notificationText = "Reservation " . $reservationCode . " at " . $businessName . " has been declined";
+                    $notificationUrl = base_url('customer/my-reservation');
                 }
 
                 $lists[$i]['text'] = $notificationText;
                 $lists[$i]['image'] = $notificationImg;
+                $lists[$i]['url'] = $notificationUrl;
             }
         }
         return $lists;
