@@ -115,7 +115,7 @@
     <!-- End Modal forgot password -->
 </main>
 <script>
-    var text_success_social = '<?php $this->lang->line('successfully_register_account'); ?>';
+    var text_success_social = '<?php echo $this->lang->line('successfully_register_account'); ?>';
 </script>
 <input type="hidden" value="1" id="typeSocial" />
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
