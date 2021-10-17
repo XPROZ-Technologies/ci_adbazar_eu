@@ -7,7 +7,7 @@
           <div class="notification">
             <div class="bg-white notification-content">
               <div class="d-flex justify-content-between align-items-center">
-                <h2 class="page-heading page-title-xs mb-3 mb-md-4">Notifications</h2>
+                <h2 class="page-heading page-title-xs mb-3 mb-md-4"><?php echo $this->lang->line('notifications'); ?></h2>
                 <form class="d-flex search-box">
                   <a href="#" class="search-box-icon"><img src="assets/img/frontend/ic-search.svg" alt="search icon"></a>
                   <input class="form-control" type="text" placeholder="Search" aria-label="Search">
@@ -20,8 +20,8 @@
                     <div class="notification-filter">
                       <div class="custom-select">
                         <select>
-                          <option value="0" selected>All</option>
-                          <option value="1">Personal</option>
+                          <option value="0" selected><?php echo $this->lang->line('all'); ?></option>
+                          <option value="1"><?php echo $this->lang->line('personal'); ?></option>
                           <!--
                           <option value="2">The Rice Bowl</option>
                           <option value="3">Inspire Beauty Salon</option>
@@ -45,7 +45,7 @@
                 <?php if (empty($lists)) { ?>
                   <div class="notification-zero zero-box">
                     <img src="assets/img/frontend/img-empty-box.svg" alt="empty box" class="img-fluid d-block mx-auto">
-                    <p class="page-text-lg text-center text-secondary">You do not have any notification yet</p>
+                    <p class="page-text-lg text-center text-secondary"><?php echo $this->lang->line('you_do_not_have_any_notification_yet'); ?></p>
                   </div>
                 <?php } else { ?>
                   <div class="notification-list">

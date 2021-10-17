@@ -24,13 +24,11 @@ class Notification extends MY_Controller
          * Commons data
          */
         $order_by = $this->input->get('order_by');
-        
+        $data['order_by'] = $order_by;
         $searchData = array(
             'customer_id' => $data['customer']['id'],
             'order_by' => $order_by
         );
-
-        $data['lists'] = $this->getNotificationLists($searchData, 5, 1);
         
         $data['lists'] = $this->getNotificationLists($searchData, 50, 1);
 

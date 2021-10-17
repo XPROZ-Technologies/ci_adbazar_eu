@@ -29,6 +29,9 @@ abstract class MY_Controller extends CI_Controller {
         
         $data['menuServices'] = $this->Mservices->getServiceMenus($language_id);
         $data['language_id'] =  $language_id;
+        $this->load->model('Mcustomernotifications');
+        $data['notiBadge'] = $this->Mcustomernotifications->getCount(array('customer_id' => $data['customer']['id'], 'notification_status_id' => STATUS_ACTIVED));
+        $data['notiHeader'] = $this->getNotificationLists(array('customer_id' => $data['customer']['id']), 5, 1);
 
         return $data;
     }
