@@ -43,6 +43,8 @@
                   <input type="hidden" id="businessAvatarUpload" name="business_avatar_upload" value="" />
                   <input type="hidden" id="businessCoverUpload" name="business_cover_upload" value="" />
                   <input type="hidden" name="customer_id" value="<?php echo $customer['id']; ?>" />
+                  <input type="hidden" name="plan" value="<?php echo $plan ?>" />
+                  <input type="hidden" name="isTrial" value="<?php echo $isTrial ?>" />
                   <div class="col-12">
                     <div class="form-group mb-3">
                       <label for="bm-name" class="form-label"><?php echo $this->lang->line('business_name'); ?><span class="text-danger required">*</span></label>
@@ -340,7 +342,7 @@
                   <div class="col-12 serviceTypeBlock">
                     <label class="form-label" for="sub-category"><?php echo $this->lang->line('sub-categories'); ?><span class="required text-danger">*</span></label>
                     <select name="service_type_ids[]" id="serviceTypeId" class="form-control form-control-lg js-tags-select" multiple="multiple">
-                      
+
                     </select>
 
                   </div>
@@ -450,7 +452,7 @@
       error: function(response) {}
     });
 
-    
+
 
   });
 </script>
