@@ -10,12 +10,12 @@ class Mcoupons extends MY_Model {
     }
 
     public function getCount($postData){
-        $query = "coupon_status_id > 0" . $this->buildQuery($postData);
+        $query = "coupon_status_id > 0 AND coupon_amount > 0" . $this->buildQuery($postData);
         return $this->countRows($query);
     }
 
     public function search($postData, $perPage = 0, $page = 1){
-        $query = "SELECT * FROM coupons WHERE coupon_status_id > 0" . $this->buildQuery($postData);
+        $query = "SELECT * FROM coupons WHERE coupon_status_id > 0 AND coupon_amount > 0" . $this->buildQuery($postData);
         
         if(isset($postData['order_by'])){
             $query .= " ORDER BY start_date ".$postData['order_by'];
