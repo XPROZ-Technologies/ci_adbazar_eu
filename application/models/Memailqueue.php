@@ -137,11 +137,19 @@ class Memailqueue extends MY_Model
             if ($emailType > 0) {
                 $this->load->model('Mconfigs');
                 $email_recieve = $this->Mconfigs->getConfigValueByLang('NOTIFICATION_EMAIL_ADMIN', 1);
+                if(!isset($emailData['lang_id']) || empty($emailData['lang_id'])){
+                    $emailData['lang_id'] = 1;
+                    $emailData['language'] = $this->Mconstants->languageCodes[$emailData['lang_id']];
+                }else{
+                    $emailData['language'] = $this->Mconstants->languageCodes[$emailData['lang_id']];
+                }
+
+                $this->lang->load('email', $emailData['language']);
                 if ($emailType == 1) {
                     //create account
                     $emailContent = $this->successCreateAccount($emailData);
                     $dataInsert = array(
-                        'email_subject' => "Your account was successfully created",
+                        'email_subject' => $this->lang->line('email_your_account_was_successfully_created'),
                         'email_content' => $emailContent,
                         'email_from' => EMAIL_FROM,
                         'email_from_name' => EMAIL_FROM_NAME,
@@ -164,7 +172,7 @@ class Memailqueue extends MY_Model
                     //create account
                     $emailContent = $this->forgotPassword($emailData);
                     $dataInsert = array(
-                        'email_subject' => "Password assistance",
+                        'email_subject' => $this->lang->line('email_password_assistance'),
                         'email_content' => $emailContent,
                         'email_from' => EMAIL_FROM,
                         'email_from_name' => EMAIL_FROM_NAME,
@@ -210,8 +218,7 @@ class Memailqueue extends MY_Model
                     //join event
                     $emailContent = $this->joinEvent($emailData);
                     $dataInsert = array(
-                        'email_subject' => 'You have successfully registered to join
-                        ' . $emailData['event_name'],
+                        'email_subject' =>  $this->lang->line('email_you_have_successfully_registered_to_join_the_event'),
                         'email_content' => $emailContent,
                         'email_from' => EMAIL_FROM,
                         'email_from_name' => EMAIL_FROM_NAME,
@@ -234,7 +241,7 @@ class Memailqueue extends MY_Model
                     //decline reservation
                     $emailContent = $this->declineReservation($emailData);
                     $dataInsert = array(
-                        'email_subject' => 'Your reservation has been declined.',
+                        'email_subject' => $this->lang->line('email_your_reservation_has_been_declined'),
                         'email_content' => $emailContent,
                         'email_from' => EMAIL_FROM,
                         'email_from_name' => EMAIL_FROM_NAME,

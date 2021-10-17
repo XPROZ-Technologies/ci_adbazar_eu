@@ -99,5 +99,4 @@ $lang["1310_showing"] = "Showing";
 $lang["1310_results"] = "Results";
 $lang["1310_oldest"] = "Oldest";
 $lang["1310_newest"] = "Newest";
-$lang["1310_of"] = "of";
-
+$lang["1310_of"] = "of"; 
