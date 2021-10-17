@@ -65,6 +65,24 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                     var isOpen = '<a href="javascript:void(0)" class="text-success">Opening</a>';
                     if(!item.isOpen) isOpen = '<a href="javascript:void(0)" class="customer-location-close">Closed</a>';
                     
+                    var starHtml = '';
+                    var rating = item.rating;
+                    if(parseInt(rating.sumReview) > 0){
+                        starHtml = `<div class="star-rating on line  mr-8px relative"> 
+                            <div class="star-base">
+                            <div class="star-rate" data-rate="${rating.overall_rating}"></div> 
+                            <a dt-value="1" href="#1"></a> 
+                            <a dt-value="2" href="#2"></a> 
+                            <a dt-value="3" href="#3"></a> 
+                            <a dt-value="4" href="#4"></a> 
+                            <a dt-value="5" href="#5"></a>
+                            </div>
+                        </div>
+                        <span class="star-rating-number">(${rating.sumReview})</span>`;
+                    }
+                    
+                    
+                    
                     html += 
                     `<div class="card rounded-0 customer-location-item mb-2">
                         <div class="row g-0">
@@ -76,17 +94,7 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                                 <div class="card-body p-0">
                                     <h6 class="card-title mb-1 page-text-xs"><a href="${urlProfileBusiness+item.business_url}" title="">${item.business_name}</a></h6>
                                     <div class="d-flex align-items-center mb-5px"> 
-                                        <div class="star-rating on line  mr-8px relative"> 
-                                            <div class="star-base">
-                                            <div class="star-rate" data-rate="3.5"></div> 
-                                            <a dt-value="1" href="#1"></a> 
-                                            <a dt-value="2" href="#2"></a> 
-                                            <a dt-value="3" href="#3"></a> 
-                                            <a dt-value="4" href="#4"></a> 
-                                            <a dt-value="5" href="#5"></a>
-                                            </div>
-                                        </div>
-                                        <span class="star-rating-number">(10)</span>
+                                        ${starHtml}
                                     </div>
                                     <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                     ${isOpen}

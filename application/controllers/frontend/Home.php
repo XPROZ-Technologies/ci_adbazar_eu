@@ -125,6 +125,7 @@ class Home extends MY_Controller {
             
                 $listProfiles[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfiles[$i]['id'], $service_type_name);
                 $listProfiles[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfiles[$i]['id']);
+                $listProfiles[$i]['rating'] = $this->getBusinessRating($listProfiles[$i]['id']);
             }
             $pageCount = ceil($rowCount / $perPage);
 
@@ -135,6 +136,7 @@ class Home extends MY_Controller {
                     $listProfilesMap[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfilesMap[$i]['id'], $service_type_name);
                     $listProfilesMap[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfilesMap[$i]['id']);
                     $listProfilesMap[$i]['locationInfo'] = $this->Mbusinessprofiles->getBusinessInLocation($listProfilesMap[$i]['id']);
+                    $listProfilesMap[$i]['rating'] = $this->getBusinessRating($listProfilesMap[$i]['id']);
                     if(!empty($listProfilesMap[$i]['locationInfo'])){
                         $listLocations[] = $listProfilesMap[$i];
                     }

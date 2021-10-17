@@ -308,4 +308,50 @@ abstract class MY_Controller extends CI_Controller {
         }
         return $lists;
     }
+
+    public function getBusinessRating($businessProfileId = 0){
+        $data = array();
+
+        if($businessProfileId > 0){
+            $this->load->model('Mcustomerreviews');
+            $data['count_one_star'] = $this->Mcustomerreviews->getCount(array(
+                'customer_review_status_id' => STATUS_ACTIVED,
+                'business_id' => $businessProfileId,
+                'review_star' => 1
+            ));
+
+            $data['count_two_star'] = $this->Mcustomerreviews->getCount(array(
+                'customer_review_status_id' => STATUS_ACTIVED,
+                'business_id' => $businessProfileId,
+                'review_star' => 2
+            ));
+
+            $data['count_three_star'] = $this->Mcustomerreviews->getCount(array(
+                'customer_review_status_id' => STATUS_ACTIVED,
+                'business_id' => $businessProfileId,
+                'review_star' => 3
+            ));
+
+            $data['count_four_star'] = $this->Mcustomerreviews->getCount(array(
+                'customer_review_status_id' => STATUS_ACTIVED,
+                'business_id' => $businessProfileId,
+                'review_star' => 4
+            ));
+
+            $data['count_five_star'] = $this->Mcustomerreviews->getCount(array(
+                'customer_review_status_id' => STATUS_ACTIVED,
+                'business_id' => $businessProfileId,
+                'review_star' => 5
+            ));
+
+            $sumReview = ($data['count_one_star'] + $data['count_two_star'] + $data['count_three_star'] + $data['count_four_star'] + $data['count_five_star']);
+            $data['sumReview'] = $sumReview;
+            $data['overall_rating'] = 0;
+            if ($sumReview > 0) {
+                $data['overall_rating'] = ($data['count_one_star'] * 1 + $data['count_two_star'] * 2 + $data['count_three_star'] * 3 + $data['count_four_star'] * 4 + $data['count_five_star'] * 5) / ($data['count_one_star'] + $data['count_two_star'] + $data['count_three_star'] + $data['count_four_star'] + $data['count_five_star']);
+            }
+        }
+        
+        return $data;
+    }
 }
