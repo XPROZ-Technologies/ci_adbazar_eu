@@ -60,16 +60,19 @@
                                   </div><?php echo $listProfiles[$i]['business_address']; ?>
                                 </li>
                               </ul>
-                              
+                              <?php 
+                                $rating = $listProfiles[$i]['rating'];
+                                if($rating['sumReview'] > 0){
+                              ?>
                               <ul class="list-inline mb-0 list-rating">
-                                <li class="list-inline-item"><span href="#"><i class="bi bi-star-fill"></i><span></li>
-                                <li class="list-inline-item"><span href="#"><i class="bi bi-star-fill"></i><span></li>
-                                <li class="list-inline-item"><span href="#"><i class="bi bi-star-fill"></i><span></li>
-                                <li class="list-inline-item"><span href="#"><i class="bi bi-star-fill"></i><span></li>
-                                <li class="list-inline-item"><span href="#"><i class="bi bi-star"></i><span></li>
-                                <li class="list-inline-item fw-500">(10)</li>
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star<?php if($rating['overall_rating'] >= 1){ echo '-fill'; } ?>"></i><span></li>
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star<?php if($rating['overall_rating'] >= 2){ echo '-fill'; } ?>"></i><span></li>
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star<?php if($rating['overall_rating'] >= 3){ echo '-fill'; } ?>"></i><span></li>
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star<?php if($rating['overall_rating'] >= 4){ echo '-fill'; } ?>"></i><span></li>
+                                <li class="list-inline-item"><span href="#"><i class="bi bi-star<?php if($rating['overall_rating'] >= 5){ echo '-fill'; } ?>"></i><span></li>
+                                <li class="list-inline-item fw-500">(<?php echo $rating['sumReview']; ?>)</li>
                               </ul>
-                              
+                              <?php } ?>
                               <div class="view-more">
                                 <?php if ($listProfiles[$i]['isOpen']) { ?>
                                   <span class="text-success page-text-xs text-center"><?php echo $this->lang->line('open_now'); ?></span>
