@@ -59,7 +59,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/js/BsMultiSelect.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-    
+    <script>
+        var textView = '<?php echo $this->lang->line('1310_view'); ?>';
+    </script>
     <?php if(isset($scriptFooter)) outputScript($scriptFooter); ?>
 </body>
 

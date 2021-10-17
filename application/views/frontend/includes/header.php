@@ -29,9 +29,6 @@
   <link rel="stylesheet" href="assets/css/frontend/edit.css?version=<?php echo time(); ?>">
   <link rel="stylesheet" href="assets/css/frontend/custom.css?version=<?php echo time(); ?>">
   <?php if (isset($scriptHeader)) outputScript($scriptHeader); ?>
-  <script>
-    var text_view = '<?php echo $this->lang->line('1310_view'); ?>';
-  </script>
 </head>
 
 

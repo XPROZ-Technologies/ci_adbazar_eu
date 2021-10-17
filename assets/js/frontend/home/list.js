@@ -2,25 +2,26 @@
     
 
 $(document).ready(function() {
+    console.log(textView);
     $("#profilePagging").html('');
     $(".customer-location-list").html('');
     var current_page = 1;
     var records_per_page = 4;
     var searchText = $("input#search_text").val();
-    loadProfile($("select#selectServiceMap").val(), searchText, current_page, records_per_page);
+    loadProfile($("select#selectServiceMap").val(), searchText, current_page, records_per_page, textView);
 
     $("body").on('click', 'a.page-link-click', function() {
         var page = parseInt($(this).attr('data-page'));
         searchText = $("input#search_text").val();
-        loadProfile($("select#selectServiceMap").val(), searchText, page, records_per_page)
+        loadProfile($("select#selectServiceMap").val(), searchText, page, records_per_page, textView)
     }).on("click", ".customer-location-dropdown li.option", function(){
         var selectServiceMapId = $(this).data('value');
         searchText = $("input#search_text").val();
-        loadProfile(selectServiceMapId, searchText, current_page, records_per_page)
+        loadProfile(selectServiceMapId, searchText, current_page, records_per_page, textView)
     }).on('keyup', 'input#search_text', function() {
         setTimeout(function(){ 
             searchText = $("input#search_text").val();
-            loadProfile($("select#selectServiceMap").val(), searchText.trim(), current_page, records_per_page)
+            loadProfile($("select#selectServiceMap").val(), searchText.trim(), current_page, records_per_page, textView)
         }, 1000);
     });
 });
@@ -34,7 +35,7 @@ let map;
       });
     
     }
-function loadProfile(service_id, search_text_fe, page, per_page) {
+function loadProfile(service_id, search_text_fe, page, per_page, textView) {
     $.ajax({
         type: "POST",
         url: $("input#urlGetListProfile").val(),

@@ -91,6 +91,7 @@ $lang["view_my_coupons"] = "Meine Gutscheine ansehen";
 
 
 $lang["1310_view"] = "Ansehen";
+$lang["1310_all"] = "Alles";
 $lang["1310_view-all"] = "Alles anzeigen";
 $lang["1310_view-more"] = "Mehr anzeigen";
 $lang["1310_get-now"] = "Jetzt holen";

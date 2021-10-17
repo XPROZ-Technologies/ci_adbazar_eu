@@ -90,6 +90,7 @@ $lang["successfully_saved"] = "Úspěšně uloženo";
 $lang["view_my_coupons"] = "Zobrazit mé kupóny";
 
 $lang["1310_view"] = "Zobrazit";
+$lang["1310_all"] = "All";
 $lang["1310_view-all"] = "Zobrazit vše";
 $lang["1310_view-more"] = "Zobrazit více";
 $lang["1310_get-now"] = "Získat nyní";

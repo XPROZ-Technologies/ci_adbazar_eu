@@ -90,6 +90,7 @@ $lang["successfully_saved"] = "Lưu thành công!";
 $lang["view_my_coupons"] = "Xem phiếu giảm giá của tôi";
 
 $lang["1310_view"] = "Xem";
+$lang["1310_all"] = "Tất cả";
 $lang["1310_view-all"] = "Xem tất cả";
 $lang["1310_view-more"] = "Xem thêm";
 $lang["1310_get-now"] = "Nhận ngay";

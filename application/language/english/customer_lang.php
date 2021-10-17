@@ -90,6 +90,7 @@ $lang["successfully_saved"] = "Successfully Saved!";
 $lang["view_my_coupons"] = "View My Coupons";
 
 $lang["1310_view"] = "View";
+$lang["1310_all"] = "All";
 $lang["1310_view-all"] = "View all";
 $lang["1310_view-more"] = "View more";
 $lang["1310_get-now"] = "Get now";

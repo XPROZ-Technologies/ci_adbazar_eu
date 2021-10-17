@@ -162,7 +162,7 @@
           <div class="col-lg-4">
             <div class="customer-location-dropdown">
               <div class="custom-select mb-20">
-                <?php $this->Mconstants->selectObject($listServices, 'id', 'service_name', 'selectServiceMap', 0, true, 'All', ' '); ?>
+                <?php $this->Mconstants->selectObject($listServices, 'id', 'service_name', 'selectServiceMap', 0, true, $this->lang->line('1310_all'), ' '); ?>
               </div>
             </div>
             <div class="customer-location-left">
@@ -278,5 +278,4 @@
       $(".notiPopup").fadeIn('slow').fadeOut(4000);
     }
   });
-  var textView = "View";
 </script>
