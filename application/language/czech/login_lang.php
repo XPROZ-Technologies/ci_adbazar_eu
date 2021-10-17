@@ -38,3 +38,5 @@ $lang["your_password_does_not_match_please_try_again"] = "Vaše heslo se neshodu
 $lang["sign_up_with_google"] = "Google";
 $lang["sign_up_with_facebook"] = "Facebook";
 
+$lang['successfully_register_account'] = "Úspěšně zaregistrujte účet";
+$lang['successfully_login_account'] = "Úspěšně se přihlaste k účtu";

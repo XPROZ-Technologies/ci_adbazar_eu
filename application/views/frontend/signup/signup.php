@@ -114,6 +114,9 @@
     </div>
     <!-- End Modal forgot password -->
 </main>
+<script>
+    var text_success_social = '<?php $this->lang->line('successfully_register_account'); ?>';
+</script>
 <input type="hidden" value="1" id="typeSocial" />
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
@@ -130,5 +133,4 @@
             $(".notiPopup").fadeIn('slow').fadeOut(4000);
         }
     });
-
 </script>
