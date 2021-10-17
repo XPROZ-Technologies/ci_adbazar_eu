@@ -299,7 +299,11 @@ abstract class MY_Controller extends CI_Controller
                     }
                     $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
                     $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_url', '');
-                    $notificationText = $businessName . " had just a review";
+                    $find = array('<BUSINESS_NAME>');
+                    $replace = array($businessName);
+                    //$notificationText = $businessName . " had just a review";
+                    $notificationText = str_replace($find, $replace, $this->lang->line('business_name_had_just_a_review'));
+
                     $notificationUrl = base_url('business-management/'.$businessUrl.'/reviews');
                 } else if ($notificationInfo['notification_type'] == 1) {
                     // business reply customer review
@@ -309,7 +313,12 @@ abstract class MY_Controller extends CI_Controller
                     }
                     $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
                     $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_url', '');
-                    $notificationText = $businessName . " replied to your comment";
+                    //$notificationText = $businessName . " replied to your comment";
+
+                    $find = array('<BUSINESS_NAME>');
+                    $replace = array($businessName);
+                    $notificationText = str_replace($find, $replace, $this->lang->line('business_name_replied_to_your_comment'));
+
                     $notificationUrl = base_url('business/'.$businessUrl.'/reviews');
                 } else if ($notificationInfo['notification_type'] == 2) {
                 } else if ($notificationInfo['notification_type'] == 3) {
@@ -321,7 +330,10 @@ abstract class MY_Controller extends CI_Controller
                     }
                     $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_url', '');
                     $reservationCode = $this->Mcustomerreservations->getFieldValue(array('id' => $notificationInfo['item_id']), 'book_code', '');
-                    $notificationText = "Reservation " . $reservationCode . " has been cancelled";
+                    //$notificationText = "Reservation " . $reservationCode . " has been cancelled";
+                    $find = array('<RESERVATION_ID>');
+                    $replace = array($reservationCode);
+                    $notificationText = str_replace($find, $replace, $this->lang->line('reservation_id_has_been_canceled'));
                     $notificationUrl = base_url('business-management/'.$businessUrl.'/reservations');
                 } else if ($notificationInfo['notification_type'] == 5) {
                 } else if ($notificationInfo['notification_type'] == 6) {
@@ -333,7 +345,10 @@ abstract class MY_Controller extends CI_Controller
                     }
                     $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
                     $reservationCode = $this->Mcustomerreservations->getFieldValue(array('id' => $notificationInfo['item_id']), 'book_code', '');
-                    $notificationText = "Reservation " . $reservationCode . " at " . $businessName . " has been declined";
+                    //$notificationText = "Reservation " . $reservationCode . " at " . $businessName . " has been declined";
+                    $find = array('<RESERVATION_ID>','<BUSINESS_NAME>');
+                    $replace = array($reservationCode, $businessName);
+                    $notificationText = str_replace($find, $replace, $this->lang->line('reservation__id__at__businessname_has_been_declined'));
                     $notificationUrl = base_url('customer/my-reservation');
                 }
 
