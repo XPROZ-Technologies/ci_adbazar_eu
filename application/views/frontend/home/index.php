@@ -162,7 +162,7 @@
           <div class="col-lg-4">
             <div class="customer-location-dropdown">
               <div class="custom-select mb-20">
-                <?php $this->Mconstants->selectObject($listServices, 'id', 'service_name', 'selectServiceMap', 0, true, $this->lang->line('1310_all'), ' '); ?>
+                <?php $this->Mconstants->selectObject($listServices, 'id', 'service_name', 'selectServiceMap', 0, true, $this->lang->line('all'), ' '); ?>
               </div>
             </div>
             <div class="customer-location-left">

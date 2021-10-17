@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("body").on("click", "li.change-language-menu", function(){
+    $("body").on("click", "li.change-language-menu", function () {
         var language_id = $(this).data("language-id");
         $("#selected_lang").val(language_id);
         $("#languageForm").submit();
@@ -12,26 +12,36 @@ $(document).ready(function () {
     // });
 
 
-    $("body").on("click", ".choose-business li.option", function(){
-          var url = $("#currentBaseUrl").val();
-          redirect(false, url + '?business=' + $(this).data('value') + '&order_by=' + $('.choose-order li.option.selected').data('value'));
+    $("body").on("click", ".choose-business li.option", function () {
+        var url = $("#currentBaseUrl").val();
+        redirect(false, url + '?business=' + $(this).data('value') + '&order_by=' + $('.choose-order li.option.selected').data('value'));
     });
-    $("body").on("click", ".choose-service li.option", function(){
+    $("body").on("click", ".choose-service li.option", function () {
         var url = $("#currentBaseUrl").val();
         redirect(false, url + '?service=' + $(this).data('value') + '&order_by=' + $('.choose-order li.option.selected').data('value'));
-  });
-    $("body").on("click", ".choose-order li.option", function(){
-          var url = $("#currentBaseUrl").val();
-          if($('.choose-service li.option.selected').length > 0){
+    });
+    $("body").on("click", ".choose-order li.option", function () {
+        var url = $("#currentBaseUrl").val();
+        if ($('.choose-service li.option.selected').length > 0) {
             redirect(false, url + '?order_by=' + $(this).data('value') + '&service=' + $('.choose-service li.option.selected').data('value'));
-          }else{
+        } else {
             redirect(false, url + '?order_by=' + $(this).data('value'));
-          } 
-          
+        }
+
     });
 
-    
-    $("body").on("click", ".choose-perpage li.option", function(){
+    $("body").on("click", ".choose-notification-hold li.option", function () {
+        var url = $("#currentBaseUrl").val();
+        if ($('.choose-order li.option.selected').length > 0) {
+            redirect(false, url + '?noti_type=' + $(this).data('value') + '&order_by=' + $('.choose-order li.option.selected').data('value'));
+        } else {
+            redirect(false, url + '?noti_type=' + $(this).data('value'));
+        }
+
+    });
+
+
+    $("body").on("click", ".choose-perpage li.option", function () {
         var url = $("#currentBaseUrl").val();
         redirect(false, url + '?per_page=' + $(this).data('value'));
     });
@@ -51,23 +61,23 @@ $(document).ready(function () {
             '<img src="assets/img/frontend/icon-right.png">',
         ],
         responsive: {
-        0: {
-            items: 1,
-            margin: 16,
-            slideBy: 1
-        },
-        768: {
-            items: 2,
-            slideBy: 2
-        },
-        1000: {
-            items: 3,
-            slideBy: 3
-        },
-        1200: {
-            items: 4,
-            slideBy: 4
-        },
+            0: {
+                items: 1,
+                margin: 16,
+                slideBy: 1
+            },
+            768: {
+                items: 2,
+                slideBy: 2
+            },
+            1000: {
+                items: 3,
+                slideBy: 3
+            },
+            1200: {
+                items: 4,
+                slideBy: 4
+            },
         },
     });
 
@@ -81,40 +91,40 @@ $(document).ready(function () {
         autoplayHoverPause: true,
         nav: true,
         navText: [
-        '<img src="assets/img/frontend/icon-left.png">',
-        '<img src="assets/img/frontend/icon-right.png">',
+            '<img src="assets/img/frontend/icon-left.png">',
+            '<img src="assets/img/frontend/icon-right.png">',
         ],
         responsive: {
-        0: {
-            items: 2,
-            margin: 16,
-            slideBy: 2
-        },
-        768: {
-            items: 2,
-            margin: 20,
-            slideBy: 2
-        },
-        1000: {
-            items: 3,
-            slideBy: 3
-        },
-        1200: {
-            items: 4,
-            slideBy: 4
-        },
+            0: {
+                items: 2,
+                margin: 16,
+                slideBy: 2
+            },
+            768: {
+                items: 2,
+                margin: 20,
+                slideBy: 2
+            },
+            1000: {
+                items: 3,
+                slideBy: 3
+            },
+            1200: {
+                items: 4,
+                slideBy: 4
+            },
         },
     });
-    
 
-    $("body").on("click", ".get-coupon-in-list", function(){
+
+    $("body").on("click", ".get-coupon-in-list", function () {
         var url = $("#baseUrl").data('href');
         var current_button = $(this);
 
         var customer_id = current_button.data('customer');
         var redirectUrl = $("#redirectUrl").val();
 
-        if(customer_id == 0) {
+        if (customer_id == 0) {
             redirect(false, url + 'login.html?requiredLogin=1&redirectUrl=' + redirectUrl);
         }
 
@@ -122,29 +132,29 @@ $(document).ready(function () {
             type: "POST",
             url: url + 'customer-get-coupon',
             data: {
-              coupon_id: current_button.data('id'),
-              customer_id: customer_id
+                coupon_id: current_button.data('id'),
+                customer_id: customer_id
             },
             dataType: "json",
-            success: function(response) {
-              if (response.code == 1) {
-                $(".coupon-item-" + current_button.data('id')).hide();
-                owl_coupon.trigger('remove.owl.carousel', [current_button.data('index')]).trigger('refresh.owl.carousel');
-                $("#savedCouponModal").modal("show");
-                
-              }
+            success: function (response) {
+                if (response.code == 1) {
+                    $(".coupon-item-" + current_button.data('id')).hide();
+                    owl_coupon.trigger('remove.owl.carousel', [current_button.data('index')]).trigger('refresh.owl.carousel');
+                    $("#savedCouponModal").modal("show");
+
+                }
             }
         });
     });
 
-    $("body").on("click", ".join-event-in-list", function(){
+    $("body").on("click", ".join-event-in-list", function () {
         var url = $("#baseUrl").data('href');
         var current_button = $(this);
 
         var customer_id = current_button.data('customer');
         var redirectUrl = $("#redirectUrl").val();
 
-        if(customer_id == 0) {
+        if (customer_id == 0) {
             redirect(false, url + 'event/login.html?requiredLogin=1&redirectUrl=' + redirectUrl);
         }
 
@@ -152,37 +162,37 @@ $(document).ready(function () {
             type: "POST",
             url: url + 'customer-join-event',
             data: {
-              event_id: current_button.data('id'),
-              customer_id: customer_id
+                event_id: current_button.data('id'),
+                customer_id: customer_id
             },
             dataType: "json",
-            success: function(response) {
-              if (response.code == 1) {
-                $(".event-item-" + current_button.data('id')).hide();
-                $("#eventModal").modal("show");
-              }
+            success: function (response) {
+                if (response.code == 1) {
+                    $(".event-item-" + current_button.data('id')).hide();
+                    $("#eventModal").modal("show");
+                }
             }
         });
     });
-    $("body").on("click", ".btn-toast-close", function(){
+    $("body").on("click", ".btn-toast-close", function () {
         $(".toast").fadeOut(2000);
-    }).on("click", ".open-hour-item .switch-btn .switch", function(){
+    }).on("click", ".open-hour-item .switch-btn .switch", function () {
         $(this).closest('.open-hour-item .switch-btn').toggleClass('disabled');
         $(this).closest('.open-hour-item').toggleClass('disabled-item');
-        if($(this).closest('.open-hour-item').hasClass('disabled-item')){
+        if ($(this).closest('.open-hour-item').hasClass('disabled-item')) {
             $(this).closest('.open-hour-item').find('.wrapper-time input').prop('disabled', false);
             $(this).closest('.open-hour-item').find('.switch-text').text('Open');
         }
-        else{
+        else {
             $(this).closest('.open-hour-item').find('.wrapper-time input').prop('disabled', true);
             $(this).closest('.open-hour-item').find('.switch-text').text('Closed');
         }
     });
 });
 
-function hideNotiMessage(){
-    if($('#popupNotification').length > 0){
-        setTimeout(function() {
+function hideNotiMessage() {
+    if ($('#popupNotification').length > 0) {
+        setTimeout(function () {
             $('#popupNotification').fadeOut('fast');
         }, 2000);
     }
@@ -210,7 +220,7 @@ function replaceCost(cost, isInt) {
     cost = cost.replace(/\,/g, '');
     if (cost == '') cost = 0;
     if (isInt) return parseInt(cost);
-    else  return parseFloat(cost);
+    else return parseFloat(cost);
 }
 
 function formatDecimal(value) {
@@ -239,8 +249,8 @@ function addCommas(nStr) {
     return x1 + x2;
 }
 
-function checkKeyCodeNumber(e){
-    return !((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode == 8 ||  e.keyCode == 35 || e.keyCode == 36 || e.keyCode == 37 || e.keyCode == 39 || e.keyCode == 46);
+function checkKeyCodeNumber(e) {
+    return !((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode == 8 || e.keyCode == 35 || e.keyCode == 36 || e.keyCode == 37 || e.keyCode == 39 || e.keyCode == 46);
 }
 
 /* type = 1 - success
@@ -255,17 +265,17 @@ function showNotification(msg, type) {
         type: typeText,
         delay: 2000,
         addclass: 'stack-bottomright',
-        stack: {"dir1": "up", "dir2": "left", "firstpos1": 15, "firstpos2": 15}
+        stack: { "dir1": "up", "dir2": "left", "firstpos1": 15, "firstpos2": 15 }
     });
 }
 
 
 function redirect(reload, url) {
-    setTimeout(function(){
+    setTimeout(function () {
         if (reload) window.location.reload(true);
         else window.location.href = url;
     }, 300);
-    
+
 }
 
 function scrollTo(eleId) {
@@ -277,7 +287,7 @@ function scrollTo(eleId) {
 
 //validate
 function validateEmpty(container, btn = '.submit') {
-    if(typeof(container) == 'undefined') container = 'body';
+    if (typeof (container) == 'undefined') container = 'body';
     var flag = true;
     $(container + ' .hmdrequired').each(function () {
         if ($(this).val().trim() == '') {
@@ -292,8 +302,8 @@ function validateEmpty(container, btn = '.submit') {
 }
 
 function validateNumber(container, isInt, msg) {
-    if(typeof(container) == 'undefined') container = 'body';
-    if(typeof(msg) == 'undefined') msg = " can't be smaller 0";
+    if (typeof (container) == 'undefined') container = 'body';
+    if (typeof (msg) == 'undefined') msg = " can't be smaller 0";
     var flag = true;
     var value = 0;
     $(container + ' .hmdrequiredNumber').each(function () {
@@ -381,7 +391,7 @@ function pagging(pageId) {
 function chooseFile(inputFileImage, fileProgress, fileTypeId, fnSuccess) {
     inputFileImage.change(function (e) {
         var file = this.files[0];
-        if(!validateImage(file.name)) return;
+        if (!validateImage(file.name)) return;
         var reader = new FileReader();
         reader.addEventListener("load", function () {
             fileProgress.show();
@@ -397,7 +407,7 @@ function chooseFile(inputFileImage, fileProgress, fileTypeId, fnSuccess) {
                 },
                 success: function (response) {
                     var json = $.parseJSON(response);
-                    if(json.code == 1) fnSuccess(json.data);
+                    if (json.code == 1) fnSuccess(json.data);
                     else showNotification(json.message, json.code);
                     fileProgress.hide();
                 },
@@ -448,7 +458,7 @@ function genDisplayOrder(id) {
     let html = `<select class="form-control" name="DisplayOrder_${id}" id="displayOrder_${id}" onchange="changeDisplayOrder(this, ${id})" data-id="${id}">`;
     for (let index = 1; index <= 200; index++) {
         let selected = '';
-        if(index == id) selected = 'selected';
+        if (index == id) selected = 'selected';
         html += `<option value="${index}" ${selected} >${index}</option>`;
     }
     html += '</select>';
@@ -456,14 +466,14 @@ function genDisplayOrder(id) {
 }
 
 function formatPrice(price, currency = '') {
-    if(!currency) return price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-    if(currency == 'VND') return price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' ' + currency;
-    if(currency == 'USD') return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+    if (!currency) return price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    if (currency == 'VND') return price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' ' + currency;
+    if (currency == 'USD') return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
 }
 
 function convertWeekday(date = '') {
     let weekDay = '';
-    if(date) {
+    if (date) {
         let day = moment(new Date(date)).isoWeekday();
         switch (day) {
             case 1:
@@ -496,7 +506,7 @@ function convertWeekday(date = '') {
 }
 
 function validateEmail(email) {
-    if(email) {
+    if (email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
@@ -508,14 +518,14 @@ function allEqual(input) {
 }
 
 function validatePhone(phoneNumber, phoneCode) {
-    if(phoneNumber, phoneCode) {
+    if (phoneNumber, phoneCode) {
         let flag = true;
-        if(phoneCode == '+84') {
+        if (phoneCode == '+84') {
             const vnfRegex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
-            if(vnfRegex.test(phoneNumber) == false){
+            if (vnfRegex.test(phoneNumber) == false) {
                 flag = false;
             }
-        } else if(phoneNumber.length > 15 || allEqual(phoneNumber)){
+        } else if (phoneNumber.length > 15 || allEqual(phoneNumber)) {
             flag = false;
         }
         return flag;
@@ -524,11 +534,11 @@ function validatePhone(phoneNumber, phoneCode) {
 }
 
 function getIdYoutube(url = '') {
-    if(url != '') {
+    if (url != '') {
         var regExp = /^https?\:\/\/(?:www\.youtube(?:\-nocookie)?\.com\/|m\.youtube\.com\/|youtube\.com\/)?(?:ytscreeningroom\?vi?=|youtu\.be\/|vi?\/|user\/.+\/u\/\w{1,2}\/|embed\/|watch\?(?:.*\&)?vi?=|\&vi?=|\?(?:.*\&)?vi?=)([^#\&\?\n\/<>"']*)/i;
         var match = url.match(regExp);
-        return (match && match[1].length==11)? match[1] : false;
-    } else return false; 
+        return (match && match[1].length == 11) ? match[1] : false;
+    } else return false;
 }
 
 function showNotification(msg, type) {
@@ -540,6 +550,6 @@ function showNotification(msg, type) {
         type: typeText,
         delay: 2000,
         addclass: 'stack-bottomright',
-        stack: {"dir1": "up", "dir2": "left", "firstpos1": 15, "firstpos2": 15}
+        stack: { "dir1": "up", "dir2": "left", "firstpos1": 15, "firstpos2": 15 }
     });
 }

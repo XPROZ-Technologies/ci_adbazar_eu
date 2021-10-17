@@ -18,14 +18,24 @@
                   <div class="d-flex align-items-center inner-filter">
                     <span class="me-2 page-text-lg"><?php echo $this->lang->line('filter_by'); ?></span>
                     <div class="notification-filter">
-                      <div class="custom-select">
+                      <div class="custom-select choose-notification-hold <?php echo $noti_type; ?>">
                         <select>
-                          <option value="0" selected><?php echo $this->lang->line('all'); ?></option>
-                          <option value="1"><?php echo $this->lang->line('personal'); ?></option>
-                          <!--
-                          <option value="2">The Rice Bowl</option>
-                          <option value="3">Inspire Beauty Salon</option>
-                          -->
+                          <option value="all" <?php if (isset($noti_type) && $noti_type == 'all') {
+                                              echo 'selected="selected"';
+                                            } ?>><?php echo $this->lang->line('all'); ?></option>
+
+                          <option value="personal" <?php if (isset($noti_type) && $noti_type == 'personal') {
+                                              echo 'selected="selected"';
+                                            } ?>><?php echo $this->lang->line('personal'); ?></option>
+
+                          <?php if(!empty($filterBusiness)){ ?>
+                            <?php foreach($filterBusiness as $filBus){ ?>
+                              <option value="<?php echo $filBus['id']; ?>" <?php if (isset($noti_type) && $noti_type == $filBus['id']) {
+                                              echo 'selected="selected"';
+                                            } ?> ><?php echo $filBus['business_name']; ?></option>
+                            <?php } ?>
+                          <?php } ?>
+                         
                         </select>
                       </div>
                     </div>

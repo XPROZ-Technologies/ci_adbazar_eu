@@ -143,6 +143,17 @@ class Mbusinessprofiles extends MY_Model {
         else return array(); 
     }
 
+    public function getByNotification($business_ids = array()) {
+        $query = "SELECT
+                DISTINCT
+                business_profiles.id,
+                business_profiles.business_name
+            FROM business_profiles
+                LEFT JOIN customer_notifications ON customer_notifications.business_id = business_profiles.id
+            WHERE notification_status_id > 0 AND customer_notifications.business_id IN (".implode(',', $business_ids).")";
+        return $this->getByQuery($query);
+    }
+
     public function getBusinessProfileNotInLocation($searchText = '', $businessProfileLocationId = 0) {
         $where = ''; $where2 = '';
         if(!empty($searchText)) $where = " AND (business_name LIKE '%".$searchText."%') ";
