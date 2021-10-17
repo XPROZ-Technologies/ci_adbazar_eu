@@ -622,11 +622,13 @@ class Businessprofile extends MY_Controller
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
+        $type = $this->input->get('type');
 
         $getData = array(
             'search_text_fe' => $search_text,
             'customer_id' => $data['customer']['id'],
-            'business_profile_id' => $businessInfo['id']
+            'business_profile_id' => $businessInfo['id'],
+            'book_status_id' => $type
         );
         $rowCount = $this->Mcustomerreservations->getCount($getData);
         $data['lists'] = array();
@@ -1943,11 +1945,13 @@ class Businessprofile extends MY_Controller
         $data['keyword'] = $search_text;
         $selected_day = $this->input->get('selected_day');
         $data['selected_day'] = $selected_day;
+        $type = $this->input->get('type');
 
         $getData = array(
             'date_arrived' => $selected_day,
             'search_text_fe' => $search_text,
-            'business_profile_id' => $businessProfileId
+            'business_profile_id' => $businessProfileId,
+            'book_status_id' => $type
         );
         $rowCount = $this->Mcustomerreservations->getCount($getData);
         $data['lists'] = array();
