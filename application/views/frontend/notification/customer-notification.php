@@ -34,10 +34,10 @@
                     <img src="assets/img/frontend/ic-sort.svg" alt="sort icon" class="img-fluid me-2">
                     <div class="custom-select mb-0 choose-order">
                       <select>
-                        <option value="desc" ><?php echo $this->lang->line('1310_newest'); ?></option>
+                        <option value="desc"><?php echo $this->lang->line('1310_newest'); ?></option>
                         <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
-                                                echo 'selected="selected"';
-                                              } ?> ><?php echo $this->lang->line('1310_oldest'); ?></option>
+                                              echo 'selected="selected"';
+                                            } ?>><?php echo $this->lang->line('1310_oldest'); ?></option>
                       </select>
                     </div>
                   </div>
@@ -49,9 +49,10 @@
                   </div>
                 <?php } else { ?>
                   <div class="notification-list">
+                    <!-- notification item -->
                     <?php foreach ($lists as $itemNoti) { ?>
                       <div class="notification-item">
-                        <?php if($itemNoti['notification_status_id'] == STATUS_ACTIVED){ ?>
+                        <?php if ($itemNoti['notification_status_id'] == STATUS_ACTIVED) { ?>
                           <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge" />
                         <?php } ?>
                         <div class="notification-img">
@@ -59,10 +60,11 @@
                         </div>
                         <div class="notification-body">
                           <p><?php echo $itemNoti['text']; ?></p>
-                          <span class="notification-date"><?php echo ddMMyyyy($itemNoti['created_at'] ,'Y-m-d H:i'); ?></span>
+                          <span class="notification-date"><?php echo ddMMyyyy($itemNoti['created_at'], 'Y-m-d H:i'); ?></span>
                         </div>
                       </div>
                     <?php } ?>
+                    <!-- END. notification item -->
                   </div>
                 <?php } ?>
               </div>
@@ -74,4 +76,32 @@
   </div>
 </main>
 <input type="hidden" id="currentBaseUrl" value="<?php echo base_url('notifications.html'); ?>" />
+<input type="hidden" id="pageCount" value="1" />
 <?php $this->load->view('frontend/includes/footer'); ?>
+<script>
+  $(window).scroll(function() {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+      console.log('hit load more');
+      var customer_id = <?php echo $customer['id']; ?>;
+      var page_count = $("#pageCount").val();
+      if (page_count > 0) {
+        $.ajax({
+          type: 'POST',
+          url: '<?php echo base_url('notification/load-more-notification'); ?>',
+          data: {
+            customer_id: customer_id,
+            page: page_count
+          },
+          dataType: "json",
+          success: function(json) {
+            $(".notification-list").append(json.data);
+            $("#pageCount").val(json.nextPage);
+          },
+          error: function(data) {
+            $(".notiPopup .text-secondary").html(data.message);
+          }
+        });
+      }
+    }
+  });
+</script>

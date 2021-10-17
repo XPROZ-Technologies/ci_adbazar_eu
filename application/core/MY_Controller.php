@@ -1,32 +1,37 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-abstract class MY_Controller extends CI_Controller {
+abstract class MY_Controller extends CI_Controller
+{
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->db_slave = $this->load->database('slave', TRUE);
         $this->db_master = $this->load->database('master', TRUE);
-        if(function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Bangkok');
+        if (function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Bangkok');
         // $user = $this->Musers->get(1); $this->session->set_userdata('user', $user);
-      
+
     }
 
-    protected function commonData($user, $title, $data = array()){
+    protected function commonData($user, $title, $data = array())
+    {
         $data['user'] = $user;
         $data['title'] = $title;
         $data['listActions'] = $this->Mactions->getByUserId($user['id']);
         return $data;
     }
 
-    protected function commonDataCustomer($title, $data = array()){
+    protected function commonDataCustomer($title, $data = array())
+    {
         $data['customer'] = $this->checkLoginCustomer();
         $data['title'] = $title;
         $this->load->model('Mservices');
         $this->load->model('Mconfigs');
-        if($data['customer']['language_id'] == 0) $language_id = $this->Mconstants->languageDefault; else $language_id = $data['customer']['language_id'];
+        if ($data['customer']['language_id'] == 0) $language_id = $this->Mconstants->languageDefault;
+        else $language_id = $data['customer']['language_id'];
         $data['configs'] = $this->Mconfigs->getListMap();
-        
+
         $data['menuServices'] = $this->Mservices->getServiceMenus($language_id);
         $data['language_id'] =  $language_id;
         $this->load->model('Mcustomernotifications');
@@ -37,31 +42,31 @@ abstract class MY_Controller extends CI_Controller {
     }
 
     // check login phía quản trị
-    protected function checkUserLogin($isApi = false){
+    protected function checkUserLogin($isApi = false)
+    {
         $user = $this->rsession->get('user');
-        if($user){
-            $statusId = STATUS_ACTIVED;// $this->Musers->getFieldValue(array('UserId' => $user['UserId']), 'StatusId', 0);
-            if($statusId == STATUS_ACTIVED) {
+        if ($user) {
+            $statusId = STATUS_ACTIVED; // $this->Musers->getFieldValue(array('UserId' => $user['UserId']), 'StatusId', 0);
+            if ($statusId == STATUS_ACTIVED) {
                 return $user;
-            } 
-            else{
+            } else {
                 $this->rsession->delete('user');
                 //$fields = array('user', 'configs');
                 //foreach($fields as $field) $this->session->unset_userdata($field);
-                if($isApi) echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
-                else redirect('sys-admin?redirectUrl='.current_url());
+                if ($isApi) echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+                else redirect('sys-admin?redirectUrl=' . current_url());
                 die();
             }
-        }
-        else{
-            if($isApi) echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
-            else redirect('sys-admin?redirectUrl='.current_url());
+        } else {
+            if ($isApi) echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+            else redirect('sys-admin?redirectUrl=' . current_url());
             die();
         }
     }
 
     // check ngôn ngữ và login phía customer (end user)
-    protected function checkLoginCustomer($language_id = 0) {
+    protected function checkLoginCustomer($language_id = 0)
+    {
         $this->load->helper('cookie');
         $customers = json_decode($this->input->cookie('customer', true), true);
         if (isset($customers) && $customers['id'] > 0) {
@@ -81,7 +86,7 @@ abstract class MY_Controller extends CI_Controller {
             }
             $customers['is_logged_in'] = 0;
         }
-        if($language_id > 0){
+        if ($language_id > 0) {
             $customers['language_id'] = $language_id;
             $customers['language_name'] = $this->Mconstants->languageCodes[$language_id];
         }
@@ -89,30 +94,35 @@ abstract class MY_Controller extends CI_Controller {
         return $customers;
     }
 
-    protected function loadModel($models = array()){
-        foreach($models as $model) $this->load->model($model);
+    protected function loadModel($models = array())
+    {
+        foreach ($models as $model) $this->load->model($model);
     }
 
-    protected function arrayFromPost($fields) {
+    protected function arrayFromPost($fields)
+    {
         $data = array();
         foreach ($fields as $field) $data[$field] = trim($this->input->post($field));
         return $data;
     }
 
-    protected function arrayFromGet($fields) {
+    protected function arrayFromGet($fields)
+    {
         $data = array();
         foreach ($fields as $field) $data[$field] = trim($this->input->get($field));
         return $data;
     }
 
-    protected function checkPermission($roleId) {
+    protected function checkPermission($roleId)
+    {
         $flag = false;
-        if($roleId == 1) $flag = true;
+        if ($roleId == 1) $flag = true;
         return $flag;
     }
 
     //api
-    protected function openAllCors(){
+    protected function openAllCors()
+    {
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Credentials: true");
         header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
@@ -122,28 +132,30 @@ abstract class MY_Controller extends CI_Controller {
         $this->logError();
     }
 
-    protected function arrayFromPostRawJson($fields) {
+    protected function arrayFromPostRawJson($fields)
+    {
         $data = json_decode(file_get_contents('php://input'), true);
         $outPut = array();
         foreach ($fields as $field) {
-            if(isset($data[$field])){
+            if (isset($data[$field])) {
                 $outPut[$field] = ($data[$field]);
-            }
-            else $outPut[$field] = null;
+            } else $outPut[$field] = null;
         }
         return $outPut;
     }
 
-    protected function logError(){
-        log_message('error', $this->router->fetch_class().'/'.$this->router->fetch_method().': Server: '.json_encode($_SERVER));
-        log_message('error', $this->router->fetch_class().'/'.$this->router->fetch_method().': Input: '.file_get_contents('php://input'));
+    protected function logError()
+    {
+        log_message('error', $this->router->fetch_class() . '/' . $this->router->fetch_method() . ': Server: ' . json_encode($_SERVER));
+        log_message('error', $this->router->fetch_class() . '/' . $this->router->fetch_method() . ': Input: ' . file_get_contents('php://input'));
         log_message('error', '=======================================');
     }
 
-    protected function configValueCookie($name = 'customer', $value = '', $expire = '7200') {
+    protected function configValueCookie($name = 'customer', $value = '', $expire = '7200')
+    {
         return array(
             'name'   => $name,
-            'value'  => $value , //json_encode(array('language_id' => $languageId, 'language_name' => $language, 'id' => 0)),                            
+            'value'  => $value, //json_encode(array('language_id' => $languageId, 'language_name' => $language, 'id' => 0)),                            
             'expire' => $expire
 
         );
@@ -151,16 +163,18 @@ abstract class MY_Controller extends CI_Controller {
 
     /**
      * Check business open or closed
-    */
-    protected function checkBusinessOpenHours($businessId = 0){
+     */
+    protected function checkBusinessOpenHours($businessId = 0)
+    {
         return true;
-    } 
+    }
 
     /**
      * Send email
      */
 
-    protected function sendMail($emailFrom, $nameFrom, $emailTo, $nameTo, $subject, $message){
+    protected function sendMail($emailFrom, $nameFrom, $emailTo, $nameTo, $subject, $message)
+    {
         //$this->load->library('email');
         // $config = Array(
         //     'protocol'  => 'smtp',
@@ -175,7 +189,7 @@ abstract class MY_Controller extends CI_Controller {
 
         //smtpout.asia.secureserver.net
 
-        $config = Array(
+        $config = array(
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtpout.asia.secureserver.net',
             'smtp_port' => '465',
@@ -193,7 +207,7 @@ abstract class MY_Controller extends CI_Controller {
         $this->email->to($emailTo, $nameTo);
         $this->email->subject($subject);
         $this->email->message($message);
-        if($this->email->send()) return true;
+        if ($this->email->send()) return true;
         return false;
     }
 
@@ -205,43 +219,44 @@ abstract class MY_Controller extends CI_Controller {
      * }
      */
 
-     /**
-      * Custom Upload without POST
-      */
+    /**
+     * Custom Upload without POST
+     */
 
-    public function uploadImageBase64($fileBase64 = "", $fileTypeId = 0){
-	    if(!empty($fileBase64) & $fileTypeId > 0){
+    public function uploadImageBase64($fileBase64 = "", $fileTypeId = 0)
+    {
+        if (!empty($fileBase64) & $fileTypeId > 0) {
             $fileBase64 = str_replace('[removed]', '', $fileBase64);
             $dir = '';
             $fileExt = 'png';
-	        if($fileTypeId == 1) $dir = PRODUCT_PATH;
-            elseif($fileTypeId == 2) $dir = USER_PATH;
-	        elseif($fileTypeId == 3) $dir = CUSTOMER_PATH;
-            elseif($fileTypeId == 4) $dir = SLIDER_PATH;
-            elseif($fileTypeId == 5) $dir = CONFIG_PATH;
-            elseif($fileTypeId == 6) $dir = SERVICE_PATH;
-            elseif($fileTypeId == 7) $dir = BUSINESS_PROFILE_PATH; 
-            elseif($fileTypeId == 8) $dir = COUPONS_PATH;
-            elseif($fileTypeId == 9) $dir = EVENTS_PATH;
-	       
-            if(!empty($dir)){
+            if ($fileTypeId == 1) $dir = PRODUCT_PATH;
+            elseif ($fileTypeId == 2) $dir = USER_PATH;
+            elseif ($fileTypeId == 3) $dir = CUSTOMER_PATH;
+            elseif ($fileTypeId == 4) $dir = SLIDER_PATH;
+            elseif ($fileTypeId == 5) $dir = CONFIG_PATH;
+            elseif ($fileTypeId == 6) $dir = SERVICE_PATH;
+            elseif ($fileTypeId == 7) $dir = BUSINESS_PROFILE_PATH;
+            elseif ($fileTypeId == 8) $dir = COUPONS_PATH;
+            elseif ($fileTypeId == 9) $dir = EVENTS_PATH;
+
+            if (!empty($dir)) {
                 $dir = $dir . date('Y-m-d') . '/';
                 @mkdir($dir, 0777, true);
-                @system("/bin/chown -R nginx:nginx ".$dir);
-                if($fileExt == 'png') $fileBase64 = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $fileBase64));
+                @system("/bin/chown -R nginx:nginx " . $dir);
+                if ($fileExt == 'png') $fileBase64 = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $fileBase64));
                 else $fileBase64 = base64_decode(preg_replace('#^data:application/\w+;base64,#i', '', $fileBase64));
                 $filePath = $dir . uniqid() . '.' . $fileExt;
                 $flag = file_put_contents($filePath, $fileBase64);
-                if($flag !== false) {
+                if ($flag !== false) {
                     return $filePath;
                 }
             }
-            
         }
         return "";
     }
 
-    public function getLanguageFE() {
+    public function getLanguageFE()
+    {
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
@@ -255,53 +270,53 @@ abstract class MY_Controller extends CI_Controller {
     public function getNotificationLists($searchData = array(), $perPage = 50, $page = 0)
     {
         $this->loadModel(array('Mbusinessprofiles', 'Mcustomernotifications', 'Mcustomers', 'Mcustomerreservations', 'Mcustomerreviews'));
-        
+
         $lists = $this->Mcustomernotifications->search($searchData, $perPage, $page);
-      
+
         if (!empty($lists)) {
-            foreach($lists as $i => $notificationInfo){
-            
+            foreach ($lists as $i => $notificationInfo) {
+
                 $notificationText = "";
                 $notificationImg = CUSTOMER_PATH . NO_IMAGE;
-                if($notificationInfo['notification_type'] == 0){
-                   //busines has review
-                   $customerImg = $this->Mcustomers->getFieldValue(array('id' =>  $notificationInfo['customer_id']), 'customer_avatar', '');
-                   if(!empty($customerImg)){
-                    $notificationImg = CUSTOMER_PATH . $customerImg;
-                   }
-                   $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
-                   $notificationText = $businessName." had just a review";
-                }else if($notificationInfo['notification_type'] == 1){
+                if ($notificationInfo['notification_type'] == 0) {
+                    //busines has review
+                    $customerImg = $this->Mcustomers->getFieldValue(array('id' =>  $notificationInfo['customer_id']), 'customer_avatar', '');
+                    if (!empty($customerImg)) {
+                        $notificationImg = CUSTOMER_PATH . $customerImg;
+                    }
+                    $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
+                    $notificationText = $businessName . " had just a review";
+                } else if ($notificationInfo['notification_type'] == 1) {
                     // business reply customer review
                     $businessImg = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_avatar', '');
-                    if(!empty($businessImg)){
+                    if (!empty($businessImg)) {
                         $notificationImg = BUSINESS_PROFILE_PATH . $businessImg;
                     }
                     $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
-                    $notificationText = $businessName." replied to your comment";
-                }else if($notificationInfo['notification_type'] == 2){
-                }else if($notificationInfo['notification_type'] == 3){
-                }else if($notificationInfo['notification_type'] == 4){
+                    $notificationText = $businessName . " replied to your comment";
+                } else if ($notificationInfo['notification_type'] == 2) {
+                } else if ($notificationInfo['notification_type'] == 3) {
+                } else if ($notificationInfo['notification_type'] == 4) {
                     // customer cancel reservation
                     $customerImg = $this->Mcustomers->getFieldValue(array('id' =>  $notificationInfo['customer_id']), 'customer_avatar', '');
-                    if(!empty($customerImg)){
+                    if (!empty($customerImg)) {
                         $notificationImg = CUSTOMER_PATH . $customerImg;
                     }
                     $reservationCode = $this->Mcustomerreservations->getFieldValue(array('id' => $notificationInfo['item_id']), 'book_code', '');
-                    $notificationText = "Reservation ".$reservationCode." has been cancelled";
-                }else if($notificationInfo['notification_type'] == 5){
-                }else if($notificationInfo['notification_type'] == 6){
-                }else if($notificationInfo['notification_type'] == 7){
+                    $notificationText = "Reservation " . $reservationCode . " has been cancelled";
+                } else if ($notificationInfo['notification_type'] == 5) {
+                } else if ($notificationInfo['notification_type'] == 6) {
+                } else if ($notificationInfo['notification_type'] == 7) {
                     // business decline reservation
                     $businessImg = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_avatar', '');
-                    if(!empty($businessImg)){
+                    if (!empty($businessImg)) {
                         $notificationImg = BUSINESS_PROFILE_PATH . $businessImg;
                     }
                     $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_name', '');
                     $reservationCode = $this->Mcustomerreservations->getFieldValue(array('id' => $notificationInfo['item_id']), 'book_code', '');
-                    $notificationText = "Reservation ".$reservationCode." at ".$businessName." has been declined";
+                    $notificationText = "Reservation " . $reservationCode . " at " . $businessName . " has been declined";
                 }
-                    
+
                 $lists[$i]['text'] = $notificationText;
                 $lists[$i]['image'] = $notificationImg;
             }
@@ -309,10 +324,11 @@ abstract class MY_Controller extends CI_Controller {
         return $lists;
     }
 
-    public function getBusinessRating($businessProfileId = 0){
+    public function getBusinessRating($businessProfileId = 0)
+    {
         $data = array();
 
-        if($businessProfileId > 0){
+        if ($businessProfileId > 0) {
             $this->load->model('Mcustomerreviews');
             $data['count_one_star'] = $this->Mcustomerreviews->getCount(array(
                 'customer_review_status_id' => STATUS_ACTIVED,
@@ -351,7 +367,164 @@ abstract class MY_Controller extends CI_Controller {
                 $data['overall_rating'] = ($data['count_one_star'] * 1 + $data['count_two_star'] * 2 + $data['count_three_star'] * 3 + $data['count_four_star'] * 4 + $data['count_five_star'] * 5) / ($data['count_one_star'] + $data['count_two_star'] + $data['count_three_star'] + $data['count_four_star'] + $data['count_five_star']);
             }
         }
-        
+
         return $data;
+    }
+
+    public function formatDate($startDate = '', $endDate = '')
+    {
+        $startDate = date('Y-m-d H:i', strtotime($startDate));
+        if (empty($endDate)) $endDate = date('Y-m-d H:i');
+
+        $diff = abs(strtotime(date('Y-m-d',  strtotime($startDate))) - strtotime(date('Y-m-d',  strtotime($endDate))));
+
+        //Tính ra tông số ngày của 2 khoản thời gian
+        $interval = date_diff(date_create(date('Y-m-d', strtotime($startDate))), date_create(date('Y-m-d', strtotime($endDate))))->format('%a %d %R %y');
+
+        $parts = explode(' ', $interval);
+
+        // Lấy ra tổng số ngày
+        $totalDays = intval($parts[0]);
+        $beforeOrAfter = $parts[2];
+
+        // Tính ra ngày tháng năm
+
+        $years = floor($diff / (365 * 60 * 60 * 24));
+        $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+        $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+        $hours = strtotime(date('H:i', strtotime($startDate))); // Giờ
+        $showTime = '';
+        //Nếu >= 365 lấy ra năm
+        if ($totalDays >= 365) {
+            //Nếu  Delta X >= 15 >> M = M + 1 Lên tháng
+            if ($days >= 15) {
+                $months += 1;
+            }
+
+            if ($beforeOrAfter == '-' && intval($parts[1]) == 1) {
+                $showTime = "Ngày mai, ";
+            } else if ($beforeOrAfter == '+' && intval($parts[1]) == 1) {
+                $showTime = "Hôm qua, ";
+            } else if ($beforeOrAfter == '-' && intval($parts[1]) == 2) {
+                $showTime = "Ngày kia, ";
+            } else if ($beforeOrAfter == '+' && intval($parts[1]) == 2) {
+                $showTime = "Hôm kia, ";
+            } else if (($beforeOrAfter == '+' || $beforeOrAfter == '-') && intval($parts[1]) == 0) {
+                $showTime = "Hôm nay, ";
+            }
+
+            if (in_array($months, [1, 2])) {
+                $showTime .= 'Hơn ' . $years . ' năm';
+            } else if (in_array($months, [3, 4, 8, 9])) {
+                $showTime .= $years . ' năm ' . $months . ' tháng';
+            } else if ($months == 5) {
+                $showTime .= 'Gần ' . $years . ' năm rưỡi';
+            } else if ($months == 6) {
+                $showTime .= $years . ' năm rưỡi';
+            } else if ($months == 7) {
+                $showTime .= 'Hơn ' . $years . ' năm rưỡi';
+            } else if (in_array($months, [10, 11])) {
+                $showTime .= 'Gần ' . ($years + 1) . ' năm';
+            } else if ($months == 0) {
+                $showTime .= $years . ' năm';
+            } else if ($months == 12) {
+                $showTime .= ($years + 1) . ' năm';
+            }
+
+            $showTime .= $this->dateBeforeOrAgain($beforeOrAfter);
+        } else if ($totalDays >= 30) {
+            if ($days >= 1 && $days <= 10) {
+                $showTime = 'Hơn ' . $months . ' tháng';
+            } else if (in_array($days, [11, 12])) {
+                $showTime = 'Gần ' . $months . ' tháng rưỡi';
+            } else if ($days >= 13 && $days <= 17) {
+                $showTime = $months . ' tháng rưỡi';
+            } else if (in_array($days, [18, 19])) {
+                $showTime = 'Hơn ' . $months . ' tháng rưỡi';
+            } else if ($days >= 20 && $days <= 29) {
+                $showTime = 'Gần ' . ($months + 1) . ' tháng';
+            }
+            $showTime .= $this->dateBeforeOrAgain($beforeOrAfter);
+        } else if ($totalDays >= 1) {
+            //Nếu >= 1 lấy ra ngày
+            if ($days == 1) {
+                $showTime = $this->dateDiff($hours, $beforeOrAfter, $days);
+            } else if ($days == 2) {
+                $showTime = $this->dateDiff($hours, $beforeOrAfter, $days);
+            } else if ($days >= 3 && $days <= 6) {
+                $showTime = $days . ' ngày';
+            } else if ($days == 7) {
+                $showTime = '1 tuần';
+            } else if ($days >= 8 && $days <= 11) {
+                $showTime = $days . ' ngày';
+            } else if (in_array($days, [12, 13])) {
+                $showTime = 'Gần 2 tuần';
+            } else if ($days == 14) {
+                $showTime = '2 tuần';
+            } else if (in_array($days, [15, 16, 17])) {
+                $showTime = 'Hơn nữa tháng';
+            } else if (in_array($days, [18, 19, 20])) {
+                $showTime = 'Gần 3 tuần';
+            } else if ($days == 21) {
+                $showTime = '3 tuần';
+            } else if (in_array($days, [22, 23, 24])) {
+                $showTime = 'Hơn 3 tuần';
+            } else if ($days >= 25 && $days <= 29) {
+                $showTime = 'Gần 1 tháng';
+            }
+
+            if (!in_array($days, [0, 1, 2])) {
+                $showTime .= $this->dateBeforeOrAgain($beforeOrAfter);
+            }
+        } else if ($totalDays == 0) {
+            $showTime .= $this->dateDiff($hours, $beforeOrAfter, $days);
+        }
+        return $showTime;
+        // echo json_encode(array('code' => 1, 'data' => $showTime));
+    }
+
+    public function dateBeforeOrAgain($beforeOrAfter = '')
+    {
+        $text = '';
+        if ($beforeOrAfter == '-') {
+            $text = ' nữa';
+        } else if ($beforeOrAfter == '+') {
+            $text = ' trước';
+        }
+        return $text;
+    }
+
+    public function dateDiff($time = 0, $beforeOrAfter = '', $days = 0){
+        $dayTime = '';
+        if ($time > strtotime("00:00") && $time < strtotime("11:00")) {
+            $dayTime = 'Sáng ';
+        } else if ($time >= strtotime("11:00") && $time < strtotime("13:30")) {
+            $dayTime = 'Trưa ';
+        } else if ($time >= strtotime("13:30") && $time < strtotime("17:30")) {
+            $dayTime = 'Chiều ';
+        } else if ($time >= strtotime("17:30") && $time < strtotime("24:00")) {
+            $dayTime = 'Tối ';
+        }
+
+        /**
+         * + là tương lai
+         * - là quá khứ
+         */
+
+        if ($beforeOrAfter == '-' && $days == 1) {
+            $dayTime .= "ngày mai";
+        } else if ($beforeOrAfter == '+' && $days == 1) {
+            $dayTime .= "hôm qua";
+        } else if ($beforeOrAfter == '-' && $days == 2) {
+            $dayTime .= "ngày kia";
+        } else if ($beforeOrAfter == '+' && $days == 2) {
+            $dayTime .= "hôm kia";
+        } else if (($beforeOrAfter == '+' || $beforeOrAfter == '-') && $days == 0) {
+            $dayTime .= "hôm nay";
+        }
+
+
+        return $dayTime;
     }
 }

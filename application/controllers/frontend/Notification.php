@@ -30,8 +30,36 @@ class Notification extends MY_Controller
             'order_by' => $order_by
         );
         
-        $data['lists'] = $this->getNotificationLists($searchData, 50, 1);
+        $data['lists'] = $this->getNotificationLists($searchData, DEFAULT_LIMIT_NOTIFICATION, 1);
 
         $this->load->view('frontend/notification/customer-notification', $data);
+    }
+
+    public function loadMore(){
+        $postData = $this->arrayFromPost(array('customer_id', 'page'));
+
+        $postData['page'] = $postData['page'] + 1;
+        $searchData = array(
+            'customer_id' => $postData['customer_id']
+        );
+        
+        $lists = $this->getNotificationLists($searchData, DEFAULT_LIMIT_NOTIFICATION, $postData['page']);
+
+        $notiHtml = "";
+        foreach($lists as $itemNoti){
+            $new = '';
+            if ($itemNoti['notification_status_id'] == STATUS_ACTIVED) {
+                $new = '<img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge" />';
+            }
+            $date = ddMMyyyy($itemNoti['created_at'], 'Y-m-d H:i');
+            $notiHtml .= '<div class="notification-item">'.$new.'<div class="notification-img"><img src="'.$itemNoti['image'].'" alt="notification image" class="img-fluid"> </div> <div class="notification-body"> <p>'.$itemNoti['text'].'</p><span class="notification-date">'.$date.'</span></div></div>';
+        }
+        if(!empty($notiHtml)){
+            $nextPage = $postData['page'];
+        }else{
+            $nextPage = 0;
+        }
+        
+        echo json_encode(array('data' => $notiHtml, 'nextPage' => $nextPage));
     }
 }

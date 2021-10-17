@@ -249,6 +249,8 @@ $route['reservation/get-avail-time'] = 'frontend/reservationconfig/getListTime';
 $route['reservation/customer-cancel-reservation'] = 'frontend/reservation/customerCancelReservation';
 $route['reservation/business-decline-reservation'] = 'frontend/reservation/businessDeclineReservation';
 
+$route['notification/load-more-notification'] = 'frontend/notification/loadMore';
+
 
 $route['business-management/create-coupon'] = 'frontend/coupon/update';
 $route['business-management/create-event'] = 'frontend/event/update';
