@@ -27,8 +27,7 @@
                       </div>
                     </div>
                     <div class="form-group mb-3">
-                      <label for="profileNewPassword" class="form-label">New
-                        Password<span class="required text-danger">*</span></label>
+                      <label for="profileNewPassword" class="form-label">New Password<span class="required text-danger">*</span></label>
                       <div class="position-relative">
                         <input type="password" class="form-control form-control-lg" id="profileNewPassword" name="new_password" required >
                         <img src="assets/img/frontend/ic-eye.png" alt="icon-show-pass" class="input-eye">
