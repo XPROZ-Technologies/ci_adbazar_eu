@@ -35,9 +35,21 @@ abstract class MY_Controller extends CI_Controller
         $data['menuServices'] = $this->Mservices->getServiceMenus($language_id);
         $data['language_id'] =  $language_id;
         $this->load->model('Mcustomernotifications');
+        
+
+        $readNoti = $this->input->get('readNoti');
+        if(!empty($readNoti) && $readNoti > 0){
+            $this->Mcustomernotifications->save(
+                array(
+                    'notification_status_id' => 1
+                ),
+                $readNoti
+            );
+        }
+
         $data['notiBadge'] = $this->Mcustomernotifications->getCount(array('customer_id' => $data['customer']['id'], 'notification_status_id' => STATUS_ACTIVED));
         $data['notiHeader'] = $this->getNotificationLists(array('customer_id' => $data['customer']['id']), 5, 1);
-
+        
         return $data;
     }
 
@@ -327,7 +339,11 @@ abstract class MY_Controller extends CI_Controller
 
                 $lists[$i]['text'] = $notificationText;
                 $lists[$i]['image'] = $notificationImg;
-                $lists[$i]['url'] = $notificationUrl;
+                $readNoti = '';
+                if($lists[$i]['notification_status_id'] == STATUS_ACTIVED){
+                    $readNoti = '?readNoti='.$lists[$i]['id'];
+                }
+                $lists[$i]['url'] = $notificationUrl.$readNoti;
             }
         }
         return $lists;

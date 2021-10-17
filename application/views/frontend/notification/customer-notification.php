@@ -51,7 +51,7 @@
                   <div class="notification-list">
                     <!-- notification item -->
                     <?php foreach ($lists as $itemNoti) { ?>
-                      <div class="notification-item">
+                      <div class="notification-item" onclick="window.location.href='<?php echo $itemNoti['url']; ?>'">
                         <?php if ($itemNoti['notification_status_id'] == STATUS_ACTIVED) { ?>
                           <img src="assets/img/frontend/icon-new-badge.png" alt="icon-new-badge" class="notification-badge" />
                         <?php } ?>

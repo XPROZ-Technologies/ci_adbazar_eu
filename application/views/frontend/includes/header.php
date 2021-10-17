@@ -66,10 +66,12 @@
                       <?php if(isset($notiHeader) && !empty($notiHeader)){ ?>
                         
                         <!-- noti item -->
-                          <?php foreach($notiHeader as $noti){ ?>
+                          <?php 
+                            foreach($notiHeader as $noti){  
+                          ?>
                             <a href="<?php echo $noti['url']; ?>" class="notify-item">
                               <div class="notify-img">
-                                <img src="<?php echo $noti['image']; ?>" alt="notification img" class="img-fluid">
+                                <img src="<?php echo $noti['image']; ?>; ?>" alt="notification img" class="img-fluid">
                               </div>
                               <div class="notify-body">
                                 <p><?php echo $noti['text']; ?></p>
