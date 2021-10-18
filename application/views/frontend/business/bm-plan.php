@@ -117,8 +117,12 @@
                     <div class="d-flex align-items-center">
                         <a data-isTrial="false"
                            class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-select-plan"><?php echo $this->lang->line('start_3-month_free_trial'); ?></a>
-                        <a data-isTrial="true"
-                           class="btn btn-outline-red btn-outline-red-md btn-no-trail btn-select-plan"><?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?></a>
+                        <!-- <a data-isTrial="true"  class="btn btn-outline-red btn-outline-red-md btn-no-trail btn-select-plan">
+                          <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
+                        </a> -->
+                        <a data-isTrial="true" href="<?php echo base_url('business-profile/create-new-business?plan=1&isTrial=true&tokenDraft='.uniqid(strtotime(date('Ymd H:i:s')))); ?>" class="btn btn-outline-red btn-outline-red-md btn-no-trail">
+                          <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
+                        </a>
                     </div>
                   <p class="text-danger text-center page-text-sm align-items-center fw-500">
                     You won’t be charged anything until your free trial ends. </p>

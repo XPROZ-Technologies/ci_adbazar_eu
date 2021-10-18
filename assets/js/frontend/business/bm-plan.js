@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $("body").on("click", ".btn-select-plan", function () {
         var select_plan = $('input[name=bm-plan]:checked').val();
-        if (select_plan === "1" || select_plan === "2") {
+        if (select_plan === "1" ) { //|| select_plan === "2"
             $(".notiPopup").fadeOut(4000);
             $('#businessPlan').val(select_plan);
             $('#formSelectPlan').submit();

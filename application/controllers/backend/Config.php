@@ -66,6 +66,22 @@ class Config extends MY_Controller{
 		else $this->load->view('backend/user/permission', $data);
 	}
 
+    public function video(){
+		$user = $this->checkUserLogin();
+        $configAbountUs = $this->rsession->get('config_about_us');
+		$data = $this->commonData($user,
+			'Video',
+			array('scriptFooter' => array('js' => array('js/backend/config/config.js')))
+		);
+		if($this->Mactions->checkAccess($data['listActions'], 'config/policy')) {
+			$this->loadModel(array('Mconfigs'));
+			$data['listConfigs'] = $this->Mconfigs->getListMap(1, $configAbountUs['language_id']);
+            $data['configAbountUs'] = $configAbountUs;
+			$this->load->view('backend/config/video', $data);
+		}
+		else $this->load->view('backend/user/permission', $data);
+	}
+
     public function changeLanguageAbount() {
         $languageId = $this->input->post('language_id');
         $language = 'english';
