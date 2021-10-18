@@ -941,7 +941,7 @@ class Businessprofile extends MY_Controller
                     $itemHours = $open_hours[$day_id];
                     $itemDay = array();
                     $itemDay['day_id'] = $day_id;
-                    if (isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on') {
+                    if (isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on' && !empty($itemHours['start_time']) && !empty($itemHours['end_time'])) {
                         $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
                     } else {
                         $itemDay['opening_hours_status_id'] = 1;
@@ -1059,7 +1059,7 @@ class Businessprofile extends MY_Controller
                     $itemHours = $open_hours[$day_id];
                     $itemDay = array();
                     $itemDay['day_id'] = $day_id;
-                    if (isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on') {
+                    if (isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on' && !empty($itemHours['start_time']) && !empty($itemHours['start_time'])) {
                         $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
                     } else {
                         $itemDay['opening_hours_status_id'] = 1;
