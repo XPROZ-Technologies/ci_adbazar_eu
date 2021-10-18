@@ -93,6 +93,8 @@ class Home extends MY_Controller {
                 $data['listServices'][] = $itemService;
             }
         }
+
+        $data['home_video'] = $this->Mconfigs->getConfigValueByLang('VIDEO_URL', $data['language_id']);
        
         /**
          * END. Business profile on Map
