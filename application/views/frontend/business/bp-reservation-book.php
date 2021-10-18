@@ -118,7 +118,7 @@
     </div>
   </div>
 </main>
-<input type="hidden" id="maxPerReservation" value="<?php if(isset($configTimes['max_per_reservation'])) { echo $configTimes['max_per_reservation']; }else{ echo "100"; } ?>" />
+<input type="hidden" id="maxPerReservation" value="<?php if(isset($configTimes['max_per_reservation'])) { echo $configTimes['max_per_reservation']; }else{ echo "0"; } ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
 
 <script>
@@ -148,14 +148,13 @@
       var maxPerReservation = $("#maxPerReservation").val();
       //console.log(number_of_people + '____' + maxPerReservation);
       
-      /*
-      if (number_of_people > maxPerReservation) {
+      
+      if (parseInt(number_of_people) > parseInt(maxPerReservation) && parseInt(maxPerReservation) > 0) {
         $(".notiPopup .text-secondary").html("Maximum of people is: " + maxPerReservation);
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(5000);
         return false;
       }
-      */
 
       if (selectedDay == 0 || selectedDay == "") {
         $(".notiPopup .text-secondary").html("Please select a day");
@@ -243,6 +242,7 @@
             $("#timeArrived").html(data.data);
             $(".custom-select").niceSelect('update');
           } else {
+            $("#timeArrived").html('<option value="0"><?php echo $this->lang->line('select_a_time'); ?></option>');
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-error").removeClass('ico-hidden');
             $(".notiPopup").fadeIn('slow').fadeOut(4000);
