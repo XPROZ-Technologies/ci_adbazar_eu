@@ -42,6 +42,12 @@ class Event extends MY_Controller {
             'selected_date' => $selected_date,
             'joined_events' => $joinedEvents
         );
+        $currentDay = strtotime(date('Y-m-d'));
+        $selectDay = strtotime($selected_date);
+        $data['inPast'] = false;
+        if($selectDay < $currentDay){
+            $data['inPast'] = true;
+        }
         $rowCount = $this->Mevents->getCount($getData);
         $data['lists'] = array();
         
