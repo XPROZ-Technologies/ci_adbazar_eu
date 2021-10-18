@@ -26,7 +26,7 @@ class Event extends MY_Controller {
 
         //$data['services'] = $this->Mservices->getHighlightListByLang($data['language_id']);
         $selected_date = $this->input->get('selected_date');
-        
+        $data['selected_date'] = $selected_date;
         $per_page = $this->input->get('per_page');
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
