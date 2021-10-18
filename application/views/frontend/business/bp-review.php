@@ -97,9 +97,17 @@
 
                 <div class="col-review">
                   <div class="d-flex justify-content-lg-end">
-                    <a href="javascript:void(0)" class="review-btn btn btn-red" data-bs-target="#leaveReview" data-bs-toggle="modal">
-                      <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
-                      <?php echo $this->lang->line('leave_a_review'); ?></a>
+                    <?php if(isset($customer['id']) && $customer['id'] > 0){ ?>
+                      <a href="javascript:void(0)" class="review-btn btn btn-red" data-bs-target="#leaveReview" data-bs-toggle="modal">
+                        <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
+                        <?php echo $this->lang->line('leave_a_review'); ?>
+                      </a>
+                    <?php }else{ ?>
+                      <a href="<?php echo base_url('login.html?requiredLogin=1&redirectUrl='.current_url()) ?>" class="review-btn btn btn-red" >
+                        <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
+                        <?php echo $this->lang->line('leave_a_review'); ?>
+                      </a>
+                    <?php } ?>
                   </div>
                 </div>
               </div>
