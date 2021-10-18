@@ -32,21 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box box-default padding15">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Content video</h3>
-                        </div>
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Video Url <span class="required">*</span></label>
-                                        <input type="text" class="form-control hmdrequired" name="VIDEO_URL" value="<?php echo $listConfigs['VIDEO_URL']; ?>" data-field="Video Url">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="box box-default padding15">
                         <div class="box-header with-border">
                             <h3 class="box-title">Icon map</h3>
@@ -115,7 +101,7 @@
                         <div class="box-body">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label class="control-label">Phone number <span class="required">*</span></label>
+                                    <label class="control-label">Admin Email <span class="required">*</span></label>
                                     <input type="text" class="form-control" name="NOTIFICATION_EMAIL_ADMIN" value="<?php echo $listConfigs['NOTIFICATION_EMAIL_ADMIN']; ?>" data-field="Phone number">
                                 </div>
                             </div>
