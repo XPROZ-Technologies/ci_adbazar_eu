@@ -113,7 +113,7 @@
               </div>
 
               <div class="bp-comment">
-                <h4 class="page-title-rv">Reviews (<?php echo $rowCount; ?>)</h4>
+                <h4 class="page-title-rv"><?php echo $this->lang->line('reviews'); ?> (<?php echo $rowCount; ?>)</h4>
                 <div class="bp-inner-content">
                   <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                     <div class="d-flex align-items-center inner-filter">
