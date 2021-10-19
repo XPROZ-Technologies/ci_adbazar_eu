@@ -280,8 +280,7 @@
       var formatDay = moment(formatedValue).format('YYYY-MM-DD');
       redirect(false, 'customer/my-reservation?selected_day=' + formatDay);
     });
-  });
-
+ 
     $('#selecteDate').on('dp.change', function(e) {
       var formatedValue = e.date.format(e.date._f);
       var formatDay = moment(formatedValue).format('YYYY-MM-DD');
