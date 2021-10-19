@@ -135,7 +135,7 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                 
                 var listProfilesMap = json.listProfilesMap;
 
-//var infowindow = null;
+var infowindow = null;
 jQuery(function() {
         var StartLatLng = new google.maps.LatLng(50.047648687939635, 12.355822100555436);
         var mapOptions = {
@@ -148,66 +148,64 @@ jQuery(function() {
     
         
     jQuery.each( listProfilesMap, function(i, item) {
-
-        var infowindow = new google.maps.InfoWindow({
+        infowindow = new google.maps.InfoWindow({
             content: ''
         });
-
         item.servicetypes = '';
         item.linkInfo = '';
         item.evaluateInfo = 10;
         var starInfo = 5;
-                    
 
-                        var rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                            `;
-                        // starInfo lấy trong db ra, hiện tại chưa làm
-                        if (starInfo == 1) {
-                            rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                `;
-                        } else if (starInfo == 2) {
-                            rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                `;
-                        } else if (starInfo == 3) {
-                            rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                `;
-                        } else if (starInfo == 4) {
-                            rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                `;
-                        } else if (starInfo == 5) {
-                            rank = `
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            `;
-                        }
+        var rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+            `;
+        // starInfo lấy trong db ra, hiện tại chưa làm
+        if (starInfo == 1) {
+            rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                `;
+        } else if (starInfo == 2) {
+            rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                `;
+        } else if (starInfo == 3) {
+            rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                `;
+        } else if (starInfo == 4) {
+            rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                `;
+        } else if (starInfo == 5) {
+            rank = `
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            `;
+        }
+
         var open_status = '<a href="javascript:void(0);" class="customer-location-close">Closed</a>';
         if (item.isOpen == true) {
             open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
@@ -249,10 +247,12 @@ jQuery(function() {
             map: map,
             icon: iconMap,
         });
-        if(parseInt(service_id) != 0 || search_text_fe != ""){
-            infowindow.setContent(infoMap);
-            infowindow.open(map,marker);
-        }
+        infowindow.setContent(infoMap);
+        infowindow.open(map,marker);
+        // if(parseInt(service_id) != 0 || search_text_fe != ""){
+        //     infowindow.setContent(infoMap);
+        //     infowindow.open(map,marker);
+        // }
         
         //console.log(item)
         google.maps.event.addListener(marker, 'click', function() {
@@ -261,12 +261,12 @@ jQuery(function() {
             infowindow.open(map,marker);
         });
 
-        /*
+        
         // show map, open infoBox 
         google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
             infowindow.open(map, marker);
         });
-        */
+        
     });
 });
                 
