@@ -21,26 +21,36 @@
                       <input class="form-control w-100" type="text" placeholder="Search" aria-label="Search">
                     </form>
 
-                    <div class="notification-wrapper-filter d-flex align-items-center justify-content-between">
+                    <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                       <div class="d-flex align-items-center inner-filter">
-                        <span class="me-2 page-text-lg"><?php echo $this->lang->line('filter_by'); ?></span>
+
+                        <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('status'); ?></span>
                         <div class="notification-filter">
-                          <div class="custom-select">
+                          <div class="custom-select choose-reser-status">
                             <select>
-                              <option value="0" selected>All</option>
-                              <option value="1">Personal</option>
-                              <option value="2">The Rice Bowl</option>
-                              <option value="3">Inspire Beauty Salon</option>
+                              <option value="0"><?php echo $this->lang->line('1310_all'); ?></option>
+                              <option value="2" <?php if (isset($type) && $type == '2') {
+                                                  echo 'selected="selected"';
+                                                } ?>><?php echo $this->lang->line('approved'); ?></option>
+                              <option value="3" <?php if (isset($type) && $type == '3') {
+                                                  echo 'selected="selected"';
+                                                } ?>><?php echo $this->lang->line('declined'); ?></option>
+                              <option value="1" <?php if (isset($type) && $type == '1') {
+                                                  echo 'selected="selected"';
+                                                } ?>><?php echo $this->lang->line('expired'); ?></option>
                             </select>
                           </div>
                         </div>
+
                       </div>
                       <div class="d-flex align-items-center notification-sort">
                         <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
-                        <div class="custom-select mb-0">
+                        <div class="custom-select mb-0 choose-order">
                           <select>
-                            <option value="0" selected><?php echo $this->lang->line('1310_newest'); ?></option>
-                            <option value="1"><?php echo $this->lang->line('1310_oldest'); ?></option>
+                            <option value="desc" selected><?php echo $this->lang->line('1310_newest'); ?></option>
+                            <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
+                                                  echo 'selected="selected"';
+                                                } ?>><?php echo $this->lang->line('1310_oldest'); ?></option>
                           </select>
                         </div>
                       </div>

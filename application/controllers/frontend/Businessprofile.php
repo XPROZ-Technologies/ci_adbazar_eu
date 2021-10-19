@@ -1984,7 +1984,9 @@ class Businessprofile extends MY_Controller
 
         $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
 
-        
+        foreach($data['lists'] as $k => $item){
+            $data['lists'][$k]['customer_name'] = $this->Mcustomers->getFieldValue((array('id' => $item['customer_id'])), 'customer_first_name', '');
+        }
 
         $this->load->view('frontend/business/bm-reservation', $data);
     }
