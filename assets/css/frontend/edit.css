@@ -1526,6 +1526,7 @@ input[type=number] {
 .bp-review .comment-img{
     text-align: center;
     margin-right: 32px;
+    padding-top: 0;
 }
 
 .posting .posting-box{
@@ -2330,9 +2331,9 @@ line-height: 23px;
     padding-right: 20px;
 }
 .bp-review .comment-item {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     background-color: #F5F5F5;
-    padding: 10px 16px;
+    padding: 16px;
     border-radius: 5px;
 }
 .list-comment {
