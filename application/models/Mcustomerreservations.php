@@ -34,9 +34,11 @@ class Mcustomerreservations extends MY_Model {
         $query = '';
         
         if(isset($postData['book_status_id']) && $postData['book_status_id'] != '') {
-            if($postData['book_status_id'] != 1){
+            if($postData['book_status_id'] == STATUS_ACTIVED){
+                $query.=" AND (book_status_id = ".$postData['book_status_id']." AND DATE(`date_arrived`) >= '".date('Y-m-d')."')";
+            }else if($postData['book_status_id'] != 1){
                 $query.=" AND book_status_id = ".$postData['book_status_id'];
-            }else{
+            }else if($postData['book_status_id'] == 1){
                 $query.=" AND (book_status_id = ".$postData['book_status_id']." || DATE(`date_arrived`) < '".date('Y-m-d')."')";
             }
             
