@@ -202,8 +202,8 @@
           <div class="d-flex align-items-center navbar-right">
             <?php if (isset($customer) && $customer['is_logged_in'] == 0) { ?>
               <div class="d-flex btn-user">
-                <a href="<?php echo base_url('signup.html'); ?>" title="" class="btn btn-outline-red btn-register"><?php echo $this->lang->line('sign_up'); ?></a>
-                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login"><?php echo $this->lang->line('sign_in'); ?></a>
+                <a href="<?php echo base_url('signup.html'); ?>" title="" class="btn btn-outline-red btn-register l<?php echo $language_id; ?>"><?php echo $this->lang->line('sign_up'); ?></a>
+                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login l<?php echo $language_id; ?>"><?php echo $this->lang->line('sign_in'); ?></a>
               </div>
             <?php } ?>
             <!-- Languages -->
