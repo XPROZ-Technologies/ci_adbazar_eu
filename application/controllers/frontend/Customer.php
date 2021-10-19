@@ -30,6 +30,12 @@ class Customer extends MY_Controller
                 $customer = $this->Mcustomers->login($customerEmail, $customerPass);
 
                 if ($customer) {
+                    $this->Mcustomers->save(
+                        array('login_type_id' => 0),
+                        $customer['id']
+                    );
+
+                    $customer['login_type_id'] = 0;
 
                     $this->session->set_userdata('customer', $customer);
 
@@ -60,12 +66,12 @@ class Customer extends MY_Controller
                 } else {
                     $this->session->set_flashdata('notice_message', "Login failed");
                     $this->session->set_flashdata('notice_type', 'error');
-                    redirect(base_url('login.html?1'));
+                    redirect(base_url('login.html'));
                 }
             } else {
                 $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
                 $this->session->set_flashdata('notice_type', 'error');
-                redirect(base_url('login.html?2'));
+                redirect(base_url('login.html'));
             }
         } catch (Exception $e) {
             $this->session->set_flashdata('notice_message', $e->getMessage());
