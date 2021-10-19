@@ -2712,6 +2712,15 @@ span.switch-left {
     overflow-y: scroll;
     max-height: 300px;
 } 
+.drop-zone__thumb {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.page-business-manager .bm-plan .bm-plan-top .currency-wrap .d-flex.align-items-center.justify-content-center.switch-btn label.switch{
+    width: 64px;
+    height: 24px;
+}
 @media (min-width: 1366px){
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
         max-width: 1320px;
@@ -3058,50 +3067,50 @@ span.switch-left {
         color: #fff;
         background-color: #4B4B4B;
     }
-.offcanvas .offcanvas-body ul{
-    list-style-type: none;
-    width: 100%;
-    padding: 0;
-}
-.offcanvas .offcanvas-header .btn-close.text-reset{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
- .header-right-mobile{
-     display: flex;
-     align-items: center;
- }
- .header-notification ,
- .page-header .wrapper-btn {
-    width: 40px;
-    height: 40px;
- }
- .header-notification i {
-    font-size: 18px;
-}
-.header-notification .badge {
-    top: 6px;
-    right: 7px;
-}
- .page-header .wrapper-btn img {
-    max-width: 20px;
-}
+    .offcanvas .offcanvas-body ul{
+        list-style-type: none;
+        width: 100%;
+        padding: 0;
+    }
+    .offcanvas .offcanvas-header .btn-close.text-reset{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+    .header-right-mobile{
+        display: flex;
+        align-items: center;
+    }
+    .header-notification ,
+    .page-header .wrapper-btn {
+        width: 40px;
+        height: 40px;
+    }
+    .header-notification i {
+        font-size: 18px;
+    }
+    .header-notification .badge {
+        top: 6px;
+        right: 7px;
+    }
+    .page-header .wrapper-btn img {
+        max-width: 20px;
+    }
 
-.header-right-mobile .btn-outline-red {
-    /* padding: 0 8px; */
-    /* font-size: 16px; */
-}
-.header-right-mobile .navbar-toggler{
-    padding: 0;
-}
-.page-footer .list-social li:not(:last-child) {
-    margin-right: 18px;
-}
-.customer-service-item .card-title {
-    font-size: 18px;
-    line-height: 24px;
-}
+    .header-right-mobile .btn-outline-red {
+        /* padding: 0 8px; */
+        /* font-size: 16px; */
+    }
+    .header-right-mobile .navbar-toggler{
+        padding: 0;
+    }
+    .page-footer .list-social li:not(:last-child) {
+        margin-right: 18px;
+    }
+    .customer-service-item .card-title {
+        font-size: 18px;
+        line-height: 24px;
+    }
 }
 @media all and (max-width: 992px){
     .bm-create-content h3, .bm-create-content .h3 {

@@ -14,6 +14,17 @@
           <div class="col-lg-9">
             <div class="um-right">
               <div class="bp-reservation um-reservation">
+              <div class="w-275">
+                  <div class="reservation-select-date">
+                    <div class="form-group form-group-datepicker">
+                      <label for="selecteDate" class="form-label"><?php echo $this->lang->line('select_a_date'); ?></label>
+                      <div class="datepicker-wraper position-relative">
+                        <img src="assets/img/frontend/icon-calendar.png" alt="calendar icon" class="img-fluid icon-calendar" />
+                        <input type="text" class="form-control datetimepicker-input" id="selecteDate" data-toggle="datetimepicker" value="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="bp-reservation-inner um-reservation-inner">
                   <div class="bg-f5">
                     <form class="d-flex search-box">
@@ -219,3 +230,27 @@
   </div>
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
+<script>
+  $(document).ready(function() {
+    // change date 
+    var dateNow = new Date();
+    $("#selecteDate").datetimepicker({
+      defaultDate: dateNow,
+      //minDate: moment(),
+      format: "MMMM DD, YYYY",
+      allowInputToggle: true,
+      // inline: true,
+      // debug: true,
+      // allowMultidate: true,
+      // multidateSeparator: ',',
+      icons: {
+        time: "bi bi-clock",
+        date: "bi bi-calendar2-check-fillr",
+        up: "bi bi-chevron-up",
+        down: "bi bi-chevron-down",
+        previous: "bi bi-chevron-left",
+        next: "bi bi-chevron-right",
+      },
+    });
+  });
+</script>

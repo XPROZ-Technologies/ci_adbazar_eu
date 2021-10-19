@@ -1151,6 +1151,17 @@ font-size: 14px;
 .customer-location-img{
     text-align: center;
 }
+.switch-btn .switch-left{
+    left: 3px;
+    position: relative;
+} 
+.switch-btn .switch-right {
+    left: -3px;
+    position: relative;
+}
+.user-info-box .btn {
+    width: 100%!important;
+}
 @media (max-width: 1366px){
     .banner-about .banner-about-box span {
         font-size: 30px;
@@ -1171,7 +1182,7 @@ font-size: 14px;
     .banner-about .banner-about-box span {
         font-size: 26px;
         line-height: 30px;
-}
+    }
     .discover_more {
         padding: 8.5px 73.5px!important;
         width: calc(33.33% - 20px)!important;
@@ -1446,7 +1457,7 @@ font-size: 14px;
         margin-right: 4px;
     }
 }
-@media screen and (max-width: 375px){
+@media (max-width: 375px){
     .posting .slider .slick-slide a,
     .posting .slider .slick-slide img {
         height: 350px;
