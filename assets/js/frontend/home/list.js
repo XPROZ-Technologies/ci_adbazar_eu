@@ -99,6 +99,9 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                                     </div>
                                     <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                     ${isOpen}
+                                    <a href="javascript:void(0)">
+                                        <img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image">
+                                    </a>
                                     <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
                                 </div>
                             </div>
