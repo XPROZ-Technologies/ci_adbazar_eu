@@ -140,7 +140,11 @@
         ],
         dateClick: function(info) {
           //get date
-          redirect(false, '<?php echo base_url('events.html'); ?>?selected_date=' + info.dateStr);
+          var x = new Date();
+          var y = new Date(info.dateStr);
+          if(x < y){
+            redirect(false, '<?php echo base_url('events.html'); ?>?selected_date=' + info.dateStr);
+          }
         }
       });
       calendar.render();
