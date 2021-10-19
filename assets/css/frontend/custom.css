@@ -188,11 +188,17 @@ main{
     max-width: 900px;
 }
 .mystyle .fc-daygrid-day-number{
-    color: #fff;
+    /* color: #fff; */
 }
 .mystyle{
     background-color: #C20000!important;
 }
+.switch-btn .checkbox:not(:checked) ~ .switch {
+    border: 2px solid #c20000;
+}
+.ui-datepicker-calendar tr, .ui-datepicker-calendar td, .ui-datepicker-calendar td a, .ui-datepicker-calendar th{font-size:inherit;}
+div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
+.ui-datepicker-title span{font-size:10px;}
 @media (min-width: 1366px){
     .home-service .container-owl, .home-coupon .container-owl,
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
@@ -312,7 +318,7 @@ main{
 }
 .about-page{
     font-size: 16px;
-    line-height: 19px;
+    line-height: 23px;
     color: #000000;
     margin-top: 80px;
 }
@@ -1161,6 +1167,9 @@ font-size: 14px;
 }
 .user-info-box .btn {
     width: 100%!important;
+}
+.reservation-config .switch-btn .switch-left,.reservation-config  .switch-btn .switch-right{
+    top: 1px;
 }
 @media (max-width: 1366px){
     .banner-about .banner-about-box span {

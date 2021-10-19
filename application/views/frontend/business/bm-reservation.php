@@ -26,7 +26,7 @@
                       <span class="switch-left">Off</span>
                       <span class="switch-right">On</span>
                     </label>
-                    <p class="mb-0 switch-text fw-bold"><?php echo $this->lang->line('receive_reservations'); ?></p>
+                    <p class="mb-0 switch-text"><?php echo $this->lang->line('receive_reservations'); ?></p>
                   </div>
                   <button class="btn btn-red mr-24  reservation-setting" type="button" data-bs-toggle="modal" data-bs-target="#configModal"><img src="assets/img/frontend/ic-setting.png" alt="reservation-config"><?php echo $this->lang->line('reservation_setting'); ?></button>
                 </div>
@@ -245,32 +245,32 @@
             <input type="hidden" id="selecteDay" value="" />
             <input type="hidden" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="maxPeople" class="page-text-lg fw-500"><?php echo $this->lang->line('max_number_of_people_to_be_ser'); ?></label>
+              <p for="maxPeople" class="page-text-lg fw-500"><?php echo $this->lang->line('max_number_of_people_to_be_ser'); ?></p>
               <div class="wrapper-input">
                 <input type="number" id="maxPeople" class="form-control square-input required-input">
               </div>
             </div>
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="maxPerReservation" class="page-text-lg fw-500"><?php echo $this->lang->line('max_number_of_people_per_reser'); ?></label>
+              <p for="maxPerReservation" class="page-text-lg fw-500"><?php echo $this->lang->line('max_number_of_people_per_reser'); ?></p>
               <div class="wrapper-input">
                 <input type="number" id="maxPerReservation" class="form-control  square-input required-input">
               </div>
             </div>
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="duration" class="page-text-lg fw-500"><?php echo $this->lang->line('time_between_reservations'); ?></label>
+              <p for="duration" class="page-text-lg fw-500"><?php echo $this->lang->line('time_between_reservations'); ?></p>
               <div class="d-flex align-items-center wrapper-input">
                 <input type="text" id="duration" class="form-control  square-input required-input">
                 <span class="page-text-lg fw-500 ms-2"><?php echo $this->lang->line('minutes'); ?></span>
               </div>
             </div>
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="startTime" class="page-text-lg fw-500"><?php echo $this->lang->line('start_taking_reservation_at'); ?></label>
+              <p for="startTime" class="page-text-lg fw-500"><?php echo $this->lang->line('start_taking_reservation_at'); ?></p>
               <div class="timepicker-wraper wrapper-input time-content">
                 <input type="text" class="js-time-picker form-control datetimepicker-input required-input" id="startTime" data-toggle="datetimepicker" />
               </div>
             </div>
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between form-group mb-3 mb-lg-2">
-              <label for="endTime" class="page-text-lg fw-500"><?php echo $this->lang->line('closing_time'); ?></label>
+              <p for="endTime" class="page-text-lg fw-500"><?php echo $this->lang->line('closing_time'); ?></p>
               <div class="timepicker-wraper wrapper-input time-content">
                 <input type="text" class="js-time-picker form-control datetimepicker-input required-input" id="endTime" data-toggle="datetimepicker" />
               </div>
