@@ -1846,7 +1846,7 @@ class Businessprofile extends MY_Controller
         $pageCount = ceil($rowCount / $perPage);
         $page = $this->input->get('page');
         if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('business/' . $businessInfo['business_url'] . '/reviews');
+        $data['basePagingUrl'] = base_url('business-management/' . $businessInfo['business_url'] . '/reviews');
         $data['perPage'] = $perPage;
         $data['page'] = $page;
         $data['rowCount'] = $rowCount;

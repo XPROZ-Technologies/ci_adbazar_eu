@@ -23,11 +23,11 @@
                         <div class="star-rating on line relative">
                           <div class="star-base">
                             <div class="star-rate" data-rate="<?php echo $overall_rating; ?>"></div>
-                            <a dt-value="1" href="#1"></a>
-                            <a dt-value="2" href="#2"></a>
-                            <a dt-value="3" href="#3"></a>
-                            <a dt-value="4" href="#4"></a>
-                            <a dt-value="5" href="#5"></a>
+                            <a dt-value="1" href="javascript:void(0)"></a>
+                            <a dt-value="2" href="javascript:void(0)"></a>
+                            <a dt-value="3" href="javascript:void(0)"></a>
+                            <a dt-value="4" href="javascript:void(0)"></a>
+                            <a dt-value="5" href="javascript:void(0)"></a>
                           </div>
                         </div>
                       <?php } else { ?>
@@ -43,66 +43,66 @@
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="5"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_five_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=5'">(<?php echo $count_five_star; ?>)</span>
                   </div>
                   <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="4"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_four_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=4'">(<?php echo $count_four_star; ?>)</span>
                   </div>
                   <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="3"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_three_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=3'">(<?php echo $count_three_star; ?>)</span>
                   </div>
                   <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="2"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_two_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=2'">(<?php echo $count_two_star; ?>)</span>
                   </div>
                   <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="1"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_one_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=1'">(<?php echo $count_one_star; ?>)</span>
                   </div>
                 </div>
               </div>
@@ -113,19 +113,21 @@
                   <?php if (!empty($lists) > 0) { ?>
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                       <div class="d-flex align-items-center inner-filter">
-                        <!--
+                      
                       <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                       <div class="notification-filter">
-                        <div class="custom-select">
+                        <div class="custom-select choose-star">
                           <select>
                             <option value="0" selected>All</option>
-                            <option value="1">Personal</option>
-                            <option value="2">The Rice Bowl</option>
-                            <option value="3">Inspire Beauty Salon</option>
+                            <option value="1">1 *</option>
+                            <option value="2">2 *</option>
+                            <option value="3">3 *</option>
+                            <option value="4">4 *</option>
+                            <option value="5">5 *</option>
                           </select>
                         </div>
                       </div>
-                      -->
+                      
                       </div>
 
                       <div class="d-flex align-items-center notification-sort">
@@ -163,11 +165,11 @@
                             <div class="star-rating on line relative mr-8px">
                               <div class="star-base">
                                 <div class="star-rate" data-rate="<?php echo $itemReview['review_star']; ?>"></div>
-                                <a dt-value="1" href="#1"></a>
-                                <a dt-value="2" href="#2"></a>
-                                <a dt-value="3" href="#3"></a>
-                                <a dt-value="4" href="#4"></a>
-                                <a dt-value="5" href="#5"></a>
+                                <a dt-value="1" href="javascript:void(0)"></a>
+                                <a dt-value="2" href="javascript:void(0)"></a>
+                                <a dt-value="3" href="javascript:void(0)"></a>
+                                <a dt-value="4" href="javascript:void(0)"></a>
+                                <a dt-value="5" href="javascript:void(0)"></a>
                               </div>
                             </div>
                             <p class="page-text-sm"><?php echo $itemReview['customer_comment']; ?>

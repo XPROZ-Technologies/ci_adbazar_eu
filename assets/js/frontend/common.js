@@ -50,6 +50,16 @@ $(document).ready(function () {
 
     });
 
+    $("body").on("click", ".choose-star li.option", function () {
+        var url = $("#currentBaseUrl").val();
+        if ($('.choose-order li.option.selected').length > 0) {
+            redirect(false, url + '?review_star=' + $(this).data('value') + '&order_by=' + $('.choose-order li.option.selected').data('value'));
+        } else {
+            redirect(false, url + '?review_star=' + $(this).data('value'));
+        }
+
+    });
+
 
     $("body").on("click", ".choose-perpage li.option", function () {
         var url = $("#currentBaseUrl").val();
