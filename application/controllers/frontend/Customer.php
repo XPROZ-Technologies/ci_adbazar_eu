@@ -313,6 +313,7 @@ class Customer extends MY_Controller
                         'customer_coupon_status_id' => STATUS_ACTIVED,
                         'customer_coupon_code' => $customer_coupon_code
                     ));
+
                     echo json_encode(array('code' => 1, 'message' => "Successfully Saved!"));
                     die;
                 } else {
@@ -387,6 +388,30 @@ class Customer extends MY_Controller
                     'event_id' => $postData['event_id'],
                     'customer_event_status_id' => STATUS_ACTIVED
                 ));
+
+                if($customerEventId > 0){
+                    $this->loadModel(array('Mcustomers', 'Mbusinessprofiles'));
+                    $customerInfo = $this->Mcustomers->get($postData['customer_id']);
+                    $eventInfo = $this->Mevents->get($postData['event_id']);
+                    $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' => $eventInfo['business_profile_id']), 'business_name', '');
+                    /**
+                     * Save Email
+                     */
+                    $this->load->model('Memailqueue');
+                    $dataEmail = array(
+                        'name' => $customerInfo['customer_first_name'],
+                        'email_to' => $customerInfo['customer_email'],
+                        'email_to_name' => $customerInfo['customer_first_name'],
+                        'event_name' => $eventInfo['event_subject'],
+                        'event_url' => base_url('event/'.makeSlug($eventInfo['event_subject']) . '-' . $eventInfo['id'].'.html'),
+                        'business_name' => $businessName
+                    );
+                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 4);
+                    /**
+                     * END. Save Email
+                     */
+                }
+
                 echo json_encode(array('code' => 1, 'message' => "You have been successfully registered for the event!"));
                 die;
             } else {
@@ -778,14 +803,15 @@ class Customer extends MY_Controller
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
-        $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
-        $data['joinedEvents'] = $joinedEvents;
+        $type = $this->input->get('type');
+        $data['type'] = $type;
+
         $getData = array(
-            'event_status_id' => STATUS_ACTIVED,
             'search_text_fe' => $search_text,
-            'event_ids' => $joinedEvents
+            'customer_id' => $data['customer']['id'],
+            'book_status_id' => $type
         );
-        $rowCount = $this->Mevents->getCount($getData);
+        $rowCount = $this->Mcustomerreservations->getCount($getData);
         $data['lists'] = array();
 
         /**
@@ -797,7 +823,7 @@ class Customer extends MY_Controller
         $pageCount = ceil($rowCount / $perPage);
         $page = $this->input->get('page');
         if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('customer/my-events');
+        $data['basePagingUrl'] = base_url('customer/my-reservation');
         $data['perPage'] = $perPage;
         $data['page'] = $page;
         $data['rowCount'] = $rowCount;
@@ -806,10 +832,11 @@ class Customer extends MY_Controller
          * END - PAGINATION
          */
 
-        $data['lists'] = $this->Mevents->search($getData, $perPage, $page);
-        for ($i = 0; $i < count($data['lists']); $i++) {
-            $data['lists'][$i]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $data['lists'][$i]['business_profile_id'], 'business_status_id' => STATUS_ACTIVED), 'business_name', '');
-            $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH . $data['lists'][$i]['event_image'] : EVENTS_PATH . NO_IMAGE;
+        $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
+
+        foreach($data['lists'] as $k => $item){
+            $data['lists'][$k]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $item['business_profile_id']), 'business_name', '');
+            $data['lists'][$k]['business_url'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $item['business_profile_id']), 'business_url', '');
         }
 
         $this->load->view('frontend/customer/um-reservation', $data);

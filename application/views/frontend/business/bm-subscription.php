@@ -38,7 +38,7 @@
                           <div class="wrapper-text">
                             <p class="mb-1 text-bill text-primary">Billed anually
                             </p>
-                            <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of_1299_czk'); ?>
+                            <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of'); ?> 1299 CZK
                             </p>
                           </div>
                           <p class="mb-0 text-warning text-vat">VAT and local taxes

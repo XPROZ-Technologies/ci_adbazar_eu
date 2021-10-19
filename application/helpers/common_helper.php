@@ -422,3 +422,21 @@ if(!function_exists('getRangeHours')) {
         return $arrHours;
     }
 }
+
+if(!function_exists('getNumberOfWords')) {
+    function getNumberOfWords($string = "", $seperator = " ", $limit = 2) {
+      if(!empty($string)){
+        $arrStr = explode($seperator, $string);
+        if(!empty($arrStr)){
+            $string = "";
+            foreach($arrStr as $index => $item){
+                if($index < $limit){
+                    $string .= $seperator.$item;
+                }
+            }
+            return $string;
+        }
+      }
+      return $string;
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 
-$lang["see_my_profile"] = "Xem hồ sơ của tôi";
+$lang["see_my_profile"] = "Tài khoản";
 $lang["go_to_my_business_profile"] = "Đi tới hồ sơ doanh nghiệp của tôi";
 $lang["logout"] = "Đăng xuất";
 $lang["account_information"] = "Thông tin tài khoản";
@@ -10,19 +10,19 @@ $lang["change_password"] = "Thay đổi mật khẩu";
 $lang["my_coupons"] = "Mã giảm giá đã lưu";
 $lang["my_events"] = "Sự kiện đã lưu";
 $lang["my_reservations"] = "Đặt chỗ của tôi";
-$lang["first_name"] = "Tên riêng*";
-$lang["last_name"] = "Họ và tên đệm*";
+$lang["first_name"] = "Tên riêng";
+$lang["last_name"] = "Họ và tên đệm";
 $lang["date_of_birth"] = "Ngày sinh";
 $lang["gender"] = "Giới tính";
 $lang["language"] = "Ngôn ngữ";
 $lang["country_code"] = "Mã quốc gia";
 $lang["phone_number"] = "Số điện thoại";
 $lang["occupation"] = "Nghề nghiệp";
-$lang["place"] = "Địa chỉ*";
+$lang["place"] = "Địa chỉ";
 $lang["change_profile_picture"] = "Thay đổi ảnh đại diện";
 $lang["your_information_has_been_succ"] = "Thông tin của bạn đã được lưu thành công.";
 $lang["set_up_your_new_password"] = "Đặt mật khẩu mới";
-$lang["current_password"] = "Mật khẩu hiện tại*";
+$lang["current_password"] = "Mật khẩu hiện tại";
 $lang["save_changes"] = "Lưu thay đổi";
 $lang["your_password_does_not_match_p"] = "Mật khẩu của bạn không khớp. Vui lòng thử lại";
 $lang["your_new_password_has_been_suc"] = "Mật khẩu mới đã được lưu thành công.";

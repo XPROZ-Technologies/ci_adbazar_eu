@@ -156,7 +156,7 @@
                             }
                             ?>
                             <img src="<?php echo $customerImg; ?>" alt="comment avatar" class="img-fluid">
-                            <span class="mt-3 d-block"><?php echo $itemReview['customerInfo']['customer_first_name']; ?></span>
+                            <span class="mt-3 d-block"><?php if(!empty($itemReview['customerInfo'])){ echo $itemReview['customerInfo']['customer_first_name']; } ?></span>
                           </div>
                           <div class="comment-body">
                             <p class="font500"><?php echo ddMMyyyy($itemReview['created_at'], 'd/m/Y H:i'); ?></p>
@@ -188,13 +188,6 @@
                           <div class="d-flex flex-column flex-lg-row comment-item no-avatar">
                             <div class="comment-body">
                               <p class="font500"><?php echo ddMMyyyy($itemReview['updated_at'], 'd/m/Y H:i'); ?></p>
-                              <ul class="list-inline list-rating">
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              </ul>
                               <p class="page-text-sm"><?php echo $itemReview['business_comment']; ?></p>
                             </div>
                           </div>

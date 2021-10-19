@@ -20,10 +20,11 @@
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'reviews') {
                             echo 'active';
                         } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/reviews'); ?>"><?php echo $this->lang->line('reviews'); ?></a></li>
+            <?php if(isset($customer['id']) && $customer['id'] > 0){ ?>
             <li class="<?php if (isset($activeBusinessMenu) && $activeBusinessMenu == 'reservation') {
                             echo 'active';
                         } ?>"><a href="<?php echo base_url('business/' . $businessInfo['business_url'] . '/reservation'); ?>"><?php echo $this->lang->line('reservations'); ?></a></li>
-            
+            <?php } ?>
         </ul>
     </aside>
 </div>

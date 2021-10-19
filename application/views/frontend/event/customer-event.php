@@ -17,8 +17,12 @@
               </div>
               <div class="wrapper-search">
                 <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
+                  <?php if (isset($selected_date)) { ?>
+                    <input type="hidden" name="selected_date" value="<?php echo $selected_date; ?>" />
+                  <?php } ?>
                   <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
                   <input class="form-control" type="text" placeholder="Search" name="keyword" aria-label="Search" value="<?php echo $keyword; ?>">
+
                 </form>
               </div>
 
@@ -41,7 +45,9 @@
                             <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?> <span class="dot-black"></span> <?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
                           </div>
                         </a>
-                        <a href="javascript:void(0)" class="event-join btn btn-outline-red mt-2 mt-lg-0 join-event-in-list" data-id="<?php echo $eventItem['id']; ?>" data-customer="<?php echo $customer['id']; ?>" ><?php echo $this->lang->line('join'); ?></a>
+                        <?php if (!$inPast) { ?>
+                          <a href="javascript:void(0)" class="event-join btn btn-outline-red mt-2 mt-lg-0 join-event-in-list" data-id="<?php echo $eventItem['id']; ?>" data-customer="<?php echo $customer['id']; ?>"><?php echo $this->lang->line('join'); ?></a>
+                        <?php } ?>
                       </div>
                     <?php } ?>
 
@@ -50,7 +56,7 @@
                       <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                         <div class="d-flex align-items-center pagination-left">
                           <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                          <?php echo $this->lang->line('1310_results'); ?></p>
+                            <?php echo $this->lang->line('1310_results'); ?></p>
                           <div class="page-text-sm mb-0 d-flex align-items-center">
                             <div class="custom-select choose-perpage">
                               <select>
@@ -109,7 +115,8 @@
   if ($('#calendar').length > 0) {
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
-      var selectedDate = GetURLParameter('selected_date');
+      /* var selectedDate = GetURLParameter('selected_date'); */
+      var selectedDate = '<?php if(isset($selected_date)){ echo $selected_date; }else{ echo date('Y-m-d'); } ?>';
       var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
           left: 'prev',
@@ -124,11 +131,11 @@
         events: [
           <?php if (!empty($dateRanges) > 0) {
             foreach ($dateRanges as $itemDate) { ?> {
-              start: '<?php echo $itemDate; ?>',
-              constraint: '',
-              color: '#C20000',
-            },
-            <?php }
+                start: '<?php echo $itemDate; ?>',
+                constraint: '',
+                color: '#C20000',
+              },
+          <?php }
           } ?>
         ],
         dateClick: function(info) {
@@ -141,17 +148,18 @@
         }
       });
       calendar.render();
-      document.querySelectorAll("[data-date='"+selectedDate+"']")[0].classList.add("mystyle");
+      document.querySelectorAll("[data-date='" + selectedDate + "']")[0].classList.add("mystyle");
     });
   }
+
   function GetURLParameter(sParam) {
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('?');
     for (var i = 0; i < sURLVariables.length; i++) {
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) {
-            return sParameterName[1];
-        }
+      var sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] == sParam) {
+        return sParameterName[1];
+      }
     }
-}
+  }
 </script>

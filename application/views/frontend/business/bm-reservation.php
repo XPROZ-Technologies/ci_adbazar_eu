@@ -43,9 +43,9 @@
                     </div>
                   </div>
                 </div>
-                
-                  <div class="bg-f5">
-                    <?php if (!empty($lists)) { ?>
+
+                <div class="bg-f5">
+                  <?php if (!empty($lists)) { ?>
                     <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                       <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
                       <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
@@ -53,14 +53,20 @@
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                       <div class="d-flex align-items-center inner-filter">
 
-                        <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
+                        <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('status'); ?></span>
                         <div class="notification-filter">
-                          <div class="custom-select">
+                          <div class="custom-select choose-reser-status">
                             <select>
-                              <option value="0" selected>All</option>
-                              <option value="1">Personal</option>
-                              <option value="2">The Rice Bowl</option>
-                              <option value="3">Inspire Beauty Salon</option>
+                              <option value="0"><?php echo $this->lang->line('1310_all'); ?></option>
+                              <option value="2" <?php if (isset($type) && $type == '2') {
+                                                  echo 'selected="selected"';
+                                                } ?>><?php echo $this->lang->line('approved'); ?></option>
+                              <option value="3" <?php if (isset($type) && $type == '3') {
+                                                  echo 'selected="selected"';
+                                                } ?>><?php echo $this->lang->line('declined'); ?></option>
+                              <option value="1" <?php if (isset($type) && $type == '1') {
+                                                  echo 'selected="selected"';
+                                                } ?>><?php echo $this->lang->line('expired'); ?></option>
                             </select>
                           </div>
                         </div>
@@ -84,9 +90,10 @@
                         <thead>
                           <tr>
                             <th>Time</th>
+                            <th>Name</th>
                             <th>ID</th>
                             <th>People</th>
-                            <th>Status</th>
+                            <th><?php echo $this->lang->line('status'); ?></th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -94,30 +101,27 @@
                           <?php
                           foreach ($lists as $itemBook) { ?>
                             <tr>
-                              <td><?php echo $itemBook['date_arrived']; ?><br><?php echo $itemBook['time_arrived']; ?></td>
+                              <td><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo $itemBook['time_arrived']; ?></td>
+                              <td><?php if(isset($itemBook['customer_name'])){ echo $itemBook['customer_name']; }else{ echo '-'; } ?></td>
                               <td><?php echo $itemBook['book_code']; ?></td>
                               <td><?php echo $itemBook['number_of_people']; ?></td>
                               <td>
-                                <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                  <span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span>
-                                <?php } ?>
-                                <?php if ($itemBook['book_status_id'] == 1) { ?>
-                                  <span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span>
-                                <?php } ?>
-                                <?php if ($itemBook['book_status_id'] == 3) { ?>
-                                  <span class="badge badge-declined"><?php echo $this->lang->line('cancelled'); ?></span>
-                                <?php } ?>
-                                <?php if ($itemBook['book_status_id'] == 4) { ?>
-                                  <span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span>
+                                <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED && strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) >= strtotime(date('Y-m-d H:i'))) { ?>
+                                  <a href="<?php echo $basePagingUrl . '?type=' . STATUS_ACTIVED; ?>"><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></a>
+                                <?php } else  if ($itemBook['book_status_id'] == 1 || strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
+                                  <a href="<?php echo $basePagingUrl . '?type=1'; ?>"><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></a>
+                                <?php } else if ($itemBook['book_status_id'] == 4) { ?>
+                                  <a href="<?php echo $basePagingUrl . '?type=4'; ?>"><span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span></a>
+                                  <?php } else if ($itemBook['book_status_id'] == 3) { ?>
+                                  <a href="<?php echo $basePagingUrl . '?type=4'; ?>"><span class="badge badge-cancel"><?php echo $this->lang->line('cancelled'); ?></span></a>
                                 <?php } ?>
                               </td>
                               <td>
                                 <div class="d-flex justify-content-center">
-                                  <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>"><?php echo $this->lang->line('cancel'); ?></button>
-                                  <?php } ?>
-                                  <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
-                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
+                                  <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED && strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) >= strtotime(date('Y-m-d H:i'))) { ?>
+                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>"><?php echo $this->lang->line('decline'); ?></button>
+                                  <?php } else if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3 || strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
+                                    <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('decline'); ?></button>
                                   <?php } ?>
                                 </div>
                               </td>
@@ -136,7 +140,7 @@
                       <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                         <div class="d-flex align-items-center pagination-left">
                           <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                          <?php echo $this->lang->line('1310_results'); ?></p>
+                            <?php echo $this->lang->line('1310_results'); ?></p>
                           <div class="page-text-sm mb-0 d-flex align-items-center">
                             <div class="custom-select choose-perpage">
                               <select>
@@ -171,18 +175,18 @@
                       </div>
                       <!-- END. Pagination -->
                     <?php } ?>
-                    
-                    <?php } else { ?>
-                      <div class="zero-event zero-box zero-gray">
-                        <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
-                        <p class="text-secondary page-text-lg">No reservations</p>
-                      </div>
-                    <?php } ?>
-                  </div>
 
-                  <!-- END -->
+                  <?php } else { ?>
+                    <div class="zero-event zero-box zero-gray">
+                      <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
+                      <p class="text-secondary page-text-lg">No reservations</p>
+                    </div>
+                  <?php } ?>
+                </div>
 
-                
+                <!-- END -->
+
+
 
 
               </div>
@@ -207,33 +211,33 @@
           </h3>
 
           <div class="weekdays-selector">
-            <input type="checkbox" id="weekday-mon" data-id="0" class="weekday <?php if (isset($reservationConfigs[0])) {
-                                                                                  echo $this->lang->line('save');
-                                                                                } ?>" />
+            <input type="checkbox" id="weekday-mon" data-id="0" class="weekday weekday_0 <?php if (isset($reservationConfigs[0])) {
+                                                                                            echo "saved";
+                                                                                          } ?>" />
             <label for="weekday-mon"><?php echo $this->lang->line('mon'); ?></label>
-            <input type="checkbox" id="weekday-tue" data-id="1" class="weekday <?php if (isset($reservationConfigs[1])) {
-                                                                                  echo $this->lang->line('save');
-                                                                                } ?>" />
+            <input type="checkbox" id="weekday-tue" data-id="1" class="weekday weekday_1 <?php if (isset($reservationConfigs[1])) {
+                                                                                            echo "saved";
+                                                                                          } ?>" />
             <label for="weekday-tue"><?php echo $this->lang->line('tue'); ?></label>
-            <input type="checkbox" id="weekday-wed" data-id="2" class="weekday <?php if (isset($reservationConfigs[2])) {
-                                                                                  echo $this->lang->line('save');
-                                                                                } ?>" />
+            <input type="checkbox" id="weekday-wed" data-id="2" class="weekday weekday_2 <?php if (isset($reservationConfigs[2])) {
+                                                                                            echo "saved";
+                                                                                          } ?>" />
             <label for="weekday-wed"><?php echo $this->lang->line('wed'); ?></label>
-            <input type="checkbox" id="weekday-thu" data-id="3" class="weekday <?php if (isset($reservationConfigs[3])) {
-                                                                                  echo $this->lang->line('save');
-                                                                                } ?>" />
+            <input type="checkbox" id="weekday-thu" data-id="3" class="weekday weekday_3 <?php if (isset($reservationConfigs[3])) {
+                                                                                            echo "saved";
+                                                                                          } ?>" />
             <label for="weekday-thu"><?php echo $this->lang->line('thu'); ?></label>
-            <input type="checkbox" id="weekday-fri" data-id="4" class="weekday <?php if (isset($reservationConfigs[4])) {
-                                                                                  echo $this->lang->line('save');
-                                                                                } ?>" />
+            <input type="checkbox" id="weekday-fri" data-id="4" class="weekday weekday_4 <?php if (isset($reservationConfigs[4])) {
+                                                                                            echo "saved";
+                                                                                          } ?>" />
             <label for="weekday-fri"><?php echo $this->lang->line('fri'); ?></label>
-            <input type="checkbox" id="weekday-sat" data-id="5" class="weekday <?php if (isset($reservationConfigs[5])) {
-                                                                                  echo $this->lang->line('save');
-                                                                                } ?>" />
+            <input type="checkbox" id="weekday-sat" data-id="5" class="weekday weekday_5 <?php if (isset($reservationConfigs[5])) {
+                                                                                            echo "saved";
+                                                                                          } ?>" />
             <label for="weekday-sat"><?php echo $this->lang->line('sat'); ?></label>
-            <input type="checkbox" id="weekday-sun" data-id="6" class="weekday <?php if (isset($reservationConfigs[6])) {
-                                                                                  echo $this->lang->line('save');
-                                                                                } ?>" />
+            <input type="checkbox" id="weekday-sun" data-id="6" class="weekday weekday_6 <?php if (isset($reservationConfigs[6])) {
+                                                                                            echo "saved";
+                                                                                          } ?>" />
             <label for="weekday-sun"><?php echo $this->lang->line('sun'); ?></label>
           </div>
 
@@ -276,7 +280,7 @@
           <div class="d-flex justify-content-center form-check apply-everyday">
             <input class="form-check-input" type="checkbox" id="config-everyday">
             <label class="form-check-label" for="config-everyday">
-            <?php echo $this->lang->line('apply_to_everyday'); ?>
+              <?php echo $this->lang->line('apply_to_everyday'); ?>
             </label>
           </div>
 
@@ -304,8 +308,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="text-center page-text-lg">Are you sure want to decline the reservation
-          "<b id="reservationCode"></b>"?
+        <p class="text-center page-text-lg">Are you sure want to decline the reservation "<b id="reservationCode"></b>"?
         </p>
         <input type="hidden" id="selectedBookId" value="" />
         <div class="d-flex justify-content-center">
@@ -319,6 +322,23 @@
 <!-- End Modal confirm remove -->
 
 <script>
+  function findNextDay() {
+    $(".weekday").each(function() {
+      if (!$(this).hasClass("saved")) {
+        $(this).prop('checked', true);
+        $("#selecteDay").val($(this).data('id'));
+        console.log($(this).data('id'));
+        $("#maxPeople").val("");
+        $("#maxPerReservation").val("");
+        $("#duration").val("");
+        $("#startTime").val("");
+        $("#endTime").val("");
+        console.log('find next done');
+        return false;
+      }
+    });
+  }
+
   $(document).ready(function() {
     // change date 
     var dateNow = new Date();
@@ -459,24 +479,37 @@
           dataType: "json",
           success: function(json) {
             if (json.code == 1) {
+              //add saved
+              $(".weekday_" + day_id).prop('checked', false);
+              $(".weekday_" + day_id).addClass('saved');
+              console.log('find next');
+              findNextDay();
+
               $(".notiPopup .text-secondary").html("Save config successfully");
               $(".ico-noti-success").removeClass('ico-hidden');
               $(".notiPopup").fadeIn('slow').fadeOut(4000);
 
+
+
             } else {
+              //add saved
+              $(".weekday_" + day_id).addClass('saved');
+              console.log('find next');
+              findNextDay();
+
               $(".notiPopup .text-secondary").html(json.message);
               $(".ico-noti-error").removeClass('ico-hidden');
               $(".notiPopup").fadeIn('slow').fadeOut(4000);
             }
           },
           error: function(json) {
-            $(".notiPopup .text-secondary").html("Save config failed 2");
+            $(".notiPopup .text-secondary").html("Save config failed");
             $(".ico-noti-error").removeClass('ico-hidden');
             $(".notiPopup").fadeIn('slow').fadeOut(4000);
           }
         });
       } else {
-        $(".notiPopup .text-secondary").html("Save config failed 1");
+        $(".notiPopup .text-secondary").html("Save config failed");
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(4000);
       }
@@ -523,7 +556,7 @@
     // change date 
     var dateNow = new Date();
     $("#reservation-date").datetimepicker({
-      defaultDate:dateNow,
+      defaultDate: dateNow,
       format: "YYYY-MM-DD",
       minDate: moment(),
       allowInputToggle: true,

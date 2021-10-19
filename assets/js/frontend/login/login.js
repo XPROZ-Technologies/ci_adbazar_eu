@@ -174,7 +174,7 @@ function loginGG_FB(id, customer_first_name, customer_last_name, customer_email,
         },
         success: function (response) {
             var json = $.parseJSON(response);
-            $(".notiPopup .text-secondary").html(json.message);
+            $(".notiPopup .text-secondary").html(text_success_social);
             $(".ico-noti-success").removeClass('ico-hidden');
             $(".notiPopup").fadeIn('slow').fadeOut(4000);
             if(json.code == 1){

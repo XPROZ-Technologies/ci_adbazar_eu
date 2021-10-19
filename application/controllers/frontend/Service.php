@@ -112,6 +112,7 @@ class Service extends MY_Controller {
         for($i = 0; $i < count($data['listProfiles']); $i++){
             $data['listProfiles'][$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($data['listProfiles'][$i]['id'], $service_type_name);
             $data['listProfiles'][$i]['isOpen'] = $this->checkBusinessOpenHours($data['listProfiles'][$i]['id']);
+            $data['listProfiles'][$i]['rating'] = $this->getBusinessRating($data['listProfiles'][$i]['id']);
         }
 
         $this->load->view('frontend/service/customer-service-list', $data);
