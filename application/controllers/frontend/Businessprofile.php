@@ -629,6 +629,7 @@ class Businessprofile extends MY_Controller
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
         $type = $this->input->get('type');
+        $data['type'] = $type;
 
         $getData = array(
             'search_text_fe' => $search_text,
@@ -1952,6 +1953,7 @@ class Businessprofile extends MY_Controller
         $selected_day = $this->input->get('selected_day');
         $data['selected_day'] = $selected_day;
         $type = $this->input->get('type');
+        $data['type'] = $type;
 
         $getData = array(
             'date_arrived' => $selected_day,

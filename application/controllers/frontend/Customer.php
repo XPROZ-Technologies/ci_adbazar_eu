@@ -803,14 +803,15 @@ class Customer extends MY_Controller
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
-        $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
-        $data['joinedEvents'] = $joinedEvents;
+        $type = $this->input->get('type');
+        $data['type'] = $type;
+
         $getData = array(
-            'event_status_id' => STATUS_ACTIVED,
             'search_text_fe' => $search_text,
-            'event_ids' => $joinedEvents
+            'customer_id' => $data['customer']['id'],
+            'book_status_id' => $type
         );
-        $rowCount = $this->Mevents->getCount($getData);
+        $rowCount = $this->Mcustomerreservations->getCount($getData);
         $data['lists'] = array();
 
         /**
@@ -822,7 +823,7 @@ class Customer extends MY_Controller
         $pageCount = ceil($rowCount / $perPage);
         $page = $this->input->get('page');
         if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('customer/my-events');
+        $data['basePagingUrl'] = base_url('customer/my-reservation');
         $data['perPage'] = $perPage;
         $data['page'] = $page;
         $data['rowCount'] = $rowCount;
@@ -831,11 +832,7 @@ class Customer extends MY_Controller
          * END - PAGINATION
          */
 
-        $data['lists'] = $this->Mevents->search($getData, $perPage, $page);
-        for ($i = 0; $i < count($data['lists']); $i++) {
-            $data['lists'][$i]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $data['lists'][$i]['business_profile_id'], 'business_status_id' => STATUS_ACTIVED), 'business_name', '');
-            $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH . $data['lists'][$i]['event_image'] : EVENTS_PATH . NO_IMAGE;
-        }
+        $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
 
         $this->load->view('frontend/customer/um-reservation', $data);
     }

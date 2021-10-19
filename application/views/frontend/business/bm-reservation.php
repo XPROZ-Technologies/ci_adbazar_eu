@@ -52,19 +52,19 @@
                     </form>
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                       <div class="d-flex align-items-center inner-filter">
-                        <!--
-                        <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
+                        
+                        <span class="me-2 page-text-lg fw-bold">Status</span>
                         <div class="notification-filter">
                           <div class="custom-select">
                             <select>
                               <option value="0" selected>All</option>
-                              <option value="1">Personal</option>
-                              <option value="2">The Rice Bowl</option>
-                              <option value="3">Inspire Beauty Salon</option>
+                              <option value="2">Approved</option>
+                              <option value="3">Declined</option>
+                              <option value="1">Expired</option>
                             </select>
                           </div>
                         </div>
-                        -->
+                        
                       </div>
                       <div class="d-flex align-items-center notification-sort">
                         <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
@@ -100,10 +100,8 @@
                               <td>
                                 <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
                                   <a href="<?php echo $basePagingUrl . '?type=' . STATUS_ACTIVED; ?>"><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></a>
-                                <?php } else  if ($itemBook['book_status_id'] == 1 || strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
+                                <?php } else  if ($itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3 || strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
                                   <a href="<?php echo $basePagingUrl . '?type=1'; ?>"><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></a>
-                                <?php } else if ($itemBook['book_status_id'] == 3) { ?>
-                                  <a href="<?php echo $basePagingUrl . '?type=3'; ?>"><span class="badge badge-declined"><?php echo $this->lang->line('cancelled'); ?></span></a>
                                 <?php } else if ($itemBook['book_status_id'] == 4) { ?>
                                   <a href="<?php echo $basePagingUrl . '?type=4'; ?>"><span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span></a>
                                 <?php } ?>
