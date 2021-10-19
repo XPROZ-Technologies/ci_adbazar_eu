@@ -805,8 +805,11 @@ class Customer extends MY_Controller
         $data['keyword'] = $search_text;
         $type = $this->input->get('type');
         $data['type'] = $type;
+        $selected_day = $this->input->get('selected_day');
+        $data['selected_day'] = $selected_day;
 
         $getData = array(
+            'date_arrived' => $selected_day,
             'search_text_fe' => $search_text,
             'customer_id' => $data['customer']['id'],
             'book_status_id' => $type
