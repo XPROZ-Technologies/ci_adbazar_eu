@@ -93,6 +93,8 @@ class Home extends MY_Controller {
                 $data['listServices'][] = $itemService;
             }
         }
+
+        $data['home_video'] = $this->Mconfigs->getConfigValueByLang('VIDEO_URL', $data['language_id']);
        
         /**
          * END. Business profile on Map
@@ -125,18 +127,24 @@ class Home extends MY_Controller {
             
                 $listProfiles[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfiles[$i]['id'], $service_type_name);
                 $listProfiles[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfiles[$i]['id']);
+                $listProfiles[$i]['rating'] = $this->getBusinessRating($listProfiles[$i]['id']);
             }
             $pageCount = ceil($rowCount / $perPage);
 
             $listProfilesMap = $this->Mbusinessprofiles->search($postData);
+            $listLocations = array();
             for($i = 0; $i < count($listProfilesMap); $i++){
                 if(isset($listProfilesMap[$i])){
                     $listProfilesMap[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfilesMap[$i]['id'], $service_type_name);
                     $listProfilesMap[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfilesMap[$i]['id']);
                     $listProfilesMap[$i]['locationInfo'] = $this->Mbusinessprofiles->getBusinessInLocation($listProfilesMap[$i]['id']);
+                    $listProfilesMap[$i]['rating'] = $this->getBusinessRating($listProfilesMap[$i]['id']);
+                    if(!empty($listProfilesMap[$i]['locationInfo'])){
+                        $listLocations[] = $listProfilesMap[$i];
+                    }
                 }
             }
-            echo json_encode(array('code' => 1, 'message' => 'Data', 'data' => $listProfiles, 'page' => $page, 'per_page' => $perPage, 'page_count' => $pageCount, 'listProfilesMap' => $listProfilesMap));
+            echo json_encode(array('code' => 1, 'message' => 'Data', 'data' => $listProfiles, 'page' => $page, 'per_page' => $perPage, 'page_count' => $pageCount, 'listProfilesMap' => $listLocations));
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
         }
@@ -151,13 +159,22 @@ class Home extends MY_Controller {
          */
 
 
-        $data = $this->commonDataCustomer('About Us');
+        $data = $this->commonDataCustomer($this->lang->line('about_us'));
         $data['activeMenu'] = "about-us";
         /**
          * Commons data
          */
 
-        $data['content'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_TEXT', $data['language_id']);
+        $data['about']['img_banner'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_IMAGE_BANNER', $data['language_id']);
+        $data['about']['child_text_1'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_TEXT_1', $data['language_id']);
+        $data['about']['child_img_1'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_1', $data['language_id']);
+        $data['about']['child_text_2'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_TEXT_2', $data['language_id']);
+        $data['about']['child_img_2'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_2', $data['language_id']);
+        $data['about']['about_text_bottom'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_TEXT', $data['language_id']);
+
+        // echo "<pre>";
+        // print_r($data['about']);
+        // echo "</pre>";
         
 
         $this->load->view('frontend/home/about', $data);

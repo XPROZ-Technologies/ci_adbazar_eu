@@ -54,8 +54,10 @@
                           </tr>
                         </thead>
                         <tbody>
+                          
                           <?php if (!empty($lists)) {
                             foreach ($lists as $itemBook) { ?>
+                           
                               <tr>
                                 <td><?php echo $itemBook['date_arrived']; ?></td>
                                 <td><?php echo $itemBook['time_arrived']; ?></td>
@@ -63,37 +65,27 @@
                                 <td><?php echo $itemBook['number_of_people']; ?></td>
                                 <td>
                                   <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                    <span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span>
+                                    <a href="<?php echo $basePagingUrl.'?type='.STATUS_ACTIVED; ?>"><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></a>
                                   <?php } ?>
                                   <?php if ($itemBook['book_status_id'] == 1) { ?>
-                                    <span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span>
+                                    <a href="<?php echo $basePagingUrl.'?type=1'; ?>"><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></a>
                                   <?php } ?>
                                   <?php if ($itemBook['book_status_id'] == 3) { ?>
-                                    <span class="badge badge-declined"><?php echo $this->lang->line('cancelled'); ?></span>
+                                    <a href="<?php echo $basePagingUrl.'?type=3'; ?>"><span class="badge badge-declined"><?php echo $this->lang->line('cancelled'); ?></span></a>
                                   <?php } ?>
                                   <?php if ($itemBook['book_status_id'] == 4) { ?>
-                                    <span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span>
+                                    <a href="<?php echo $basePagingUrl.'?type=4'; ?>"><span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span></a>
                                   <?php } ?>
                                 </td>
                                 <td>
                                   <div class="d-flex justify-content-center">
                                     <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
                                       <button data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>" type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" ><?php echo $this->lang->line('cancel'); ?></button>
-                                    <?php } ?>
-                                    <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
+                                    <?php }else if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
                                       <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
                                     <?php } ?>
                                   </td>
-                                  <td>
-                                    <div class="d-flex justify-content-center">
-                                      <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
-                                        <button data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>" type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation">Cancel</button>
-                                      <?php } ?>
-                                      <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
-                                        <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled>Cancel</button>
-                                      <?php } ?>
-                                    </div>
-                                  </td>
+                                  
                                 </tr>
                             <?php }
                             } ?>

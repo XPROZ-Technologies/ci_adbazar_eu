@@ -22,7 +22,7 @@ class Mconstants extends CI_Model {
         3 => 'Other'
     );
 
-    public $languageDefault = 1;
+    public $languageDefault = 3;
 
     public $languageIds = array(
         1 => 'English',

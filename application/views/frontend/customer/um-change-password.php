@@ -23,15 +23,14 @@
                         Password<span class="required text-danger">*</span></label>
                       <div class="position-relative">
                         <input type="password" class="form-control form-control-lg" id="profilePassword" name="current_password" required >
-                        <img src="assets/img/frontend/ic-eye.png" alt="icon-show-pass" class="icon-show-pass">
+                        <img src="assets/img/frontend/ic-eye.png" alt="icon-show-pass" class="input-eye">
                       </div>
                     </div>
                     <div class="form-group mb-3">
-                      <label for="profileNewPassword" class="form-label">New
-                        Password<span class="required text-danger">*</span></label>
+                      <label for="profileNewPassword" class="form-label">New Password<span class="required text-danger">*</span></label>
                       <div class="position-relative">
                         <input type="password" class="form-control form-control-lg" id="profileNewPassword" name="new_password" required >
-                        <img src="assets/img/frontend/ic-eye.png" alt="icon-show-pass" class="icon-show-pass">
+                        <img src="assets/img/frontend/ic-eye.png" alt="icon-show-pass" class="input-eye">
                         <div class="tooltip-signup">
                           <p>Your password has to meet the following requirements: </p>
                           <ul>
@@ -47,7 +46,7 @@
                       <span class="required text-danger">*</span></label>
                       <div class="position-relative">
                         <input type="password" class="form-control form-control-lg" id="profileConfirmPassword" name="repeat_password" required >
-                        <img src="assets/img/frontend/ic-eye.png" alt="icon-show-pass" class="icon-show-pass">
+                        <img src="assets/img/frontend/ic-eye.png" alt="icon-show-pass" class="input-eye">
                         <div class="invalid-feedback"><?php echo $this->lang->line('your_password_does_not_match_please_try_again'); ?></div>
                       </div>
                     </div>

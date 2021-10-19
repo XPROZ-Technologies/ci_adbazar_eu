@@ -22,9 +22,15 @@ class Cron extends MY_Controller {
         foreach($emails as $itemEmail){
             $resultSend  = $this->sendMail($itemEmail['email_from'], $itemEmail['email_from_name'], $itemEmail['email_to'], $itemEmail['email_to_name'], $itemEmail['email_subject'], $itemEmail['email_content']);
             if($resultSend){
-                $this->Memailqueue->save(array('is_send' => STATUS_ACTIVED), $itemEmail['id']);
+                $this->Memailqueue->save(array(
+                    'is_send' => STATUS_ACTIVED,
+                    'updated_at' => getCurentDateTime()
+                ), $itemEmail['id']);
             }else{
-                $this->Memailqueue->save(array('is_send' => 1), $itemEmail['id']);
+                $this->Memailqueue->save(array(
+                    'is_send' => 1,
+                    'updated_at' => getCurentDateTime()
+                ), $itemEmail['id']);
             }
         }
         

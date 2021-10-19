@@ -7,7 +7,7 @@ $lang["remember_me"] = "Zapamatovat si mě";
 $lang["forgot_your_password"] = "Zapomenuté heslo";
 $lang["sign_in"] = "Přihlasit se";
 $lang["not_have_an_account_yet"] = "Nemáte ještě účet?";
-$lang["sign_up"] = "Přihlásit se";
+$lang["sign_up"] = "Registrace";
 $lang["or_sign_in_with_your_social_network"] = "Přihlásit se jiným sociálním účtem";
 $lang["sign_in_with_google"] = "Google";
 $lang["sign_in_with_facebook"] = "Facebook";
@@ -38,3 +38,5 @@ $lang["your_password_does_not_match_please_try_again"] = "Vaše heslo se neshodu
 $lang["sign_up_with_google"] = "Google";
 $lang["sign_up_with_facebook"] = "Facebook";
 
+$lang['successfully_register_account'] = "Úspěšně zaregistrujte účet";
+$lang['successfully_login_account'] = "Úspěšně se přihlaste k účtu";

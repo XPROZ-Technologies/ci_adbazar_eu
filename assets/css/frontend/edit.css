@@ -407,7 +407,7 @@ button:focus,button:active{
     top: 8px;
 }
 .customer-location-item {
-    padding: 5px 14px 5px 6px;
+    padding: 7px 14px 5px 6px;
     box-shadow: 0px 2px 6px rgb(77 78 78 / 20%);
     border: none;
 }
@@ -856,6 +856,7 @@ line-height: 28px;
     font-size: 10px;
     line-height: 12px;
     height: auto;
+    width: 91px;
 }
 .bp-tabs-right .open-hour {
     padding: 20px;
