@@ -613,6 +613,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
         $data['activeBusinessMenu'] = "reservation";
 
         $data['businessInfo'] = $businessInfo;
