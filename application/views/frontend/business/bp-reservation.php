@@ -238,11 +238,27 @@
 <!-- End Modal confirm remove -->
 
 <script>
+    // change date 
+    function GetURLParameter(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('?');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+        }
+    }
+}
   $(document).ready(function() {
     // change date 
     var dateNow = new Date();
+    var selectedDate = GetURLParameter('selected_day');
+    if(selectedDate !== undefined){
+      dateNow = selectedDate;
+    }
     $("#selecteDate").datetimepicker({
       defaultDate: dateNow,
+
       //minDate: moment(),
       format: "MMMM DD, YYYY",
       allowInputToggle: true,
@@ -259,6 +275,12 @@
         next: "bi bi-chevron-right",
       },
     });
+      $('#selecteDate').on('dp.change', function(e) {
+      var formatedValue = e.date.format(e.date._f);
+      var formatDay = moment(formatedValue).format('YYYY-MM-DD');
+      redirect(false, 'customer/my-reservation?selected_day=' + formatDay);
+    });
+  });
 
     $('#selecteDate').on('dp.change', function(e) {
       var formatedValue = e.date.format(e.date._f);
