@@ -116,9 +116,9 @@
                       
                       <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                       <div class="notification-filter">
-                        <div class="custom-select choose-star">
+                        <div class="custom-select mb-0 choose-star">
                           <select>
-                            <option value="0" selected>All</option>
+                            <option value="0" selected><?php echo $this->lang->line('1310_all'); ?></option>
                             <option value="1">1 *</option>
                             <option value="2">2 *</option>
                             <option value="3">3 *</option>
