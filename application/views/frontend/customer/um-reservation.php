@@ -14,7 +14,7 @@
           <div class="col-lg-9">
             <div class="um-right">
               <div class="bp-reservation um-reservation">
-              <div class="w-275">
+                <div class="w-275">
                   <div class="reservation-select-date">
                     <div class="form-group form-group-datepicker">
                       <label for="selecteDate" class="form-label"><?php echo $this->lang->line('select_a_date'); ?></label>
@@ -27,6 +27,7 @@
                 </div>
                 <div class="bp-reservation-inner um-reservation-inner">
                   <div class="bg-f5">
+                  <?php if (!empty($lists)) { ?>
                     <form class="d-flex search-box">
                       <a href="#" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
                       <input class="form-control w-100" type="text" placeholder="Search" aria-label="Search">
@@ -72,6 +73,7 @@
                         <thead>
                           <tr>
                             <th>Time</th>
+                            <th>Business</th>
                             <th>ID</th>
                             <th>People</th>
                             <th><?php echo $this->lang->line('status'); ?></th>
@@ -79,156 +81,90 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-cancel"><?php echo $this->lang->line('cancelled'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-cancel"><?php echo $this->lang->line('cancelled'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">21/10/2021 </br>10</td>
-                            <td>ADVFD</td>
-                            <td>1</td>
-                            <td><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></td>
-                            <td>
-                              <div class="d-flex justify-content-center">
-                                <button type="button" class="btn  btn-outline-red btn-outline-red-md"><?php echo $this->lang->line('cancel'); ?></button>
-                              </div>
-                            </td>
-                          </tr>
+
+                          <?php if (!empty($lists)) {
+                            foreach ($lists as $itemBook) { ?>
+
+                              <tr>
+                                <td><?php echo $itemBook['date_arrived']; ?><br><?php echo $itemBook['time_arrived']; ?></td>
+                                <td>
+                                  <a href="<?php if(isset($itemBook['business_url'])){ echo base_url($itemBook['business_url']); }else{ echo 'javascript:void(0)'; } ?>"><?php if(isset($itemBook['business_name'])){ echo getNumberOfWords($itemBook['business_name']," ", 2); }else{ echo '-'; } ?></a>
+                                </td>
+                                <td><?php echo $itemBook['book_code']; ?></td>
+                                <td><?php echo $itemBook['number_of_people']; ?></td>
+                                <td>
+                                  <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED && strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) >= strtotime(date('Y-m-d H:i'))) { ?>
+                                    <a href="<?php echo $basePagingUrl . '?type=' . STATUS_ACTIVED; ?>"><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></a>
+                                  <?php } else if ($itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 4 || strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
+                                    <a href="<?php echo $basePagingUrl . '?type=1'; ?>"><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></a>
+                                  <?php } else if ($itemBook['book_status_id'] == 3) { ?>
+                                    <a href="<?php echo $basePagingUrl . '?type=3'; ?>"><span class="badge badge-declined"><?php echo $this->lang->line('cancelled'); ?></span></a>
+                                  <?php } ?>
+                                </td>
+                                <td>
+                                  <div class="d-flex justify-content-center">
+                                    <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED && strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) >= strtotime(date('Y-m-d H:i'))) { ?>
+                                      <button data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>" type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation"><?php echo $this->lang->line('cancel'); ?></button>
+                                    <?php } else if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3 || strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
+                                      <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('cancel'); ?></button>
+                                    <?php } ?>
+                                </td>
+
+                              </tr>
+                          <?php }
+                          } ?>
+
                         </tbody>
                       </table>
                     </div>
 
-                    <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
-                      <div class="d-flex align-items-center pagination-left">
-                        <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500">1 – 10</span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500">50</span>
-                        <?php echo $this->lang->line('1310_results'); ?></p>
-                        <div class="page-text-sm mb-0 d-flex align-items-center">
-                          <span class="fw-500 show-page-text">50</span>
-                          <span class="ms-2">/</span>
-                          <div class="page-select position-relative">
-                            <span class="ml-8px"> Page <img class="ml-8px" src="assets/img/frontend/icon-page.png" alt=""></span>
-                            <ul>
-                              <li class="active">10</li>
-                              <li>20</li>
-                              <li>30</li>
-                              <li>40</li>
-                            </ul>
+                    <?php if (count($lists) > 0) { ?>
+                        <!-- Pagination -->
+                        <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
+                          <div class="d-flex align-items-center pagination-left">
+                            <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                              <?php echo $this->lang->line('1310_results'); ?></p>
+                            <div class="page-text-sm mb-0 d-flex align-items-center">
+                              <div class="custom-select choose-perpage">
+                                <select>
+                                  <option value="10" <?php if (isset($per_page) && $per_page == 20) {
+                                                        echo 'selected';
+                                                      } ?>>10</option>
+                                  <option value="20" <?php if (isset($per_page) && $per_page == 20) {
+                                                        echo 'selected';
+                                                      } ?>>20</option>
+                                  <option value="30" <?php if (isset($per_page) && $per_page == 30) {
+                                                        echo 'selected';
+                                                      } ?>>30</option>
+                                  <option value="40" <?php if (isset($per_page) && $per_page == 40) {
+                                                        echo 'selected';
+                                                      } ?>>40</option>
+                                  <option value="50" <?php if (isset($per_page) && $per_page == 50) {
+                                                        echo 'selected';
+                                                      } ?>>50</option>
+                                </select>
+                              </div>
+                              <span class="ms-2">/</span>
+                              <span class=""> <?php echo $this->lang->line('1310_page'); ?></span>
+                            </div>
+                          </div>
+                          <div class="pagination-right">
+                            <!-- Page pagination -->
+                            <nav>
+                              <?php echo $paggingHtml; ?>
+                            </nav>
+                            <!-- End Page pagination -->
                           </div>
                         </div>
+                        <!-- END. Pagination -->
+                      <?php } ?>
+                    <?php } else { ?>
+                      <div class="zero-event zero-box zero-gray">
+                        <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
+                        <p class="text-secondary page-text-lg">No reservations</p>
                       </div>
-                      <div class="pagination-right">
-                        <!-- Page pagination -->
-                        <nav>
-                          <ul class="pagination justify-content-end mb-0">
-                            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
-                            </li>
-                          </ul>
-                        </nav>
-                        <!-- End Page pagination -->
-                      </div>
-                    </div>
+                    <?php } ?>
+
                   </div>
                 </div>
               </div>

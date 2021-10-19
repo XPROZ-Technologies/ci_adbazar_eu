@@ -834,6 +834,11 @@ class Customer extends MY_Controller
 
         $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
 
+        foreach($data['lists'] as $k => $item){
+            $data['lists'][$k]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $item['business_profile_id']), 'business_name', '');
+            $data['lists'][$k]['business_url'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $item['business_profile_id']), 'business_url', '');
+        }
+
         $this->load->view('frontend/customer/um-reservation', $data);
     }
 }

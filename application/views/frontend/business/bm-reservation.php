@@ -106,7 +106,7 @@
                               <td><?php echo $itemBook['book_code']; ?></td>
                               <td><?php echo $itemBook['number_of_people']; ?></td>
                               <td>
-                                <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
+                                <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED && strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) >= strtotime(date('Y-m-d H:i'))) { ?>
                                   <a href="<?php echo $basePagingUrl . '?type=' . STATUS_ACTIVED; ?>"><span class="badge badge-approved"><?php echo $this->lang->line('approved'); ?></span></a>
                                 <?php } else  if ($itemBook['book_status_id'] == 1 || strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
                                   <a href="<?php echo $basePagingUrl . '?type=1'; ?>"><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></a>
@@ -118,10 +118,9 @@
                               </td>
                               <td>
                                 <div class="d-flex justify-content-center">
-                                  <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED) { ?>
+                                  <?php if ($itemBook['book_status_id'] == STATUS_ACTIVED && strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) >= strtotime(date('Y-m-d H:i'))) { ?>
                                     <button type="button" class="btn  btn-outline-red btn-outline-red-md fw-bold btn-ask-cancel-reservation" data-book="<?php echo $itemBook['id']; ?>" data-code="<?php echo $itemBook['book_code']; ?>"><?php echo $this->lang->line('decline'); ?></button>
-                                  <?php } ?>
-                                  <?php if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3) { ?>
+                                  <?php } else if ($itemBook['book_status_id'] == 4 || $itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 3 || strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
                                     <button type="button" class="btn  btn-outline-red btn-outline-red-md btn-outline-red-disabled" disabled><?php echo $this->lang->line('decline'); ?></button>
                                   <?php } ?>
                                 </div>
