@@ -87,12 +87,12 @@ abstract class MY_Controller extends CI_Controller
             $customers = $this->Mcustomers->get($customers['id'], true, "", "customer_email, customer_first_name, customer_last_name, customer_avatar, customer_phone, customer_phone_code, id, language_id, login_type_id");
             $customers['is_logged_in'] = 1;
             $customers['language_id'] = $customers['language_id'] == 0 ? $this->Mconstants->languageDefault : $customers['language_id'];
-            $customers['language_name'] = $customers['language_id'] == 0 ? 'english' : $this->Mconstants->languageCodes[$customers['language_id']];
+            $customers['language_name'] = $customers['language_id'] == 0 ? $this->Mconstants->languageCodes[$this->Mconstants->languageDefault] : $this->Mconstants->languageCodes[$customers['language_id']];
         } else {
             // customer not login
             if (empty($customers) || $customers == NULL) {
                 // nếu customer ko chọn ngôn ngữ sẽ gán ngôn ngữ tiếng anh
-                $customers = array('language_id' => $this->Mconstants->languageDefault, 'language_name' => 'english', 'id' => 0);
+                $customers = array('language_id' => $this->Mconstants->languageDefault, 'language_name' => $this->Mconstants->languageCodes[$this->Mconstants->languageDefault], 'id' => 0);
             } else {
                 $customers = array('language_id' => $customers['language_id'], 'language_name' => $customers['language_name'], 'id' => 0);
             }
