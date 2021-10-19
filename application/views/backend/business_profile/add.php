@@ -109,7 +109,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label" style="width: 100%;">Business Avatar<button type="button" class="btn btn-box-tool" id="btnAvatar"><i class="fa fa-upload"></i> Choose image</button></label>
-                                        <img src="<?php echo BUSINESS_PROFILE_PATH.NO_IMAGE; ?>" id="imgAvatar" style="width: 280px;">
+                                        <img src="<?php echo BUSINESS_PROFILE_PATH.NO_IMAGE; ?>" id="imgAvatar" style="width: 180px; height: 180px;">
                                         <input type="text" hidden="hidden" id="logoImageAvatar" name="business_avatar">
                                         <input type="file" style="display: none;" id="logoFileAvatar">
                                     </div>
@@ -117,7 +117,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label" style="width: 100%;">Business Image Cover<button type="button" class="btn btn-box-tool" id="btnCover"><i class="fa fa-upload"></i> Choose image</button></label>
-                                        <img src="<?php echo BUSINESS_PROFILE_PATH.NO_IMAGE; ?>" id="imgCover" style="width: 280px;">
+                                        <img src="<?php echo BUSINESS_PROFILE_PATH.NO_IMAGE; ?>" id="imgCover" style="width: 240px; height: 100px;">
                                         <input type="text" hidden="hidden" id="logoImageCover" name="business_image_cover" >
                                         <input type="file" style="display: none;" id="logoFileCover">
                                     </div>
