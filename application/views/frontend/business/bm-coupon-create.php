@@ -12,7 +12,7 @@
 
       <div class="create-upload">
         <div class="container">
-          <div class="w-938">
+          <div class="w-550">
             <div class="upload-wrap">
               <div class="drop-zone">
                 <div class="drop-zone__prompt">
