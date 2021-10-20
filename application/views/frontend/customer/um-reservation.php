@@ -88,19 +88,7 @@
                               <tr>
                                 <td><?php echo $itemBook['date_arrived']; ?><br><?php echo $itemBook['time_arrived']; ?></td>
                                 <td>
-                                <div class="hover-name-infor">
                                   <a href="<?php if(isset($itemBook['business_url'])){ echo base_url($itemBook['business_url']); }else{ echo 'javascript:void(0)'; } ?>"><?php if(isset($itemBook['business_name'])){ echo getNumberOfWords($itemBook['business_name']," ", 2); }else{ echo '-'; } ?></a>
-                                  <div class="box-infor-search">
-                          <ul>
-                            <li>Account name <span>Nguyen Thien</span></li>
-                            <li>Book name <span>Ms. Rena</span></li>
-                            <li>Phone number <span>+8493294343</span></li>
-                            <li>Reservation ID <span>ABCD123</span></li>
-                            <li>Number of people <span>12</span></li>
-                            <li>Date time <span>21/10/2021 - 10:00</span></li>
-                          </ul>
-                        </div>
-                                </div>
                                 </td>
                                 <td><?php echo $itemBook['book_code']; ?></td>
                                 <td><?php echo $itemBook['number_of_people']; ?></td>
