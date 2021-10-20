@@ -293,7 +293,6 @@
 
 <script>
   $(document).ready(function() {
-    initSample();
     // star rating
     $('#leaveReview .star-base a').click(function(e) {
       var rate = $(this).attr('dt-value');
@@ -304,21 +303,46 @@
     });
     
     // editor
-    let editorReview;
-    const leaveReviewComment = document.querySelector("#leaveReviewComment");
-    if (leaveReviewComment) {
-      ClassicEditor.create(leaveReviewComment).then(newEditor => {
-        editorReview = newEditor;
-      });
-    }
+    if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
+	CKEDITOR.tools.enableHtml5Elements( document );
+CKEDITOR.config.height = 150;
+CKEDITOR.config.width = 'auto';
+
+	var wysiwygareaAvailable = isWysiwygareaAvailable(),
+		isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
+		var editorElement = CKEDITOR.document.getById( 'leaveReviewComment' );
+		if ( isBBCodeBuiltIn ) {
+			editorElement.setHtml(
+			);
+		}
+		if ( wysiwygareaAvailable ) {
+			CKEDITOR.replace( 'leaveReviewComment' );
+		} else {
+			editorElement.setAttribute( 'contenteditable', 'true' );
+			CKEDITOR.inline( 'leaveReviewComment' );
+
+		}
+
+	function isWysiwygareaAvailable() {
+		if ( CKEDITOR.revision == ( '%RE' + 'V%' ) ) {
+			return true;
+		}
+
+		return !!CKEDITOR.plugins.get( 'wysiwygarea' );
+	}
+    // let editorReview;
+    // const leaveReviewComment = document.querySelector("#leaveReviewComment");
+    // if (leaveReviewComment) {
+    //   ClassicEditor.create(leaveReviewComment).then(newEditor => {
+    //     editorReview = newEditor;
+    //   });
+    // }
+
     //customer leave a review
     $('.btn-leave-review').click(function(e) {
       var business_id = $("#businessId").val();
       var customer_id = $("#customerId").val();
       var customer_comment = editorReview.getData();
-      // var customer_comment = CKEDITOR.document.getById( 'leaveReviewComment' );
-// console.log(customer_comment);
-
       var review_star = $("#rankStar").val();
 
       if (business_id == 0) {
@@ -337,36 +361,36 @@
 
       $('#leaveReview').modal('hide');
 
-      // $.ajax({
-      //   type: 'POST',
-      //   url: '<?php echo base_url('business/leave-a-review'); ?>',
-      //   data: {
-      //     customer_id: customer_id,
-      //     business_id: business_id,
-      //     customer_comment: customer_comment,
-      //     review_star: review_star
-      //   },
-      //   dataType: "json",
-      //   success: function(data) {
-      //     if (data.code == 1) {
-      //       $(".notiPopup .text-secondary").html(data.message);
-      //       $(".ico-noti-success").removeClass('ico-hidden');
-      //       $(".notiPopup").fadeIn('slow').fadeOut(4000);
-      //     } else {
-      //       $(".notiPopup .text-secondary").html(data.message);
-      //       $(".ico-noti-error").removeClass('ico-hidden');
-      //       $(".notiPopup").fadeIn('slow').fadeOut(4000);
-      //     }
-      //     redirect(true);
-      //   },
-      //   error: function(data) {
-      //     $(".notiPopup .text-secondary").html("Leave a review failed");
-      //     $(".ico-noti-error").removeClass('ico-hidden');
-      //     $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('business/leave-a-review'); ?>',
+        data: {
+          customer_id: customer_id,
+          business_id: business_id,
+          customer_comment: customer_comment,
+          review_star: review_star
+        },
+        dataType: "json",
+        success: function(data) {
+          if (data.code == 1) {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-success").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          } else {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          }
+          redirect(true);
+        },
+        error: function(data) {
+          $(".notiPopup .text-secondary").html("Leave a review failed");
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(4000);
 
-      //     redirect(true);
-      //   }
-      // });
+          redirect(true);
+        }
+      });
 
     });
 
