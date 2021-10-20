@@ -86,7 +86,7 @@
                             foreach ($lists as $itemBook) { ?>
 
                               <tr>
-                                <td><?php echo $itemBook['date_arrived']; ?><br><?php echo $itemBook['time_arrived']; ?></td>
+                                <td><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?></td>
                                 <td>
                                   <a href="<?php if(isset($itemBook['business_url'])){ echo base_url($itemBook['business_url']); }else{ echo 'javascript:void(0)'; } ?>"><?php if(isset($itemBook['business_name'])){ echo getNumberOfWords($itemBook['business_name']," ", 2); }else{ echo '-'; } ?></a>
                                 </td>
@@ -98,7 +98,9 @@
                                   <?php } else if ($itemBook['book_status_id'] == 1 || $itemBook['book_status_id'] == 4 || strtotime($itemBook['date_arrived'] . ' ' . $itemBook['time_arrived']) < strtotime(date('Y-m-d H:i'))) { ?>
                                     <a href="<?php echo $basePagingUrl . '?type=1'; ?>"><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></a>
                                   <?php } else if ($itemBook['book_status_id'] == 3) { ?>
-                                    <a href="<?php echo $basePagingUrl . '?type=3'; ?>"><span class="badge badge-declined"><?php echo $this->lang->line('cancelled'); ?></span></a>
+                                    <a href="<?php echo $basePagingUrl . '?type=3'; ?>"><span class="badge badge-cancel"><?php echo $this->lang->line('cancelled'); ?></span></a>
+                                    <?php } else if ($itemBook['book_status_id'] == 4) { ?>
+                                    <a href="<?php echo $basePagingUrl . '?type=4'; ?>"><span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span></a>
                                   <?php } ?>
                                 </td>
                                 <td>

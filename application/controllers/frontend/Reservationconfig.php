@@ -40,7 +40,7 @@ class Reservationconfig extends MY_Controller
             
             if(!empty($configTimes)){
                 $isCurrent = false;
-                if(date('Y-m-d') == $selected_day){
+                if(strtotime(date('Y-m-d')) == strtotime($selected_day)){
                     $isCurrent = true;
                 }
                 $listHours = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration'], $isCurrent);

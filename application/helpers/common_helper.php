@@ -440,3 +440,18 @@ if(!function_exists('getNumberOfWords')) {
       return $string;
     }
 }
+
+if(!function_exists('getOnlyHourMinute')) {
+    function getOnlyHourMinute($time = "00:00:00") {
+      $strTime = "";
+      if(!empty($time)){
+        $arrTime = explode(":", $time);
+        if(!empty($arrTime)){
+            if(is_array($arrTime) && count($arrTime) >= 2){
+                $strTime = $arrTime['0'].":".$arrTime['1'];
+            }
+        }
+      }
+      return $strTime;
+    }
+}
