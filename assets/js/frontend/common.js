@@ -161,7 +161,11 @@ $(document).ready(function () {
                     $(".coupon-item-" + current_button.data('id')).hide();
                     owl_coupon.trigger('remove.owl.carousel', [current_button.data('index')]).trigger('refresh.owl.carousel');
                     $("#savedCouponModal").modal("show");
-
+                }
+                if (response.code == 0) {
+                    $(".notiPopup .text-secondary").html(response.message);
+                    $(".ico-noti-error").removeClass('ico-hidden');
+                    $(".notiPopup").fadeIn('slow').fadeOut(5000);
                 }
             }
         });

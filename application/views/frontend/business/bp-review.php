@@ -97,13 +97,18 @@
 
                 <div class="col-review">
                   <div class="d-flex justify-content-lg-end">
-                    <?php if(isset($customer['id']) && $customer['id'] > 0){ ?>
+                    <?php if (isset($customer['id']) && $customer['id'] > 0 && $allowReview == true) { ?>
                       <a href="javascript:void(0)" class="review-btn btn btn-red" data-bs-target="#leaveReview" data-bs-toggle="modal">
                         <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
                         <?php echo $this->lang->line('leave_a_review'); ?>
                       </a>
-                    <?php }else{ ?>
-                      <a href="<?php echo base_url('login.html?requiredLogin=1&redirectUrl='.current_url()) ?>" class="review-btn btn btn-red" >
+                    <?php } else if (!isset($customer['id']) || $customer['id'] == 0) { ?>
+                      <a href="<?php echo base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()) ?>" class="review-btn btn btn-red">
+                        <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
+                        <?php echo $this->lang->line('leave_a_review'); ?>
+                      </a>
+                    <?php } else if (isset($allowReview) && $allowReview == false) { ?>
+                      <a href="javascript:void(0)" class="review-btn btn btn-red disabled" data-bs-target="#cannotReview" data-bs-toggle="modal">
                         <img src="assets/img/frontend/icon-up.png" alt="icon-edit" class="img-fluid me-2">
                         <?php echo $this->lang->line('leave_a_review'); ?>
                       </a>
@@ -115,36 +120,50 @@
               <div class="bp-comment">
                 <h4 class="page-title-rv"><?php echo $this->lang->line('reviews'); ?> (<?php echo $rowCount; ?>)</h4>
                 <div class="bp-inner-content">
-                  <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
-                    <div class="d-flex align-items-center inner-filter">
-                      <!--
-                      <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
-                      <div class="notification-filter">
-                        <div class="custom-select">
+                  <?php if (!empty($lists) > 0) { ?>
+                    <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
+                      <div class="d-flex align-items-center inner-filter">
+                        <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
+                        <div class="notification-filter">
+                          <div class="custom-select mb-0 choose-star">
+                            <select>
+                              <option value="0"><?php echo $this->lang->line('1310_all'); ?></option>
+                              <option value="5" <?php if (isset($review_star) && $review_star == 5) {
+                                                  echo 'selected';
+                                                } ?>>5 *</option>
+                              <option value="4" <?php if (isset($review_star) && $review_star == 4) {
+                                                  echo 'selected';
+                                                } ?>>4 *</option>
+                              <option value="3" <?php if (isset($review_star) && $review_star == 3) {
+                                                  echo 'selected';
+                                                } ?>>3 *</option>
+                              <option value="2" <?php if (isset($review_star) && $review_star == 2) {
+                                                  echo 'selected';
+                                                } ?>>2 *</option>
+                              <option value="1" <?php if (isset($review_star) && $review_star == 1) {
+                                                  echo 'selected';
+                                                } ?>>1 *</option>
+                              <option value="6" <?php if (isset($review_star) && $review_star == 6) {
+                                                  echo 'selected';
+                                                } ?>>Photo</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center notification-sort">
+                        <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
+                        <div class="custom-select mb-0 choose-order">
                           <select>
-                            <option value="0" selected>All</option>
-                            <option value="1">Personal</option>
-                            <option value="2">The Rice Bowl</option>
-                            <option value="3">Inspire Beauty Salon</option>
+                            <option value="desc"><?php echo $this->lang->line('1310_newest'); ?></option>
+                            <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
+                                                  echo 'selected="selected"';
+                                                } ?>><?php echo $this->lang->line('1310_oldest'); ?></option>
                           </select>
                         </div>
                       </div>
-                      -->
                     </div>
-                    <div class="d-flex align-items-center notification-sort">
-                      <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
-                      <div class="custom-select mb-0 choose-order">
-                        <select>
-                          <option value="desc"><?php echo $this->lang->line('1310_newest'); ?></option>
-                          <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
-                                                echo 'selected="selected"';
-                                              } ?>><?php echo $this->lang->line('1310_oldest'); ?></option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <?php if (!empty($lists) > 0) { ?>
+
+
                     <div class="list-comment">
 
                       <!-- ITEM COMMENT -->
@@ -159,7 +178,9 @@
                             }
                             ?>
                             <img src="<?php echo $customerImg; ?>" alt="comment avatar" class="img-fluid">
-                            <span class="mt-3 d-block"><?php if(!empty($itemReview['customerInfo'])){ echo $itemReview['customerInfo']['customer_first_name']; }  ?></span>
+                            <span class="mt-3 d-block"><?php if (!empty($itemReview['customerInfo'])) {
+                                                          echo $itemReview['customerInfo']['customer_first_name'];
+                                                        }  ?></span>
                           </div>
                           <div class="comment-body">
                             <p class="font500"><?php echo ddMMyyyy($itemReview['created_at'], 'd/m/Y H:i'); ?></p>
@@ -207,7 +228,7 @@
               <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                 <div class="d-flex align-items-center pagination-left">
                   <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                  <?php echo $this->lang->line('1310_results'); ?></p>
+                    <?php echo $this->lang->line('1310_results'); ?></p>
                   <div class="page-text-sm mb-0 d-flex align-items-center">
                     <div class="custom-select choose-perpage">
                       <select>
@@ -252,7 +273,7 @@
 <input type="hidden" id="currentBaseUrl" value="<?php echo $basePagingUrl; ?>" />
 <?php $this->load->view('frontend/includes/footer'); ?>
 
-<!-- Modal -->
+<!-- Modal review -->
 <div class="modal fade" id="leaveReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -290,6 +311,19 @@
     </div>
   </div>
 </div>
+<!-- END. Modal review -->
+
+<!-- Modal cannot review -->
+<div class="modal fade" id="cannotReview" tabindex="-1" aria-labelledby="cannotReviewLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="page-text-lg text-center">You have already rated this business profile</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End. Modal cannot review -->
 
 <script>
   $(document).ready(function() {
@@ -301,35 +335,34 @@
       $("#rankStar").val(rate);
       $(this).closest('.star-base').find('.star-rate').css('width', width);
     });
-    
+
     // editor
-    if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
-	CKEDITOR.tools.enableHtml5Elements( document );
-CKEDITOR.config.height = 150;
-CKEDITOR.config.width = 'auto';
+    if (CKEDITOR.env.ie && CKEDITOR.env.version < 9)
+      CKEDITOR.tools.enableHtml5Elements(document);
+    CKEDITOR.config.height = 150;
+    CKEDITOR.config.width = 'auto';
 
-	var wysiwygareaAvailable = isWysiwygareaAvailable(),
-		isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
-		var editorElement = CKEDITOR.document.getById( 'leaveReviewComment' );
-		if ( isBBCodeBuiltIn ) {
-			editorElement.setHtml(
-			);
-		}
-		if ( wysiwygareaAvailable ) {
-			CKEDITOR.replace( 'leaveReviewComment' );
-		} else {
-			editorElement.setAttribute( 'contenteditable', 'true' );
-			CKEDITOR.inline( 'leaveReviewComment' );
+    var wysiwygareaAvailable = isWysiwygareaAvailable(),
+      isBBCodeBuiltIn = !!CKEDITOR.plugins.get('bbcode');
+    var editorElement = CKEDITOR.document.getById('leaveReviewComment');
+    if (isBBCodeBuiltIn) {
+      editorElement.setHtml();
+    }
+    if (wysiwygareaAvailable) {
+      CKEDITOR.replace('leaveReviewComment');
+    } else {
+      editorElement.setAttribute('contenteditable', 'true');
+      CKEDITOR.inline('leaveReviewComment');
 
-		}
+    }
 
-	function isWysiwygareaAvailable() {
-		if ( CKEDITOR.revision == ( '%RE' + 'V%' ) ) {
-			return true;
-		}
+    function isWysiwygareaAvailable() {
+      if (CKEDITOR.revision == ('%RE' + 'V%')) {
+        return true;
+      }
 
-		return !!CKEDITOR.plugins.get( 'wysiwygarea' );
-	}
+      return !!CKEDITOR.plugins.get('wysiwygarea');
+    }
     // let editorReview;
     // const leaveReviewComment = document.querySelector("#leaveReviewComment");
     // if (leaveReviewComment) {
@@ -342,13 +375,13 @@ CKEDITOR.config.width = 'auto';
     $('.btn-leave-review').click(function(e) {
       var business_id = $("#businessId").val();
       var customer_id = $("#customerId").val();
-      var customer_comment = editorReview.getData();
+      var customer_comment = CKEDITOR.instances['leaveReviewComment'].getData();
       var review_star = $("#rankStar").val();
 
       if (business_id == 0) {
         $(".notiPopup .text-secondary").html("Business profile not exist");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
         redirect(false, '<?php echo base_url(HOME_URL); ?>');
       }
@@ -356,7 +389,7 @@ CKEDITOR.config.width = 'auto';
       if (customer_id == 0) {
         $(".notiPopup .text-secondary").html("Please login to leave a review");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
       }
 
       $('#leaveReview').modal('hide');
@@ -375,18 +408,18 @@ CKEDITOR.config.width = 'auto';
           if (data.code == 1) {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           } else {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
           redirect(true);
         },
         error: function(data) {
           $(".notiPopup .text-secondary").html("Leave a review failed");
           $(".ico-noti-error").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
           redirect(true);
         }

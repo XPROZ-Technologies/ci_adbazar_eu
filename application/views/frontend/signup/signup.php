@@ -130,7 +130,7 @@
         }else{
             $(".notiPopup .text-secondary").html('Please agree with our term and condition!');
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
         }
     });
 </script>

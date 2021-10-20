@@ -797,7 +797,7 @@ box-shadow: 0px 2px 6px rgba(77, 78, 78, 0.2);
     line-height: 12px;
     font-style: inherit;
 }
-.customer-location .card-title {
+.customer-location .card-title, #map_business .card-title {
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -2744,6 +2744,10 @@ span.switch-left {
 .page-business-manager .bm-plan .bm-plan-top .currency-wrap .d-flex.align-items-center.justify-content-center.switch-btn label.switch{
     width: 64px;
     height: 24px;
+}
+.comment-body p img {
+ max-width: 100% !important;
+ height: auto !important;
 }
 @media (min-width: 1366px){
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {

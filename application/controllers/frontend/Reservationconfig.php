@@ -53,7 +53,7 @@ class Reservationconfig extends MY_Controller
                 }
                 if (!empty($dataHours)) {
                     $dataHours = '<option value="0">Select a time</option>'.$dataHours;
-                    echo json_encode(array('code' => 1, 'message' => "Successfull", 'day_id' => $day_id, 'data' => $dataHours));
+                    echo json_encode(array('code' => 1, 'message' => "Successfull", 'day_id' => $day_id, 'data' => $dataHours, 'max_people' => $configTimes[0]['max_per_reservation']));
                     die;
                 }else{
                     echo json_encode(array('code' => 2, 'message' => "There is no time period", 'data' => ""));

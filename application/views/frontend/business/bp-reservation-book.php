@@ -31,7 +31,7 @@
                     <button type="button" class="plus">
                       <img src="assets/img/frontend/ic-plus.png" alt="icon plus">
                     </button>
-                    <p class="color-close ml-8px mb-0">Thông báo</p>
+                    <p class="color-close ml-8px mb-0 max-number-noti" style="display:none"></p>
                   </div>
                 </div>
               </div>
@@ -151,30 +151,35 @@
       
       
       if (parseInt(number_of_people) > parseInt(maxPerReservation) && parseInt(maxPerReservation) > 0) {
+        $(".max-number-noti").html("Maximum of people is: " + maxPerReservation);
+        $(".max-number-noti").show();
         $(".notiPopup .text-secondary").html("Maximum of people is: " + maxPerReservation);
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(5000);
         return false;
+      }else{
+        $(".max-number-noti").html("");
+        $(".max-number-noti").hide();
       }
 
       if (selectedDay == 0 || selectedDay == "") {
         $(".notiPopup .text-secondary").html("Please select a day");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
         return false;
       }
 
       if (selectTime == "0" || selectTime == "") {
         $(".notiPopup .text-secondary").html("Please select a time");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
         return false;
       }
 
       if (book_name == '' || number_of_people == '' || country_code_id == '' || book_phone == '' || date_arrived == '' || time_arrived == '') {
         $(".notiPopup .text-secondary").html("Please fulfill information");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
         return false;
       } else {
         $("#formBookReservation").submit();
@@ -241,19 +246,21 @@
           if (data.code == 1) {
             console.log(data.data);
             $("#timeArrived").html(data.data);
+            $("#maxPerReservation").val(data.max_people);
             $(".custom-select").niceSelect('update');
           } else {
             $("#timeArrived").html('<option value="0"><?php echo $this->lang->line('select_a_time'); ?></option>');
+            $(".custom-select").niceSelect('update');
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
 
         },
         error: function(data) {
           $(".notiPopup .text-secondary").html("Reply review failed");
           $(".ico-noti-error").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
         }
       });
 

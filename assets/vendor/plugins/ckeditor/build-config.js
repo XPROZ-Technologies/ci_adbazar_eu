@@ -57,7 +57,7 @@ var CKBUILDER_CONFIG = {
 		'about' : 1,
 		'basicstyles' : 1,
 		'clipboard' : 1,
-		'easyimage' : 1,
+		/*'easyimage' : 1,*/
 		'enterkey' : 1,
 		'entities' : 1,
 		'floatingspace' : 1,

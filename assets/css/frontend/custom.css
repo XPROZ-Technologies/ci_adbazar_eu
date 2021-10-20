@@ -612,13 +612,13 @@ object-fit: contain;
 .gm-style .gm-style-iw-t{
     bottom: 35px!important;
 }
-#maps .customer-location-list{
+#maps .customer-location-list, #map_business .customer-location-list{
     margin-bottom: 20px;
 }
-#maps .customer-location-left .customer-location-list{
+#maps .customer-location-left .customer-location-list, #map_business .customer-location-left .customer-location-list{
     margin-bottom: 32px;
 }
-#maps .customer-location-right .card-title a{
+#maps .customer-location-right .card-title a, #map_business .card-title a {
 
     color: #0044b7;
 }
@@ -631,7 +631,7 @@ object-fit: contain;
 .pagination-left .page-text-sm,.pagination-left  .page-text-md,.pagination  .page-item .page-link,.pagination-left  .btn-red,.pagination-left  .btn-outline-red, .pagination-left .form-label {
     font-size: 14px;
 }
-#maps .customer-location-right .card-title {
+#maps .customer-location-right .card-title, #map_busines .card-title {
     padding-right: 0;
     max-width: 150px;
     overflow: inherit;
@@ -640,10 +640,12 @@ object-fit: contain;
     -webkit-line-clamp: 5;
 }
 .gm-style .gm-style-iw-t::after,
-#map .gm-style .gm-style-iw-c button, #map .gm-style .gm-style-iw-d button{
+#map .gm-style .gm-style-iw-c button, #map .gm-style .gm-style-iw-d button,
+#map_business .gm-style .gm-style-iw-c button, #map_business .gm-style .gm-style-iw-d button {
     display: none!important;
 }
-#map .gm-style .gm-style-iw-c, #map .gm-style .gm-style-iw-d {
+#map .gm-style .gm-style-iw-c, #map .gm-style .gm-style-iw-d ,
+#map_business .gm-style .gm-style-iw-c, #map_business .gm-style .gm-style-iw-d {
     width: auto;
     height: auto;
     box-shadow: none;
@@ -832,6 +834,7 @@ min-height: 320px;
 .card.rounded-0.customer-location-item .col-3{
     width: 20%;
 }
+/*
 #aboutMapModal .card.rounded-0.customer-location-item .col-3 {
     width: 24%;
 }
@@ -843,6 +846,7 @@ min-height: 320px;
     padding: 0;
     background: transparent;
 }
+*/
 .um-links li:not(:last-child) a, .um-links li a, .bp-sidebar li a {
     font-weight: bold;
 }

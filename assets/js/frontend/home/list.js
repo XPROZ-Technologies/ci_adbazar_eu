@@ -2,7 +2,7 @@
     
 
 $(document).ready(function() {
-    console.log(textView);
+
     $("#profilePagging").html('');
     $(".customer-location-list").html('');
     var current_page = 1;

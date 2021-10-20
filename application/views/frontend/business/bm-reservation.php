@@ -101,20 +101,20 @@
                           <?php
                           foreach ($lists as $itemBook) { ?>
                             <tr>
-                            <td><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?></td>
+                              <td><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?></td>
                               <td>
                                 <div class="hover-name-infor">
-                                <div class="box-infor-search">
-                                  <?php if(isset($itemBook['customer_name'])){ echo $itemBook['customer_name']; }else{ echo '-'; } ?>
-                                  <ul>
-                                    <li>Account name <span>Nguyen Thien</span></li>
-                                    <li>Book name <span>Ms. Rena</span></li>
-                                    <li>Phone number <span>+8493294343</span></li>
-                                    <li>Reservation ID <span>ABCD123</span></li>
-                                    <li>Number of people <span>12</span></li>
-                                    <li>Date time <span>21/10/2021 - 10:00</span></li>
-                                  </ul>
-                                </div>
+                                  <?php if(isset($itemBook['customer_first_name'])){ echo $itemBook['customer_first_name']; }else{ echo '-'; } ?>
+                                  <div class="box-infor-search">
+                                    <ul>
+                                      <li>Account name: <span><?php echo $itemBook['customer_first_name']; ?> <?php echo $itemBook['customer_last_name']; ?></span></li>
+                                      <li>Book name: <span><?php echo $itemBook['book_name']; ?></span></li>
+                                      <li>Phone number: <span>+<?php echo $itemBook['phone_code']; ?><?php echo ltrim($itemBook['book_phone'], '0'); ?></span></li>
+                                      <li>Reservation ID: <span><?php echo $itemBook['book_code']; ?></span></li>
+                                      <li>Number of people: <span><?php echo $itemBook['number_of_people']; ?></span></li>
+                                      <li>Date time: <span><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?> - <?php echo getOnlyHourMinute($itemBook['time_arrived']); ?></span></li>
+                                    </ul>
+                                  </div>
                                 </div>
                               </td>
                               <td><?php echo $itemBook['book_code']; ?></td>
@@ -442,13 +442,13 @@
           error: function(json) {
             $(".notiPopup .text-secondary").html("Reply review failed");
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
         });
       } else {
         $(".notiPopup .text-secondary").html("Selected day not exist");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
       }
     });
 
@@ -473,7 +473,7 @@
       if (max_people == '' || max_per_reservation == '' || duration == '' || start_time == '' || end_time == '') {
         $(".notiPopup .text-secondary").html("Please fulfill information");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
       }
 
       if (day_id !== '') {
@@ -501,7 +501,7 @@
 
               $(".notiPopup .text-secondary").html("Save config successfully");
               $(".ico-noti-success").removeClass('ico-hidden');
-              $(".notiPopup").fadeIn('slow').fadeOut(4000);
+              $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
 
 
@@ -513,19 +513,19 @@
 
               $(".notiPopup .text-secondary").html(json.message);
               $(".ico-noti-error").removeClass('ico-hidden');
-              $(".notiPopup").fadeIn('slow').fadeOut(4000);
+              $(".notiPopup").fadeIn('slow').fadeOut(5000);
             }
           },
           error: function(json) {
             $(".notiPopup .text-secondary").html("Save config failed");
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
         });
       } else {
         $(".notiPopup .text-secondary").html("Save config failed");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
       }
     });
 
@@ -551,18 +551,18 @@
           if (json.code == 1) {
             $(".notiPopup .text-secondary").html(json.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
           } else {
             $(".notiPopup .text-secondary").html(json.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
         },
         error: function(json) {
           $(".notiPopup .text-secondary").html("Change status failed");
           $(".ico-noti-error").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
         }
       });
     });
@@ -621,18 +621,18 @@
           if (data.code == 1) {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           } else {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
           redirect(true);
         },
         error: function(data) {
           $(".notiPopup .text-secondary").html("Declined failed");
           $(".ico-noti-error").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
           redirect(true);
         }
