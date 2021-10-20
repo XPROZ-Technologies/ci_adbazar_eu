@@ -293,7 +293,6 @@
 
 <script>
   $(document).ready(function() {
-    initSample('leaveReviewComment');
     // star rating
     $('#leaveReview .star-base a').click(function(e) {
       var rate = $(this).attr('dt-value');
@@ -304,6 +303,33 @@
     });
     
     // editor
+    if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
+	CKEDITOR.tools.enableHtml5Elements( document );
+CKEDITOR.config.height = 150;
+CKEDITOR.config.width = 'auto';
+
+	var wysiwygareaAvailable = isWysiwygareaAvailable(),
+		isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
+		var editorElement = CKEDITOR.document.getById( 'leaveReviewComment' );
+		if ( isBBCodeBuiltIn ) {
+			editorElement.setHtml(
+			);
+		}
+		if ( wysiwygareaAvailable ) {
+			CKEDITOR.replace( 'leaveReviewComment' );
+		} else {
+			editorElement.setAttribute( 'contenteditable', 'true' );
+			CKEDITOR.inline( 'leaveReviewComment' );
+
+		}
+
+	function isWysiwygareaAvailable() {
+		if ( CKEDITOR.revision == ( '%RE' + 'V%' ) ) {
+			return true;
+		}
+
+		return !!CKEDITOR.plugins.get( 'wysiwygarea' );
+	}
     // let editorReview;
     // const leaveReviewComment = document.querySelector("#leaveReviewComment");
     // if (leaveReviewComment) {
