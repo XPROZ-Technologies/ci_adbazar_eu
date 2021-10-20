@@ -185,10 +185,13 @@
 
                         <!-- reply -->
                         <?php if (!empty($itemReview['business_comment'])) { ?>
-                          <div class="d-flex flex-column flex-lg-row comment-item no-avatar">
+                          <div class="comment-item no-avatar">
                             <div class="comment-body">
                               <p class="font500"><?php echo ddMMyyyy($itemReview['updated_at'], 'd/m/Y H:i'); ?></p>
                               <p class="page-text-sm"><?php echo $itemReview['business_comment']; ?></p>
+                            </div>
+                            <div class="text-right">
+                              <a href="javascript:void(0)" title="" class="btn btn-outline-red d-inline-block delete-comment fw-bold mr-6px"><img src="assets/img/frontend/icon-del.png" alt=""> <?php echo $this->lang->line('delete'); ?></a>
                             </div>
                           </div>
                         <?php } else { ?>

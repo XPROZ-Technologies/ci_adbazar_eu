@@ -23,7 +23,7 @@
               <div class="col-lg-12">
                 <div class="form-group mb-3 form-group-quantity">
                   <label class="d-block form-label" for="numOfPeople"><?php echo $this->lang->line('number_of_people'); ?></label>
-                  <div class="d-flex">
+                  <div class="d-flex align-items-center">
                     <button type="button" class="minus">
                       <img src="assets/img/frontend/ic-minus.png" alt="icon minus">
                     </button>
@@ -31,6 +31,7 @@
                     <button type="button" class="plus">
                       <img src="assets/img/frontend/ic-plus.png" alt="icon plus">
                     </button>
+                    <p class="color-close ml-8px mb-0">Thông báo</p>
                   </div>
                 </div>
               </div>
