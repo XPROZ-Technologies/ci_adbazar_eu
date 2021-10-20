@@ -17,6 +17,14 @@
 .user-info-item {
     height: auto;
 }
+.cke_toolgroup a.cke_button:last-child:after,.cke_toolgroup a.cke_button.cke_button_disabled:hover:last-child:after,
+.cke_toolbar{
+    display: none;
+}
+.comment-item.no-avatar #cke_32.cke_toolbar,
+#leaveReview #cke_20.cke_toolbar{
+    display: block;
+}
 #signinSuccessResetPassModal .page-text-sm{
     font-size: 12px;
     line-height: 16px;

@@ -285,15 +285,38 @@
     <?php if (!empty($lists)) {
       foreach ($lists as $itemReview) { ?>
         //editor
+        if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
+    CKEDITOR.tools.enableHtml5Elements( document );
+    CKEDITOR.config.height = 150;
+    CKEDITOR.config.width = 'auto';
+    var wysiwygareaAvailable = isWysiwygareaAvailable(),
+      isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
+      var editorElement = CKEDITOR.document.getById('bmReplyComment-<?php echo $itemReview['id']; ?>');
+      if ( isBBCodeBuiltIn ) {
+        editorElement.setHtml(
+        );
+      }
+      if ( wysiwygareaAvailable ) {
+        CKEDITOR.replace('bmReplyComment-<?php echo $itemReview['id']; ?>');
+      } else {
+        editorElement.setAttribute( 'contenteditable', 'true' );
+        CKEDITOR.inline('bmReplyComment-<?php echo $itemReview['id']; ?>');
+      }
+    function isWysiwygareaAvailable() {
+      if ( CKEDITOR.revision == ( '%RE' + 'V%' ) ) {
+        return true;
+      }
+      return !!CKEDITOR.plugins.get( 'wysiwygarea' );
+    }
 
-        const replyComment_<?php echo $itemReview['id']; ?> = document.querySelector("#bmReplyComment-<?php echo $itemReview['id']; ?>");
-        if (replyComment_<?php echo $itemReview['id']; ?>) {
-          ClassicEditor.create(replyComment_<?php echo $itemReview['id']; ?>).then(newEditor => {
-            let editorReply;
-            editorReply = newEditor;
-            editorGroup[<?php echo $itemReview['id']; ?>] = editorReply;
-          });
-        }
+        // const replyComment_<?php echo $itemReview['id']; ?> = document.querySelector("#bmReplyComment-<?php echo $itemReview['id']; ?>");
+        // if (replyComment_<?php echo $itemReview['id']; ?>) {
+        //   ClassicEditor.create(replyComment_<?php echo $itemReview['id']; ?>).then(newEditor => {
+        //     let editorReply;
+        //     editorReply = newEditor;
+        //     editorGroup[<?php echo $itemReview['id']; ?>] = editorReply;
+        //   });
+        // }
     <?php }
     } ?>
 
