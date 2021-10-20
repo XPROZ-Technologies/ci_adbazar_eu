@@ -2117,6 +2117,15 @@ span.switch-left {
     /*margin-right: 10px;*/
     margin-right: 5px;
 }
+.page-header .btn-register{
+    margin-right: 0;
+}
+.page-header .btn-outline-red, .page-header .btn-red{
+    padding: 5px 10px!important;
+}
+.page-header .btn-login{
+    margin-right: 20px;
+}
 .dropdown-language .selected .dropdown-item,
 .page-header .btn-register ,
 .page-header .btn-login{
@@ -2133,7 +2142,18 @@ span.switch-left {
     top: 9px;
     right: 6px;
 }
-.page-header .btn-outline-red,.page-header .btn-red {
+.page-header .btn-user .btn-outline-red,.page-header .btn-user .btn-red {
+    padding: 5px 11px!important;
+    border-radius: 2px;
+    font-size: 14px;
+    line-height: 17px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    max-width: 100%!important;
+    margin-bottom: 0;
+}
+.page-header .user-info-box .btn-outline-red, .page-header .user-info-box .btn-red{
     padding: 5px 20px!important;
     border-radius: 2px;
     font-size: 12px;
@@ -2186,6 +2206,7 @@ span.switch-left {
 .bp-review .comment-item.no-avatar {
     width: calc(100% - 70px);
     padding: 10px 28px;
+    margin-top: 8px;
 }
 .modal-content {
     border-radius: 5px;
@@ -2331,10 +2352,11 @@ line-height: 23px;
     padding-right: 20px;
 }
 .bp-review .comment-item {
-    margin-bottom: 10px;
+    margin-top: 16px;
     background-color: #F5F5F5;
-    padding: 16px;
+    padding: 10px 16px;
     border-radius: 5px;
+    margin-bottom: 0;
 }
 .list-comment {
     margin-top: 0;
@@ -3621,7 +3643,7 @@ span.switch-left {
         padding: 0 4px;
     }
     .page-header .btn-register {
-        margin-right: 6px;
+        margin-right: 0px;
     }
     .header-right-mobile .mx-3 {
         margin-right: 5px !important;

@@ -102,7 +102,21 @@
                           foreach ($lists as $itemBook) { ?>
                             <tr>
                               <td><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo $itemBook['time_arrived']; ?></td>
-                              <td><?php if(isset($itemBook['customer_name'])){ echo $itemBook['customer_name']; }else{ echo '-'; } ?></td>
+                              <td>
+                                <div class="hover-name-infor">
+                                <div class="box-infor-search">
+                                  <?php if(isset($itemBook['customer_name'])){ echo $itemBook['customer_name']; }else{ echo '-'; } ?>
+                          <ul>
+                            <li>Account name <span>Nguyen Thien</span></li>
+                            <li>Book name <span>Ms. Rena</span></li>
+                            <li>Phone number <span>+8493294343</span></li>
+                            <li>Reservation ID <span>ABCD123</span></li>
+                            <li>Number of people <span>12</span></li>
+                            <li>Date time <span>21/10/2021 - 10:00</span></li>
+                          </ul>
+                        </div>
+                                </div>
+                              </td>
                               <td><?php echo $itemBook['book_code']; ?></td>
                               <td><?php echo $itemBook['number_of_people']; ?></td>
                               <td>
