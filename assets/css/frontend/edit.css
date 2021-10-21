@@ -962,7 +962,6 @@ border-radius: 5px;
     color: #000000;
 }
 .video-item .icon-video img{
-    width: 50px;
     height: 38px;
 }
 .bp-header .page-title,
@@ -1103,9 +1102,15 @@ border-radius: 2px;
 .customer-coupon .search-box {
     margin: 0;
 }
+.main-customer .page-customer-service .customer-service-list .customer-service-right  .wrapper-search .search-box .form-control,
+.main-customer .page-customer-service .customer-service-list .customer-service-right  .wrapper-search .search-box,
+.page-customer-coupon .customer-coupon .wrapper-search .search-box .form-control,
+.page-customer-coupon .customer-coupon .wrapper-search .search-box {
+    width: 442px;
+}
 .wrapper-search .search-box {
     max-width: 100%;
-    width: 422px;
+    width: 100%;
     justify-content: flex-end;
     margin-left: auto;
 }
@@ -1196,7 +1201,7 @@ border-radius: 2px;
     padding: 6px 48px;
     border: 1px solid #CCCCCC;
     box-sizing: border-box;
-    width: 422px;
+    width: 100%;
     border-radius: 2px;
     max-width: 100%;
 }

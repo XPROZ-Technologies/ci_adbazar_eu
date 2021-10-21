@@ -10,23 +10,23 @@
         <div class="customer-service-grid about-page">
             <div class="container">
                 
-                <div class="row col-mar-30 mb-40 d-flex align-items-center">
+                <div class="row col-mar-30 mb-40">
                     <div class="col-md-5  order-md-last">
                         <div class="c-img pt-66">
                             <img src="<?php echo $about['child_img_1']; ?>" alt="<?php echo $this->lang->line('about_us'); ?>">
                         </div>
                     </div>
-                    <div class="col-md-7 order-md-first">
+                    <div class="col-md-7 order-md-first pt-30">
                         <p><?php echo nl2br($about['child_text_1']); ?></p>
                     </div>
                 </div>
-                <div class="row col-mar-30  mb-40 d-flex align-items-center">
+                <div class="row col-mar-30  mb-40">
                     <div class="col-md-5">
                         <div class="c-img pt-66">
                             <img src="<?php echo $about['child_img_2']; ?>" alt="<?php echo $this->lang->line('about_us'); ?>">
                         </div>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-7 pt-10">
                         <p><?php echo nl2br($about['child_text_2']); ?></p>
                     </div>
                 </div>
