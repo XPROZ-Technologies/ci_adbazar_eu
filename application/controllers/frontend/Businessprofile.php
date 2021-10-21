@@ -785,7 +785,7 @@ class Businessprofile extends MY_Controller
         $customer = $this->checkLoginCustomer();
         if(!$this->input->get('tokenDraft') && empty($this->input->get('tokenDraft'))) {
             // xử lý khi có lỗi tokenDraft bị rỗng
-          
+            var_dump("111111111111111111");
         } else {
             $tokenDraft = $this->input->get('tokenDraft');
         
@@ -798,7 +798,7 @@ class Businessprofile extends MY_Controller
                 $businessProfile = $businessProfiles[0];
             } else {
                 // xử lý khi dữ liệu không đúng
-               
+                var_dump("2222222222222222");
             }
 
             /**
@@ -817,7 +817,7 @@ class Businessprofile extends MY_Controller
     //        $data['successUrl'] = base_url('business-profile/bm-paymemt?isResult=true&customerId=xxxx');
     //        $data['cancelUrl'] = base_url('business-profile/bm-paymemt?isResult=false');
             // For test https require ex url
-            $data['successUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=true&customerId='.$customer['id'];
+            $data['successUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
             $data['cancelUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=false';
             /// =======> url response success: https://adb.xproz.com/business-profile/bm-paymemt?customerId=xxxx&subscription_id=I-XX3HLUWB7A6N&ba_token=BA-05T51831YS465512K&token=63D00859N0649705L
             if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
