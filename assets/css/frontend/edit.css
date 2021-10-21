@@ -13,7 +13,14 @@
         font-family: 'Roboto-Bold';
         src: url("../../fonts/Roboto-Bold.ttf") format("truetype"); 
     }
-    .fw-500,
+    @font-face {
+        font-family: 'Roboto';
+        font-weight: 500;
+        src: url("../../fonts/Roboto-Medium.ttf") format("truetype"); 
+    }
+    .fw-500{
+        font-weight: 500;
+    }
     .fw-bold{
         font-family: 'Roboto-Bold';
     }
@@ -833,6 +840,7 @@ text-align: left!important;
 margin-bottom:24px;
 }
 .bp-tabs-right .open-hour .time {
+    font-weight: 500;
     font-size: 16px;
     line-height: 23px;
     padding-right: 0;
@@ -856,7 +864,7 @@ line-height: 28px;
     font-size: 10px;
     line-height: 12px;
     height: auto;
-    width: 91px;
+    width: 95px;
 }
 .bp-tabs-right .open-hour {
     padding: 20px;
