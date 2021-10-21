@@ -781,67 +781,97 @@ class Businessprofile extends MY_Controller
 
     public function payment()
     {
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles'));
+       
+        $customer = $this->checkLoginCustomer();
+        if(!$this->input->get('tokenDraft') && empty($this->input->get('tokenDraft'))) {
+            // xử lý khi có lỗi tokenDraft bị rỗng
+          
+        } else {
+            $tokenDraft = $this->input->get('tokenDraft');
+        
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles'));
 
-        /**
-         * Commons data
-         */
-        $data = $this->commonDataCustomer($this->lang->line('my_business_profile'));
-        $data['activeMenu'] = "";
-        $data['plan'] = $this->input->get('plan');
-        $data['isTrial'] = $this->input->get('isTrial');
-        // Params
-        $data['planPrice'] = 1299;
-        $data['planPriceVat'] = 100;
-        $data['planPriceTotal'] = 1399;
-        $data['planPriceVatPercent'] = 21;
+            $businessProfiles = $this->Mbusinessprofiles->getBy(array('customer_id' => $customer['id'], 'token_draft' => $tokenDraft));
+          
+            $businessProfile = [];
+            if(count($businessProfiles) > 0) {
+                $businessProfile = $businessProfiles[0];
+            } else {
+                // xử lý khi dữ liệu không đúng
+               
+            }
 
-//        $data['successUrl'] = base_url('business-profile/bm-paymemt?isResult=true&customerId=xxxx');
-//        $data['cancelUrl'] = base_url('business-profile/bm-paymemt?isResult=false');
-        // For test https require ex url
-        $data['successUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=true&customerId=xxxx';
-        $data['cancelUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=false';
-        /// =======> url response success: https://adb.xproz.com/business-profile/bm-paymemt?customerId=xxxx&subscription_id=I-XX3HLUWB7A6N&ba_token=BA-05T51831YS465512K&token=63D00859N0649705L
-        if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
-            // Response with pay success
-            $customerId = $this->input->get('customerId');
-            $subscription_id = $this->input->get('subscription_id');
-            $ba_token = $this->input->get('ba_token');
-            $token = $this->input->get('token');
-            // Can recheck sub here or not, save success to db
+            /**
+             * Commons data
+             */
+            $data = $this->commonDataCustomer($this->lang->line('my_business_profile'));
+            $data['activeMenu'] = "";
+            $data['plan'] = $this->input->get('plan');
+            $data['isTrial'] = $this->input->get('isTrial');
+            // Params
+            $data['planPrice'] = 1299;
+            $data['planPriceVat'] = 100;
+            $data['planPriceTotal'] = 1399;
+            $data['planPriceVatPercent'] = 21;
 
-            //Redirect now, link my test.hehe
-            redirect(base_url('business-management/hd-jsc/subscriptions'));
-            return;
-        } else if ($this->input->get('isResult') == 'false') {
-            // response pay cancel or err, any link
-            redirect(base_url('login.html?requiredLogin=1&redirectUrl='));
-            return;
+    //        $data['successUrl'] = base_url('business-profile/bm-paymemt?isResult=true&customerId=xxxx');
+    //        $data['cancelUrl'] = base_url('business-profile/bm-paymemt?isResult=false');
+            // For test https require ex url
+            $data['successUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=true&customerId='.$customer['id'];
+            $data['cancelUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=false';
+            /// =======> url response success: https://adb.xproz.com/business-profile/bm-paymemt?customerId=xxxx&subscription_id=I-XX3HLUWB7A6N&ba_token=BA-05T51831YS465512K&token=63D00859N0649705L
+            if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
+                // Response with pay success
+                $customerId = $this->input->get('customerId');
+                $subscription_id = $this->input->get('subscription_id');
+                $ba_token = $this->input->get('ba_token');
+                $token = $this->input->get('token');
+                // Can recheck sub here or not, save success to db
+                $date = strtotime("+30 day", strtotime(date('Y-m-d H:i:s')));
+                $expiredDate = date('Y-m-d H:i:s', $date);
+                $this->Mbusinessprofiles->save(array('expired_date' => $expiredDate), $businessProfile['id']);
+
+                $returnData = array(
+                    'customerId' => $customerId,
+                    'subscription_id' => $subscription_id,
+                    'ba_token' => $ba_token,
+                    'expiredDate' => $expiredDate
+                );
+                var_dump($returnData);die;
+                //Redirect now, link my test.hehe
+                redirect(base_url('business-management/hd-jsc/subscriptions'));
+                return;
+            } else if ($this->input->get('isResult') == 'false') {
+                // response pay cancel or err, any link
+                redirect(base_url('login.html?requiredLogin=1&redirectUrl='));
+                return;
+            }
+            $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
+            $paypalUser = array();
+            $paypalUser['paypalClientKey'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
+            // id plan user select
+            $paypalUser['paypalPlanId'] = 'P-9X909670CL680372YMFV2KAA';
+            // auth paypal business
+            $paypalUser['username'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
+            $paypalUser['password'] = 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3';
+            $paypalUser['host'] = 'https://api-m.sandbox.paypal.com';
+            $paypalUser['successUrl'] = $data['successUrl'];
+            $paypalUser['cancelUrl'] = $data['cancelUrl'];
+
+            $data['payurl'] = $this->getPaymentLink($paypalUser);
+            /**
+             * Commons data
+             */
+
+            if ($data['customer']['id'] == 0) {
+                $this->session->set_flashdata('notice_message', "Please login to view this page");
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+            }
+
+            $this->load->view('frontend/business/bm-payment', $data);
         }
-
-        $paypalUser = array();
-        $paypalUser['paypalClientKey'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
-        // id plan user select
-        $paypalUser['paypalPlanId'] = 'P-9X909670CL680372YMFV2KAA';
-        // auth paypal business
-        $paypalUser['username'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
-        $paypalUser['password'] = 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3';
-        $paypalUser['host'] = 'https://api-m.sandbox.paypal.com';
-        $paypalUser['successUrl'] = $data['successUrl'];
-        $paypalUser['cancelUrl'] = $data['cancelUrl'];
-
-        $data['payurl'] = $this->getPaymentLink($paypalUser);
-        /**
-         * Commons data
-         */
-
-        if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "Please login to view this page");
-            $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
-        }
-
-        $this->load->view('frontend/business/bm-payment', $data);
+        
     }
 
     public function submitSelectPlan()
@@ -1034,10 +1064,10 @@ class Businessprofile extends MY_Controller
         try {
             $customer = $this->checkLoginCustomer();
             if($this->input->get('tokenDraft') && $customer['id'] > 0) {
-                
+                $tokenDraft = $this->input->get('tokenDraft');
                 $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours', 'Mbusinessservicetype'));
                 $businessProfileId = 0;
-                $businessInfo = $this->Mbusinessprofiles->getBy(array('token_draft' => $this->input->get('tokenDraft')));
+                $businessInfo = $this->Mbusinessprofiles->getBy(array('token_draft' => $tokenDraft));
                    
                 if(count($businessInfo) > 0) {
                     $businessProfileId = $businessInfo[0]['id'];
@@ -1059,10 +1089,11 @@ class Businessprofile extends MY_Controller
                 if($businessProfileId > 0) {
                     $postData['updated_at'] = getCurentDateTime();
                     $postData['updated_by'] = 0; //customer udpate business
+                    $postData['is_annual_payment'] = 1;
                 } else {
                     $postData['created_at'] = getCurentDateTime();
                     $postData['created_by'] = 0; //customer create business
-                    $postData['token_draft'] = $this->input->get('tokenDraft');
+                    $postData['token_draft'] = $tokenDraft;
                 }
                 
 
@@ -1146,7 +1177,7 @@ class Businessprofile extends MY_Controller
                     //redirect(base_url('my-business-profile'));
                     // Redirect to paymemnt
                     echo $plan;
-                    redirect(base_url('business-profile/bm-payment?plan=' . $plan . '&isTrial=' . $isTrial));
+                    redirect(base_url('business-profile/bm-payment?plan=' . $plan . '&isTrial=' . $isTrial.'&tokenDraft='.$tokenDraft));
                 } else {
                     $this->session->set_flashdata('notice_message', "Create business profile failed");
                     $this->session->set_flashdata('notice_type', 'error');
