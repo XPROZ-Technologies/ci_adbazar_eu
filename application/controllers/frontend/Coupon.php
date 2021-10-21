@@ -192,6 +192,10 @@ class Coupon extends MY_Controller
                     echo json_encode(array('code' => 0, 'message' => 'Please select different date'));die;
                 }
 
+                if(empty($postData['coupon_amount']) || $postData['coupon_amount'] == 0){
+                    echo json_encode(array('code' => 0, 'message' => 'Amount of coupon must be larger than 0'));die;
+                }
+
                 /**
                  * Upload if customer choose image
                  */
