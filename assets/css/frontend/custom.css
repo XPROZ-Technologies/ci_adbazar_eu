@@ -17,12 +17,12 @@
 .user-info-item {
     height: auto;
 }
-.cke_toolgroup a.cke_button:last-child:after,.cke_toolgroup a.cke_button.cke_button_disabled:hover:last-child:after,
-.cke_toolbar{
+.cke_toolbox span{
     display: none;
 }
-.comment-item.no-avatar #cke_32.cke_toolbar,
-#leaveReview #cke_20.cke_toolbar{
+.cke_toolbox span:nth-child(4) .cke_toolgroup a:nth-child(2) span:first-child,
+.cke_toolbox span:nth-child(4) .cke_toolgroup,
+.cke_toolbox span:nth-child(4){
     display: block;
 }
 #signinSuccessResetPassModal .page-text-sm{
@@ -279,6 +279,16 @@ div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
         padding-right: 30px!important; }
 }
 @media (min-width: 992px) {
+    .page-user-manager .um-event-detail .um-event-detail-left .detail-img img{
+        width: 422px;
+        height: 422px;
+        object-fit: contain;
+        max-width: 100%;
+        background: #ededed;
+    }
+    .um-coupon-detail .detail-left img {
+        min-height: 424px;
+    }
     .page-user-manager.page-um-general .um-content .container>.row>.col-lg-3{
         width: 38.3%;
     }
@@ -631,7 +641,7 @@ object-fit: contain;
 .pagination-left .page-text-sm,.pagination-left  .page-text-md,.pagination  .page-item .page-link,.pagination-left  .btn-red,.pagination-left  .btn-outline-red, .pagination-left .form-label {
     font-size: 14px;
 }
-#maps .customer-location-right .card-title, #map_busines .card-title {
+#maps .customer-location-right .card-title, #map_business .card-title {
     padding-right: 0;
     max-width: 150px;
     overflow: inherit;
@@ -646,9 +656,44 @@ object-fit: contain;
 }
 #map .gm-style .gm-style-iw-c, #map .gm-style .gm-style-iw-d ,
 #map_business .gm-style .gm-style-iw-c, #map_business .gm-style .gm-style-iw-d {
+    overflow: hidden!important;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
     width: auto;
     height: auto;
     box-shadow: none;
+}
+.bp-coupon-detail .detail-left img,
+.um-coupon-detail .detail-left img{
+    background: #ededed;
+    object-fit: contain;
+}
+#configModal .bootstrap-datetimepicker-widget table td {
+    height: 30px;
+    line-height: 30px;
+    width: 20px;
+}
+#configModal .bootstrap-datetimepicker-widget table td span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+#configModal .bootstrap-datetimepicker-widget.dropdown-menu {
+    min-width: inherit;
+    width: 120px!important;
+}
+#configModal .bootstrap-datetimepicker-widget .timepicker-minute,
+ #configModal .bootstrap-datetimepicker-widget .timepicker-second,
+#configModal .bootstrap-datetimepicker-widget .timepicker-hour{
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
 }
 /*  */
 .wrapper-list .position-relative .event-join,
