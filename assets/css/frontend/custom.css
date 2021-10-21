@@ -669,31 +669,42 @@ object-fit: contain;
     background: #ededed;
     object-fit: contain;
 }
-#configModal .bootstrap-datetimepicker-widget table td {
-    height: 30px;
-    line-height: 30px;
+.bootstrap-datetimepicker-widget table td {
+    height: 20px;
+    line-height: 20px;
     width: 20px;
 }
-#configModal .bootstrap-datetimepicker-widget table td span {
+.bootstrap-datetimepicker-widget table td span {
     display: inline-block;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
 }
-#configModal .bootstrap-datetimepicker-widget.dropdown-menu {
+.bootstrap-datetimepicker-widget.dropdown-menu {
     min-width: inherit;
-    width: 120px!important;
+    width: 80px!important;
 }
-#configModal .bootstrap-datetimepicker-widget .timepicker-minute,
- #configModal .bootstrap-datetimepicker-widget .timepicker-second,
-#configModal .bootstrap-datetimepicker-widget .timepicker-hour{
+.bootstrap-datetimepicker-widget .timepicker .timepicker-picker a.btn span {
+    background-color: transparent;
     font-size: 16px;
+}
+.bootstrap-datetimepicker-widget .timepicker-minute,
+ .bootstrap-datetimepicker-widget .timepicker-second,
+.bootstrap-datetimepicker-widget .timepicker-hour{
+    font-size: 14px;
     justify-content: center;
     align-items: center;
     display: inline-flex;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+}
+.bootstrap-datetimepicker-widget a[data-action] {
+    padding: 0px 0;
+}
+.bootstrap-datetimepicker-widget table td,
+.bootstrap-datetimepicker-widget.usetwentyfour td.hour {
+    font-size: 12px;
 }
 /*  */
 .wrapper-list .position-relative .event-join,
