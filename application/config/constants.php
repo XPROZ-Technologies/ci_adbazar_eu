@@ -93,6 +93,7 @@ define('DEFAULT_LIMIT', 20);
 define('DEFAULT_LIMIT_BUSINESS_PROFILE', 10);
 define('DEFAULT_LIMIT_BUSINESS_PROFILE_MAP', 4);
 define('DEFAULT_LIMIT_COUPON', 50);
+define('DEFAULT_LIMIT_NOTIFICATION', 10);
 //define('API_VERSION', '1.0');
 //message
 define('ERROR_COMMON_MESSAGE', 'An error occurred during execution');

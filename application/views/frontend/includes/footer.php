@@ -48,7 +48,9 @@
     <script src="assets/js/frontend/commons/bootstrap.min.js"></script>
     <script src="assets/js/frontend/commons/bootstrap-datetimepicker.js"></script>
     <script src="assets/js/frontend/commons/jquery.nice-select.min.js"></script>
-    <script src="assets/js/frontend/commons/ckeditor.js"></script>
+    <!-- <script src="assets/js/frontend/commons/ckeditor.js"></script> -->
+    <script src="assets/vendor/plugins/ckeditor/ckeditor.js"></script>
+    <script src="assets/vendor/plugins/ckeditor/samples/js/sample.js"></script>
     <script src="assets/js/frontend/commons/bootstrap.bundle.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="assets/js/frontend/commons/google.js?version=<?php echo time(); ?>"></script>
@@ -59,7 +61,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/js/BsMultiSelect.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-    
+    <script>
+        var textView = '<?php echo $this->lang->line('1310_view'); ?>';
+    </script>
     <?php if(isset($scriptFooter)) outputScript($scriptFooter); ?>
 </body>
 

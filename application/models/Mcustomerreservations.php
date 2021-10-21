@@ -32,8 +32,17 @@ class Mcustomerreservations extends MY_Model {
 
     private function buildQuery($postData){
         $query = '';
-
-        if(isset($postData['book_status_id']) && $postData['book_status_id'] != '')  $query.=" AND book_status_id = ".$postData['book_status_id'];
+        
+        if(isset($postData['book_status_id']) && $postData['book_status_id'] != '') {
+            if($postData['book_status_id'] == STATUS_ACTIVED){
+                $query.=" AND (book_status_id = ".$postData['book_status_id']." AND DATE(`date_arrived`) >= '".date('Y-m-d')."')";
+            }else if($postData['book_status_id'] != 1){
+                $query.=" AND book_status_id = ".$postData['book_status_id'];
+            }else if($postData['book_status_id'] == 1){
+                $query.=" AND (book_status_id = ".$postData['book_status_id']." || DATE(`date_arrived`) < '".date('Y-m-d')."')";
+            }
+            
+        } 
         if(isset($postData['business_profile_id']) && $postData['business_profile_id'] > 0)  $query.=" AND business_profile_id = ".$postData['business_profile_id'];
         if(isset($postData['customer_id']) && $postData['customer_id'] > 0)  $query.=" AND customer_id = ".$postData['customer_id'];
         if(isset($postData['code_name']) && !empty($postData['code_name'])) $query.=" AND book_code like '%".$postData['customer_id']."%'";

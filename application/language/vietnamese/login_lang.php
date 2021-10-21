@@ -37,3 +37,6 @@ $lang["your_password_does_not_match_please_try_again"] = "*Mật khẩu của b�
 $lang["sign_up_with_google"] = "Google";
 $lang["sign_up_with_facebook"] = "Facebook";
 
+$lang['successfully_register_account'] = "Đăng ký tài khoản thành công";
+$lang['successfully_login_account'] = "Đăng nhập tài khoản thành công";
+

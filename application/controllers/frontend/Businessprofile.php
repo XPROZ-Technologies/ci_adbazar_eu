@@ -422,6 +422,14 @@ class Businessprofile extends MY_Controller
             $data['overall_rating'] = ($data['count_one_star'] * 1 + $data['count_two_star'] * 2 + $data['count_three_star'] * 3 + $data['count_four_star'] * 4 + $data['count_five_star'] * 5) / ($data['count_one_star'] + $data['count_two_star'] + $data['count_three_star'] + $data['count_four_star'] + $data['count_five_star']);
         }
 
+        $data['allowReview'] = true;
+        $countReviewTime = $this->Mcustomerreviews->getCount(array(
+            'business_id' => $businessProfileId,
+            'customer_id' => $data['customer']['id']
+        ));
+        if($countReviewTime > 0){
+            $data['allowReview'] = false;
+        }
         $this->load->view('frontend/business/bp-review', $data);
     }
 
@@ -429,7 +437,7 @@ class Businessprofile extends MY_Controller
     {
         try {
 
-            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews'));
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews', 'Mcustomernotifications', 'Mbusinessprofiles'));
 
             /**
              * Commons data
@@ -443,7 +451,10 @@ class Businessprofile extends MY_Controller
             $postData = $this->arrayFromPost(array('customer_id', 'review_star', 'customer_comment'));
 
             $getBusinessId = $this->input->post('business_id');
-
+            $postData['is_image'] = 0;
+            if(strpos($postData['customer_comment'], '<img') !== false ){
+                $postData['is_image'] = 1;
+            }
             $postData['business_id'] = $getBusinessId;
             $postData['customer_review_status_id'] = STATUS_ACTIVED;
             $postData['created_at'] = getCurentDateTime();
@@ -451,6 +462,23 @@ class Businessprofile extends MY_Controller
             //echo "<pre>";print_r($postData);exit;
             $reviewId = $this->Mcustomerreviews->save($postData);
             if ($reviewId > 0) {
+                $customerId = $this->Mbusinessprofiles->getFieldValue(array('id' => $getBusinessId), 'customer_id', 0);
+                /**
+                 * Add notification
+                 */
+                $dataNoti = array(
+                    'notification_type' => 0, //business has review
+                    'customer_id'   => $customerId,
+                    'business_id'   => $getBusinessId,
+                    'item_id'   => $reviewId,
+                    'notification_status_id'    => STATUS_ACTIVED,
+                    'created_at' => $postData['created_at']
+                );
+                $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                /**
+                 * END. Add notification
+                 */
+
                 echo json_encode(array('code' => 1, 'message' => "Leave a review successfully"));
                 die;
             } else {
@@ -467,7 +495,7 @@ class Businessprofile extends MY_Controller
     {
         try {
 
-            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews'));
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews', 'Mcustomernotifications'));
 
             /**
              * Commons data
@@ -491,6 +519,24 @@ class Businessprofile extends MY_Controller
 
                 $reviewId = $this->Mcustomerreviews->save($postData, $getReviewId);
                 if ($reviewId > 0) {
+                    $customerId = $this->Mcustomerreviews->getFieldValue(array('id' => $reviewId), 'customer_id', 0);
+
+                    /**
+                     * Add notification
+                     */
+                    $dataNoti = array(
+                        'notification_type' => 1, //business reply customer comment
+                        'customer_id'   => $customerId,
+                        'business_id'   => $getBusinessId,
+                        'item_id'   => $reviewId,
+                        'notification_status_id'    => STATUS_ACTIVED,
+                        'created_at'    => $postData['updated_at']
+                    );
+                    $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                    /**
+                     * END. Add notification
+                     */
+
                     echo json_encode(array('code' => 1, 'message' => "Reply customer review successfully"));
                     die;
                 } else {
@@ -549,6 +595,48 @@ class Businessprofile extends MY_Controller
         }
     }
 
+    public function removeReplyComment()
+    {
+        try {
+
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews'));
+
+            /**
+             * Commons data
+             */
+            $data = $this->commonDataCustomer('');
+            $data['activeMenu'] = "";
+            /**
+             * Commons data
+             */
+
+            $reviewId = $this->input->post('review_id');
+            $getBusinessId = $this->input->post('business_id');
+
+            $delReviewId = $this->Mcustomerreviews->getFieldValue(array('id' => $reviewId, 'business_id' => $getBusinessId), 'id', 0);
+            if ($delReviewId > 0) {
+                $postData['business_comment'] = "";
+                $postData['updated_at'] = getCurentDateTime();
+
+                $reviewId = $this->Mcustomerreviews->save($postData, $reviewId);
+
+                if ($reviewId > 0) {
+                    echo json_encode(array('code' => 1, 'message' => "Delete reply successfully"));
+                    die;
+                } else {
+                    echo json_encode(array('code' => 0, 'message' => "Delete reply failed"));
+                    die;
+                }
+            } else {
+                echo json_encode(array('code' => 0, 'message' => "Reply not exist"));
+                die;
+            }
+        } catch (Exception $e) {
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+            die;
+        }
+    }
+
     public function reservation($slug = "")
     {
         if (empty($slug)) {
@@ -578,6 +666,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', "Please login to view this page");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
         $data['activeBusinessMenu'] = "reservation";
 
         $data['businessInfo'] = $businessInfo;
@@ -587,11 +681,14 @@ class Businessprofile extends MY_Controller
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
+        $type = $this->input->get('type');
+        $data['type'] = $type;
 
         $getData = array(
             'search_text_fe' => $search_text,
             'customer_id' => $data['customer']['id'],
-            'business_profile_id' => $businessInfo['id']
+            'business_profile_id' => $businessInfo['id'],
+            'book_status_id' => $type
         );
         $rowCount = $this->Mcustomerreservations->getCount($getData);
         $data['lists'] = array();
@@ -1237,7 +1334,7 @@ class Businessprofile extends MY_Controller
                     $itemHours = $open_hours[$day_id];
                     $itemDay = array();
                     $itemDay['day_id'] = $day_id;
-                    if (isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on') {
+                    if (isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on' && !empty($itemHours['start_time']) && !empty($itemHours['start_time'])) {
                         $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
                     } else {
                         $itemDay['opening_hours_status_id'] = 1;
@@ -1472,6 +1569,8 @@ class Businessprofile extends MY_Controller
         }
         $data['reviewInfo']['star'] = $overall_rating;
         $data['reviewInfo']['sumReview'] = $sumReview;
+
+        
         /**
          * END. REVIEWS
          */
@@ -1979,6 +2078,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if (empty($data['customer']['id']) || $data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html'));
+        }
+
         $data['activeBusinessMenu'] = "reviews";
 
         $data['businessInfo'] = $businessInfo;
@@ -2009,7 +2114,7 @@ class Businessprofile extends MY_Controller
         $pageCount = ceil($rowCount / $perPage);
         $page = $this->input->get('page');
         if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('business/' . $businessInfo['business_url'] . '/reviews');
+        $data['basePagingUrl'] = base_url('business-management/' . $businessInfo['business_url'] . '/reviews');
         $data['perPage'] = $perPage;
         $data['page'] = $page;
         $data['rowCount'] = $rowCount;
@@ -2021,7 +2126,10 @@ class Businessprofile extends MY_Controller
         $data['lists'] = $this->Mcustomerreviews->search($getData, $perPage, $page);
         for ($i = 0; $i < count($data['lists']); $i++) {
             $customerInfo = $this->Mcustomers->getBy(array('id' => $data['lists'][$i]['customer_id'], 'customer_status_id' => STATUS_ACTIVED), false, 'created_at', 'customer_first_name, customer_last_name, customer_avatar', 0, 0, 'asc');
-            $data['lists'][$i]['customerInfo'] = $customerInfo[0];
+            $data['lists'][$i]['customerInfo'] = array();
+            if(isset($customerInfo[0]) && !empty($customerInfo[0])){
+                $data['lists'][$i]['customerInfo'] = $customerInfo[0];
+            }
         }
 
         $data['count_one_star'] = $this->Mcustomerreviews->getCount(array(
@@ -2074,7 +2182,7 @@ class Businessprofile extends MY_Controller
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mreservationconfigs', 'Mcustomerreservations'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mreservationconfigs', 'Mcustomerreservations', 'Mcustomers', 'Mphonecodes'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -2112,11 +2220,14 @@ class Businessprofile extends MY_Controller
         $data['keyword'] = $search_text;
         $selected_day = $this->input->get('selected_day');
         $data['selected_day'] = $selected_day;
+        $type = $this->input->get('type');
+        $data['type'] = $type;
 
         $getData = array(
             'date_arrived' => $selected_day,
             'search_text_fe' => $search_text,
-            'business_profile_id' => $businessProfileId
+            'business_profile_id' => $businessProfileId,
+            'book_status_id' => $type
         );
         $rowCount = $this->Mcustomerreservations->getCount($getData);
         $data['lists'] = array();
@@ -2141,6 +2252,11 @@ class Businessprofile extends MY_Controller
 
         $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
 
+        foreach($data['lists'] as $k => $item){
+            $data['lists'][$k]['customer_first_name'] = $this->Mcustomers->getFieldValue((array('id' => $item['customer_id'])), 'customer_first_name', '');
+            $data['lists'][$k]['customer_last_name'] = $this->Mcustomers->getFieldValue((array('id' => $item['customer_id'])), 'customer_last_name', '');
+            $data['lists'][$k]['phone_code'] = $this->Mphonecodes->getFieldValue(array('id' => $businessInfo['country_code_id']), 'phonecode', '');
+        }
 
         $this->load->view('frontend/business/bm-reservation', $data);
     }

@@ -25,7 +25,7 @@ class Mcustomercoupons extends MY_Model {
 
     public function getUsedCoupon($coupon_id = 0){
         if($coupon_id > 0){
-            $query = "customer_id > 0 AND customer_coupon_status_id > 0" . $this->buildQuery(array('coupon_id' => $coupon_id));
+            $query = "customer_id > 0 AND customer_coupon_status_id > 0 " . $this->buildQuery(array('coupon_id' => $coupon_id));
             return $this->countRows($query);
         } 
         return 0;

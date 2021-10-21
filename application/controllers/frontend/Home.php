@@ -29,7 +29,7 @@ class Home extends MY_Controller {
         $data['listSlidersEvent'] = $this->Msliders->getBy(array('slider_status_id' => STATUS_ACTIVED, 'slider_type_id' => 2), false, 'display_order','', 0, 0, 'asc');
 
         $savedCoupons = $this->Mcustomercoupons->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_coupon_status_id >' => 0), 'coupon_id');
-        $data['listCoupons'] = $this->Mcoupons->search(array('coupon_status_id' => STATUS_ACTIVED, 'is_hot' => 2, 'saved_coupons' => $savedCoupons));
+        $data['listCoupons'] = $this->Mcoupons->search(array('coupon_status_id' => STATUS_ACTIVED, 'is_hot' => 2, 'saved_coupons' => $savedCoupons, 'is_full' => 0));
         foreach($data['listCoupons'] as $kCoupon => $itemCoupon){
             $data['listCoupons'][$kCoupon]['coupon_amount_used'] = $this->Mcustomercoupons->getUsedCoupon($itemCoupon['id']);
         }
@@ -93,6 +93,8 @@ class Home extends MY_Controller {
                 $data['listServices'][] = $itemService;
             }
         }
+
+        $data['home_video'] = $this->Mconfigs->getConfigValueByLang('VIDEO_URL', $data['language_id']);
        
         /**
          * END. Business profile on Map
@@ -125,6 +127,7 @@ class Home extends MY_Controller {
             
                 $listProfiles[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfiles[$i]['id'], $service_type_name);
                 $listProfiles[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfiles[$i]['id']);
+                $listProfiles[$i]['rating'] = $this->getBusinessRating($listProfiles[$i]['id']);
             }
             $pageCount = ceil($rowCount / $perPage);
 
@@ -135,6 +138,7 @@ class Home extends MY_Controller {
                     $listProfilesMap[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfilesMap[$i]['id'], $service_type_name);
                     $listProfilesMap[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfilesMap[$i]['id']);
                     $listProfilesMap[$i]['locationInfo'] = $this->Mbusinessprofiles->getBusinessInLocation($listProfilesMap[$i]['id']);
+                    $listProfilesMap[$i]['rating'] = $this->getBusinessRating($listProfilesMap[$i]['id']);
                     if(!empty($listProfilesMap[$i]['locationInfo'])){
                         $listLocations[] = $listProfilesMap[$i];
                     }

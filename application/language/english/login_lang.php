@@ -5,7 +5,7 @@ $lang["email"] = "Email";
 $lang["password"] = "Password";
 $lang["remember_me"] = "Remember me";
 $lang["forgot_your_password"] = "Forgot your password?";
-$lang["sign_in"] = "Logn In";
+$lang["sign_in"] = "Login";
 $lang["not_have_an_account_yet"] = "Not have an account yet?";
 $lang["sign_up"] = "Sign up";
 $lang["or_sign_in_with_your_social_network"] = "Or";
@@ -35,3 +35,6 @@ $lang["confirm_new_password"] = "Confirm new password";
 $lang["your_password_does_not_match_please_try_again"] = "*Your password does not match. Please try again.";
 $lang["sign_up_with_google"] = "Google";
 $lang["sign_up_with_facebook"] = "Facebook";
+
+$lang['successfully_register_account'] = "Successfully register account";
+$lang['successfully_login_account'] = "Successfully login account";

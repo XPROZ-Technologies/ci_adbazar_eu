@@ -40,7 +40,7 @@ class Reservationconfig extends MY_Controller
             
             if(!empty($configTimes)){
                 $isCurrent = false;
-                if(date('Y-m-d') == $selected_day){
+                if(strtotime(date('Y-m-d')) == strtotime($selected_day)){
                     $isCurrent = true;
                 }
                 $listHours = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration'], $isCurrent);
@@ -53,7 +53,7 @@ class Reservationconfig extends MY_Controller
                 }
                 if (!empty($dataHours)) {
                     $dataHours = '<option value="0">Select a time</option>'.$dataHours;
-                    echo json_encode(array('code' => 1, 'message' => "Successfull", 'day_id' => $day_id, 'data' => $dataHours));
+                    echo json_encode(array('code' => 1, 'message' => "Successfull", 'day_id' => $day_id, 'data' => $dataHours, 'max_people' => $configTimes[0]['max_per_reservation']));
                     die;
                 }else{
                     echo json_encode(array('code' => 2, 'message' => "There is no time period", 'data' => ""));

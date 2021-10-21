@@ -74,19 +74,19 @@
                 if (data.code == 1) {
                     $(".notiPopup .text-secondary").html(data.message);
                     $(".ico-noti-success").removeClass('ico-hidden');
-                    $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    $(".notiPopup").fadeIn('slow').fadeOut(5000);
                     redirect(false, '<?php echo base_url('login.html') ?>');
                 } else {
                     $(".notiPopup .text-secondary").html(data.message);
                     $(".ico-noti-error").removeClass('ico-hidden');
-                    $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    $(".notiPopup").fadeIn('slow').fadeOut(5000);
                     redirect(true);
                 }
             },
             error: function(data) {
                 $(".notiPopup .text-secondary").html("Failed");
                 $(".ico-noti-error").removeClass('ico-hidden');
-                $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                $(".notiPopup").fadeIn('slow').fadeOut(5000);
                 redirect(true);
             }
         });

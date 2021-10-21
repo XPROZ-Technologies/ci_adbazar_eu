@@ -30,6 +30,12 @@ class Customer extends MY_Controller
                 $customer = $this->Mcustomers->login($customerEmail, $customerPass);
 
                 if ($customer) {
+                    $this->Mcustomers->save(
+                        array('login_type_id' => 0),
+                        $customer['id']
+                    );
+
+                    $customer['login_type_id'] = 0;
 
                     $this->session->set_userdata('customer', $customer);
 
@@ -60,12 +66,12 @@ class Customer extends MY_Controller
                 } else {
                     $this->session->set_flashdata('notice_message', "Login failed");
                     $this->session->set_flashdata('notice_type', 'error');
-                    redirect(base_url('login.html?1'));
+                    redirect(base_url('login.html'));
                 }
             } else {
                 $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
                 $this->session->set_flashdata('notice_type', 'error');
-                redirect(base_url('login.html?2'));
+                redirect(base_url('login.html'));
             }
         } catch (Exception $e) {
             $this->session->set_flashdata('notice_message', $e->getMessage());
@@ -304,15 +310,24 @@ class Customer extends MY_Controller
             if ($couponId > 0) {
                 $couponInfo = $this->Mcoupons->get($couponId);
 
+                //check used - in past
+                $pastUsed = $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']);
+
                 //save coupon code
                 $customer_coupon_code = $this->Mcoupons->genCouponCode($couponInfo['coupon_code'], $couponInfo['coupon_amount'], $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']));
-                if (!empty($customer_coupon_code)) {
+                if (!empty($customer_coupon_code) && $pastUsed < $couponInfo['coupon_amount']) {
                     $customerCouponId = $this->Mcustomercoupons->save(array(
                         'customer_id' => $postData['customer_id'],
                         'coupon_id' => $postData['coupon_id'],
                         'customer_coupon_status_id' => STATUS_ACTIVED,
                         'customer_coupon_code' => $customer_coupon_code
                     ));
+
+                    //check used - in present
+                    $presentUsed = $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']);
+                    if($presentUsed >= $couponInfo['coupon_amount']){
+                        $this->Mcoupons->save(array('is_full' => 1), $postData['coupon_id']);
+                    }
 
                     echo json_encode(array('code' => 1, 'message' => "Successfully Saved!"));
                     die;
@@ -349,6 +364,15 @@ class Customer extends MY_Controller
                         'customer_coupon_status_id' => 0
                     )
                 );
+
+                $coupon_amount = $this->Mcoupons->getFieldValue(array('id' => $postData['coupon_id']), 'coupon_amount', 0);
+
+                //check used - in present
+                $presentUsed = $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']);
+                if($presentUsed < $coupon_amount){
+                    $this->Mcoupons->save(array('is_full' => 0), $postData['coupon_id']);
+                }
+
                 echo json_encode(array('code' => 1, 'message' => "Successfully removed!"));
                 die;
             } else {
@@ -803,14 +827,18 @@ class Customer extends MY_Controller
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
-        $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
-        $data['joinedEvents'] = $joinedEvents;
+        $type = $this->input->get('type');
+        $data['type'] = $type;
+        $selected_day = $this->input->get('selected_day');
+        $data['selected_day'] = $selected_day;
+
         $getData = array(
-            'event_status_id' => STATUS_ACTIVED,
+            'date_arrived' => $selected_day,
             'search_text_fe' => $search_text,
-            'event_ids' => $joinedEvents
+            'customer_id' => $data['customer']['id'],
+            'book_status_id' => $type
         );
-        $rowCount = $this->Mevents->getCount($getData);
+        $rowCount = $this->Mcustomerreservations->getCount($getData);
         $data['lists'] = array();
 
         /**
@@ -822,7 +850,7 @@ class Customer extends MY_Controller
         $pageCount = ceil($rowCount / $perPage);
         $page = $this->input->get('page');
         if (!is_numeric($page) || $page < 1) $page = 1;
-        $data['basePagingUrl'] = base_url('customer/my-events');
+        $data['basePagingUrl'] = base_url('customer/my-reservation');
         $data['perPage'] = $perPage;
         $data['page'] = $page;
         $data['rowCount'] = $rowCount;
@@ -831,10 +859,11 @@ class Customer extends MY_Controller
          * END - PAGINATION
          */
 
-        $data['lists'] = $this->Mevents->search($getData, $perPage, $page);
-        for ($i = 0; $i < count($data['lists']); $i++) {
-            $data['lists'][$i]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $data['lists'][$i]['business_profile_id'], 'business_status_id' => STATUS_ACTIVED), 'business_name', '');
-            $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH . $data['lists'][$i]['event_image'] : EVENTS_PATH . NO_IMAGE;
+        $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
+
+        foreach($data['lists'] as $k => $item){
+            $data['lists'][$k]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $item['business_profile_id']), 'business_name', '');
+            $data['lists'][$k]['business_url'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $item['business_profile_id']), 'business_url', '');
         }
 
         $this->load->view('frontend/customer/um-reservation', $data);

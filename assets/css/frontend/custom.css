@@ -17,6 +17,14 @@
 .user-info-item {
     height: auto;
 }
+.cke_toolbox span{
+    display: none;
+}
+.cke_toolbox span:nth-child(4) .cke_toolgroup a:nth-child(2) span:first-child,
+.cke_toolbox span:nth-child(4) .cke_toolgroup,
+.cke_toolbox span:nth-child(4){
+    display: block;
+}
 #signinSuccessResetPassModal .page-text-sm{
     font-size: 12px;
     line-height: 16px;
@@ -188,10 +196,25 @@ main{
     max-width: 900px;
 }
 .mystyle .fc-daygrid-day-number{
-    color: #fff;
+    /* color: #fff; */
 }
 .mystyle{
     background-color: #C20000!important;
+}
+.switch-btn .checkbox:not(:checked) ~ .switch {
+    border: 2px solid #c20000;
+}
+.ui-datepicker-calendar tr, .ui-datepicker-calendar td, .ui-datepicker-calendar td a, .ui-datepicker-calendar th{font-size:inherit;}
+div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
+.ui-datepicker-title span{font-size:10px;}
+.about-page .c-img.pt-66 img{
+    border-radius: 10px;
+}
+.pt-30{
+    padding-top: 30px;
+}
+.pt-10{
+    padding-top: 10px;
 }
 @media (min-width: 1366px){
     .home-service .container-owl, .home-coupon .container-owl,
@@ -265,6 +288,16 @@ main{
         padding-right: 30px!important; }
 }
 @media (min-width: 992px) {
+    .page-user-manager .um-event-detail .um-event-detail-left .detail-img img{
+        width: 422px;
+        height: 422px;
+        object-fit: contain;
+        max-width: 100%;
+        background: #F5F5F5;
+    }
+    .um-coupon-detail .detail-left img {
+        min-height: 424px;
+    }
     .page-user-manager.page-um-general .um-content .container>.row>.col-lg-3{
         width: 38.3%;
     }
@@ -308,11 +341,11 @@ main{
     border: 1px solid #C20000;
     box-sizing: border-box;
     border-radius: 10px;
-    padding: 40px 64px;
+    padding: 20px 92px;
 }
 .about-page{
     font-size: 16px;
-    line-height: 19px;
+    line-height: 23px;
     color: #000000;
     margin-top: 80px;
 }
@@ -598,10 +631,13 @@ object-fit: contain;
 .gm-style .gm-style-iw-t{
     bottom: 35px!important;
 }
-#maps .customer-location-list{
+#maps .customer-location-list, #map_business .customer-location-list{
     margin-bottom: 20px;
 }
-#maps .customer-location-right .card-title a{
+#maps .customer-location-left .customer-location-list, #map_business .customer-location-left .customer-location-list{
+    margin-bottom: 32px;
+}
+#maps .customer-location-right .card-title a, #map_business .card-title a {
 
     color: #0044b7;
 }
@@ -614,7 +650,7 @@ object-fit: contain;
 .pagination-left .page-text-sm,.pagination-left  .page-text-md,.pagination  .page-item .page-link,.pagination-left  .btn-red,.pagination-left  .btn-outline-red, .pagination-left .form-label {
     font-size: 14px;
 }
-#maps .customer-location-right .card-title {
+#maps .customer-location-right .card-title, #map_business .card-title {
     padding-right: 0;
     max-width: 150px;
     overflow: inherit;
@@ -623,13 +659,62 @@ object-fit: contain;
     -webkit-line-clamp: 5;
 }
 .gm-style .gm-style-iw-t::after,
-#map .gm-style .gm-style-iw-c button, #map .gm-style .gm-style-iw-d button{
+#map .gm-style .gm-style-iw-c button, #map .gm-style .gm-style-iw-d button,
+#map_business .gm-style .gm-style-iw-c button, #map_business .gm-style .gm-style-iw-d button {
     display: none!important;
 }
-#map .gm-style .gm-style-iw-c, #map .gm-style .gm-style-iw-d {
+#map .gm-style .gm-style-iw-c, #map .gm-style .gm-style-iw-d ,
+#map_business .gm-style .gm-style-iw-c, #map_business .gm-style .gm-style-iw-d {
+    overflow: hidden!important;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
     width: auto;
     height: auto;
     box-shadow: none;
+}
+.bp-coupon-detail .detail-left ,
+.bp-coupon-detail .detail-left img,
+.um-coupon-detail .detail-left img{
+    background: #F5F5F5;
+    object-fit: contain;
+}
+.bootstrap-datetimepicker-widget table td {
+    height: 20px;
+    line-height: 20px;
+    width: 20px;
+}
+.bootstrap-datetimepicker-widget table td span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+.bootstrap-datetimepicker-widget.dropdown-menu {
+    min-width: inherit;
+    width: 80px!important;
+}
+.bootstrap-datetimepicker-widget .timepicker .timepicker-picker a.btn span {
+    background-color: transparent;
+    font-size: 16px;
+}
+.bootstrap-datetimepicker-widget .timepicker-minute,
+ .bootstrap-datetimepicker-widget .timepicker-second,
+.bootstrap-datetimepicker-widget .timepicker-hour{
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+}
+.bootstrap-datetimepicker-widget a[data-action] {
+    padding: 0px 0;
+}
+.bootstrap-datetimepicker-widget table td,
+.bootstrap-datetimepicker-widget.usetwentyfour td.hour {
+    font-size: 12px;
 }
 /*  */
 .wrapper-list .position-relative .event-join,
@@ -815,6 +900,7 @@ min-height: 320px;
 .card.rounded-0.customer-location-item .col-3{
     width: 20%;
 }
+/*
 #aboutMapModal .card.rounded-0.customer-location-item .col-3 {
     width: 24%;
 }
@@ -826,6 +912,7 @@ min-height: 320px;
     padding: 0;
     background: transparent;
 }
+*/
 .um-links li:not(:last-child) a, .um-links li a, .bp-sidebar li a {
     font-weight: bold;
 }
@@ -846,7 +933,7 @@ min-height: 320px;
     border-radius: inherit;
 }
 #pills-photo .photo-list .c-img {
-    border: 1px solid #ededed;
+    border: 1px solid #F5F5F5;
     padding-top: 126%;
 }
 .posting .slider .slick-slide a {
@@ -962,6 +1049,9 @@ min-height: 320px;
 .mr-8px{
     margin-right: 8px;
 }
+.mr-6px{
+    margin-right: 6px;
+}
 .star-rating-number{
     position: relative;
     top: 2px;
@@ -993,6 +1083,10 @@ min-height: 320px;
 }
 .comment-reply{
     display: none;
+}
+.comment-item .btn.reply-comment.disabled{
+    opacity: 0.2;
+    pointer-events: none;
 }
 .comment-item .btn{
 font-size: 14px;
@@ -1049,7 +1143,7 @@ font-size: 14px;
 }
 .icon-delete.js-delete-video,
 .photo-item .photo-icon {
-    background: #adadad;
+    /* background: #adadad; */
     position: absolute;
     top: 8px;
     right: 8px;
@@ -1112,6 +1206,41 @@ font-size: 14px;
 .page-business-profile.page-bp-reservation .bp-tabs .bp-reservation-inner .d-flex.search-box .form-control{
     width: 100%;
 }
+.box-infor-search ul li span{
+margin-left: 32px;
+color: #404040;
+}
+.box-infor-search ul{
+    margin-bottom: 0;
+}
+.hover-name-infor{
+    position: relative;
+}
+.hover-name-infor:hover .box-infor-search{
+    display: block;
+}
+.table-responsive.reservation-table{
+    overflow: inherit;
+}
+.box-infor-search ul li{
+    text-align: left;
+}
+.box-infor-search{
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    width: 280px;
+    padding: 4px 12px;
+    z-index: 1;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 6px rgb(0 0 0 / 25%);
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 23px;
+    color: #949494;
+    left: 50%;
+}
 .reservation-setting{
     font-size: 14px!important;
     line-height: 15px;
@@ -1133,20 +1262,39 @@ font-size: 14px;
 .customer-coupon-img.c-img{
     background-color: #e9e9e9;
 }
-.page-header .btn-outline-red.l1,.page-header .btn-red.l1{
-    width: 84px!important;
-}
-.page-header .btn-outline-red.l4,.page-header .btn-red.l4{
-    width: 99px!important;
-}
-.page-header .btn-outline-red.l3,.page-header .btn-red.l3{
-    width: 105px!important;
-}
-.page-header .btn-outline-red.l2,.page-header .btn-red.l2{
-    width: 103px!important;
-}
+
+
 .customer-location-img{
     text-align: center;
+}
+.switch-btn .switch-left{
+    left: 3px;
+    position: relative;
+} 
+.switch-btn .switch-right {
+    left: -3px;
+    position: relative;
+}
+.currency-wrap .switch-btn .switch-left{
+    left: 8px;
+} 
+.currency-wrap .switch-btn .switch-right {
+    left: -8px;
+}
+.user-info-box .btn {
+    width: 100%!important;
+}
+.reservation-config .switch-btn .switch-left,.reservation-config  .switch-btn .switch-right{
+    top: 1px;
+}
+.page-header .btn-user .btn-red{
+    padding: 0!important;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    background: TRANSPARENT;
+    border: none;
 }
 .bm-payment-content{
     padding: 20px 0;
@@ -1185,7 +1333,7 @@ font-size: 14px;
     .banner-about .banner-about-box span {
         font-size: 26px;
         line-height: 30px;
-}
+    }
     .discover_more {
         padding: 8.5px 73.5px!important;
         width: calc(33.33% - 20px)!important;
@@ -1217,6 +1365,9 @@ font-size: 14px;
     }
 }
 @media (max-width: 991px){
+    .page-header .btn-login {
+        margin-right: 10px;
+    }
     .page-customer-event .customer-event-item .event-date{
         max-width: calc(100% - 125px);
     }
@@ -1385,6 +1536,16 @@ font-size: 14px;
     }
 }
 @media screen and (max-width: 576px){
+    .box-infor-search
+    {
+        left: 0;
+    }
+    .page-header .btn-outline-red.l1 ,
+    .page-header .btn-outline-red.l2 ,
+    .page-header .btn-outline-red.l3 ,
+    .page-header .btn-outline-red.l4 {
+        width: 70px!important;
+    }
     .list-tags li{
         margin-bottom: 5px;
     }
@@ -1396,12 +1557,19 @@ font-size: 14px;
         font-size: 20px;
         line-height: 20px;
     }
-    .form-group-quantity .form-control {
-        width: 100%;
-    }
     .customer-item-list .view-more {
         white-space: nowrap;
-        position: absolute;
+    position: relative;
+    padding: 0;
+    bottom: -7px;
+    right: 0;
+    margin-top: 10px;
+    }
+    .bp-tabs .what-app {
+        height: auto!important;
+    }
+    .bm-create-content .open-hour {
+        padding: 15px 10px;
     }
     .bp-reservation-book .book-content {
         padding: 30px 30px;
@@ -1410,7 +1578,7 @@ font-size: 14px;
         max-height: 40px;
         max-width: 80px;
     }
-    .page-header .btn-outline-red, .page-header .btn-red {
+    .page-header .btn-outline-red {
         padding: 5px 5px!important;
     }
     .bp-introduce .fw-bold.page-title-xs{
@@ -1443,8 +1611,11 @@ font-size: 14px;
     .navbar-expand-xl .navbar-brand{
         margin-right: 4px;
     }
+    .page-header .btn-login {
+        margin-right: 0px;
+    }
 }
-@media screen and (max-width: 375px){
+@media (max-width: 375px){
     .posting .slider .slick-slide a,
     .posting .slider .slick-slide img {
         height: 350px;

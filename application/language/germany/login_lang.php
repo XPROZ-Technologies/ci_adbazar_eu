@@ -38,3 +38,5 @@ $lang["your_password_does_not_match_please_try_again"] = "Ihr Passwort stimmt ni
 $lang["sign_up_with_google"] = "Google";
 $lang["sign_up_with_facebook"] = "Facebook";
 
+$lang['successfully_register_account'] = "Konto erfolgreich registrieren";
+$lang['successfully_login_account'] = "Konto erfolgreich anmelden";

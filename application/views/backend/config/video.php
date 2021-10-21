@@ -7,6 +7,7 @@
             ?>
             <section class="content">
                 
+
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="box box-default padding15">

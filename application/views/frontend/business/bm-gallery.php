@@ -473,11 +473,11 @@
                         if (data.code == 1) {
                             $(".notiPopup .text-secondary").html(data.message);
                             $(".ico-noti-success").removeClass('ico-hidden');
-                            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                            $(".notiPopup").fadeIn('slow').fadeOut(5000);
                         } else {
                             $(".notiPopup .text-secondary").html(data.message);
                             $(".ico-noti-error").removeClass('ico-hidden');
-                            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                            $(".notiPopup").fadeIn('slow').fadeOut(5000);
                         }
 
                         redirect(true);
@@ -487,7 +487,7 @@
 
                         $(".notiPopup .text-secondary").html("Upload video failed");
                         $(".ico-noti-error").removeClass('ico-hidden');
-                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                        $(".notiPopup").fadeIn('slow').fadeOut(5000);
                     }
                 });
             }
@@ -510,7 +510,7 @@
             if (videoId == 0) {
                 $(".notiPopup .text-secondary").html("Video not exist");
                 $(".ico-noti-error").removeClass('ico-hidden');
-                $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                $(".notiPopup").fadeIn('slow').fadeOut(5000);
             }
 
             $('#deleteVideoModal').modal('hide');
@@ -526,18 +526,18 @@
                     if (data.code == 1) {
                         $(".notiPopup .text-secondary").html(data.message);
                         $(".ico-noti-success").removeClass('ico-hidden');
-                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                        $(".notiPopup").fadeIn('slow').fadeOut(5000);
                     } else {
                         $(".notiPopup .text-secondary").html(data.message);
                         $(".ico-noti-error").removeClass('ico-hidden');
-                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                        $(".notiPopup").fadeIn('slow').fadeOut(5000);
                     }
                     redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery?tab=video'); ?>');
                 },
                 error: function(data) {
                     $(".notiPopup .text-secondary").html("Delete video failed");
                     $(".ico-noti-error").removeClass('ico-hidden');
-                    $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    $(".notiPopup").fadeIn('slow').fadeOut(5000);
                     redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery?tab=video'); ?>');
                 }
             });
@@ -558,7 +558,7 @@
             if (imgId == 0) {
                 $(".notiPopup .text-secondary").html("Video not exist");
                 $(".ico-noti-error").removeClass('ico-hidden');
-                $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                $(".notiPopup").fadeIn('slow').fadeOut(5000);
             }
 
             $('#deletePhotoModal').modal('hide');
@@ -574,18 +574,18 @@
                     if (data.code == 1) {
                         $(".notiPopup .text-secondary").html(data.message);
                         $(".ico-noti-success").removeClass('ico-hidden');
-                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                        $(".notiPopup").fadeIn('slow').fadeOut(5000);
                     } else {
                         $(".notiPopup .text-secondary").html(data.message);
                         $(".ico-noti-error").removeClass('ico-hidden');
-                        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                        $(".notiPopup").fadeIn('slow').fadeOut(5000);
                     }
                     redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery'); ?>');
                 },
                 error: function(data) {
                     $(".notiPopup .text-secondary").html("Delete video failed");
                     $(".ico-noti-error").removeClass('ico-hidden');
-                    $(".notiPopup").fadeIn('slow').fadeOut(4000);
+                    $(".notiPopup").fadeIn('slow').fadeOut(5000);
                     redirect(false, '<?php echo base_url('business-management/'.$businessInfo['business_url'].'/gallery'); ?>');
                 }
             });

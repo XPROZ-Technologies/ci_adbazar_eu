@@ -29,9 +29,6 @@
   <link rel="stylesheet" href="assets/css/frontend/edit.css?version=<?php echo time(); ?>">
   <link rel="stylesheet" href="assets/css/frontend/custom.css?version=<?php echo time(); ?>">
   <?php if (isset($scriptHeader)) outputScript($scriptHeader); ?>
-  <script>
-    var text_view = '<?php echo $this->lang->line('1310_view'); ?>';
-  </script>
 </head>
 
 
@@ -51,7 +48,9 @@
                 <div class="wrapper-notification">
                   <div class="header-notification">
                     <i class="bi bi-bell"></i>
-                    <div class="badge">2</div>
+                    <?php if(isset($notiBadge) && $notiBadge > 0){ ?>
+                    <div class="badge"><?php echo $notiBadge; ?></div>
+                    <?php } ?>
                   </div>
                   <div class="wrapper-notify">
                     <div class="spacer"></div>
@@ -61,26 +60,32 @@
                         <a href="javascript:void(0)"><?php echo $this->lang->line('see_all'); ?></a>
                       </div>
                       <div class="list-notify">
-                        <a href="javascript:void(0)" class="notify-item">
-                          <div class="notify-img">
-                            <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
-                          </div>
-                          <div class="notify-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                            <small>2 days ago</small>
-                          </div>
-                          <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
-                        </a>
-                        <a href="javascript:void(0)" class="notify-item">
-                          <div class="notify-img">
-                            <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
-                          </div>
-                          <div class="notify-body">
-                            <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                            <small>2 days ago</small>
-                          </div>
-                        </a>
+                      <?php if(isset($notiHeader) && !empty($notiHeader)){ ?>
                         
+                        <!-- noti item -->
+                          <?php 
+                            foreach($notiHeader as $noti){  
+                          ?>
+                            <a href="<?php echo $noti['url']; ?>" class="notify-item">
+                              <div class="notify-img">
+                                <img src="<?php echo $noti['image']; ?>; ?>" alt="notification img" class="img-fluid">
+                              </div>
+                              <div class="notify-body">
+                                <p><?php echo $noti['text']; ?></p>
+                                <small><?php echo ddMMyyyy($noti['created_at'] ,'Y-m-d H:i'); ?></small>
+                              </div>
+                              <?php if($noti['notification_status_id'] == STATUS_ACTIVED){ ?>
+                                <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
+                              <?php } ?>
+                            </a>
+                          <?php } ?>
+                        <!-- END. item noti -->
+                       <?php } else { ?>
+                        <div class="notification-zero zero-box">
+                          <img src="assets/img/frontend/img-empty-box.svg" alt="empty box" class="img-fluid d-block mx-auto">
+                          <p class="page-text-lg text-center text-secondary"><?php echo $this->lang->line('you_do_not_have_any_notification_yet'); ?></p>
+                        </div>
+                       <?php } ?>
                       </div>
                     </div>
                   </div>
@@ -92,8 +97,8 @@
             <!-- login / signup -->
             <?php if (isset($customer) && $customer['is_logged_in'] == 0) { ?>
               <div class="d-flex btn-user">
+                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login l<?php echo $language_id; ?>"><?php echo $this->lang->line('sign_in'); ?></a>
                 <a href="<?php echo base_url('signup.html'); ?>" title="" class="btn btn-outline-red btn-register l<?php echo $language_id; ?>"><?php echo $this->lang->line('sign_up'); ?></a>
-                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login l<?php echo $language_id; ?>"><?php echo $this->lang->line('login'); ?></a>
               </div>
             <?php } ?>
             <!-- END. login / signup -->
@@ -117,8 +122,9 @@
                       </div>
                     </div>
                     <button class="btn btn-red" onclick="window.location.href='<?php echo base_url('my-business-profile'); ?>'"><?php echo $this->lang->line('my_business_profile'); ?></button>
+                    
                     <?php if (isset($customer['login_type_id']) && $customer['login_type_id'] == 2) { ?>
-                      <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();">Sign Out</button>
+                      <button type="button" class="btn btn-outline-red btn-logout-all g-logout" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>" onclick="signOut();"><?php echo $this->lang->line('logout'); ?></button>
                     <?php } else { ?>
                       <button class="btn btn-outline-red btn-logout-all" is-login="<?php echo $customer['is_logged_in'] ?>" login-type-id="<?php echo $customer['login_type_id'] ?>"><?php echo $this->lang->line('logout'); ?></button>
                     <?php } ?>
@@ -196,8 +202,8 @@
           <div class="d-flex align-items-center navbar-right">
             <?php if (isset($customer) && $customer['is_logged_in'] == 0) { ?>
               <div class="d-flex btn-user">
-                <a href="<?php echo base_url('signup.html'); ?>" title="" class="btn btn-outline-red btn-register"><?php echo $this->lang->line('sign_up'); ?></a>
-                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login"><?php echo $this->lang->line('login'); ?></a>
+                <a href="<?php echo base_url('login.html'); ?>" title="" class="btn btn-red btn-login l<?php echo $language_id; ?>"><?php echo $this->lang->line('sign_in'); ?></a>
+                <a href="<?php echo base_url('signup.html'); ?>" title="" class="btn btn-outline-red btn-register l<?php echo $language_id; ?>"><?php echo $this->lang->line('sign_up'); ?></a>
               </div>
             <?php } ?>
             <!-- Languages -->
@@ -257,8 +263,8 @@
               <div class="wrapper-notification">
                 <div class="header-notification">
                   <i class="bi bi-bell"></i>
-                  <?php if(isset($listNotification) && count($listNotification) > 0){ ?>
-                    <div class="badge">2</div>
+                  <?php if(isset($notiBadge) && $notiBadge > 0){ ?>
+                    <div class="badge"><?php echo $notiBadge; ?></div>
                   <?php } ?>
                 </div>
                 <div class="wrapper-notify">
@@ -271,19 +277,25 @@
 
                     <!-- List noti -->
                     <div class="list-notify">
-                      <?php if(isset($listNotification) && !empty($listNotification)){ ?>
-                      <!-- noti item -->
-                      <a href="javascript:void(0)" class="notify-item">
-                        <div class="notify-img">
-                          <img src="assets/img/frontend/notification-img.svg" alt="notification img" class="img-fluid">
-                        </div>
-                        <div class="notify-body">
-                          <p><span class="fw-bold">Fusion Restaurant</span> replied to your comment.</p>
-                          <small>2 days ago</small>
-                        </div>
-                        <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
-                      </a>
-                      <!-- END. noti item -->
+                      <?php if(isset($notiHeader) && !empty($notiHeader)){ ?>
+                        
+                        <!-- noti item -->
+                        <?php foreach($notiHeader as $noti){ ?>
+                          <a href="<?php echo $noti['url']; ?>" class="notify-item">
+                            <div class="notify-img">
+                              <img src="<?php echo $noti['image']; ?>" alt="notification img" class="img-fluid">
+                            </div>
+                            <div class="notify-body">
+                              <p><?php echo $noti['text']; ?></p>
+                              <small><?php echo ddMMyyyy($noti['created_at'] ,'Y-m-d H:i'); ?></small>
+                            </div>
+                            <?php if($noti['notification_status_id'] == STATUS_ACTIVED){ ?>
+                              <img src="assets/img/frontend/icon-new-badge.png" alt="new badge" class="notify-badge">
+                            <?php } ?>
+                          </a>
+                        <?php } ?>
+                        <!-- END. noti item -->
+                      
                       <?php }else{ ?>
                         <div class="notification-zero zero-box">
                           <img src="assets/img/frontend/img-empty-box.svg" alt="empty box" class="img-fluid d-block mx-auto">

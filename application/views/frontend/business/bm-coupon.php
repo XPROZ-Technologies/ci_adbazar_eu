@@ -246,7 +246,7 @@
     if (coupon_code.length == 0) {
       $(".notiPopup .text-secondary").html("Please enter coupon");
       $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
       return false;
     }
@@ -274,7 +274,7 @@
       error: function(data) {
         //$(".notiPopup .text-secondary").html("Delete video failed");
         //$(".ico-noti-error").removeClass('ico-hidden');
-        //$(".notiPopup").fadeIn('slow').fadeOut(4000);
+        //$(".notiPopup").fadeIn('slow').fadeOut(5000);
         //redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
       }
     });
@@ -299,7 +299,7 @@
 
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
             //reload(true);
           } else if (data.code == 2) {
@@ -316,7 +316,7 @@
         error: function(data) {
           //$(".notiPopup .text-secondary").html("Delete video failed");
           //$(".ico-noti-error").removeClass('ico-hidden');
-          //$(".notiPopup").fadeIn('slow').fadeOut(4000);
+          //$(".notiPopup").fadeIn('slow').fadeOut(5000);
           //redirect(false, '<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/gallery'); ?>');
         }
       });

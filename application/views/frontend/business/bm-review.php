@@ -23,11 +23,11 @@
                         <div class="star-rating on line relative">
                           <div class="star-base">
                             <div class="star-rate" data-rate="<?php echo $overall_rating; ?>"></div>
-                            <a dt-value="1" href="#1"></a>
-                            <a dt-value="2" href="#2"></a>
-                            <a dt-value="3" href="#3"></a>
-                            <a dt-value="4" href="#4"></a>
-                            <a dt-value="5" href="#5"></a>
+                            <a dt-value="1" href="javascript:void(0)"></a>
+                            <a dt-value="2" href="javascript:void(0)"></a>
+                            <a dt-value="3" href="javascript:void(0)"></a>
+                            <a dt-value="4" href="javascript:void(0)"></a>
+                            <a dt-value="5" href="javascript:void(0)"></a>
                           </div>
                         </div>
                       <?php } else { ?>
@@ -43,66 +43,66 @@
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="5"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_five_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=5'">(<?php echo $count_five_star; ?>)</span>
                   </div>
                   <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="4"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_four_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=4'">(<?php echo $count_four_star; ?>)</span>
                   </div>
                   <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="3"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_three_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=3'">(<?php echo $count_three_star; ?>)</span>
                   </div>
                   <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="2"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_two_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=2'">(<?php echo $count_two_star; ?>)</span>
                   </div>
                   <div class="d-flex align-items-center mb-14">
                     <div class="star-rating on line relative mr-8px">
                       <div class="star-base">
                         <div class="star-rate" data-rate="1"></div>
-                        <a dt-value="1" href="#1"></a>
-                        <a dt-value="2" href="#2"></a>
-                        <a dt-value="3" href="#3"></a>
-                        <a dt-value="4" href="#4"></a>
-                        <a dt-value="5" href="#5"></a>
+                        <a dt-value="1" href="javascript:void(0)"></a>
+                        <a dt-value="2" href="javascript:void(0)"></a>
+                        <a dt-value="3" href="javascript:void(0)"></a>
+                        <a dt-value="4" href="javascript:void(0)"></a>
+                        <a dt-value="5" href="javascript:void(0)"></a>
                       </div>
                     </div>
-                    <span class="fw-bold star-rating-number">(<?php echo $count_one_star; ?>)</span>
+                    <span class="fw-bold star-rating-number" onclick="window.location.href='<?php echo $basePagingUrl; ?>?review_star=1'">(<?php echo $count_one_star; ?>)</span>
                   </div>
                 </div>
               </div>
@@ -113,19 +113,34 @@
                   <?php if (!empty($lists) > 0) { ?>
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                       <div class="d-flex align-items-center inner-filter">
-                        <!--
-                      <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
-                      <div class="notification-filter">
-                        <div class="custom-select">
-                          <select>
-                            <option value="0" selected>All</option>
-                            <option value="1">Personal</option>
-                            <option value="2">The Rice Bowl</option>
-                            <option value="3">Inspire Beauty Salon</option>
-                          </select>
+
+                        <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
+                        <div class="notification-filter">
+                          <div class="custom-select mb-0 choose-star">
+                            <select>
+                              <option value="0"><?php echo $this->lang->line('1310_all'); ?></option>
+                              <option value="5" <?php if (isset($review_star) && $review_star == 5) {
+                                                  echo 'selected';
+                                                } ?>>5 *</option>
+                              <option value="4" <?php if (isset($review_star) && $review_star == 4) {
+                                                  echo 'selected';
+                                                } ?>>4 *</option>
+                              <option value="3" <?php if (isset($review_star) && $review_star == 3) {
+                                                  echo 'selected';
+                                                } ?>>3 *</option>
+                              <option value="2" <?php if (isset($review_star) && $review_star == 2) {
+                                                  echo 'selected';
+                                                } ?>>2 *</option>
+                              <option value="1" <?php if (isset($review_star) && $review_star == 1) {
+                                                  echo 'selected';
+                                                } ?>>1 *</option>
+                              <option value="6" <?php if (isset($review_star) && $review_star == 6) {
+                                                  echo 'selected';
+                                                } ?>>Photo</option>
+                            </select>
+                          </div>
                         </div>
-                      </div>
-                      -->
+
                       </div>
 
                       <div class="d-flex align-items-center notification-sort">
@@ -156,27 +171,30 @@
                             }
                             ?>
                             <img src="<?php echo $customerImg; ?>" alt="comment avatar" class="img-fluid">
-                            <span class="mt-3 d-block"><?php echo $itemReview['customerInfo']['customer_first_name']; ?></span>
+                            <span class="mt-3 d-block"><?php if (!empty($itemReview['customerInfo'])) {
+                                                          echo $itemReview['customerInfo']['customer_first_name'];
+                                                        } ?></span>
                           </div>
                           <div class="comment-body">
                             <p class="font500"><?php echo ddMMyyyy($itemReview['created_at'], 'd/m/Y H:i'); ?></p>
                             <div class="star-rating on line relative mr-8px">
                               <div class="star-base">
                                 <div class="star-rate" data-rate="<?php echo $itemReview['review_star']; ?>"></div>
-                                <a dt-value="1" href="#1"></a>
-                                <a dt-value="2" href="#2"></a>
-                                <a dt-value="3" href="#3"></a>
-                                <a dt-value="4" href="#4"></a>
-                                <a dt-value="5" href="#5"></a>
+                                <a dt-value="1" href="javascript:void(0)"></a>
+                                <a dt-value="2" href="javascript:void(0)"></a>
+                                <a dt-value="3" href="javascript:void(0)"></a>
+                                <a dt-value="4" href="javascript:void(0)"></a>
+                                <a dt-value="5" href="javascript:void(0)"></a>
                               </div>
                             </div>
                             <p class="page-text-sm"><?php echo $itemReview['customer_comment']; ?>
                             </p>
 
                             <div class="text-right">
-                              <?php if (empty($itemReview['business_comment'])) { ?>
-                                <a href="javascript:void(0)" title="" class="btn btn-red d-inline-block reply-comment" data-review="<?php echo $itemReview['id']; ?>"><?php echo $this->lang->line('reply'); ?></a>
-                              <?php } ?>
+
+                              <a href="javascript:void(0)" title="" class="btn btn-red d-inline-block reply-comment <?php if (!empty($itemReview['business_comment'])) {
+                                                                                                                      echo 'disabled';
+                                                                                                                    } ?>" data-review="<?php echo $itemReview['id']; ?>"><?php echo $this->lang->line('reply'); ?></a>
                               <a href="javascript:void(0)" title="" class="btn btn-outline-red d-inline-block delete-comment" data-review="<?php echo $itemReview['id']; ?>"><img src="assets/img/frontend/icon-del.png" alt=""> <?php echo $this->lang->line('delete'); ?></a>
                             </div>
 
@@ -185,17 +203,13 @@
 
                         <!-- reply -->
                         <?php if (!empty($itemReview['business_comment'])) { ?>
-                          <div class="d-flex flex-column flex-lg-row comment-item no-avatar">
+                          <div class="comment-item no-avatar reply-item-">
                             <div class="comment-body">
                               <p class="font500"><?php echo ddMMyyyy($itemReview['updated_at'], 'd/m/Y H:i'); ?></p>
-                              <ul class="list-inline list-rating">
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                              </ul>
                               <p class="page-text-sm"><?php echo $itemReview['business_comment']; ?></p>
+                            </div>
+                            <div class="text-right">
+                              <a href="javascript:void(0)" title="" class="btn btn-outline-red d-inline-block delete-reply-comment fw-bold mr-6px" data-review="<?php echo $itemReview['id']; ?>"><img src="assets/img/frontend/icon-del.png" alt=""> <?php echo $this->lang->line('delete'); ?></a>
                             </div>
                           </div>
                         <?php } else { ?>
@@ -231,7 +245,7 @@
               <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                 <div class="d-flex align-items-center pagination-left">
                   <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                  <?php echo $this->lang->line('1310_results'); ?></p>
+                    <?php echo $this->lang->line('1310_results'); ?></p>
                   <div class="page-text-sm mb-0 d-flex align-items-center">
                     <div class="custom-select choose-perpage">
                       <select>
@@ -287,17 +301,41 @@
   $(document).ready(function() {
     var editorGroup = [];
     <?php if (!empty($lists)) {
-      foreach ($lists as $itemReview) { ?>
-        //editor
+      foreach ($lists as $k => $itemReview) { ?>
 
-        const replyComment_<?php echo $itemReview['id']; ?> = document.querySelector("#bmReplyComment-<?php echo $itemReview['id']; ?>");
-        if (replyComment_<?php echo $itemReview['id']; ?>) {
-          ClassicEditor.create(replyComment_<?php echo $itemReview['id']; ?>).then(newEditor => {
-            let editorReply;
-            editorReply = newEditor;
-            editorGroup[<?php echo $itemReview['id']; ?>] = editorReply;
-          });
+        //editor
+        if (CKEDITOR.env.ie && CKEDITOR.env.version < 9)
+          CKEDITOR.tools.enableHtml5Elements(document);
+        CKEDITOR.config.height = 150;
+        CKEDITOR.config.width = 'auto';
+        var wysiwygareaAvailable = isWysiwygareaAvailable(),
+          isBBCodeBuiltIn = !!CKEDITOR.plugins.get('bbcode');
+        var editorElement = CKEDITOR.document.getById('bmReplyComment-<?php echo $itemReview['id']; ?>');
+        if (isBBCodeBuiltIn) {
+          editorElement.setHtml();
         }
+        if (wysiwygareaAvailable) {
+          CKEDITOR.replace('bmReplyComment-<?php echo $itemReview['id']; ?>');
+        } else {
+          editorElement.setAttribute('contenteditable', 'true');
+          CKEDITOR.inline('bmReplyComment-<?php echo $itemReview['id']; ?>');
+        }
+
+        function isWysiwygareaAvailable() {
+          if (CKEDITOR.revision == ('%RE' + 'V%')) {
+            return true;
+          }
+          return !!CKEDITOR.plugins.get('wysiwygarea');
+        }
+
+        // const replyComment_<?php echo $itemReview['id']; ?> = document.querySelector("#bmReplyComment-<?php echo $itemReview['id']; ?>");
+        // if (replyComment_<?php echo $itemReview['id']; ?>) {
+        //   ClassicEditor.create(replyComment_<?php echo $itemReview['id']; ?>).then(newEditor => {
+        //     let editorReply;
+        //     editorReply = newEditor;
+        //     editorGroup[<?php echo $itemReview['id']; ?>] = editorReply;
+        //   });
+        // }
     <?php }
     } ?>
 
@@ -305,12 +343,13 @@
     $('.btn-bm-reply').click(function(e) {
       var business_id = $("#businessId").val();
       var review_id = $(this).data('id');
-      var business_comment = editorGroup[review_id].getData();
-
+      //var business_comment = editorGroup[review_id].getData();
+      var business_comment = CKEDITOR.instances['bmReplyComment-' + review_id].getData();
+      console.log(business_comment);
       if (review_id == 0) {
         $(".notiPopup .text-secondary").html("Review not exist");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
         redirect(false, '<?php echo base_url(HOME_URL); ?>');
       }
@@ -330,18 +369,18 @@
           if (data.code == 1) {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           } else {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
           redirect(true);
         },
         error: function(data) {
           $(".notiPopup .text-secondary").html("Reply review failed");
           $(".ico-noti-error").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
           redirect(true);
         }
@@ -357,7 +396,7 @@
       if (review_id == 0) {
         $(".notiPopup .text-secondary").html("Review not exist");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
         redirect(false, '<?php echo base_url(HOME_URL); ?>');
       }
@@ -375,18 +414,63 @@
           if (data.code == 1) {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           } else {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
           redirect(true);
         },
         error: function(data) {
           $(".notiPopup .text-secondary").html("Reply review failed");
           $(".ico-noti-error").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
+
+          redirect(true);
+        }
+      });
+
+    });
+
+    //business remove reply in comment
+    $('.delete-reply-comment').click(function(e) {
+      var business_id = $("#businessId").val();
+      var review_id = $(this).data('review');
+
+      if (review_id == 0) {
+        $(".notiPopup .text-secondary").html("Review not exist");
+        $(".ico-noti-error").removeClass('ico-hidden');
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
+
+        redirect(false, '<?php echo base_url(HOME_URL); ?>');
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('business/remove-reply-review'); ?>',
+        data: {
+          review_id: review_id,
+          business_id: business_id
+        },
+        dataType: "json",
+        success: function(data) {
+          $('.reply-item-' + review_id).hide();
+          if (data.code == 1) {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-success").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
+          } else {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
+          }
+          redirect(true);
+        },
+        error: function(data) {
+          $(".notiPopup .text-secondary").html("Delete reply failed");
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
           redirect(true);
         }

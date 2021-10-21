@@ -324,8 +324,10 @@
       },
       error: function(response) {}
     });
-
-
-
   });
+
+
+  //count slogan
+  var inputCount = document.getElementById('bm-slogan');
+  countChar(inputCount);
 </script>

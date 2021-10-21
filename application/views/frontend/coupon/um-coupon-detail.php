@@ -62,7 +62,7 @@
                       <img src="<?php echo BUSINESS_PROFILE_PATH . $businessInfo['business_avatar']; ?>" alt="image coupon detail" class="img-fluid">
                     </div>
                     <div class="horizontal-body">
-                      <h6 class="card-title page-text-lg mb-0"><?php echo $businessInfo['business_name']; ?></h6>
+                      <h6 class="card-title page-text-lg mb-0"><a href="<?php echo base_url(BUSINESS_PROFILE_URL . $businessInfo['business_url']); ?>"><?php echo $businessInfo['business_name']; ?></a></h6>
                       <p class="my-3 card-text page-text-sm"><?php echo $businessInfo['business_phone']; ?></p>
                       <p class="mb-0 card-text page-text-sm"><?php echo $businessInfo['business_address']; ?></p>
                     </div>
@@ -117,7 +117,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <h4 class="text-center fw-bold page-title-sm"><?php echo $this->lang->line('cancel'); ?>Successfully removed!</h4>
+        <h4 class="text-center fw-bold page-title-sm">Successfully removed!</h4>
         <div class="d-flex justify-content-center">
           <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel btn-close-removed" ><?php echo $this->lang->line('closed'); ?></a>
         </div>
