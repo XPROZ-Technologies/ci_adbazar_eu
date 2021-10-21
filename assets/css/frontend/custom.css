@@ -207,6 +207,15 @@ main{
 .ui-datepicker-calendar tr, .ui-datepicker-calendar td, .ui-datepicker-calendar td a, .ui-datepicker-calendar th{font-size:inherit;}
 div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
 .ui-datepicker-title span{font-size:10px;}
+.about-page .c-img.pt-66 img{
+    border-radius: 10px;
+}
+.pt-30{
+    padding-top: 30px;
+}
+.pt-10{
+    padding-top: 10px;
+}
 @media (min-width: 1366px){
     .home-service .container-owl, .home-coupon .container-owl,
     .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
@@ -284,7 +293,7 @@ div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
         height: 422px;
         object-fit: contain;
         max-width: 100%;
-        background: #ededed;
+        background: #F5F5F5;
     }
     .um-coupon-detail .detail-left img {
         min-height: 424px;
@@ -332,7 +341,7 @@ div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
     border: 1px solid #C20000;
     box-sizing: border-box;
     border-radius: 10px;
-    padding: 40px 64px;
+    padding: 20px 92px;
 }
 .about-page{
     font-size: 16px;
@@ -664,9 +673,10 @@ object-fit: contain;
     height: auto;
     box-shadow: none;
 }
+.bp-coupon-detail .detail-left ,
 .bp-coupon-detail .detail-left img,
 .um-coupon-detail .detail-left img{
-    background: #ededed;
+    background: #F5F5F5;
     object-fit: contain;
 }
 .bootstrap-datetimepicker-widget table td {
@@ -923,7 +933,7 @@ min-height: 320px;
     border-radius: inherit; 
 }
 #pills-photo .photo-list .c-img {
-    border: 1px solid #ededed;
+    border: 1px solid #F5F5F5;
     padding-top: 126%;
 }
 .posting .slider .slick-slide a {
@@ -1133,7 +1143,7 @@ font-size: 14px;
 }
 .icon-delete.js-delete-video,
 .photo-item .photo-icon {
-    background: #adadad;
+    /* background: #adadad; */
     position: absolute;
     top: 8px;
     right: 8px;

@@ -39,7 +39,7 @@
                     <div class="col-lg-7">
                       <div class="bp-about-left">
                         <h4 class="fw-bold page-title-xs"><?php echo $this->lang->line('business_information'); ?></h4>
-                        <div class="d-flex align-items-center mb-5px">
+                        <div class="d-flex align-items-center mb-20">
                           <?php if (isset($reviewInfo) && $reviewInfo['sumReview'] > 0) { ?>
                             <div class="star-rating on line  mr-8px relative">
                               <div class="star-base">

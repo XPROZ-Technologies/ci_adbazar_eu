@@ -16,12 +16,10 @@
                   <div class="text-right">
                     <a href="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/create-event') ?>" class="btn btn-red btn-red-md btn-create-event d-inline-block"><?php echo $this->lang->line('create_new_event'); ?></a>
                   </div>
-                  <div class="d-flex justify-content-end">
                     <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                       <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
                       <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>" >
                     </form>
-                  </div>
 
                   <?php if (!empty($lists) > 0) { ?>
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
