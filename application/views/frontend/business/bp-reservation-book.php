@@ -207,7 +207,7 @@
     var dateNow = new Date();
     $("#dateArrived").datetimepicker({
       defaultDate: dateNow,
-      //minDate: moment(),
+      minDate: moment(),
       // onChangeDateTime:function(dp,$input){
       //   alert($input.val())
       //   console.log(213);

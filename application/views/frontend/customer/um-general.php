@@ -227,7 +227,7 @@
   $(".js-datepicker").datetimepicker({
     format: "MMMM DD, YYYY",
     // minDate: moment(),
-    // maxDate: moment(),
+    maxDate: moment(),
     allowInputToggle: true,
     // inline: true,
     // debug: true,
