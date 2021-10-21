@@ -227,9 +227,9 @@ class Event extends MY_Controller {
                 if ($eventId > 0) {
                     echo json_encode(array('code' => 1, 'message' => $message, 'data' => $eventId));
                 }
-                else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+                else echo json_encode(array('code' => 0, 'message' => "Create event failed"));
             }
-            else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+            else echo json_encode(array('code' => -1, 'message' => "Please enter event information"));
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
      	}
