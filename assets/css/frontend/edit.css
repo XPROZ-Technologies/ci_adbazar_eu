@@ -3317,6 +3317,9 @@ span.switch-left {
 }
 
 @media screen and (max-width: 768px){
+    .form-check-label a{
+        margin-left: 4px;
+    }
     .bm-create-content .open-hour .switch-btn {
         max-width: 120px;
     }
@@ -3472,6 +3475,14 @@ span.switch-left {
     }
 }
 @media screen and (max-width: 576px){
+    .form-check.mx-auto {
+        display: flex;
+        width: 100%;
+    }
+    .form-check.mx-auto .form-check-label{
+        display: block;
+        max-width: calc(100% - 22px);
+    }
     .page-business-profile.v2 .bm-list .container{
         padding: 0 5px;
     }

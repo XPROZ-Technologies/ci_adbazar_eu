@@ -1523,12 +1523,6 @@ color: #404040;
     {
         left: 0;
     }
-    .page-header .btn-outline-red.l1 ,
-    .page-header .btn-outline-red.l2 ,
-    .page-header .btn-outline-red.l3 ,
-    .page-header .btn-outline-red.l4 {
-        width: 70px!important;
-    }
     .list-tags li{
         margin-bottom: 5px;
     }
@@ -1593,9 +1587,6 @@ color: #404040;
     }
     .navbar-expand-xl .navbar-brand{
         margin-right: 4px;
-    }
-    .page-header .btn-login {
-        margin-right: 0px;
     }
 }
 @media (max-width: 375px){
