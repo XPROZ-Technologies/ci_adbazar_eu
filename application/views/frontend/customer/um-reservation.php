@@ -30,7 +30,7 @@
                   <?php if (!empty($lists)) { ?>
                     <form class="d-flex search-box">
                       <a href="#" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                      <input class="form-control w-100" type="text" placeholder="Search" aria-label="Search">
+                      <input class="form-control w-100" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>">
                     </form>
 
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">

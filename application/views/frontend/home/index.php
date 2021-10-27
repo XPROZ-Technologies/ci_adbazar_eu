@@ -177,7 +177,7 @@
               <div class="wrapper-search">
                 <div class="d-flex search-box">
                   <a href="javascript:void(0)" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                  <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="Search" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
+                  <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
                 </div>
               </div>
             </div>

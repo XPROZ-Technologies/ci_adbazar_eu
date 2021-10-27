@@ -277,7 +277,7 @@
 <div class="modal fade" id="leaveReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <h2>Leave a review</h2>
+      <h2><?php echo $this->lang->line('leave_a_review'); ?></h2>
       <div class="d-flex align-items-center justify-content-center">
         <div class="star-rating on line  mr-8px relative">
           <div class="star-base">
@@ -305,7 +305,7 @@
                                                   } ?>" />
       <textarea name="comment-post" id="leaveReviewComment"></textarea>
       <div class="d-flex align-items-center  justify-content-end mt-20">
-        <button type="button" class="btn btn-red btn-leave-review">Submit</button>
+        <button type="button" class="btn btn-red btn-leave-review"><?php echo $this->lang->line('submit'); ?></button>
         <button type="button" class="btn btn-outline-red ml-8px reply-cancel" data-bs-dismiss="modal" aria-label="Close"><?php echo $this->lang->line('cancel'); ?></button>
       </div>
     </div>
