@@ -1,7 +1,13 @@
 # adbazar.eu
 
-Source code base ci 3.1
+Source code base CodeIgniter 3.1
 
-Asia Dragon Bazar
+Project: Asia Dragon Bazar
 
-DB: assets/sql/
+Database Structure: assets/sql/ci_adbazar_eu.sql
+
+Config Database: 
+- .env
+
+Config SSL:
+- application/config/config.php tại biến $config['base_url'] 
