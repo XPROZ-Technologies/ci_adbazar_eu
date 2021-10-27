@@ -31,7 +31,7 @@
                   <div class="col-12 d-flex justify-content-center mb-3 mt-lg-4">
                     <button type="submit" class="btn btn-red px-3">Sign in</button>
                   </div>
-                  <p class="text-center mb-2 mb-lg-4 text-black"><?php echo $this->lang->line('not_have_an_account_yet'); ?> <a href="<?php echo base_url('signup.html'); ?>" class="ms-3 text-black fw-bold">Sign up</a></p>
+                  <p class="text-center mb-2 mb-lg-4 text-black"><?php echo $this->lang->line('not_have_an_account_yet'); ?> <a href="<?php echo base_url('signup.html'); ?>" class="ms-3 text-black fw-bold"><?php echo $this->lang->line('sign_up'); ?></a></p>
                   <p class="text-center mt-3 mt-lg-0">
                   <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span>Or</span></p>
                   </p>
@@ -102,7 +102,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <p class="page-text-lg text-center">This function will be available soon. Please Sign Up to join the event</p>
-        <a href="<?php echo base_url('signup.html'); ?>" class="btn btn-red btn-contact-ad">Sign Up</a>
+        <a href="<?php echo base_url('signup.html'); ?>" class="btn btn-red btn-contact-ad"><?php echo $this->lang->line('sign_up'); ?></a>
       </div>
     </div>
   </div>
