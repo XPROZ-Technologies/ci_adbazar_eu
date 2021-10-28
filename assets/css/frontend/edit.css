@@ -3740,4 +3740,14 @@ span.switch-left {
     .navbar-toggler i {
         font-size: 28px;
     }
+    .sign-social.signup .btn-outline-red:last-child,
+    .sign-social.signup .btn-outline-red,
+    .sign-social .btn-outline-red, 
+    .page-signin .btn-outline-red.login-gg, 
+    .sign-social .btn-outline-red:last-child,
+    .page-signin .btn-outline-red.login-gg,
+    .sign-social .btn-outline-red:last-child{
+        padding: 8px 10px 8px 30px !important;
+        justify-content: flex-start;
+    }
 }

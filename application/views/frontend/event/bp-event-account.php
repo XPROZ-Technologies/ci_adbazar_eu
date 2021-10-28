@@ -4,8 +4,7 @@
     <div class="bp-account">
       <div class="container">
         <div class="row">
-          <div class="col-lg-1"></div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 v1">
             <div class="bp-account-left">
               <h1 class="text-center page-title mb-20"><?php echo $this->lang->line('sign_in_with_your_account'); ?></h1>
               <div class="signup-form">
@@ -51,8 +50,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-1"></div>
-          <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center has-border">
+          <div class="col-lg-6 v2 d-flex flex-column justify-content-center align-items-end">
             <div class="bp-account-right">
               <a href="javascript:void(0)" class="btn btn-red btn-join-as-guest"><?php echo $this->lang->line('continue_as_guest'); ?></a>
             </div>
