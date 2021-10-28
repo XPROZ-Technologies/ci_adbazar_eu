@@ -3740,6 +3740,7 @@ span.switch-left {
     .navbar-toggler i {
         font-size: 28px;
     }
+    .page-bp-account .bp-account .sign-social .btn-outline-red:last-child,
     .sign-social.signup .btn-outline-red:last-child,
     .sign-social.signup .btn-outline-red,
     .sign-social .btn-outline-red, 
