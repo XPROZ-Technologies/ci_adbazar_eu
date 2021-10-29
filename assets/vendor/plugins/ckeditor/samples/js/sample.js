@@ -1,6 +1,6 @@
 ﻿/**
- * Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+ * Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 /* exported initSample */
@@ -13,27 +13,25 @@ if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
 CKEDITOR.config.height = 150;
 CKEDITOR.config.width = 'auto';
 
-var initSample = ( function() {
+var initSample = ( function(id) {
 	var wysiwygareaAvailable = isWysiwygareaAvailable(),
 		isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
 
 	return function() {
-		var editorElement = CKEDITOR.document.getById( 'editor' );
+		var editorElement = CKEDITOR.document.getById( 'leaveReviewComment' );
 
 		// :(((
 		if ( isBBCodeBuiltIn ) {
 			editorElement.setHtml(
-				'Hello world!\n\n' +
-				'I\'m an instance of [url=http://ckeditor.com]CKEditor[/url].'
 			);
 		}
 
-		// Depending on the wysiwygare plugin availability initialize classic or inline editor.
+		// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
 		if ( wysiwygareaAvailable ) {
-			CKEDITOR.replace( 'editor' );
+			CKEDITOR.replace( 'leaveReviewComment' );
 		} else {
 			editorElement.setAttribute( 'contenteditable', 'true' );
-			CKEDITOR.inline( 'editor' );
+			CKEDITOR.inline( 'leaveReviewComment' );
 
 			// TODO we can consider displaying some info box that
 			// without wysiwygarea the classic editor may not work.

@@ -36,7 +36,12 @@ class Mcustomerreviews extends MY_Model {
         if(isset($postData['customer_review_status_id']) && !empty($postData['customer_review_status_id']))  $query.=" AND customer_review_status_id = ".$postData['customer_review_status_id'];
         if(isset($postData['customer_id']) && !empty($postData['customer_id']))  $query.=" AND customer_id = ".$postData['customer_id'];
         if(isset($postData['business_id']) && !empty($postData['business_id']))  $query.=" AND business_id = ".$postData['business_id'];
-        if(isset($postData['review_star']) && !empty($postData['review_star']))  $query.=" AND review_star = ".$postData['review_star'];
+        if(isset($postData['review_star']) && $postData['review_star'] == 6){
+           $query.=" AND is_image = 1";
+        }else if(isset($postData['review_star']) && !empty($postData['review_star'])){
+            $query.=" AND review_star = ".$postData['review_star'];
+        }
+        
 
         return $query;
     }

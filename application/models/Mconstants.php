@@ -75,15 +75,17 @@ class Mconstants extends CI_Model {
         6 => 'Sunday'
     );
 
-    public $dayShortIds = array(
-        0 => 'Mon',
-        1 => 'Tue',
-        2 => 'Wed',
-        3 => 'Thu',
-        4 => 'Fri',
-        5 => 'Sat',
-        6 => 'Sun'
-    );
+    public function dayShortIds() {
+        return array(
+            0 => $this->lang->line('mon'),
+            1 => $this->lang->line('tue'),
+            2 => $this->lang->line('wed'),
+            3 => $this->lang->line('thu'),
+            4 => $this->lang->line('fri'),
+            5 => $this->lang->line('sat'),
+            6 => $this->lang->line('sun')
+        );
+    }
 
     public $isHot = array(
         1 => 'Not stand out', // không nổi bật 

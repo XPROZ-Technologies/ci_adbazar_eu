@@ -177,7 +177,7 @@
               <div class="wrapper-search">
                 <div class="d-flex search-box">
                   <a href="javascript:void(0)" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                  <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="Search" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
+                  <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
                 </div>
               </div>
             </div>
@@ -291,11 +291,11 @@
           if(response.code == 1){
             $(".notiPopup .text-secondary").html(response.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-           $(".notiPopup").fadeIn('slow').fadeOut(4000);
+           $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }else{
             $(".notiPopup .text-secondary").html(response.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-           $(".notiPopup").fadeIn('slow').fadeOut(4000);
+           $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
         },
         error: function(response) {}
@@ -303,7 +303,7 @@
     } else {
       $(".notiPopup .text-secondary").html(please_enter_your_contact_information);
       $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      $(".notiPopup").fadeIn('slow').fadeOut(5000);
     }
   });
 </script>

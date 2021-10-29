@@ -202,6 +202,13 @@ class Event extends MY_Controller {
                 $postData['start_date'] = date("Y-m-d", strtotime($postData['start_date']));
                 $postData['end_date'] = date("Y-m-d", strtotime($postData['end_date']));
 
+                $timeStampStart = strtotime($postData['start_date']." ".$postData['start_time']);
+                $timeStampEnd = strtotime($postData['end_date']." ".$postData['end_time']);
+
+                if($timeStampEnd < $timeStampStart){
+                    echo json_encode(array('code' => 0, 'message' => "The end time must be greater than the start time"));die;
+                }
+
                 /**
                  * Upload if customer choose image
                  */
@@ -225,11 +232,15 @@ class Event extends MY_Controller {
                 
                 $eventId = $this->Mevents->save($postData, $eventId);
                 if ($eventId > 0) {
-                    echo json_encode(array('code' => 1, 'message' => $message, 'data' => $eventId));
+                    echo json_encode(array('code' => 1, 'message' => $message, 'data' => $eventId));die;
                 }
-                else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+                else {
+                    echo json_encode(array('code' => 0, 'message' => "Create event failed"));die;
+                }
             }
-            else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+            else {
+                echo json_encode(array('code' => -1, 'message' => "Please enter event information"));die;
+            }
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
      	}

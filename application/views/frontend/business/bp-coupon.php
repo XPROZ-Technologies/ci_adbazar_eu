@@ -12,14 +12,12 @@
           <div class="col-lg-8">
             <div class="bp-tabs-right">
               <div class="bp-coupon grid-60">
-                <div class="d-flex justify-content-end">
-                  <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
-                    <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
-                  </form>
-                </div>
                 <?php if (count($lists) > 0) { ?>
                   <div class="bp-coupon-list">
+                    <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
+                      <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
+                      <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>" name="keyword" value="<?php echo $keyword; ?>">
+                    </form>
                     <div class="row">
                       <?php foreach ($lists as $indexCoupon => $itemCoupon) {
                         $couponDetailUrl = base_url('coupon/' . makeSlug($itemCoupon['coupon_subject']) . '-' . $itemCoupon['id']) . '.html'; ?>

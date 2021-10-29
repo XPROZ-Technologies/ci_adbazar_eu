@@ -68,7 +68,8 @@ class Coupon extends MY_Controller
             'search_text_fe' => $search_text,
             'saved_coupons' => $savedCoupons,
             'business_profile_ids' => $businessProfileIds,
-            'order_by' => $order_by
+            'order_by' => $order_by,
+            'is_full' => 0
         );
 
         $data['businessProfiles'] = array();
@@ -173,8 +174,27 @@ class Coupon extends MY_Controller
             if (!empty($postData['business_profile_id'])  && !empty($postData['coupon_subject'])) {
                 $couponId = $this->input->post('id');
                 $this->load->model('Mcoupons');
+
+                if(empty($postData['coupon_subject']) || $postData['coupon_subject'] == ""){
+                    echo json_encode(array('code' => 0, 'message' => 'Coupon subject is required'));die;
+                }
+
                 $postData['start_date'] = date("Y-m-d", strtotime($postData['start_date']));
                 $postData['end_date'] = date("Y-m-d", strtotime($postData['end_date']));
+
+                $currentDay = strtotime(date('Y-m-d'));
+                if(strtotime($postData['start_date']) < $currentDay || strtotime($postData['end_date']) < $currentDay){
+                    echo json_encode(array('code' => 0, 'message' => 'Please select date in present or future'));die;
+                }
+
+                
+                if(strtotime($postData['start_date']) > strtotime($postData['end_date'])){
+                    echo json_encode(array('code' => 0, 'message' => 'Please select different date'));die;
+                }
+
+                if(empty($postData['coupon_amount']) || $postData['coupon_amount'] == 0){
+                    echo json_encode(array('code' => 0, 'message' => 'Amount of coupon must be larger than 0'));die;
+                }
 
                 /**
                  * Upload if customer choose image
@@ -198,11 +218,15 @@ class Coupon extends MY_Controller
 
                 $couponId = $this->Mcoupons->update($postData, $couponId);
                 if ($couponId > 0) {
-                    echo json_encode(array('code' => 1, 'message' => $message, 'data' => $couponId));
-                } else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
-            } else echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
+                    echo json_encode(array('code' => 1, 'message' => $message, 'data' => $couponId));die;
+                } else {
+                    echo json_encode(array('code' => 0, 'message' => "Create coupon failed"));die;
+                }
+            } else {
+                echo json_encode(array('code' => -1, 'message' => "Please enter coupon information"));die;
+            } 
         } catch (\Throwable $th) {
-            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
         }
     }
 

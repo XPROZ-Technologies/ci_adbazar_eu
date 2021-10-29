@@ -310,15 +310,24 @@ class Customer extends MY_Controller
             if ($couponId > 0) {
                 $couponInfo = $this->Mcoupons->get($couponId);
 
+                //check used - in past
+                $pastUsed = $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']);
+
                 //save coupon code
                 $customer_coupon_code = $this->Mcoupons->genCouponCode($couponInfo['coupon_code'], $couponInfo['coupon_amount'], $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']));
-                if (!empty($customer_coupon_code)) {
+                if (!empty($customer_coupon_code) && $pastUsed < $couponInfo['coupon_amount']) {
                     $customerCouponId = $this->Mcustomercoupons->save(array(
                         'customer_id' => $postData['customer_id'],
                         'coupon_id' => $postData['coupon_id'],
                         'customer_coupon_status_id' => STATUS_ACTIVED,
                         'customer_coupon_code' => $customer_coupon_code
                     ));
+
+                    //check used - in present
+                    $presentUsed = $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']);
+                    if($presentUsed >= $couponInfo['coupon_amount']){
+                        $this->Mcoupons->save(array('is_full' => 1), $postData['coupon_id']);
+                    }
 
                     echo json_encode(array('code' => 1, 'message' => "Successfully Saved!"));
                     die;
@@ -355,6 +364,15 @@ class Customer extends MY_Controller
                         'customer_coupon_status_id' => 0
                     )
                 );
+
+                $coupon_amount = $this->Mcoupons->getFieldValue(array('id' => $postData['coupon_id']), 'coupon_amount', 0);
+
+                //check used - in present
+                $presentUsed = $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']);
+                if($presentUsed < $coupon_amount){
+                    $this->Mcoupons->save(array('is_full' => 0), $postData['coupon_id']);
+                }
+
                 echo json_encode(array('code' => 1, 'message' => "Successfully removed!"));
                 die;
             } else {

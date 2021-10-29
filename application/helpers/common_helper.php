@@ -376,10 +376,19 @@ if(!function_exists('getYoutubeIdFromUrl')) {
 
 if(!function_exists('getDatesFromRange')) {
     function getDatesFromRange($start, $end, $format='Y-m-d') {
-        return array_map(function($timestamp) use($format) {
-            return date($format, $timestamp);
-        },
-        range(strtotime($start) + ($start < $end ? 4000 : 8000), strtotime($end) + ($start < $end ? 8000 : 4000), 86400));
+        $array = array();
+        $interval = new DateInterval('P1D');
+
+        $realEnd = new DateTime($end);
+        $realEnd->add($interval);
+
+        $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+
+        foreach($period as $date) { 
+            $array[] = $date->format($format); 
+        }
+
+        return $array;
     }
 }
 
@@ -438,5 +447,20 @@ if(!function_exists('getNumberOfWords')) {
         }
       }
       return $string;
+    }
+}
+
+if(!function_exists('getOnlyHourMinute')) {
+    function getOnlyHourMinute($time = "00:00:00") {
+      $strTime = "";
+      if(!empty($time)){
+        $arrTime = explode(":", $time);
+        if(!empty($arrTime)){
+            if(is_array($arrTime) && count($arrTime) >= 2){
+                $strTime = $arrTime['0'].":".$arrTime['1'];
+            }
+        }
+      }
+      return $strTime;
     }
 }

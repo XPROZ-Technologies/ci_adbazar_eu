@@ -90,6 +90,24 @@
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
 <script>
+  $(".js-datepicker").datetimepicker({
+    format: "MMMM DD, YYYY",
+    // minDate: moment(),
+    // maxDate: moment(),
+    allowInputToggle: true,
+    // inline: true,
+    // debug: true,
+    // allowMultidate: true,
+    // multidateSeparator: ',',
+    icons: {
+      time: "bi bi-clock",
+      date: "bi bi-calendar2-check-fillr",
+      up: "bi bi-chevron-up",
+      down: "bi bi-chevron-down",
+      previous: "bi bi-chevron-left",
+      next: "bi bi-chevron-right",
+    },
+  });
   $("body").on('click', '.btn-create', function() {
     $('.btn-create').prop('disabled', true);
     var form = $('#formCreateEvent');
@@ -104,7 +122,7 @@
         if (response.code == 1) {
           $(".notiPopup .text-secondary").html(response.message);
           $(".ico-noti-success").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
           $('#formCreateEvent').trigger("reset");
         } else {
@@ -112,7 +130,7 @@
 
           $(".notiPopup .text-secondary").html(response.message);
           $(".ico-noti-success").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
         }
       },
       error: function(response) {
@@ -120,7 +138,7 @@
 
         $(".notiPopup .text-secondary").html(response.message);
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
       }
     });
     return false;

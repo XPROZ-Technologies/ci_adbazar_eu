@@ -22,7 +22,7 @@ if (!empty($notiMessage) && !empty($notiType)) {
   <script>
     $(".notiPopup .text-secondary").html('<?php echo $notiMessage; ?>');
     $(".ico-noti-<?php echo $notiType; ?>").removeClass('ico-hidden');
-    $(".notiPopup").fadeIn('slow').fadeOut(4000);
+    $(".notiPopup").fadeIn('slow').fadeOut(5000);
   </script>
   <!-- End toast -->
 <?php } ?>

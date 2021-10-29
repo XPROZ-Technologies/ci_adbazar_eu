@@ -141,7 +141,7 @@
     } else {
       $(".notiPopup .text-secondary").html("Plan does not exist");
       $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").fadeIn('slow').fadeOut(4000);
+      $(".notiPopup").fadeIn('slow').fadeOut(5000);
     }
   });
   $("body").on("change", "#checkbox_currency", function() {

@@ -176,7 +176,7 @@ function loginGG_FB(id, customer_first_name, customer_last_name, customer_email,
             var json = $.parseJSON(response);
             $(".notiPopup .text-secondary").html(text_success_social);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
             if(json.code == 1){
                 redirect(false, $("#baseHomeUrl").attr("data-href"));
             }

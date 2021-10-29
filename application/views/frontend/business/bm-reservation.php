@@ -48,7 +48,7 @@
                   <?php if (!empty($lists)) { ?>
                     <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                       <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                      <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
+                      <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>" name="keyword" value="<?php echo $keyword; ?>">
                     </form>
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                       <div class="d-flex align-items-center inner-filter">
@@ -101,8 +101,22 @@
                           <?php
                           foreach ($lists as $itemBook) { ?>
                             <tr>
-                              <td><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo $itemBook['time_arrived']; ?></td>
-                              <td><?php if(isset($itemBook['customer_name'])){ echo $itemBook['customer_name']; }else{ echo '-'; } ?></td>
+                              <td><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?></td>
+                              <td>
+                                <div class="hover-name-infor">
+                                  <?php if(isset($itemBook['customer_first_name'])){ echo $itemBook['customer_first_name']; }else{ echo '-'; } ?>
+                                  <div class="box-infor-search">
+                                    <ul>
+                                      <li>Account name: <span><?php echo $itemBook['customer_first_name']; ?> <?php echo $itemBook['customer_last_name']; ?></span></li>
+                                      <li>Book name: <span><?php echo $itemBook['book_name']; ?></span></li>
+                                      <li>Phone number: <span>+<?php echo $itemBook['phone_code']; ?><?php echo ltrim($itemBook['book_phone'], '0'); ?></span></li>
+                                      <li>Reservation ID: <span><?php echo $itemBook['book_code']; ?></span></li>
+                                      <li>Number of people: <span><?php echo $itemBook['number_of_people']; ?></span></li>
+                                      <li>Date time: <span><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?> - <?php echo getOnlyHourMinute($itemBook['time_arrived']); ?></span></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </td>
                               <td><?php echo $itemBook['book_code']; ?></td>
                               <td><?php echo $itemBook['number_of_people']; ?></td>
                               <td>
@@ -112,8 +126,8 @@
                                   <a href="<?php echo $basePagingUrl . '?type=1'; ?>"><span class="badge badge-expire"><?php echo $this->lang->line('expired'); ?></span></a>
                                 <?php } else if ($itemBook['book_status_id'] == 4) { ?>
                                   <a href="<?php echo $basePagingUrl . '?type=4'; ?>"><span class="badge badge-declined"><?php echo $this->lang->line('decline'); ?></span></a>
-                                  <?php } else if ($itemBook['book_status_id'] == 3) { ?>
-                                  <a href="<?php echo $basePagingUrl . '?type=4'; ?>"><span class="badge badge-cancel"><?php echo $this->lang->line('cancelled'); ?></span></a>
+                                <?php } else if ($itemBook['book_status_id'] == 3) { ?>
+                                  <a href="<?php echo $basePagingUrl . '?type=3'; ?>"><span class="badge badge-cancel"><?php echo $this->lang->line('cancelled'); ?></span></a>
                                 <?php } ?>
                               </td>
                               <td>
@@ -428,13 +442,13 @@
           error: function(json) {
             $(".notiPopup .text-secondary").html("Reply review failed");
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
         });
       } else {
         $(".notiPopup .text-secondary").html("Selected day not exist");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
       }
     });
 
@@ -459,7 +473,7 @@
       if (max_people == '' || max_per_reservation == '' || duration == '' || start_time == '' || end_time == '') {
         $(".notiPopup .text-secondary").html("Please fulfill information");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
       }
 
       if (day_id !== '') {
@@ -487,7 +501,7 @@
 
               $(".notiPopup .text-secondary").html("Save config successfully");
               $(".ico-noti-success").removeClass('ico-hidden');
-              $(".notiPopup").fadeIn('slow').fadeOut(4000);
+              $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
 
 
@@ -499,19 +513,19 @@
 
               $(".notiPopup .text-secondary").html(json.message);
               $(".ico-noti-error").removeClass('ico-hidden');
-              $(".notiPopup").fadeIn('slow').fadeOut(4000);
+              $(".notiPopup").fadeIn('slow').fadeOut(5000);
             }
           },
           error: function(json) {
             $(".notiPopup .text-secondary").html("Save config failed");
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
         });
       } else {
         $(".notiPopup .text-secondary").html("Save config failed");
         $(".ico-noti-error").removeClass('ico-hidden');
-        $(".notiPopup").fadeIn('slow').fadeOut(4000);
+        $(".notiPopup").fadeIn('slow').fadeOut(5000);
       }
     });
 
@@ -537,18 +551,18 @@
           if (json.code == 1) {
             $(".notiPopup .text-secondary").html(json.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
           } else {
             $(".notiPopup .text-secondary").html(json.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
         },
         error: function(json) {
           $(".notiPopup .text-secondary").html("Change status failed");
           $(".ico-noti-error").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
         }
       });
     });
@@ -607,18 +621,18 @@
           if (data.code == 1) {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-success").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           } else {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-error").removeClass('ico-hidden');
-            $(".notiPopup").fadeIn('slow').fadeOut(4000);
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
           redirect(true);
         },
         error: function(data) {
           $(".notiPopup .text-secondary").html("Declined failed");
           $(".ico-noti-error").removeClass('ico-hidden');
-          $(".notiPopup").fadeIn('slow').fadeOut(4000);
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
           redirect(true);
         }

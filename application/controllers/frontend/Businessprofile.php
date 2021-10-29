@@ -422,6 +422,14 @@ class Businessprofile extends MY_Controller
             $data['overall_rating'] = ($data['count_one_star'] * 1 + $data['count_two_star'] * 2 + $data['count_three_star'] * 3 + $data['count_four_star'] * 4 + $data['count_five_star'] * 5) / ($data['count_one_star'] + $data['count_two_star'] + $data['count_three_star'] + $data['count_four_star'] + $data['count_five_star']);
         }
 
+        $data['allowReview'] = true;
+        $countReviewTime = $this->Mcustomerreviews->getCount(array(
+            'business_id' => $businessProfileId,
+            'customer_id' => $data['customer']['id']
+        ));
+        if($countReviewTime > 0){
+            $data['allowReview'] = false;
+        }
         $this->load->view('frontend/business/bp-review', $data);
     }
 
@@ -443,7 +451,10 @@ class Businessprofile extends MY_Controller
             $postData = $this->arrayFromPost(array('customer_id', 'review_star', 'customer_comment'));
 
             $getBusinessId = $this->input->post('business_id');
-
+            $postData['is_image'] = 0;
+            if(strpos($postData['customer_comment'], '<img') !== false ){
+                $postData['is_image'] = 1;
+            }
             $postData['business_id'] = $getBusinessId;
             $postData['customer_review_status_id'] = STATUS_ACTIVED;
             $postData['created_at'] = getCurentDateTime();
@@ -576,6 +587,48 @@ class Businessprofile extends MY_Controller
                 }
             } else {
                 echo json_encode(array('code' => 0, 'message' => "Review not exist"));
+                die;
+            }
+        } catch (Exception $e) {
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+            die;
+        }
+    }
+
+    public function removeReplyComment()
+    {
+        try {
+
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mcustomerreviews'));
+
+            /**
+             * Commons data
+             */
+            $data = $this->commonDataCustomer('');
+            $data['activeMenu'] = "";
+            /**
+             * Commons data
+             */
+
+            $reviewId = $this->input->post('review_id');
+            $getBusinessId = $this->input->post('business_id');
+
+            $delReviewId = $this->Mcustomerreviews->getFieldValue(array('id' => $reviewId, 'business_id' => $getBusinessId), 'id', 0);
+            if ($delReviewId > 0) {
+                $postData['business_comment'] = "";
+                $postData['updated_at'] = getCurentDateTime();
+
+                $reviewId = $this->Mcustomerreviews->save($postData, $reviewId);
+
+                if ($reviewId > 0) {
+                    echo json_encode(array('code' => 1, 'message' => "Delete reply successfully"));
+                    die;
+                } else {
+                    echo json_encode(array('code' => 0, 'message' => "Delete reply failed"));
+                    die;
+                }
+            } else {
+                echo json_encode(array('code' => 0, 'message' => "Reply not exist"));
                 die;
             }
         } catch (Exception $e) {
@@ -1303,6 +1356,8 @@ class Businessprofile extends MY_Controller
         }
         $data['reviewInfo']['star'] = $overall_rating;
         $data['reviewInfo']['sumReview'] = $sumReview;
+
+        
         /**
          * END. REVIEWS
          */
@@ -1515,7 +1570,7 @@ class Businessprofile extends MY_Controller
         if ($image_id > 0) {
             $resultDel = $this->Mbusinessphotos->delete($image_id);
             if ($resultDel) {
-                echo json_encode(array('code' => 1, 'message' => "Successfully deleted video"));
+                echo json_encode(array('code' => 1, 'message' => "Successfully deleted image"));
                 die;
             }
         }
@@ -1816,6 +1871,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if (empty($data['customer']['id']) || $data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html'));
+        }
+
         $data['activeBusinessMenu'] = "reviews";
 
         $data['businessInfo'] = $businessInfo;
@@ -1914,7 +1975,7 @@ class Businessprofile extends MY_Controller
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mreservationconfigs', 'Mcustomerreservations'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mreservationconfigs', 'Mcustomerreservations', 'Mcustomers', 'Mphonecodes'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -1985,7 +2046,9 @@ class Businessprofile extends MY_Controller
         $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
 
         foreach($data['lists'] as $k => $item){
-            $data['lists'][$k]['customer_name'] = $this->Mcustomers->getFieldValue((array('id' => $item['customer_id'])), 'customer_first_name', '');
+            $data['lists'][$k]['customer_first_name'] = $this->Mcustomers->getFieldValue((array('id' => $item['customer_id'])), 'customer_first_name', '');
+            $data['lists'][$k]['customer_last_name'] = $this->Mcustomers->getFieldValue((array('id' => $item['customer_id'])), 'customer_last_name', '');
+            $data['lists'][$k]['phone_code'] = $this->Mphonecodes->getFieldValue(array('id' => $businessInfo['country_code_id']), 'phonecode', '');
         }
 
         $this->load->view('frontend/business/bm-reservation', $data);

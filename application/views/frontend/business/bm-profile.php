@@ -6,7 +6,7 @@
         <?php $this->load->view('frontend/includes/bm_header'); ?>
 
         <div class="d-flex justify-content-center edit-bm">
-          <a href="<?php echo base_url('business-management/'.$businessInfo['business_url'].'/edit'); ?>" class="btn btn-red">
+          <a href="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/edit'); ?>" class="btn btn-red">
             <img src="assets/img/frontend/ic-edit.png" alt="ic-edit">
             <?php echo $this->lang->line('edit_my_profile'); ?>
           </a>
@@ -39,16 +39,16 @@
                     <div class="col-lg-7">
                       <div class="bp-about-left">
                         <h4 class="fw-bold page-title-xs"><?php echo $this->lang->line('business_information'); ?></h4>
-                        <div class="d-flex align-items-center mb-5px">
-                          <?php if(isset($reviewInfo) && $reviewInfo['sumReview'] > 0){ ?>
+                        <div class="d-flex align-items-center mb-20">
+                          <?php if (isset($reviewInfo) && $reviewInfo['sumReview'] > 0) { ?>
                             <div class="star-rating on line  mr-8px relative">
                               <div class="star-base">
                                 <div class="star-rate" data-rate="<?php echo $reviewInfo['star']; ?>"></div>
-                                <a dt-value="1" href="#1"></a>
-                                <a dt-value="2" href="#2"></a>
-                                <a dt-value="3" href="#3"></a>
-                                <a dt-value="4" href="#4"></a>
-                                <a dt-value="5" href="#5"></a>
+                                <a dt-value="1" href="javascript:void(0)"></a>
+                                <a dt-value="2" href="javascript:void(0)"></a>
+                                <a dt-value="3" href="javascript:void(0)"></a>
+                                <a dt-value="4" href="javascript:void(0)"></a>
+                                <a dt-value="5" href="javascript:void(0)"></a>
                               </div>
                             </div>
                             <span class="star-rating-number">(<?php echo $reviewInfo['sumReview']; ?>)</span>
@@ -58,7 +58,14 @@
                           <li class="mb-3">
                             <div class="img">
                               <img src="assets/img/frontend/icon-tag.png" alt="tag icon" class="img-fluid">
-                            </div>Restaurant
+                            </div><?php if (!empty($businessServiceTypes)) {
+                                    for ($k = 0; $k < count($businessServiceTypes); $k++) {
+                                      echo $businessServiceTypes[$k]['service_type_name'];
+                                      if ($k < (count($businessServiceTypes) - 1)) {
+                                        echo ', ';
+                                      }
+                                    }
+                                  } ?>
                           </li>
                           <li class="mb-3">
                             <div class="img"><img src="assets/img/frontend/bp-open.png" alt="tag open" class="img-fluid"></div>
@@ -94,9 +101,11 @@
                           <div class="open-hour">
                             <h5 class="text-center page-text-lg"><?php echo strtoupper($this->lang->line('opening_hours')); ?></h5>
                             <ul class="list-unstyled mb-0">
-                              <?php foreach ($businessOpeningHours as $open_hours) { ?>
+                              <?php 
+                              $dayShortIds = $this->Mconstants->dayShortIds();
+                              foreach ($businessOpeningHours as $open_hours) { ?>
                                 <li>
-                                  <span class="date"><?php echo $this->Mconstants->dayShortIds[$open_hours['day_id']]; ?></span>
+                                  <span class="date"><?php echo $dayShortIds[$open_hours['day_id']]; ?></span>
                                   <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
                                     <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
                                       <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
@@ -168,6 +177,9 @@
     /* $("#eventJoinAsGuest").modal('show'); */
   });
   if ($('#map_business').length > 0) {
+    
+
+    
     let map;
 
     function initMap() {
@@ -176,8 +188,7 @@
         zoom: 16,
       });
 
-      const iconBase =
-        "<?php echo CONFIG_PATH; ?>";
+      const iconBase = "<?php echo CONFIG_PATH; ?>";
       const icons = {
         iconMap: {
           icon: iconBase + "<?php if (!empty($configs['MARKER_MAP_IMAGE'])) {
@@ -223,7 +234,7 @@
           link_location = `<a href="${features[i].linkLocation}"><img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon"
                             alt="location image"></a>`;
         }
-
+        /*
         const infoMap = `<div class="card rounded-0 customer-location-item mb-2">
               <div class="row g-0">
                   <div class="col-3">
@@ -235,30 +246,31 @@
                           <div class="d-flex align-items-center mb-5px"> 
                             <div class="star-rating on line  mr-8px relative"> 
                                 <div class="star-base">
-                                <div class="star-rate" data-rate="${features[i].starInfo}"></div> 
-                                <a dt-value="1" href="#1"></a> 
-                                <a dt-value="2" href="#2"></a> 
-                                <a dt-value="3" href="#3"></a> 
-                                <a dt-value="4" href="#4"></a> 
-                                <a dt-value="5" href="#5"></a>
+                                  <div class="star-rate" data-rate="<?php echo $reviewInfo['star']; ?>"></div> 
+                                  <a dt-value="1" href="javascript:void(0)"></a> 
+                                  <a dt-value="2" href="javascript:void(0)"></a> 
+                                  <a dt-value="3" href="javascript:void(0)"></a> 
+                                  <a dt-value="4" href="javascript:void(0)"></a> 
+                                  <a dt-value="5" href="javascript:void(0)"></a>
                                 </div>
                             </div>
-                            <span>(${features[i].evaluateInfo})</span>
+                            <span>(<?php echo $reviewInfo['sumReview']; ?>)</span>
                         </div>
                           <ul class="list-inline mb-2 list-rating-sm">
                             ${features[i].starInfo}
-                            ${evaluate_info}
                           </ul>
                           <p class="card-text mb-0 page-text-xxs text-secondary">${features[i].servicetypes}
                           </p>
                           ${open_status}
                           
                           <a target="_blank" href="${features[i].linkView}"
-                              class="btn btn-outline-red btn-outline-red-xs btn-view">${text_view}</a>
+                              class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
                       </div>
                   </div>
               </div>
           </div>`;
+        */
+        const infoMap = `<h6 class="card-title mb-1 page-text-xs text-center"><a target="_blank" href="<?php echo base_url($businessInfo['business_url']); ?>" title=""><?php echo $businessInfo['business_name']; ?></a></h6>`;
         const infowindow = new google.maps.InfoWindow({
           content: infoMap,
         });
@@ -268,6 +280,11 @@
           icon: icons[features[i].type].icon,
           map: map,
         });
+        infowindow.open({
+            anchor: marker,
+            map,
+            shouldFocus: false,
+          });
         marker.addListener("click", () => {
           infowindow.open({
             anchor: marker,
@@ -277,5 +294,6 @@
         });
       }
     }
+    
   }
 </script>

@@ -117,7 +117,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <h4 class="text-center fw-bold page-title-sm"><?php echo $this->lang->line('cancel'); ?>Successfully removed!</h4>
+        <h4 class="text-center fw-bold page-title-sm">Successfully removed!</h4>
         <div class="d-flex justify-content-center">
           <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel btn-close-removed" ><?php echo $this->lang->line('closed'); ?></a>
         </div>
