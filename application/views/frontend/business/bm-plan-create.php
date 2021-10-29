@@ -553,14 +553,33 @@
   });
 
   $('#formCreateBusiness').on('focusout', 'input#business_name', function() {
-    $('input#business_url').val(makeSlug($(this).val()));
+    var slug = makeSlug($(this).val());
+    checkBusinessSlug(slug);
+    //$('input#business_url').val();
   });
 
   $('#formCreateBusiness').on('keydown', 'input#business_url', function(e) {
     if (makeSlug(e)) e.preventDefault();
   }).on('keyup', 'input#business_url', function() {
-    makeSlug($(this).val())
+    //makeSlug($(this).val())
+    var slug = makeSlug($(this).val());
+    checkBusinessSlug(slug);
   });
+
+  function checkBusinessSlug(slug){
+    $.ajax({
+      type: "POST",
+      url: '<?php echo base_url('business/check-slug'); ?>',
+      data: {
+        slug: slug
+      },
+      dataType: 'text',
+      success: function(response) {
+        $('input#business_url').val(response);
+      },
+      error: function(response) {}
+    });
+  }
 
   // Upload profile picture
   let readURL = function(input, element, dist) {

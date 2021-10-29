@@ -2300,4 +2300,16 @@ class Businessprofile extends MY_Controller
     /**
      * END. BUSINESS PROFILE MANAGEMENT
      */
+
+    public function checkSlug() {
+        $slug = $this->input->post('slug');
+        if(!empty($slug)){
+            $this->loadModel(array('Mbusinessprofiles'));
+            $businessId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $slug, 'business_status_id > ' => 0), 'id', 0);
+            if($businessId > 0) {
+                $slug = $slug."-".time();
+            }
+        }
+        echo $slug;die;
+    }
 }
