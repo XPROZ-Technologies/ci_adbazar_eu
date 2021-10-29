@@ -21,7 +21,7 @@
                     <input type="hidden" name="selected_date" value="<?php echo $selected_date; ?>" />
                   <?php } ?>
                   <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                  <input class="form-control" type="text" placeholder="Search" name="keyword" aria-label="Search" value="<?php echo $keyword; ?>">
+                  <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" name="keyword" aria-label="<?php echo $this->lang->line('search'); ?>" value="<?php echo $keyword; ?>">
 
                 </form>
               </div>

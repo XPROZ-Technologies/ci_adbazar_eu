@@ -1783,7 +1783,7 @@ class Businessprofile extends MY_Controller
         if ($image_id > 0) {
             $resultDel = $this->Mbusinessphotos->delete($image_id);
             if ($resultDel) {
-                echo json_encode(array('code' => 1, 'message' => "Successfully deleted video"));
+                echo json_encode(array('code' => 1, 'message' => "Successfully deleted image"));
                 die;
             }
         }

@@ -4,8 +4,7 @@
     <div class="bp-account">
       <div class="container">
         <div class="row">
-          <div class="col-lg-1"></div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 v1">
             <div class="bp-account-left">
               <h1 class="text-center page-title mb-20"><?php echo $this->lang->line('sign_in_with_your_account'); ?></h1>
               <div class="signup-form">
@@ -31,7 +30,7 @@
                   <div class="col-12 d-flex justify-content-center mb-3 mt-lg-4">
                     <button type="submit" class="btn btn-red px-3">Sign in</button>
                   </div>
-                  <p class="text-center mb-2 mb-lg-4 text-black"><?php echo $this->lang->line('not_have_an_account_yet'); ?> <a href="<?php echo base_url('signup.html'); ?>" class="ms-3 text-black fw-bold">Sign up</a></p>
+                  <p class="text-center mb-2 mb-lg-4 text-black"><?php echo $this->lang->line('not_have_an_account_yet'); ?> <a href="<?php echo base_url('signup.html'); ?>" class="ms-3 text-black fw-bold"><?php echo $this->lang->line('sign_up'); ?></a></p>
                   <p class="text-center mt-3 mt-lg-0">
                   <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span>Or</span></p>
                   </p>
@@ -51,8 +50,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-1"></div>
-          <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center has-border">
+          <div class="col-lg-6 v2 d-flex flex-column justify-content-center align-items-end">
             <div class="bp-account-right">
               <a href="javascript:void(0)" class="btn btn-red btn-join-as-guest"><?php echo $this->lang->line('continue_as_guest'); ?></a>
             </div>
@@ -102,7 +100,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <p class="page-text-lg text-center">This function will be available soon. Please Sign Up to join the event</p>
-        <a href="<?php echo base_url('signup.html'); ?>" class="btn btn-red btn-contact-ad">Sign Up</a>
+        <a href="<?php echo base_url('signup.html'); ?>" class="btn btn-red btn-contact-ad"><?php echo $this->lang->line('sign_up'); ?></a>
       </div>
     </div>
   </div>

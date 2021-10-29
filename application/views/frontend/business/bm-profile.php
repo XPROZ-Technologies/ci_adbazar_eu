@@ -101,9 +101,11 @@
                           <div class="open-hour">
                             <h5 class="text-center page-text-lg"><?php echo strtoupper($this->lang->line('opening_hours')); ?></h5>
                             <ul class="list-unstyled mb-0">
-                              <?php foreach ($businessOpeningHours as $open_hours) { ?>
+                              <?php 
+                              $dayShortIds = $this->Mconstants->dayShortIds();
+                              foreach ($businessOpeningHours as $open_hours) { ?>
                                 <li>
-                                  <span class="date"><?php echo $this->Mconstants->dayShortIds[$open_hours['day_id']]; ?></span>
+                                  <span class="date"><?php echo $dayShortIds[$open_hours['day_id']]; ?></span>
                                   <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
                                     <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
                                       <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>

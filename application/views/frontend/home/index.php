@@ -8,17 +8,17 @@
         <div id="carouselCustomer" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-caption text-left">
             <div class="container">
-              <h5 class="fw-bold animate__animated animate__fadeInLeft"><?php 
+              <h5 class="fw-bold animate__animated animate__fadeInLeft"><?php
                 if($language_id == 1){
-                  echo $configs['HOME_BANNER_TEXT']; 
+                  echo $configs['HOME_BANNER_TEXT'];
                 }else if($language_id == 2){
-                  echo $configs['HOME_BANNER_TEXT_CZ']; 
+                  echo $configs['HOME_BANNER_TEXT_CZ'];
                 }else if($language_id == 3){
-                  echo $configs['HOME_BANNER_TEXT_DE']; 
+                  echo $configs['HOME_BANNER_TEXT_DE'];
                 }else if($language_id == 4){
-                  echo $configs['HOME_BANNER_TEXT_VI']; 
+                  echo $configs['HOME_BANNER_TEXT_VI'];
                 }
-                
+
               ?>
               </h5>
             </div>
@@ -177,7 +177,7 @@
               <div class="wrapper-search">
                 <div class="d-flex search-box">
                   <a href="javascript:void(0)" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                  <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="Search" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
+                  <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
                 </div>
               </div>
             </div>
@@ -232,9 +232,37 @@
     <!-- End Customer Contact -->
   </div>
 </main>
+
+
+<div class="popup-map" id="popup-map" style="display: none">
+    <div class="popup-map-bg"></div>
+    <div class="popup-map-body">
+        <h3 id="popup-map-title"></h3>
+        <i id="popup-map-close" class="bi bi-x-lg"></i>
+        <div id="location-search-container">
+            <input id="location-search-input" type="text" placeholder="Search a location"/>
+        </div>
+        <div class="row-2">
+            <div id="googleMapPopUp" style="width:100%;height:500px;"></div>
+            <div id="panel"></div>
+        </div>
+    </div>
+</div>
 <!-- footer script -->
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&libraries=places&v=weekly"></script>
+<script src="assets/js/frontend/home/popup-map.js?version=<?php echo time(); ?>"></script>
+<script>
+    function popupMapShow(contentId,name,lat,lng) {
+        popupMapS({
+            title: name,
+            target: {
+                location: {lat: lat, lng: lng},
+                content: document.querySelector(`#${contentId}`).innerHTML
+            },
+        });
+    }
+</script>
 <?php $this->load->view('frontend/includes/footer'); ?>
-<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 
 <script>
   var please_enter_your_contact_information = "<?php echo 'Please enter your contact information' ?>";
@@ -246,7 +274,7 @@
     var name = $("#contactName").val();
     var message = $("#contactMessage").val();
     var customer_id = $("#contactCustomer").val();
-    
+
     if (email !== "" && name != "" && message != "") {
       //this.submit();
       $.ajax({
