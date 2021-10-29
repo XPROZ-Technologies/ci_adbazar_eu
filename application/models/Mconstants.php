@@ -14,6 +14,7 @@ class Mconstants extends CI_Model {
     public $status = array(
         1 => 'Deactive',
         2 => 'Active',
+        3 => 'Waiting Payment'
     );
 
     public $genders = array(
