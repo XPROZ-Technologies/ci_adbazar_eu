@@ -149,8 +149,7 @@ class Mconstants extends CI_Model {
                 else $selected = '';
                 echo '<option value="'.$i.'"'.$selected.'>'.$i.'</option>';
             }
-        }
-        else{
+        } else {
             for($i = $end; $i >= $start; $i--){
                 if($i == $itemId) $selected = ' selected="selected"';
                 else $selected = '';

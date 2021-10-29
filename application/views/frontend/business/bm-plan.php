@@ -161,7 +161,7 @@
     var select_plan = $('input[name=bm-plan]:checked').val();
     var token_draf = $('input#tokenDraft').val();
     var url = '<?php echo base_url('business-profile/create-new-business'); ?>';
-    window.location.href = url + '?plan=' + select_plan + '&isTrial=true' + '&tokenDraft=' + token_draf;
+    window.location.href = url + '?plan=' + select_plan + '&isTrial=false' + '&tokenDraft=' + token_draf;
   });
 
   $("body").on("change", "#checkbox_currency", function() {
