@@ -27,7 +27,7 @@
 
                       <div class="card-body plan-card fw-500">
                         <div class="month text-success">
-                          <span class="text-month fw-bold">1299 <?php echo $this->lang->line('czk_month'); ?></span>
+                          <span class="text-month fw-bold"><?php echo $planInfo['plan_amount']; ?> <?php echo $this->lang->line('czk_month'); ?></span>
                         </div>
                         <ul class="list-text fw-500">
                           <li><?php echo $this->lang->line('create_business_profile'); ?></li>
@@ -36,21 +36,22 @@
                         </ul>
                         <div class="page-text-lg description">
                           <div class="wrapper-text">
-                            <p class="mb-1 text-bill text-primary">Billed anually
+                            <p class="mb-1 text-bill text-primary">Billed <?php if($planInfo['plan_type_id'] == 1){ echo "monthly"; }else{ echo "annual"; } ?>
                             </p>
-                            <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of'); ?> 1299 CZK
+                            <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of'); ?> <?php echo $planInfo['plan_amount']; ?> <?php if($planInfo['plan_currency_id'] == 1){ echo "CZK"; }else{ echo "EUR"; } ?>
                             </p>
                           </div>
-                          <p class="mb-0 text-warning text-vat">VAT and local taxes
-                            may apply</p>
+                          <p class="mb-0 text-warning text-vat">VAT and local taxes may apply</p>
                         </div>
                       </div>
                     </div>
                   </label>
                 </div>
+                <!--
                 <p class="mb-0 page-text-lg fw-500 text-center text-notice text-danger">
-                <?php echo $this->lang->line('you_are_actively_using_your_3-'); ?>
+                  <?php echo $this->lang->line('you_are_actively_using_your_3-'); ?>
                 </p>
+                -->
                 <div class="d-flex align-items-center justify-content-center switch-btn disabled">
                   <input id="checkbox4" type="checkbox" class="checkbox" disabled="">
                   <label for="checkbox4" class="switch">

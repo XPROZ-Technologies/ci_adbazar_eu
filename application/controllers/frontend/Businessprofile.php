@@ -2320,7 +2320,7 @@ class Businessprofile extends MY_Controller
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents', 'Mcustomers'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -2342,6 +2342,10 @@ class Businessprofile extends MY_Controller
         $data['activeBusinessMenu'] = "subscriptions";
 
         $data['businessInfo'] = $businessInfo;
+
+        $data['planInfo'] = $this->Mpaymentplans->get($businessInfo['plan_id']);
+
+        $data['customerInfo'] = $this->Mcustomers->get($data['customer']['id']);
 
         $this->load->view('frontend/business/bm-subscription', $data);
     }
