@@ -1239,11 +1239,11 @@ class Businessprofile extends MY_Controller
                 $arrayValues = $this->arrayFromPost(array('plan', 'isTrial'));
                 $plan = $arrayValues['plan'];
                 //insert plan
-                $postData['plan'] = $plan;
+                $postData['plan_id'] = $plan;
 
                 $isTrial = $arrayValues['isTrial'];
 
-                if($isTrial){
+                if($isTrial == true){
                     $this->Mcustomers->save(array('free_trial' => 1, 'free_trial_type' => $plan), $data['customer']['id']);
                 }
                 
