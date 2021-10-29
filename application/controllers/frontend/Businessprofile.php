@@ -884,7 +884,7 @@ class Businessprofile extends MY_Controller
         $customer = $this->checkLoginCustomer();
         if(!$this->input->get('tokenDraft') && empty($this->input->get('tokenDraft'))) {
             // xử lý khi có lỗi tokenDraft bị rỗng
-            var_dump("111111111111111111");
+            var_dump("Failed 1");die;
         } else {
             $tokenDraft = $this->input->get('tokenDraft');
         
@@ -897,7 +897,7 @@ class Businessprofile extends MY_Controller
                 $businessProfile = $businessProfiles[0];
             } else {
                 // xử lý khi dữ liệu không đúng
-                var_dump("2222222222222222");
+                var_dump("Failed 2");die;
             }
 
             /**
@@ -942,7 +942,8 @@ class Businessprofile extends MY_Controller
                 $business_data = array(
                     'subscription_id' => $subscription_id,
                     'ba_token' => $ba_token,
-                    'token' => $token
+                    'token' => $token,
+                    'business_status_id' => STATUS_ACTIVED
                 );
 
                 $businessId = $this->Mbusinessprofiles->getFieldValue(array('token_draft' => $token_draft, 'customer_id' => $customerId), 'id', 0);
