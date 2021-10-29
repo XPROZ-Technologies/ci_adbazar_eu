@@ -117,13 +117,13 @@
                 <div class="d-flex flex-column align-items-end">
                     <div class="d-flex align-items-center">
                         <?php if($isTrial == 0){ ?>
-                          <a data-isTrial="false" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-select-plan"><?php echo $this->lang->line('start_3-month_free_trial'); ?></a>
+                          <a data-isTrial="1" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-select-plan"><?php echo $this->lang->line('start_3-month_free_trial'); ?></a>
                         <?php } ?>
                         <!-- <a data-isTrial="true"  class="btn btn-outline-red btn-outline-red-md btn-no-trail btn-select-plan">
                           <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
                         </a> -->
                         <!--<a data-isTrial="true" href="<?php echo base_url('business-profile/create-new-business?plan=1&isTrial=true&tokenDraft='.uniqid(strtotime(date('Ymd H:i:s')))); ?>" class="btn btn-outline-red btn-outline-red-md btn-no-trail">-->
-                        <a data-isTrial="true" href="javascript:void(0);" class="btn btn-outline-red btn-outline-red-md btn-no-trail">
+                        <a data-isTrial="0" href="javascript:void(0);" class="btn btn-outline-red btn-outline-red-md btn-no-trail">
                           <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
                         </a>
                     </div>
@@ -148,8 +148,8 @@
     var isTrial = $(this).attr('data-isTrial');
     if (select_plan === "1" || select_plan === "2" || select_plan === "3" || select_plan === "4") {
       $('#businessPlan').val(select_plan);
-      $('#isTrial').val(isTrial||'false');
-      //$('#formSelectPlan').submit();
+      $('#isTrial').val(isTrial||'0');
+      $('#formSelectPlan').submit();
     } else {
       $(".notiPopup .text-secondary").html("Plan does not exist");
       $(".ico-noti-error").removeClass('ico-hidden');
@@ -161,7 +161,7 @@
     var select_plan = $('input[name=bm-plan]:checked').val();
     var token_draf = $('input#tokenDraft').val();
     var url = '<?php echo base_url('business-profile/create-new-business'); ?>';
-    window.location.href = url + '?plan=' + select_plan + '&isTrial=false' + '&tokenDraft=' + token_draf;
+    window.location.href = url + '?plan=' + select_plan + '&isTrial=0' + '&tokenDraft=' + token_draf;
   });
 
   $("body").on("change", "#checkbox_currency", function() {

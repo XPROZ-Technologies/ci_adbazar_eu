@@ -1244,7 +1244,7 @@ class Businessprofile extends MY_Controller
 
                 $isTrial = $arrayValues['isTrial'];
 
-                if($isTrial == true){
+                if($isTrial == 1){
                     $postData['business_status_id'] = STATUS_ACTIVED;
                     $this->Mcustomers->save(array('free_trial' => 1, 'free_trial_type' => $plan), $data['customer']['id']);
                 }
@@ -1317,7 +1317,7 @@ class Businessprofile extends MY_Controller
                     if (!empty($businessServiceTypes)) {
                         $resultServiceTypes = $this->Mbusinessservicetype->saveServiceType($businessServiceTypes, $businessProfileId);
                     }
-                    if($isTrial == true){
+                    if($isTrial ==  1){
                         $this->session->set_flashdata('notice_message', "Create your business profile successfully");
                         $this->session->set_flashdata('notice_type', 'success');
                         redirect(base_url('my-business-profile'));
