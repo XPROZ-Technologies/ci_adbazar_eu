@@ -822,7 +822,7 @@ class Businessprofile extends MY_Controller
 
     public function select_plan()
     {
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers'));
 
         /**
          * Commons data
@@ -832,12 +832,14 @@ class Businessprofile extends MY_Controller
         /**
          * Commons data
          */
-
+        
         if ($data['customer']['id'] == 0) {
             $this->session->set_flashdata('notice_message', "Please login to view this page");
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
         }
+
+        $data['isTrial'] = $this->Mcustomers->getFieldValue(array('id' => $data['customer']['id']), 'free_trial', 0);
 
         $this->load->view('frontend/business/bm-plan', $data);
     }
@@ -923,21 +925,52 @@ class Businessprofile extends MY_Controller
                 $subscription_id = $this->input->get('subscription_id');
                 $ba_token = $this->input->get('ba_token');
                 $token = $this->input->get('token');
+                $token_draft = $this->input->get('tokenDraft');
                 // Can recheck sub here or not, save success to db
-                $date = strtotime("+30 day", strtotime(date('Y-m-d H:i:s')));
-                $expiredDate = date('Y-m-d H:i:s', $date);
-                $this->Mbusinessprofiles->save(array('expired_date' => $expiredDate), $businessProfile['id']);
+                
+                //$this->Mbusinessprofiles->save(array('expired_date' => $expiredDate), $businessProfile['id']);
+
+
 
                 $returnData = array(
                     'customerId' => $customerId,
                     'subscription_id' => $subscription_id,
                     'ba_token' => $ba_token,
-                    'expiredDate' => $expiredDate
+                    'token' => $token
                 );
-                var_dump($returnData);die;
-                //Redirect now, link my test.hehe
-                redirect(base_url('business-management/hd-jsc/subscriptions'));
-                return;
+
+                $business_data = array(
+                    'subscription_id' => $subscription_id,
+                    'ba_token' => $ba_token,
+                    'token' => $token
+                );
+
+                $businessId = $this->Mbusinessprofiles->getFieldValue(array('token_draft' => $token_draft, 'customer_id' => $customerId), 'id', 0);
+                if($businessId > 0) {
+                    
+                    $this->Mbusinessprofiles->save($business_data, $businessId);
+                    $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
+                    
+                    $planId = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'plan_id', 0);
+
+                    if(in_array($planId, array(1,3))) {
+                        $date = strtotime("+30 day", strtotime(date('Y-m-d H:i:s')));
+                        $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
+                    }else if(in_array($planId, array(2,4))) {
+                        $date = strtotime("+1 year", strtotime(date('Y-m-d H:i:s')));
+                        $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
+                    }
+                    
+                    $this->session->set_flashdata('notice_message', "Payment success");
+                    $this->session->set_flashdata('notice_type', 'success');
+                    redirect(base_url($businessUrl));
+                    return;
+                }else{
+                    $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+                    $this->session->set_flashdata('notice_type', 'error');
+                    redirect(base_url(HOME_URL));
+                    return;
+                }
             } else if ($this->input->get('isResult') == 'false') {
                 // response pay cancel or err, any link
                 redirect(base_url('login.html?requiredLogin=1&redirectUrl='));
@@ -947,7 +980,7 @@ class Businessprofile extends MY_Controller
             $paypalUser = array();
             $paypalUser['paypalClientKey'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
             // id plan user select
-            $paypalUser['paypalPlanId'] = 'P-2KD68028AH8367744MF5ZQDA';
+            $paypalUser['paypalPlanId'] = 'P-8W427715W9673794DMF52NIQ';
             if(!empty($data['plan'])){
                 $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
                 if(!empty($paypalPlanId)) {
@@ -1062,10 +1095,10 @@ class Businessprofile extends MY_Controller
         $data['plan'] = $this->input->get('plan');
         $data['isTrial'] = $this->input->get('isTrial');
 
-        if (!in_array($data['plan'], array(1, 2))) {
+        if (!in_array($data['plan'], array(1,2,3,4))) {
             $this->session->set_flashdata('notice_message', "Plan does not exist");
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url('business-profile/my-business-profile'));
+            redirect(base_url('my-business-profile'));
         }
 
         $this->load->view('frontend/business/bm-plan-success', $data);
@@ -1168,6 +1201,7 @@ class Businessprofile extends MY_Controller
             $customer = $this->checkLoginCustomer();
             if($this->input->get('tokenDraft') && $customer['id'] > 0) {
                 $tokenDraft = $this->input->get('tokenDraft');
+                
                 $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours', 'Mbusinessservicetype'));
                 $businessProfileId = 0;
                 $businessInfo = $this->Mbusinessprofiles->getBy(array('token_draft' => $tokenDraft));
@@ -1186,8 +1220,8 @@ class Businessprofile extends MY_Controller
 
                 $postData = $this->arrayFromPost(array('service_id', 'business_name', 'business_slogan', 'business_email', 'business_address', 'business_whatsapp', 'business_url', 'business_phone', 'business_description', 'country_code_id'));
 
-
-                $postData['business_status_id'] = STATUS_ACTIVED;
+                
+                $postData['business_status_id'] = 3; //waiting payment
                 $postData['customer_id'] = $data['customer']['id'];
                 if($businessProfileId > 0) {
                     $postData['updated_at'] = getCurentDateTime();
@@ -1204,7 +1238,14 @@ class Businessprofile extends MY_Controller
                 $open_hours = $this->input->post('open_hours');
                 $arrayValues = $this->arrayFromPost(array('plan', 'isTrial'));
                 $plan = $arrayValues['plan'];
+                //insert plan
+                $postData['plan'] = $plan;
+
                 $isTrial = $arrayValues['isTrial'];
+
+                if($isTrial){
+                    $this->Mcustomers->save(array('free_trial' => 1, 'free_trial_type' => $plan), $data['customer']['id']);
+                }
                 
                 $openingHours = array();
                 foreach ($this->Mconstants->dayIds as $day_id => $itemHours) {
@@ -1279,7 +1320,7 @@ class Businessprofile extends MY_Controller
                     $this->session->set_flashdata('notice_type', 'success');
                     //redirect(base_url('my-business-profile'));
                     // Redirect to paymemnt
-                    echo $plan;
+                    //echo $plan;
                     redirect(base_url('business-profile/bm-payment?plan=' . $plan . '&isTrial=' . $isTrial.'&tokenDraft='.$tokenDraft));
                 } else {
                     $this->session->set_flashdata('notice_message', "Create business profile failed");
