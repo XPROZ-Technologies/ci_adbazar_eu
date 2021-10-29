@@ -40,7 +40,7 @@
                   <div class="card text-center bm-plan-item selected-plan">
                     <div class="card-header">
                       <div class="container-radio">
-                        <input type="radio" name="bm-plan" id="plan1" class="plan-input-radio" checked value="1" />
+                        <input type="radio" name="bm-plan" id="plan1" class="plan-input-radio monthlyPlan" checked value="1" />
                         <span class="checkmark"></span>
                       </div>
                       <span class="text-header fw-bold"><?php echo $this->lang->line('monthly_payment'); ?></span>
@@ -76,7 +76,7 @@
                   <div class="card text-center bm-plan-item">
                     <div class="card-header">
                       <div class="container-radio">
-                        <input type="radio" name="bm-plan" id="plan2" class="plan-input-radio" value="2" />
+                        <input type="radio" name="bm-plan" id="plan2" class="plan-input-radio annualPlan" value="2" />
                         <span class="checkmark"></span>
                       </div>
                       <span class="text-header fw-bold"><?php echo $this->lang->line('annual_payment'); ?></span>
@@ -141,7 +141,7 @@
   $("body").on("click", ".btn-select-plan", function() {
     var select_plan = $('input[name=bm-plan]:checked').val();
     var isTrial = $(this).attr('data-isTrial');
-    if (select_plan === "1" || select_plan === "2") {
+    if (select_plan === "1" || select_plan === "2" || select_plan === "3" || select_plan === "4") {
       $('#businessPlan').val(select_plan);
       $('#isTrial').val(isTrial||'false');
       $('#formSelectPlan').submit();
@@ -159,12 +159,16 @@
         $(".main_price").html("1299 CZK");
         $(".main_price_annual").html("1099 CZK");
         $(".bill_save").html('200 CZK');
+        $(".monthlyPlan").val("1");
+        $(".annualPlan").val("2");
       }else{
         //EUR
         console.log('EUR');
         $(".main_price").html("50 EUR");
         $(".main_price_annual").html("43 EUR");
         $(".bill_save").html('7 EUR');
+        $(".monthlyPlan").val("3");
+        $(".annualPlan").val("4");
       }
   });
 </script>

@@ -914,8 +914,8 @@ class Businessprofile extends MY_Controller
     //        $data['successUrl'] = base_url('business-profile/bm-paymemt?isResult=true&customerId=xxxx');
     //        $data['cancelUrl'] = base_url('business-profile/bm-paymemt?isResult=false');
             // For test https require ex url
-            $data['successUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
-            $data['cancelUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=false';
+            $data['successUrl'] = 'https://adb-dev.xproz.com/business-profile/bm-payment?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
+            $data['cancelUrl'] = 'https://adb-dev.xproz.com/business-profile/bm-payment?isResult=false';
             /// =======> url response success: https://adb.xproz.com/business-profile/bm-paymemt?customerId=xxxx&subscription_id=I-XX3HLUWB7A6N&ba_token=BA-05T51831YS465512K&token=63D00859N0649705L
             if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
                 // Response with pay success
@@ -954,7 +954,7 @@ class Businessprofile extends MY_Controller
             $paypalUser['host'] = 'https://api-m.sandbox.paypal.com';
             $paypalUser['successUrl'] = $data['successUrl'];
             $paypalUser['cancelUrl'] = $data['cancelUrl'];
-
+            //paypal product id: PROD-4NX43137GP917693J
             $data['payurl'] = $this->getPaymentLink($paypalUser);
             /**
              * Commons data
