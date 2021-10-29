@@ -964,7 +964,7 @@ class Businessprofile extends MY_Controller
                     
                     $this->session->set_flashdata('notice_message', "Payment success");
                     $this->session->set_flashdata('notice_type', 'success');
-                    redirect(base_url($businessUrl));
+                    redirect(base_url('business-management/'.$businessUrl.'/about-us'));
                     return;
                 }else{
                     $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
