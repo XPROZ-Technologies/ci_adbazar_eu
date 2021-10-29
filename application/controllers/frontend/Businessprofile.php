@@ -1244,6 +1244,7 @@ class Businessprofile extends MY_Controller
                 $isTrial = $arrayValues['isTrial'];
 
                 if($isTrial == true){
+                    $postData['business_status_id'] = STATUS_ACTIVED;
                     $this->Mcustomers->save(array('free_trial' => 1, 'free_trial_type' => $plan), $data['customer']['id']);
                 }
                 
@@ -1315,13 +1316,13 @@ class Businessprofile extends MY_Controller
                     if (!empty($businessServiceTypes)) {
                         $resultServiceTypes = $this->Mbusinessservicetype->saveServiceType($businessServiceTypes, $businessProfileId);
                     }
-
-                    $this->session->set_flashdata('notice_message', "Create your business profile successfully");
-                    $this->session->set_flashdata('notice_type', 'success');
-                    //redirect(base_url('my-business-profile'));
-                    // Redirect to paymemnt
-                    //echo $plan;
-                    redirect(base_url('business-profile/bm-payment?plan=' . $plan . '&isTrial=' . $isTrial.'&tokenDraft='.$tokenDraft));
+                    if($isTrial == true){
+                        $this->session->set_flashdata('notice_message', "Create your business profile successfully");
+                        $this->session->set_flashdata('notice_type', 'success');
+                        redirect(base_url('my-business-profile'));
+                    }else{
+                        redirect(base_url('business-profile/bm-payment?plan=' . $plan . '&isTrial=' . $isTrial.'&tokenDraft='.$tokenDraft));
+                    }
                 } else {
                     $this->session->set_flashdata('notice_message', "Create business profile failed");
                     $this->session->set_flashdata('notice_type', 'error');
