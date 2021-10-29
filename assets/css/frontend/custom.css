@@ -1138,6 +1138,9 @@ font-size: 14px;
 .serviceTypeBlock ul li input{
     border: none;
 }
+.serviceTypeBlock ul li .form-check input.form-check-input{
+    border: 1px solid #7C7C7C;
+}
 .customer-video-content iframe {
     height: 500px;
 }
