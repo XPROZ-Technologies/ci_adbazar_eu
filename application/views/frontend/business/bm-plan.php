@@ -110,6 +110,7 @@
             <form action="<?php echo base_url('business-profile/submit-select-plan'); ?>" method="POST" id="formSelectPlan">
               <input type="hidden" name="business_plan" id="businessPlan" value="1" />
               <input type="hidden" name="isTrial" id="isTrial" value="false" />
+              <input type="hidden" name="tokenDraft" value="<?php echo uniqid(strtotime(date('Ymd H:i:s'))); ?>" id="tokenDraft" />
             </form>
             <div class="bm-plan-trail">
               <div class="d-flex justify-content-end">
@@ -120,7 +121,8 @@
                         <!-- <a data-isTrial="true"  class="btn btn-outline-red btn-outline-red-md btn-no-trail btn-select-plan">
                           <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
                         </a> -->
-                        <a data-isTrial="true" href="<?php echo base_url('business-profile/create-new-business?plan=1&isTrial=true&tokenDraft='.uniqid(strtotime(date('Ymd H:i:s')))); ?>" class="btn btn-outline-red btn-outline-red-md btn-no-trail">
+                        <!--<a data-isTrial="true" href="<?php echo base_url('business-profile/create-new-business?plan=1&isTrial=true&tokenDraft='.uniqid(strtotime(date('Ymd H:i:s')))); ?>" class="btn btn-outline-red btn-outline-red-md btn-no-trail">-->
+                        <a data-isTrial="true" href="javascript:void(0);" class="btn btn-outline-red btn-outline-red-md btn-no-trail">
                           <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
                         </a>
                     </div>
@@ -140,17 +142,26 @@
 <script>
   $("body").on("click", ".btn-select-plan", function() {
     var select_plan = $('input[name=bm-plan]:checked').val();
+    console.log(select_plan);
     var isTrial = $(this).attr('data-isTrial');
     if (select_plan === "1" || select_plan === "2" || select_plan === "3" || select_plan === "4") {
       $('#businessPlan').val(select_plan);
       $('#isTrial').val(isTrial||'false');
-      $('#formSelectPlan').submit();
+      //$('#formSelectPlan').submit();
     } else {
       $(".notiPopup .text-secondary").html("Plan does not exist");
       $(".ico-noti-error").removeClass('ico-hidden');
       $(".notiPopup").fadeIn('slow').fadeOut(5000);
     }
   });
+  
+  $("body").on("click", ".btn-no-trail", function() {
+    var select_plan = $('input[name=bm-plan]:checked').val();
+    var token_draf = $('input#tokenDraft').val();
+    var url = '<?php echo base_url('business-profile/create-new-business'); ?>';
+    window.location.href = url + '?plan=' + select_plan + '&isTrial=true' + '&tokenDraft=' + token_draf;
+  });
+
   $("body").on("change", "#checkbox_currency", function() {
       console.log('change');
       if($(this).is(":checked")){

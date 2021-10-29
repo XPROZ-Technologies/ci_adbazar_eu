@@ -886,7 +886,7 @@ class Businessprofile extends MY_Controller
         } else {
             $tokenDraft = $this->input->get('tokenDraft');
         
-            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles'));
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans'));
 
             $businessProfiles = $this->Mbusinessprofiles->getBy(array('customer_id' => $customer['id'], 'token_draft' => $tokenDraft));
           
@@ -947,7 +947,13 @@ class Businessprofile extends MY_Controller
             $paypalUser = array();
             $paypalUser['paypalClientKey'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
             // id plan user select
-            $paypalUser['paypalPlanId'] = 'P-9X909670CL680372YMFV2KAA';
+            $paypalUser['paypalPlanId'] = 'P-2KD68028AH8367744MF5ZQDA';
+            if(!empty($data['plan'])){
+                $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
+                if(!empty($paypalPlanId)) {
+                    $paypalUser['paypalPlanId'] = $paypalPlanId;
+                }
+            }
             // auth paypal business
             $paypalUser['username'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
             $paypalUser['password'] = 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3';
@@ -1090,7 +1096,7 @@ class Businessprofile extends MY_Controller
                 $data['plan'] = $this->input->get('plan');
                 $data['isTrial'] = $this->input->get('isTrial');
 
-                if (!in_array($data['plan'], array(1, 2))) {
+                if (!in_array($data['plan'], array(1, 2, 3, 4))) {
                     $this->session->set_flashdata('notice_message', "Plan does not exist");
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('business-profile/my-business-profile'));
