@@ -101,7 +101,11 @@
                         <div class="box-body">
                             <div class="col-sm-12">
                                 <div class="form-group">
+<<<<<<< HEAD
+                                    <label class="control-label">Email <span class="required">*</span></label>
+=======
                                     <label class="control-label">Admin Email <span class="required">*</span></label>
+>>>>>>> 017674b0877a708110077e40876693de419d4a62
                                     <input type="text" class="form-control" name="NOTIFICATION_EMAIL_ADMIN" value="<?php echo $listConfigs['NOTIFICATION_EMAIL_ADMIN']; ?>" data-field="Phone number">
                                 </div>
                             </div>

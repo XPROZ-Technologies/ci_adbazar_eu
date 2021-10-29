@@ -80,7 +80,7 @@ $route['sys-admin/service'] = 'backend/service';
 $route['sys-admin/service-create'] = 'backend/service/add';
 $route['sys-admin/service-update'] = 'backend/service/edit';
 $route['sys-admin/service/get-list'] = 'backend/service/getListSelect2Ajax';
-$route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax';  
+$route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax';
 
 // location
 $route['sys-admin/location'] = 'backend/location';
@@ -104,32 +104,32 @@ $route['sys-admin/customer/get-list'] = 'backend/customer/getListSelect2Ajax';
 $route['sys-admin/customer-create'] = 'backend/customer/add';
 $route['sys-admin/customer-update/(:num)'] = 'backend/customer/edit/$1';
 $route['sys-admin/customer/insert-update'] = 'backend/customer/update';
-$route['sys-admin/customer/change-status'] = 'backend/customer/changeStatus'; 
+$route['sys-admin/customer/change-status'] = 'backend/customer/changeStatus';
 
 // business-profile
 $route['sys-admin/business-profile'] = 'backend/businessprofile';
 $route['sys-admin/business-profile-add'] = 'backend/businessprofile/add';
 $route['sys-admin/business-profile-update/(:num)'] = 'backend/businessprofile/edit/$1';
 $route['sys-admin/business-profile/insert-update'] = 'backend/businessprofile/update';
-$route['sys-admin/business-profile/change-status'] = 'backend/businessprofile/changeStatus'; 
-$route['sys-admin/business-profile/get-business-profile-not-in-location'] = 'backend/businessprofile/getBusinessProfileNotInLocation'; 
-$route['sys-admin/business-profile/is-hot'] = 'backend/businessprofile/isHot'; 
+$route['sys-admin/business-profile/change-status'] = 'backend/businessprofile/changeStatus';
+$route['sys-admin/business-profile/get-business-profile-not-in-location'] = 'backend/businessprofile/getBusinessProfileNotInLocation';
+$route['sys-admin/business-profile/is-hot'] = 'backend/businessprofile/isHot';
 
 $route['sys-admin/phone-code/get-list'] = 'backend/phonecode/getListSelect2Ajax';
 
 $route['sys-admin/coupon'] = 'backend/coupon';
 $route['sys-admin/coupon-create'] = 'backend/coupon/add';
 $route['sys-admin/coupon-update/(:num)'] = 'backend/coupon/edit/$1';
-$route['sys-admin/coupon/insert-update'] = 'backend/coupon/update'; 
+$route['sys-admin/coupon/insert-update'] = 'backend/coupon/update';
 $route['sys-admin/coupon/get-list-business-profile'] = 'backend/coupon/getListSelect2BuinessProfile';
 $route['sys-admin/coupon/is-hot'] = 'backend/coupon/isHot';
-$route['sys-admin/coupon/change-status'] = 'backend/coupon/changeStatus'; 
+$route['sys-admin/coupon/change-status'] = 'backend/coupon/changeStatus';
 
 //event
 $route['sys-admin/event'] = 'backend/event';
 $route['sys-admin/event-create'] = 'backend/event/add';
 $route['sys-admin/event-update/(:num)'] = 'backend/event/edit/$1';
-$route['sys-admin/event/insert-update'] = 'backend/event/update'; 
+$route['sys-admin/event/insert-update'] = 'backend/event/update';
 $route['sys-admin/event/change-status'] = 'backend/event/changeStatus';
 
 $route['sys-admin/config/term-of-use'] = 'backend/config/termOfUse';
@@ -206,6 +206,7 @@ $route['business-profile/got-free-trial'] = 'frontend/businessprofile/got_free_t
 $route['business-profile/create-new-business'] = 'frontend/businessprofile/create_new_business';
 $route['business-profile/create-business'] = 'frontend/businessprofile/createBusiness';
 $route['business-profile/update-business'] = 'frontend/businessprofile/updateBusiness';
+$route['business-profile/bm-payment'] = 'frontend/businessprofile/payment';
 
 
 $route['fb-login'] = 'frontend/customer/loginFb';

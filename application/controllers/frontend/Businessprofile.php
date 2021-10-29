@@ -22,7 +22,7 @@ class Businessprofile extends MY_Controller
             redirect(base_url(HOME_URL));
         }
         $businessURL = trim($slug);
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mcustomerreviews', 'Mbusinessprofiles','Mbusinessservicetype', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations', 'Mopeninghours'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mcustomerreviews', 'Mbusinessprofiles', 'Mbusinessservicetype', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations', 'Mopeninghours'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -191,9 +191,9 @@ class Businessprofile extends MY_Controller
 
 
         $per_page = $this->input->get('per_page');
-        $data['per_page'] =  $per_page;
+        $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
-        $data['keyword'] =  $search_text;
+        $data['keyword'] = $search_text;
 
         $getData = array(
             'coupon_status_id' => STATUS_ACTIVED,
@@ -343,9 +343,9 @@ class Businessprofile extends MY_Controller
         $per_page = $this->input->get('per_page');
         $data['per_page'] = $per_page;
         $order_by = $this->input->get('order_by');
-        $data['order_by'] =  $order_by;
+        $data['order_by'] = $order_by;
         $review_star = $this->input->get('review_star');
-        $data['review_star'] =  $review_star;
+        $data['review_star'] = $review_star;
 
         $getData = array(
             'customer_review_status_id' => STATUS_ACTIVED,
@@ -375,16 +375,16 @@ class Businessprofile extends MY_Controller
          */
 
         $data['lists'] = $this->Mcustomerreviews->search($getData, $perPage, $page);
-        if(!empty($data['lists']) && count($data['lists']) > 0){
+        if (!empty($data['lists']) && count($data['lists']) > 0) {
             for ($i = 0; $i < count($data['lists']); $i++) {
                 $customerInfo = $this->Mcustomers->getBy(array('id' => $data['lists'][$i]['customer_id'], 'customer_status_id' => STATUS_ACTIVED), false, 'created_at', 'customer_first_name, customer_last_name, customer_avatar', 0, 0, 'asc');
-                if(!empty($customerInfo)){
+                if (!empty($customerInfo)) {
                     $data['lists'][$i]['customerInfo'] = $customerInfo[0];
                 }
-                
+
             }
         }
-        
+
 
         $data['count_one_star'] = $this->Mcustomerreviews->getCount(array(
             'customer_review_status_id' => STATUS_ACTIVED,
@@ -714,12 +714,12 @@ class Businessprofile extends MY_Controller
         $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
 
         $data['bookInfo'] = array();
-        if(isset($_SESSION['book'])){
+        if (isset($_SESSION['book'])) {
             $book_id = $_SESSION['book'];
             $data['bookInfo'] = $this->Mcustomerreservations->get($book_id);
             //echo "<pre>";print_r($data['bookInfo']);die;
         }
-        
+
         $this->load->view('frontend/business/bp-reservation', $data);
     }
 
@@ -731,11 +731,10 @@ class Businessprofile extends MY_Controller
             redirect(base_url(HOME_URL));
         }
 
-        
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array( 'Mconfigs', 'Mbusinessprofiles', 'Mphonecodes', 'Mreservationconfigs'));
+        $this->loadModel(array('Mconfigs', 'Mbusinessprofiles', 'Mphonecodes', 'Mreservationconfigs'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
@@ -767,16 +766,16 @@ class Businessprofile extends MY_Controller
         $data['phoneCodes'] = $this->Mphonecodes->get();
 
         $day_id = date('N') - 1;
-        
+
         $configTimes = $this->Mreservationconfigs->getBy(array('day_id' => $day_id, 'business_profile_id' => $businessProfileId));
         $data['listHours'] = array();
         $data['configTimes'] = array();
-        if(!empty($configTimes)){
+        if (!empty($configTimes)) {
             $data['configTimes'] = $configTimes['0'];
 
             $data['listHours'] = getRangeHours($configTimes[0]['start_time'], $configTimes[0]['end_time'], $configTimes[0]['duration'], true);
         }
-      
+
 
         //echo "<pre>";print_r($listHours);exit;
         //echo date('Y-m-d', strtotime('October 09, 2021'));die;
@@ -786,7 +785,6 @@ class Businessprofile extends MY_Controller
     /**
      * END. USER MANAGEMENT
      */
-
 
 
     /**
@@ -844,12 +842,141 @@ class Businessprofile extends MY_Controller
         $this->load->view('frontend/business/bm-plan', $data);
     }
 
+    public function getPaymentLink($paypalUser)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $paypalUser['host'] . '/v1/billing/subscriptions',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+              "plan_id": "' . $paypalUser['paypalPlanId'] . '",
+              "application_context": {
+                "return_url": "' . $paypalUser['successUrl'] . '",
+                "cancel_url": "' . $paypalUser['cancelUrl'] . '"
+              }
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization: Basic ' . base64_encode($paypalUser['username'] . ':' . $paypalUser['password']),
+                'Prefer: return=representation',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response2 = curl_exec($curl);
+
+        curl_close($curl);
+        $pay = json_decode($response2);
+        return $pay->links['0']->href;
+    }
+
+    public function payment()
+    {
+       
+        $customer = $this->checkLoginCustomer();
+        if(!$this->input->get('tokenDraft') && empty($this->input->get('tokenDraft'))) {
+            // xử lý khi có lỗi tokenDraft bị rỗng
+            var_dump("111111111111111111");
+        } else {
+            $tokenDraft = $this->input->get('tokenDraft');
+        
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles'));
+
+            $businessProfiles = $this->Mbusinessprofiles->getBy(array('customer_id' => $customer['id'], 'token_draft' => $tokenDraft));
+          
+            $businessProfile = [];
+            if(count($businessProfiles) > 0) {
+                $businessProfile = $businessProfiles[0];
+            } else {
+                // xử lý khi dữ liệu không đúng
+                var_dump("2222222222222222");
+            }
+
+            /**
+             * Commons data
+             */
+            $data = $this->commonDataCustomer($this->lang->line('my_business_profile'));
+            $data['activeMenu'] = "";
+            $data['plan'] = $this->input->get('plan');
+            $data['isTrial'] = $this->input->get('isTrial');
+            // Params
+            $data['planPrice'] = 1299;
+            $data['planPriceVat'] = 100;
+            $data['planPriceTotal'] = 1399;
+            $data['planPriceVatPercent'] = 21;
+
+    //        $data['successUrl'] = base_url('business-profile/bm-paymemt?isResult=true&customerId=xxxx');
+    //        $data['cancelUrl'] = base_url('business-profile/bm-paymemt?isResult=false');
+            // For test https require ex url
+            $data['successUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
+            $data['cancelUrl'] = 'https://adb.xproz.com/business-profile/bm-paymemt?isResult=false';
+            /// =======> url response success: https://adb.xproz.com/business-profile/bm-paymemt?customerId=xxxx&subscription_id=I-XX3HLUWB7A6N&ba_token=BA-05T51831YS465512K&token=63D00859N0649705L
+            if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
+                // Response with pay success
+                $customerId = $this->input->get('customerId');
+                $subscription_id = $this->input->get('subscription_id');
+                $ba_token = $this->input->get('ba_token');
+                $token = $this->input->get('token');
+                // Can recheck sub here or not, save success to db
+                $date = strtotime("+30 day", strtotime(date('Y-m-d H:i:s')));
+                $expiredDate = date('Y-m-d H:i:s', $date);
+                $this->Mbusinessprofiles->save(array('expired_date' => $expiredDate), $businessProfile['id']);
+
+                $returnData = array(
+                    'customerId' => $customerId,
+                    'subscription_id' => $subscription_id,
+                    'ba_token' => $ba_token,
+                    'expiredDate' => $expiredDate
+                );
+                var_dump($returnData);die;
+                //Redirect now, link my test.hehe
+                redirect(base_url('business-management/hd-jsc/subscriptions'));
+                return;
+            } else if ($this->input->get('isResult') == 'false') {
+                // response pay cancel or err, any link
+                redirect(base_url('login.html?requiredLogin=1&redirectUrl='));
+                return;
+            }
+            $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
+            $paypalUser = array();
+            $paypalUser['paypalClientKey'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
+            // id plan user select
+            $paypalUser['paypalPlanId'] = 'P-9X909670CL680372YMFV2KAA';
+            // auth paypal business
+            $paypalUser['username'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
+            $paypalUser['password'] = 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3';
+            $paypalUser['host'] = 'https://api-m.sandbox.paypal.com';
+            $paypalUser['successUrl'] = $data['successUrl'];
+            $paypalUser['cancelUrl'] = $data['cancelUrl'];
+
+            $data['payurl'] = $this->getPaymentLink($paypalUser);
+            /**
+             * Commons data
+             */
+
+            if ($data['customer']['id'] == 0) {
+                $this->session->set_flashdata('notice_message', "Please login to view this page");
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+            }
+
+            $this->load->view('frontend/business/bm-payment', $data);
+        }
+        
+    }
+
     public function submitSelectPlan()
     {
         try {
             $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers'));
 
-            $postData = $this->arrayFromPost(array('business_plan'));
+            $postData = $this->arrayFromPost(array('business_plan', 'isTrial'));
 
             $expired_date = date('Y-m-d', strtotime("+3 months"));
 
@@ -877,17 +1004,19 @@ class Businessprofile extends MY_Controller
 
             $customerId = $this->Mcustomers->getFieldValue(array('id' => $data['customer']['id'], 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
 
+            $isTrial = $postData['isTrial'];
+
             if ($customerId > 0) {
                 $customerInfo = $this->Mcustomers->updateBy(
                     array(
                         'id' => $customerId
                     ),
                     array(
-                        'free_trial_type' => $postData['business_plan']
+                        'free_trial_type' => $postData['business_plan'],
                     )
                 );
                 if ($customerInfo) {
-                    redirect(base_url('business-profile/got-free-trial?plan=' . $postData['business_plan']));
+                    redirect(base_url('business-profile/got-free-trial?plan=' . $postData['business_plan'] . '&isTrial=' . $isTrial));
                 } else {
                     $this->session->set_flashdata('notice_message', "Plan doest not exist, please try again");
                     $this->session->set_flashdata('notice_type', 'error');
@@ -925,6 +1054,7 @@ class Businessprofile extends MY_Controller
         }
 
         $data['plan'] = $this->input->get('plan');
+        $data['isTrial'] = $this->input->get('isTrial');
 
         if (!in_array($data['plan'], array(1, 2))) {
             $this->session->set_flashdata('notice_message', "Plan does not exist");
@@ -937,137 +1067,221 @@ class Businessprofile extends MY_Controller
 
     public function create_new_business()
     {
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mphonecodes'));
+        try {
+            $customer = $this->checkLoginCustomer();
+            if($customer['id'] > 0) {
+                $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mphonecodes','Mservicetypes','Mbusinessprofilelocations', 'Mopeninghours'));
 
-        /**
-         * Commons data
-         */
-        $data = $this->commonDataCustomer('Create New Business');
-        $data['activeMenu'] = "";
-        /**
-         * Commons data
-         */
+                /**
+                 * Commons data
+                 */
+                $data = $this->commonDataCustomer('Create New Business');
+                $data['activeMenu'] = "";
+                /**
+                 * Commons data
+                 */
 
-        if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "Please login to view this page");
-            $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+                if ($data['customer']['id'] == 0) {
+                    $this->session->set_flashdata('notice_message', "Please login to view this page");
+                    $this->session->set_flashdata('notice_type', 'error');
+                    redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+                }
+
+                $data['plan'] = $this->input->get('plan');
+                $data['isTrial'] = $this->input->get('isTrial');
+
+                if (!in_array($data['plan'], array(1, 2))) {
+                    $this->session->set_flashdata('notice_message', "Plan does not exist");
+                    $this->session->set_flashdata('notice_type', 'error');
+                    redirect(base_url('business-profile/my-business-profile'));
+                }
+
+                $data['listServices'] = $this->Mservices->getHighlightListByLang($data['language_id']);
+
+                $data['phoneCodes'] = $this->Mphonecodes->get();
+
+                // get data khi back trở về trang đầu
+                if($this->input->get('tokenDraft')) {
+                    $businessInfo = $this->Mbusinessprofiles->getBy(array('token_draft' => $this->input->get('tokenDraft')));
+                   
+                    if(count($businessInfo) > 0) {
+                        $businessInfo = $businessInfo[0];
+                        $data['businessInfo'] = $businessInfo;
+
+                        $data['phoneCodeInfo'] = array();
+                        if ($businessInfo['country_code_id'] > 0) {
+                            $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['country_code_id']);
+                        }
+
+
+                        $businessLocationId = $this->Mbusinessprofilelocations->getFieldValue(array('business_profile_id' => $businessInfo['id'], 'business_profile_location_status_id' => STATUS_ACTIVED), 'location_id', 0);
+                        $data['locationInfo'] = array();
+                        if ($businessLocationId > 0) {
+                            $data['locationInfo'] = $this->Mlocations->get($businessLocationId);
+                        }
+
+                        $businessOpeningHours = $this->Mopeninghours->getBy(array('business_profile_id' => $businessInfo['id']));
+                        $data['businessOpeningHours'] = array();
+                        foreach ($businessOpeningHours as $itemHours) {
+                            $data['businessOpeningHours'][$itemHours['day_id']]['day_id'] = $itemHours['day_id'];
+                            $data['businessOpeningHours'][$itemHours['day_id']]['start_time'] = $itemHours['start_time'];
+                            $data['businessOpeningHours'][$itemHours['day_id']]['end_time'] = $itemHours['end_time'];
+                            $data['businessOpeningHours'][$itemHours['day_id']]['opening_hours_status_id'] = $itemHours['opening_hours_status_id'];
+                        }
+                        if (!empty($data['businessOpeningHours'])) ksort($data['businessOpeningHours']);
+
+                        $service_type_name = "service_type_name_" . $this->Mconstants->languageShortCodes[$data['language_id']];
+                        $data['businessServiceTypes'] = $this->Mservicetypes->getListByServices(array('service_id' => $businessInfo['service_id']), $service_type_name);
+
+                        $selectedServiceTypes = $this->Mservicetypes->getSelectedByListBusinessId($businessInfo['id'], $service_type_name);
+                        $data['selectedTypes'] = array();
+                        foreach ($selectedServiceTypes as $selectItemService) {
+                            $data['selectedTypes'][] = $selectItemService['id'];
+                        }
+
+                        $data['phoneCodeInfo'] = array();
+                        if ($businessInfo['country_code_id'] > 0) {
+                            $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['country_code_id']);
+                        }
+                        $data['edit'] = true;
+                    }
+                }
+                $this->load->view('frontend/business/bm-plan-create', $data);
+            } else {
+                $this->load->view('my-business-profile');
+            }
+            
+        } catch (\Throwable $th) {
+            $this->load->view('my-business-profile');
         }
-
-        $data['plan'] = $this->input->get('plan');
-
-        if (!in_array($data['plan'], array(1, 2))) {
-            $this->session->set_flashdata('notice_message', "Plan does not exist");
-            $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url('business-profile/my-business-profile'));
-        }
-
-        $data['listServices'] = $this->Mservices->getHighlightListByLang($data['language_id']);
-
-        $data['phoneCodes'] = $this->Mphonecodes->get();
-
-        $this->load->view('frontend/business/bm-plan-create', $data);
     }
 
     public function createBusiness()
     {
         try {
-            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours', 'Mbusinessservicetype'));
+            $customer = $this->checkLoginCustomer();
+            if($this->input->get('tokenDraft') && $customer['id'] > 0) {
+                $tokenDraft = $this->input->get('tokenDraft');
+                $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours', 'Mbusinessservicetype'));
+                $businessProfileId = 0;
+                $businessInfo = $this->Mbusinessprofiles->getBy(array('token_draft' => $tokenDraft));
+                   
+                if(count($businessInfo) > 0) {
+                    $businessProfileId = $businessInfo[0]['id'];
+                }
+                /**
+                 * Commons data
+                 */
+                $data = $this->commonDataCustomer('');
+                $data['activeMenu'] = "";
+                /**
+                 * Commons data
+                 */
 
-            /**
-             * Commons data
-             */
-            $data = $this->commonDataCustomer('');
-            $data['activeMenu'] = "";
-            /**
-             * Commons data
-             */
-
-            $postData = $this->arrayFromPost(array('service_id', 'business_name', 'business_slogan', 'business_email', 'business_address', 'business_whatsapp', 'business_url', 'business_phone', 'business_description', 'country_code_id'));
+                $postData = $this->arrayFromPost(array('service_id', 'business_name', 'business_slogan', 'business_email', 'business_address', 'business_whatsapp', 'business_url', 'business_phone', 'business_description', 'country_code_id'));
 
 
-            $postData['business_status_id'] = STATUS_ACTIVED;
-            $postData['customer_id'] = $data['customer']['id'];
-            $postData['created_at'] = getCurentDateTime();
-            $postData['created_by'] = 0; //customer create business
-
-
-            $open_hours = $this->input->post('open_hours');
-
-            $openingHours = array();
-            foreach ($this->Mconstants->dayIds as $day_id => $itemHours) {
-
-                if (isset($open_hours[$day_id])) {
-                    $itemHours = $open_hours[$day_id];
-                    $itemDay = array();
-                    $itemDay['day_id'] = $day_id;
-                    if (isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on' && !empty($itemHours['start_time']) && !empty($itemHours['end_time'])) {
-                        $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
-                    } else {
-                        $itemDay['opening_hours_status_id'] = 1;
-                    }
-
-                    if (!empty($itemHours['start_time'])) {
-                        $itemDay['start_time'] = $itemHours['start_time'];
-                    } else {
-                        $itemDay['start_time'] = "00:00";
-                    }
-
-                    if (!empty($itemHours['end_time'])) {
-                        $itemDay['end_time'] = $itemHours['end_time'];
-                    } else {
-                        $itemDay['end_time'] = "23:59";
-                    }
+                $postData['business_status_id'] = STATUS_ACTIVED;
+                $postData['customer_id'] = $data['customer']['id'];
+                if($businessProfileId > 0) {
+                    $postData['updated_at'] = getCurentDateTime();
+                    $postData['updated_by'] = 0; //customer udpate business
+                    $postData['is_annual_payment'] = 1;
                 } else {
-                    $itemDay = array();
-                    $itemDay['day_id'] = $day_id;
-                    $itemDay['opening_hours_status_id'] = 1;
-                    $itemDay['start_time'] = "00:00";
-                    $itemDay['end_time'] = "00:00";
+                    $postData['created_at'] = getCurentDateTime();
+                    $postData['created_by'] = 0; //customer create business
+                    $postData['token_draft'] = $tokenDraft;
+                }
+                
+
+
+                $open_hours = $this->input->post('open_hours');
+                $arrayValues = $this->arrayFromPost(array('plan', 'isTrial'));
+                $plan = $arrayValues['plan'];
+                $isTrial = $arrayValues['isTrial'];
+                
+                $openingHours = array();
+                foreach ($this->Mconstants->dayIds as $day_id => $itemHours) {
+
+                    if (isset($open_hours[$day_id])) {
+                        $itemHours = $open_hours[$day_id];
+                        $itemDay = array();
+                        $itemDay['day_id'] = $day_id;
+                        if (isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on') {
+                            $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
+                        } else {
+                            $itemDay['opening_hours_status_id'] = 1;
+                        }
+
+                        if (!empty($itemHours['start_time'])) {
+                            $itemDay['start_time'] = $itemHours['start_time'];
+                        } else {
+                            $itemDay['start_time'] = "00:00";
+                        }
+
+                        if (!empty($itemHours['end_time'])) {
+                            $itemDay['end_time'] = $itemHours['end_time'];
+                        } else {
+                            $itemDay['end_time'] = "23:59";
+                        }
+                    } else {
+                        $itemDay = array();
+                        $itemDay['day_id'] = $day_id;
+                        $itemDay['opening_hours_status_id'] = 1;
+                        $itemDay['start_time'] = "00:00";
+                        $itemDay['end_time'] = "00:00";
+                    }
+
+                    $openingHours[] = $itemDay;
                 }
 
-                $openingHours[] = $itemDay;
-            }
-
-            $service_type_ids = $this->input->post('service_type_ids');
-            $businessServiceTypes = array();
-            if (!empty($service_type_ids)) {
-                $businessServiceTypes  = $service_type_ids;
-            }
-
-            $businessProfileId = $this->Mbusinessprofiles->save($postData);
-            if ($businessProfileId > 0) {
-
-                $dataUpdate = array();
-                $businessAvatarUpload = $this->input->post('business_avatar_upload');
-                if (!empty($businessAvatarUpload)) {
-                    $avatarUpload = $this->uploadImageBase64($businessAvatarUpload, 7);
-                    $dataUpdate['business_avatar'] = replaceFileUrl($avatarUpload, BUSINESS_PROFILE_PATH);
-                }
-                $businessCoverUpload = $this->input->post('business_cover_upload');
-                if (!empty($businessCoverUpload)) {
-                    $coverUpload = $this->uploadImageBase64($businessCoverUpload, 7);
-                    $dataUpdate['business_image_cover'] = replaceFileUrl($coverUpload, BUSINESS_PROFILE_PATH);
-                }
-                if (!empty($dataUpdate)) {
-                    $businessProfileId = $this->Mbusinessprofiles->update($dataUpdate, $businessProfileId);
+                $service_type_ids = $this->input->post('service_type_ids');
+                $businessServiceTypes = array();
+                if (!empty($service_type_ids)) {
+                    $businessServiceTypes = $service_type_ids;
                 }
 
-                //open hours
-                if (!empty($openingHours)) {
-                    $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $businessProfileId);
-                }
+                $businessProfileId = $this->Mbusinessprofiles->save($postData, $businessProfileId);
+                if ($businessProfileId > 0) {
 
-                //service types
-                if (!empty($businessServiceTypes)) {
-                    $resultServiceTypes = $this->Mbusinessservicetype->saveServiceType($businessServiceTypes, $businessProfileId);
-                }
+                    $dataUpdate = array();
+                    $businessAvatarUpload = $this->input->post('business_avatar_upload');
+                    if (!empty($businessAvatarUpload)) {
+                        $avatarUpload = $this->uploadImageBase64($businessAvatarUpload, 7);
+                        $dataUpdate['business_avatar'] = replaceFileUrl($avatarUpload, BUSINESS_PROFILE_PATH);
+                    }
+                    $businessCoverUpload = $this->input->post('business_cover_upload');
+                    if (!empty($businessCoverUpload)) {
+                        $coverUpload = $this->uploadImageBase64($businessCoverUpload, 7);
+                        $dataUpdate['business_image_cover'] = replaceFileUrl($coverUpload, BUSINESS_PROFILE_PATH);
+                    }
+                    if (!empty($dataUpdate)) {
+                        $businessProfileId = $this->Mbusinessprofiles->update($dataUpdate, $businessProfileId);
+                    }
 
-                $this->session->set_flashdata('notice_message', "Create your business profile successfully");
-                $this->session->set_flashdata('notice_type', 'success');
-                redirect(base_url('my-business-profile'));
+                    //open hours
+                    if (!empty($openingHours)) {
+                        $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $businessProfileId);
+                    }
+
+                    //service types
+                    if (!empty($businessServiceTypes)) {
+                        $resultServiceTypes = $this->Mbusinessservicetype->saveServiceType($businessServiceTypes, $businessProfileId);
+                    }
+
+                    $this->session->set_flashdata('notice_message', "Create your business profile successfully");
+                    $this->session->set_flashdata('notice_type', 'success');
+                    //redirect(base_url('my-business-profile'));
+                    // Redirect to paymemnt
+                    echo $plan;
+                    redirect(base_url('business-profile/bm-payment?plan=' . $plan . '&isTrial=' . $isTrial.'&tokenDraft='.$tokenDraft));
+                } else {
+                    $this->session->set_flashdata('notice_message', "Create business profile failed");
+                    $this->session->set_flashdata('notice_type', 'error');
+                    redirect(base_url('my-business-profile'));
+                }
             } else {
-                $this->session->set_flashdata('notice_message', "Create business profile failed");
+                $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('my-business-profile'));
             }
@@ -1077,6 +1291,7 @@ class Businessprofile extends MY_Controller
             redirect(base_url('my-business-profile'));
         }
     }
+
     public function updateBusiness()
     {
         try {
@@ -1151,7 +1366,7 @@ class Businessprofile extends MY_Controller
             $service_type_ids = $this->input->post('service_type_ids');
             $businessServiceTypes = array();
             if (!empty($service_type_ids)) {
-                $businessServiceTypes  = $service_type_ids;
+                $businessServiceTypes = $service_type_ids;
             }
 
             $businessProfileId = $this->Mbusinessprofiles->save($postData, $busId);
@@ -1196,6 +1411,7 @@ class Businessprofile extends MY_Controller
             redirect(base_url('my-business-profile'));
         }
     }
+
     /**
      * END. MANAGE BUSINESS PROFILE
      */
@@ -1298,11 +1514,8 @@ class Businessprofile extends MY_Controller
         }
 
 
-
-
         $service_type_name = "service_type_name_" . $this->Mconstants->languageShortCodes[$data['language_id']];
         $data['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($businessProfileId, $service_type_name);
-
 
 
         $businessOpeningHours = $this->Mopeninghours->getBy(array('business_profile_id' => $businessProfileId));
@@ -1424,7 +1637,7 @@ class Businessprofile extends MY_Controller
 
         $selectedServiceTypes = $this->Mservicetypes->getSelectedByListBusinessId($businessInfo['id'], $service_type_name);
         $data['selectedTypes'] = array();
-        foreach ($selectedServiceTypes  as $selectItemService) {
+        foreach ($selectedServiceTypes as $selectItemService) {
             $data['selectedTypes'][] = $selectItemService['id'];
         }
 
@@ -1610,9 +1823,9 @@ class Businessprofile extends MY_Controller
 
 
         $per_page = $this->input->get('per_page');
-        $data['per_page'] =  $per_page;
+        $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
-        $data['keyword'] =  $search_text;
+        $data['keyword'] = $search_text;
 
         $getData = array(
             'coupon_status_id' => STATUS_ACTIVED,
@@ -1682,8 +1895,6 @@ class Businessprofile extends MY_Controller
         $data['activeBusinessMenu'] = "";
 
         $data['businessInfo'] = $businessInfo;
-
-
 
 
         $this->load->view('frontend/business/bm-coupon-create', $data);
@@ -1798,8 +2009,6 @@ class Businessprofile extends MY_Controller
         $data['businessInfo'] = $businessInfo;
 
 
-
-
         $this->load->view('frontend/business/bm-event-create', $data);
     }
 
@@ -1835,8 +2044,6 @@ class Businessprofile extends MY_Controller
         $data['activeBusinessMenu'] = "";
 
         $data['businessInfo'] = $businessInfo;
-
-
 
 
         $this->load->view('frontend/business/bm-event-edit', $data);
@@ -1885,9 +2092,9 @@ class Businessprofile extends MY_Controller
         $per_page = $this->input->get('per_page');
         $data['per_page'] = $per_page;
         $order_by = $this->input->get('order_by');
-        $data['order_by'] =  $order_by;
+        $data['order_by'] = $order_by;
         $review_star = $this->input->get('review_star');
-        $data['review_star'] =  $review_star;
+        $data['review_star'] = $review_star;
 
         $getData = array(
             'customer_review_status_id' => STATUS_ACTIVED,
@@ -1999,9 +2206,9 @@ class Businessprofile extends MY_Controller
         $data['businessInfo'] = $businessInfo;
 
         //get config reservation
-        $reservationConfigs = $this->Mreservationconfigs->getBy(array('business_profile_id' => $businessProfileId), false, 'day_id', '',0,0, 'asc');
+        $reservationConfigs = $this->Mreservationconfigs->getBy(array('business_profile_id' => $businessProfileId), false, 'day_id', '', 0, 0, 'asc');
         $data['reservationConfigs'] = array();
-        foreach($reservationConfigs as $itemConfig){
+        foreach ($reservationConfigs as $itemConfig) {
             $data['reservationConfigs'][$itemConfig['day_id']] = $itemConfig;
         }
         //echo "<pre>";print_r($data['reservationConfigs']);exit;

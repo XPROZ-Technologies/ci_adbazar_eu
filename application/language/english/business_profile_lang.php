@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $lang["gallery"] = "Gallery";
 $lang["coupons"] = "Coupons";
@@ -62,6 +62,13 @@ $lang["we_will_send_you_a_notification_if_your_reser"] = "We will send you a not
 $lang["make_another_reservation"] = "Make another reservation";
 $lang["see_all_of_my_reservation"] = "See all of my reservation";
 $lang["sorry_we_are_not_accepting_bookings_at_the_mo"] = "Sorry, we are not accepting bookings at the moment. Please come back later.";
-
-
-
+$lang["business_name_input"] = "Business Name/ Business Represenative*";
+$lang["address_input"] = "Address";
+$lang["business_id_input"] = "Business ID (optional)";
+$lang["vat_id_input"] = "VAT ID (optional)";
+$lang["billing_title"] = "Billing information";
+$lang["summay_order_title"] = "SUMMARY OF YOUR ORDER";
+$lang["summay_order_price"] = "Price of a business profile per month";
+$lang["summay_order_vat"] = "Vat";
+$lang["summay_order_total"] = "Total";
+$lang["checkout_paypal"] = "Checkout with Paypal";

@@ -1054,7 +1054,9 @@ div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
     margin-bottom: 5px;
 }
 
+
 .bm-plan-item .month {
+
     padding: 7.5px 0;
 }
 
@@ -1723,6 +1725,23 @@ color: #404040;
     background: TRANSPARENT;
     border: none;
 }
+.bm-payment-content{
+    padding: 20px 0;
+    background-color: #f3f3f3;
+}
+#paypal-button-container {
+    width: 175px;
+    position: absolute;
+    z-index: 9;
+    opacity: 0;
+    height: 40px;
+    top: 0;
+    left: 0;
+}
+.paypal-button-wrap{
+    position: relative;
+    margin-right: 12px;
+}
 @media (max-width: 1366px){
 
     .banner-about .banner-about-box span {
@@ -2114,4 +2133,3 @@ color: #404040;
         margin-right: 5px;
     }
 }
-
