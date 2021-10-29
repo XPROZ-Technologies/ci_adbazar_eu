@@ -1,5 +1,5 @@
 
-    
+
 
 $(document).ready(function() {
 
@@ -19,7 +19,7 @@ $(document).ready(function() {
         searchText = $("input#search_text").val();
         loadProfile(selectServiceMapId, searchText, current_page, records_per_page, textView)
     }).on('keyup', 'input#search_text', function() {
-        setTimeout(function(){ 
+        setTimeout(function(){
             searchText = $("input#search_text").val();
             loadProfile($("select#selectServiceMap").val(), searchText.trim(), current_page, records_per_page, textView)
         }, 1000);
@@ -33,7 +33,7 @@ let map;
         center: new google.maps.LatLng(50.047648687939635, 12.355822100555436),
         zoom: 16,
       });
-    
+
     }
 function loadProfile(service_id, search_text_fe, page, per_page, textView) {
     $.ajax({
@@ -49,7 +49,7 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
             var json = $.parseJSON(response);
             $("#profilePagging").html('');
             $(".customer-location-list").html('');
-           
+
             if(json.code == 1){
                 let markers = [];
                 var listProfiles = json.data;
@@ -65,7 +65,7 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                     }
                     var isOpen = '<a href="javascript:void(0)" class="text-success">Opening</a>';
                     if(!item.isOpen) isOpen = '<a href="javascript:void(0)" class="customer-location-close">Closed</a>';
-                    
+
                     var starHtml = '';
                     var rating = item.rating;
                     if(parseInt(rating.sumReview) > 0){
@@ -81,10 +81,9 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                         </div>
                         <span class="star-rating-number">(${rating.sumReview})</span>`;
                     }
-                    
-                    
-                    
-                    html += 
+
+
+                    html +=
                     `<div class="card rounded-0 customer-location-item mb-2">
                         <div class="row g-0">
                             <div class="col-3">
@@ -99,6 +98,38 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                                     </div>
                                     <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                     ${isOpen}
+                                    <div style="display: none;" id="popup-map-content-${i}">
+                                        <div class="panel-map-item">
+                                            <div class="row g-0">
+                                                <div class="col-3">
+                                                    <a href="${urlProfileBusiness+item.business_url}" class="customer-location-img">
+                                                    <img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="Phuong Jojo Beauty Salon" style="height: 70px;object-fit: contain;"></a>
+                                                </div>
+                                                <div class="col-9">
+                                                    <div class="card-body p-0">
+                                                        <h6 class="card-title mb-1 page-text-xs"><a href="${urlProfileBusiness+item.business_url}" title="">${item.business_name}</a></h6>
+                                                        <div class="d-flex align-items-center mb-5px"> 
+                                                            ${starHtml}
+                                                        </div>
+                                                        <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
+                                                        ${isOpen}
+                                                        <div style="display: none;" id="popup-map-content-1">
+                                                            <div class="panel-map-item">
+                                                                <img src="map.png" style="width: 357px;height: 93px;margin-left: -5px;margin-top: -4px;">
+                                                             </div>
+                                                        </div>
+                                                        <a>
+                                                            <img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image">
+                                                        </a>
+                                                        <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         </div>
+                                    </div>
+                                    <a onclick="popupMapShow('popup-map-content-${i}','${item.business_name}',19.8827396,105.8642597)">
+                                        <img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image">
+                                    </a>
                                     <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
                                 </div>
                             </div>
@@ -132,7 +163,7 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                 }
                 $(".customer-location-list").html(html);
                 starRate();
-                
+
                 var listProfilesMap = json.listProfilesMap;
 
 var infowindow = null;
@@ -145,8 +176,8 @@ jQuery(function() {
 
     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    
-        
+
+
     jQuery.each( listProfilesMap, function(i, item) {
         infowindow = new google.maps.InfoWindow({
             content: ''
@@ -215,7 +246,7 @@ jQuery(function() {
         if (item.evaluateInfo !== 0) {
             evaluate_info = `<li class="list-inline-item me-0">(${item.evaluateInfo})</li>`;
         }
-        
+
         /*
         const infoMap = `<div class="card rounded-0 customer-location-item mb-2">
             <div class="row g-0">
@@ -232,7 +263,7 @@ jQuery(function() {
                         <p class="card-text mb-0 page-text-xxs text-secondary">${item.servicetypes}
                         </p>
                         ${open_status}
-                        
+
                         <a target="_blank" href="./${item.business_url}"
                             class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
                     </div>
@@ -253,7 +284,7 @@ jQuery(function() {
         //     infowindow.setContent(infoMap);
         //     infowindow.open(map,marker);
         // }
-        
+
         //console.log(item)
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.close();
@@ -261,17 +292,17 @@ jQuery(function() {
             infowindow.open(map,marker);
         });
 
-        
-        // show map, open infoBox 
+
+        // show map, open infoBox
         google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
             infowindow.open(map, marker);
         });
-        
+
     });
 });
-                
-               
-               
+
+
+
             }
         },
         error: function (response) {
