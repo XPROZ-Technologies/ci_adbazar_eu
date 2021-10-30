@@ -127,7 +127,7 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                                             </div>
                                          </div>
                                     </div>
-                                    <a onclick="popupMapShow('popup-map-content-${i}','${item.business_name}',19.8827396,105.8642597)">
+                                    <a onclick="popupMapShow('popup-map-content-${i}','${item.business_name}',50.04693217193328,12.352281584655778)">
                                         <img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image">
                                     </a>
                                     <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
