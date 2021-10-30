@@ -123,6 +123,7 @@ function popupMapS(data) {
             createMarker(startLocation.latlng);
             display.set('directions', null);
             display.setDirections(result);
+            //hien chi duong, thu nho ban do
         }).catch((e) => {
             alert("Could not display directions due to: " + e);
         });

@@ -113,7 +113,7 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                                                         </div>
                                                         <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                                         ${isOpen}
-                                                        <div style="display: none;" id="popup-map-content-1">
+                                                        <div style="display: none;" id="popup-map-content-1-0">
                                                             <div class="panel-map-item">
                                                                 <img src="map.png" style="width: 357px;height: 93px;margin-left: -5px;margin-top: -4px;">
                                                              </div>
