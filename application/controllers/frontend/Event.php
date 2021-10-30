@@ -172,7 +172,7 @@ class Event extends MY_Controller {
         /**
          * Commons data
          */
-        $data = $this->commonDataCustomer('Login to join event',
+        $data = $this->commonDataCustomer($this->lang->line('login-to-join-event1635566199'),
 			array('scriptFooter' => array('js' => 'js/frontend/login/login.js'))
         );
         $data['activeMenu'] = "";
@@ -206,7 +206,7 @@ class Event extends MY_Controller {
                 $timeStampEnd = strtotime($postData['end_date']." ".$postData['end_time']);
 
                 if($timeStampEnd < $timeStampStart){
-                    echo json_encode(array('code' => 0, 'message' => "The end time must be greater than the start time"));die;
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('the-end-time-must-be-greater-t1635566199')));die;
                 }
 
                 /**
@@ -225,7 +225,7 @@ class Event extends MY_Controller {
                     $postData['created_at'] = getCurentDateTime();
                 }
                 else {
-                    $message = 'Update successful';
+                    $message = $this->lang->line('update-successful1635566199');
                     $postData['updated_by'] = 0;
                     $postData['updated_at'] = getCurentDateTime();
                 }
@@ -235,11 +235,11 @@ class Event extends MY_Controller {
                     echo json_encode(array('code' => 1, 'message' => $message, 'data' => $eventId));die;
                 }
                 else {
-                    echo json_encode(array('code' => 0, 'message' => "Create event failed"));die;
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('event-creation-failed1635566199')));die;
                 }
             }
             else {
-                echo json_encode(array('code' => -1, 'message' => "Please enter event information"));die;
+                echo json_encode(array('code' => -1, 'message' => $this->lang->line('please-enter-event-information1635566199')));die;
             }
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
@@ -277,7 +277,7 @@ class Event extends MY_Controller {
                     $postData['created_at'] = getCurentDateTime();
                 }
                 else {
-                    $message = 'Update successful';
+                    $message = $this->lang->line('update-successful1635566199');
                     $postData['updated_by'] = 0;
                     $postData['updated_at'] = getCurentDateTime();
                 }

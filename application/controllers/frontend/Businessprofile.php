@@ -9,6 +9,7 @@ class Businessprofile extends MY_Controller
         parent::__construct();
 
         $this->getLanguageFE();
+        $this->notExit = $this->lang->line('business-profile-does-not-exis1635566199');
     }
 
     /**
@@ -17,7 +18,7 @@ class Businessprofile extends MY_Controller
     public function index($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -26,7 +27,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -120,7 +121,7 @@ class Businessprofile extends MY_Controller
     public function gallery($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -129,7 +130,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -162,7 +163,7 @@ class Businessprofile extends MY_Controller
     public function coupons($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -171,7 +172,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -234,7 +235,7 @@ class Businessprofile extends MY_Controller
     public function events($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -245,7 +246,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -309,7 +310,7 @@ class Businessprofile extends MY_Controller
     public function reviews($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -320,7 +321,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -479,10 +480,10 @@ class Businessprofile extends MY_Controller
                  * END. Add notification
                  */
 
-                echo json_encode(array('code' => 1, 'message' => "Leave a review successfully"));
+                echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfully-left-a-review1635566199')));
                 die;
             } else {
-                echo json_encode(array('code' => 0, 'message' => "Leave a review failed"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('failed-leaving-a-review1635566199')));
                 die;
             }
         } catch (Exception $e) {
@@ -537,14 +538,14 @@ class Businessprofile extends MY_Controller
                      * END. Add notification
                      */
 
-                    echo json_encode(array('code' => 1, 'message' => "Reply customer review successfully"));
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfully-replied-to-a-revi1635566199')));
                     die;
                 } else {
-                    echo json_encode(array('code' => 0, 'message' => "Reply customer review failed"));
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('failed-replying-to-a-review1635566199')));
                     die;
                 }
             } else {
-                echo json_encode(array('code' => 0, 'message' => "Customer review not exist"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('customer-review-does-not-exist1635566199')));
                 die;
             }
         } catch (Exception $e) {
@@ -579,14 +580,14 @@ class Businessprofile extends MY_Controller
                 $reviewId = $this->Mcustomerreviews->save($postData, $reviewId);
 
                 if ($reviewId > 0) {
-                    echo json_encode(array('code' => 1, 'message' => "Delete review successfully"));
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfully-deleted-review1635566199')));
                     die;
                 } else {
-                    echo json_encode(array('code' => 0, 'message' => "Delete review failed"));
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('failed-deleting-review1635566199')));
                     die;
                 }
             } else {
-                echo json_encode(array('code' => 0, 'message' => "Review not exist"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('review-does-not-exist1635566199')));
                 die;
             }
         } catch (Exception $e) {
@@ -621,14 +622,14 @@ class Businessprofile extends MY_Controller
                 $reviewId = $this->Mcustomerreviews->save($postData, $reviewId);
 
                 if ($reviewId > 0) {
-                    echo json_encode(array('code' => 1, 'message' => "Delete reply successfully"));
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfuly-deleted-reply1635566199')));
                     die;
                 } else {
-                    echo json_encode(array('code' => 0, 'message' => "Delete reply failed"));
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('failed-deleting-reply1635566199')));
                     die;
                 }
             } else {
-                echo json_encode(array('code' => 0, 'message' => "Reply not exist"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('reply-does-not-exist1635566199')));
                 die;
             }
         } catch (Exception $e) {
@@ -640,7 +641,7 @@ class Businessprofile extends MY_Controller
     public function reservation($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -651,7 +652,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -667,7 +668,7 @@ class Businessprofile extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "Please login to view this page");
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
         }
@@ -726,7 +727,7 @@ class Businessprofile extends MY_Controller
     public function book_reservation($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -738,7 +739,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -754,7 +755,7 @@ class Businessprofile extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "Please login to view this page");
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
         }
@@ -804,7 +805,7 @@ class Businessprofile extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "Please login to view this page");
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
         }
@@ -834,7 +835,7 @@ class Businessprofile extends MY_Controller
          */
         
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "Please login to view this page");
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
         }
@@ -1001,7 +1002,7 @@ class Businessprofile extends MY_Controller
              */
 
             if ($data['customer']['id'] == 0) {
-                $this->session->set_flashdata('notice_message', "Please login to view this page");
+                $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
             }
@@ -1037,7 +1038,7 @@ class Businessprofile extends MY_Controller
              */
 
             if ($data['customer']['id'] == 0) {
-                $this->session->set_flashdata('notice_message', "Please login to view this page");
+                $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
             }
@@ -1063,7 +1064,7 @@ class Businessprofile extends MY_Controller
                     redirect(base_url('business-profile/select-plan?1'));
                 }
             } else {
-                $this->session->set_flashdata('notice_message', "You do not have permission on this page");
+                $this->session->set_flashdata('notice_message', $this->lang->line('you-do-not-have-permission-on-1635566199'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url(HOME_URL . '?e3'));
             }
@@ -1088,7 +1089,7 @@ class Businessprofile extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "Please login to view this page");
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
         }
@@ -1122,7 +1123,7 @@ class Businessprofile extends MY_Controller
                  */
 
                 if ($data['customer']['id'] == 0) {
-                    $this->session->set_flashdata('notice_message', "Please login to view this page");
+                    $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
                 }
@@ -1523,7 +1524,7 @@ class Businessprofile extends MY_Controller
     public function manage_about_us($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1532,7 +1533,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1630,7 +1631,7 @@ class Businessprofile extends MY_Controller
     public function manage_profile_edit($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1639,7 +1640,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1702,7 +1703,7 @@ class Businessprofile extends MY_Controller
     public function manage_gallery($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1711,7 +1712,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1751,7 +1752,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            echo json_encode(array('code' => 0, 'message' => "Business profile not exist"));
+            echo json_encode(array('code' => 0, 'message' => $this->notExit));
             die;
         }
         //$businessInfo = $this->Mbusinessprofiles->get($businessProfileId);
@@ -1769,12 +1770,12 @@ class Businessprofile extends MY_Controller
             if (!empty($uploadedImage)) {
                 $resultUpload = $this->Mbusinessphotos->savePhotos($uploadedImage, $businessProfileId);
                 if ($resultUpload) {
-                    echo json_encode(array('code' => 1, 'message' => "Upload success"));
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('upload-succeeded1635566199')));
                     die;
                 }
             }
         }
-        echo json_encode(array('code' => 0, 'message' => "Upload failed"));
+        echo json_encode(array('code' => 0, 'message' => $this->lang->line('upload-failed1635566199')));
         die;
     }
 
@@ -1788,7 +1789,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            echo json_encode(array('code' => 0, 'message' => "Business profile not exist"));
+            echo json_encode(array('code' => 0, 'message' => $this->notExit));
             die;
         }
         //$businessInfo = $this->Mbusinessprofiles->get($businessProfileId);
@@ -1801,12 +1802,12 @@ class Businessprofile extends MY_Controller
             if (!empty($videos)) {
                 $resultUpload = $this->Mbusinessvideos->saveVideos($videos, $businessProfileId);
                 if ($resultUpload) {
-                    echo json_encode(array('code' => 1, 'message' => "Upload success"));
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('upload-succeeded1635566199')));
                     die;
                 }
             }
         }
-        echo json_encode(array('code' => 0, 'message' => "Upload failed"));
+        echo json_encode(array('code' => 0, 'message' => $this->lang->line('upload-failed1635566199')));
         die;
     }
 
@@ -1817,11 +1818,11 @@ class Businessprofile extends MY_Controller
         if ($video_id > 0) {
             $resultDel = $this->Mbusinessvideos->delete($video_id);
             if ($resultDel) {
-                echo json_encode(array('code' => 1, 'message' => "Successfully deleted video"));
+                echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfully-deleted-video1635566199')));
                 die;
             }
         }
-        echo json_encode(array('code' => 0, 'message' => "Delete failed"));
+        echo json_encode(array('code' => 0, 'message' => $this->lang->line('delete-failed1635566199')));
         die;
     }
 
@@ -1832,18 +1833,18 @@ class Businessprofile extends MY_Controller
         if ($image_id > 0) {
             $resultDel = $this->Mbusinessphotos->delete($image_id);
             if ($resultDel) {
-                echo json_encode(array('code' => 1, 'message' => "Successfully deleted image"));
+                echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfully-deleted-image1635566199')));
                 die;
             }
         }
-        echo json_encode(array('code' => 0, 'message' => "Delete failed"));
+        echo json_encode(array('code' => 0, 'message' => $this->lang->line('delete-failed1635566199')));
         die;
     }
 
     public function manage_coupons($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1852,7 +1853,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1915,7 +1916,7 @@ class Businessprofile extends MY_Controller
     public function manage_create_coupon($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1926,7 +1927,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1952,7 +1953,7 @@ class Businessprofile extends MY_Controller
     public function manage_events($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -1963,7 +1964,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2027,7 +2028,7 @@ class Businessprofile extends MY_Controller
     public function manage_create_event($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2038,7 +2039,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2064,7 +2065,7 @@ class Businessprofile extends MY_Controller
     public function manage_edit_event($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2075,7 +2076,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2101,7 +2102,7 @@ class Businessprofile extends MY_Controller
     public function manage_reviews($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2112,7 +2113,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2128,7 +2129,7 @@ class Businessprofile extends MY_Controller
          */
 
         if (empty($data['customer']['id']) || $data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html'));
         }
@@ -2224,7 +2225,7 @@ class Businessprofile extends MY_Controller
     public function manage_reservations($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2235,7 +2236,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2313,7 +2314,7 @@ class Businessprofile extends MY_Controller
     public function manage_subscriptions($slug = "")
     {
         if (empty($slug)) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -2324,7 +2325,7 @@ class Businessprofile extends MY_Controller
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
-            $this->session->set_flashdata('notice_message', "Business profile not exist");
+            $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }

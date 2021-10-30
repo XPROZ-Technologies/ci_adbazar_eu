@@ -47,7 +47,7 @@ class Login extends MY_Controller {
         $token = $this->input->get('token');
 
         if(empty($token)){
-            $this->session->set_flashdata('notice_message', "Token not exist or expired");
+            $this->session->set_flashdata('notice_message', $this->lang->line('token-not-exist-or-expired1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }
@@ -57,7 +57,7 @@ class Login extends MY_Controller {
             $data['token'] = $token;
             $this->load->view('frontend/login/signin-setup-password', $data);
         }else{
-            $this->session->set_flashdata('notice_message', "Token not exist or expired");
+            $this->session->set_flashdata('notice_message', $this->lang->line('token-not-exist-or-expired1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url(HOME_URL));
         }

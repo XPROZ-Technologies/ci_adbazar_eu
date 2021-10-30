@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="bp-event-back mb-3 mb-md-4">
                     <a href="<?php echo $backUrl; ?>" class="text-dark text-decoration-underline">
-                        <img src="assets/img/frontend/icon-goback.png" alt="icon-goback" class="img-fluid me-1">Back
+                        <img src="assets/img/frontend/icon-goback.png" alt="icon-goback" class="img-fluid me-1"><?php echo $this->lang->line('back1635566199'); ?>
                     </a>
                 </div>
                 <div class="row">

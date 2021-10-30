@@ -28,11 +28,11 @@
                     <a href="#forgotPasswordModal" data-bs-toggle="modal" class=" page-text-lg fw-bold"><?php echo $this->lang->line('forgot_your_password'); ?></a>
                   </div>
                   <div class="col-12 d-flex justify-content-center mb-3 mt-lg-4">
-                    <button type="submit" class="btn btn-red px-3">Sign in</button>
+                    <button type="submit" class="btn btn-red px-3"><?php echo $this->lang->line('sign-in1635566199'); ?> </button>
                   </div>
                   <p class="text-center mb-2 mb-lg-4 text-black"><?php echo $this->lang->line('not_have_an_account_yet'); ?> <a href="<?php echo base_url('signup.html'); ?>" class="ms-3 text-black fw-bold"><?php echo $this->lang->line('sign_up'); ?></a></p>
                   <p class="text-center mt-3 mt-lg-0">
-                  <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span>Or</span></p>
+                  <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span><?php echo $this->lang->line('or1635566199'); ?></span></p>
                   </p>
                   <div class="mx-auto text-center mb-3 sign-social">
                     <a href="#" class="btn btn-outline-red login-gg">
@@ -99,7 +99,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <p class="page-text-lg text-center">This function will be available soon. Please Sign Up to join the event</p>
+        <p class="page-text-lg text-center"><?php echo $this->lang->line('this-function-will-be-availabl1635566199'); ?></p>
         <a href="<?php echo base_url('signup.html'); ?>" class="btn btn-red btn-contact-ad"><?php echo $this->lang->line('sign_up'); ?></a>
       </div>
     </div>

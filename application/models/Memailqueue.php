@@ -111,7 +111,7 @@ class Memailqueue extends MY_Model
     public function declineReservation($emailData = array())
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Your reservation has been declined.</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('email_your_reservation_has_been_declined').'</p>
                             <p>Dear ' . $emailData['name'] . ',</p>
                             <p>&nbsp;</p>
                             <p> This email serves as a notification that you have cancelled your appointment at '. $emailData['business_name'] .' on '. $emailData['reservation_date'] .' at '. $emailData['reservation_time'] .'. </p>

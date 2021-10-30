@@ -176,7 +176,7 @@ class Coupon extends MY_Controller
                 $this->load->model('Mcoupons');
 
                 if(empty($postData['coupon_subject']) || $postData['coupon_subject'] == ""){
-                    echo json_encode(array('code' => 0, 'message' => 'Coupon subject is required'));die;
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('coupon-subject-is-required1635566199')));die;
                 }
 
                 $postData['start_date'] = date("Y-m-d", strtotime($postData['start_date']));
@@ -184,16 +184,16 @@ class Coupon extends MY_Controller
 
                 $currentDay = strtotime(date('Y-m-d'));
                 if(strtotime($postData['start_date']) < $currentDay || strtotime($postData['end_date']) < $currentDay){
-                    echo json_encode(array('code' => 0, 'message' => 'Please select date in present or future'));die;
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('please-select-date-in-present-1635566199')));die;
                 }
 
                 
                 if(strtotime($postData['start_date']) > strtotime($postData['end_date'])){
-                    echo json_encode(array('code' => 0, 'message' => 'Please select different date'));die;
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('please-select-different-date1635566199')));die;
                 }
 
                 if(empty($postData['coupon_amount']) || $postData['coupon_amount'] == 0){
-                    echo json_encode(array('code' => 0, 'message' => 'Amount of coupon must be larger than 0'));die;
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('amount-of-coupon-must-be-large1635566199')));die;
                 }
 
                 /**
@@ -211,7 +211,7 @@ class Coupon extends MY_Controller
                     $postData['created_by'] = 0;
                     $postData['created_at'] = getCurentDateTime();
                 } else {
-                    $message = 'Update successful';
+                    $message = $this->lang->line('update-successful1635566199');
                     $postData['updated_by'] = 0;
                     $postData['updated_at'] = getCurentDateTime();
                 }
@@ -220,10 +220,10 @@ class Coupon extends MY_Controller
                 if ($couponId > 0) {
                     echo json_encode(array('code' => 1, 'message' => $message, 'data' => $couponId));die;
                 } else {
-                    echo json_encode(array('code' => 0, 'message' => "Create coupon failed"));die;
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('creating-coupon-failed1635566199')));die;
                 }
             } else {
-                echo json_encode(array('code' => -1, 'message' => "Please enter coupon information"));die;
+                echo json_encode(array('code' => -1, 'message' => $this->lang->line('please-enter-coupon-informatio1635566199')));die;
             } 
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
@@ -249,22 +249,22 @@ class Coupon extends MY_Controller
                         $couponEnd = strtotime(ddMMyyyy($couponInfo['end_date'], 'Y-m-d'));
                         if ($currentDay >= $couponStart && $currentDay <= $couponEnd) {
                             if ($customerCouponInfo['customer_coupon_status_id'] == STATUS_ACTIVED) {
-                                echo json_encode(array('code' => 1, 'message' => "Can avtive"));
+                                echo json_encode(array('code' => 1, 'message' => $this->lang->line('coupon-can-be-activated1635566199')));
                                 die;
                             }else if ($customerCouponInfo['customer_coupon_status_id'] == 1) {
                                 echo json_encode(array('code' => 3, 'message' => "Used"));
                                 die;
                             }
                         } else {
-                            echo json_encode(array('code' => 3, 'message' => "Coupon expired"));
+                            echo json_encode(array('code' => 3, 'message' => $this->lang->line('coupon-expired1635566199')));
                             die;
                         }
                     } else {
-                        echo json_encode(array('code' => 2, 'message' => "Coupon code not found"));
+                        echo json_encode(array('code' => 2, 'message' => $this->lang->line('coupon-code-not-found1635566199')));
                         die;
                     }
                 } else {
-                    echo json_encode(array('code' => 2, 'message' => "Coupon code not found"));
+                    echo json_encode(array('code' => 2, 'message' => $this->lang->line('coupon-code-not-found1635566199')));
                     die;
                 }
             } else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
@@ -276,6 +276,8 @@ class Coupon extends MY_Controller
     public function activeCouponCode()
     {
         try {
+            $this->load->helper('cookie');
+            $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
             $postData = $this->arrayFromPost(array('coupon_code', 'business_id'));
             if (!empty($postData['business_id'])  && !empty($postData['coupon_code'])) {
                 $this->loadModel(array('Mconfigs', 'Mcoupons', 'Mcustomercoupons', 'Mbusinessprofiles'));
@@ -295,7 +297,15 @@ class Coupon extends MY_Controller
                                 //save
                                 $cusCouponCodeId = $this->Mcustomercoupons->save(array('customer_coupon_status_id' => 1), $customerCouponId);
                                 if($cusCouponCodeId > 0){
-                                    echo json_encode(array('code' => 1, 'message' => "Coupon ".$customerCouponInfo['customer_coupon_code']." activated"));
+                                    $langMess = $this->lang->line('coupon-aaaa-activated1635566199');
+                                    $expLang = explode('AAA', $langMess);
+                                    $message_1 = $expLang[0];
+                                    $message_2 = $expLang[1];
+                                    if($language == 'czech') {
+                                        $message_1 = $expLang[0];
+                                        $message_2 = '';
+                                    }
+                                    echo json_encode(array('code' => 1, 'message' => $message_1.$customerCouponInfo['customer_coupon_code'].$message_2));
                                     die;
                                 }else{
                                     echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));die;
@@ -305,15 +315,15 @@ class Coupon extends MY_Controller
                                 die;
                             }
                         } else {
-                            echo json_encode(array('code' => 3, 'message' => "Coupon expired"));
+                            echo json_encode(array('code' => 3, 'message' => $this->lang->line('coupon-expired1635566199')));
                             die;
                         }
                     } else {
-                        echo json_encode(array('code' => 2, 'message' => "Coupon code not found"));
+                        echo json_encode(array('code' => 2, 'message' => $this->lang->line('coupon-code-not-found1635566199')));
                         die;
                     }
                 } else {
-                    echo json_encode(array('code' => 2, 'message' => "Coupon code not found"));
+                    echo json_encode(array('code' => 2, 'message' => $this->lang->line('coupon-code-not-found1635566199')));
                     die;
                 }
             } else {

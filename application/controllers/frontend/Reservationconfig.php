@@ -18,7 +18,7 @@ class Reservationconfig extends MY_Controller
             $postData = $this->arrayFromPost(array('selected_day', 'business_id'));
 
             if (empty($postData['selected_day']) || empty($postData['business_id'])) {
-                echo json_encode(array('code' => 0, 'message' => "Please enter your contact information"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('please-enter-your-contact-info1635566199')));
                 die;
             }
 
@@ -26,7 +26,7 @@ class Reservationconfig extends MY_Controller
 
             $allow_book = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id']), 'allow_book', 0);
             if($allow_book != STATUS_ACTIVED){
-                echo json_encode(array('code' => 2, 'message' => "Business suspends reservations", 'data' => ""));
+                echo json_encode(array('code' => 2, 'message' => $this->lang->line('business-suspended-reservation1635566199'), 'data' => ""));
                 die;
             }
 
@@ -56,11 +56,11 @@ class Reservationconfig extends MY_Controller
                     echo json_encode(array('code' => 1, 'message' => "Successfull", 'day_id' => $day_id, 'data' => $dataHours, 'max_people' => $configTimes[0]['max_per_reservation']));
                     die;
                 }else{
-                    echo json_encode(array('code' => 2, 'message' => "There is no time period", 'data' => ""));
+                    echo json_encode(array('code' => 2, 'message' => $this->lang->line('here-is-no-time-period1635566199'), 'data' => ""));
                     die;
                 }
             }else{
-                echo json_encode(array('code' => 2, 'message' => "Business suspends reservations", 'data' => ""));
+                echo json_encode(array('code' => 2, 'message' => $this->lang->line('business-suspended-reservation1635566199'), 'data' => ""));
                 die;
             }
         } catch (Exception $e) {

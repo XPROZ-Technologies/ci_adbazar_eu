@@ -9,6 +9,7 @@ class Reservation extends MY_Controller
         parent::__construct();
 
         $this->getLanguageFE();
+        $this->notExit = $this->lang->line('business-profile-does-not-exis1635566199');
     }
 
     public function getReservation()
@@ -29,11 +30,11 @@ class Reservation extends MY_Controller
                     echo json_encode(array('code' => 1, 'message' => "Sucessfully", 'data' => $reservationConfigs));
                     die;
                 } else {
-                    echo json_encode(array('code' => 0, 'message' => "Reservation config not exist"));
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('reservation-config-does-not-ex1635566199')));
                     die;
                 }
             } else {
-                echo json_encode(array('code' => 0, 'message' => "Reservation config not exist"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('reservation-config-does-not-ex1635566199')));
                 die;
             }
         } catch (Exception $e) {
@@ -73,7 +74,7 @@ class Reservation extends MY_Controller
                     }
                 }
 
-                echo json_encode(array('code' => 1, 'message' => "Save config sucessfully")); die;
+                echo json_encode(array('code' => 1, 'message' => $this->lang->line('succesfully-saved-config1635566199'))); die;
             } else {
                 $saveAllData = $postData;
                 $saveAllData['day_id'] = $mainData['day_id'];
@@ -96,7 +97,7 @@ class Reservation extends MY_Controller
                         }
                     }
                 }
-                echo json_encode(array('code' => 1, 'message' => "Save config sucessfully")); die;
+                echo json_encode(array('code' => 1, 'message' => $this->lang->line('succesfully-saved-config1635566199'))); die;
             }
         } catch (Exception $e) {
             echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
@@ -136,13 +137,13 @@ class Reservation extends MY_Controller
                     $_SESSION['book'] = $bookId;
                     redirect('business/'.$businessInfo['business_url'].'/reservation');
                 }else{
-                    $this->session->set_flashdata('notice_message', "Business profile not exist");
+                    $this->session->set_flashdata('notice_message', $this->notExit);
                     $this->session->set_flashdata('notice_type', 'success');
                     redirect('business/'.$businessInfo['business_url'].'/reservation');
                 }
               
             } else {
-                $this->session->set_flashdata('notice_message', "Business profile not exist");
+                $this->session->set_flashdata('notice_message', $this->notExit);
                 $this->session->set_flashdata('notice_type', 'success');
                 redirect(base_url(HOME_URL));
             }
@@ -161,9 +162,9 @@ class Reservation extends MY_Controller
 
             $postData = $this->arrayFromPost(array('business_id', 'allow_book'));
 
-            $message = "Turn off";
+            $message = $this->lang->line('turning-off1635566199');
             if($postData['allow_book'] == STATUS_ACTIVED){
-                $message = "Turn on";
+                $message = $this->lang->line('turning-on1635566199');
             }
 
             $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id']), 'id', 0);
@@ -174,12 +175,12 @@ class Reservation extends MY_Controller
  
                 $businessId = $this->Mbusinessprofiles->save($postData, $businessProfileId);
                 if($businessId > 0){
-                    echo json_encode(array('code' => 1, 'message' => $message." receive reservations successfully")); die;
+                    echo json_encode(array('code' => 1, 'message' => $message.' '.$this->lang->line('receive-reservatio1635566199'))); die;
                 }else{
-                    echo json_encode(array('code' => 0, 'message' => $message." receive reservations failed")); die;
+                    echo json_encode(array('code' => 0, 'message' => $message.' '.$this->lang->line('receive-reservation1635566199'))); die;
                 }
             } else {
-                echo json_encode(array('code' => 0, 'message' => "Business profile not exist")); die;
+                echo json_encode(array('code' => 0, 'message' => $this->notExit)); die;
             }
         } catch (Exception $e) {
             echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE)); die;
@@ -217,9 +218,9 @@ class Reservation extends MY_Controller
                      * END. Add notification
                      */
 
-                    echo json_encode(array('code' => 1, 'message' => "Your reservation has been cancelled")); die;
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('your-reservation-has-been-canc1635566199'))); die;
                 }else{
-                    echo json_encode(array('code' => 0, 'message' => "Cancellation failed")); die;
+                    echo json_encode(array('code' => 0, 'message' =>$this->lang->line('cancellation-failed1635566199'))); die;
                 }
             } else {
                 echo json_encode(array('code' => 0, 'message' => "Reservation not exist")); die;
@@ -284,12 +285,12 @@ class Reservation extends MY_Controller
                      * END. Save Email
                      */
 
-                    echo json_encode(array('code' => 1, 'message' => "Reservation has been declined")); die;
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('reservation-has-been-declined1635566199'))); die;
                 }else{
-                    echo json_encode(array('code' => 0, 'message' => "Declined failed")); die;
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('denial-failed1635566199'))); die;
                 }
             } else {
-                echo json_encode(array('code' => 0, 'message' => "Reservation not exist")); die;
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('reservation-does-not-exist1635566199'))); die;
             }
         } catch (Exception $e) {
             echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE)); die;

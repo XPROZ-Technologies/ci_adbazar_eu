@@ -345,7 +345,7 @@
           redirect(true);
         },
         error: function(data) {
-          $(".notiPopup .text-secondary").html("Cancellation failed");
+          $(".notiPopup .text-secondary").html(<?php echo $this->lang->line('cancellation-failed1635566199'); ?>);
           $(".ico-noti-error").removeClass('ico-hidden');
           $(".notiPopup").fadeIn('slow').fadeOut(5000);
 

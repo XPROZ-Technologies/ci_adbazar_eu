@@ -216,7 +216,7 @@
                   <?php } else { ?>
                     <div class="zero-event zero-box">
                       <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
-                      <p class="text-secondary page-text-lg">No reviews</p>
+                      <p class="text-secondary page-text-lg"><?php echo $this->lang->line('no-reviews1635566199'); ?></p>
                     </div>
                   <?php } ?>
                 </div>
@@ -318,7 +318,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <p class="page-text-lg text-center">You have already rated this business profile</p>
+        <p class="page-text-lg text-center"><?php echo $this->lang->line('you-have-already-rated-this-bu1635566199'); ?></p>
       </div>
     </div>
   </div>
@@ -379,7 +379,7 @@
       var review_star = $("#rankStar").val();
 
       if (business_id == 0) {
-        $(".notiPopup .text-secondary").html("Business profile not exist");
+        $(".notiPopup .text-secondary").html(<?php echo $this->lang->line('business-profile-does-not-exis1635566199'); ?>);
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
@@ -387,7 +387,7 @@
       }
 
       if (customer_id == 0) {
-        $(".notiPopup .text-secondary").html("Please login to leave a review");
+        $(".notiPopup .text-secondary").html(<?php echo $this->lang->line('please-login-to-leave-a-review1635566199'); ?>);
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(5000);
       }
@@ -417,7 +417,7 @@
           redirect(true);
         },
         error: function(data) {
-          $(".notiPopup .text-secondary").html("Leave a review failed");
+          $(".notiPopup .text-secondary").html(<?php echo $this->lang->line('failed-leaving-a-review1635566199'); ?>);
           $(".ico-noti-error").removeClass('ico-hidden');
           $(".notiPopup").fadeIn('slow').fadeOut(5000);
 

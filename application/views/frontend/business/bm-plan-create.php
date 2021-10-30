@@ -398,7 +398,7 @@
                                 <div class="position-relative time-content">
                                   <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[3][start_time]" id="timePicker7" data-toggle="datetimepicker" data-target="#timePicker7" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>
-                                <span class="text-to">to</span>
+                                <span class="text-to"><?php echo $this->lang->line('to'); ?></span>
                                 <div class="position-relative time-content">
                                   <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[3][end_time]" id="timePicker8" data-toggle="datetimepicker" data-target="#timePicker8" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>
@@ -425,7 +425,7 @@
                                 <div class="position-relative time-content">
                                   <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[4][start_time]" id="timePicker9" data-toggle="datetimepicker" data-target="#timePicker9" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>
-                                <span class="text-to">to</span>
+                                <span class="text-to"><?php echo $this->lang->line('to'); ?></span>
                                 <div class="position-relative time-content">
                                   <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[4][end_time]" id="timePicker10" data-toggle="datetimepicker" data-target="#timePicker10" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>
@@ -452,7 +452,7 @@
                                 <div class="position-relative time-content">
                                   <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[5][start_time]" id="timePicker11" data-toggle="datetimepicker" data-target="#timePicker11" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>
-                                <span class="text-to">to</span>
+                                <span class="text-to"><?php echo $this->lang->line('to'); ?></span>
                                 <div class="position-relative time-content">
                                   <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[5][end_time]" id="timePicker12" data-toggle="datetimepicker" data-target="#timePicker12" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>
@@ -479,7 +479,7 @@
                                 <div class="position-relative time-content">
                                   <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[6][start_time]" id="timePicker13" data-toggle="datetimepicker" data-target="#timePicker13" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>
-                                <span class="text-to">to</span>
+                                <span class="text-to"><?php echo $this->lang->line('to'); ?></span>
                                 <div class="position-relative time-content">
                                   <input type="text" class="form-control form-control-lg datetimepicker-input js-time-picker"  disabled name="open_hours[6][end_time]" id="timePicker14" data-toggle="datetimepicker" data-target="#timePicker14" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>

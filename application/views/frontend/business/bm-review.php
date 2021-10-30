@@ -31,7 +31,7 @@
                           </div>
                         </div>
                       <?php } else { ?>
-                        No reviews
+                        <?php echo $this->lang->line('no-reviews1635566199'); ?>
                       <?php } ?>
                     </div>
 
@@ -232,7 +232,7 @@
                   <?php } else { ?>
                     <div class="zero-event zero-box">
                       <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
-                      <p class="text-secondary page-text-lg">No reviews</p>
+                      <p class="text-secondary page-text-lg"><?php echo $this->lang->line('no-reviews1635566199'); ?></p>
                     </div>
                   <?php } ?>
 
@@ -347,7 +347,7 @@
       var business_comment = CKEDITOR.instances['bmReplyComment-' + review_id].getData();
       console.log(business_comment);
       if (review_id == 0) {
-        $(".notiPopup .text-secondary").html("Review not exist");
+        $(".notiPopup .text-secondary").html(<?php echo $this->lang->line('review-does-not-exist1635566199'); ?>);
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
@@ -394,7 +394,7 @@
       var review_id = $(this).data('review');
 
       if (review_id == 0) {
-        $(".notiPopup .text-secondary").html("Review not exist");
+        $(".notiPopup .text-secondary").html(<?php echo $this->lang->line('review-does-not-exist1635566199'); ?>);
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
@@ -439,7 +439,7 @@
       var review_id = $(this).data('review');
 
       if (review_id == 0) {
-        $(".notiPopup .text-secondary").html("Review not exist");
+        $(".notiPopup .text-secondary").html(<?php echo $this->lang->line('review-does-not-exist1635566199'); ?>);
         $(".ico-noti-error").removeClass('ico-hidden');
         $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
@@ -468,7 +468,7 @@
           redirect(true);
         },
         error: function(data) {
-          $(".notiPopup .text-secondary").html("Delete reply failed");
+          $(".notiPopup .text-secondary").html(<?php echo $this->lang->line('failed-deleting-reply1635566199'); ?>);
           $(".ico-noti-error").removeClass('ico-hidden');
           $(".notiPopup").fadeIn('slow').fadeOut(5000);
 

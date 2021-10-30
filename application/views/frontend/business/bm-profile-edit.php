@@ -170,7 +170,7 @@
                                                                                                                                                                                                     echo "disabled";
                                                                                                                                                                                                   } ?> name="open_hours[<?php echo $itemOpenHous['day_id']; ?>][start_time]" id="timePicker_<?php echo $itemOpenHous['day_id']; ?>" data-toggle="datetimepicker" data-target="#timePicker_<?php echo $itemOpenHous['day_id']; ?>" placeholder="<?php echo $this->lang->line('open_at'); ?>" />
                                 </div>
-                                <span class="text-to">to</span>
+                                <span class="text-to"><?php echo $this->lang->line('to'); ?></span>
                                 <div class="position-relative time-content">
                                   <input value="<?php echo ddMMyyyy($itemOpenHous['end_time'], 'H:i'); ?>" type="text" class="form-control form-control-lg datetimepicker-input js-time-picker" <?php if ($itemOpenHous['opening_hours_status_id'] == 1) {
                                                                                                                                                                                                   echo "disabled";

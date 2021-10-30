@@ -87,7 +87,7 @@
                                       <?php if (isset($itemCoupon['customer_coupon_status_id']) && $itemCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
                                         <span class="badge badge-approved"><?php echo $this->lang->line('valid'); ?></span>
                                       <?php } else { ?>
-                                        <span class="badge badge-declined">Invalid</span>
+                                        <span class="badge badge-declined">Inva<?php echo $this->lang->line('invalid'); ?>lid</span>
                                       <?php } ?>
                                     </div>
                                   </div>

@@ -35,7 +35,7 @@
                           <?php if ($customerCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
                             <span class="badge badge-approved"><?php echo $this->lang->line('valid'); ?></span>
                           <?php } else { ?>
-                            <span class="badge badge-declined">Invalid</span>
+                            <span class="badge badge-declined"><?php echo $this->lang->line('invalid'); ?></span>
                           <?php } ?>
                         <?php } else { ?>
                           <!-- Not saved -->
@@ -117,7 +117,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <h4 class="text-center fw-bold page-title-sm">Successfully removed!</h4>
+        <h4 class="text-center fw-bold page-title-sm"><?php echo $this->lang->line('successfully-removed!1635566199'); ?></h4>
         <div class="d-flex justify-content-center">
           <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel btn-close-removed" ><?php echo $this->lang->line('closed'); ?></a>
         </div>

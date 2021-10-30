@@ -17,7 +17,7 @@ class Contact extends MY_Controller
 
             $postData = $this->arrayFromPost(array('contact_name', 'contact_email', 'contact_message', 'customer_id'));
             if (empty($postData['contact_name']) || empty($postData['contact_email']) || empty($postData['contact_message'])) {
-                echo json_encode(array('code' => 0, 'message' => "Please enter your contact information"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('please-enter-your-contact-info1635566199')));
                 die;
             }
 
@@ -55,7 +55,7 @@ class Contact extends MY_Controller
                  */
 
 
-                echo json_encode(array('code' => 1, 'message' => "Thank you for contacting. We will contact you as soon as possible"));
+                echo json_encode(array('code' => 1, 'message' => $this->lang->line('thank-you-for-contacting.-we-w1635566199')));
                 die;
             }else{
                 echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));

@@ -115,7 +115,7 @@
                   <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
                     <div class="customer-coupon-body">
                       <h6 class="card-title"><?php echo $itemCoupon['coupon_subject']; ?></h6>
-                      <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
+                      <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?>  <?php echo $this->lang->line('to'); ?> <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
                       <div class="d-flex align-items-center justify-content-between">
                         <div class="wraper-progress">
                           <div class="progress">
@@ -204,13 +204,13 @@
                       <input name="customer_id" id="contactCustomer" type="hidden" value="<?php if (isset($customer['id'])) { echo $customer['id']; } else { echo 0; } ?>" />
                       <h3 class="fw-bold text-center mb-4"><?php echo $this->lang->line('contact_us'); ?></h3>
                       <div class="col-12">
-                        <input type="text" class="form-control" name="contact_name" id="contactName" placeholder="Name" required>
+                        <input type="text" class="form-control" name="contact_name" id="contactName" placeholder="<?php echo $this->lang->line('name1635566199'); ?>" required>
                       </div>
                       <div class="col-12">
                         <input type="email" class="form-control" name="contact_email" id="contactEmail" placeholder="<?php echo $this->lang->line('email'); ?>" required>
                       </div>
                       <div class="col-12">
-                        <textarea class="form-control" name="contact_message" id="contactMessage" rows="3" placeholder="Type your message here" required></textarea>
+                        <textarea class="form-control" name="contact_message" id="contactMessage" rows="3" placeholder="<?php echo $this->lang->line('type-your-message-here1635566199'); ?>" required></textarea>
                       </div>
                       <div class="col-12 d-flex justify-content-center btn-submit">
                         <button type="submit" class="btn btn-red"><?php echo $this->lang->line('submit'); ?></button>
@@ -265,7 +265,7 @@
 <?php $this->load->view('frontend/includes/footer'); ?>
 
 <script>
-  var please_enter_your_contact_information = "<?php echo 'Please enter your contact information' ?>";
+  var please_enter_your_contact_information = "<?php echo $this->lang->line('please-enter-your-contact-info1635566199') ?>";
   var iconMap = "<?php echo (isset($configs['MARKER_MAP_IMAGE']) && !empty($configs['MARKER_MAP_IMAGE'])) ? CONFIG_PATH . $configs['MARKER_MAP_IMAGE'] : CONFIG_PATH . "iconmap.png" ?>";
 
   $("#formContactUs").submit(function(event) {

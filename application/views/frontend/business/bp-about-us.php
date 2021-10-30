@@ -203,7 +203,7 @@
       for (let i = 0; i < features.length; i++) {
         var open_status = "";
         if (features[i].linkClose == 1) {
-          open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
+          open_status = `<a href="javascript:void(0);" class="text-success"><?php echo $this->lang->line('opening'); ?></a>`;
         } else {
           open_status = `<a href="javascript:void(0);" class="customer-location-close"><?php echo $this->lang->line('closed'); ?></a>`;
         }
