@@ -53,7 +53,7 @@
     <script src="assets/vendor/plugins/ckeditor/samples/js/sample.js"></script>
     <script src="assets/js/frontend/commons/bootstrap.bundle.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <!--<script src="assets/js/frontend/commons/google.js?version=<?php echo time(); ?>"></script>-->
+    <script src="assets/js/frontend/commons/google.js?version=<?php echo time(); ?>"></script>
     <script src="assets/js/frontend/commons/main.js?version=<?php echo time(); ?>"></script>
     <script src="assets/vendor/plugins/lib/main.js?version=<?php echo time(); ?>"></script>
     <script src="assets/js/frontend/common.js?version=<?php echo time(); ?>"></script>
