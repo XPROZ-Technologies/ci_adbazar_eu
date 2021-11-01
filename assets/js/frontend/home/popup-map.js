@@ -23,7 +23,7 @@ function popupMapS(data) {
 
     var mapProp = {
         center: target,
-        zoom: 5, clickableIcons: false
+        zoom: 16, clickableIcons: false
     };
     var map = new google.maps.Map(document.getElementById("googleMapPopUp"), mapProp);
     var infowindow = new google.maps.InfoWindow();
@@ -69,12 +69,7 @@ function popupMapS(data) {
         const marker = new google.maps.Marker({
             position: latlng,
             map: map,
-            icon: isWindow ? {
-                path: "M0,0",
-                anchor: new google.maps.Point(0, 0),
-                strokeWeight: 0,
-                scale: 1
-            } : null,
+            icon: iconMap,
             title: '',
             zIndex: Math.round(latlng.lat() * -100000) << 5
         });
@@ -125,7 +120,7 @@ function popupMapS(data) {
             display.setDirections(result);
             //hien chi duong, thu nho ban do
         }).catch((e) => {
-            alert("Could not display directions due to: " + e);
+            alert("Could not display directions from this start point and end point");
         });
     }
 

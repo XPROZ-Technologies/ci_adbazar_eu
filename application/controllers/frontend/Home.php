@@ -128,6 +128,14 @@ class Home extends MY_Controller {
                 $listProfiles[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfiles[$i]['id'], $service_type_name);
                 $listProfiles[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfiles[$i]['id']);
                 $listProfiles[$i]['rating'] = $this->getBusinessRating($listProfiles[$i]['id']);
+                $locationInfo = $this->Mbusinessprofiles->getBusinessInLocation($listProfiles[$i]['id']);
+                if(!empty($locationInfo)){
+                    $listProfiles[$i]['locationInfo'] = array(
+                        'lat' => $locationInfo['lat'],
+                        'lng' => $locationInfo['lng'],
+                        'name' => $locationInfo['location_name']
+                    );
+                }
             }
             $pageCount = ceil($rowCount / $perPage);
 

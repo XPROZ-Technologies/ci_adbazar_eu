@@ -81,7 +81,13 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                         </div>
                         <span class="star-rating-number">(${rating.sumReview})</span>`;
                     }
-
+                    var locationBusiness = "";
+                    if(typeof item.locationInfo !== 'undefined'){
+                        locationBusiness = `<a onclick="popupMapShow('popup-map-content-${i}','${item.business_name}',${item.locationInfo.lat},${item.locationInfo.lng})">
+                            <img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image">
+                        </a>`;
+                    }
+                    
 
                     html +=
                     `<div class="card rounded-0 customer-location-item mb-2">
@@ -113,10 +119,13 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                                                         </div>
                                                         <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                                         ${isOpen}
-                                                        <div style="display: none;" id="popup-map-content-1-0">
+                                                        <div style="display: none;" >
                                                             <div class="panel-map-item">
-                                                                <img src="map.png" style="width: 357px;height: 93px;margin-left: -5px;margin-top: -4px;">
-                                                             </div>
+                                                                <img src="${iconMap}" style="width: 357px;height: 93px;margin-left: -5px;margin-top: -4px;">
+                                                            </div>
+                                                            <div class="content-location-info">
+                                                                <h6 class="card-title mb-1 page-text-xs text-center"><a target="_blank" href="./${item.business_url}" title="">${item.business_name}</a></h6>
+                                                            </div>
                                                         </div>
                                                         <a>
                                                             <img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image">
@@ -127,9 +136,7 @@ function loadProfile(service_id, search_text_fe, page, per_page, textView) {
                                             </div>
                                          </div>
                                     </div>
-                                    <a onclick="popupMapShow('popup-map-content-${i}','${item.business_name}',50.04693217193328,12.352281584655778)">
-                                        <img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image">
-                                    </a>
+                                    ${locationBusiness}
                                     <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
                                 </div>
                             </div>

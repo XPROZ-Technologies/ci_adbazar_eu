@@ -244,7 +244,9 @@
         </div>
         <div class="row-2">
             <div id="googleMapPopUp" style="width:100%;height:500px;"></div>
-            <div id="panel"></div>
+            <div id="panel">
+              <p style="text-align:center;"> Direction from you point </p>
+            </div>
         </div>
     </div>
 </div>
@@ -257,7 +259,7 @@
             title: name,
             target: {
                 location: {lat: lat, lng: lng},
-                content: document.querySelector(`#${contentId}`).innerHTML
+                content: document.querySelector(`#${contentId} .content-location-info`).innerHTML
             },
         });
     }
