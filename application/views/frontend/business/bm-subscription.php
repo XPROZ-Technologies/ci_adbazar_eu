@@ -84,6 +84,7 @@
                 </div>
                 -->
                 <!-- New Button -->
+                <?php if($businessInfo['business_status_id'] == 2 && !empty($businessInfo['subscription_id']) && $isExpired == 0){ ?>
                 <div class="d-flex justify-content-center reservation-config">
                   <div class="d-flex align-items-center switch-btn">
                     <input id="reservation-config" type="checkbox" class="checkbox" <?php if ($businessInfo['is_annual_payment'] == 1) {
@@ -99,6 +100,7 @@
                     <p class="mb-0 switch-text"><?php echo $this->lang->line('auto_renewal'); ?></p>
                   </div>
                 </div>
+                <?php } ?>
 
                 <div class="text-center actions-btn">
                   <?php if($businessInfo['business_status_id'] == 3){ ?>
