@@ -883,7 +883,7 @@ class Businessprofile extends MY_Controller
         return $pay->links['0']->href;
     }
 
-    public function cancelOrSuspendSubscription($paypalUser)
+    public function cancelSubscription($paypalUser)
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -897,6 +897,69 @@ class Businessprofile extends MY_Controller
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
               "reason": "'.$paypalUser['reasonCancel'].'"
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization: Basic ' . base64_encode(PAYPAL_CLIENT_KEY . ':' . PAYPAL_SEC_KEY),
+                'Prefer: return=representation',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response2 = curl_exec($curl);
+
+        curl_close($curl);
+        $result = json_decode($response2);
+        return $result;
+    }
+
+    public function suspendSubscription($paypalUser)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => PAYPAL_HOST . '/v1/billing/subscriptions/'.$paypalUser['subscriptionId'].'/suspend',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+              "reason": "'.$paypalUser['reasonSuspend'].'"
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization: Basic ' . base64_encode(PAYPAL_CLIENT_KEY . ':' . PAYPAL_SEC_KEY),
+                'Prefer: return=representation',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response2 = curl_exec($curl);
+
+        curl_close($curl);
+        $result = json_decode($response2);
+        return $result;
+    }
+
+    /**
+     * After suspended
+     */
+    public function activeSubscription($paypalUser)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => PAYPAL_HOST . '/v1/billing/subscriptions/'.$paypalUser['subscriptionId'].'/activate',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+              "reason": "'.$paypalUser['reasonActive'].'"
             }',
             CURLOPT_HTTPHEADER => array(
                 'Accept: application/json',
@@ -1200,12 +1263,62 @@ class Businessprofile extends MY_Controller
                 
                 $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription_id'], 'customer_id' => $postData['customer_id']), 'id', 0);
                 if($businessId > 0){
-                    $result = $this->cancelOrSuspendSubscription(array('subscriptionId' => $postData['business_id'], 'reasonCancel' => 'Cancel subscription'));
+                    $result = $this->cancelSubscription(array('subscriptionId' => $postData['business_id'], 'reasonCancel' => 'Cancel subscription'));
                     
                     //remove subscription_id in business
-                    $businessId = $this->Mbusinessprofiles->save(array('subscription_id' => ''), $businessId);
+                    $businessId = $this->Mbusinessprofiles->save(array('subscription_id' => '', 'token' => '', 'ba_token' => '', 'token_draft' => ''), $businessId);
                     
                     echo json_encode(array('code' => 1, 'message' => 'Cancel subscription sucessfully', 'data' => $result));die;
+                }else{
+                    echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
+                }
+            } else {
+                echo json_encode(array('code' => -1, 'message' => 'You do not have permission to view this page'));die;
+            } 
+        } catch (\Throwable $th) {
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
+        }
+    }
+
+    public function suspendBusinessSubscription() {
+        try {
+            $postData = $this->arrayFromPost(array('business_id', 'subscription_id', 'customer_id'));
+            if (!empty($postData['business_id'])  && !empty($postData['subscription_id'])  && !empty($postData['customer_id'])) {
+                $this->loadModel(array('Mbusinessprofiles'));
+                
+                $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription_id'], 'customer_id' => $postData['customer_id']), 'id', 0);
+                if($businessId > 0){
+                    $result = $this->suspendSubscription(array('subscriptionId' => $postData['business_id'], 'reasonSuspend' => 'Suspend subscription'));
+                    
+                    //update 1: annual/ 0: monthly
+                    $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 0), $businessId);
+                    
+                    echo json_encode(array('code' => 1, 'message' => 'Suspend subscription sucessfully', 'data' => $result));die;
+                }else{
+                    echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
+                }
+            } else {
+                echo json_encode(array('code' => -1, 'message' => 'You do not have permission to view this page'));die;
+            } 
+        } catch (\Throwable $th) {
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
+        }
+    }
+
+    public function activeBusinessSubscription() {
+        try {
+            $postData = $this->arrayFromPost(array('business_id', 'subscription_id', 'customer_id'));
+            if (!empty($postData['business_id'])  && !empty($postData['subscription_id'])  && !empty($postData['customer_id'])) {
+                $this->loadModel(array('Mbusinessprofiles'));
+                
+                $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription_id'], 'customer_id' => $postData['customer_id']), 'id', 0);
+                if($businessId > 0){
+                    $result = $this->activeSubscription(array('subscriptionId' => $postData['business_id'], 'reasonSuspend' => 'Active subscription'));
+                    
+                    //update 1: annual/ 0: monthly
+                    $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessId);
+                    
+                    echo json_encode(array('code' => 1, 'message' => 'Active subscription sucessfully', 'data' => $result));die;
                 }else{
                     echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
                 }

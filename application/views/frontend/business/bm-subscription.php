@@ -146,14 +146,58 @@
             $(".ico-noti-error").removeClass('ico-hidden');
             $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
-          //redirect(true);
+          redirect(true);
         },
         error: function(data) {
           $(".notiPopup .text-secondary").html('<?php echo ERROR_COMMON_MESSAGE; ?>');
           $(".ico-noti-error").removeClass('ico-hidden');
           $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
-          //redirect(true);
+          redirect(true);
+        }
+      });
+
+    });
+
+    $("#reservation-config").on('change', function() {
+      var statusReservation = 1
+      var urlPost = '<?php echo base_url('business-profile/suspend-subscription'); ?>';
+      if ($(this).is(":checked")) {
+        statusReservation = 2;
+        var urlPost = '<?php echo base_url('business-profile/active-subscription'); ?>';
+      }
+
+      var business_id = $("#businessId").val();
+      var subscription_id = $("#subscriptionId").val();
+      var customer_id = $("#customerId").val();
+
+      $.ajax({
+        type: 'POST',
+        url: urlPost,
+        data: {
+          business_id: business_id,
+          subscription_id: subscription_id,
+          customer_id: customer_id
+        },
+        dataType: "json",
+        success: function(data) {
+          if (data.code == 1) {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-success").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
+          } else {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
+          }
+          redirect(true);
+        },
+        error: function(data) {
+          $(".notiPopup .text-secondary").html('<?php echo ERROR_COMMON_MESSAGE; ?>');
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
+
+          redirect(true);
         }
       });
 

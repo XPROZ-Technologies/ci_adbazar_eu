@@ -209,6 +209,8 @@ $route['business-profile/update-business'] = 'frontend/businessprofile/updateBus
 $route['business-profile/bm-payment'] = 'frontend/businessprofile/payment';
 $route['business-profile/continue-payment'] = 'frontend/businessprofile/continue_payment';
 $route['business-profile/cancel-subscription'] = 'frontend/businessprofile/cancelBusinessSubscription';
+$route['business-profile/suspend-subscription'] = 'frontend/businessprofile/suspendBusinessSubscription';
+$route['business-profile/active-subscription'] = 'frontend/businessprofile/activeBusinessSubscription';
 
 
 $route['fb-login'] = 'frontend/customer/loginFb';
