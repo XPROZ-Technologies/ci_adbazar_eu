@@ -62,7 +62,7 @@
                 <?php } ?>
                 <?php if($isExpired == 1 && $businessInfo['is_trial'] == 0){ ?>
                   <p class="mb-0 page-text-lg fw-500 text-center text-notice text-danger">
-                    Your free trial has expired.<br>
+                    Your payment has expired.<br>
                     Please make a payment to continue using our service.
                   </p>
                 <?php } ?>
