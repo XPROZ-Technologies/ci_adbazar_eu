@@ -1198,7 +1198,7 @@ class Businessprofile extends MY_Controller
             if (!empty($postData['business_id'])  && !empty($postData['subscription_id'])  && !empty($postData['customer_id'])) {
                 $this->loadModel(array('Mbusinessprofiles'));
                 
-                $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription'], 'customer_id' => $postData['customer_id']), 'id', 0);
+                $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription_id'], 'customer_id' => $postData['customer_id']), 'id', 0);
                 if($businessId > 0){
                     $result = $this->cancelOrSuspendSubscription(array('subscriptionId' => $postData['business_id'], 'reasonCancel' => 'Cancel subscription'));
                     
