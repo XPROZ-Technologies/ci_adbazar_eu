@@ -153,7 +153,7 @@
           $(".ico-noti-error").removeClass('ico-hidden');
           $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
-          redirect(true);
+          //redirect(true);
         }
       });
 
