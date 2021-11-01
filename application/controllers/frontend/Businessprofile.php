@@ -950,7 +950,7 @@ class Businessprofile extends MY_Controller
                 $businessId = $this->Mbusinessprofiles->getFieldValue(array('token_draft' => $token_draft, 'customer_id' => $customerId), 'id', 0);
                 if($businessId > 0) {
                     
-                    $this->Mbusinessprofiles->save($business_data, $businessId);
+                    
                     $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
                     
                     $planId = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'plan_id', 0);
@@ -962,6 +962,7 @@ class Businessprofile extends MY_Controller
                         $date = strtotime("+1 year", strtotime(date('Y-m-d H:i:s')));
                         $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
                     }
+                    $this->Mbusinessprofiles->save($business_data, $businessId);
                     
                     $this->session->set_flashdata('notice_message', "Payment success");
                     $this->session->set_flashdata('notice_type', 'success');

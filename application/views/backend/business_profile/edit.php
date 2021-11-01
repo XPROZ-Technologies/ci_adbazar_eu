@@ -146,7 +146,7 @@
                                 if(!empty($businessInLocation)) {
                                     $locationName = $businessInLocation['location_name'];
                                     $locationId = $businessInLocation['id']; 
-                                    $expiredDate = ddMMyyyy($businessInLocation['expired_date'], 'd/m/Y H:i');
+                                    $expiredDate = ddMMyyyy($profile['expired_date'], 'd/m/Y H:i');
                                     $businessProfileLocationId = $businessInLocation['business_profile_location_id'];
                                 }
                             ?>
@@ -163,8 +163,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label">Expired Date</label>
-                                            <input type="text" name="expired_date" id="expired_date" class="form-control" value="<?php echo $expiredDate ?>">
-                                            <input type="hidden" name="business_profile_location_id" value="<?php echo $businessProfileLocationId ?>">
+                                            <input type="text" name="expired_date" id="expired_date" class="form-control" value="<?php echo $expiredDate; ?>">
+                                            <input type="hidden" name="business_profile_location_id" value="<?php echo $businessProfileLocationId; ?>">
                                         </div>
                                     </div>
                                 </div>
