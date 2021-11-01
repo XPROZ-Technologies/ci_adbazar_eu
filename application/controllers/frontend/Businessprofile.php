@@ -842,6 +842,8 @@ class Businessprofile extends MY_Controller
             redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
         }
 
+        $data['customerInfo'] = $this->Mcustomers->get($data['customer']['id']);
+        
         $data['isTrial'] = $this->Mcustomers->getFieldValue(array('id' => $data['customer']['id']), 'free_trial', 0);
 
         $this->load->view('frontend/business/bm-plan', $data);
