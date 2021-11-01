@@ -112,7 +112,8 @@
                     <input type="hidden" id="customerId" value="<?php echo $customer['id']; ?>" />
                     <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel-subscription"><?php echo $this->lang->line('cancel_subscription'); ?></a>
                   <?php } ?>
-                  <!--<a href="javascript:void(0)" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>-->
+                  <!-- switch plan -->
+                  <a href="javascript:void(0)" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
                 </div>
               </div>
             </div>
