@@ -42,19 +42,19 @@
                                                 <span class="page-text-lg">
                                                     <?php echo $this->lang->line('summay_order_price') ?>
                                                 </span>
-                                            <span class="page-text-lg text-danger price"><?php echo $planPrice ?> CZK</span>
+                                            <span class="page-text-lg text-danger price"><?php echo $planPrice ?> <?php echo $planCurrency; ?></span>
                                         </div>
                                         <div class="d-flex justify-content-between fw-500 summary-bill-item">
                                                 <span class="page-text-lg">
                                                     <?php echo $this->lang->line('summay_order_vat') ?> (<?php echo $planPriceVatPercent ?>%)
                                                 </span>
-                                            <span class="page-text-lg text-danger price"><?php echo $planPriceVat ?> CZK</span>
+                                            <span class="page-text-lg text-danger price"><?php echo $planPriceVat ?> <?php echo $planCurrency; ?></span>
                                         </div>
                                         <div class="d-flex justify-content-between fw-500 summary-bill-item">
                                                 <span class="page-text-lg">
                                                     <?php echo $this->lang->line('summay_order_total') ?>
                                                 </span>
-                                            <span class="page-text-lg text-danger price"><?php echo $planPriceTotal ?> CZK</span>
+                                            <span class="page-text-lg text-danger price"><?php echo $planPriceTotal ?> <?php echo $planCurrency; ?></span>
                                         </div>
                                     </div>
                                 </div>

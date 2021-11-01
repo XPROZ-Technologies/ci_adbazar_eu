@@ -913,10 +913,13 @@ class Businessprofile extends MY_Controller
             $data['plan'] = $this->input->get('plan');
             $data['isTrial'] = $this->input->get('isTrial');
             // Params
-            $data['planPrice'] = 1299;
-            $data['planPriceVat'] = 100;
-            $data['planPriceTotal'] = 1399;
+            $planInfo = $this->Mpaymentplans->get($data['plan']);
+            
+            $data['planPrice'] = $planInfo['plan_amount'];
+            $data['planPriceVat'] = round($planInfo['plan_amount'] * 0.21);
+            $data['planPriceTotal'] = $data['planPrice'] + $data['planPriceVat'];
             $data['planPriceVatPercent'] = 21;
+            $data['planCurrency'] = ($planInfo['plan_amount'] == 1) ? 'CZK' : 'EUR';
 
     //        $data['successUrl'] = base_url('business-profile/bm-paymemt?isResult=true&customerId=xxxx');
     //        $data['cancelUrl'] = base_url('business-profile/bm-paymemt?isResult=false');
@@ -1068,6 +1071,7 @@ class Businessprofile extends MY_Controller
         $data['planPriceVat'] = round($planInfo['plan_amount'] * 0.21);
         $data['planPriceTotal'] = $data['planPrice'] + $data['planPriceVat'];
         $data['planPriceVatPercent'] = 21;
+        $data['planCurrency'] = ($planInfo['plan_amount'] == 1) ? 'CZK' : 'EUR';
 
 
         $data['successUrl'] = 'https://adb-dev.xproz.com/business-profile/continue-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
