@@ -1313,7 +1313,7 @@ class Businessprofile extends MY_Controller
                 
                 $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription_id'], 'customer_id' => $postData['customer_id']), 'id', 0);
                 if($businessId > 0){
-                    $result = $this->activeSubscription(array('subscriptionId' => $postData['business_id'], 'reasonSuspend' => 'Active subscription'));
+                    $result = $this->activeSubscription(array('subscriptionId' => $postData['business_id'], 'reasonActive' => 'Active subscription'));
                     
                     //update 1: annual/ 0: monthly
                     $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessId);
