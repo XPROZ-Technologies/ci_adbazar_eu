@@ -1545,7 +1545,7 @@ class Businessprofile extends MY_Controller
         $businessURL = trim($slug);
         $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomerreviews', 'Mcustomercoupons', 'Mphonecodes', 'Mbusinessprofilelocations', 'Mlocations', 'Mopeninghours'));
 
-        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id >' => 0), 'id', 0);
         if ($businessProfileId == 0) {
             $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');
