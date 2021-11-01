@@ -146,9 +146,9 @@
                                 if(!empty($businessInLocation)) {
                                     $locationName = $businessInLocation['location_name'];
                                     $locationId = $businessInLocation['id']; 
-                                    $expiredDate = ddMMyyyy($profile['expired_date'], 'd/m/Y H:i');
                                     $businessProfileLocationId = $businessInLocation['business_profile_location_id'];
                                 }
+                                $expiredDate = ddMMyyyy($profile['expired_date'], 'd/m/Y H:i');
                             ?>
                             <div class="row">
                                 <div class="col-sm-12">
