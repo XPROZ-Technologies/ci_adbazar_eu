@@ -96,7 +96,8 @@
 <script>
     $('.bm-item-add').click(function() {
         <?php if (!empty($businessProfiles) && count($businessProfiles) > 0) { ?>
-            $("#bmCannotCreateModal").modal('show');
+            //$("#bmCannotCreateModal").modal('show');
+            redirect(false, '<?php echo base_url('business-profile/select-plan'); ?>');
         <?php }else{ ?>
             redirect(false, '<?php echo base_url('business-profile/select-plan'); ?>');
         <?php } ?>

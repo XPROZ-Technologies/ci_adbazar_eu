@@ -816,6 +816,8 @@ class Businessprofile extends MY_Controller
             redirect('business-profile/select-plan');
         }
 
+        $data['customerInfo'] = $this->Mcustomers->get($data['customer']['id']);
+
         $data['businessProfiles'] = $this->Mbusinessprofiles->search(array('customer_id' => $data['customer']['id']));
 
         $this->load->view('frontend/business/bm-list', $data);
@@ -914,7 +916,7 @@ class Businessprofile extends MY_Controller
             $data['isTrial'] = $this->input->get('isTrial');
             // Params
             $planInfo = $this->Mpaymentplans->get($data['plan']);
-            
+
             $data['planPrice'] = $planInfo['plan_amount'];
             $data['planPriceVat'] = round($planInfo['plan_amount'] * 0.21);
             $data['planPriceTotal'] = $data['planPrice'] + $data['planPriceVat'];

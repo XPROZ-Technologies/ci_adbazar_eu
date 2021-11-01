@@ -11,7 +11,9 @@
             <p class="mb-0 text-secondary fw-500 page-title-xs"><?php echo $this->lang->line('secured_payment_through_paypal'); ?></p>
             <img src="assets/img/frontend/bm-paypal.png" alt="paypal image" class="img-fluid">
           </div>
+          <?php if($customerInfo['free_trial'] == 0){ ?>
           <p class="page-title-sm fw-bold text-center text-primary mb-0"><?php echo $this->lang->line('3-month_free_trial_is_availabl'); ?></p>
+          <?php  } ?>
           <!-- Change currency -->
           <div class="d-flex align-items-center justify-content-center currency-wrap">
             <span class="fw-500"><?php echo $this->lang->line('currency'); ?></span>
@@ -116,18 +118,25 @@
               <div class="d-flex justify-content-end">
                 <div class="d-flex flex-column align-items-end">
                     <div class="d-flex align-items-center">
-                        <?php if($isTrial == 0){ ?>
+                        <?php if($customerInfo['free_trial'] == 0){ ?>
                           <a data-isTrial="1" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-select-plan"><?php echo $this->lang->line('start_3-month_free_trial'); ?></a>
                         <?php } ?>
                         <!-- <a data-isTrial="true"  class="btn btn-outline-red btn-outline-red-md btn-no-trail btn-select-plan">
                           <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
                         </a> -->
                         <!--<a data-isTrial="true" href="<?php echo base_url('business-profile/create-new-business?plan=1&isTrial=true&tokenDraft='.uniqid(strtotime(date('Ymd H:i:s')))); ?>" class="btn btn-outline-red btn-outline-red-md btn-no-trail">-->
-                        <a data-isTrial="0" href="javascript:void(0);" class="btn btn-outline-red btn-outline-red-md btn-no-trail">
-                          <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
-                        </a>
+                        <?php if($customerInfo['free_trial'] == 0){ ?>
+                          <a data-isTrial="0" href="javascript:void(0);" class="btn btn-outline-red btn-outline-red-md btn-no-trail">
+                            <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
+                          </a>
+                        <?php }else{ ?>
+                          <a data-isTrial="0" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-no-trail">Proceed to checkout</a>
+                          <a href="<?php echo base_url('my-business-profile'); ?>" class="btn btn-outline-red btn-outline-red-md">
+                            Cancel
+                          </a>
+                        <?php } ?>
                     </div>
-                    <?php if($isTrial == 0){ ?>
+                    <?php if($customerInfo['free_trial'] == 0){ ?>
                       <p class="text-danger text-center page-text-sm align-items-center fw-500"> You won’t be charged anything until your free trial ends. </p>
                     <?php } ?>
                 </div>

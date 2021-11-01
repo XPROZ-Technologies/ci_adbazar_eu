@@ -30,7 +30,7 @@
                                                             class="plan-input-radio" checked />
                                                         <span class="checkmark"></span>
                                                     </div> -->
-                        <span class="text-header fw-bold"><?php echo $this->lang->line('monthly_payment'); ?></span>
+                        <span class="text-header fw-bold"><?php if($planInfo['plan_type_id'] == 1){ echo $this->lang->line('monthly_payment'); }else{ echo $this->lang->line('annual_payment'); } ?></span>
                       </div>
 
                       <div class="card-body plan-card fw-500">
@@ -104,7 +104,7 @@
                   <?php if($businessInfo['business_status_id'] == 2 && !empty($businessInfo['subscription_id'])){ ?>
                     <a href="javascript:void(0)" class="btn btn-outline-red"><?php echo $this->lang->line('cancel_subscription'); ?></a>
                   <?php } ?>
-                  <a href="javascript:void(0)" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
+                  <!--<a href="javascript:void(0)" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>-->
                 </div>
               </div>
             </div>
