@@ -1029,7 +1029,7 @@ class Businessprofile extends MY_Controller
             $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
             $paypalUser = array();
             // id plan user select
-            $paypalUser['paypalPlanId'] = 'P-8W427715W9673794DMF52NIQ';
+            $paypalUser['paypalPlanId'] = 'P-8L942028P24070304MGAB6XY';
             if(!empty($data['plan'])){
                 $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
                 if(!empty($paypalPlanId)) {
@@ -1173,7 +1173,7 @@ class Businessprofile extends MY_Controller
         $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
         $paypalUser = array();
         // id plan user select
-        $paypalUser['paypalPlanId'] = 'P-8W427715W9673794DMF52NIQ';
+        $paypalUser['paypalPlanId'] = 'P-8L942028P24070304MGAB6XY';
         if(!empty($data['plan'])){
             $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
             if(!empty($paypalPlanId)) {
@@ -1190,6 +1190,31 @@ class Businessprofile extends MY_Controller
          */
 
         $this->load->view('frontend/business/bm-continue-payment', $data);
+    }
+
+    public function cancelBusinessSubscription() {
+        try {
+            $postData = $this->arrayFromPost(array('business_id', 'subscription_id', 'customer_id'));
+            if (!empty($postData['business_id'])  && !empty($postData['subscription_id'])  && !empty($postData['customer_id'])) {
+                $this->loadModel(array('Mbusinessprofiles'));
+                
+                $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription'], 'customer_id' => $postData['customer_id']), 'id', 0);
+                if($businessId > 0){
+                    $result = $this->cancelOrSuspendSubscription(array('subscriptionId' => $postData['business_id'], 'reasonCancel' => 'Cancel subscription'));
+                    
+                    //remove subscription_id in business
+                    $businessId = $this->Mbusinessprofiles->save(array('subscription_id' => ''), $businessId);
+                    
+                    echo json_encode(array('code' => 1, 'message' => 'Cancel subscription sucessfully', 'data' => $result));die;
+                }else{
+                    echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
+                }
+            } else {
+                echo json_encode(array('code' => -1, 'message' => 'You do not have permission to view this page'));die;
+            } 
+        } catch (\Throwable $th) {
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
+        }
     }
 
     public function submitSelectPlan()

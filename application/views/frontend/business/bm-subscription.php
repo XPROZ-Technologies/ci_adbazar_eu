@@ -79,7 +79,7 @@
                   <p class="mb-0 switch-text"><?php echo $this->lang->line('auto_renewal'); ?></p>
                 </div>
                 -->
-                <!-- New Button
+                <!-- New Button -->
                 <div class="d-flex justify-content-center reservation-config">
                   <div class="d-flex align-items-center switch-btn">
                     <input id="reservation-config" type="checkbox" class="checkbox" <?php if ($businessInfo['is_annual_payment'] == 1) {
@@ -95,14 +95,16 @@
                     <p class="mb-0 switch-text"><?php echo $this->lang->line('auto_renewal'); ?></p>
                   </div>
                 </div>
-                -->
 
                 <div class="text-center actions-btn">
                   <?php if($businessInfo['business_status_id'] == 3){ ?>
                     <a href="<?php echo base_url('business-profile/continue-payment?plan='.$businessInfo['plan_id'].'&businessId='.$businessInfo['id']); ?>" class="btn btn-red"><?php echo $this->lang->line('make_a_payment'); ?></a>
                   <?php } ?>
                   <?php if($businessInfo['business_status_id'] == 2 && !empty($businessInfo['subscription_id'])){ ?>
-                    <a href="javascript:void(0)" class="btn btn-outline-red"><?php echo $this->lang->line('cancel_subscription'); ?></a>
+                    <input type="hidden" id="subscriptionId" value="<?php echo $businessInfo['subscription_id']; ?>" />
+                    <input type="hidden" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
+                    <input type="hidden" id="customerId" value="<?php echo $customer['id']; ?>" />
+                    <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel-subscription"><?php echo $this->lang->line('cancel_subscription'); ?></a>
                   <?php } ?>
                   <!--<a href="javascript:void(0)" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>-->
                 </div>
@@ -115,3 +117,41 @@
   </div>
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
+<script>
+  $('.btn-cancel-subscription').click(function(e) {
+      var business_id = $("#businessId").val();
+      var subscription_id = $("#subscriptionId").val();
+      var customer_id = $("#customerId").val();
+
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('business-profile/cancel-subscription'); ?>',
+        data: {
+          business_id: business_id,
+          subscription_id: subscription_id,
+          customer_id: customer_id
+        },
+        dataType: "json",
+        success: function(data) {
+          if (data.code == 1) {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-success").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
+          } else {
+            $(".notiPopup .text-secondary").html(data.message);
+            $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
+          }
+          //redirect(true);
+        },
+        error: function(data) {
+          $(".notiPopup .text-secondary").html('<?php echo ERROR_COMMON_MESSAGE; ?>');
+          $(".ico-noti-error").removeClass('ico-hidden');
+          $(".notiPopup").fadeIn('slow').fadeOut(5000);
+
+          redirect(true);
+        }
+      });
+
+    });
+</script>
