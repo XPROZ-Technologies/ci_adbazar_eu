@@ -93,6 +93,21 @@ class Mconstants extends CI_Model {
         2 => 'Highlights' // nổi bật
     );
 
+    public $planTypeIds = array(
+        1 => 'Month',
+        2 => 'Year'
+    );
+
+    public $planCurrencyIds = array(
+        1 => 'CZK',
+        2 => 'EUR'
+    );
+
+    public $paymentGatewayIds = array(
+        1 => 'Paypal',
+        2 => '....'
+    );
+
     public $labelCss = array(
         0 => 'label label-default',
         1 => 'label label-default',
