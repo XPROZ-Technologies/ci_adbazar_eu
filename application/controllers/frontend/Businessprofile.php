@@ -897,8 +897,10 @@ class Businessprofile extends MY_Controller
             if(count($businessProfiles) > 0) {
                 $businessProfile = $businessProfiles[0];
             } else {
-                // xử lý khi dữ liệu không đúng
-                var_dump("Failed 2");die;
+                $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url(HOME_URL));
+                return;
             }
 
             /**
@@ -918,7 +920,7 @@ class Businessprofile extends MY_Controller
     //        $data['cancelUrl'] = base_url('business-profile/bm-paymemt?isResult=false');
             // For test https require ex url
             $data['successUrl'] = 'https://adb-dev.xproz.com/business-profile/bm-payment?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
-            $data['cancelUrl'] = 'https://adb-dev.xproz.com/business-profile/bm-payment?isResult=false';
+            $data['cancelUrl'] = 'https://adb-dev.xproz.com/business-profile/bm-payment?isResult=false&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
             /// =======> url response success: https://adb.xproz.com/business-profile/bm-paymemt?customerId=xxxx&subscription_id=I-XX3HLUWB7A6N&ba_token=BA-05T51831YS465512K&token=63D00859N0649705L
             if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
                 // Response with pay success
@@ -930,9 +932,6 @@ class Businessprofile extends MY_Controller
                 // Can recheck sub here or not, save success to db
                 
                 //$this->Mbusinessprofiles->save(array('expired_date' => $expiredDate), $businessProfile['id']);
-
-
-
                 $returnData = array(
                     'customerId' => $customerId,
                     'subscription_id' => $subscription_id,
@@ -963,7 +962,7 @@ class Businessprofile extends MY_Controller
                         $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
                     }
                     $this->Mbusinessprofiles->save($business_data, $businessId);
-                    
+
                     $this->session->set_flashdata('notice_message', "Payment success");
                     $this->session->set_flashdata('notice_type', 'success');
                     redirect(base_url('business-management/'.$businessUrl.'/about-us'));
@@ -975,9 +974,21 @@ class Businessprofile extends MY_Controller
                     return;
                 }
             } else if ($this->input->get('isResult') == 'false') {
-                // response pay cancel or err, any link
-                redirect(base_url('login.html?requiredLogin=1&redirectUrl='));
-                return;
+                // Failed or cancel payment
+                $customerId = $this->input->get('customerId');
+                $subscription_id = $this->input->get('subscription_id');
+                $ba_token = $this->input->get('ba_token');
+                $token = $this->input->get('token');
+                $token_draft = $this->input->get('tokenDraft');
+                
+                $businessId = $this->Mbusinessprofiles->getFieldValue(array('token_draft' => $token_draft, 'customer_id' => $customerId), 'id', 0);
+                if($businessId > 0) {
+                    $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
+                    // response pay cancel or err, any link
+                    redirect(base_url('business-management/'.$businessUrl.'/asubscriptions'));
+                    return;
+                }
+                
             }
             $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
             $paypalUser = array();
@@ -2322,7 +2333,7 @@ class Businessprofile extends MY_Controller
 
         $businessURL = trim($slug);
 
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents', 'Mcustomers'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents', 'Mcustomers', 'Mpaymentplans'));
 
         $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
         if ($businessProfileId == 0) {
