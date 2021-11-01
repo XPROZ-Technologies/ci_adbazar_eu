@@ -65,6 +65,10 @@
                     Your payment has expired.<br>
                     Please make a payment to continue using our service.
                   </p>
+                <?php }else if($isExpired == 0){ ?>
+                  <p class="mb-0 page-text-lg fw-500 text-center text-notice text-danger">
+                    <?php echo dateDifference(date('Y-m-d'), ddMMyyyy($businessInfo['expired_date'], 'Y-m-d')); ?> days left till your next payment term.
+                  </p>
                 <?php } ?>
                 <!--
                 <div class="d-flex align-items-center justify-content-center switch-btn disabled">
@@ -100,7 +104,7 @@
                   <?php if($businessInfo['business_status_id'] == 3){ ?>
                     <a href="<?php echo base_url('business-profile/continue-payment?plan='.$businessInfo['plan_id'].'&businessId='.$businessInfo['id']); ?>" class="btn btn-red"><?php echo $this->lang->line('make_a_payment'); ?></a>
                   <?php } ?>
-                  <?php if($businessInfo['business_status_id'] == 2 && !empty($businessInfo['subscription_id'])){ ?>
+                  <?php if($businessInfo['business_status_id'] == 2 && !empty($businessInfo['subscription_id']) && $isExpired == 0){ ?>
                     <input type="hidden" id="subscriptionId" value="<?php echo $businessInfo['subscription_id']; ?>" />
                     <input type="hidden" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
                     <input type="hidden" id="customerId" value="<?php echo $customer['id']; ?>" />
