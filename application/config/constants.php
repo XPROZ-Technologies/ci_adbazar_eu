@@ -132,3 +132,8 @@ define('ZOOM_MAP_ADMIN', 17);
 //email default
 define('EMAIL_FROM', 'server@adbazar.eu');
 define('EMAIL_FROM_NAME', 'AdBazar.eu');
+
+//paypal
+define('PAYPAL_CLIENT_KEY', 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX');
+define('PAYPAL_SEC_KEY', 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3');
+define('PAYPAL_HOST', 'https://api-m.sandbox.paypal.com');

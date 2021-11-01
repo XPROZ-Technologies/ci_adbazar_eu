@@ -853,7 +853,7 @@ class Businessprofile extends MY_Controller
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $paypalUser['host'] . '/v1/billing/subscriptions',
+            CURLOPT_URL => PAYPAL_HOST . '/v1/billing/subscriptions',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -870,7 +870,7 @@ class Businessprofile extends MY_Controller
             }',
             CURLOPT_HTTPHEADER => array(
                 'Accept: application/json',
-                'Authorization: Basic ' . base64_encode($paypalUser['username'] . ':' . $paypalUser['password']),
+                'Authorization: Basic ' . base64_encode(PAYPAL_CLIENT_KEY . ':' . PAYPAL_SEC_KEY),
                 'Prefer: return=representation',
                 'Content-Type: application/json'
             ),
@@ -881,6 +881,36 @@ class Businessprofile extends MY_Controller
         curl_close($curl);
         $pay = json_decode($response2);
         return $pay->links['0']->href;
+    }
+
+    public function cancelOrSuspendSubscription($paypalUser)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => PAYPAL_HOST . '/v1/billing/subscriptions/'.$paypalUser['subscriptionId'].'/cancel',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+              "reason": "'.$paypalUser['reasonCancel'].'"
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization: Basic ' . base64_encode(PAYPAL_CLIENT_KEY . ':' . PAYPAL_SEC_KEY),
+                'Prefer: return=representation',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response2 = curl_exec($curl);
+
+        curl_close($curl);
+        $result = json_decode($response2);
+        return $result;
     }
 
     public function payment()
@@ -925,12 +955,9 @@ class Businessprofile extends MY_Controller
             $data['planPriceVatPercent'] = 21;
             $data['planCurrency'] = ($planInfo['plan_amount'] == 1) ? 'CZK' : 'EUR';
 
-    //        $data['successUrl'] = base_url('business-profile/bm-paymemt?isResult=true&customerId=xxxx');
-    //        $data['cancelUrl'] = base_url('business-profile/bm-paymemt?isResult=false');
-            // For test https require ex url
             $data['successUrl'] = 'https://adb-dev.xproz.com/business-profile/bm-payment?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
             $data['cancelUrl'] = 'https://adb-dev.xproz.com/business-profile/bm-payment?isResult=false&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
-            /// =======> url response success: https://adb.xproz.com/business-profile/bm-paymemt?customerId=xxxx&subscription_id=I-XX3HLUWB7A6N&ba_token=BA-05T51831YS465512K&token=63D00859N0649705L
+            
             if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
                 // Response with pay success
                 $customerId = $this->input->get('customerId');
@@ -1001,7 +1028,6 @@ class Businessprofile extends MY_Controller
             }
             $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
             $paypalUser = array();
-            $paypalUser['paypalClientKey'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
             // id plan user select
             $paypalUser['paypalPlanId'] = 'P-8W427715W9673794DMF52NIQ';
             if(!empty($data['plan'])){
@@ -1011,9 +1037,6 @@ class Businessprofile extends MY_Controller
                 }
             }
             // auth paypal business
-            $paypalUser['username'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
-            $paypalUser['password'] = 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3';
-            $paypalUser['host'] = 'https://api-m.sandbox.paypal.com';
             $paypalUser['successUrl'] = $data['successUrl'];
             $paypalUser['cancelUrl'] = $data['cancelUrl'];
             //paypal product id: PROD-4NX43137GP917693J
@@ -1149,7 +1172,6 @@ class Businessprofile extends MY_Controller
         }
         $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
         $paypalUser = array();
-        $paypalUser['paypalClientKey'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
         // id plan user select
         $paypalUser['paypalPlanId'] = 'P-8W427715W9673794DMF52NIQ';
         if(!empty($data['plan'])){
@@ -1159,9 +1181,6 @@ class Businessprofile extends MY_Controller
             }
         }
         // auth paypal business
-        $paypalUser['username'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
-        $paypalUser['password'] = 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3';
-        $paypalUser['host'] = 'https://api-m.sandbox.paypal.com';
         $paypalUser['successUrl'] = $data['successUrl'];
         $paypalUser['cancelUrl'] = $data['cancelUrl'];
         //paypal product id: PROD-4NX43137GP917693J
