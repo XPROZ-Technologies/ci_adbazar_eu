@@ -218,9 +218,11 @@
                 <?php if (isset($customer['language_id']) && ($customer['language_id'] == 3)) { ?><img src="assets/img/frontend/ger.png" alt="Germany" class="img-fluid"><?php } ?>
                 <?php if (isset($customer['language_id']) && ($customer['language_id'] == 4)) { ?><img src="assets/img/frontend/vn.png" alt="Việt Nam" class="img-fluid"><?php } ?>
               </a>
-              <?php echo form_open('change-customer-language', array('id' => 'languageForm')); ?>
+              <?php echo form_open('change-customer-language', array('id' => 'languageForm')); 
+                $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI'];
+              ?>
               <input type="hidden" name="language_id" id="selected_lang" value="<?php echo $this->Mconstants->languageDefault; ?>" />
-              <input type="hidden" name="UrlOld" value="<?php echo $this->uri->uri_string(); ?>" />
+              <input type="hidden" name="UrlOld" value="<?php echo $link; ?>" />
               <?php echo form_close(); ?>
               <ul class="dropdown-menu js-list-language" aria-labelledby="languageDropdown">
                 <li class="change-language-menu <?php echo $customer['language_id'] == 1 ? 'selected' : ''; ?>" data-language-id="1"><a class="dropdown-item change-customer-language" href="javascript:void(0)" value="en" data-language-id="1"><img src="assets/img/frontend/en.png" alt="english flag" class="img-fluid me-2"><?php echo $this->lang->line('english'); ?></a></li>
