@@ -69,16 +69,6 @@
                                 <a href="<?php echo $cancelUrl ?>"
                                    class="btn btn-outline-red"><?php echo $this->lang->line('cancel'); ?></a>
                             </div>
-
-<!--                            <div class="d-flex justify-content-center actions-btn">-->
-<!--                                <div class="paypal-button-wrap">-->
-<!--                                    <div id="paypal-button-container"></div>-->
-<!--                                    <a id="paypal-button-view" href="--><?php //echo $payurl ?><!--"-->
-<!--                                       class="btn btn-red">...</a>-->
-<!--                                </div>-->
-<!--                                <a href="--><?php //echo $cancelUrl ?><!--"-->
-<!--                                   class="btn btn-outline-red">--><?php //echo $this->lang->line('cancel'); ?><!--</a>-->
-<!--                            </div>-->
                         </form>
                     </div>
                 </div>
@@ -88,32 +78,3 @@
     </div>
 </main>
 <?php $this->load->view('frontend/includes/footer'); ?>
-<!--Option 2 use JS-->
-<!--<script src="https://www.paypal.com/sdk/js?client-id=--><?php //echo $paypalClientKey ?><!--&vault=true&intent=subscription"></script>-->
-<!--<script>-->
-<!--    paypal.Buttons({-->
-<!--        style: {-->
-<!--            layout: 'horizontal',-->
-<!--            size: 'small',-->
-<!--            color: 'gold',-->
-<!--            label: 'pay',-->
-<!--            height: 40,-->
-<!--            tagline: 'false',-->
-<!--        },-->
-<!--        createSubscription: function (data, actions) {-->
-<!--            return actions.subscription.create({-->
-<!--                'plan_id': '--><?php // echo $paypalPlanId ?><!--'-->
-<!--//            });-->
-<!--//        },-->
-<!--//        onApprove: function (data, actions) {-->
-<!--//            console.log(data);-->
-<!--//            //alert('You have successfully created subscription ' + data.subscriptionID); // Optional message given to subscriber-->
-<!--//        },-->
-<!--//        onError: function (err) {-->
-<!--//            document.querySelector('.paypal-button-wrap').remove();-->
-<!--//        },-->
-<!--//        onInit: function (data, actions) {-->
-<!--//            document.querySelector('#paypal-button-view').innerHTML = "--><?php ////echo $this->lang->line('checkout_paypal'); ?><!--//";-->
-<!--//        },-->
-<!--//    }).render('#paypal-button-container'); // Renders the PayPal button-->
-<!--//</script>-->

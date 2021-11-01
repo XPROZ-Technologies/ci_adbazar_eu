@@ -884,8 +884,10 @@ class Businessprofile extends MY_Controller
        
         $customer = $this->checkLoginCustomer();
         if(!$this->input->get('tokenDraft') && empty($this->input->get('tokenDraft'))) {
-            // xử lý khi có lỗi tokenDraft bị rỗng
-            var_dump("Failed 1");die;
+            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+            return;
         } else {
             $tokenDraft = $this->input->get('tokenDraft');
         
