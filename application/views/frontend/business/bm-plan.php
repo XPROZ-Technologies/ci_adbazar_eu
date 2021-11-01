@@ -59,7 +59,7 @@
                       </ul>
                       <div class="page-text-lg description">
                         <div class="wrapper-text">
-                          <p class="mb-1 text-bill text-primary">Monthly anually
+                          <p class="mb-1 text-bill text-primary"><?php echo $this->lang->line('billed_monthly'); ?>
                           </p>
                           <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of'); ?> <span class="main_price">1299 CZK</span>
                           </p>
@@ -96,7 +96,7 @@
                       </ul>
                       <div class="page-text-lg description">
                         <div class="wrapper-text">
-                          <p class="mb-1 text-bill text-primary">Billed anually
+                          <p class="mb-1 text-bill text-primary"><?php echo $this->lang->line('billed_anually'); ?>
                           </p>
                           <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of'); ?> <span class="main_price_annual">1099 CZK</span>
                           </p>
@@ -130,14 +130,14 @@
                             <?php echo $this->lang->line('no_i_don’t_need_a_free_trial'); ?>
                           </a>
                         <?php }else{ ?>
-                          <a data-isTrial="0" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-no-trail">Proceed to checkout</a>
+                          <a data-isTrial="0" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-no-trail"><?php echo $this->lang->line('proceed_to_checkout'); ?></a>
                           <a href="<?php echo base_url('my-business-profile'); ?>" class="btn btn-outline-red btn-outline-red-md">
                             Cancel
                           </a>
                         <?php } ?>
                     </div>
                     <?php if($customerInfo['free_trial'] == 0){ ?>
-                      <p class="text-danger text-center page-text-sm align-items-center fw-500"> You won’t be charged anything until your free trial ends. </p>
+                      <p class="text-danger text-center page-text-sm align-items-center fw-500"><?php echo $this->lang->line('you_will_not_be_charged_anythi'); ?> </p>
                     <?php } ?>
                 </div>
               </div>
