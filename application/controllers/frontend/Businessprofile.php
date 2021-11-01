@@ -1026,6 +1026,145 @@ class Businessprofile extends MY_Controller
         
     }
 
+    public function continue_payment()
+    {
+       
+        $customer = $this->checkLoginCustomer();
+        
+        $business_id = $this->input->get('businessId');
+    
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans'));
+
+        $businessProfiles = $this->Mbusinessprofiles->getBy(array('customer_id' => $customer['id'], 'id' => $business_id));
+
+        $businessProfile = [];
+        if(count($businessProfiles) > 0) {
+            $businessProfile = $businessProfiles[0];
+        } else {
+            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+            return;
+        }
+
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer("Continue Payment");
+
+
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html'));
+        }
+
+        $data['activeMenu'] = "";
+        $data['plan'] = $this->input->get('plan');
+
+        $planInfo = $this->Mpaymentplans->get($data['plan']);
+        // Params
+        $data['planPrice'] = $planInfo['plan_amount'];
+        $data['planPriceVat'] = round($planInfo['plan_amount'] * 0.21);
+        $data['planPriceTotal'] = $data['planPrice'] + $data['planPriceVat'];
+        $data['planPriceVatPercent'] = 21;
+
+
+        $data['successUrl'] = 'https://adb-dev.xproz.com/business-profile/continue-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        $data['cancelUrl'] = 'https://adb-dev.xproz.com/business-profile/continue-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        
+        if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
+            // Response with pay success
+            $customerId = $this->input->get('customerId');
+            $subscription_id = $this->input->get('subscription_id');
+            $ba_token = $this->input->get('ba_token');
+            $token = $this->input->get('token');
+            $business_id = $this->input->get('businessId');
+            // Can recheck sub here or not, save success to db
+            
+            //$this->Mbusinessprofiles->save(array('expired_date' => $expiredDate), $businessProfile['id']);
+            $returnData = array(
+                'customerId' => $customerId,
+                'subscription_id' => $subscription_id,
+                'ba_token' => $ba_token,
+                'token' => $token
+            );
+
+            $business_data = array(
+                'subscription_id' => $subscription_id,
+                'ba_token' => $ba_token,
+                'token' => $token,
+                'business_status_id' => STATUS_ACTIVED
+            );
+
+            $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $business_id, 'customer_id' => $customerId), 'id', 0);
+            if($businessId > 0) {
+                $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
+                
+                $planId = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'plan_id', 0);
+
+                if(in_array($planId, array(1,3))) {
+                    $date = strtotime("+30 day", strtotime(date('Y-m-d H:i:s')));
+                    $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
+                }else if(in_array($planId, array(2,4))) {
+                    $date = strtotime("+1 year", strtotime(date('Y-m-d H:i:s')));
+                    $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
+                }
+                $this->Mbusinessprofiles->save($business_data, $businessId);
+
+                $this->session->set_flashdata('notice_message', "Payment success");
+                $this->session->set_flashdata('notice_type', 'success');
+                redirect(base_url('business-management/'.$businessUrl.'/about-us'));
+                return;
+            }else{
+                $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url(HOME_URL));
+                return;
+            }
+        } else if ($this->input->get('isResult') == 'false') {
+            // Failed or cancel payment
+            $customerId = $this->input->get('customerId');
+            $subscription_id = $this->input->get('subscription_id');
+            $ba_token = $this->input->get('ba_token');
+            $token = $this->input->get('token');
+            $business_id = $this->input->get('businessId');
+            
+            $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $business_id, 'customer_id' => $customerId), 'id', 0);
+            if($businessId > 0) {
+                $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
+                // response pay cancel or err, any link
+                redirect(base_url('business-management/'.$businessUrl.'/subscriptions'));
+                return;
+            }
+            
+        }
+        $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
+        $paypalUser = array();
+        $paypalUser['paypalClientKey'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
+        // id plan user select
+        $paypalUser['paypalPlanId'] = 'P-8W427715W9673794DMF52NIQ';
+        if(!empty($data['plan'])){
+            $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
+            if(!empty($paypalPlanId)) {
+                $paypalUser['paypalPlanId'] = $paypalPlanId;
+            }
+        }
+        // auth paypal business
+        $paypalUser['username'] = 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX';
+        $paypalUser['password'] = 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3';
+        $paypalUser['host'] = 'https://api-m.sandbox.paypal.com';
+        $paypalUser['successUrl'] = $data['successUrl'];
+        $paypalUser['cancelUrl'] = $data['cancelUrl'];
+        //paypal product id: PROD-4NX43137GP917693J
+        $data['payurl'] = $this->getPaymentLink($paypalUser);
+        /**
+         * Commons data
+         */
+
+        $this->load->view('frontend/business/bm-continue-payment', $data);
+    }
+
     public function submitSelectPlan()
     {
         try {
@@ -1239,10 +1378,10 @@ class Businessprofile extends MY_Controller
                 
                 $postData['business_status_id'] = 3; //waiting payment
                 $postData['customer_id'] = $data['customer']['id'];
+                $postData['is_annual_payment'] = 1;
                 if($businessProfileId > 0) {
                     $postData['updated_at'] = getCurentDateTime();
                     $postData['updated_by'] = 0; //customer udpate business
-                    $postData['is_annual_payment'] = 1;
                 } else {
                     $postData['created_at'] = getCurentDateTime();
                     $postData['created_by'] = 0; //customer create business
@@ -1254,8 +1393,10 @@ class Businessprofile extends MY_Controller
                 $open_hours = $this->input->post('open_hours');
                 $arrayValues = $this->arrayFromPost(array('plan', 'isTrial'));
                 $plan = $arrayValues['plan'];
-                //insert plan
+
+                //insert plan_id & is_trial
                 $postData['plan_id'] = $plan;
+                $postData['is_trial'] = $arrayValues['isTrial'];
 
                 $isTrial = $arrayValues['isTrial'];
 
@@ -2337,7 +2478,7 @@ class Businessprofile extends MY_Controller
 
         $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mservicetypes', 'Mbusinessprofiles', 'Mcustomercoupons', 'Mevents', 'Mcustomers', 'Mpaymentplans'));
 
-        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+        $businessProfileId = $this->Mbusinessprofiles->getFieldValue(array('business_url' => $businessURL, 'business_status_id >' => 0), 'id', 0);
         if ($businessProfileId == 0) {
             $this->session->set_flashdata('notice_message', $this->notExit);
             $this->session->set_flashdata('notice_type', 'error');

@@ -4,7 +4,14 @@
     <div class="bm-content">
       <div class="container">
         <?php $this->load->view('frontend/includes/bm_header'); ?>
-
+        <?php 
+          $expiredDate = strtotime(ddMMyyyy($businessInfo['expired_date'], 'Y-m-d'));
+          $currentDate = strtotime(date('Y-m-d'));
+          $isExpired = 0;
+          if($currentDate > $expiredDate) {
+            $isExpired = 1;
+          }
+        ?>
         <div class="row">
           <div class="col-lg-3">
             <?php $this->load->view('frontend/includes/business_manage_nav_sidebar'); ?>
@@ -15,7 +22,8 @@
                 <h3 class="page-title-xs text-center"><?php echo $this->lang->line('my_current_subscription_plan'); ?></h3>
                 <div class="w-540">
                   <label for="plan1" class="label-plan">
-                    <div class="card text-center bm-plan-item selected-plan">
+                      
+                    <div class="card text-center bm-plan-item selected-plan <?php if($isExpired == 1){ ?>expire-plan<?php } ?>">
                       <div class="card-header">
                         <!-- <div class="container-radio">
                                                         <input type="radio" name="bm-plan" id="plan1"
@@ -27,7 +35,7 @@
 
                       <div class="card-body plan-card fw-500">
                         <div class="month text-success">
-                          <span class="text-month fw-bold"><?php echo $planInfo['plan_amount']; ?> <?php echo $this->lang->line('czk_month'); ?></span>
+                          <span class="text-month fw-bold"><?php echo $planInfo['plan_amount']; ?> <?php if($planInfo['plan_currency_id'] == 1){ echo "CZK"; }else{ echo "EUR"; } ?> <?php echo $this->lang->line('czk_month'); ?></span>
                         </div>
                         <ul class="list-text fw-500">
                           <li><?php echo $this->lang->line('create_business_profile'); ?></li>
@@ -47,14 +55,21 @@
                     </div>
                   </label>
                 </div>
+                <?php if($businessInfo['is_trial'] == 1){ ?>
+                  <p class="mb-0 page-text-lg fw-500 text-center text-notice text-danger">
+                    <?php echo $this->lang->line('you_are_actively_using_your_3-'); ?>
+                  </p>
+                <?php } ?>
+                <?php if($isExpired == 1 && $businessInfo['is_trial'] == 0){ ?>
+                  <p class="mb-0 page-text-lg fw-500 text-center text-notice text-danger">
+                    Your free trial has expired.<br>
+                    Please make a payment to continue using our service.
+                  </p>
+                <?php } ?>
                 <!--
-                <p class="mb-0 page-text-lg fw-500 text-center text-notice text-danger">
-                  <?php echo $this->lang->line('you_are_actively_using_your_3-'); ?>
-                </p>
-                -->
                 <div class="d-flex align-items-center justify-content-center switch-btn disabled">
-                  <input id="checkbox4" type="checkbox" class="checkbox" disabled="">
-                  <label for="checkbox4" class="switch">
+                  <input id="checkbox4" type="checkbox" class="checkbox" disabled >
+                  <lsabel for="checkbox4" class="switch">
                     <span class="switch-circle">
                       <span class="switch-circle-inner"></span>
                     </span>
@@ -63,11 +78,33 @@
                   </label>
                   <p class="mb-0 switch-text"><?php echo $this->lang->line('auto_renewal'); ?></p>
                 </div>
+                -->
+                <!-- New Button
+                <div class="d-flex justify-content-center reservation-config">
+                  <div class="d-flex align-items-center switch-btn">
+                    <input id="reservation-config" type="checkbox" class="checkbox" <?php if ($businessInfo['is_annual_payment'] == 1) {
+                                                                                      echo "checked";
+                                                                                    } ?>>
+                    <label for="reservation-config" class="switch">
+                      <span class="switch-circle">
+                        <span class="switch-circle-inner"></span>
+                      </span>
+                      <span class="switch-left">Off</span>
+                      <span class="switch-right">On</span>
+                    </label>
+                    <p class="mb-0 switch-text"><?php echo $this->lang->line('auto_renewal'); ?></p>
+                  </div>
+                </div>
+                -->
 
                 <div class="text-center actions-btn">
-                  <a href="#" class="btn btn-red"><?php echo $this->lang->line('make_a_payment'); ?></a>
-                  <a href="#" class="btn btn-outline-red"><?php echo $this->lang->line('cancel_subscription'); ?></a>
-                  <a href="bm-subscription-switch.html" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
+                  <?php if($businessInfo['business_status_id'] == 3){ ?>
+                    <a href="<?php echo base_url('business-profile/continue-payment?plan='.$businessInfo['plan_id'].'&businessId='.$businessInfo['id']); ?>" class="btn btn-red"><?php echo $this->lang->line('make_a_payment'); ?></a>
+                  <?php } ?>
+                  <?php if($businessInfo['business_status_id'] == 2 && !empty($businessInfo['subscription_id'])){ ?>
+                    <a href="javascript:void(0)" class="btn btn-outline-red"><?php echo $this->lang->line('cancel_subscription'); ?></a>
+                  <?php } ?>
+                  <a href="javascript:void(0)" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
                 </div>
               </div>
             </div>

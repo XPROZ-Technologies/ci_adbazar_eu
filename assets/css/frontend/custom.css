@@ -1705,6 +1705,11 @@ color: #404040;
     bottom: 12px !important;
 }
 
+.expired-menu {
+    opacity: 0.5;
+    cursor: no-drop !important;
+}
+
 @media only screen and (max-width: 600px) {
     .row-2 {
         display: block;

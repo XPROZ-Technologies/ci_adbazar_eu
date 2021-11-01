@@ -207,6 +207,7 @@ $route['business-profile/create-new-business'] = 'frontend/businessprofile/creat
 $route['business-profile/create-business'] = 'frontend/businessprofile/createBusiness';
 $route['business-profile/update-business'] = 'frontend/businessprofile/updateBusiness';
 $route['business-profile/bm-payment'] = 'frontend/businessprofile/payment';
+$route['business-profile/continue-payment'] = 'frontend/businessprofile/continue_payment';
 
 
 $route['fb-login'] = 'frontend/customer/loginFb';
