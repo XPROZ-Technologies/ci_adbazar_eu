@@ -1127,7 +1127,7 @@ class Businessprofile extends MY_Controller
                 if($businessId > 0) {
                     $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
                     // response pay cancel or err, any link
-                    redirect(base_url('business-management/'.$businessUrl.'/asubscriptions'));
+                    redirect(base_url('business-management/'.$businessUrl.'/subscriptions'));
                     return;
                 }
                 
