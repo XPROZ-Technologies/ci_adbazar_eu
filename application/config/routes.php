@@ -201,6 +201,7 @@ $route['customer/send-contact-us'] = 'frontend/contact/saveContactForm';
 //business management
 $route['my-business-profile'] = 'frontend/businessprofile/my_business';
 $route['business-profile/select-plan'] = 'frontend/businessprofile/select_plan';
+$route['business-profile/switch-plan'] = 'frontend/businessprofile/switch_plan';
 $route['business-profile/submit-select-plan'] = 'frontend/businessprofile/submitSelectPlan';
 $route['business-profile/got-free-trial'] = 'frontend/businessprofile/got_free_trial';
 $route['business-profile/create-new-business'] = 'frontend/businessprofile/create_new_business';

@@ -131,7 +131,7 @@
                           </a>
                         <?php }else{ ?>
                           <a data-isTrial="0" class="btn btn-red btn-red-md btn-trail mb-3 mb-md-0 btn-no-trail"><?php echo $this->lang->line('proceed_to_checkout'); ?></a>
-                          <a href="<?php echo base_url('my-business-profile'); ?>" class="btn btn-outline-red btn-outline-red-md">
+                          <a style="line-height: 21px;margin-left:10px;" href="<?php echo base_url('my-business-profile'); ?>" class="btn btn-trail btn-outline-red btn-outline-red-md">
                             Cancel
                           </a>
                         <?php } ?>

@@ -113,7 +113,7 @@
                     <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel-subscription"><?php echo $this->lang->line('cancel_subscription'); ?></a>
                   <?php } ?>
                   <!-- switch plan -->
-                  <a href="javascript:void(0)" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
+                  <a href="<?php echo base_url('business-profile/switch-plan?businessId='.$businessInfo['id']); ?>" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
                 </div>
               </div>
             </div>
@@ -187,17 +187,20 @@
           if (data.code == 1) {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-success").removeClass('ico-hidden');
+            $(".ico-noti-error").addClass('ico-hidden');
             $(".notiPopup").fadeIn('slow').fadeOut(5000);
           } else {
             $(".notiPopup .text-secondary").html(data.message);
             $(".ico-noti-error").removeClass('ico-hidden');
+            $(".ico-noti-success").addClass('ico-hidden');
             $(".notiPopup").fadeIn('slow').fadeOut(5000);
           }
-          redirect(true);
+          //redirect(true);
         },
         error: function(data) {
           $(".notiPopup .text-secondary").html('<?php echo ERROR_COMMON_MESSAGE; ?>');
           $(".ico-noti-error").removeClass('ico-hidden');
+          $(".ico-noti-success").addClass('ico-hidden');
           $(".notiPopup").fadeIn('slow').fadeOut(5000);
 
           redirect(true);

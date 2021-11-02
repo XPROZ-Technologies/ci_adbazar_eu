@@ -849,6 +849,49 @@ class Businessprofile extends MY_Controller
         $this->load->view('frontend/business/bm-plan', $data);
     }
 
+    public function switch_plan()
+    {
+        $this->loadModel(array( 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mpaymentplans'));
+
+        $getBusinessId = $this->input->get('businessId');
+        if(empty($getBusinessId)){
+            $this->session->set_flashdata('notice_message', "Business profile does not exist 1");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+
+        $businessInfo = $this->Mbusinessprofiles->get($getBusinessId);
+        if(empty($businessInfo)){
+            $this->session->set_flashdata('notice_message', "Business profile does not exist 2");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+        }
+
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer($this->lang->line('my_business_profile'));
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+        $data['businessInfo'] = $businessInfo;
+        
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
+        $data['customerInfo'] = $this->Mcustomers->get($data['customer']['id']);
+
+        $data['planInfo'] = $this->Mpaymentplans->get($businessInfo['plan_id']);
+
+        $data['dateExpired'] = ddMMyyyy($businessInfo['expired_date'], 'F jS Y');
+
+        $this->load->view('frontend/business/bm-switch-plan', $data);
+    }
+
     public function getPaymentLink($paypalUser)
     {
         $curl = curl_init();
@@ -1293,7 +1336,7 @@ class Businessprofile extends MY_Controller
                     //update 1: annual/ 0: monthly
                     $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 0), $businessId);
                     
-                    echo json_encode(array('code' => 1, 'message' => 'Suspend subscription sucessfully', 'data' => $result));die;
+                    echo json_encode(array('code' => 1, 'message' => 'Turn off auto review sucessfully', 'data' => $result));die;
                 }else{
                     echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
                 }
@@ -1318,7 +1361,7 @@ class Businessprofile extends MY_Controller
                     //update 1: annual/ 0: monthly
                     $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessId);
                     
-                    echo json_encode(array('code' => 1, 'message' => 'Active subscription sucessfully', 'data' => $result));die;
+                    echo json_encode(array('code' => 1, 'message' => 'Turn on auto review sucessfully', 'data' => $result));die;
                 }else{
                     echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
                 }
