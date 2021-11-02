@@ -1336,7 +1336,7 @@ class Businessprofile extends MY_Controller
                     //update 1: annual/ 0: monthly
                     $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 0), $businessId);
                     
-                    echo json_encode(array('code' => 1, 'message' => 'Turn off auto review sucessfully', 'data' => $result));die;
+                    echo json_encode(array('code' => 1, 'message' => 'Turn off auto renewal sucessfully', 'data' => $result));die;
                 }else{
                     echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
                 }
@@ -1361,7 +1361,7 @@ class Businessprofile extends MY_Controller
                     //update 1: annual/ 0: monthly
                     $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessId);
                     
-                    echo json_encode(array('code' => 1, 'message' => 'Turn on auto review sucessfully', 'data' => $result));die;
+                    echo json_encode(array('code' => 1, 'message' => 'Turn on auto renewal sucessfully', 'data' => $result));die;
                 }else{
                     echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
                 }
