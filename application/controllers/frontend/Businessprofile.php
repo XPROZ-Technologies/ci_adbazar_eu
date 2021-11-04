@@ -1048,7 +1048,7 @@ class Businessprofile extends MY_Controller
                 $planCurrencyId = 2;
             }
 
-            $planAmount = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_amount', 0);
+            $planAmount = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_total', 0);
 
             $planData = array(
                 'businessId' => $data['businessId'],
