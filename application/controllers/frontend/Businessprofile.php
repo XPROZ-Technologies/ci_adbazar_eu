@@ -1193,8 +1193,10 @@ class Businessprofile extends MY_Controller
     public function createCustomPlan($paypalUser)
     {
         $planName = "Monthly";
+        $planUnit = "MONTH";
         if($paypalUser['planTypeId'] == 2){
             $planName = "Annual";
+            $planUnit = "YEAR";
         }
         $planCurrency = 'CZK';
         if($paypalUser['planCurrencyId'] == 2){
@@ -1226,7 +1228,7 @@ class Businessprofile extends MY_Controller
                     },
                     {
                         "frequency": {
-                            "interval_unit": "'.$paypalUser['planTypeId'].'",
+                            "interval_unit": "'.$planUnit.'",
                             "interval_count": 1
                         },
                         "tenure_type": "REGULAR",
