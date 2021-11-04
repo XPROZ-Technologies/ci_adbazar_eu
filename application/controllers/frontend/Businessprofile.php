@@ -1058,10 +1058,14 @@ class Businessprofile extends MY_Controller
                 'planCurrencyId' => $planCurrencyId
             );
             $resultPlan = $this->createCustomPlan($planData);
-            echo "<pre>";print_r($resultPlan);die;
+            if(!empty($resultPlan) && isset($resultPlan->id)){
+                $paypalUser['paypalPlanId'] = $resultPlan->id;
+            }else{
+                $paypalUser['paypalPlanId'] = PAYPAL_PLAN_DEFAULT;
+            }
         }else{
             // id plan user select
-            $paypalUser['paypalPlanId'] = 'P-8L942028P24070304MGAB6XY';
+            $paypalUser['paypalPlanId'] = PAYPAL_PLAN_DEFAULT;
             if(!empty($data['plan'])){
                 $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
                 if(!empty($paypalPlanId)) {
@@ -1416,7 +1420,7 @@ class Businessprofile extends MY_Controller
             $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
             $paypalUser = array();
             // id plan user select
-            $paypalUser['paypalPlanId'] = 'P-8L942028P24070304MGAB6XY';
+            $paypalUser['paypalPlanId'] = PAYPAL_PLAN_DEFAULT;
             if(!empty($data['plan'])){
                 $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
                 if(!empty($paypalPlanId)) {
@@ -1560,7 +1564,7 @@ class Businessprofile extends MY_Controller
         $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
         $paypalUser = array();
         // id plan user select
-        $paypalUser['paypalPlanId'] = 'P-8L942028P24070304MGAB6XY';
+        $paypalUser['paypalPlanId'] = PAYPAL_PLAN_DEFAULT;
         if(!empty($data['plan'])){
             $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
             if(!empty($paypalPlanId)) {
