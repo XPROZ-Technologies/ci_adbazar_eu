@@ -1120,6 +1120,7 @@ class Businessprofile extends MY_Controller
 
         curl_close($curl);
         $pay = json_decode($response2);
+        echo "<pre>";print_r($pay);exit;
         return $pay->links['0']->href;
     }
 
