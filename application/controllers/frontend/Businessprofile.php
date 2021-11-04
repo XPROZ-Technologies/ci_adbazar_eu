@@ -936,7 +936,7 @@ class Businessprofile extends MY_Controller
         $data['planPriceVat'] = round($planInfo['plan_amount'] * 0.21);
         $data['planPriceTotal'] = $data['planPrice'] + $data['planPriceVat'];
         $data['planPriceVatPercent'] = 21;
-        $data['planCurrency'] = ($planInfo['plan_amount'] == 1) ? 'CZK' : 'EUR';
+        $data['planCurrency'] = ($planInfo['plan_currency_id'] == 1) ? 'CZK' : 'EUR';
 
 
         $data['successUrl'] = base_url().'/business-profile/switch-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
