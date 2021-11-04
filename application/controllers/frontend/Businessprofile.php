@@ -974,14 +974,22 @@ class Businessprofile extends MY_Controller
             $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $business_id, 'customer_id' => $customerId), 'id', 0);
             if($businessId > 0) {
                 $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
+                $businessExpireDate = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'expired_date', '');
                 
                 $planId = $data['plan'];
 
+                $startDateCount = date('Y-m-d H:i:s');
+                $expiredDate = strtotime(ddMMyyyy($businessExpireDate, 'Y-m-d'));
+                $currentDate = strtotime(date('Y-m-d'));
+                if(!empty($businessExpireDate) && $expiredDate > $currentDate){
+                    $startDateCount = $businessExpireDate;
+                }
+
                 if(in_array($planId, array(1,3))) {
-                    $date = strtotime("+30 day", strtotime(date('Y-m-d H:i:s')));
+                    $date = strtotime("+30 day", strtotime($startDateCount));
                     $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
                 }else if(in_array($planId, array(2,4))) {
-                    $date = strtotime("+1 year", strtotime(date('Y-m-d H:i:s')));
+                    $date = strtotime("+1 year", strtotime($startDateCount));
                     $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
                 }
                 $this->Mbusinessprofiles->save($business_data, $businessId);
