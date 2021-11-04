@@ -939,8 +939,8 @@ class Businessprofile extends MY_Controller
         $data['planCurrency'] = ($planInfo['plan_currency_id'] == 1) ? 'CZK' : 'EUR';
 
 
-        $data['successUrl'] = base_url().'/business-profile/switch-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
-        $data['cancelUrl'] = base_url().'/business-profile/switch-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        $data['successUrl'] = base_url().'business-profile/switch-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        $data['cancelUrl'] = base_url().'business-profile/switch-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
         
 
         /**
@@ -1120,7 +1120,7 @@ class Businessprofile extends MY_Controller
 
         curl_close($curl);
         $pay = json_decode($response2);
-        echo "<pre>";print_r($pay);exit;
+        //echo "<pre>";print_r($pay);exit;
         return $pay->links['0']->href;
     }
 
@@ -1345,8 +1345,8 @@ class Businessprofile extends MY_Controller
             $data['planPriceVatPercent'] = 21;
             $data['planCurrency'] = ($planInfo['plan_amount'] == 1) ? 'CZK' : 'EUR';
 
-            $data['successUrl'] = base_url().'/business-profile/bm-payment?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
-            $data['cancelUrl'] = base_url().'/business-profile/bm-payment?isResult=false&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
+            $data['successUrl'] = base_url().'business-profile/bm-payment?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
+            $data['cancelUrl'] = base_url().'business-profile/bm-payment?isResult=false&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
             
             if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
                 // Response with pay success
@@ -1491,8 +1491,8 @@ class Businessprofile extends MY_Controller
         $data['planCurrency'] = ($planInfo['plan_amount'] == 1) ? 'CZK' : 'EUR';
 
 
-        $data['successUrl'] = base_url().'/business-profile/continue-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
-        $data['cancelUrl'] = base_url().'/business-profile/continue-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        $data['successUrl'] = base_url().'business-profile/continue-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        $data['cancelUrl'] = base_url().'business-profile/continue-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
         
         if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
             // Response with pay success
