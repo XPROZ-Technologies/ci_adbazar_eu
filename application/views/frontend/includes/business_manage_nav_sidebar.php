@@ -2,7 +2,7 @@
     $expiredDateSidebar = strtotime(ddMMyyyy($businessInfo['expired_date'], 'Y-m-d'));
     $currentDateSidebar = strtotime(date('Y-m-d'));
     $isExpiredSidebar = 0;
-    if($businessInfo['business_status_id'] == STATUS_ACTIVED || $currentDateSidebar > $expiredDateSidebar) {
+    if($businessInfo['business_status_id'] != STATUS_ACTIVED && $currentDateSidebar > $expiredDateSidebar) {
       $isExpiredSidebar = 1;
     }
 ?>

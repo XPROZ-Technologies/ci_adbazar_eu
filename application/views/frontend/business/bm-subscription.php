@@ -103,7 +103,7 @@
                 <?php } ?>
 
                 <div class="text-center actions-btn">
-                  <?php if($businessInfo['business_status_id'] == 3){ ?>
+                  <?php if($businessInfo['business_status_id'] == 3 || $isExpired == 1){ ?>
                     <a href="<?php echo base_url('business-profile/continue-payment?plan='.$businessInfo['plan_id'].'&businessId='.$businessInfo['id']); ?>" class="btn btn-red"><?php echo $this->lang->line('make_a_payment'); ?></a>
                   <?php } ?>
                   <?php if($businessInfo['business_status_id'] == 2 && !empty($businessInfo['subscription_id']) && $isExpired == 0){ ?>
@@ -113,7 +113,7 @@
                     <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel-subscription"><?php echo $this->lang->line('cancel_subscription'); ?></a>
                   <?php } ?>
                   <!-- switch plan -->
-                  <a href="<?php echo base_url('business-profile/switch-plan?businessId='.$businessInfo['id']); ?>" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
+                  <a href="<?php echo base_url('business-profile/switch-plan?businessId='.$businessInfo['id'].'&customerId='.$customer['id']); ?>" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
                 </div>
               </div>
             </div>

@@ -892,6 +892,201 @@ class Businessprofile extends MY_Controller
         $this->load->view('frontend/business/bm-switch-plan', $data);
     }
 
+    public function switch_payment()
+    {
+       
+        $customer = $this->checkLoginCustomer();
+        
+        $business_id = $this->input->get('businessId');
+    
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans'));
+
+        $businessProfiles = $this->Mbusinessprofiles->getBy(array('customer_id' => $customer['id'], 'id' => $business_id));
+
+        $businessProfile = [];
+        if(count($businessProfiles) > 0) {
+            $businessProfile = $businessProfiles[0];
+        } else {
+            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url(HOME_URL));
+            return;
+        }
+
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer("Switch Plan Payment");
+
+
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html'));
+        }
+
+        $data['activeMenu'] = "";
+        $data['plan'] = $this->input->get('plan');
+        $data['businessId'] = $this->input->get('businessId');
+        $data['customerId'] = $this->input->get('customerId');
+
+        $planInfo = $this->Mpaymentplans->get($data['plan']);
+        // Params
+        $data['planPrice'] = $planInfo['plan_amount'];
+        $data['planPriceVat'] = round($planInfo['plan_amount'] * 0.21);
+        $data['planPriceTotal'] = $data['planPrice'] + $data['planPriceVat'];
+        $data['planPriceVatPercent'] = 21;
+        $data['planCurrency'] = ($planInfo['plan_amount'] == 1) ? 'CZK' : 'EUR';
+
+
+        $data['successUrl'] = base_url().'/business-profile/switch-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        $data['cancelUrl'] = base_url().'/business-profile/switch-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        
+
+        /**
+         * Process Return Data
+         */
+        if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
+            // Response with pay success
+            $customerId = $this->input->get('customerId');
+            $subscription_id = $this->input->get('subscription_id');
+            $ba_token = $this->input->get('ba_token');
+            $token = $this->input->get('token');
+            $business_id = $this->input->get('businessId');
+            // Can recheck sub here or not, save success to db
+            
+            //$this->Mbusinessprofiles->save(array('expired_date' => $expiredDate), $businessProfile['id']);
+            $returnData = array(
+                'customerId' => $customerId,
+                'subscription_id' => $subscription_id,
+                'ba_token' => $ba_token,
+                'token' => $token
+            );
+
+            $business_data = array(
+                'subscription_id' => $subscription_id,
+                'ba_token' => $ba_token,
+                'token' => $token,
+                'business_status_id' => STATUS_ACTIVED
+            );
+
+            $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $business_id, 'customer_id' => $customerId), 'id', 0);
+            if($businessId > 0) {
+                $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
+                
+                $planId = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'plan_id', 0);
+
+                if(in_array($planId, array(1,3))) {
+                    $date = strtotime("+30 day", strtotime(date('Y-m-d H:i:s')));
+                    $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
+                }else if(in_array($planId, array(2,4))) {
+                    $date = strtotime("+1 year", strtotime(date('Y-m-d H:i:s')));
+                    $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
+                }
+                $this->Mbusinessprofiles->save($business_data, $businessId);
+
+                $this->session->set_flashdata('notice_message', "Payment success");
+                $this->session->set_flashdata('notice_type', 'success');
+                redirect(base_url('business-management/'.$businessUrl.'/about-us'));
+                return;
+            }else{
+                $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url(HOME_URL));
+                return;
+            }
+        } else if ($this->input->get('isResult') == 'false') {
+            // Failed or cancel payment
+            $customerId = $this->input->get('customerId');
+            $subscription_id = $this->input->get('subscription_id');
+            $ba_token = $this->input->get('ba_token');
+            $token = $this->input->get('token');
+            $business_id = $this->input->get('businessId');
+            
+            $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $business_id, 'customer_id' => $customerId), 'id', 0);
+            if($businessId > 0) {
+                $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
+                // response pay cancel or err, any link
+                redirect(base_url('business-management/'.$businessUrl.'/subscriptions'));
+                return;
+            }
+            
+        }
+        /**
+         * END - Process Return Data
+         */
+
+
+        $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessProfile['id']);
+
+        $expiredDate = strtotime(ddMMyyyy($businessProfile['expired_date'], 'Y-m-d'));
+        $currentDate = strtotime(date('Y-m-d'));
+        $isExpired = 0;
+        if($currentDate > $expiredDate) {
+          $isExpired = 1;
+        }
+
+        $paypalUser = array();
+
+        // Get remaining days
+        $remainingDays = 0;
+        if($isExpired == 0){
+            $remainingDays = dateDifference(date('Y-m-d'), ddMMyyyy($businessProfile['expired_date'], 'Y-m-d'));
+            /**
+                * - businessId
+                * - remainingDays: remaining days of previous payment
+                * - planTypeId: 1: Month / 2: Year
+                * - planAmount
+                * - planCurrencyId: 1: CZK / 2: EUR
+             */
+            $planTypeId = 1;
+            if(in_array($data['plan'], array(2,4))){
+                $planTypeId = 2;
+            }
+            $planCurrencyId = 1;
+            if(in_array($data['plan'], array(3,4))){
+                $planCurrencyId = 2;
+            }
+
+            $planAmount = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_amount', 0);
+
+            $planData = array(
+                'businessId' => $data['businessId'],
+                'remainingDays' => $remainingDays,
+                'planTypeId' => $planTypeId,
+                'planAmount' => $planAmount,
+                'planCurrencyId' => $planCurrencyId
+            );
+            $resultPlan = $this->createCustomPlan($planData);
+            echo "<pre>";print_r($resultPlan);die;
+        }else{
+            // id plan user select
+            $paypalUser['paypalPlanId'] = 'P-8L942028P24070304MGAB6XY';
+            if(!empty($data['plan'])){
+                $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
+                if(!empty($paypalPlanId)) {
+                    $paypalUser['paypalPlanId'] = $paypalPlanId;
+                }
+            }
+        }
+
+
+        
+
+        
+        
+        // auth paypal business
+        $paypalUser['successUrl'] = $data['successUrl'];
+        $paypalUser['cancelUrl'] = $data['cancelUrl'];
+        //paypal product id: PROD-4NX43137GP917693J
+        $data['payurl'] = $this->getPaymentLink($paypalUser);
+        /**
+         * Commons data
+         */
+
+        $this->load->view('frontend/business/bm-switch-payment', $data);
+    }
+
     public function getPaymentLink($paypalUser)
     {
         $curl = curl_init();
@@ -987,6 +1182,90 @@ class Businessprofile extends MY_Controller
     }
 
     /**
+     * Create custom plan when switch plan
+     * @ $paypalUser = array
+     * - businessId
+     * - remainingDays: remaining days of previous payment
+     * - planTypeId: 1: Month / 2: Year
+     * - planAmount
+     * - planCurrencyId: 1: CZK / 2: EUR
+     */
+    public function createCustomPlan($paypalUser)
+    {
+        $planName = "Monthly";
+        if($paypalUser['planTypeId'] == 2){
+            $planName = "Annual";
+        }
+        $planCurrency = 'CZK';
+        if($paypalUser['planCurrencyId'] == 2){
+            $planCurrency = 'EUR';
+        }
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => PAYPAL_HOST . '/v1/billing/plans',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+                "product_id": "'.PAYPAL_PROD_ID.'",
+                "name": "ADBazar.eu - '.$planName.' subscription fee - '.$paypalUser['businessId'].'",
+                "description": "ADBazar.eu - '.$planName.' subscription fee - '.$paypalUser['businessId'].'",
+                "billing_cycles": [
+                    {
+                        "frequency": {
+                            "interval_unit": "DAY",
+                            "interval_count": '.$paypalUser['remainingDays'].'
+                        },
+                        "tenure_type": "TRIAL",
+                        "sequence": 1,
+                        "total_cycles": 1
+                    },
+                    {
+                        "frequency": {
+                            "interval_unit": "'.$paypalUser['planTypeId'].'",
+                            "interval_count": 1
+                        },
+                        "tenure_type": "REGULAR",
+                        "sequence": 2,
+                        "total_cycles": 12,
+                        "pricing_scheme": {
+                            "fixed_price": {
+                                "value": "'.$paypalUser['planAmount'].'",
+                                "currency_code": "'.$planCurrency.'"
+                            }
+                        }
+                    }
+                ],
+                "payment_preferences": {
+                    "auto_bill_outstanding": true,
+                    "setup_fee": {
+                        "value": "0",
+                        "currency_code": "'.$planCurrency.'"
+                    },
+                    "setup_fee_failure_action": "CONTINUE",
+                    "payment_failure_threshold": 3
+                }
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization: Basic ' . base64_encode(PAYPAL_CLIENT_KEY . ':' . PAYPAL_SEC_KEY),
+                'Prefer: return=representation',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $result = json_decode($response);
+        return $result;
+    }
+
+    /**
      * After suspended
      */
     public function activeSubscription($paypalUser)
@@ -1061,8 +1340,8 @@ class Businessprofile extends MY_Controller
             $data['planPriceVatPercent'] = 21;
             $data['planCurrency'] = ($planInfo['plan_amount'] == 1) ? 'CZK' : 'EUR';
 
-            $data['successUrl'] = 'https://adb-dev.xproz.com/business-profile/bm-payment?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
-            $data['cancelUrl'] = 'https://adb-dev.xproz.com/business-profile/bm-payment?isResult=false&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
+            $data['successUrl'] = base_url().'/business-profile/bm-payment?isResult=true&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
+            $data['cancelUrl'] = base_url().'/business-profile/bm-payment?isResult=false&customerId='.$customer['id'].'&tokenDraft='.$tokenDraft;
             
             if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
                 // Response with pay success
@@ -1207,8 +1486,8 @@ class Businessprofile extends MY_Controller
         $data['planCurrency'] = ($planInfo['plan_amount'] == 1) ? 'CZK' : 'EUR';
 
 
-        $data['successUrl'] = 'https://adb-dev.xproz.com/business-profile/continue-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
-        $data['cancelUrl'] = 'https://adb-dev.xproz.com/business-profile/continue-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        $data['successUrl'] = base_url().'/business-profile/continue-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        $data['cancelUrl'] = base_url().'/business-profile/continue-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
         
         if ($this->input->get('isResult') == 'true' && $this->input->get('subscription_id')) {
             // Response with pay success

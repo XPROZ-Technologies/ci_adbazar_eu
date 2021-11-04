@@ -1,4 +1,12 @@
 <?php $this->load->view('frontend/includes/header'); ?>
+<?php 
+  $expiredDate = strtotime(ddMMyyyy($businessInfo['expired_date'], 'Y-m-d'));
+  $currentDate = strtotime(date('Y-m-d'));
+  $isExpired = 0;
+  if($currentDate > $expiredDate) {
+    $isExpired = 1;
+  }
+?>
 <main>
   <div class="page-business-manager">
     <?php $this->load->view('frontend/includes/bm_top_header'); ?>
@@ -7,7 +15,9 @@
       <div class="bm-plan-top">
         <div class="container">
           <h2 class="text-center page-title-md" style="font-size: 28px;line-height:1.5;">Switch subscription plan</h2>
-          <p class="page-title-sm fw-bold text-center text-danger mb-0">Your business plan (<?php if($planInfo['plan_type_id'] == 1){ echo 'Monthly payment'; }else{ echo 'Annual payment'; } ?>) will be expired on <?php echo $dateExpired; ?></p>
+          <?php if($isExpired == 0){ ?>
+            <p class="page-title-sm fw-bold text-center text-danger mb-0">Your business plan (<?php if($planInfo['plan_type_id'] == 1){ echo 'Monthly payment'; }else{ echo 'Annual payment'; } ?>) will be expired on <?php echo $dateExpired; ?></p>
+          <?php } ?>
           <div class="d-flex flex-column flex-md-row justify-content-center align-items-center paypal">
             <p class="mb-0 text-secondary fw-500 page-title-xs"><?php echo $this->lang->line('secured_payment_through_paypal'); ?></p>
             <img src="assets/img/frontend/bm-paypal.png" alt="paypal image" class="img-fluid">
@@ -108,9 +118,10 @@
               <!-- END. Year payment plan -->
             </div>
             <form action="<?php echo base_url('business-profile/submit-select-plan'); ?>" method="POST" id="formSelectPlan">
-              <input type="hidden" name="business_plan" id="businessPlan" value="1" />
-              <input type="hidden" name="isTrial" id="isTrial" value="false" />
-              <input type="hidden" name="tokenDraft" value="<?php echo uniqid(strtotime(date('Ymd H:i:s'))); ?>" id="tokenDraft" />
+              <input type="hidden" name="currentPlanId" id="currentPlanId" value="<?php echo $planInfo['id']; ?>" />
+              <input type="hidden" name="business_plan" id="businessPlan" value="<?php echo $planInfo['id']; ?>" />
+              <input type="hidden" name="businessId" id="businessId" value="<?php echo $businessInfo['id']; ?>" />
+              <input type="hidden" name="customerId" id="customerId" value="<?php echo $customer['id']; ?>" />
             </form>
             <div class="bm-plan-trail">
               <div class="d-flex justify-content-end">
@@ -121,8 +132,9 @@
                             Cancel
                           </a>
                     </div>
-                    <p class="text-danger text-center page-text-sm align-items-center fw-500">You will not be charged anything until <?php echo $dateExpired; ?>. </p>
-                    
+                    <?php if($isExpired == 0){ ?>
+                      <p class="text-danger text-center page-text-sm align-items-center fw-500">You will not be charged anything until <?php echo $dateExpired; ?>. </p>
+                    <?php } ?>
                 </div>
               </div>
             </div>
@@ -170,11 +182,20 @@
     }
   });
 
-  $("body").on("click", ".btn-checkout-switch-plan", function() {
+  $("body").on("click", ".btn-no-trail", function() {
+    var currentPlan = $("input#currentPlanId").val();
+    var businessId = $("input#businessId").val();
+    var customerId = $("input#customerId").val();
     var select_plan = $('input[name=bm-plan]:checked').val();
-    var token_draf = $('input#tokenDraft').val();
-    var url = '<?php echo base_url('business-profile/create-new-business'); ?>';
-    window.location.href = url + '?plan=' + select_plan + '&isTrial=0' + '&tokenDraft=' + token_draf;
+    var url = '<?php echo base_url('business-profile/switch-payment/'); ?>';
+    if(currentPlan == select_plan){
+      $(".notiPopup .text-secondary").html("Please select another plan");
+      $(".ico-noti-error").removeClass('ico-hidden');
+      $(".notiPopup").fadeIn('slow').fadeOut(7000);
+    }else{
+      window.location.href = url + '?plan=' + select_plan + '&businessId=' + businessId + '&customerId=' + customerId;
+    }
+   
   });
 
   $("body").on("change", "#checkbox_currency", function() {
