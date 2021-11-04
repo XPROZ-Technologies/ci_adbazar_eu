@@ -1080,8 +1080,8 @@ class Businessprofile extends MY_Controller
         //paypal product id: PROD-4NX43137GP917693J
         $data['payurl'] = $this->getPaymentLink($paypalUser);
 
-        echo "<pre>";print_r($paypalUser)."</pre>";
-        echo $data['payurl'];exit;
+        //echo "<pre>";print_r($paypalUser)."</pre>";
+        //echo $data['payurl'];exit;
         /**
          * Commons data
          */
