@@ -939,8 +939,8 @@ class Businessprofile extends MY_Controller
         $data['planCurrency'] = ($planInfo['plan_currency_id'] == 1) ? 'CZK' : 'EUR';
 
 
-        $data['successUrl'] = base_url().'business-profile/switch-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
-        $data['cancelUrl'] = base_url().'business-profile/switch-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'];
+        $data['successUrl'] = base_url().'business-profile/switch-payment?isResult=true&customerId='.$customer['id'].'&businessId='.$businessProfile['id'].'&plan='.$data['plan'];
+        $data['cancelUrl'] = base_url().'business-profile/switch-payment?isResult=false&customerId='.$customer['id'].'&businessId='.$businessProfile['id'].'&plan='.$data['plan'];
         
 
         /**
@@ -967,14 +967,15 @@ class Businessprofile extends MY_Controller
                 'subscription_id' => $subscription_id,
                 'ba_token' => $ba_token,
                 'token' => $token,
-                'business_status_id' => STATUS_ACTIVED
+                'business_status_id' => STATUS_ACTIVED,
+                'plan_id' => $data['plan']
             );
 
             $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $business_id, 'customer_id' => $customerId), 'id', 0);
             if($businessId > 0) {
                 $businessUrl = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'business_url', 0);
                 
-                $planId = $this->Mbusinessprofiles->getFieldValue(array('id' => $businessId), 'plan_id', 0);
+                $planId = $data['plan'];
 
                 if(in_array($planId, array(1,3))) {
                     $date = strtotime("+30 day", strtotime(date('Y-m-d H:i:s')));
