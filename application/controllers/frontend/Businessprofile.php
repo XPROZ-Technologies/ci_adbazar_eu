@@ -2203,6 +2203,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
 
         $data['activeBusinessMenu'] = "about-us";
 
@@ -2310,6 +2316,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
 
         $data['activeBusinessMenu'] = "about-us";
 
@@ -2387,6 +2399,12 @@ class Businessprofile extends MY_Controller
         /**
          * Commons data
          */
+
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
 
         $data['activeBusinessMenu'] = "gallery";
 
@@ -2523,6 +2541,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
         $data['activeBusinessMenu'] = "coupons";
 
         $data['businessInfo'] = $businessInfo;
@@ -2598,6 +2622,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
         $data['activeBusinessMenu'] = "";
 
         $data['businessInfo'] = $businessInfo;
@@ -2634,6 +2664,12 @@ class Businessprofile extends MY_Controller
         /**
          * Commons data
          */
+
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
 
         $data['activeBusinessMenu'] = "events";
 
@@ -2710,6 +2746,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
         $data['activeBusinessMenu'] = "";
 
         $data['businessInfo'] = $businessInfo;
@@ -2746,6 +2788,12 @@ class Businessprofile extends MY_Controller
         /**
          * Commons data
          */
+
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
 
         $data['activeBusinessMenu'] = "";
 
@@ -2784,10 +2832,10 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
-        if (empty($data['customer']['id']) || $data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', $this->notExit);
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url('login.html'));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
         }
 
         $data['activeBusinessMenu'] = "reviews";
@@ -2907,6 +2955,12 @@ class Businessprofile extends MY_Controller
          * Commons data
          */
 
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
+
         $data['activeBusinessMenu'] = "reservations";
 
         $data['businessInfo'] = $businessInfo;
@@ -2995,6 +3049,12 @@ class Businessprofile extends MY_Controller
         /**
          * Commons data
          */
+
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl=' . current_url()));
+        }
 
         $data['activeBusinessMenu'] = "subscriptions";
 
