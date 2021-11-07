@@ -8,7 +8,7 @@
           $expiredDate = strtotime(ddMMyyyy($businessInfo['expired_date'], 'Y-m-d'));
           $currentDate = strtotime(date('Y-m-d'));
           $isExpired = 0;
-          if($currentDate > $expiredDate) {
+          if($currentDate > $expiredDate && !empty($businessInfo['expired_date'])) {
             $isExpired = 1;
           }
         ?>
@@ -65,24 +65,12 @@
                     Your payment has expired.<br>
                     Please make a payment to continue using our service.
                   </p>
-                <?php }else if($isExpired == 0){ ?>
+                <?php }else if($isExpired == 0 && $businessInfo['is_trial'] == 0 && $businessInfo['plan_id']){ ?>
                   <p class="mb-0 page-text-lg fw-500 text-center text-notice text-danger">
                     <?php echo dateDifference(date('Y-m-d'), ddMMyyyy($businessInfo['expired_date'], 'Y-m-d')); ?> days left till your next payment term.
                   </p>
                 <?php } ?>
-                <!--
-                <div class="d-flex align-items-center justify-content-center switch-btn disabled">
-                  <input id="checkbox4" type="checkbox" class="checkbox" disabled >
-                  <lsabel for="checkbox4" class="switch">
-                    <span class="switch-circle">
-                      <span class="switch-circle-inner"></span>
-                    </span>
-                    <span class="switch-left">Off</span>
-                    <span class="switch-right">On</span>
-                  </label>
-                  <p class="mb-0 switch-text"><?php echo $this->lang->line('auto_renewal'); ?></p>
-                </div>
-                -->
+               
                 <!-- New Button -->
                 <?php if($businessInfo['business_status_id'] == 2 && !empty($businessInfo['subscription_id']) && $isExpired == 0){ ?>
                 <div class="d-flex justify-content-center reservation-config">
@@ -103,8 +91,14 @@
                 <?php } ?>
 
                 <div class="text-center actions-btn">
-                  <?php if($businessInfo['business_status_id'] == 3 || $isExpired == 1){ ?>
-                    <a href="<?php echo base_url('business-profile/continue-payment?plan='.$businessInfo['plan_id'].'&businessId='.$businessInfo['id']); ?>" class="btn btn-red"><?php echo $this->lang->line('make_a_payment'); ?></a>
+                  <?php 
+                    $planCurrentId = 1;
+                    if(!empty($businessInfo['plan_id'])){
+                      $planCurrentId = $businessInfo['plan_id'];
+                    }
+                  ?>
+                  <?php if($businessInfo['business_status_id'] == 3 || $isExpired == 1 || $businessInfo['plan_id'] == 0){ ?>
+                    <a href="<?php echo base_url('business-profile/continue-payment?plan='.$planCurrentId.'&businessId='.$businessInfo['id']); ?>" class="btn btn-red"><?php echo $this->lang->line('make_a_payment'); ?></a>
                   <?php } ?>
                   <?php if($businessInfo['business_status_id'] == 2 && !empty($businessInfo['subscription_id']) && $isExpired == 0){ ?>
                     <input type="hidden" id="subscriptionId" value="<?php echo $businessInfo['subscription_id']; ?>" />
@@ -113,7 +107,9 @@
                     <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel-subscription"><?php echo $this->lang->line('cancel_subscription'); ?></a>
                   <?php } ?>
                   <!-- switch plan -->
-                  <a href="<?php echo base_url('business-profile/switch-plan?businessId='.$businessInfo['id'].'&customerId='.$customer['id']); ?>" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
+                  <?php if($businessInfo['plan_id'] != 0){ ?>
+                    <a href="<?php echo base_url('business-profile/switch-plan?businessId='.$businessInfo['id'].'&customerId='.$customer['id']); ?>" class="fw-500 text-decoration-underline"><?php echo $this->lang->line('switch_plan'); ?></a>
+                  <?php } ?>
                 </div>
               </div>
             </div>
