@@ -183,6 +183,8 @@ class Event extends MY_Controller {
         $redirectUrl = $this->input->get('redirectUrl');
         $data['redirectOldUrl'] = $redirectUrl;
 
+        $data['event_id'] = $this->input->get('event');
+
         $this->load->view('frontend/event/bp-event-account', $data);
     }
     

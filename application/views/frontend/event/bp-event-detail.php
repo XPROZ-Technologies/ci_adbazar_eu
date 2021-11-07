@@ -92,16 +92,17 @@
         var url = $("#baseUrl").data('href');
         var customer_id = <?php echo $customer['id']; ?>;
         var redirectUrl = $("#redirectUrl").val();
+        var event_id = '<?php echo $detailInfo['id']; ?>';
 
         if(customer_id == 0) {
-            redirect(false, url + 'event/login.html?requiredLogin=1&redirectUrl=' + redirectUrl);
+            redirect(false, url + 'event/login.html?requiredLogin=1&redirectUrl=' + redirectUrl + '&event=' + event_id);
         }
 
         $.ajax({
             type: "POST",
             url: '<?php echo base_url('customer-join-event'); ?>',
             data: {
-                event_id: <?php echo $detailInfo['id']; ?>,
+                event_id: event_id,
                 customer_id: customer_id
             },
             dataType: "json",

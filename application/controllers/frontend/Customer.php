@@ -74,7 +74,7 @@ class Customer extends MY_Controller
                 redirect(base_url('login.html'));
             }
         } catch (Exception $e) {
-            $this->session->set_flashdata('notice_message', $e->getMessage());
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html?3'));
         }
@@ -337,7 +337,7 @@ class Customer extends MY_Controller
                 }
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
             die;
         }
     }
@@ -380,7 +380,7 @@ class Customer extends MY_Controller
                 die;
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
             die;
         }
     }
@@ -443,7 +443,7 @@ class Customer extends MY_Controller
                 die;
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
             die;
         }
     }
@@ -477,8 +477,68 @@ class Customer extends MY_Controller
                 die;
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
             die;
+        }
+    }
+
+    public function join_as_guest() {
+        $this->loadModel(array('Mcustomers','Mconfigs'));
+        
+        /**
+         * Commons data
+         */
+
+
+        $data = $this->commonDataCustomer('Join event as guest');
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $data['basePagingUrl'] = base_url('join-as-guest');
+
+        $data['event_id'] = $this->input->get('event');
+
+        $join_success = $this->input->get('join_success');
+
+        $data['join_success'] = false;
+        if($join_success == 1){
+            $data['join_success'] = true;
+        }
+        $this->load->view('frontend/business/bp-event-join', $data);
+    }
+
+    public function submitJoinAsGuest()
+    {
+        try {
+            $postData = $this->arrayFromPost(array('email', 'event_id', 'first_name', 'last_name'));
+            if (empty($postData['event_id']) || empty($postData['first_name']) || empty($postData['last_name']) || empty($postData['email'])) {
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('incorrect-information1635566199')));
+                die;
+            }
+            $this->loadModel(array('Mevents', 'Mcustomerevents'));
+
+
+            //join event
+            $customerEventId = $this->Mcustomerevents->save(array(
+                'customer_id' => 0,
+                'event_id' => $postData['event_id'],
+                'first_name' => $postData['first_name'],
+                'last_name' => $postData['last_name'],
+                'is_guest' => 1,
+                'customer_event_status_id' => STATUS_ACTIVED
+            ));
+
+           
+            $this->session->set_flashdata('notice_message', $this->lang->line('you-have-been-successfully-reg1635566199'));
+            $this->session->set_flashdata('notice_type', 'success');
+            redirect(base_url('join-as-guest?event='.$postData['event_id'].'&join_success=1'));
+           
+        } catch (Exception $e) {
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('join-as-guest'));
         }
     }
 
@@ -601,7 +661,7 @@ class Customer extends MY_Controller
                 redirect(base_url(HOME_URL));
             }
         } catch (Exception $e) {
-            //echo json_encode(array('code' => -2, 'message' => $e->getMessage()));die;
+            //echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
             $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('customer/general-information?3'));

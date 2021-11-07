@@ -179,7 +179,7 @@ $(document).ready(function () {
         var redirectUrl = $("#redirectUrl").val();
 
         if (customer_id == 0) {
-            redirect(false, url + 'event/login.html?requiredLogin=1&redirectUrl=' + redirectUrl);
+            redirect(false, url + 'event/login.html?requiredLogin=1&redirectUrl=' + redirectUrl + '&event=' + current_button.data('id'));
         }
 
         $.ajax({

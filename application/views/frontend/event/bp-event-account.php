@@ -52,7 +52,7 @@
           </div>
           <div class="col-lg-6 v2 d-flex flex-column justify-content-center align-items-end">
             <div class="bp-account-right">
-              <a href="javascript:void(0)" class="btn btn-red btn-join-as-guest"><?php echo $this->lang->line('continue_as_guest'); ?></a>
+              <a href="<?php echo base_url('join-as-guest?event='.$event_id) ?>" class="btn btn-red btn-join-as-guest"><?php echo $this->lang->line('continue_as_guest'); ?></a>
             </div>
           </div>
         </div>
@@ -109,6 +109,6 @@
 
 <script>
   $('.btn-join-as-guest').click(function() {
-    $("#eventJoinAsGuest").modal('show');
+    // $("#eventJoinAsGuest").modal('show');
   });
 </script>

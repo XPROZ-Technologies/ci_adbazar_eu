@@ -3,7 +3,7 @@ $(window).ready(() => {
   $("#signupSucess").modal("show");
   /*$("#signinSuccessResetPassModal").modal("show");*/
   $("#profileChangePassModal").modal("show");
-  $("#joinModal").modal("show");
+  // $("#joinModal").modal("show");
   /*
     $("#eventModal").modal("show");
   */
