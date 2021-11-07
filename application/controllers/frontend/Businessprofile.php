@@ -3000,7 +3000,11 @@ class Businessprofile extends MY_Controller
 
         $data['businessInfo'] = $businessInfo;
 
-        $data['planInfo'] = $this->Mpaymentplans->get($businessInfo['plan_id']);
+        if(empty($businessInfo['plan_id'])){
+            $data['planInfo'] = $this->Mpaymentplans->get(1);
+        }else{
+            $data['planInfo'] = $this->Mpaymentplans->get($businessInfo['plan_id']);
+        }
 
         $data['customerInfo'] = $this->Mcustomers->get($data['customer']['id']);
 
