@@ -23,7 +23,7 @@
 
                   <?php if (!empty($lists) > 0) { ?>
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
-
+                      <!--
                       <div class="d-flex align-items-center inner-filter">
                         <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                         <div class="notification-filter">
@@ -37,6 +37,7 @@
                           </div>
                         </div>
                       </div>
+                      -->
 
                       <div class="d-flex align-items-center notification-sort">
                         <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
@@ -65,11 +66,24 @@
                               <hr class="my-2 my-lg-3">
                               <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?></p>
                               <p class="mb-0 event-time page-text-sm"><?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
-
-                              <div class="badge badge-primary bm-event-status">Upcomming</div>
+                              <?php 
+                                $event_class = 'badge-primary';
+                                $event_text = 'Upcomming';
+                                $timeStart = strtotime(ddMMyyyy($eventItem['start_date'], 'Y-m-d').' '.ddMMyyyy($eventItem['start_time'], 'H:i'));
+                                $timeEnd = strtotime(ddMMyyyy($eventItem['end_date'], 'Y-m-d').' '.ddMMyyyy($eventItem['end_time'], 'H:i'));
+                                $timeCurrent = strtotime(date('Y-m-d H:i'));
+                                if($timeStart <= $timeCurrent){
+                                  $event_class = 'badge-approved';
+                                  $event_text = 'Ongoing';
+                                }else if($timeStart >= $timeCurrent){
+                                  $event_class = 'badge-expire';
+                                  $event_text = 'Expired';
+                                }
+                              ?>
+                              <div class="badge <?php echo $event_class; ?> bm-event-status"><?php echo $event_text; ?></div>
                             </div>
                           </a>
-                          <div class="bm-event-actions">
+                          <div class="bm-event-actions" style="display:none;">
                             <a href="bm-event-edit.html" class="event-edit page-text-xs mt-2 text-decoration-underline"><?php echo $this->lang->line('edit'); ?></a>
                             <a href="#bmEventModal" data-bs-toggle="modal" class="event-cancel page-text-xs mt-2 text-decoration-underline"><?php echo $this->lang->line('cancel'); ?></a>
                           </div>
