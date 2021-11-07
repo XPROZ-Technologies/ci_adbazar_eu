@@ -31,7 +31,12 @@ class Event extends MY_Controller {
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
-        $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
+
+        $joinedEvents = array();
+        if($data['customer']['id'] > 0){
+            $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
+        }
+        
         
         //current day default
         if(empty($selected_date)) $selected_date = date('Y-m-d');
@@ -39,8 +44,7 @@ class Event extends MY_Controller {
         $getData = array(
             'event_status_id' => STATUS_ACTIVED, 
             'search_text_fe' => $search_text, 
-            'selected_date' => $selected_date,
-            'joined_events' => $joinedEvents
+            'selected_date' => $selected_date
         );
         $currentDay = strtotime(date('Y-m-d'));
         $selectDay = strtotime($selected_date);
@@ -96,7 +100,8 @@ class Event extends MY_Controller {
         $data['dateRanges'] = $dateRanges;
         //echo "<pre>";print_r($data['dateRanges']);die;
         
-
+        $data['joined_event'] = $joinedEvents;
+        
         $this->load->view('frontend/event/customer-event', $data);
     }
 

@@ -45,7 +45,7 @@
                             <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?> <span class="dot-black"></span> <?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
                           </div>
                         </a>
-                        <?php if (!$inPast) { ?>
+                        <?php if (!$inPast && !in_array($eventItem['id'], $joined_event)) { ?>
                           <a href="javascript:void(0)" class="event-join btn btn-outline-red mt-2 mt-lg-0 join-event-in-list" data-id="<?php echo $eventItem['id']; ?>" data-customer="<?php echo $customer['id']; ?>"><?php echo $this->lang->line('join'); ?></a>
                         <?php } ?>
                       </div>
@@ -142,9 +142,9 @@
           //get date
           var x = new Date();
           var y = new Date(info.dateStr);
-          if(x < y){
+          //if(x < y){
             redirect(false, '<?php echo base_url('events.html'); ?>?selected_date=' + info.dateStr);
-          }
+          //}
         }
       });
       calendar.render();
