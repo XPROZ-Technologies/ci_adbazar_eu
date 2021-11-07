@@ -2237,7 +2237,7 @@ line-height: 23px;
     margin-bottom: 18px!important;
 }
 .bp-join-form {
-    width: 476px;
+    /*width: 476px;*/
     background: #F5F5F5;
     padding: 34px 44px;
     margin: auto;

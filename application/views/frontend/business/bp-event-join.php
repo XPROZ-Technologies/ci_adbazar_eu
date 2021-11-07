@@ -10,16 +10,16 @@
               <form id="frmJoinAsGuest" class="row g-3" method="POST" action="<?php echo base_url('submit-join-as-guest') ?>">
                 <input type="hidden" name="event_id" value="<?php echo $event_id; ?>" />
                 <div class="col-md-6">
-                  <label for="eventFirstName" class="form-label">First Name</label>
+                  <label for="eventFirstName" class="form-label"><?php echo $this->lang->line('first_name'); ?></label>
                   <input type="text" class="form-control" id="eventFirstName" name="first_name">
                 </div>
                 <div class="col-md-6">
-                  <label for="eventLastName" class="form-label">Last Name</label>
+                  <label for="eventLastName" class="form-label"><?php echo $this->lang->line('last_name'); ?></label>
                   <input type="text" class="form-control" id="eventLastName" name="last_name">
                 </div>
                 <!-- has-validation -->
                 <div class="col-md-12">
-                  <label for="eventEmail" class="form-label">Email<span class="required text-danger">*</span> </label>
+                  <label for="eventEmail" class="form-label"><?php echo $this->lang->line('email'); ?><span class="required text-danger">*</span> </label>
                   <!-- is-invalid -->
                   <input type="email" class="form-control" id="eventEmail" name="email">
                   <div class="invalid-feedback">
@@ -27,7 +27,7 @@
                   </div>
                 </div>
                 <div class="col-12 d-flex justify-content-center">
-                  <button type="submit" class="btn btn-red">Submit</button>
+                  <button type="submit" class="btn btn-red"><?php echo $this->lang->line('submit'); ?></button>
                 </div>
               </form>
             </div>
