@@ -23,8 +23,9 @@
 
                   <?php if (!empty($lists) > 0) { ?>
                     <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
-                      <!--
+                      
                       <div class="d-flex align-items-center inner-filter">
+                        <!--
                         <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                         <div class="notification-filter">
                           <div class="custom-select">
@@ -36,8 +37,9 @@
                             </select>
                           </div>
                         </div>
+                        -->
                       </div>
-                      -->
+                      
 
                       <div class="d-flex align-items-center notification-sort">
                         <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
