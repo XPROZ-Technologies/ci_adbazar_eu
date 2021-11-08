@@ -1879,16 +1879,19 @@ class Businessprofile extends MY_Controller
     {
         try {
             $customer = $this->checkLoginCustomer();
-            if($this->input->get('tokenDraft') && $customer['id'] > 0) {
+            if($customer['id'] > 0) {
                 $tokenDraft = $this->input->get('tokenDraft');
                 
                 $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours', 'Mbusinessservicetype'));
                 $businessProfileId = 0;
-                $businessInfo = $this->Mbusinessprofiles->getBy(array('token_draft' => $tokenDraft));
-                   
-                if(count($businessInfo) > 0) {
-                    $businessProfileId = $businessInfo[0]['id'];
+
+                if(!empty($tokenDraft)){
+                    $businessInfo = $this->Mbusinessprofiles->getBy(array('token_draft' => $tokenDraft));
+                    if(count($businessInfo) > 0) {
+                        $businessProfileId = $businessInfo[0]['id'];
+                    }
                 }
+                
                 /**
                  * Commons data
                  */
@@ -1910,7 +1913,9 @@ class Businessprofile extends MY_Controller
                 } else {
                     $postData['created_at'] = getCurentDateTime();
                     $postData['created_by'] = 0; //customer create business
-                    $postData['token_draft'] = $tokenDraft;
+                    if(!empty($tokenDraft)){
+                        $postData['token_draft'] = $tokenDraft;
+                    }
                 }
                 
 
@@ -1926,6 +1931,9 @@ class Businessprofile extends MY_Controller
                 $isTrial = $arrayValues['isTrial'];
 
                 if($isTrial == 1){
+                    $date = strtotime("+3 months", strtotime(date('Y-m-d H:i:s')));
+                    $postData['expired_date'] = date('Y-m-d H:i:s', $date);
+                   
                     $postData['business_status_id'] = STATUS_ACTIVED;
                     $this->Mcustomers->save(array('free_trial' => 1, 'free_trial_type' => $plan), $data['customer']['id']);
                 }
