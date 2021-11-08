@@ -133,6 +133,12 @@ define('ZOOM_MAP_ADMIN', 17);
 define('EMAIL_FROM', 'server@adbazar.eu');
 define('EMAIL_FROM_NAME', 'AdBazar.eu');
 
+//email server
+define('EMAIL_USER', 'server@adbazar.eu');
+define('EMAIL_PASS', 'changeM3!!Adbazar12345');
+define('EMAIL_HOST', 'ssl://smtpout.asia.secureserver.net');
+define('EMAIL_PORT', '465');
+
 //paypal
 define('PAYPAL_CLIENT_KEY', 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX');
 define('PAYPAL_SEC_KEY', 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3');

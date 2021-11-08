@@ -899,7 +899,7 @@ class Businessprofile extends MY_Controller
         
         $business_id = $this->input->get('businessId');
     
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans', 'Mcustomers'));
 
         $businessProfiles = $this->Mbusinessprofiles->getBy(array('customer_id' => $customer['id'], 'id' => $business_id));
 
@@ -993,6 +993,24 @@ class Businessprofile extends MY_Controller
                     $business_data['expired_date'] = date('Y-m-d H:i:s', $date);
                 }
                 $this->Mbusinessprofiles->save($business_data, $businessId);
+
+                $customerInfo = $this->Mcustomers->get($customerId);
+                $businessInfo = $this->Mbusinessprofiles->get($businessId);
+                /**
+                 * Save Email
+                 */
+                $this->load->model('Memailqueue');
+                $dataEmail = array(
+                    'name' => $customerInfo['customer_first_name'],
+                    'email_to' => $customerInfo['customer_email'],
+                    'email_to_name' => $customerInfo['customer_first_name'],
+                    'business_name' => $businessInfo['business_name'],
+                    'url' => base_url('business-management/'.$businessInfo['business_url'] . '/subscriptions')
+                );
+                $emailResult = $this->Memailqueue->createEmail($dataEmail, 8);
+                /**
+                 * END. Save Email
+                 */
 
                 $this->session->set_flashdata('notice_message', "Payment success");
                 $this->session->set_flashdata('notice_type', 'success');
@@ -1131,36 +1149,6 @@ class Businessprofile extends MY_Controller
         $pay = json_decode($response2);
         //echo "<pre>";print_r($pay);exit;
         return $pay->links['0']->href;
-    }
-
-    public function cancelSubscription($paypalUser)
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => PAYPAL_HOST . '/v1/billing/subscriptions/'.$paypalUser['subscriptionId'].'/cancel',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
-              "reason": "'.$paypalUser['reasonCancel'].'"
-            }',
-            CURLOPT_HTTPHEADER => array(
-                'Accept: application/json',
-                'Authorization: Basic ' . base64_encode(PAYPAL_CLIENT_KEY . ':' . PAYPAL_SEC_KEY),
-                'Prefer: return=representation',
-                'Content-Type: application/json'
-            ),
-        ));
-
-        $response2 = curl_exec($curl);
-
-        curl_close($curl);
-        $result = json_decode($response2);
-        return $result;
     }
 
     public function suspendSubscription($paypalUser)
@@ -1324,7 +1312,7 @@ class Businessprofile extends MY_Controller
         } else {
             $tokenDraft = $this->input->get('tokenDraft');
         
-            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans'));
+            $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans', 'Mcustomers'));
 
             $businessProfiles = $this->Mbusinessprofiles->getBy(array('customer_id' => $customer['id'], 'token_draft' => $tokenDraft));
           
@@ -1398,6 +1386,24 @@ class Businessprofile extends MY_Controller
                     }
                     $this->Mbusinessprofiles->save($business_data, $businessId);
 
+                    $customerInfo = $this->Mcustomers->get($customerId);
+                    $businessInfo = $this->Mbusinessprofiles->get($businessId);
+                    /**
+                     * Save Email
+                     */
+                    $this->load->model('Memailqueue');
+                    $dataEmail = array(
+                        'name' => $customerInfo['customer_first_name'],
+                        'email_to' => $customerInfo['customer_email'],
+                        'email_to_name' => $customerInfo['customer_first_name'],
+                        'business_name' => $businessInfo['business_name'],
+                        'url' => base_url('business-management/'.$businessInfo['business_url'] . '/subscriptions')
+                    );
+                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 8);
+                    /**
+                     * END. Save Email
+                     */
+
                     $this->session->set_flashdata('notice_message', "Payment success");
                     $this->session->set_flashdata('notice_type', 'success');
                     redirect(base_url('business-management/'.$businessUrl.'/about-us'));
@@ -1462,7 +1468,7 @@ class Businessprofile extends MY_Controller
         
         $business_id = $this->input->get('businessId');
     
-        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans'));
+        $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans', 'Mcustomers'));
 
         $businessProfiles = $this->Mbusinessprofiles->getBy(array('customer_id' => $customer['id'], 'id' => $business_id));
 
@@ -1542,6 +1548,24 @@ class Businessprofile extends MY_Controller
                 }
                 $this->Mbusinessprofiles->save($business_data, $businessId);
 
+                $customerInfo = $this->Mcustomers->get($customerId);
+                $businessInfo = $this->Mbusinessprofiles->get($businessId);
+                /**
+                 * Save Email
+                 */
+                $this->load->model('Memailqueue');
+                $dataEmail = array(
+                    'name' => $customerInfo['customer_first_name'],
+                    'email_to' => $customerInfo['customer_email'],
+                    'email_to_name' => $customerInfo['customer_first_name'],
+                    'business_name' => $businessInfo['business_name'],
+                    'url' => base_url('business-management/'.$businessInfo['business_url'] . '/subscriptions')
+                );
+                $emailResult = $this->Memailqueue->createEmail($dataEmail, 8);
+                /**
+                 * END. Save Email
+                 */
+
                 $this->session->set_flashdata('notice_message', "Payment success");
                 $this->session->set_flashdata('notice_type', 'success');
                 redirect(base_url('business-management/'.$businessUrl.'/about-us'));
@@ -1599,7 +1623,7 @@ class Businessprofile extends MY_Controller
                 
                 $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription_id'], 'customer_id' => $postData['customer_id']), 'id', 0);
                 if($businessId > 0){
-                    $result = $this->cancelSubscription(array('subscriptionId' => $postData['business_id'], 'reasonCancel' => 'Cancel subscription'));
+                    $result = $this->cancelSubscription(array('subscriptionId' => $postData['subscription_id'], 'reasonCancel' => 'Cancel subscription'));
                     
                     //remove subscription_id in business
                     $businessId = $this->Mbusinessprofiles->save(array('subscription_id' => '', 'token' => '', 'ba_token' => '', 'token_draft' => ''), $businessId);
@@ -1624,7 +1648,7 @@ class Businessprofile extends MY_Controller
                 
                 $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription_id'], 'customer_id' => $postData['customer_id']), 'id', 0);
                 if($businessId > 0){
-                    $result = $this->suspendSubscription(array('subscriptionId' => $postData['business_id'], 'reasonSuspend' => 'Suspend subscription'));
+                    $result = $this->suspendSubscription(array('subscriptionId' => $postData['subscription_id'], 'reasonSuspend' => 'Suspend subscription'));
                     
                     //update 1: annual/ 0: monthly
                     $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 0), $businessId);
@@ -1649,7 +1673,7 @@ class Businessprofile extends MY_Controller
                 
                 $businessId = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'subscription_id' => $postData['subscription_id'], 'customer_id' => $postData['customer_id']), 'id', 0);
                 if($businessId > 0){
-                    $result = $this->activeSubscription(array('subscriptionId' => $postData['business_id'], 'reasonActive' => 'Active subscription'));
+                    $result = $this->activeSubscription(array('subscriptionId' => $postData['subscription_id'], 'reasonActive' => 'Active subscription'));
                     
                     //update 1: annual/ 0: monthly
                     $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessId);
@@ -1855,16 +1879,19 @@ class Businessprofile extends MY_Controller
     {
         try {
             $customer = $this->checkLoginCustomer();
-            if($this->input->get('tokenDraft') && $customer['id'] > 0) {
+            if($customer['id'] > 0) {
                 $tokenDraft = $this->input->get('tokenDraft');
                 
                 $this->loadModel(array('Mcoupons', 'Mconfigs', 'Mbusinessprofiles', 'Mcustomers', 'Mservices', 'Mopeninghours', 'Mbusinessservicetype'));
                 $businessProfileId = 0;
-                $businessInfo = $this->Mbusinessprofiles->getBy(array('token_draft' => $tokenDraft));
-                   
-                if(count($businessInfo) > 0) {
-                    $businessProfileId = $businessInfo[0]['id'];
+
+                if(!empty($tokenDraft)){
+                    $businessInfo = $this->Mbusinessprofiles->getBy(array('token_draft' => $tokenDraft));
+                    if(count($businessInfo) > 0) {
+                        $businessProfileId = $businessInfo[0]['id'];
+                    }
                 }
+                
                 /**
                  * Commons data
                  */
@@ -1886,7 +1913,9 @@ class Businessprofile extends MY_Controller
                 } else {
                     $postData['created_at'] = getCurentDateTime();
                     $postData['created_by'] = 0; //customer create business
-                    $postData['token_draft'] = $tokenDraft;
+                    if(!empty($tokenDraft)){
+                        $postData['token_draft'] = $tokenDraft;
+                    }
                 }
                 
 
@@ -1902,6 +1931,9 @@ class Businessprofile extends MY_Controller
                 $isTrial = $arrayValues['isTrial'];
 
                 if($isTrial == 1){
+                    $date = strtotime("+3 months", strtotime(date('Y-m-d H:i:s')));
+                    $postData['expired_date'] = date('Y-m-d H:i:s', $date);
+                   
                     $postData['business_status_id'] = STATUS_ACTIVED;
                     $this->Mcustomers->save(array('free_trial' => 1, 'free_trial_type' => $plan), $data['customer']['id']);
                 }

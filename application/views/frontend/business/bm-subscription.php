@@ -57,7 +57,7 @@
                 </div>
                 <?php if($businessInfo['is_trial'] == 1){ ?>
                   <p class="mb-0 page-text-lg fw-500 text-center text-notice text-danger">
-                    <?php echo $this->lang->line('you_are_actively_using_your_3-'); ?>
+                    <?php echo str_replace('15', dateDifference(date('Y-m-d'), ddMMyyyy($businessInfo['expired_date'], 'Y-m-d')), $this->lang->line('you_are_actively_using_your_3-')); ?>
                   </p>
                 <?php } ?>
                 <?php if($isExpired == 1 && $businessInfo['is_trial'] == 0){ ?>

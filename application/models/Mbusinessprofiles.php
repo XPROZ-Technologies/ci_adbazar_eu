@@ -33,9 +33,13 @@ class Mbusinessprofiles extends MY_Model {
             if(!empty($business_profile_ids)) $query .= " AND id IN (".$business_profile_ids.")";
             
         }
+        
+        if(isset($postData['is_annual_payment'])) $query .= " AND is_annual_payment = ".$postData['is_annual_payment'];
         if(isset($postData['service_id']) && $postData['service_id'] > 0) $query .= " AND service_id = ".$postData['service_id'];
         if(isset($postData['service_ids']) && count($postData['service_ids']) > 0) $query .= " AND service_id IN (".implode(',', $postData['service_ids']).")";
         if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query .= " AND customer_id = ".$postData['customer_id'];
+        if(isset($postData['expired']) && !empty($postData['expired'])) $query .= " AND DATE(expired_date) >= '{$postData['expired']}'";
+        
         return $query;
     }
 
