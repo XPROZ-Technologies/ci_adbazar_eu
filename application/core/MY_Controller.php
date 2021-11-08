@@ -203,10 +203,10 @@ abstract class MY_Controller extends CI_Controller
 
         $config = array(
             'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://smtpout.asia.secureserver.net',
-            'smtp_port' => '465',
-            'smtp_user' => 'server@adbazar.eu',
-            'smtp_pass' => 'changeM3!!Adbazar12345',
+            'smtp_host' => EMAIL_HOST,
+            'smtp_port' => EMAIL_PORT,
+            'smtp_user' => EMAIL_USER,
+            'smtp_pass' => EMAIL_PASS,
             'mailtype'  => 'html',
             'starttls'  => true,
             'newline'   => "\r\n"
