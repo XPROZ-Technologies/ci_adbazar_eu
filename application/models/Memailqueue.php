@@ -131,6 +131,93 @@ class Memailqueue extends MY_Model
         return $data;
     }
 
+    /**
+     * 6
+     */
+    public function subscriptionExpiredSoon($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Your subscription for '.$emailData['business_name'].' will expire soon</p>
+                            <p>Hello ' . $emailData['name'] . ',</p>
+                            <p>&nbsp;</p>
+                            <p>  This email serves as a notification that your subscription at AdBazar for '.$emailData['business_name'].' will expire in '.$emailData['time'].'. </p>
+                            <p>&nbsp;</p>
+                            <p> Please make a payment to extend your subscription before it is expired by clicking the button below to avoid any disruption while managing your business.</p>
+                            <p>&nbsp;</p>
+                            <p> Looking forward to seeing you at AdBazar.</p>
+                            <p>&nbsp;</p>
+                            <p>Kind regards,<br>Adbazar.</p>
+                            <p>&nbsp;</p>
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">Renew subscription</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
+    /**
+     * 7
+     */
+    public function subscriptionExpired($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Your subscription for '.$emailData['business_name'].' has expired</p>
+                            <p>Hello ' . $emailData['name'] . ',</p>
+                            <p>&nbsp;</p>
+                            <p>  This email serves as a notification that your subscription at AdBazar for '.$emailData['business_name'].' has expired.  </p>
+                            <p>&nbsp;</p>
+                            <p> We are sorry that we have to temporarily lock all of your accesses to manage '.$emailData['business_name'].'.</p>
+                            <p>&nbsp;</p>
+                            <p> Please make a payment to extend your subscription by clicking the button below. </p>
+                            <p>&nbsp;</p>
+                            <p> Looking forward to seeing you at AdBazar.</p>
+                            <p>&nbsp;</p>
+                            <p>Best,<br>Adbazar.</p>
+                            <p>&nbsp;</p>
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">Renew subscription</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+   
+    /**
+     * 8
+     */
+    public function subscriptionExtended($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Your subscription for '.$emailData['business_name'].' was successful </p>
+                            <p>Hello ' . $emailData['name'] . ',</p>
+                            <p>&nbsp;</p>
+                            <p> This email serves as a notification that your payment for renewing your subscription for '.$emailData['business_name'].' at Adbazar was succesful.   </p>
+                            <p>&nbsp;</p>
+                            <p> Thank you for using our service.</p>
+                            <p>&nbsp;</p>
+                            <p> Please check your receipt by clicking the button below.  </p>
+                            <p>&nbsp;</p>
+                           
+                            <p>Best,<br>Adbazar.</p>
+                            <p>&nbsp;</p>
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">View my receipt</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
     public function createEmail($emailData = array(), $emailType = 0)
     {
         try {
@@ -242,6 +329,75 @@ class Memailqueue extends MY_Model
                     $emailContent = $this->declineReservation($emailData);
                     $dataInsert = array(
                         'email_subject' => $this->lang->line('email_your_reservation_has_been_declined'),
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if ($emailType == 6) {
+                    //alert expired
+                    $emailContent = $this->subscriptionExpiredSoon($emailData);
+                    $dataInsert = array(
+                        'email_subject' => 'Your subscription for '.$emailData['business_name'].' will expire soon',
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if ($emailType == 7) {
+                    //alert expired
+                    $emailContent = $this->subscriptionExpired($emailData);
+                    $dataInsert = array(
+                        'email_subject' => 'Your subscription for '.$emailData['business_name'].' has expired',
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if ($emailType == 8) {
+                    //alert expired
+                    $emailContent = $this->subscriptionExtended($emailData);
+                    $dataInsert = array(
+                        'email_subject' => 'Your subscription for '.$emailData['business_name'].' was successful',
                         'email_content' => $emailContent,
                         'email_from' => EMAIL_FROM,
                         'email_from_name' => EMAIL_FROM_NAME,

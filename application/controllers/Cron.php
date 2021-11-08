@@ -35,5 +35,149 @@ class Cron extends MY_Controller {
         }
         
     }
+
+    /**
+     * Notify customer 3 days before expired
+     */
+    public function checkBusinessNextExpired() {
+        $this->loadModel(array('Mconfigs', 'Mbusinessprofiles', 'Mcustomers'));
+
+        $expiredDate = date('Y-m-d', strtotime('+3 days'));
+
+        $dataQuery = array(
+            'expired' => $expiredDate,
+            'business_status_id' => STATUS_ACTIVED,
+            'is_annual_payment' => 0
+        );
+
+        $listBusiness = $this->Mbusinessprofiles->search($dataQuery);
+
+        if(!empty($listBusiness)){
+            foreach($listBusiness as $item){
+                $customerInfo = $this->Mcustomers->get($item['customer_id']);
+                //send email here
+                /**
+                 * Save Email
+                 */
+                $this->load->model('Memailqueue');
+                $dataEmail = array(
+                    'name' => $customerInfo['customer_first_name'],
+                    'email_to' => $customerInfo['customer_email'],
+                    'email_to_name' => $customerInfo['customer_first_name'],
+                    'business_name' => $item['business_name'],
+                    'action' => base_url('business-management/'.$item['business_url'] . '/subscriptions'),
+                    'time' => ddMMyyyy($item['expired_date'], 'd-m-Y')
+                );
+                $emailResult = $this->Memailqueue->createEmail($dataEmail, 6);
+                /**
+                 * END. Save Email
+                 */
+            }
+        }
+    }
+
+
+    /**
+     * Check and change status of Business Profile
+     */
+    public function checkPaymentBusiness() {
+        $this->loadModel(array('Mconfigs', 'Mbusinessprofiles', 'Mpaymentplans', 'Mcustomers'));
+
+        $expiredDate = date('Y-m-d');
+
+        $dataQuery = array(
+            'expired' => $expiredDate,
+            'business_status_id' => STATUS_ACTIVED,
+            'is_annual_payment' => 1
+        );
+
+        $listBusiness = $this->Mbusinessprofiles->search($dataQuery);
+
+        if(!empty($listBusiness)){
+            foreach($listBusiness as $item){
+                //check and change status
+                $data = array(
+                    'subscriptionId' => $item['subscription_id'],
+                    'startTime' => date('Y-m-d').'T00:00:00Z',
+                    'endTime' => date('Y-m-d').'T23:59:59Z',
+                );
+
+                /**
+                 * check transaction
+                 */
+                $isSuccess = false;
+                $data = $this->checkPaymentSubscription($data);
+                $transactions = $data['transactions'];
+                $countTransaction = count($transactions);
+                if($countTransaction > 0){
+                    $countTransaction = $countTransaction - 1;
+                    if(isset($transactions[$countTransaction])){
+                        $payment = $transactions[$countTransaction];
+                        if($payment['status'] == 'COMPLETED') {
+                            $isSuccess = true;
+                        }
+                    }
+                }
+
+                $customerInfo = $this->Mcustomers->get($item['customer_id']);
+
+                /**
+                 * Extend expired date
+                 */
+                if($isSuccess) {
+                    $planId = $item['plan_id'];
+
+                    $planType = $this->Mpaymentplans->getFieldValue(array('id' => $planId), 'plan_type_id', 0);
+                    
+                    $expiredDate = strtotime("+30 day", strtotime($item['expired_date']));
+                    if($planType == 2) {
+                        $expiredDate = strtotime("+1 year", strtotime($item['expired_date']));
+                    }
+
+                    //update
+                    $busiessId = $this->Mbussinessprofiles->save(array('expired_date' => $expiredDate), $item['id']);
+
+
+                    /**
+                     * Save Email
+                     */
+                    $this->load->model('Memailqueue');
+                    $dataEmail = array(
+                        'name' => $customerInfo['customer_first_name'],
+                        'email_to' => $customerInfo['customer_email'],
+                        'email_to_name' => $customerInfo['customer_first_name'],
+                        'business_name' => $item['business_name'],
+                        'url' => base_url('business-management/'.$item['business_url'] . '/subscriptions')
+                    );
+                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 8);
+                    /**
+                     * END. Save Email
+                     */
+                }else {
+                    //cancel this subscription
+                    $this->cancelSubscription(array('subscriptionId' => $item['subscription_id'], 'reasonCancel' => 'Payment not recurring'));
+                    
+                    //update
+                    $busiessId = $this->Mbussinessprofiles->save(array('is_annual_payment' => 0, 'subscription_id' => ''), $item['id']);
+                
+                    /**
+                     * Save Email
+                     */
+                    $this->load->model('Memailqueue');
+                    $dataEmail = array(
+                        'name' => $customerInfo['customer_first_name'],
+                        'email_to' => $customerInfo['customer_email'],
+                        'email_to_name' => $customerInfo['customer_first_name'],
+                        'business_name' => $item['business_name'],
+                        'url' => base_url('business-management/'.$item['business_url'] . '/subscriptions')
+                    );
+                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 7);
+                    /**
+                     * END. Save Email
+                     */
+                }
+            }
+        }
+    }
     
 }

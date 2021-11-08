@@ -567,4 +567,67 @@ abstract class MY_Controller extends CI_Controller
 
         return $dayTime;
     }
+
+    /**
+     * Check subscription transaction
+     */
+    public function checkPaymentSubscription($paypalUser)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => PAYPAL_HOST . '/v1/billing/subscriptions/'.$paypalUser['subscriptionId'].'/transactions?start_time='.$paypalUser['startTime'].'&end_time='.$paypalUser['endTime'],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization: Basic ' . base64_encode(PAYPAL_CLIENT_KEY . ':' . PAYPAL_SEC_KEY),
+                'Prefer: return=representation',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response2 = curl_exec($curl);
+
+        curl_close($curl);
+        $result = json_decode($response2);
+        return $result;
+    }
+
+    /**
+     * Cancel subscriptions
+     */
+    public function cancelSubscription($paypalUser)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => PAYPAL_HOST . '/v1/billing/subscriptions/'.$paypalUser['subscriptionId'].'/cancel',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+              "reason": "'.$paypalUser['reasonCancel'].'"
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization: Basic ' . base64_encode(PAYPAL_CLIENT_KEY . ':' . PAYPAL_SEC_KEY),
+                'Prefer: return=representation',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response2 = curl_exec($curl);
+
+        curl_close($curl);
+        $result = json_decode($response2);
+        return $result;
+    }
 }
