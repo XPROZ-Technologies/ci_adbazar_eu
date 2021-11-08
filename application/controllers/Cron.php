@@ -114,7 +114,13 @@ class Cron extends MY_Controller {
                     if(isset($transactions[$countTransaction])){
                         $payment = $transactions[$countTransaction];
                         if($payment['status'] == 'COMPLETED') {
-                            $isSuccess = true;
+                            $tmpTimePayment = date('Y-m-d H:i:s', strtotime($payment['time']));
+                            $timePayment = strtotime($tmpTimePayment);
+                            $startTimeCheck = strtotime("-1 day");
+                            $endTimeCheck = strtotime("+1 day");
+                            if( $startTimeCheck <= $timePayment && $endTimeCheck >= $timePayment){
+                                $isSuccess = true;
+                            }
                         }
                     }
                 }
