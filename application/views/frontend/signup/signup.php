@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-12">
                         <a href="<?php echo base_url(HOME_URL); ?>">
-                            <img src="assets/img/frontend/img-setup.png" alt="signup-img" class="img-fluid">
+                            <img src="<?php echo CONFIG_PATH . $configs['LOGO_IMAGE_HEADER']; ?>" alt="<?php echo $configs['TEXT_LOGO_HEADER']; ?>" class="img-fluid">
                         </a>
                         <h2 class="text-center mb-10 page-title-sm v1"><?php echo $this->lang->line('sign_up'); ?></h2>
                     </div>
