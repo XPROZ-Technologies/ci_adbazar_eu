@@ -39,21 +39,40 @@ class Mservices extends MY_Model {
         $serviceId = $this->save($postData, $serviceId);
         if ($serviceId > 0) {
             if($isUpdate){
-                $this->db->delete('service_types', array('service_id' => $serviceId));
-        	}
-            if(!empty($serviceTypes)) {
-                $arrServiceType = array();
-                foreach ($serviceTypes as $u) {
-                	$u['service_id'] = $serviceId;
-                    $u['created_by'] = $userId;
-                    $u['created_at'] = getCurentDateTime();
-                    $u['updated_by'] = $userId;
-                    $u['updated_at'] = getCurentDateTime();
-                    $arrServiceType[] = $u;
+                if(!empty($serviceTypes)) {
+                    $this->load->model('Mservicetypes');
+                    foreach ($serviceTypes as $u) {
+                       $serviceType = array(
+                            'service_id' => $serviceId,
+                            'updated_by' => $userId,
+                            'updated_at' => getCurentDateTime(),
+                            'service_type_name_vi' => $u['service_type_name_vi'],
+                            'service_type_name_en' => $u['service_type_name_en'],
+                            'service_type_name_de' => $u['service_type_name_de'],
+                            'service_type_name_cz' => $u['service_type_name_cz'],
+                            'display_order' => $u['display_order'],
+                            'status_id' => $u['status_id'],
+
+                        );
+                        $this->Mservicetypes->save($serviceType, $u['id']);
+                    }
                 }
-               
-                if (!empty($arrServiceType)) $this->db->insert_batch('service_types', $arrServiceType);
+        	} else {
+                if(!empty($serviceTypes)) {
+                    $arrServiceType = array();
+                    foreach ($serviceTypes as $u) {
+                        $u['service_id'] = $serviceId;
+                        $u['created_by'] = $userId;
+                        $u['created_at'] = getCurentDateTime();
+                        $u['updated_by'] = $userId;
+                        $u['updated_at'] = getCurentDateTime();
+                        $arrServiceType[] = $u;
+                    }
+                   
+                    if (!empty($arrServiceType)) $this->db->insert_batch('service_types', $arrServiceType);
+                }
             }
+            
         }
         if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
@@ -67,7 +86,7 @@ class Mservices extends MY_Model {
 
     public function getHighlightListByLang($language = 0, $isAll = false) {
         if($language == 0) $language = $this->Mconstants->languageDefault;
-        $service_name = "service_name_".$this->Mconstants->languageCodes[$language];
+        $service_name = "service_name_".$this->Mconstants->languageShortCodes[$language];
         $query = "SELECT id, service_image, service_name_en as service_slug, {$service_name} as service_name FROM services";
         if($isAll){
             $query .= " WHERE is_hot = ".STATUS_ACTIVED." AND service_status_id > 0";
@@ -79,7 +98,7 @@ class Mservices extends MY_Model {
 
     public function getByIds($postData = array(), $language = 0, $isAll = false) {
         if($language == 0) $language = $this->Mconstants->languageDefault;
-        $service_name = "service_name_".$this->Mconstants->languageCodes[$language];
+        $service_name = "service_name_".$this->Mconstants->languageShortCodes[$language];
         $query = "SELECT id, service_image, service_name_en as service_slug, {$service_name} as service_name FROM services";
         if($isAll){
             $query .= " WHERE service_status_id > 0";
@@ -92,7 +111,7 @@ class Mservices extends MY_Model {
 
     public function getServiceMenus($language = 0) {
         if($language == 0) $language = $this->Mconstants->languageDefault;
-        $service_name = "service_name_".$this->Mconstants->languageCodes[$language];
+        $service_name = "service_name_".$this->Mconstants->languageShortCodes[$language];
         $query = "SELECT id, service_name_en as service_slug, {$service_name} as service_name FROM services";
         $query .= " WHERE service_status_id > 0";
         

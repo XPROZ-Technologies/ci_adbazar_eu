@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="bp-event-back mb-3 mb-md-4">
                     <a href="<?php echo $backUrl; ?>" class="text-dark text-decoration-underline">
-                        <img src="assets/img/frontend/icon-goback.png" alt="icon-goback" class="img-fluid me-1">Back
+                        <img src="assets/img/frontend/icon-goback.png" alt="icon-goback" class="img-fluid me-1"><?php echo $this->lang->line('back1635566199'); ?>
                     </a>
                 </div>
                 <div class="row">
@@ -25,14 +25,14 @@
                                 <ul class="list-unstyled mb-0 page-text-md">
                                     <li class="font500"><?php echo ddMMyyyy($detailInfo['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($detailInfo['end_date'], 'M d, Y'); ?></li>
                                     <li class="font500"><?php echo ddMMyyyy($detailInfo['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($detailInfo['end_time'], 'H:i'); ?></li>
-                                    <li><?php echo priceFormat($detailInfo['event_join']); ?> others are going</li>
+                                    <li><?php echo priceFormat($detailInfo['event_join']); ?> <?php echo $this->lang->line('50_others_are_going'); ?></li>
                                 </ul>
                                 <div>
                                     <?php if (empty($customerEvent)) { ?>
-                                        <button type="button" class="btn btn-red btn-join btn-join-event" data-id="<?php echo $detailInfo['id']; ?>" data-customer="<?php echo $customer['id']; ?>">Join</button>
+                                        <button type="button" class="btn btn-red btn-join btn-join-event" data-id="<?php echo $detailInfo['id']; ?>" data-customer="<?php echo $customer['id']; ?>"><?php echo $this->lang->line('join'); ?></button>
                                         <button type="button" class="btn btn-red btn-red-disabled btn-join btn-saved btn-hidden" disabled>Joined</button>
                                     <?php } else { ?>
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeEventModal" class="btn btn-outline-red">Remove</button>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeEventModal" class="btn btn-outline-red"><?php echo $this->lang->line('remove'); ?></button>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -51,8 +51,16 @@
 
                             <hr>
 
-                            <h5 class="mb-3 page-text-lg">Conditions and Descriptions:</h5>
-                            <p class="page-text-md mb-0"><?php echo $detailInfo['event_description']; ?></p>
+                            <h5 class="mb-3 page-text-lg"><?php echo $this->lang->line('conditions_and_descriptions'); ?></h5>
+                            <p class="page-text-md mb-0"><?php echo nl2br($detailInfo['event_description']); ?></p>
+                            <?php if($editAble){ ?>
+                                <!-- Edit event -->
+                                <div class="form-group d-flex justify-content-center groups-btn">
+                                    <a href="<?php echo base_url('business-management/'.$businessInfo['business_url'].'/edit-event/'.$detailInfo['id']); ?>" class="btn btn-red">Edit</a>
+                                    <a href="<?php echo $backUrl; ?>" class="btn btn-outline-red btn-outline-red-md" style="margin-left:10px">Cancel</a>
+                                </div>
+                                <!-- END. Edit event -->
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -65,11 +73,11 @@
         <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p class="text-center">Are you sure want to remove the coupon
-                        "<b><?php echo $detailInfo['event_subject']; ?></b>"</p>
+                    <p class="text-center"><?php echo $this->lang->line('are_you_sure_want_to_remove_th80'); ?>
+                        "<b><?php echo $detailInfo['event_subject']; ?></b>"?</p>
                     <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-event" data-bs-dismiss="modal">Yes</a>
-                        <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
+                        <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-event" data-bs-dismiss="modal"><?php echo $this->lang->line('yes'); ?></a>
+                        <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></a>
                     </div>
                 </div>
             </div>
@@ -84,16 +92,17 @@
         var url = $("#baseUrl").data('href');
         var customer_id = <?php echo $customer['id']; ?>;
         var redirectUrl = $("#redirectUrl").val();
+        var event_id = '<?php echo $detailInfo['id']; ?>';
 
         if(customer_id == 0) {
-            redirect(false, url + 'event/login.html?requiredLogin=1&redirectUrl=' + redirectUrl);
+            redirect(false, url + 'event/login.html?requiredLogin=1&redirectUrl=' + redirectUrl + '&event=' + event_id);
         }
 
         $.ajax({
             type: "POST",
             url: '<?php echo base_url('customer-join-event'); ?>',
             data: {
-                event_id: <?php echo $detailInfo['id']; ?>,
+                event_id: event_id,
                 customer_id: customer_id
             },
             dataType: "json",

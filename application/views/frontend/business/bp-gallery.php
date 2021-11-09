@@ -14,10 +14,10 @@
                         <div class="bp-gallery">
                             <ul class="nav nav-pills justify-content-center page-text-lg" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="pills-photo-tab" data-bs-toggle="pill" data-bs-target="#pills-photo" type="button" role="tab" aria-controls="pills-photo" aria-selected="true">Photos</button>
+                                    <button class="nav-link active" id="pills-photo-tab" data-bs-toggle="pill" data-bs-target="#pills-photo" type="button" role="tab" aria-controls="pills-photo" aria-selected="true"><?php echo $this->lang->line('photos'); ?></button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-video-tab" data-bs-toggle="pill" data-bs-target="#pills-video" type="button" role="tab" aria-controls="pills-video" aria-selected="false">Videos</button>
+                                    <button class="nav-link" id="pills-video-tab" data-bs-toggle="pill" data-bs-target="#pills-video" type="button" role="tab" aria-controls="pills-video" aria-selected="false"><?php echo $this->lang->line('videos'); ?></button>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
@@ -88,7 +88,7 @@
                                         <?php } else { ?>
                                             <div class="gallery-zero zero-box">
                                                 <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid mx-auto d-block">
-                                                <p class="text-secondary page-text-lg text-center"><php echo $businessInfo['business_name']; ?> not have any photo yet. </p>
+                                                <p class="text-secondary page-text-lg text-center"><?php echo $businessInfo['business_name']; ?> not have any photo yet. </p>
                                             </div>
                                         <?php } ?>
                                     </div>
@@ -154,7 +154,7 @@
                                         <?php } else { ?>
                                             <div class="gallery-zero zero-box">
                                                 <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid mx-auto d-block">
-                                                <p class="text-secondary page-text-lg text-center"><php echo $businessInfo['business_name']; ?> does not have any video yet. </p>
+                                                <p class="text-secondary page-text-lg text-center"><?php echo $businessInfo['business_name']; ?> does not have any video yet. </p>
                                             </div>
                                         <?php } ?>
                                     </div>
@@ -330,9 +330,24 @@
                 $('.slider').resize();
                 $('.slider2').resize();
             });
-            $('.posting').click(function(event) {
+            $('.posting .posting-box').click(function(event) {
                 event.stopPropagation();
             });
+            $('.posting .posting-modal').click(function(e) {
+                $('.posting').hide();
+            });
+        }
+
+        if ($('.slider2').length > 0) {
+            $(".slider2 .video-item .video-item-ct").click(function (event) {
+                event.preventDefault();
+                var html = '<iframe width = "' + ($(this).closest('.video-item').attr('data-width')) + '"  height = "' + ($(this).height()) + '" src="https://www.youtube.com/embed/' + $(this).closest('.video-item').attr('data-src') + '?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                $(this).html(html);
+            });
+            $(window).resize(function () {
+                var height = $(".slider2 .video-item .video-item-ct").height();
+                $(".slider2 .video-item .video-item-ct iframe").height(height);
+            })
         }
 
     });

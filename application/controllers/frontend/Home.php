@@ -5,13 +5,7 @@ class Home extends MY_Controller {
     
     function __construct(){
         parent::__construct();
-       
-        $this->load->helper('cookie');
-        $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
-        $this->language =  $language;
-        $this->lang->load('home', $this->language);
-
-
+        $this->getLanguageFE();
     }
 
     public function index() {
@@ -22,7 +16,7 @@ class Home extends MY_Controller {
          */
 
 
-        $data = $this->commonDataCustomer('Home');
+        $data = $this->commonDataCustomer($this->lang->line('homepage'));
         $data['activeMenu'] = "home";
         /**
          * Commons data
@@ -35,7 +29,7 @@ class Home extends MY_Controller {
         $data['listSlidersEvent'] = $this->Msliders->getBy(array('slider_status_id' => STATUS_ACTIVED, 'slider_type_id' => 2), false, 'display_order','', 0, 0, 'asc');
 
         $savedCoupons = $this->Mcustomercoupons->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_coupon_status_id >' => 0), 'coupon_id');
-        $data['listCoupons'] = $this->Mcoupons->search(array('coupon_status_id' => STATUS_ACTIVED, 'is_hot' => 2, 'saved_coupons' => $savedCoupons));
+        $data['listCoupons'] = $this->Mcoupons->search(array('coupon_status_id' => STATUS_ACTIVED, 'is_hot' => 2, 'saved_coupons' => $savedCoupons, 'is_full' => 0));
         foreach($data['listCoupons'] as $kCoupon => $itemCoupon){
             $data['listCoupons'][$kCoupon]['coupon_amount_used'] = $this->Mcustomercoupons->getUsedCoupon($itemCoupon['id']);
         }
@@ -46,7 +40,7 @@ class Home extends MY_Controller {
         /**
          * Business profile on Map
          */
-        $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
         $service_id = $this->input->get('service_id');
         if(empty($service_id)){ $service_id = 0; }
         $data['service_id'] = $service_id;
@@ -99,6 +93,8 @@ class Home extends MY_Controller {
                 $data['listServices'][] = $itemService;
             }
         }
+
+        $data['home_video'] = $this->Mconfigs->getConfigValueByLang('VIDEO_URL', $data['language_id']);
        
         /**
          * END. Business profile on Map
@@ -124,25 +120,39 @@ class Home extends MY_Controller {
             if(is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
             $rowCount = $this->Mbusinessprofiles->getCount($postData);
 
-            $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+            $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
 
             $listProfiles = $this->Mbusinessprofiles->search($postData, $perPage, $page);
             for($i = 0; $i < count($listProfiles); $i++){
             
                 $listProfiles[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfiles[$i]['id'], $service_type_name);
                 $listProfiles[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfiles[$i]['id']);
+                $listProfiles[$i]['rating'] = $this->getBusinessRating($listProfiles[$i]['id']);
+                $locationInfo = $this->Mbusinessprofiles->getBusinessInLocation($listProfiles[$i]['id']);
+                if(!empty($locationInfo)){
+                    $listProfiles[$i]['locationInfo'] = array(
+                        'lat' => $locationInfo['lat'],
+                        'lng' => $locationInfo['lng'],
+                        'name' => $locationInfo['location_name']
+                    );
+                }
             }
             $pageCount = ceil($rowCount / $perPage);
 
             $listProfilesMap = $this->Mbusinessprofiles->search($postData);
+            $listLocations = array();
             for($i = 0; $i < count($listProfilesMap); $i++){
                 if(isset($listProfilesMap[$i])){
                     $listProfilesMap[$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($listProfilesMap[$i]['id'], $service_type_name);
                     $listProfilesMap[$i]['isOpen'] = $this->checkBusinessOpenHours($listProfilesMap[$i]['id']);
                     $listProfilesMap[$i]['locationInfo'] = $this->Mbusinessprofiles->getBusinessInLocation($listProfilesMap[$i]['id']);
+                    $listProfilesMap[$i]['rating'] = $this->getBusinessRating($listProfilesMap[$i]['id']);
+                    if(!empty($listProfilesMap[$i]['locationInfo'])){
+                        $listLocations[] = $listProfilesMap[$i];
+                    }
                 }
             }
-            echo json_encode(array('code' => 1, 'message' => 'Data', 'data' => $listProfiles, 'page' => $page, 'per_page' => $perPage, 'page_count' => $pageCount, 'listProfilesMap' => $listProfilesMap));
+            echo json_encode(array('code' => 1, 'message' => 'Data', 'data' => $listProfiles, 'page' => $page, 'per_page' => $perPage, 'page_count' => $pageCount, 'listProfilesMap' => $listLocations));
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -1, 'message' => ERROR_COMMON_MESSAGE));
         }
@@ -157,14 +167,63 @@ class Home extends MY_Controller {
          */
 
 
-        $data = $this->commonDataCustomer('About Us');
+        $data = $this->commonDataCustomer($this->lang->line('about_us'));
         $data['activeMenu'] = "about-us";
         /**
          * Commons data
          */
 
+        $data['about']['img_banner'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_IMAGE_BANNER', $data['language_id']);
+        $data['about']['child_text_1'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_TEXT_1', $data['language_id']);
+        $data['about']['child_img_1'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_1', $data['language_id']);
+        $data['about']['child_text_2'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_TEXT_2', $data['language_id']);
+        $data['about']['child_img_2'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_2', $data['language_id']);
+        $data['about']['about_text_bottom'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_TEXT', $data['language_id']);
+
+        // echo "<pre>";
+        // print_r($data['about']);
+        // echo "</pre>";
         
 
         $this->load->view('frontend/home/about', $data);
+    }
+
+    public function term() {
+        $this->loadModel(array('Mcustomers','Mconfigs'));
+        
+        /**
+         * Commons data
+         */
+
+
+        $data = $this->commonDataCustomer('Term of Use');
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $data['content'] = $this->Mconfigs->getConfigValueByLang('TERM_OF_USE', $data['language_id']);
+
+        $this->load->view('frontend/home/term', $data);
+    }
+
+    public function privacy() {
+        $this->loadModel(array('Mcustomers','Mconfigs'));
+        
+        /**
+         * Commons data
+         */
+
+
+        $data = $this->commonDataCustomer('Privacy Policy');
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $data['content'] = $this->Mconfigs->getConfigValueByLang('PRIVACY_POLICY', $data['language_id']);
+        
+
+        $this->load->view('frontend/home/term', $data);
     }
 }

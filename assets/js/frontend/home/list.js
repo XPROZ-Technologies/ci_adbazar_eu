@@ -1,23 +1,27 @@
 
-    
+
 
 $(document).ready(function() {
+
     $("#profilePagging").html('');
     $(".customer-location-list").html('');
     var current_page = 1;
     var records_per_page = 4;
-    loadProfile($("select#selectServiceMap").val(), $("input#search_text").val(), current_page, records_per_page);
+    var searchText = $("input#search_text").val();
+    loadProfile($("select#selectServiceMap").val(), searchText, current_page, records_per_page, textView);
 
     $("body").on('click', 'a.page-link-click', function() {
         var page = parseInt($(this).attr('data-page'));
-        loadProfile($("select#selectServiceMap").val(), $("input#search_text").val(), page, records_per_page)
+        searchText = $("input#search_text").val();
+        loadProfile($("select#selectServiceMap").val(), searchText, page, records_per_page, textView)
     }).on("click", ".customer-location-dropdown li.option", function(){
         var selectServiceMapId = $(this).data('value');
-        loadProfile(selectServiceMapId, $("input#search_text").val(), current_page, records_per_page)
+        searchText = $("input#search_text").val();
+        loadProfile(selectServiceMapId, searchText, current_page, records_per_page, textView)
     }).on('keyup', 'input#search_text', function() {
-        setTimeout(function(){ 
-            var searchText = $("input#search_text").val();
-            loadProfile($("select#selectServiceMap").val(), searchText, current_page, records_per_page)
+        setTimeout(function(){
+            searchText = $("input#search_text").val();
+            loadProfile($("select#selectServiceMap").val(), searchText.trim(), current_page, records_per_page, textView)
         }, 1000);
     });
 });
@@ -29,9 +33,9 @@ let map;
         center: new google.maps.LatLng(50.047648687939635, 12.355822100555436),
         zoom: 16,
       });
-    
+
     }
-function loadProfile(service_id, search_text_fe, page, per_page) {
+function loadProfile(service_id, search_text_fe, page, per_page, textView) {
     $.ajax({
         type: "POST",
         url: $("input#urlGetListProfile").val(),
@@ -45,7 +49,7 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
             var json = $.parseJSON(response);
             $("#profilePagging").html('');
             $(".customer-location-list").html('');
-           
+
             if(json.code == 1){
                 let markers = [];
                 var listProfiles = json.data;
@@ -61,27 +65,79 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                     }
                     var isOpen = '<a href="javascript:void(0)" class="text-success">Opening</a>';
                     if(!item.isOpen) isOpen = '<a href="javascript:void(0)" class="customer-location-close">Closed</a>';
+
+                    var starHtml = '';
+                    var rating = item.rating;
+                    if(parseInt(rating.sumReview) > 0){
+                        starHtml = `<div class="star-rating on line  mr-8px relative"> 
+                            <div class="star-base">
+                            <div class="star-rate" data-rate="${rating.overall_rating}"></div> 
+                            <a dt-value="1" href="#1"></a> 
+                            <a dt-value="2" href="#2"></a> 
+                            <a dt-value="3" href="#3"></a> 
+                            <a dt-value="4" href="#4"></a> 
+                            <a dt-value="5" href="#5"></a>
+                            </div>
+                        </div>
+                        <span class="star-rating-number">(${rating.sumReview})</span>`;
+                    }
+                    var locationBusiness = "";
+                    if(typeof item.locationInfo !== 'undefined'){
+                        locationBusiness = `<a onclick="popupMapShow('popup-map-content-${i}','${item.business_name}',${item.locationInfo.lat},${item.locationInfo.lng})">
+                            <img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image">
+                        </a>`;
+                    }
                     
-                    html += 
+
+                    html +=
                     `<div class="card rounded-0 customer-location-item mb-2">
                         <div class="row g-0">
                             <div class="col-3">
-                                <a href="${urlProfileBusiness+item.business_url}" class="customer-location-img"><img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="${item.business_name}"></a>
+                                <a href="${urlProfileBusiness+item.business_url}" class="customer-location-img">
+                                <img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="${item.business_name}" style="height: 70px;object-fit: contain;"></a>
                             </div>
                             <div class="col-9">
                                 <div class="card-body p-0">
                                     <h6 class="card-title mb-1 page-text-xs"><a href="${urlProfileBusiness+item.business_url}" title="">${item.business_name}</a></h6>
-                                    <ul class="list-inline mb-2 list-rating-sm">
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0"><a href="javascript:void(0)"><i class="bi bi-star-fill"></i></a></li>
-                                        <li class="list-inline-item me-0">(10)</li>
-                                    </ul>
+                                    <div class="d-flex align-items-center mb-5px"> 
+                                        ${starHtml}
+                                    </div>
                                     <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
                                     ${isOpen}
-                                    <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
+                                    <div style="display: none;" id="popup-map-content-${i}">
+                                        <div class="panel-map-item">
+                                            <div class="row g-0">
+                                                <div class="col-3">
+                                                    <a href="${urlProfileBusiness+item.business_url}" class="customer-location-img">
+                                                    <img src="${pathProfileBusiness+item.business_avatar}" class="img-fluid" alt="Phuong Jojo Beauty Salon" style="height: 70px;object-fit: contain;"></a>
+                                                </div>
+                                                <div class="col-9">
+                                                    <div class="card-body p-0">
+                                                        <h6 class="card-title mb-1 page-text-xs"><a href="${urlProfileBusiness+item.business_url}" title="">${item.business_name}</a></h6>
+                                                        <div class="d-flex align-items-center mb-5px"> 
+                                                            ${starHtml}
+                                                        </div>
+                                                        <p class="card-text mb-0 page-text-xxs text-secondary">${htmlBusiness.replace(/, *$/, "")}</p>
+                                                        ${isOpen}
+                                                        <div style="display: none;" >
+                                                            <div class="panel-map-item">
+                                                                <img src="${iconMap}" style="width: 357px;height: 93px;margin-left: -5px;margin-top: -4px;">
+                                                            </div>
+                                                            <div class="content-location-info">
+                                                                <h6 class="card-title mb-1 page-text-xs text-center"><a target="_blank" href="./${item.business_url}" title="">${item.business_name}</a></h6>
+                                                            </div>
+                                                        </div>
+                                                        <a>
+                                                            <img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon" alt="location image">
+                                                        </a>
+                                                        <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         </div>
+                                    </div>
+                                    ${locationBusiness}
+                                    <a href="${urlProfileBusiness+item.business_url}" class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
                                 </div>
                             </div>
                         </div>
@@ -113,10 +169,11 @@ function loadProfile(service_id, search_text_fe, page, per_page) {
                     $("#profilePagging").html(retVal);
                 }
                 $(".customer-location-list").html(html);
-                
+                starRate();
+
                 var listProfilesMap = json.listProfilesMap;
 
-//var infowindow = null;
+var infowindow = null;
 jQuery(function() {
         var StartLatLng = new google.maps.LatLng(50.047648687939635, 12.355822100555436);
         var mapOptions = {
@@ -126,68 +183,67 @@ jQuery(function() {
 
     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    
-        
+
+
     jQuery.each( listProfilesMap, function(i, item) {
-        var infowindow = new google.maps.InfoWindow({
+        infowindow = new google.maps.InfoWindow({
             content: ''
         });
-
         item.servicetypes = '';
         item.linkInfo = '';
         item.evaluateInfo = 10;
         var starInfo = 5;
-                    
 
-                        var rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                            `;
-                        // starInfo lấy trong db ra, hiện tại chưa làm
-                        if (starInfo == 1) {
-                            rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                `;
-                        } else if (starInfo == 2) {
-                            rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                `;
-                        } else if (starInfo == 3) {
-                            rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                `;
-                        } else if (starInfo == 4) {
-                            rank = `
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-                                `;
-                        } else if (starInfo == 5) {
-                            rank = `
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                            `;
-                        }
+        var rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+            `;
+        // starInfo lấy trong db ra, hiện tại chưa làm
+        if (starInfo == 1) {
+            rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                `;
+        } else if (starInfo == 2) {
+            rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                `;
+        } else if (starInfo == 3) {
+            rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                `;
+        } else if (starInfo == 4) {
+            rank = `
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+                <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
+                `;
+        } else if (starInfo == 5) {
+            rank = `
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
+            `;
+        }
+
         var open_status = '<a href="javascript:void(0);" class="customer-location-close">Closed</a>';
         if (item.isOpen == true) {
             open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
@@ -197,7 +253,7 @@ jQuery(function() {
         if (item.evaluateInfo !== 0) {
             evaluate_info = `<li class="list-inline-item me-0">(${item.evaluateInfo})</li>`;
         }
-        
+
         /*
         const infoMap = `<div class="card rounded-0 customer-location-item mb-2">
             <div class="row g-0">
@@ -214,7 +270,7 @@ jQuery(function() {
                         <p class="card-text mb-0 page-text-xxs text-secondary">${item.servicetypes}
                         </p>
                         ${open_status}
-                        
+
                         <a target="_blank" href="./${item.business_url}"
                             class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
                     </div>
@@ -231,6 +287,11 @@ jQuery(function() {
         });
         infowindow.setContent(infoMap);
         infowindow.open(map,marker);
+        // if(parseInt(service_id) != 0 || search_text_fe != ""){
+        //     infowindow.setContent(infoMap);
+        //     infowindow.open(map,marker);
+        // }
+
         //console.log(item)
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.close();
@@ -238,17 +299,17 @@ jQuery(function() {
             infowindow.open(map,marker);
         });
 
-        /*
-        // show map, open infoBox 
+
+        // show map, open infoBox
         google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
             infowindow.open(map, marker);
         });
-        */
+
     });
 });
-                
-               
-               
+
+
+
             }
         },
         error: function (response) {

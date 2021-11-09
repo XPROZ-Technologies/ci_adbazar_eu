@@ -9,7 +9,7 @@ class Site extends MY_Controller {
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
         $this->language =  $language;
-        $this->lang->load('home', $this->language);
+        //$this->lang->load('home', $this->language);
 
 
     }
@@ -23,8 +23,8 @@ class Site extends MY_Controller {
     }
 
     public function changeLanguage() {
+        $customer = $this->checkLoginCustomer();
         $languageId = $this->input->post('language_id');
-        /*
         $language = 'de';
         switch ($languageId) {
             case 1:
@@ -43,7 +43,10 @@ class Site extends MY_Controller {
                 $language = 'de';
                 break;
         }
-        */
+        if($customer['id'] > 0) {
+            $this->loadModel(array('Mcustomers'));
+            $this->Mcustomers->save(array('language_id' => $languageId), $customer['id']);
+        }
         /*
         $cookieValue = json_encode(array('language_id' => $languageId, 'language_name' => $language, 'id' => 0));
         $this->input->set_cookie($this->configValueCookie('customer', $cookieValue));

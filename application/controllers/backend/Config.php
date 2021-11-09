@@ -12,6 +12,7 @@ class Config extends MY_Controller{
 		if($this->Mactions->checkAccess($data['listActions'], 'config')) {
 			$this->loadModel(array('Mconfigs'));
 			$data['listConfigs'] = $this->Mconfigs->getListMap(1); //, $user['language_id']
+            //echo "<pre>";print_r($data['listConfigs']);die;
 			$this->load->view('backend/config/general', $data);
 		}
 		else $this->load->view('backend/user/permission', $data);
@@ -29,6 +30,54 @@ class Config extends MY_Controller{
 			$data['listConfigs'] = $this->Mconfigs->getListMap(1, $configAbountUs['language_id']);
             $data['configAbountUs'] = $configAbountUs;
 			$this->load->view('backend/config/abount', $data);
+		}
+		else $this->load->view('backend/user/permission', $data);
+	}
+
+    public function termOfUse(){
+		$user = $this->checkUserLogin();
+        $configAbountUs = $this->rsession->get('config_about_us');
+		$data = $this->commonData($user,
+			'Term of use',
+			array('scriptFooter' => array('js' => array('js/backend/config/config.js')))
+		);
+		if($this->Mactions->checkAccess($data['listActions'], 'config/term-of-use')) {
+			$this->loadModel(array('Mconfigs'));
+			$data['listConfigs'] = $this->Mconfigs->getListMap(1, $configAbountUs['language_id']);
+            $data['configAbountUs'] = $configAbountUs;
+			$this->load->view('backend/config/term_of_use', $data);
+		}
+		else $this->load->view('backend/user/permission', $data);
+	}
+
+    public function policy(){
+		$user = $this->checkUserLogin();
+        $configAbountUs = $this->rsession->get('config_about_us');
+		$data = $this->commonData($user,
+			'Privacy Policy',
+			array('scriptFooter' => array('js' => array('js/backend/config/config.js')))
+		);
+		if($this->Mactions->checkAccess($data['listActions'], 'config/policy')) {
+			$this->loadModel(array('Mconfigs'));
+			$data['listConfigs'] = $this->Mconfigs->getListMap(1, $configAbountUs['language_id']);
+            $data['configAbountUs'] = $configAbountUs;
+			$this->load->view('backend/config/privacy_policy', $data);
+		}
+		else $this->load->view('backend/user/permission', $data);
+	}
+
+    public function video(){
+		$user = $this->checkUserLogin();
+        $configAbountUs = $this->rsession->get('config_about_us');
+		$data = $this->commonData($user,
+			'Video',
+			array('scriptFooter' => array('js' => array('js/backend/config/config.js')))
+		);
+		if($this->Mactions->checkAccess($data['listActions'], 'config/policy')) {
+			$this->loadModel(array('Mconfigs'));
+			$data['listConfigs'] = $this->Mconfigs->getListMap(1, $configAbountUs['language_id']);
+            $data['configAbountUs'] = $configAbountUs;
+			$this->load->view('backend/config/video', $data);
 		}
 		else $this->load->view('backend/user/permission', $data);
 	}
@@ -72,7 +121,7 @@ class Config extends MY_Controller{
         $param = $this->input->post();
         foreach($listConfigs as $c){
             $configValue = isset($param[$c['config_code']]) ? trim($param[$c['config_code']]) : '';
-            $arrImg = array('MARKER_MAP_IMAGE', 'LOGO_IMAGE_HEADER', 'SERVICE_IMAGE', 'ABOUT_US_IMAGE', 'CONTACT_US_IMAGE', 'LOGO_FOOTER_IMAGE');
+            $arrImg = array('MARKER_MAP_IMAGE', 'LOGO_IMAGE_HEADER', 'SERVICE_IMAGE', 'ABOUT_US_IMAGE', 'CONTACT_US_IMAGE', 'LOGO_FOOTER_IMAGE', 'ABOUT_US_IMAGE_BANNER', 'ABOUT_US_CHILD_IMAGE_1', 'ABOUT_US_CHILD_IMAGE_2', 'NOTIFICATION_EMAIL_ADMIN');
             if(in_array($c['config_code'], $arrImg)) $configValue = replaceFileUrl($configValue, CONFIG_PATH);
             // else if($c['config_code'] == 'PAY_IMAGES' || $c['config_code'] == 'ICON_PAYMENT_UNIT') {
             //     $images = json_decode($configValue, true);

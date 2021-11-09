@@ -30,7 +30,7 @@
 <div class="wrapper">
     <?php $textLogoHeader = 'LK';
     $textLogoMenu = 'LK';
-    $logoImage = 'assets/img/logo.png';
+    $logoImage = 'assets/img/adbazar.eu.png';
     $configs = $this->session->userdata('configs');
     if($configs){
         if(isset($configs['TEXT_LOGO_HEADER'])) $textLogoHeader = $configs['TEXT_LOGO_HEADER'];

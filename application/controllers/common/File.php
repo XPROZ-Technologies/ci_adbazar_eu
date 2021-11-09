@@ -63,4 +63,27 @@ class File extends MY_Controller {
         }
         else echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
     }
+
+    public function dropImage() {
+        if(isset($_POST['image']) && !empty($_POST['image'])){
+            $image = $_POST['image'];
+            $fileExt = 'png';
+            $dir = FILE_PATH . date('Y-m-d') . '/';
+            @mkdir($dir, 0777, true);
+            @system("/bin/chown -R nginx:nginx " . $dir);
+            // list($type, $image) = explode(';',$image);
+            // list(, $image) = explode(',',$image);
+            // $image = base64_decode($image);
+            if($fileExt == 'png') $fileBase64 = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $image));
+            else $fileBase64 = base64_decode(preg_replace('#^data:application/\w+;base64,#i', '', $image));
+            // $image_name = time().'.png';
+            
+            $filePath = $dir . uniqid() . '.png';
+            $flag = file_put_contents($filePath, $fileBase64);
+            
+            if ($flag) echo json_encode(array('code' => 1, 'data' => $filePath));
+            else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
+        }
+        else echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
+    }
 }

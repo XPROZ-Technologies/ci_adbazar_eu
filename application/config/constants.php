@@ -93,12 +93,13 @@ define('DEFAULT_LIMIT', 20);
 define('DEFAULT_LIMIT_BUSINESS_PROFILE', 10);
 define('DEFAULT_LIMIT_BUSINESS_PROFILE_MAP', 4);
 define('DEFAULT_LIMIT_COUPON', 50);
+define('DEFAULT_LIMIT_NOTIFICATION', 10);
 //define('API_VERSION', '1.0');
 //message
 define('ERROR_COMMON_MESSAGE', 'An error occurred during execution');
 define('ERROR_NO_DATA', 'Data does not exist');
 //path
-define('HOME_URL', 'home');
+define('HOME_URL', '');
 define('ROOT_PATH', dirname($_SERVER['SCRIPT_NAME']) . '/');
 define('USER_PATH', 'assets/uploads/users/');
 define('CUSTOMER_PATH', 'assets/uploads/customers/');
@@ -110,6 +111,7 @@ define('BUSINESS_PROFILE_PATH', 'assets/uploads/busines_profile/');
 define('COUPONS_PATH', 'assets/uploads/coupons/');
 define('EVENTS_PATH', 'assets/uploads/events/');
 define('BUSINESS_PROFILE_URL', '');
+define('PRODUCT_PATH', 'assets/uploads/products/');
 
 
 define('DEFAULT_IMG', '');
@@ -117,7 +119,7 @@ define('DEFAULT_IMG', '');
 define('URL_API', '');
 
 // key api
-define('KEY_GOOGLE_MAP', 'AIzaSyD53XNjfZqrg7twWutFv3rIgnhGvT_Exik');
+define('KEY_GOOGLE_MAP', 'AIzaSyDNrnR2a_Hy-BBcCo1hMXvxa9vuzNsDSxE');
 define('KEY_YOUTUBE_V3', 'AIzaSyAWR3oe6AzQfm3k_XYuwm-_wvjmQkq2ylg');
 define('KEY_GG', '1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c');
 
@@ -125,3 +127,21 @@ define('KEY_GG', '1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c');
 define('LAT_MAP_ADMIN', 50.0473111);
 define('LNG_MAP_ADMIN', 12.3523245);
 define('ZOOM_MAP_ADMIN', 17);
+
+
+//email default
+define('EMAIL_FROM', 'server@adbazar.eu');
+define('EMAIL_FROM_NAME', 'AdBazar.eu');
+
+//email server
+define('EMAIL_USER', 'server@adbazar.eu');
+define('EMAIL_PASS', 'changeM3!!Adbazar12345');
+define('EMAIL_HOST', 'ssl://smtpout.asia.secureserver.net');
+define('EMAIL_PORT', '465');
+
+//paypal
+define('PAYPAL_CLIENT_KEY', 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX');
+define('PAYPAL_SEC_KEY', 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRCS83uIyQa9iX2JqBK3t7Xh1O1P3');
+define('PAYPAL_HOST', 'https://api-m.sandbox.paypal.com');
+define('PAYPAL_PROD_ID', 'PROD-4NX43137GP917693J');
+define('PAYPAL_PLAN_DEFAULT', 'P-8L942028P24070304MGAB6XY');

@@ -16,7 +16,7 @@
                 <div class="bp-event-content um-event-content">
                   <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                     <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                    <input class="form-control w-100" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
+                    <input class="form-control w-100" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>" name="keyword" value="<?php echo $keyword; ?>">
                   </form>
                   <?php if (!empty($lists) > 0 && count($joinedEvents) > 0) { ?>
                     <!-- List event -->
@@ -35,7 +35,7 @@
                             <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?></p>
                             <p class="mb-0 event-time page-text-sm"><?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
 
-                            <a href="javascript:void(0)" data-bs-toggle="modal" class="event-remove mt-2 fw-bold" data-id="<?php echo $eventItem['id']; ?>" data-name="<?php echo $eventItem['event_subject']; ?>">Remove</a>
+                            <a href="javascript:void(0)" data-bs-toggle="modal" class="event-remove mt-2 fw-bold" data-id="<?php echo $eventItem['id']; ?>" data-name="<?php echo $eventItem['event_subject']; ?>"><?php echo $this->lang->line('remove'); ?></a>
                           </div>
                         </div>
                       <?php } ?>
@@ -53,8 +53,8 @@
                     <!-- Pagination -->
                     <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                       <div class="d-flex align-items-center pagination-left">
-                        <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                          results</p>
+                        <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                        <?php echo $this->lang->line('1310_results'); ?></p>
                         <div class="page-text-sm mb-0 d-flex align-items-center">
                           <div class="custom-select choose-perpage">
                             <select>
@@ -76,7 +76,7 @@
                             </select>
                           </div>
                           <span class="ms-2">/</span>
-                          <span class=""> Page</span>
+                          <span class=""> <?php echo $this->lang->line('1310_page'); ?></span>
                         </div>
                       </div>
                       <div class="pagination-right">
@@ -106,14 +106,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p class="text-center page-text-lg" id="selected-name-event">Are you sure want to remove the event
-            "<b></b>"?
+          <p class="text-center page-text-lg" id="selected-name-event"><?php echo $this->lang->line('are_you_sure_want_to_remove_th'); ?>
+            "<b></b>"<?php echo $this->lang->line('wirklich_entfernen'); ?>?
           </p>
           <input type="hidden" id="selected-customer-event" value="<?php echo $customer['id']; ?>" />
           <input type="hidden" id="selected-id-event" value="0" />
           <div class="d-flex justify-content-center">
-            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-event">Yes</a>
-            <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal">Cancel</a>
+            <a href="javascript:void(0)" class="btn btn-red btn-yes btn-remove-event"><?php echo $this->lang->line('yes'); ?></a>
+            <a href="javascript:void(0)" class="btn btn-outline-red btn-cancel" data-bs-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></a>
           </div>
         </div>
       </div>

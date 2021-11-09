@@ -68,7 +68,7 @@ class Businessprofile extends MY_Controller {
                     $data['servicetypes'] = $this->Mservicetypes->getBy(array('service_id' => $profile['service_id']));
                     $data['businessservicetypes'] = $this->Mbusinessservicetype->getListFieldValue(array('business_profile_id' => $profile['id']), 'service_type_id');
                     $data['openinghours'] = $this->Mopeninghours->getBy(array('business_profile_id' => $businessProfileId), false, 'day_id', '',0,0, 'asc');
-                    $data['phonecode'] = $this->Mphonecodes->get($profile['business_phone_code']);
+                    $data['phonecode'] = $this->Mphonecodes->get($profile['country_code_id']);
                     $data['businessInLocation'] = $this->Mbusinessprofiles->getBusinessInLocation($businessProfileId);
                     $data['businessphotos'] = $this->Mbusinessphotos->getBy(array('business_profile_id' => $businessProfileId));
                     $data['businessvideos'] = $this->Mbusinessvideos->getBy(array('business_profile_id' => $businessProfileId));
@@ -106,7 +106,6 @@ class Businessprofile extends MY_Controller {
                 $postData['updated_by'] = $user['id'];
                 $postData['updated_at'] = getCurentDateTime();
             }
-
             $openingHours = json_decode(trim($this->input->post('OpeningHours')), true); 
             if(!is_array($openingHours)) $openingHours = array();
 
@@ -123,6 +122,7 @@ class Businessprofile extends MY_Controller {
             $flag = $this->Mbusinessprofiles->update($postData, $businessProfileId, $businessServiceTypes, $openingHours, $user['id'], $businessPhotos, $businessVideos);
             if($flag) {
                 $businessProfileLocation = $this->arrayFromPost(array('location_id', 'expired_date')); 
+                $this->db->update('business_profile_locations', array('business_profile_location_status_id' => 0), array('business_profile_id' => $flag));
                 if($businessProfileLocation['location_id'] > 0) {
                     $businessProfileLocationId = $this->input->post('business_profile_location_id');
                     $businessProfileLocation['expired_date'] = !empty($businessProfileLocation['expired_date']) ? ddMMyyyyToDate($businessProfileLocation['expired_date'], 'd/m/Y H:i', 'Y-m-d H:i') : NULL;

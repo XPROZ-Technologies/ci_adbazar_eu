@@ -6,10 +6,7 @@ class Service extends MY_Controller {
     function __construct(){
         parent::__construct();
        
-        $this->load->helper('cookie');
-        $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
-        $this->language =  $language;
-        $this->lang->load('login', $this->language);
+        $this->getLanguageFE();
 
 
     }
@@ -50,6 +47,7 @@ class Service extends MY_Controller {
          * Commons data
          */
         $data = $this->commonDataCustomer('Service Detail');
+       
         $data['activeMenu'] = "services";
         /**
          * Commons data
@@ -57,18 +55,38 @@ class Service extends MY_Controller {
 
         $data['activeMenuService'] = $serviceId;
 
-        $service_name = "service_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $service_name = "service_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
         $data['serviceInfo'] = $this->Mservices->get($serviceId, true, '', "{$service_name} as service_name, id, service_name_en as service_slug");
 
-        $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
-        $data['serviceTypes'] = $this->Mservicetypes->getBy(array('service_id' => $serviceId), false, "display_order", "{$service_type_name} as service_type_name, id");
+        $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
+        $data['serviceTypes'] = $this->Mservicetypes->getBy(array('service_id' => $serviceId), false, "display_order", "{$service_type_name} as service_type_name, id", 0, 0, 'asc');
         
         $per_page = $this->input->get('per_page');
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
+        $service_types = $this->input->get('service_types');
+        $data['service_types'] = array();
+        if(!empty($service_types)){
+            $data['service_types'] =  explode(',', $service_types);
+        } else {
+            $data['service_types'] = [];
+        }
         
-        $getData = array('service_id' => $serviceId, 'business_status_id' => STATUS_ACTIVED, 'search_text_fe' => $search_text);
+        //filter with service types
+        $businessProfileIds = array();
+        if(!empty($data['service_types']) && count($data['service_types']) > 0){
+            $listBusiness = $this->Mbusinessservicetype->search(array('service_type_ids' => $data['service_types'])); 
+            foreach ($listBusiness as $itemBusiness) {
+                $businessProfileIds[] = $itemBusiness['business_profile_id'];
+            }
+        }
+        $getData = array(
+            'service_id' => $serviceId, 
+            'business_status_id' => STATUS_ACTIVED, 
+            'search_text_fe' => $search_text,
+            'business_profile_ids' => $businessProfileIds
+        );
         $rowCount = $this->Mbusinessprofiles->getCount($getData);
         $data['listProfiles'] = array();
         
@@ -94,6 +112,7 @@ class Service extends MY_Controller {
         for($i = 0; $i < count($data['listProfiles']); $i++){
             $data['listProfiles'][$i]['businessServiceTypes'] = $this->Mservicetypes->getListByBusiness($data['listProfiles'][$i]['id'], $service_type_name);
             $data['listProfiles'][$i]['isOpen'] = $this->checkBusinessOpenHours($data['listProfiles'][$i]['id']);
+            $data['listProfiles'][$i]['rating'] = $this->getBusinessRating($data['listProfiles'][$i]['id']);
         }
 
         $this->load->view('frontend/service/customer-service-list', $data);
@@ -101,7 +120,7 @@ class Service extends MY_Controller {
 
     public function getListServiceTypeSelect2Ajax(){
         $data = $this->commonDataCustomer('');
-        $service_type_name = "service_type_name_".$this->Mconstants->languageCodes[$data['language_id']];
+        $service_type_name = "service_type_name_".$this->Mconstants->languageShortCodes[$data['language_id']];
         $serviceId = $this->input->post('service_id');
         $this->load->model('Mservicetypes');
         if(empty($serviceId)) $serviceId = 0;

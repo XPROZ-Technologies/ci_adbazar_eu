@@ -3,14 +3,12 @@
   <div class="page-business-manager">
     <div class="bm-content">
       <div class="container">
-        <div class="content-top">
-          <h2 class="page-title-md text-center fw-bold">Manage my business</h2>
-        </div>
+        <?php $this->load->view('frontend/includes/bm_header'); ?>
 
         <div class="d-flex justify-content-center edit-bm">
-          <a href="javascript:void(0)" class="btn btn-red btn-join-as-guest">
+          <a href="<?php echo base_url('business-management/' . $businessInfo['business_url'] . '/edit'); ?>" class="btn btn-red">
             <img src="assets/img/frontend/ic-edit.png" alt="ic-edit">
-            Edit My Profile
+            <?php echo $this->lang->line('edit_my_profile'); ?>
           </a>
         </div>
 
@@ -40,23 +38,38 @@
                   <div class="row justify-content-between">
                     <div class="col-lg-7">
                       <div class="bp-about-left">
-                        <h4 class="fw-bold page-title-xs">BUSINESS INFORMATION</h4>
-                        <ul class="list-inline list-rating">
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-                          <li class="list-inline-item"><a href="#"><i class="bi bi-star"></i></a></li>
-                        </ul>
+                        <h4 class="fw-bold page-title-xs"><?php echo $this->lang->line('business_information'); ?></h4>
+                        <div class="d-flex align-items-center mb-20">
+                          <?php if (isset($reviewInfo) && $reviewInfo['sumReview'] > 0) { ?>
+                            <div class="star-rating on line  mr-8px relative">
+                              <div class="star-base">
+                                <div class="star-rate" data-rate="<?php echo $reviewInfo['star']; ?>"></div>
+                                <a dt-value="1" href="javascript:void(0)"></a>
+                                <a dt-value="2" href="javascript:void(0)"></a>
+                                <a dt-value="3" href="javascript:void(0)"></a>
+                                <a dt-value="4" href="javascript:void(0)"></a>
+                                <a dt-value="5" href="javascript:void(0)"></a>
+                              </div>
+                            </div>
+                            <span class="star-rating-number">(<?php echo $reviewInfo['sumReview']; ?>)</span>
+                          <?php } ?>
+                        </div>
                         <ul class="list-unstyled list-info">
                           <li class="mb-3">
                             <div class="img">
                               <img src="assets/img/frontend/icon-tag.png" alt="tag icon" class="img-fluid">
-                            </div>Restaurant
+                            </div><?php if (!empty($businessServiceTypes)) {
+                                    for ($k = 0; $k < count($businessServiceTypes); $k++) {
+                                      echo $businessServiceTypes[$k]['service_type_name'];
+                                      if ($k < (count($businessServiceTypes) - 1)) {
+                                        echo ', ';
+                                      }
+                                    }
+                                  } ?>
                           </li>
                           <li class="mb-3">
                             <div class="img"><img src="assets/img/frontend/bp-open.png" alt="tag open" class="img-fluid"></div>
-                            <div class="badge badge-approved">Open now</div>
+                            <div class="badge badge-approved"><?php echo $this->lang->line('open_now'); ?></div>
                           </li>
                           <li class="mb-3">
                             <div class="img"><img src="assets/img/frontend/bp-telephone.png" alt="telephone icon" class="img-fluid"></div>
@@ -69,7 +82,7 @@
                             <div>
                               <p class="mb-0"><?php echo $businessInfo['business_address']; ?></p>
                               <?php if (!empty($locationInfo)) { ?>
-                                <a data-bs-toggle="modal" href="#aboutMapModal" class="d-inline-block">View map</a>
+                                <a data-bs-toggle="modal" href="#aboutMapModal" class="d-inline-block"><?php echo $this->lang->line('view_map'); ?></a>
                               <?php } ?>
                             </div>
                           <li class="mb-3"><img src="assets/img/frontend/ic-mail.png" alt="email icon" class="img-fluid"><?php echo $businessInfo['business_email']; ?></li>
@@ -77,39 +90,44 @@
                         <?php if (!empty($businessInfo['business_whatsapp'])) { ?>
                           <a target="_blank" href="https://wa.me/<?php echo $businessInfo['business_whatsapp']; ?>" class="btn btn-red what-app fw-medium">
                             <div class="img"><img src="assets/img/frontend/ic-whatapp.png" alt="bp-what-app"></div>
-                            Contact us on WhatsApp
+                            <?php echo $this->lang->line('contact_us_on_whatsapp'); ?>
                           </a>
                         <?php } ?>
                       </div>
                     </div>
-                    <div class="col-lg-5">
-                      <div class="bp-about-right">
-                        <div class="open-hour">
-                          <h5 class="text-center page-text-lg">OPENING HOUR</h5>
-                          <ul class="list-unstyled mb-0">
-                            <?php foreach ($businessOpeningHours as $open_hours) { ?>
-                              <li>
-                                <span class="date"><?php echo $this->Mconstants->dayIds[$open_hours['day_id']]; ?></span>
-                                <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
-                                  <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
-                                    <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
-                                <?php } else { ?>
-                                  <span class="badge badge-cancel">Closed</span>
-                                <?php } ?>
-                              </li>
-                            <?php } ?>
-                          </ul>
+                    <div class="col-lg-5 order-first order-lg-last">
+                      <?php if (!empty($businessOpeningHours)) { ?>
+                        <div class="bp-about-right">
+                          <div class="open-hour">
+                            <h5 class="text-center page-text-lg"><?php echo strtoupper($this->lang->line('opening_hours')); ?></h5>
+                            <ul class="list-unstyled mb-0">
+                              <?php 
+                              $dayShortIds = $this->Mconstants->dayShortIds();
+                              foreach ($businessOpeningHours as $open_hours) { ?>
+                                <li>
+                                  <span class="date"><?php echo $dayShortIds[$open_hours['day_id']]; ?></span>
+                                  <?php if ($open_hours['opening_hours_status_id'] == STATUS_ACTIVED) { ?>
+                                    <span class="time"><?php echo ddMMyyyy($open_hours['start_time'], 'H:i'); ?> -
+                                      <?php echo ddMMyyyy($open_hours['end_time'], 'H:i'); ?></span>
+                                  <?php } else { ?>
+                                    <span class="badge badge-cancel"><?php echo $this->lang->line('closed'); ?></span>
+
+                                  <?php } ?>
+                                </li>
+                              <?php } ?>
+                            </ul>
+                          </div>
                         </div>
-                      </div>
+                      <?php } ?>
                     </div>
                   </div>
                   <?php if (!empty($businessInfo['business_description'])) { ?>
                     <div class="row">
                       <div class="col-12">
                         <div class="bp-introduce">
-                          <h5 class="fw-bold page-title-xs">INTRODUCTION</h5>
+                          <h5 class="fw-bold page-title-xs"><?php echo $this->lang->line('introduction'); ?></h5>
                           <div class="">
-                            <?php echo $businessInfo['business_description']; ?>
+                            <?php echo nl2br($businessInfo['business_description']); ?>
                           </div>
                         </div>
                       </div>
@@ -156,9 +174,12 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 <script>
   $('.btn-join-as-guest').click(function() {
-    $("#eventJoinAsGuest").modal('show');
+    /* $("#eventJoinAsGuest").modal('show'); */
   });
   if ($('#map_business').length > 0) {
+    
+
+    
     let map;
 
     function initMap() {
@@ -167,8 +188,7 @@
         zoom: 16,
       });
 
-      const iconBase =
-        "<?php echo CONFIG_PATH; ?>";
+      const iconBase = "<?php echo CONFIG_PATH; ?>";
       const icons = {
         iconMap: {
           icon: iconBase + "<?php if (!empty($configs['MARKER_MAP_IMAGE'])) {
@@ -203,72 +223,18 @@
       ];
       // Create markers.
       for (let i = 0; i < features.length; i++) {
-        var rank = ``;
-        if (features[i].starInfo === 0) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 1) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 2) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 3) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 4) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star"></i></a></li>
-              `;
-        } else if (features[i].starInfo === 5) {
-          var rank = `
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              <li class="list-inline-item me-0"><a href="#"><i class="bi bi-star-fill"></i></a></li>
-              `;
-        }
         var open_status = "";
         if (features[i].linkClose == 1) {
-          open_status = `<a href="javascript:void(0);" class="text-success">Opening</a>`;
+          open_status = `<a href="javascript:void(0);" class="text-success"><?php echo $this->lang->line('opening'); ?></a>`;
         } else {
-          open_status = `<a href="javascript:void(0);" class="customer-location-close">Closed</a>`;
-        }
-        var evaluate_info = "";
-        if (features[i].evaluateInfo !== 0) {
-          evaluate_info = `<li class="list-inline-item me-0">(${features[i].evaluateInfo})</li>`;
+          open_status = `<a href="javascript:void(0);" class="customer-location-close"><?php echo $this->lang->line('closed'); ?></a>`;
         }
         var link_location = "";
         if (features[i].linkLocation !== "") {
           link_location = `<a href="${features[i].linkLocation}"><img src="assets/img/frontend/IconButton.png" class="img-fluid customer-location-icon"
                             alt="location image"></a>`;
         }
-
+        /*
         const infoMap = `<div class="card rounded-0 customer-location-item mb-2">
               <div class="row g-0">
                   <div class="col-3">
@@ -277,28 +243,48 @@
                   <div class="col-9">
                       <div class="card-body p-0 ml-2">
                           <h6 class="card-title mb-1 page-text-xs"><a href="${features[i].linkInfo}" title="">${features[i].titleInfo}</a></h6>
+                          <div class="d-flex align-items-center mb-5px"> 
+                            <div class="star-rating on line  mr-8px relative"> 
+                                <div class="star-base">
+                                  <div class="star-rate" data-rate="<?php echo $reviewInfo['star']; ?>"></div> 
+                                  <a dt-value="1" href="javascript:void(0)"></a> 
+                                  <a dt-value="2" href="javascript:void(0)"></a> 
+                                  <a dt-value="3" href="javascript:void(0)"></a> 
+                                  <a dt-value="4" href="javascript:void(0)"></a> 
+                                  <a dt-value="5" href="javascript:void(0)"></a>
+                                </div>
+                            </div>
+                            <span>(<?php echo $reviewInfo['sumReview']; ?>)</span>
+                        </div>
                           <ul class="list-inline mb-2 list-rating-sm">
-                            ${rank}
-                            ${evaluate_info}
+                            ${features[i].starInfo}
                           </ul>
                           <p class="card-text mb-0 page-text-xxs text-secondary">${features[i].servicetypes}
                           </p>
                           ${open_status}
                           
                           <a target="_blank" href="${features[i].linkView}"
-                              class="btn btn-outline-red btn-outline-red-xs btn-view">View</a>
+                              class="btn btn-outline-red btn-outline-red-xs btn-view">${textView}</a>
                       </div>
                   </div>
               </div>
           </div>`;
+        */
+        const infoMap = `<h6 class="card-title mb-1 page-text-xs text-center"><a target="_blank" href="<?php echo base_url($businessInfo['business_url']); ?>" title=""><?php echo $businessInfo['business_name']; ?></a></h6>`;
         const infowindow = new google.maps.InfoWindow({
           content: infoMap,
         });
+        starRate();
         const marker = new google.maps.Marker({
           position: features[i].position,
           icon: icons[features[i].type].icon,
           map: map,
         });
+        infowindow.open({
+            anchor: marker,
+            map,
+            shouldFocus: false,
+          });
         marker.addListener("click", () => {
           infowindow.open({
             anchor: marker,
@@ -308,5 +294,6 @@
         });
       }
     }
+    
   }
 </script>

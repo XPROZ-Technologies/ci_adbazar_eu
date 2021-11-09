@@ -36,6 +36,7 @@
                                 <th>Location name</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
+                                <th>Business Name</th>
                                 <th style="width:120px;">Status</th>
                                 <th style="width:250px;">Action</th>
                             </tr>
@@ -44,12 +45,14 @@
                             <?php $i = 0;
                             $labelCss = $this->Mconstants->labelCss;
                             foreach($lisLocations as $s){
+                                $locationInBusiness = $this->Mlocations->getLocationInBusiness($s['id']);
                                 $i++; ?>
                                 <tr id="location_<?php echo $s['id']; ?>">
                                     <td><?php echo $i; ?></td>
                                     <td><a href="<?php echo base_url('backend/location/edit/'.$s['id']); ?>"><?php echo $s['location_name']; ?></a></td>
                                     <td><?php echo $s['lat']; ?></td>
                                     <td><?php echo $s['lng']; ?></td>
+                                    <td><?php echo isset($locationInBusiness['business_name']) ? $locationInBusiness['business_name']:''; ?></td>
                                     <td><span class="<?php echo $labelCss[$s['location_status_id']]; ?>"><?php echo $this->Mconstants->status[$s['location_status_id']]; ?></span></td>
                                     <td class="actions">
                                         <input type="checkbox" value="<?php echo $s['is_hot']; ?>"  data-id="<?php echo $s['id']; ?>" class="js-switch"<?php if($s['is_hot'] == 2) echo ' checked'; ?>/>

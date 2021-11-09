@@ -7,11 +7,8 @@ class Customer extends MY_Controller
     function __construct()
     {
         parent::__construct();
-
-        $this->load->helper('cookie');
-        $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
-        $this->language =  $language;
-        $this->lang->load('customer', $this->language);
+        
+        $this->getLanguageFE();
     }
 
     public function index()
@@ -33,13 +30,19 @@ class Customer extends MY_Controller
                 $customer = $this->Mcustomers->login($customerEmail, $customerPass);
 
                 if ($customer) {
+                    $this->Mcustomers->save(
+                        array('login_type_id' => 0),
+                        $customer['id']
+                    );
+
+                    $customer['login_type_id'] = 0;
 
                     $this->session->set_userdata('customer', $customer);
 
                     if (empty($customer['language_id'])) {
                         $customer['language_id'] = $this->Mconstants->languageDefault;
                     }
-                    //$customer_cookie = array('login_type_id' => $customer['login_type_id'], 'customer_name' => $customer['customer_first_name'], 'language_id' => $customer['language_id'], 'language_name' => $this->Mconstants->languageCodes[$customer['language_id']], 'customer_avatar' => $customer['customer_avatar'], 'id' => $customer['id']);
+                    //$customer_cookie = array('login_type_id' => $customer['login_type_id'], 'customer_name' => $customer['customer_first_name'], 'language_id' => $customer['language_id'], 'language_name' => $this->Mconstants->languageShortCodes[$customer['language_id']], 'customer_avatar' => $customer['customer_avatar'], 'id' => $customer['id']);
 
                     $customer['language_name'] = $this->Mconstants->languageCodes[$customer['language_id']];
 
@@ -52,7 +55,7 @@ class Customer extends MY_Controller
 
                     $user['SessionId'] = uniqid();
 
-                    $this->session->set_flashdata('notice_message', $this->lang->line('customer_login_success'));
+                    $this->session->set_flashdata('notice_message', "Login successfull");
                     $this->session->set_flashdata('notice_type', 'success');
                     if(!empty($postData['redirectOldUrl'])){
                         redirect($postData['redirectOldUrl']);
@@ -61,17 +64,17 @@ class Customer extends MY_Controller
                     }
                     
                 } else {
-                    $this->session->set_flashdata('notice_message', $this->lang->line('customer_login_failed'));
+                    $this->session->set_flashdata('notice_message', "Login failed");
                     $this->session->set_flashdata('notice_type', 'error');
-                    redirect(base_url('login.html?1'));
+                    redirect(base_url('login.html'));
                 }
             } else {
                 $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
                 $this->session->set_flashdata('notice_type', 'error');
-                redirect(base_url('login.html?2'));
+                redirect(base_url('login.html'));
             }
         } catch (Exception $e) {
-            $this->session->set_flashdata('notice_message', $e->getMessage());
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html?3'));
         }
@@ -93,7 +96,7 @@ class Customer extends MY_Controller
                 $postData['customer_email'] = strtolower($postData['customer_email']);
                 $this->load->model('Mcustomers');
                 if ($this->Mcustomers->checkExist(0, $postData['customer_email'])) {
-                    $this->session->set_flashdata('notice_message', $this->lang->line('customer_phone_or_email_exists'));
+                    $this->session->set_flashdata('notice_message', "Customer phone or email already exist");
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('signup.html?2'));
                 } else {
@@ -107,8 +110,20 @@ class Customer extends MY_Controller
 
                     $customerId = $this->Mcustomers->update($postData);
                     if ($customerId > 0) {
-                        //send email active account
-
+                        /**
+                         * Save Email
+                         */
+                        $this->load->model('Memailqueue');
+                        $dataEmail = array(
+                            'name' => $postData['customer_email'],
+                            'email_to' => $postData['customer_email'],
+                            'email_to_name' => $postData['customer_email']
+                        );
+                        $emailResult = $this->Memailqueue->createEmail($dataEmail, 1);
+                        /**
+                         * END. Save Email
+                         */
+                        
                         $this->session->set_flashdata('notice_message', 'Successfully register account');
                         $this->session->set_flashdata('notice_type', 'success');
                         redirect(base_url('login.html'));
@@ -124,9 +139,105 @@ class Customer extends MY_Controller
                 redirect(base_url('signup.html?4'));
             }
         } catch (Exception $e) {
-            $this->session->set_flashdata('notice_message', $e->getMessage());
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('signup.html?5'));
+        }
+    }
+
+    public function forgotPassword(){
+        try {
+            $postData = $this->arrayFromPost(array('email'));
+
+            if (!empty($postData['email'])) {
+                
+
+                $customer_email = strtolower($postData['email']);
+
+                $this->load->model('Mcustomers');
+                
+
+                $customerId = $this->Mcustomers->getFieldValue(array('customer_email' => $customer_email), 'id', 0);
+                if ($customerId > 0) {
+                    $token = guidV4('reset-passs');
+                    $dataUpdate = array(
+                        'token_reset' => $token
+                    );
+                    $customerId = $this->Mcustomers->save($dataUpdate, $customerId);
+                    if($customerId > 0){
+                        $customerInfo = $this->Mcustomers->get($customerId);
+                        /**
+                         * Save Email
+                         */
+                        $this->load->model('Memailqueue');
+                        $dataEmail = array(
+                            'name' => $customerInfo['customer_first_name'],
+                            'email_to' => $customerInfo['customer_email'],
+                            'email_to_name' => $customerInfo['customer_first_name'],
+                            'token' => $token
+                        );
+                        $emailResult = $this->Memailqueue->createEmail($dataEmail, 2);
+                        /**
+                         * END. Save Email
+                         */
+                        if($emailResult){
+                            echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfully-sent-password-rec1635566199')));die;
+                        }else{
+                            echo json_encode(array('code' => 0, 'message' => $this->lang->line('sending-password-recover-faile1635566199').' 1'));die;
+                        }
+                    }else{
+                        echo json_encode(array('code' => 0, 'message' => $this->lang->line('sending-password-recover-faile1635566199').' 2'));die;
+                    }
+                    
+                } else {
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('email-not-exist1635566199')));die;
+                }
+                
+            } else {
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('please-enter-your-email1635566199')));die;
+            }
+        } catch (Exception $e) {
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));die;
+        }
+    }
+
+    public function submitChangePassword(){
+        try {
+            $postData = $this->arrayFromPost(array('customer_password', 'rePassword', 'token'));
+
+            if (!empty($postData['customer_password']) && !empty($postData['rePassword'])) {
+                
+                if($postData['customer_password'] != $postData['rePassword']){
+                    echo json_encode(array('code' => 0, 'message' => 'Password does not match'));die;
+                }
+              
+                $this->load->model('Mcustomers');
+                
+
+                $customerId = $this->Mcustomers->getFieldValue(array('token_reset' => $postData['token']), 'id', 0);
+                if ($customerId > 0) {
+                    
+                    $dataUpdate = array(
+                        'customer_password' => md5($postData['customer_password']),
+                        'token_reset' => ''
+                    );
+                    $customerId = $this->Mcustomers->save($dataUpdate, $customerId);
+                    if($customerId > 0){
+                       echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfully-reset-password1635566199')));die;
+                      
+                    }else{
+                        echo json_encode(array('code' => 0, 'message' => $this->lang->line('resetting-password-failed1635566199')));die;
+                    }
+                    
+                } else {
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('token-not-exist-or-expired1635566199')));die;
+                }
+                
+            } else {
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('please-enter-your-new-password1635566199')));die;
+            }
+        } catch (Exception $e) {
+            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));die;
         }
     }
 
@@ -159,7 +270,7 @@ class Customer extends MY_Controller
             $flag = $this->Mcustomers->save($postData, $customerId);
             if ($flag > 0) {
                 $customer = $this->Mcustomers->get($flag);
-                $customer['language_name'] = $customer['language_id'] == 0 ? 'en' : $this->Mconstants->languageCodes[$customer['language_id']];
+                $customer['language_name'] = $customer['language_id'] == 0 ? 'english' : $this->Mconstants->languageCodes[$customer['language_id']];
                 $this->load->helper('cookie');
                 $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '3600'));
                 echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
@@ -182,7 +293,7 @@ class Customer extends MY_Controller
         try {
             $postData = $this->arrayFromPost(array('customer_id', 'coupon_id'));
             if (empty($postData['customer_id']) || empty($postData['coupon_id'])) {
-                echo json_encode(array('code' => 0, 'message' => "Incorrect information"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('incorrect-information1635566199')));
                 die;
             }
             $this->loadModel(array('Mcoupons', 'Mcustomercoupons'));
@@ -190,7 +301,7 @@ class Customer extends MY_Controller
             $customerCouponId = $this->Mcustomercoupons->getFieldValue(array('customer_id' => $postData['customer_id'], 'coupon_id' => $postData['coupon_id'], 'customer_coupon_status_id >' => 0), 'id', 0);
 
             if ($customerCouponId > 0) {
-                echo json_encode(array('code' => 0, 'message' => "You have saved this coupon code"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('you-have-saved-this-coupon-cod1635566199')));
                 die;
             }
 
@@ -199,24 +310,34 @@ class Customer extends MY_Controller
             if ($couponId > 0) {
                 $couponInfo = $this->Mcoupons->get($couponId);
 
+                //check used - in past
+                $pastUsed = $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']);
+
                 //save coupon code
                 $customer_coupon_code = $this->Mcoupons->genCouponCode($couponInfo['coupon_code'], $couponInfo['coupon_amount'], $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']));
-                if (!empty($customer_coupon_code)) {
+                if (!empty($customer_coupon_code) && $pastUsed < $couponInfo['coupon_amount']) {
                     $customerCouponId = $this->Mcustomercoupons->save(array(
                         'customer_id' => $postData['customer_id'],
                         'coupon_id' => $postData['coupon_id'],
                         'customer_coupon_status_id' => STATUS_ACTIVED,
                         'customer_coupon_code' => $customer_coupon_code
                     ));
-                    echo json_encode(array('code' => 1, 'message' => "Successfully Saved!"));
+
+                    //check used - in present
+                    $presentUsed = $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']);
+                    if($presentUsed >= $couponInfo['coupon_amount']){
+                        $this->Mcoupons->save(array('is_full' => 1), $postData['coupon_id']);
+                    }
+
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfully-saved!1635566199')));
                     die;
                 } else {
-                    echo json_encode(array('code' => 0, 'message' => "Expired coupon code"));
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('expired-coupon-code1635566199')));
                     die;
                 }
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
             die;
         }
     }
@@ -226,7 +347,7 @@ class Customer extends MY_Controller
         try {
             $postData = $this->arrayFromPost(array('customer_id', 'coupon_id'));
             if (empty($postData['customer_id']) || empty($postData['coupon_id'])) {
-                echo json_encode(array('code' => 0, 'message' => "Incorrect information"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('incorrect-information1635566199')));
                 die;
             }
             $this->loadModel(array('Mcoupons', 'Mcustomercoupons'));
@@ -243,14 +364,23 @@ class Customer extends MY_Controller
                         'customer_coupon_status_id' => 0
                     )
                 );
-                echo json_encode(array('code' => 1, 'message' => "Successfully removed!"));
+
+                $coupon_amount = $this->Mcoupons->getFieldValue(array('id' => $postData['coupon_id']), 'coupon_amount', 0);
+
+                //check used - in present
+                $presentUsed = $this->Mcustomercoupons->getUsedCoupon($postData['coupon_id']);
+                if($presentUsed < $coupon_amount){
+                    $this->Mcoupons->save(array('is_full' => 0), $postData['coupon_id']);
+                }
+
+                echo json_encode(array('code' => 1, 'message' => $this->lang->line('successfully-removed!1635566199')));
                 die;
             } else {
-                echo json_encode(array('code' => 0, 'message' => "Coupon code not exist"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('coupon-code-not-exist1635566199')));
                 die;
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
             die;
         }
     }
@@ -261,7 +391,7 @@ class Customer extends MY_Controller
         try {
             $postData = $this->arrayFromPost(array('customer_id', 'event_id'));
             if (empty($postData['customer_id']) || empty($postData['event_id'])) {
-                echo json_encode(array('code' => 0, 'message' => "Incorrect information"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('incorrect-information1635566199')));
                 die;
             }
             $this->loadModel(array('Mevents', 'Mcustomerevents'));
@@ -269,7 +399,7 @@ class Customer extends MY_Controller
             $customerCouponId = $this->Mcustomerevents->getFieldValue(array('customer_id' => $postData['customer_id'], 'event_id' => $postData['event_id'], 'customer_event_status_id >' => 0), 'id', 0);
 
             if ($customerCouponId > 0) {
-                echo json_encode(array('code' => 0, 'message' => "You have joined this event"));
+                echo json_encode(array('code' => 0, 'message' => "$this->lang->line('you-have-joined-this-event1635566199')"));
                 die;
             }
 
@@ -282,14 +412,38 @@ class Customer extends MY_Controller
                     'event_id' => $postData['event_id'],
                     'customer_event_status_id' => STATUS_ACTIVED
                 ));
-                echo json_encode(array('code' => 1, 'message' => "You have been successfully registered for the event!"));
+
+                if($customerEventId > 0){
+                    $this->loadModel(array('Mcustomers', 'Mbusinessprofiles'));
+                    $customerInfo = $this->Mcustomers->get($postData['customer_id']);
+                    $eventInfo = $this->Mevents->get($postData['event_id']);
+                    $businessName = $this->Mbusinessprofiles->getFieldValue(array('id' => $eventInfo['business_profile_id']), 'business_name', '');
+                    /**
+                     * Save Email
+                     */
+                    $this->load->model('Memailqueue');
+                    $dataEmail = array(
+                        'name' => $customerInfo['customer_first_name'],
+                        'email_to' => $customerInfo['customer_email'],
+                        'email_to_name' => $customerInfo['customer_first_name'],
+                        'event_name' => $eventInfo['event_subject'],
+                        'event_url' => base_url('event/'.makeSlug($eventInfo['event_subject']) . '-' . $eventInfo['id'].'.html'),
+                        'business_name' => $businessName
+                    );
+                    $emailResult = $this->Memailqueue->createEmail($dataEmail, 4);
+                    /**
+                     * END. Save Email
+                     */
+                }
+
+                echo json_encode(array('code' => 1, 'message' => $this->lang->line('you-have-been-successfully-reg1635566199')));
                 die;
             } else {
-                echo json_encode(array('code' => 0, 'message' => "Event has expired"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('event-has-expired1635566199')));
                 die;
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
             die;
         }
     }
@@ -299,7 +453,7 @@ class Customer extends MY_Controller
         try {
             $postData = $this->arrayFromPost(array('customer_id', 'event_id'));
             if (empty($postData['customer_id']) || empty($postData['event_id'])) {
-                echo json_encode(array('code' => 0, 'message' => "Incorrect information"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('incorrect-information1635566199')));
                 die;
             }
             $this->loadModel(array('Mevents', 'Mcustomerevents'));
@@ -316,15 +470,75 @@ class Customer extends MY_Controller
                         'customer_event_status_id' => 0
                     )
                 );
-                echo json_encode(array('code' => 1, 'message' => "You have been left event"));
+                echo json_encode(array('code' => 1, 'message' => $this->lang->line('you-have-left-the-event1635566199')));
                 die;
             } else {
-                echo json_encode(array('code' => 0, 'message' => "The event has ended or does not exist"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('the-event-has-ended-or-does-no1635566199')));
                 die;
             }
         } catch (Exception $e) {
-            echo json_encode(array('code' => -2, 'message' => $e->getMessage()));
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
             die;
+        }
+    }
+
+    public function join_as_guest() {
+        $this->loadModel(array('Mcustomers','Mconfigs'));
+        
+        /**
+         * Commons data
+         */
+
+
+        $data = $this->commonDataCustomer('Join event as guest');
+        $data['activeMenu'] = "";
+        /**
+         * Commons data
+         */
+
+        $data['basePagingUrl'] = base_url('join-as-guest');
+
+        $data['event_id'] = $this->input->get('event');
+
+        $join_success = $this->input->get('join_success');
+
+        $data['join_success'] = false;
+        if($join_success == 1){
+            $data['join_success'] = true;
+        }
+        $this->load->view('frontend/business/bp-event-join', $data);
+    }
+
+    public function submitJoinAsGuest()
+    {
+        try {
+            $postData = $this->arrayFromPost(array('email', 'event_id', 'first_name', 'last_name'));
+            if (empty($postData['event_id']) || empty($postData['first_name']) || empty($postData['last_name']) || empty($postData['email'])) {
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('incorrect-information1635566199')));
+                die;
+            }
+            $this->loadModel(array('Mevents', 'Mcustomerevents'));
+
+
+            //join event
+            $customerEventId = $this->Mcustomerevents->save(array(
+                'customer_id' => 0,
+                'event_id' => $postData['event_id'],
+                'first_name' => $postData['first_name'],
+                'last_name' => $postData['last_name'],
+                'is_guest' => 1,
+                'customer_event_status_id' => STATUS_ACTIVED
+            ));
+
+           
+            $this->session->set_flashdata('notice_message', $this->lang->line('you-have-been-successfully-reg1635566199'));
+            $this->session->set_flashdata('notice_type', 'success');
+            redirect(base_url('join-as-guest?event='.$postData['event_id'].'&join_success=1'));
+           
+        } catch (Exception $e) {
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('join-as-guest'));
         }
     }
 
@@ -333,7 +547,7 @@ class Customer extends MY_Controller
         try {
             $postData = $this->arrayFromPost(array('current_password', 'new_password', 'repeat_password', 'customer_id'));
             if (empty($postData['customer_id']) || empty($postData['current_password']) || empty($postData['new_password'])  || empty($postData['repeat_password'])) {
-                $this->session->set_flashdata('notice_message', "Please enter information");
+                $this->session->set_flashdata('notice_message', $this->lang->line('please-enter-information1635566199'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('customer/change-password?0'));
             }
@@ -356,21 +570,21 @@ class Customer extends MY_Controller
                         )
                     );
                     if ($customerInfo) {
-                        $this->session->set_flashdata('notice_message', "Change password successfully");
+                        $this->session->set_flashdata('notice_message', $this->lang->line('password-change-successful1635566199'));
                         $this->session->set_flashdata('notice_type', 'success');
                         redirect(base_url('customer/change-password'));
                     } else {
-                        $this->session->set_flashdata('notice_message', "Change password failed");
+                        $this->session->set_flashdata('notice_message', $this->lang->line('password-change-failed1635566199'));
                         $this->session->set_flashdata('notice_type', 'error');
                         redirect(base_url('customer/change-password?1'));
                     }
                 } else {
-                    $this->session->set_flashdata('notice_message', "Change password failed");
+                    $this->session->set_flashdata('notice_message', $this->lang->line('password-change-failed1635566199'));
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('customer/change-password?2'));
                 }
             } else {
-                $this->session->set_flashdata('notice_message', "The current password is not correct");
+                $this->session->set_flashdata('notice_message', $this->lang->line('the-current-password-is-not-co1635566199'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('customer/change-password?4'));
             }
@@ -398,7 +612,7 @@ class Customer extends MY_Controller
                 'customer_id'
             ));
             if (empty($postData['customer_first_name']) || empty($postData['customer_last_name']) || empty($postData['customer_address'])) {
-                $this->session->set_flashdata('notice_message', "Please enter information");
+                $this->session->set_flashdata('notice_message', $this->lang->line('please-enter-information1635566199'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('customer/general-information?0'));
             }
@@ -442,12 +656,12 @@ class Customer extends MY_Controller
                     redirect(base_url('customer/general-information?1'));
                 }
             } else {
-                $this->session->set_flashdata('notice_message', "You do not have permission on this page");
+                $this->session->set_flashdata('notice_message', $this->lang->line('you-do-not-have-permission-on-1635566199'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url(HOME_URL));
             }
         } catch (Exception $e) {
-            //echo json_encode(array('code' => -2, 'message' => $e->getMessage()));die;
+            //echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
             $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('customer/general-information?3'));
@@ -468,9 +682,9 @@ class Customer extends MY_Controller
          * Commons data
          */
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $per_page = $this->input->get('per_page');
@@ -496,7 +710,7 @@ class Customer extends MY_Controller
             $data['businessProfiles'] = array();
             $data['serviceTypes'] = array();
             if (!empty($businessProfileIds) && count($businessProfileIds) > 0) {
-                $service_type_name = "service_type_name_" . $this->Mconstants->languageCodes[$data['language_id']];
+                $service_type_name = "service_type_name_" . $this->Mconstants->languageShortCodes[$data['language_id']];
                 $data['serviceTypes'] = $this->Mservicetypes->getListByListBusinessId(array('business_profile_ids' => $businessProfileIds), $service_type_name);
 
                 $data['businessProfiles'] = $this->Mbusinessprofiles->search(array('business_profile_ids' => $businessProfileIds));
@@ -542,14 +756,14 @@ class Customer extends MY_Controller
         /**
          * Commons data
          */
-        $data = $this->commonDataCustomer('General Information');
+        $data = $this->commonDataCustomer($this->lang->line('general_information'));
         $data['activeMenu'] = "";
         $data['activeCustomerNav'] = "general-information";
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $data['customerInfo'] = $this->Mcustomers->get($data['customer']['id']);
@@ -576,9 +790,9 @@ class Customer extends MY_Controller
         $data['activeCustomerNav'] = "change-password";
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $this->load->view('frontend/customer/um-change-password', $data);
@@ -599,9 +813,9 @@ class Customer extends MY_Controller
          */
 
         if ($data['customer']['id'] == 0) {
-            $this->session->set_flashdata('notice_message', "You do not have permission to view this page");
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
             $this->session->set_flashdata('notice_type', 'error');
-            redirect(base_url(HOME_URL));
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
         }
 
         $data['activeMenuService'] = 0;
@@ -645,5 +859,73 @@ class Customer extends MY_Controller
         }
 
         $this->load->view('frontend/customer/um-event', $data);
+    }
+
+    public function my_reservation()
+    {
+        $this->loadModel(array('Mconfigs', 'Mservices', 'Mevents', 'Mbusinessprofiles', 'Mcustomerevents'));
+
+        /**
+         * Commons data
+         */
+        $data = $this->commonDataCustomer('Services');
+        $data['activeMenu'] = "";
+        $data['activeCustomerNav'] = "my-reservation";
+        /**
+         * Commons data
+         */
+
+        if ($data['customer']['id'] == 0) {
+            $this->session->set_flashdata('notice_message', $this->lang->line('please-login-to-view-this-page1635566199'));
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html?requiredLogin=1&redirectUrl='.current_url()));
+        }
+
+        $data['activeMenuService'] = 0;
+
+        $per_page = $this->input->get('per_page');
+        $data['per_page'] = $per_page;
+        $search_text = $this->input->get('keyword');
+        $data['keyword'] = $search_text;
+        $type = $this->input->get('type');
+        $data['type'] = $type;
+        $selected_day = $this->input->get('selected_day');
+        $data['selected_day'] = $selected_day;
+
+        $getData = array(
+            'date_arrived' => $selected_day,
+            'search_text_fe' => $search_text,
+            'customer_id' => $data['customer']['id'],
+            'book_status_id' => $type
+        );
+        $rowCount = $this->Mcustomerreservations->getCount($getData);
+        $data['lists'] = array();
+
+        /**
+         * PAGINATION
+         */
+        $perPage = DEFAULT_LIMIT_BUSINESS_PROFILE;
+        //$perPage = 2;
+        if (is_numeric($per_page) && $per_page > 0) $perPage = $per_page;
+        $pageCount = ceil($rowCount / $perPage);
+        $page = $this->input->get('page');
+        if (!is_numeric($page) || $page < 1) $page = 1;
+        $data['basePagingUrl'] = base_url('customer/my-reservation');
+        $data['perPage'] = $perPage;
+        $data['page'] = $page;
+        $data['rowCount'] = $rowCount;
+        $data['paggingHtml'] = getPaggingHtmlFront($page, $pageCount, $data['basePagingUrl'] . '?page={$1}');
+        /**
+         * END - PAGINATION
+         */
+
+        $data['lists'] = $this->Mcustomerreservations->search($getData, $perPage, $page);
+
+        foreach($data['lists'] as $k => $item){
+            $data['lists'][$k]['business_name'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $item['business_profile_id']), 'business_name', '');
+            $data['lists'][$k]['business_url'] = $this->Mbusinessprofiles->getFieldValue(array('id' => $item['business_profile_id']), 'business_url', '');
+        }
+
+        $this->load->view('frontend/customer/um-reservation', $data);
     }
 }

@@ -94,6 +94,7 @@ class Service extends MY_Controller {
             }
 
             $serviceTypes = json_decode(trim($this->input->post('ServiceTypes')), true);
+           
             if(!is_array($serviceTypes)) $serviceTypes = array();
             $this->load->model('Mservices');
             $flag = $this->Mservices->update($postData, $serviceId, $serviceTypes, $user['id']);

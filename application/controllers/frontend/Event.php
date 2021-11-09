@@ -6,11 +6,7 @@ class Event extends MY_Controller {
     function __construct(){
         parent::__construct();
        
-        $this->load->helper('cookie');
-        $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
-        $this->language =  $language;
-        $this->lang->load('login', $this->language);
-
+        $this->getLanguageFE();
 
     }
 
@@ -20,7 +16,7 @@ class Event extends MY_Controller {
         /**
          * Commons data
          */
-        $data = $this->commonDataCustomer('Events');
+        $data = $this->commonDataCustomer($this->lang->line('events'));
         $data['activeMenu'] = "events";
         /**
          * Commons data
@@ -30,12 +26,17 @@ class Event extends MY_Controller {
 
         //$data['services'] = $this->Mservices->getHighlightListByLang($data['language_id']);
         $selected_date = $this->input->get('selected_date');
-        
+        $data['selected_date'] = $selected_date;
         $per_page = $this->input->get('per_page');
         $data['per_page'] = $per_page;
         $search_text = $this->input->get('keyword');
         $data['keyword'] = $search_text;
-        $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
+
+        $joinedEvents = array();
+        if($data['customer']['id'] > 0){
+            $joinedEvents = $this->Mcustomerevents->getListFieldValue(array('customer_id' => $data['customer']['id'], 'customer_event_status_id >' => 0), 'event_id');
+        }
+        
         
         //current day default
         if(empty($selected_date)) $selected_date = date('Y-m-d');
@@ -43,9 +44,14 @@ class Event extends MY_Controller {
         $getData = array(
             'event_status_id' => STATUS_ACTIVED, 
             'search_text_fe' => $search_text, 
-            'selected_date' => $selected_date,
-            'joined_events' => $joinedEvents
+            'selected_date' => $selected_date
         );
+        $currentDay = strtotime(date('Y-m-d'));
+        $selectDay = strtotime($selected_date);
+        $data['inPast'] = false;
+        if($selectDay < $currentDay){
+            $data['inPast'] = true;
+        }
         $rowCount = $this->Mevents->getCount($getData);
         $data['lists'] = array();
         
@@ -73,7 +79,10 @@ class Event extends MY_Controller {
             $data['lists'][$i]['event_image'] = (!empty($data['lists'][$i]['event_image'])) ? EVENTS_PATH.$data['lists'][$i]['event_image'] : EVENTS_PATH.NO_IMAGE ;
         }
 
-        $getDataEvent = array('event_status_id' => STATUS_ACTIVED, 'start_date' => date('Y-m-d'));
+        $getDataEvent = array(
+            'event_status_id' => STATUS_ACTIVED
+        );
+        //'start_date' => date('Y-m-d')
         $data['listEvents'] = $this->Mevents->search($getDataEvent);
         
         
@@ -89,8 +98,10 @@ class Event extends MY_Controller {
             $dateRanges = array_unique($dateRanges);
         }
         $data['dateRanges'] = $dateRanges;
+        //echo "<pre>";print_r($data['dateRanges']);die;
         
-
+        $data['joined_event'] = $joinedEvents;
+        
         $this->load->view('frontend/event/customer-event', $data);
     }
 
@@ -150,6 +161,12 @@ class Event extends MY_Controller {
             $data['customerEvent'] = $this->Mcustomerevents->get($customerEventId);
         }
 
+        $editAble = $this->input->get('editable');
+        $data['editAble'] = false;
+        if(!empty($editAble) && $data['businessInfo']['customer_id'] == $data['customer']['id']){
+            $data['editAble'] = true;
+        }
+
         $this->load->view('frontend/event/bp-event-detail', $data);
     }
 
@@ -160,7 +177,7 @@ class Event extends MY_Controller {
         /**
          * Commons data
          */
-        $data = $this->commonDataCustomer('Login to join event',
+        $data = $this->commonDataCustomer($this->lang->line('login-to-join-event1635566199'),
 			array('scriptFooter' => array('js' => 'js/frontend/login/login.js'))
         );
         $data['activeMenu'] = "";
@@ -171,11 +188,72 @@ class Event extends MY_Controller {
         $redirectUrl = $this->input->get('redirectUrl');
         $data['redirectOldUrl'] = $redirectUrl;
 
+        $data['event_id'] = $this->input->get('event');
+
         $this->load->view('frontend/event/bp-event-account', $data);
     }
     
 
     public function update(){
+        try {
+            $postData = $this->arrayFromPost(array('business_profile_id', 'event_subject', 'event_image', 'start_date', 'end_date', 'start_time', 'end_time','event_description'));
+            if(!empty($postData['event_subject'])  && !empty($postData['start_date'])) {
+                $eventId = $this->input->post('id');
+				$this->load->model('Mevents');
+
+                
+                
+                $postData['start_time'] = $postData['start_time'];
+                $postData['end_time'] = $postData['end_time'];
+
+                $postData['start_date'] = date("Y-m-d", strtotime($postData['start_date']));
+                $postData['end_date'] = date("Y-m-d", strtotime($postData['end_date']));
+
+                $timeStampStart = strtotime($postData['start_date']." ".$postData['start_time']);
+                $timeStampEnd = strtotime($postData['end_date']." ".$postData['end_time']);
+
+                if($timeStampEnd < $timeStampStart){
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('the-end-time-must-be-greater-t1635566199')));die;
+                }
+
+                /**
+                 * Upload if customer choose image
+                 */
+                $eventImageUpload = $this->input->post('event_image_upload');
+                if(!empty($eventImageUpload)){
+                    $imageUpload = $this->uploadImageBase64($eventImageUpload, 9);
+                    $postData['event_image'] = replaceFileUrl($imageUpload, EVENTS_PATH);
+                }
+
+                $message = 'Create success';
+                if ($eventId == 0){
+                    $postData['event_status_id'] = STATUS_ACTIVED;
+                    $postData['created_by'] = 0;
+                    $postData['created_at'] = getCurentDateTime();
+                }
+                else {
+                    $message = $this->lang->line('update-successful1635566199');
+                    $postData['updated_by'] = 0;
+                    $postData['updated_at'] = getCurentDateTime();
+                }
+                
+                $eventId = $this->Mevents->save($postData, $eventId);
+                if ($eventId > 0) {
+                    echo json_encode(array('code' => 1, 'message' => $message, 'data' => $eventId));die;
+                }
+                else {
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('event-creation-failed1635566199')));die;
+                }
+            }
+            else {
+                echo json_encode(array('code' => -1, 'message' => $this->lang->line('please-enter-event-information1635566199')));die;
+            }
+        } catch (\Throwable $th) {
+            echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
+     	}
+    }
+
+    public function updateEdit(){
         try {
             $postData = $this->arrayFromPost(array('business_profile_id', 'event_subject', 'event_image', 'start_date', 'end_date', 'start_time', 'end_time','event_description'));
             if(!empty($postData['event_subject'])  && !empty($postData['start_date'])) {
@@ -206,7 +284,7 @@ class Event extends MY_Controller {
                     $postData['created_at'] = getCurentDateTime();
                 }
                 else {
-                    $message = 'Update successful';
+                    $message = $this->lang->line('update-successful1635566199');
                     $postData['updated_by'] = 0;
                     $postData['updated_at'] = getCurentDateTime();
                 }

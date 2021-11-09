@@ -56,6 +56,36 @@ $(document).ready(function(){
             $('input#logoImageLogoFooter').val(fileUrl);
             $('img#imgLogoFooter').attr('src', fileUrl).show();
         });
+
+
+        $('#btnUpAboutUsImageBanner').click(function(){
+            $('#logoFileAboutUsImageBanner').trigger('click');
+        });
+    
+        chooseFile($('#logoFileAboutUsImageBanner'), $('#fileProgress'), 5, function(fileUrl){
+            $('input#logoAboutUsImageBanner').val(fileUrl);
+            $('img#imgAboutUsImageBanner').attr('src', fileUrl).show();
+        });
+
+        $('#btnUpAboutUsImage1').click(function(){
+            $('#logoFileAboutUsImage1').trigger('click');
+        });
+    
+        chooseFile($('#logoFileAboutUsImage1'), $('#fileProgress'), 5, function(fileUrl){
+            $('input#logoAboutUsImage1').val(fileUrl);
+            $('img#imgAboutUsImage1').attr('src', fileUrl).show();
+        });
+
+        $('#btnUpAboutUsImage2').click(function(){
+            $('#logoFileAboutUsImage2').trigger('click');
+        });
+    
+        chooseFile($('#logoFileAboutUsImage2'), $('#fileProgress'), 5, function(fileUrl){
+            $('input#logoAboutUsImage2').val(fileUrl);
+            $('img#imgAboutUsImage2').attr('src', fileUrl).show();
+        });
+
+
         if(aboundId == 0) {
             CKEDITOR.replace('TERM_OF_USE', {
                 language: 'en',

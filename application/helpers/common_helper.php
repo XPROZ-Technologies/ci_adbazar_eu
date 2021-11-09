@@ -137,7 +137,7 @@ if (!function_exists('makeSlug')){
             'Ù' => 'u', 'Ú' => 'u', 'Ủ' => 'u', 'Ũ' => 'u', 'Ụ' => 'u', 'Ư' => 'u', 'Ừ' => 'u', 'Ứ' => 'u', 'Ử' => 'u', 'Ữ' => 'u', 'Ự' => 'u',
             'ỳ' => 'y', 'ý' => 'y', 'ỷ' => 'y', 'ỹ' => 'y', 'ỵ' => 'y',
             'Ỳ' => 'y', 'Ý' => 'y', 'Ỷ' => 'y', 'Ỹ' => 'y', 'Ỵ' => 'y',
-            '/' => '-', ' ' => '-'
+            '/' => '-', ' ' => '-', '%' => '', '(' => '', ')' => ''
         );
         preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', $string);
         return strtolower(strtr($string, $table));
@@ -376,9 +376,103 @@ if(!function_exists('getYoutubeIdFromUrl')) {
 
 if(!function_exists('getDatesFromRange')) {
     function getDatesFromRange($start, $end, $format='Y-m-d') {
-        return array_map(function($timestamp) use($format) {
-            return date($format, $timestamp);
-        },
-        range(strtotime($start) + ($start < $end ? 4000 : 8000), strtotime($end) + ($start < $end ? 8000 : 4000), 86400));
+        $array = array();
+        $interval = new DateInterval('P1D');
+
+        $realEnd = new DateTime($end);
+        $realEnd->add($interval);
+
+        $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+
+        foreach($period as $date) { 
+            $array[] = $date->format($format); 
+        }
+
+        return $array;
+    }
+}
+
+if(!function_exists('getRangeHours')) {
+    function getRangeHours($start_time, $end_time, $duration = 1, $isCurrent = false){
+        $exStartTime = explode(":", $start_time);
+        $minuteStart = $exStartTime[0]*60 + $exStartTime[1];
+
+        $exEndTime = explode(":", $end_time);
+        $minuteEnd = $exEndTime[0]*60 + $exEndTime[1];
+
+        $minuteCurrent = 0;
+        if($isCurrent){
+            $current_time = date('H:i');
+            $exCurrentTime = explode(":", $current_time);
+            $minuteCurrent = $exCurrentTime[0]*60 + $exCurrentTime[1];
+        }
+        
+
+        $startPoint = $minuteStart;
+        if($minuteCurrent > $minuteStart){
+            $startPoint = $minuteCurrent;
+        }
+
+        $endPoint = $minuteEnd;
+
+
+        //Use startPoint & endPoint
+        $arrHours = array();
+        for($i = $startPoint; $i <= $endPoint; $i = $i + $duration){
+            $tmpHours = intdiv($i, 60);
+            if(strlen($tmpHours) == 1) $tmpHours = "0".$tmpHours;
+            
+            $tmpMin = ($i % 60);
+            if(strlen($tmpMin) == 1) $tmpMin = "0".$tmpMin;
+
+            $arrHours[] = $tmpHours.':'. $tmpMin;
+        }
+
+        return $arrHours;
+    }
+}
+
+if(!function_exists('getNumberOfWords')) {
+    function getNumberOfWords($string = "", $seperator = " ", $limit = 2) {
+      if(!empty($string)){
+        $arrStr = explode($seperator, $string);
+        if(!empty($arrStr)){
+            $string = "";
+            foreach($arrStr as $index => $item){
+                if($index < $limit){
+                    $string .= $seperator.$item;
+                }
+            }
+            return $string;
+        }
+      }
+      return $string;
+    }
+}
+
+if(!function_exists('getOnlyHourMinute')) {
+    function getOnlyHourMinute($time = "00:00:00") {
+      $strTime = "";
+      if(!empty($time)){
+        $arrTime = explode(":", $time);
+        if(!empty($arrTime)){
+            if(is_array($arrTime) && count($arrTime) >= 2){
+                $strTime = $arrTime['0'].":".$arrTime['1'];
+            }
+        }
+      }
+      return $strTime;
+    }
+}
+
+if(!function_exists('dateDifference')) {
+    function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
+    {
+        $datetime1 = date_create($date_1);
+        $datetime2 = date_create($date_2);
+    
+        $interval = date_diff($datetime1, $datetime2);
+    
+        return $interval->format($differenceFormat);
     }
 }

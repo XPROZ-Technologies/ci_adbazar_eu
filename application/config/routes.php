@@ -80,7 +80,7 @@ $route['sys-admin/service'] = 'backend/service';
 $route['sys-admin/service-create'] = 'backend/service/add';
 $route['sys-admin/service-update'] = 'backend/service/edit';
 $route['sys-admin/service/get-list'] = 'backend/service/getListSelect2Ajax';
-$route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax';  
+$route['sys-admin/service/get-list-service-type'] = 'backend/service/getListServiceTypeSelect2Ajax';
 
 // location
 $route['sys-admin/location'] = 'backend/location';
@@ -104,33 +104,37 @@ $route['sys-admin/customer/get-list'] = 'backend/customer/getListSelect2Ajax';
 $route['sys-admin/customer-create'] = 'backend/customer/add';
 $route['sys-admin/customer-update/(:num)'] = 'backend/customer/edit/$1';
 $route['sys-admin/customer/insert-update'] = 'backend/customer/update';
-$route['sys-admin/customer/change-status'] = 'backend/customer/changeStatus'; 
+$route['sys-admin/customer/change-status'] = 'backend/customer/changeStatus';
 
 // business-profile
 $route['sys-admin/business-profile'] = 'backend/businessprofile';
 $route['sys-admin/business-profile-add'] = 'backend/businessprofile/add';
 $route['sys-admin/business-profile-update/(:num)'] = 'backend/businessprofile/edit/$1';
 $route['sys-admin/business-profile/insert-update'] = 'backend/businessprofile/update';
-$route['sys-admin/business-profile/change-status'] = 'backend/businessprofile/changeStatus'; 
-$route['sys-admin/business-profile/get-business-profile-not-in-location'] = 'backend/businessprofile/getBusinessProfileNotInLocation'; 
-$route['sys-admin/business-profile/is-hot'] = 'backend/businessprofile/isHot'; 
+$route['sys-admin/business-profile/change-status'] = 'backend/businessprofile/changeStatus';
+$route['sys-admin/business-profile/get-business-profile-not-in-location'] = 'backend/businessprofile/getBusinessProfileNotInLocation';
+$route['sys-admin/business-profile/is-hot'] = 'backend/businessprofile/isHot';
 
 $route['sys-admin/phone-code/get-list'] = 'backend/phonecode/getListSelect2Ajax';
 
 $route['sys-admin/coupon'] = 'backend/coupon';
 $route['sys-admin/coupon-create'] = 'backend/coupon/add';
 $route['sys-admin/coupon-update/(:num)'] = 'backend/coupon/edit/$1';
-$route['sys-admin/coupon/insert-update'] = 'backend/coupon/update'; 
+$route['sys-admin/coupon/insert-update'] = 'backend/coupon/update';
 $route['sys-admin/coupon/get-list-business-profile'] = 'backend/coupon/getListSelect2BuinessProfile';
 $route['sys-admin/coupon/is-hot'] = 'backend/coupon/isHot';
-$route['sys-admin/coupon/change-status'] = 'backend/coupon/changeStatus'; 
+$route['sys-admin/coupon/change-status'] = 'backend/coupon/changeStatus';
 
 //event
 $route['sys-admin/event'] = 'backend/event';
 $route['sys-admin/event-create'] = 'backend/event/add';
 $route['sys-admin/event-update/(:num)'] = 'backend/event/edit/$1';
-$route['sys-admin/event/insert-update'] = 'backend/event/update'; 
+$route['sys-admin/event/insert-update'] = 'backend/event/update';
 $route['sys-admin/event/change-status'] = 'backend/event/changeStatus';
+
+$route['sys-admin/config/term-of-use'] = 'backend/config/termOfUse';
+$route['sys-admin/config/policy'] = 'backend/config/policy';
+$route['sys-admin/config/video'] = 'backend/config/video';
 
 /**
  * FRONT-END ROUTES
@@ -146,19 +150,25 @@ $route['customer-get-coupon'] = 'frontend/customer/customerGetCoupon';
 $route['customer-remove-coupon'] = 'frontend/customer/customerRemoveCoupon';
 $route['customer-join-event'] = 'frontend/customer/customerJoinEvent';
 $route['customer-left-event'] = 'frontend/customer/customerLeftEvent';
+$route['join-as-guest'] = 'frontend/customer/join_as_guest';
+$route['submit-join-as-guest'] = 'frontend/customer/submitJoinAsGuest';
 $route['customer-change-password'] = 'frontend/customer/customerChangePassword';
 $route['customer-update-information'] = 'frontend/customer/customerUpdateInformation';
+$route['forgot-password'] = 'frontend/customer/forgotPassword';
+$route['submit-change-password'] = 'frontend/customer/submitChangePassword';
 
 //user management
 $route['customer/my-coupons'] = 'frontend/customer/my_coupons';
 $route['customer/general-information'] = 'frontend/customer/general_information';
 $route['customer/change-password'] = 'frontend/customer/change_password';
 $route['customer/my-events'] = 'frontend/customer/my_events';
+$route['customer/my-reservation'] = 'frontend/customer/my_reservation';
 
 $route['notifications.html'] = 'frontend/notification/index';
 
 $route['login.html'] = 'frontend/login';
 $route['signup.html'] = 'frontend/signup';
+$route['password-assistance'] = 'frontend/login/password_assistance';
 
 $route['home'] = 'frontend/home';
 $route['about-us.html'] = 'frontend/home/about';
@@ -178,6 +188,9 @@ $route['event/login.html'] = 'frontend/event/event_login';
 //coupons
 $route['coupons.html'] = 'frontend/coupon/index';
 $route['coupon/(:any)-(:num)\.html'] = 'frontend/coupon/detail/$1/$2';
+$route['business-management/check-coupon-code'] = 'frontend/coupon/checkCouponCode';
+$route['business-management/active-coupon-code'] = 'frontend/coupon/activeCouponCode';
+
 
 //notification
 $route['notifications.html'] = 'frontend/notification/index';
@@ -186,13 +199,22 @@ $route['notifications.html'] = 'frontend/notification/index';
 $route['customer/send-contact-us'] = 'frontend/contact/saveContactForm';
 
 
+
 //business management
 $route['my-business-profile'] = 'frontend/businessprofile/my_business';
 $route['business-profile/select-plan'] = 'frontend/businessprofile/select_plan';
+$route['business-profile/switch-plan'] = 'frontend/businessprofile/switch_plan';
 $route['business-profile/submit-select-plan'] = 'frontend/businessprofile/submitSelectPlan';
 $route['business-profile/got-free-trial'] = 'frontend/businessprofile/got_free_trial';
 $route['business-profile/create-new-business'] = 'frontend/businessprofile/create_new_business';
-$route['business-profile/create-business'] = 'frontend/businessprofile/updateBusiness';
+$route['business-profile/create-business'] = 'frontend/businessprofile/createBusiness';
+$route['business-profile/update-business'] = 'frontend/businessprofile/updateBusiness';
+$route['business-profile/bm-payment'] = 'frontend/businessprofile/payment';
+$route['business-profile/continue-payment'] = 'frontend/businessprofile/continue_payment';
+$route['business-profile/switch-payment'] = 'frontend/businessprofile/switch_payment';
+$route['business-profile/cancel-subscription'] = 'frontend/businessprofile/cancelBusinessSubscription';
+$route['business-profile/suspend-subscription'] = 'frontend/businessprofile/suspendBusinessSubscription';
+$route['business-profile/active-subscription'] = 'frontend/businessprofile/activeBusinessSubscription';
 
 
 $route['fb-login'] = 'frontend/customer/loginFb';
@@ -203,18 +225,45 @@ $route['(:any)'] = 'frontend/businessprofile/index/$1';
 $route['business/(:any)/gallery'] = 'frontend/businessprofile/gallery/$1';
 $route['business/(:any)/coupons'] = 'frontend/businessprofile/coupons/$1';
 $route['business/(:any)/events'] = 'frontend/businessprofile/events/$1';
+$route['business/(:any)/reservation'] = 'frontend/businessprofile/reservation/$1';
+$route['business/(:any)/book-reservation'] = 'frontend/businessprofile/book_reservation/$1';
+$route['business/(:any)/reviews'] = 'frontend/businessprofile/reviews/$1';
+$route['business/leave-a-review'] = 'frontend/businessprofile/leaveReview/$1';
+$route['business/leave-a-reply'] = 'frontend/businessprofile/leaveReply/$1';
+$route['business/remove-review'] = 'frontend/businessprofile/removeComment/$1';
+$route['business/remove-reply-review'] = 'frontend/businessprofile/removeReplyComment/$1';
+$route['business/check-slug'] = 'frontend/businessprofile/checkSlug';
+//reservation
+$route['business/submit-book-reservation'] = 'frontend/reservation/bookReservation';
 
 //busines profile management
 $route['business-management/(:any)/about-us'] = 'frontend/businessprofile/manage_about_us/$1';
 $route['business-management/(:any)/gallery'] = 'frontend/businessprofile/manage_gallery/$1';
+$route['business-management/(:any)/update-gallery'] = 'frontend/businessprofile/updateGallery/$1';
+$route['business-management/(:any)/update-video'] = 'frontend/businessprofile/updateVideo/$1';
+$route['business-management/delete-video'] = 'frontend/businessprofile/deleteVideo';
+$route['business-management/delete-image'] = 'frontend/businessprofile/deleteImage';
 $route['business-management/(:any)/coupons'] = 'frontend/businessprofile/manage_coupons/$1';
 $route['business-management/(:any)/create-coupon'] = 'frontend/businessprofile/manage_create_coupon/$1';
 $route['business-management/(:any)/events'] = 'frontend/businessprofile/manage_events/$1';
 $route['business-management/(:any)/create-event'] = 'frontend/businessprofile/manage_create_event/$1';
+$route['business-management/(:any)/edit-event/(:num)'] = 'frontend/businessprofile/manage_edit_event/$1/$2';
 $route['business-management/(:any)/reviews'] = 'frontend/businessprofile/manage_reviews/$1';
 $route['business-management/(:any)/reservations'] = 'frontend/businessprofile/manage_reservations/$1';
 $route['business-management/(:any)/subscriptions'] = 'frontend/businessprofile/manage_subscriptions/$1';
+$route['business-management/(:any)/edit'] = 'frontend/businessprofile/manage_profile_edit/$1';
+
+//manage reservation
+$route['business-management/get-reservation-config'] = 'frontend/reservation/getReservation';
+$route['business-management/save-reservation-config'] = 'frontend/reservation/saveReservation';
+$route['business-management/change-allow-book'] = 'frontend/reservation/changeAllowBook';
+$route['reservation/get-avail-time'] = 'frontend/reservationconfig/getListTime';
+$route['reservation/customer-cancel-reservation'] = 'frontend/reservation/customerCancelReservation';
+$route['reservation/business-decline-reservation'] = 'frontend/reservation/businessDeclineReservation';
+
+$route['notification/load-more-notification'] = 'frontend/notification/loadMore';
 
 
 $route['business-management/create-coupon'] = 'frontend/coupon/update';
 $route['business-management/create-event'] = 'frontend/event/update';
+$route['business-management/edit-event'] = 'frontend/event/updateEdit';

@@ -28,10 +28,18 @@ class Mbusinessprofiles extends MY_Model {
         if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `business_name` LIKE '%{$postData['search_text']}%' OR `business_email` LIKE '%{$postData['search_text']}%' OR `business_address` LIKE '%{$postData['search_text']}%' OR `business_whatsapp` LIKE '%{$postData['search_text']}%' OR `business_phone` LIKE '%{$postData['search_text']}%')";
         if(isset($postData['search_text_fe']) && !empty($postData['search_text_fe'])) $query .=" AND ( `business_name` LIKE '%{$postData['search_text_fe']}%' OR `business_description` LIKE '%{$postData['search_text_fe']}%')";
         if(isset($postData['business_status_id']) && $postData['business_status_id'] > 0) $query .= " AND business_status_id = ".$postData['business_status_id'];
-        if(isset($postData['business_profile_ids']) && count($postData['business_profile_ids']) > 0) $query .= " AND id IN (".implode(',', $postData['business_profile_ids']).")";
+        if(isset($postData['business_profile_ids'])) {
+            $business_profile_ids = join(",",$postData['business_profile_ids']);
+            if(!empty($business_profile_ids)) $query .= " AND id IN (".$business_profile_ids.")";
+            
+        }
+        
+        if(isset($postData['is_annual_payment'])) $query .= " AND is_annual_payment = ".$postData['is_annual_payment'];
         if(isset($postData['service_id']) && $postData['service_id'] > 0) $query .= " AND service_id = ".$postData['service_id'];
         if(isset($postData['service_ids']) && count($postData['service_ids']) > 0) $query .= " AND service_id IN (".implode(',', $postData['service_ids']).")";
         if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query .= " AND customer_id = ".$postData['customer_id'];
+        if(isset($postData['expired']) && !empty($postData['expired'])) $query .= " AND DATE(expired_date) >= '{$postData['expired']}'";
+        
         return $query;
     }
 
@@ -137,6 +145,17 @@ class Mbusinessprofiles extends MY_Model {
         $data = $this->getByQuery($query, array($businessProfileId));
         if(count($data) > 0) return $data[0];
         else return array(); 
+    }
+
+    public function getByNotification($business_ids = array()) {
+        $query = "SELECT
+                DISTINCT
+                business_profiles.id,
+                business_profiles.business_name
+            FROM business_profiles
+                LEFT JOIN customer_notifications ON customer_notifications.business_id = business_profiles.id
+            WHERE notification_status_id > 0 AND customer_notifications.business_id IN (".implode(',', $business_ids).")";
+        return $this->getByQuery($query);
     }
 
     public function getBusinessProfileNotInLocation($searchText = '', $businessProfileLocationId = 0) {

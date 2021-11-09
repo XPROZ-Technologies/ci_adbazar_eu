@@ -8,7 +8,18 @@
         <div id="carouselCustomer" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-caption text-left">
             <div class="container">
-              <h5 class="fw-bold animate__animated animate__fadeInLeft"><?php echo $configs['HOME_BANNER_TEXT']; ?>
+              <h5 class="fw-bold animate__animated animate__fadeInLeft"><?php
+                if($language_id == 1){
+                  echo $configs['HOME_BANNER_TEXT'];
+                }else if($language_id == 2){
+                  echo $configs['HOME_BANNER_TEXT_CZ'];
+                }else if($language_id == 3){
+                  echo $configs['HOME_BANNER_TEXT_DE'];
+                }else if($language_id == 4){
+                  echo $configs['HOME_BANNER_TEXT_VI'];
+                }
+
+              ?>
               </h5>
             </div>
           </div>
@@ -29,13 +40,13 @@
       <!-- Customer Service -->
       <section class="home-service">
         <div class="container container-owl">
-          <h2 class="page-heading fw-bold page-title">Services</h2>
+          <h2 class="page-heading fw-bold page-title"><?php echo $this->lang->line('services'); ?></h2>
           <div class="owl-carousel owl-customer-service">
             <?php for ($i = 0; $i < count($services); $i++) {
               $serviceUrl = base_url('service/' . makeSlug($services[$i]['service_slug']) . '-' . $services[$i]['id']) . '.html'; ?>
               <div class="item">
                 <div class="card customer-service-item">
-                  <a href="<?php echo $serviceUrl; ?>" class="customer-service-img">
+                  <a href="<?php echo $serviceUrl; ?>" class="customer-service-img c-img">
                     <img src="<?php echo SERVICE_PATH . $services[$i]['service_image'] ?>" class="card-img-top img-fluid" alt="<?php echo $services[$i]['service_name']; ?>">
                   </a>
                   <div class="card-body text-center">
@@ -48,7 +59,7 @@
               </div>
             <?php } ?>
           </div>
-          <a href="<?php echo base_url('services.html'); ?>" class="btn btn-red discover_more">Discover more</a>
+          <a href="<?php echo base_url('services.html'); ?>" class="btn btn-red discover_more"><?php echo $this->lang->line('discover_more'); ?></a>
         </div>
       </section>
       <!-- End Customer Service -->
@@ -74,7 +85,7 @@
                 <div class="carousel-caption">
                   <div class="container">
                     <h4 class="page-title"><?php echo $configs['EVENT_BANNER_TEXT']; ?></h4>
-                    <p><a href="<?php echo base_url('events.html'); ?>" class="btn btn-red discover_more">Discover more</a></p>
+                    <p><a href="<?php echo base_url('events.html'); ?>" class="btn btn-red discover_more"><?php echo $this->lang->line('discover_more'); ?></a></p>
                   </div>
                 </div>
               </div>
@@ -91,20 +102,20 @@
       <!-- Customer Coupon -->
       <section class="home-coupon">
         <div class="container container-owl">
-          <h2 class="text-center page-title">Coupons</h2>
+          <h2 class="text-center page-title"><?php echo $this->lang->line('coupons'); ?></h2>
           <div class="owl-carousel owl-coupon">
             <!-- item coupon -->
             <?php foreach ($listCoupons as $indexCoupon => $itemCoupon) {
               $couponDetailUrl = base_url('coupon/' . makeSlug($itemCoupon['coupon_subject']) . '-' . $itemCoupon['id']) . '.html'; ?>
               <div class="item position-relative coupon-item-<?php echo $itemCoupon['id']; ?>">
                 <a class="card customer-coupon-item" href="<?php echo $couponDetailUrl; ?>">
-                  <p class="customer-coupon-img mb-0">
+                  <p class="customer-coupon-img mb-0 c-img">
                     <img src="<?php echo COUPONS_PATH . $itemCoupon['coupon_image']; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
                   </p>
                   <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
                     <div class="customer-coupon-body">
                       <h6 class="card-title"><?php echo $itemCoupon['coupon_subject']; ?></h6>
-                      <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
+                      <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?>  <?php echo $this->lang->line('to'); ?> <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
                       <div class="d-flex align-items-center justify-content-between">
                         <div class="wraper-progress">
                           <div class="progress">
@@ -115,28 +126,26 @@
                     </div>
                   </div>
                 </a>
-                <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>" data-index="<?php echo $indexCoupon; ?>">Get now</a>
+                <a href="javascript:void(0)" class="btn btn-outline-red btn-outline-red-md btn-getnow get-coupon-in-list" data-customer="<?php echo $customer['id']; ?>" data-id="<?php echo $itemCoupon['id']; ?>" data-index="<?php echo $indexCoupon; ?>"><?php echo $this->lang->line('1310_get-now'); ?></a>
               </div>
             <?php } ?>
             <!-- item coupon -->
           </div>
           <div class="text-right">
-            <a href="<?php echo base_url('coupons.html'); ?>" class="view-all">View all</a>
+            <a href="<?php echo base_url('coupons.html'); ?>" class="view-all"><?php echo $this->lang->line('1310_view-all'); ?></a>
           </div>
         </div>
       </section>
       <!-- End Customer Coupon -->
     <?php } ?>
 
-    <?php if (!empty($configs['VIDEO_URL'])) { ?>
+    <?php if (!empty($home_video)) { ?>
       <!-- Customer Video -->
       <section class="customer-video">
         <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-10">
+          <div class="justify-content-center d-flex">
               <div class="customer-video-content">
-                <iframe width="1280" height="720" src="https://www.youtube.com/embed/<?php echo getYoutubeIdFromUrl($configs['VIDEO_URL']); ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              </div>
+                <iframe width="1000" height="500" src="https://www.youtube.com/embed/<?php echo getYoutubeIdFromUrl($home_video); ?>" title="Asia Dragon Bazar" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -148,12 +157,12 @@
     <!-- Customer Location -->
     <section class="customer-location" id="maps">
       <div class="container">
-        <h2 class="page-heading page-title">Location</h2>
+        <h2 class="page-heading page-title"><?php echo $this->lang->line('location'); ?></h2>
         <div class="row">
           <div class="col-lg-4">
             <div class="customer-location-dropdown">
               <div class="custom-select mb-20">
-                <?php $this->Mconstants->selectObject($listServices, 'id', 'service_name', 'selectServiceMap', 0, true, 'All', ' '); ?>
+                <?php $this->Mconstants->selectObject($listServices, 'id', 'service_name', 'selectServiceMap', 0, true, $this->lang->line('all'), ' '); ?>
               </div>
             </div>
             <div class="customer-location-left">
@@ -168,7 +177,7 @@
               <div class="wrapper-search">
                 <div class="d-flex search-box">
                   <a href="javascript:void(0)" class="search-box-icon"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                  <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
+                  <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>" id="search_text" name="keyword" value="<?php echo $keyword; ?>">
                 </div>
               </div>
             </div>
@@ -193,18 +202,18 @@
                   <div class="customer-contact-left d-flex align-items-center">
                     <form class="row g-3" action="<?php echo base_url('customer/send-contact-us'); ?>" id="formContactUs" method="POST">
                       <input name="customer_id" id="contactCustomer" type="hidden" value="<?php if (isset($customer['id'])) { echo $customer['id']; } else { echo 0; } ?>" />
-                      <h3 class="fw-bold text-center mb-4">Contact Us </h3>
+                      <h3 class="fw-bold text-center mb-4"><?php echo $this->lang->line('contact_us'); ?></h3>
                       <div class="col-12">
-                        <input type="text" class="form-control" name="contact_name" id="contactName" placeholder="Name" required>
+                        <input type="text" class="form-control" name="contact_name" id="contactName" placeholder="<?php echo $this->lang->line('name1635566199'); ?>" required>
                       </div>
                       <div class="col-12">
-                        <input type="email" class="form-control" name="contact_email" id="contactEmail" placeholder="Email" required>
+                        <input type="email" class="form-control" name="contact_email" id="contactEmail" placeholder="<?php echo $this->lang->line('email'); ?>" required>
                       </div>
                       <div class="col-12">
-                        <textarea class="form-control" name="contact_message" id="contactMessage" rows="3" placeholder="Type your message here" required></textarea>
+                        <textarea class="form-control" name="contact_message" id="contactMessage" rows="3" placeholder="<?php echo $this->lang->line('type-your-message-here1635566199'); ?>" required></textarea>
                       </div>
                       <div class="col-12 d-flex justify-content-center btn-submit">
-                        <button type="submit" class="btn btn-red">Submit</button>
+                        <button type="submit" class="btn btn-red"><?php echo $this->lang->line('submit'); ?></button>
                       </div>
                     </form>
                   </div>
@@ -223,11 +232,42 @@
     <!-- End Customer Contact -->
   </div>
 </main>
+
+
+<div class="popup-map" id="popup-map" style="display: none">
+    <div class="popup-map-bg"></div>
+    <div class="popup-map-body">
+        <h3 id="popup-map-title"></h3>
+        <i id="popup-map-close" class="bi bi-x-lg"></i>
+        <div id="location-search-container">
+            <input id="location-search-input" type="text" placeholder="Search a location"/>
+        </div>
+        <div class="row-2">
+            <div id="googleMapPopUp" style="width:100%;height:500px;"></div>
+            <div id="panel">
+              <p style="text-align:center;"> Direction from you point </p>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- footer script -->
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&libraries=places&v=weekly"></script>
+<script src="assets/js/frontend/home/popup-map.js?version=<?php echo time(); ?>"></script>
+<script>
+    function popupMapShow(contentId,name,lat,lng) {
+        popupMapS({
+            title: name,
+            target: {
+                location: {lat: lat, lng: lng},
+                content: document.querySelector(`#${contentId} .content-location-info`).innerHTML
+            },
+        });
+    }
+</script>
 <?php $this->load->view('frontend/includes/footer'); ?>
-<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo KEY_GOOGLE_MAP; ?>&callback=initMap&libraries=&v=weekly" async></script>
 
 <script>
+  var please_enter_your_contact_information = "<?php echo $this->lang->line('please-enter-your-contact-info1635566199') ?>";
   var iconMap = "<?php echo (isset($configs['MARKER_MAP_IMAGE']) && !empty($configs['MARKER_MAP_IMAGE'])) ? CONFIG_PATH . $configs['MARKER_MAP_IMAGE'] : CONFIG_PATH . "iconmap.png" ?>";
 
   $("#formContactUs").submit(function(event) {
@@ -236,7 +276,7 @@
     var name = $("#contactName").val();
     var message = $("#contactMessage").val();
     var customer_id = $("#contactCustomer").val();
-    
+
     if (email !== "" && name != "" && message != "") {
       //this.submit();
       $.ajax({
@@ -263,9 +303,9 @@
         error: function(response) {}
       });
     } else {
-      $(".notiPopup .text-secondary").html('Please enter your contact information');
+      $(".notiPopup .text-secondary").html(please_enter_your_contact_information);
       $(".ico-noti-error").removeClass('ico-hidden');
-      $(".notiPopup").addClass('show');
+      $(".notiPopup").fadeIn('slow').fadeOut(5000);
     }
   });
 </script>

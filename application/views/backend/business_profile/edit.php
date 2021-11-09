@@ -19,7 +19,9 @@
                                     <div class="form-group">
                                         <label class="control-label">Customer Name <span class="required">*</span></label>
                                         <select class="form-control" name="customer_id" id="customer_id">
+                                            <?php if(isset($customer['id']) && $customer['id'] > 0): ?>
                                             <option value="<?php echo $customer['id'] ?>"><?php echo $customer['customer_first_name'].' '.$customer['customer_last_name']; ?></option>
+                                            <?php endif; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -55,7 +57,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label class="control-label">Custom URL</label>
+                                        <label class="control-label">Custom URL <span class="required">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-default"><?php echo base_url(BUSINESS_PROFILE_URL); ?></button>
@@ -69,8 +71,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="control-label">Country code <span class="required">*</span></label>
-                                        <select class="form-control" name="business_phone_code" id="country_code_id"> 
-                                        <option value="<?php echo $phonecode['id'] ?>"><?php echo $phonecode['country_name'].'  +'.$phonecode['phonecode']; ?></option>
+                                        <select class="form-control" name="country_code_id" id="country_code_id"> 
+                                            <?php if(isset($phonecode['id']) && $phonecode['id'] > 0): ?>
+                                                <option value="<?php echo $phonecode['id'] ?>"><?php echo $phonecode['country_name'].'  +'.$phonecode['phonecode']; ?></option>
+                                            <?php endif; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -119,16 +123,16 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label" style="width: 100%;">Business Avatar<button type="button" class="btn btn-box-tool" id="btnAvatar"><i class="fa fa-upload"></i> Choose image</button></label>
-                                        <img src="<?php echo BUSINESS_PROFILE_PATH.$profile['business_avatar']; ?>" id="imgAvatar" style="width: 280px;">
-                                        <input type="text" hidden="hidden" id="logoImageAvatar" name="business_avatar">
+                                        <img src="<?php echo BUSINESS_PROFILE_PATH.$profile['business_avatar']; ?>" id="imgAvatar" style="width: 180px; height: 180px;">
+                                        <input type="text" hidden="hidden" id="logoImageAvatar" name="business_avatar" value="<?php echo BUSINESS_PROFILE_PATH.$profile['business_avatar']; ?>">
                                         <input type="file" style="display: none;" id="logoFileAvatar">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label" style="width: 100%;">Business Image Cover<button type="button" class="btn btn-box-tool" id="btnCover"><i class="fa fa-upload"></i> Choose image</button></label>
-                                        <img src="<?php echo BUSINESS_PROFILE_PATH.$profile['business_image_cover']; ?>" id="imgCover" style="width: 280px;">
-                                        <input type="text" hidden="hidden" id="logoImageCover" name="business_image_cover" >
+                                        <img src="<?php echo BUSINESS_PROFILE_PATH.$profile['business_image_cover']; ?>" id="imgCover" style="width: 240px; height: 100px;">
+                                        <input type="text" hidden="hidden" id="logoImageCover" name="business_image_cover" value="<?php echo BUSINESS_PROFILE_PATH.$profile['business_image_cover']; ?>">
                                         <input type="file" style="display: none;" id="logoFileCover">
                                     </div>
                                 </div>
@@ -142,9 +146,9 @@
                                 if(!empty($businessInLocation)) {
                                     $locationName = $businessInLocation['location_name'];
                                     $locationId = $businessInLocation['id']; 
-                                    $expiredDate = ddMMyyyy($businessInLocation['expired_date'], 'd/m/Y H:i');
                                     $businessProfileLocationId = $businessInLocation['business_profile_location_id'];
                                 }
+                                $expiredDate = ddMMyyyy($profile['expired_date'], 'd/m/Y H:i');
                             ?>
                             <div class="row">
                                 <div class="col-sm-12">
@@ -159,8 +163,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label">Expired Date</label>
-                                            <input type="text" name="expired_date" id="expired_date" class="form-control" value="<?php echo $expiredDate ?>">
-                                            <input type="hidden" name="business_profile_location_id" value="<?php echo $businessProfileLocationId ?>">
+                                            <input type="text" name="expired_date" id="expired_date" class="form-control" value="<?php echo $expiredDate; ?>">
+                                            <input type="hidden" name="business_profile_location_id" value="<?php echo $businessProfileLocationId; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +216,7 @@
                                     <?php } ?>
                                 </ul>
                                 <img src="" style="display: none;" id="photoImage">
-                                <input type="file" style="display: none;" id="inputFileImage">
+                                <input type="file" style="display: none;" id="inputFileImage" multiple="">
                             </div>
                         </div>
 

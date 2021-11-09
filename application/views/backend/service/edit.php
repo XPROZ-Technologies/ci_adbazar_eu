@@ -112,7 +112,7 @@
                                                     <?php foreach($this->Mconstants->languageTexts as $key2 => $text): ?>
                                                         <div class="tab-pane fade <?php echo $key2 == 'en' ? 'active':''; ?> service_type_title_all_content in service-type-name-<?php echo $key2; ?>-tab" data-key="<?php echo $key2; ?>">
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control service_type_name_text_<?php echo $key2; ?>" readonly value="<?php echo $st['service_type_name_vi']; ?>">
+                                                                <input type="text" class="form-control service_type_name_text_<?php echo $key2; ?>" readonly value="<?php echo $st['service_type_name_'.$key2]; ?>">
                                                             </div>
                                                         </div>
                                                     <?php endforeach; ?>
@@ -120,9 +120,9 @@
                                                 </td>
                                                 <td><?php echo $st['display_order'] ?></td>
                                                 <td service-type-id="<?php echo $st['id'] ?>">
-                                                    <a href="javascript:void(0)" class="link_edit" title="Update"><i class="fa fa-pencil"></i></a>&nbsp;
+                                                    <a href="javascript:void(0)" class="link_edit"  status-id="<?php echo  $st['status_id'] ?>" service-type-id="<?php echo  $st['id'] ?>" title="Update"><i class="fa fa-pencil"></i></a>&nbsp;
                                                     <?php if(empty($st['service_type_id'])): ?>
-                                                    <a href="javascript:void(0)" class="link_delete" title="Delete"><i class="fa fa-times"></i></a>
+                                                    <a href="javascript:void(0)" status-id="<?php echo  $st['status_id'] ?>" class="link_delete" title="Delete"><i class="fa fa-times"></i></a>
                                                     <?php endif; ?>
                                                 </td>
                                             </tr>
@@ -143,7 +143,7 @@
                                                 <?php $this->Mconstants->selectNumber(0, 100, 'display_order_0', 1, true); ?>
                                     		</td>
                                     		<td class="actions" service-type-id="0">
-                                                <a href="javascript:void(0)" id="link_add" title="Cập nhật"><i class="fa fa-save"></i></a>&nbsp;
+                                                <a href="javascript:void(0)" id="link_add"  status-id="0" title="Cập nhật"><i class="fa fa-save"></i></a>&nbsp;
                                                 <a href="javascript:void(0)" id="link_cancel" title="Thôi"><i class="fa fa-times"></i></a>
                                             </td>
                                     	</tr>

@@ -15,17 +15,17 @@
             <div class="um-right">
               <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                 <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                <input class="form-control w-100" type="text" placeholder="Search" aria-label="Search" name="keyword" value="<?php echo $keyword; ?>">
+                <input class="form-control w-100" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>" name="keyword" value="<?php echo $keyword; ?>">
               </form>
               <div class="um-coupon">
               <?php if (count($lists) > 0) { ?>
                 <div class="notification-wrapper-filter d-flex align-items-center justify-content-md-between">
                   <div class="d-flex align-items-center inner-filter">
-                    <span class="me-2 page-text-lg fw-bold">Filter by</span>
+                    <span class="me-2 page-text-lg fw-bold"><?php echo $this->lang->line('filter_by'); ?></span>
                     <div class="notification-filter">
                       <div class="custom-select choose-business">
                         <select>
-                          <option value="0" selected>All</option>
+                          <option value="0" selected><?php echo $this->lang->line('all'); ?></option>
                           <?php if ($businessProfiles) {
                             foreach ($businessProfiles as $itemBusiness) { ?>
                               <option value="<?php echo $itemBusiness['id']; ?>" <?php if (isset($business) && $itemBusiness['id'] == $business) {
@@ -41,10 +41,10 @@
                     <img src="assets/img/frontend/ic-sort.png" alt="sort icon" class="img-fluid me-2">
                     <div class="custom-select mb-0 choose-order">
                       <select>
-                        <option value="desc">Newest</option>
+                        <option value="desc"><?php echo $this->lang->line('1310_newest'); ?></option>
                         <option value="asc" <?php if (isset($order_by) && $order_by == 'asc') {
                                               echo 'selected="selected"';
-                                            } ?>>Oldest</option>
+                                            } ?>><?php echo $this->lang->line('1310_oldest'); ?></option>
                       </select>
                     </div>
                   </div>
@@ -67,26 +67,34 @@
                       <?php foreach ($lists as $indexCoupon => $itemCoupon) {
                         $couponDetailUrl = base_url('coupon/' . makeSlug($itemCoupon['coupon_subject']) . '-' . $itemCoupon['id']) . '.html'; ?>
                         <div class="col-md-6">
-                          <div class="card customer-coupon-item um-coupon-item position-relative">
-                            <a href="<?php echo $couponDetailUrl; ?>" class="customer-coupon-img">
-                              <img src="<?php echo COUPONS_PATH . $itemCoupon['coupon_image']; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
-                            </a>
-                            <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
-                              <div class="customer-coupon-body">
-                                <h6 class="card-title page-text-sm"><a href="<?php echo $couponDetailUrl; ?>"><?php echo $itemCoupon['coupon_subject']; ?></a></h6>
-                                <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
-                                <div class="d-flex align-items-center justify-content-between">
-                                  <div class="wraper-status <?php echo $itemCoupon['customer_coupon_status_id']; ?>">
-                                    <?php if (isset($itemCoupon['customer_coupon_status_id']) && $itemCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
-                                      <span class="badge badge-approved">Valid</span>
-                                    <?php } else { ?>
-                                      <span class="badge badge-declined">Invalid</span>
-                                    <?php } ?>
+                          <div class="position-relative">
+                            <a href="<?php echo $couponDetailUrl; ?>"  class="card customer-coupon-item um-coupon-item position-relative">
+                              <span class="customer-coupon-img  c-img">
+                              <?php 
+                                $couponImg = COUPONS_PATH . NO_IMAGE;
+                                if(!empty($itemCoupon['coupon_image'])){
+                                  $couponImg = COUPONS_PATH . $itemCoupon['coupon_image'];
+                                }
+                              ?>
+                                <img src="<?php echo $couponImg; ?>" class="img-fluid" alt="<?php echo $itemCoupon['coupon_subject']; ?>">
+                              </span>
+                              <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
+                                <div class="customer-coupon-body">
+                                  <h6 class="card-title page-text-sm"><span><?php echo $itemCoupon['coupon_subject']; ?></span></h6>
+                                  <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
+                                  <div class="d-flex align-items-center justify-content-between">
+                                    <div class="wraper-status <?php echo $itemCoupon['customer_coupon_status_id']; ?>">
+                                      <?php if (isset($itemCoupon['customer_coupon_status_id']) && $itemCoupon['customer_coupon_status_id'] == STATUS_ACTIVED) { ?>
+                                        <span class="badge badge-approved"><?php echo $this->lang->line('valid'); ?></span>
+                                      <?php } else { ?>
+                                        <span class="badge badge-declined">Inva<?php echo $this->lang->line('invalid'); ?>lid</span>
+                                      <?php } ?>
+                                    </div>
                                   </div>
-                                  <a href="<?php echo $couponDetailUrl; ?>" class="btn btn-outline-red btn-outline-red-md btn-viewcode">View code</a>
                                 </div>
                               </div>
-                            </div>
+                            </a>
+                            <a href="<?php echo $couponDetailUrl; ?>" class="btn btn-outline-red btn-outline-red-md btn-viewcode"><?php echo $this->lang->line('view_code'); ?></a>
                           </div>
                         </div>
                       <?php } ?>
@@ -107,8 +115,8 @@
               <!-- Pagination -->
               <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                 <div class="d-flex align-items-center pagination-left">
-                  <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                    results</p>
+                  <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                  <?php echo $this->lang->line('1310_results'); ?></p>
                   <div class="page-text-sm mb-0 d-flex align-items-center">
                     <div class="custom-select choose-perpage">
                       <select>
@@ -130,7 +138,7 @@
                       </select>
                     </div>
                     <span class="ms-2">/</span>
-                    <span class=""> Page</span>
+                    <span class=""> <?php echo $this->lang->line('1310_page'); ?></span>
                   </div>
                 </div>
                 <div class="pagination-right">

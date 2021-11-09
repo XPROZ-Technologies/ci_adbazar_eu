@@ -42,6 +42,20 @@ class Mconfigs extends MY_Model {
         return $this->getFieldValue(array('config_code' => $configCode), 'config_value', $defaultValue);
     }
 
+    public function getConfigValueByLang($configCode, $languageId = 1){
+        $config_column = 'config_value';
+        if($languageId == 1){
+            $config_column = 'config_value_en';
+        } else if($languageId == 2){
+            $config_column = 'config_value_zc';
+        } else if($languageId == 3){
+            $config_column = 'config_value_de';
+        } else {
+            $config_column = 'config_value';
+        }
+        return $this->getFieldValue(array('config_code' => $configCode), $config_column, "");
+    }
+
     public function updateBatch($valueData){
         if(!empty($valueData)){
             $this->db_master->update_batch('configs', $valueData, 'id');

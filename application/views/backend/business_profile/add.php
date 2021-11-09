@@ -52,7 +52,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label class="control-label">Custom URL</label>
+                                        <label class="control-label">Custom URL <span class="required">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-default"><?php echo base_url(BUSINESS_PROFILE_URL); ?></button>
@@ -66,7 +66,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="control-label">Country code <span class="required">*</span></label>
-                                        <select class="form-control" name="business_phone_code" id="country_code_id">
+                                        <select class="form-control" name="country_code_id" id="country_code_id">
                                         </select>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label" style="width: 100%;">Business Avatar<button type="button" class="btn btn-box-tool" id="btnAvatar"><i class="fa fa-upload"></i> Choose image</button></label>
-                                        <img src="<?php echo BUSINESS_PROFILE_PATH.NO_IMAGE; ?>" id="imgAvatar" style="width: 280px;">
+                                        <img src="<?php echo BUSINESS_PROFILE_PATH.NO_IMAGE; ?>" id="imgAvatar" style="width: 180px; height: 180px;">
                                         <input type="text" hidden="hidden" id="logoImageAvatar" name="business_avatar">
                                         <input type="file" style="display: none;" id="logoFileAvatar">
                                     </div>
@@ -117,7 +117,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label" style="width: 100%;">Business Image Cover<button type="button" class="btn btn-box-tool" id="btnCover"><i class="fa fa-upload"></i> Choose image</button></label>
-                                        <img src="<?php echo BUSINESS_PROFILE_PATH.NO_IMAGE; ?>" id="imgCover" style="width: 280px;">
+                                        <img src="<?php echo BUSINESS_PROFILE_PATH.NO_IMAGE; ?>" id="imgCover" style="width: 240px; height: 100px;">
                                         <input type="text" hidden="hidden" id="logoImageCover" name="business_image_cover" >
                                         <input type="file" style="display: none;" id="logoFileCover">
                                     </div>
@@ -190,7 +190,7 @@
                             <div class="box-body">
                                 <ul class="list-inline" id="ulImages"></ul>
                                 <img src="" style="display: none;" id="photoImage">
-                                <input type="file" style="display: none;" id="inputFileImage">
+                                <input type="file" style="display: none;" id="inputFileImage" multiple="">
                             </div>
                         </div>
                         <div class="box box-default padding15">

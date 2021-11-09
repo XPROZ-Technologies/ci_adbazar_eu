@@ -10,12 +10,12 @@ class Mcoupons extends MY_Model {
     }
 
     public function getCount($postData){
-        $query = "coupon_status_id > 0" . $this->buildQuery($postData);
+        $query = "coupon_status_id > 0 AND coupon_amount > 0 AND coupon_amount > 0" . $this->buildQuery($postData);
         return $this->countRows($query);
     }
 
     public function search($postData, $perPage = 0, $page = 1){
-        $query = "SELECT * FROM coupons WHERE coupon_status_id > 0" . $this->buildQuery($postData);
+        $query = "SELECT * FROM coupons WHERE coupon_status_id > 0 AND coupon_amount > 0" . $this->buildQuery($postData);
         
         if(isset($postData['order_by'])){
             $query .= " ORDER BY start_date ".$postData['order_by'];
@@ -51,6 +51,7 @@ class Mcoupons extends MY_Model {
         if(isset($postData['coupon_status_id']) && !empty($postData['coupon_status_id'])) $query.=" AND `coupon_status_id` = {$postData['coupon_status_id']}";
         if(isset($postData['business_profile_id']) && $postData['business_profile_id'] > 0) $query.=" AND `business_profile_id` = {$postData['business_profile_id']}";
         if(isset($postData['is_hot']) && !empty($postData['is_hot'])) $query.=" AND `is_hot` = {$postData['is_hot']}";
+        if(isset($postData['is_full']) && !empty($postData['is_full'])) $query.=" AND `is_full` = {$postData['is_full']}";
         if(isset($postData['saved_coupons']) && count($postData['saved_coupons']) > 0) $query.=" AND `id` NOT IN (".implode(',', $postData['saved_coupons']).")";
         if(isset($postData['coupon_ids']) && count($postData['coupon_ids']) > 0) $query.=" AND `id` IN (".implode(',', $postData['coupon_ids']).")";
         if(isset($postData['business_profile_ids']) && count($postData['business_profile_ids']) > 0) $query.=" AND `business_profile_id` IN (".implode(',', $postData['business_profile_ids']).")";

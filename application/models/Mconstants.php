@@ -14,6 +14,7 @@ class Mconstants extends CI_Model {
     public $status = array(
         1 => 'Deactive',
         2 => 'Active',
+        3 => 'Waiting Payment'
     );
 
     public $genders = array(
@@ -32,6 +33,13 @@ class Mconstants extends CI_Model {
     );
 
     public $languageCodes = array(
+        1 => 'english',
+        2 => 'czech',
+        3 => 'germany',
+        4 => 'vietnamese'
+    );
+
+    public $languageShortCodes = array(
         1 => 'en',
         2 => 'cz',
         3 => 'de',
@@ -50,6 +58,14 @@ class Mconstants extends CI_Model {
         2 => 'Event Slider'
     );
 
+    public $bookStatusId = array(
+        0 => 'Deleted',
+        1 => 'Expired',
+        2 => 'Approved',
+        3 => 'Cancelled',
+        4 => 'Declined'
+    );
+
     public $dayIds = array(
         0 => 'Monday',
         1 => 'Tuesday',
@@ -60,9 +76,36 @@ class Mconstants extends CI_Model {
         6 => 'Sunday'
     );
 
+    public function dayShortIds() {
+        return array(
+            0 => $this->lang->line('mon'),
+            1 => $this->lang->line('tue'),
+            2 => $this->lang->line('wed'),
+            3 => $this->lang->line('thu'),
+            4 => $this->lang->line('fri'),
+            5 => $this->lang->line('sat'),
+            6 => $this->lang->line('sun')
+        );
+    }
+
     public $isHot = array(
         1 => 'Not stand out', // không nổi bật 
         2 => 'Highlights' // nổi bật
+    );
+
+    public $planTypeIds = array(
+        1 => 'Month',
+        2 => 'Year'
+    );
+
+    public $planCurrencyIds = array(
+        1 => 'CZK',
+        2 => 'EUR'
+    );
+
+    public $paymentGatewayIds = array(
+        1 => 'Paypal',
+        2 => '....'
     );
 
     public $labelCss = array(
@@ -121,8 +164,7 @@ class Mconstants extends CI_Model {
                 else $selected = '';
                 echo '<option value="'.$i.'"'.$selected.'>'.$i.'</option>';
             }
-        }
-        else{
+        } else {
             for($i = $end; $i >= $start; $i--){
                 if($i == $itemId) $selected = ' selected="selected"';
                 else $selected = '';

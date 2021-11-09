@@ -6,9 +6,9 @@
                 <div class="row">
                     <div class="col-12">
                         <a href="<?php echo base_url(HOME_URL); ?>">
-                            <img src="assets/img/frontend/img-setup.png" alt="signup-img" class="img-fluid">
+                            <img src="<?php echo CONFIG_PATH . $configs['LOGO_IMAGE_HEADER']; ?>" alt="<?php echo $configs['TEXT_LOGO_HEADER']; ?>" class="img-fluid">
                         </a>
-                        <h2 class="text-center mb-10 page-title-sm v1">Sign up</h2>
+                        <h2 class="text-center mb-10 page-title-sm v1"><?php echo $this->lang->line('sign_up'); ?></h2>
                     </div>
                 </div>
             </div>
@@ -20,15 +20,15 @@
                         <form class="signup-form-list row" id="formRegister" method="POST" action="<?php echo base_url('customer-signup'); ?>">
                             <div class="col-lg-12 px-lg-0 mx-auto mb-20">
                                 <div class="form-group">
-                                    <label for="inputEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="customer_email" required>
+                                    <label for="inputEmail" class="form-label"><?php echo $this->lang->line('email'); ?></label>
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="<?php echo $this->lang->line('email'); ?>" name="customer_email" required>
                                 </div>
                             </div>
                             <div class="col-lg-12 px-lg-0 mx-auto mb-20">
                                 <div class="form-group">
-                                    <label for="inputPassword" class="form-label">Password</label>
+                                    <label for="inputPassword" class="form-label"><?php echo $this->lang->line('password'); ?></label>
                                     <div class="position-relative">
-                                        <input type="password" class="form-control inputPassword" id="inputPassword" placeholder="Password" name="customer_password" required>
+                                        <input type="password" class="form-control inputPassword" id="inputPassword" placeholder="<?php echo $this->lang->line('password'); ?>" name="customer_password" required>
                                         <img src="assets/img/frontend/ic-eye.png" class="input-eye">
                                         <div class="tooltip-signup">
                                             <p>Your password has to meet the following requirements: </p>
@@ -44,9 +44,9 @@
 
                             <div class="col-lg-12 px-lg-0 mx-auto mb-20 mb-lg-4">
                                 <div class="form-group">
-                                    <label for="inputRePassword" class="form-label">Confirm Password</label>
+                                    <label for="inputRePassword" class="form-label"><?php echo $this->lang->line('confirm_password'); ?></label>
                                     <div class="position-relative">
-                                        <input type="password" class="form-control inputPassword" id="inputRePassword" placeholder="Confirm Password" name="confirm_password" required>
+                                        <input type="password" class="form-control inputPassword" id="inputRePassword" placeholder="<?php echo $this->lang->line('confirm_password'); ?>" name="confirm_password" required>
                                         <img src="assets/img/frontend/ic-eye.png" class="input-eye">
                                     </div>
                                 </div>
@@ -56,26 +56,26 @@
                                 <div class="form-check mx-auto">
                                     <input class="form-check-input" type="checkbox" id="gridCheck" checked >
                                     <label class="form-check-label" for="gridCheck">
-                                        Agree with our&nbsp<a class="fw-bold text-underline" href="javascript:void(0)">Term and Conditions</a>
+                                        <?php echo $this->lang->line('agree_with_our_terms_and_conditions'); ?>
                                     </label>
                                 </div>
                             </div>
                             <div class="col-12 d-flex justify-content-center mb-3 mt-lg-4">
-                                <button type="submit" class="btn btn-red px-3">Sign up</button>
+                                <button type="submit" class="btn btn-red px-3"><?php echo $this->lang->line('sign_up'); ?></button>
                             </div>
 
                             <div class="p-0">
-                                <p class="text-center mb-3 text-black">Already have an account?<a href="<?php echo base_url('login.html'); ?>" class="ms-3 text-black fw-500">Log in</a></p>
-                                <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span>Or</span></p>
+                                <p class="text-center mb-3 text-black"><?php echo $this->lang->line('already_have_an_account'); ?><a href="<?php echo base_url('login.html'); ?>" class="ms-3 text-black fw-500"><?php echo $this->lang->line('login'); ?></a></p>
+                                <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span><?php echo $this->lang->line('or_sign_up_with_your_social_network'); ?></span></p>
                                 <div class="mx-auto text-center mb-3 sign-social signup">
                                     <a href="javascript:void(0);" class="btn btn-outline-red login-gg">
                                         <img src="./assets/img/frontend/ic-google.png" class="icon-google" alt="icon google">
-                                        Sign up with Google
+                                        <?php echo $this->lang->line('sign_up_with_google'); ?>
                                     </a>
                                     <a style="display:none;" href="javascript:void(0);" class="g-signin2 btn btn-outline-red" data-onsuccess="onSignIn">
-                                        <a href="javascript:void(0);" class="btn btn-outline-red mt-3 mt-lg-0" onclick="fbLogin();" id="fbLink">
+                                        <a href="javascript:void(0);" class="btn btn-outline-red" onclick="fbLogin();" id="fbLink">
                                             <img src="./assets/img/frontend/ic-facebook.png" class="icon-fb" alt="icon fb">
-                                            Sign up with Facebook</a>
+                                            <?php echo $this->lang->line('sign_up_with_facebook'); ?></a>
                                 </div>
                             </div>
                         </form>
@@ -92,20 +92,20 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h3 class="text-center mb-4 pb-lg-2 page-title-sm">Password assistance
+                    <h3 class="text-center mb-4 pb-lg-2 page-title-sm"><?php echo $this->lang->line('password_assistance'); ?>
                     </h3>
-                    <p class="mb-0 text-center mb-32">Enter your username or email to recover your password. You will receive an email with instructions.</p>
+                    <p class="mb-0 text-center mb-32"><?php echo $this->lang->line('enter_your_username_or_email_to_recover_your_password_you_will_receive_an_email_with_instructions'); ?></p>
                     <form class="row">
                         <div class="col-12 mx-auto mb-4 has-validation">
-                            <label for="inputForgotPassEmail" class="form-label">Email</label>
+                            <label for="inputForgotPassEmail" class="form-label"><?php echo $this->lang->line('email'); ?></label>
                             <input type="email" class="form-control is-invalid" id="inputForgotPassEmail">
                             <div class="invalid-feedback">
-                                *Your email is incorrect. Please try again.
+                            <?php echo $this->lang->line('your_email_is_incorrect_please_try_again'); ?>
                             </div>
                         </div>
 
                         <div class="col-12 d-flex justify-content-center mb-2">
-                            <button type="submit" class="btn btn-red">Submit</button>
+                            <button type="button" class="btn btn-red btn-forgot-password"><?php echo $this->lang->line('submit'); ?></button>
                         </div>
                     </form>
                 </div>
@@ -114,6 +114,10 @@
     </div>
     <!-- End Modal forgot password -->
 </main>
+<script>
+    var text_success_social = '<?php echo $this->lang->line('successfully_register_account'); ?>';
+</script>
+<input type="hidden" value="1" id="typeSocial" />
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
@@ -124,9 +128,9 @@
         if($('#gridCheck').is(':checked')){
             this.submit();
         }else{
-            $(".notiPopup").fadeIn('slow').fadeOut(5000);
             $(".notiPopup .text-secondary").html('Please agree with our term and condition!');
             $(".ico-noti-error").removeClass('ico-hidden');
+            $(".notiPopup").fadeIn('slow').fadeOut(5000);
         }
     });
 </script>

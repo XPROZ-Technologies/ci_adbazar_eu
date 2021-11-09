@@ -1,16 +1,16 @@
 $(window).ready(() => {
   // Show modal login/signup success reset password
   $("#signupSucess").modal("show");
-  $("#signinSuccessResetPassModal").modal("show");
+  /*$("#signinSuccessResetPassModal").modal("show");*/
   $("#profileChangePassModal").modal("show");
-  $("#joinModal").modal("show");
+  // $("#joinModal").modal("show");
   /*
     $("#eventModal").modal("show");
   */
   $("#eventCancelModal").modal("show");
-  $("#reservationModal").modal("show");
+  /*$("#reservationModal").modal("show");*/
   /*$("#bmCannotCreateModal").modal("show");*/
-  $("#bmCouponAlertModal").modal("show");
+  /*$("#bmCouponAlertModal").modal("show"); */
   /*
   $('.btn-getnow').click(function(){
     $("#savedCouponModal").modal("show");
@@ -108,22 +108,7 @@ $(window).ready(() => {
   });
 
   // Init datepicker
-  $(".js-datepicker").datetimepicker({
-    format: "MMMM DD, YYYY",
-    allowInputToggle: true,
-    // inline: true,
-    // debug: true,
-    // allowMultidate: true,
-    // multidateSeparator: ',',
-    icons: {
-      time: "bi bi-clock",
-      date: "bi bi-calendar2-check-fillr",
-      up: "bi bi-chevron-up",
-      down: "bi bi-chevron-down",
-      previous: "bi bi-chevron-left",
-      next: "bi bi-chevron-right",
-    },
-  });
+
 
   // Init timepicker
   $(".js-time-picker").datetimepicker({
@@ -247,21 +232,33 @@ $(window).ready(() => {
   }
 
   // CK editor Post Reply
+  /*
   const replyComment = document.querySelector("#bmReplyComment");
   if (replyComment) {
     ClassicEditor.create(replyComment);
   }
+  */
+  /*
+  const leaveReviewComment = document.querySelector("#leaveReviewComment");
+  if (leaveReviewComment) {
+    ClassicEditor.create(leaveReviewComment);
+  }
+  */
 
+  /*
   // Config everday bm reservation
   $("#config-everyday").click(function () {
     $("input[class='weekday']").prop("checked", $(this).prop("checked"));
+    $("input[class='weekday']").addClass('saved');
   });
 
   $("input[class='weekday']").click(function () {
     if (!$(this).prop("checked")) {
       $("#config-everyday").prop("checked", false);
+      $("input[class='weekday']").removeClass('saved');
     }
   });
+  */
 
   // Add class selected business manager plan
   $(".plan-input-radio").on("change", function () {
@@ -272,6 +269,7 @@ $(window).ready(() => {
     }
   });
 
+  /*
   // Dropdown photo gallery
   $(".js-dropdown-gallery").each(function () {
     $(this).click(function (e) {
@@ -293,7 +291,9 @@ $(window).ready(() => {
       $(".dropdown-gallery").removeClass("show");
     }
   });
+  */
 
+  /*
   // Add more input video url
   $(".add-more").click(function (e) {
     e.preventDefault();
@@ -301,6 +301,7 @@ $(window).ready(() => {
       '<input type="url" class="form-control form-control-lg mb-3">'
     );
   });
+  */
 
   /*
   // Multiselect tags dropdown
@@ -665,20 +666,21 @@ $(window).scroll(function(event) {
 });
 */
 
-$(document).on('click', '.input-eye', function (event) {
+$('.input-eye').mousedown(function(event){
   event.stopPropagation();
-  if ($(this).prev('input').attr('type') == "text") {
-    $(this).prev('input').attr('type', 'password');
-  } else {
     $(this).prev('input').attr('type', 'text');
-  }
-}).on('keyup', '.signup-form .signup-form-list .inputPassword', function (event) {
+});
+$('.input-eye').mouseup(function(event){
+  event.stopPropagation();
+    $(this).prev('input').attr('type', 'password');
+});
+$(document).on('keyup', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
   event.stopPropagation();
   var password = $(this).val();
   checkPass(password, $(this))
-}).on('blur', '.signup-form .signup-form-list .inputPassword', function (event) {
+}).on('blur', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
   $(this).parent().find('.tooltip-signup').hide();
-}).on('click', '.signup-form .signup-form-list .inputPassword', function (event) {
+}).on('click', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
   var password = $(this).val();
   checkPass(password, $(this))
 });
@@ -819,6 +821,7 @@ $(document).ready(function () {
 
 */
 
+/*
 $(document).ready(function () {
   if (window.File && window.FileList && window.FileReader) {
     $("#files").on("change", function (e) {
@@ -890,12 +893,14 @@ $(document).ready(function () {
     })
   }
 });
+*/
 
 // function youtubeParser(url){
 //   var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
 //   var match = url.match(regExp);
 //   return (match&&match[7].length==11)? match[7] : false;
 // }
+/*
 if ($('.slider2').length > 0) {
   $(".slider2 .video-item .video-item-ct").click(function (event) {
     event.preventDefault();
@@ -907,6 +912,7 @@ if ($('.slider2').length > 0) {
     $(".slider2 .video-item .video-item-ct iframe").height(height);
   })
 }
+*/
 // redirect link 
 $(document).on('click', '.page-select', function () {
   var ul = $(this).find('ul');
@@ -918,6 +924,11 @@ $(document).on('click', '.page-select', function () {
   $(this).addClass('active');
   $(this).closest('.page-text-sm').find('.show-page-text').text(text);
   $(this).closest('ul').hide();
+}).on('click', '.reply-comment', function (e) {
+  var selectComment = $(this).data('review');
+  $(this).closest('.list-comment').find('.comment-reply-' + selectComment).show();
+}).on('click', '.reply-cancel', function (e) {
+  $(this).closest('.comment-reply').hide();
 });
 $('.progress').each(function () {
   var first = $(this).find('.progress-first').text();
@@ -926,3 +937,26 @@ $('.progress').each(function () {
   num = (parseInt(first) / parseInt(last)) * 100;
   $(this).find('.progress-bar').css('width', num + '%')
 })
+
+$(".icon-show-mobile").click(function () {
+  $(this).closest('.show-mobile-ic').find('.bp-sidebar').toggle();
+  $(this).closest('.show-mobile-ic').find('.um-links').toggle();
+});
+if($('.star-rate').length > 0){
+  starRate();
+}
+function starRate(){
+  $('.star-rate').each(function(){
+    var rate = $(this).attr('data-rate');
+    var width = 0;
+    width = rate * 21.43;
+    $(this).css('width',width);
+    $('#rankStar').val(rate);
+  });
+}
+
+
+function countChar(val) {
+  var len = val.value.length ;
+  $('.slogan-counter').text(len+"/100")
+};

@@ -16,7 +16,7 @@
                   <div class="wrapper-search">
                     <form class="d-flex search-box" action="<?php echo $basePagingUrl; ?>" method="GET" name="searchForm">
                       <a href="javascript:void(0)" class="search-box-icon" onclick="document.searchForm.submit();"><img src="assets/img/frontend/ic-search.png" alt="search icon"></a>
-                      <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword" aria-label="Search" value="<?php echo $keyword; ?>">
+                      <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('search'); ?>" aria-label="<?php echo $this->lang->line('search'); ?>" name="keyword" value="<?php echo $keyword; ?>">
                     </form>
                   </div>
                   <?php if (!empty($lists) > 0) { ?>
@@ -36,7 +36,7 @@
                             <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?></p>
                             <p class="mb-0 event-time page-text-sm"><?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
 
-                            <a href="javscript:void(0)" class="event-join btn btn-outline-red mt-2 mt-lg-0 join-event-in-list" data-id="<?php echo $eventItem['id']; ?>" data-customer="<?php echo $customer['id']; ?>" >Join</a>
+                            <a href="javascript:void(0)" class="event-join btn btn-outline-red mt-2 mt-lg-0 join-event-in-list" data-id="<?php echo $eventItem['id']; ?>" data-customer="<?php echo $customer['id']; ?>" ><?php echo $this->lang->line('join'); ?></a>
                           </div>
                         </div>
                       <?php } ?>
@@ -46,15 +46,15 @@
                   <?php } else { ?>
                     <div class="zero-event zero-box">
                       <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
-                      <p class="text-secondary page-text-lg">No upcoming events on this day</p>
+                      <p class="text-secondary page-text-lg"><?php echo $this->lang->line('no_upcoming_event_on_this_day'); ?></p>
                     </div>
                   <?php } ?>
                   <!-- Pagination -->
                   <?php if (!empty($lists) > 0) { ?>
                     <div class="d-flex align-items-center flex-column flex-md-row justify-content-between page-pagination">
                       <div class="d-flex align-items-center pagination-left">
-                        <p class="page-text-sm mb-0 me-3">Showing <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> of <span class="fw-500"><?php echo number_format($rowCount); ?></span>
-                          results</p>
+                        <p class="page-text-sm mb-0 me-3"><?php echo $this->lang->line('1310_showing'); ?> <span class="fw-500"><?php echo ($page - 1) * $perPage + 1; ?> – <?php echo ($page - 1) * $perPage + count($lists); ?></span> <?php echo $this->lang->line('1310_of'); ?> <span class="fw-500"><?php echo number_format($rowCount); ?></span>
+                        <?php echo $this->lang->line('1310_results'); ?></p>
                         <div class="page-text-sm mb-0 d-flex align-items-center">
                           <div class="custom-select choose-perpage">
                             <select>
@@ -76,7 +76,7 @@
                             </select>
                           </div>
                           <span class="ms-2">/</span>
-                          <span class=""> Page</span>
+                          <span class=""> <?php echo $this->lang->line('1310_page'); ?></span>
                         </div>
                       </div>
                       <div class="pagination-right">
