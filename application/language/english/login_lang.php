@@ -16,12 +16,12 @@ $lang["agree_with_our_terms_and_conditions"] = 'Agree with our <a class="fw-bold
 $lang["already_have_an_account"] = "Already have an account?";
 $lang["or_sign_up_with_your_social_network"] = "Or";
 $lang["your_password_is_incorrect_please_try_again"] = "*Your password is incorrect. Please try again";
-$lang["please_enter_a_valid_email"] = "*Please enter a valid email.";
+$lang["please_enter_a_valid_email"] = "Please enter a valid email.";
 $lang["password_assistance"] = "Password assistance";
 $lang["enter_your_username_or_email_to_recover_your_password_you_will_receive_an_email_with_instructions"] = "Enter your username or email to recover your password. You will receive an email with instructions.";
 $lang["submit"] = "Submit";
-$lang["email_is_already_registered"] = "*Email is already registered.";
-$lang["your_email_is_incorrect_please_try_again"] = "*Your email is incorrect. Please try again.";
+$lang["email_is_already_registered"] = "Email is already registered.";
+$lang["your_email_is_incorrect_please_try_again"] = "Your email is incorrect. Please try again.";
 $lang["check_your_email"] = "Check your email";
 $lang["a_verification_link_has_been_sent_to_your_email"] = "A verification link has been sent to your email.";
 $lang["did_not_receive_the_email_check_your_spam_filter"] = "Did not receive the email? Check your spam filter";
@@ -32,7 +32,7 @@ $lang["or_try_another_email_address"] = "or try another email address.";
 $lang["set_up_your_new_password"] = "Set up your new password";
 $lang["new_password"] = "New password";
 $lang["confirm_new_password"] = "Confirm new password";
-$lang["your_password_does_not_match_please_try_again"] = "*Your password does not match. Please try again.";
+$lang["your_password_does_not_match_please_try_again"] = "Your password does not match. Please try again.";
 $lang["sign_up_with_google"] = "Google";
 $lang["sign_up_with_facebook"] = "Facebook";
 

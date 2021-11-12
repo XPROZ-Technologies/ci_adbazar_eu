@@ -148,12 +148,21 @@ abstract class MY_Controller extends CI_Controller
     {
         $data = json_decode(file_get_contents('php://input'), true);
         $outPut = array();
+        $outPutFalse = '';
+
         foreach ($fields as $field) {
             if (isset($data[$field])) {
                 $outPut[$field] = ($data[$field]);
-            } else $outPut[$field] = null;
+            } else {
+                $outPutFalse .= $field.", ";
+                // $outPut[$field] = null;
+            }
         }
-        return $outPut;
+        if(!empty($outPutFalse)) {
+            $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
+            die;
+        }
+        else return $outPut;
     }
 
     protected function logError()
@@ -271,6 +280,19 @@ abstract class MY_Controller extends CI_Controller
     {
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
+        $this->language =  $language;
+        $this->lang->load('login', $this->language);
+        $this->lang->load('customer', $this->language);
+        $this->lang->load('business_profile', $this->language);
+        $this->lang->load('business_management', $this->language);
+        $this->lang->load('user_account_management', $this->language);
+    }
+
+    public function getLanguageApi()
+    {
+        $languageId = $this->input->get_request_header('language_id', TRUE);
+        $languageId = !empty($languageId) ? $languageId : 1;
+        $language = $this->Mconstants->languageCodes[$languageId];
         $this->language =  $language;
         $this->lang->load('login', $this->language);
         $this->lang->load('customer', $this->language);
@@ -629,5 +651,48 @@ abstract class MY_Controller extends CI_Controller
         curl_close($curl);
         $result = json_decode($response2);
         return $result;
+    }
+
+    protected function error500($text = 'Có lỗi xảy ra, vui lòng thử lại') {
+        echo json_encode(array(
+            'code' => 500,
+            'mesage' => $text
+        ));
+    }
+
+    protected function error202($text = 'Dữ liệu không tìm thấy') {
+        echo json_encode(array(
+            'code' => 202,
+            'message' => $text
+        ));
+    }
+
+    protected function error401($text = 'Tài khoản không tồn tại') {
+        echo json_encode(array(
+            'code' => 401,
+            'message' => $text
+        ));
+    }
+
+    protected function error410($text = 'Cú pháp không hợp lệ') {
+        echo json_encode(array(
+            'code' => 410,
+            'message' => $text
+        ));
+    }
+
+    protected function success200($datas, $message = 'Return data') {
+        echo json_encode(array(
+            'code' => 200,
+            'message' => $message,
+            'data' => $datas
+        ));
+    }
+
+    protected function error204($text = 'Danh sách rỗng') {
+        echo json_encode(array(
+           'code' => 204,
+           'message' => $text
+        ));
     }
 }
