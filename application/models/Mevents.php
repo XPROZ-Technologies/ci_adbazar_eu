@@ -44,4 +44,31 @@ class Mevents extends MY_Model {
         
         return $query;
     }
+
+    public function getListHome() {
+        $query = "SELECT
+                    `events`.id,
+                    `events`.event_subject,
+                    `events`.event_image,
+                    `events`.business_profile_id as business_id,
+                    DATE_FORMAT( `events`.`start_date`, '%Y/%m/%d' ) AS `start_date`,
+                    DATE_FORMAT( `events`.end_date, '%Y/%m/%d' ) AS end_date,
+                    TIME_FORMAT(`events`.start_time, '%H:%i') AS start_time,
+                    TIME_FORMAT(`events`.end_time, '%H:%i') AS end_time,
+                    `business_profiles`.business_name
+                FROM
+                    `events`
+                    LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
+                WHERE
+                    `events`.end_date >= NOW() 
+                    AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ?)
+                    AND `events`.event_status_id = ? 
+                GROUP BY
+                    `events`.business_profile_id 
+                ORDER BY
+                    `events`.start_date, TIME_FORMAT(`events`.start_time, '%H:%i') ASC
+                LIMIT ?";
+        $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, 20));
+        return $result;
+    }
 }
