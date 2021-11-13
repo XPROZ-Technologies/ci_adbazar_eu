@@ -111,10 +111,13 @@ class Config extends MY_Controller{
         $configAbountUs = $this->rsession->get('config_about_us');
         $this->load->model('Mconfigs');
         $langCode = '';
-        if ($configAbountUs['language_id'] == 1) $langCode = '_en';
-        elseif ($configAbountUs['language_id'] == 2) $langCode = '_zc';
-        elseif ($configAbountUs['language_id'] == 3) $langCode = '_de';
-        elseif ($configAbountUs['language_id'] == 4) $langCode = '';
+        $generalId = $this->input->post('general');
+        if($generalId != '1') {
+            if ($configAbountUs['language_id'] == 1) $langCode = '_en';
+            elseif ($configAbountUs['language_id'] == 2) $langCode = '_zc';
+            elseif ($configAbountUs['language_id'] == 3) $langCode = '_de';
+            elseif ($configAbountUs['language_id'] == 4) $langCode = '';
+        }
         $listConfigs = $this->Mconfigs->getBy(array('auto_load' => $autoLoad), false, "", "id,config_code,config_value".$langCode."");
         $valueData = array();
         $updateDateTime = getCurentDateTime();

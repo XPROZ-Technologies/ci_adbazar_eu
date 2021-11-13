@@ -111,6 +111,7 @@ $(document).ready(function(){
                
                 var form = $('#configForm');
                 var data = form.serializeArray();
+                data.push({ name: "general", value: $("input#general").val()});
                 $.ajax({
                     type: "POST",
                     url: form.attr('action'),

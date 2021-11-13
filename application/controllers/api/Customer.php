@@ -119,7 +119,7 @@ class Customer extends MY_Controller {
             if($data) {
                 $data['created_at'] = getCurentDateTime();
                 $data['created_by'] = 0;
-                $data['customer_status_id'] = STATUS_WAITING_ACTIVE;
+                $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
                 $data['free_trial'] = STATUS_FREE_TRIAL;
                 if (intval($postData['login_type_id']) == 0) {
                     $flag = $this->Mcustomers->save($data);
@@ -252,6 +252,37 @@ class Customer extends MY_Controller {
         if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($postData['customer_password']) < 8) {
             $this->error204('Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.');
             die;
+        }
+    }
+
+    public function confirm_email() {
+        try {
+            $this->openAllCors();
+            $postData = $this->arrayFromPostRawJson(array('token'));
+            if(empty($postData['token'])) {
+                $this->error204('Tokens cannot be empty');
+                die;
+            }
+            $this->load->model('Mcustomers');
+            $customer = $this->Mcustomers->getBy(array('token_reset' => $postData['token'], 'customer_status_id' => STATUS_WAITING_ACTIVE));
+            if($customer) {
+                $customer = $customer[0];
+                $flag = $this->Mcustomers->save(['customer_status_id' => STATUS_ACTIVED, 'updated_at' => getCurentDateTime()], $customer['id']);
+                if($flag) {
+                    if(empty($customer['customer_avatar'])) $customer['customer_avatar'] = base_url(CUSTOMER_PATH.NO_IMAGE);
+                    else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
+                    unset($customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
+                    $this->success200($customer);
+                } else {
+                    $this->error400('Account activation failed');
+                    die;
+                }
+            } else {
+                $this->error204('Token does not exist or account has been activated');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
         }
     }
 }
