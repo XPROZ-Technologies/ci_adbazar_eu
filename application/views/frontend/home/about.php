@@ -11,9 +11,11 @@
             <div class="container">
                 
                 <div class="row col-mar-30 mb-40">
-                    <div class="col-md-5  order-md-last">
+                    <div class="col-md-5  order-md-last <?php if(empty($about['child_img_1'])){ ?>d-none d-sm-block<?php } ?>">
                         <div class="c-img pt-66">
-                            <img src="<?php echo $about['child_img_1']; ?>" alt="<?php echo $this->lang->line('about_us'); ?>">
+                            <?php if(!empty($about['child_img_1'])){ ?>
+                                <img src="<?php echo $about['child_img_1']; ?>" alt="<?php echo $this->lang->line('about_us'); ?>">
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="col-md-7 order-md-first pt-30">
@@ -21,9 +23,11 @@
                     </div>
                 </div>
                 <div class="row col-mar-30  mb-40">
-                    <div class="col-md-5">
+                    <div class="col-md-5 <?php if(empty($about['child_img_2'])){ ?>d-none d-sm-block<?php } ?>">
                         <div class="c-img pt-66">
-                            <img src="<?php echo $about['child_img_2']; ?>" alt="<?php echo $this->lang->line('about_us'); ?>">
+                            <?php if(!empty($about['child_img_2'])){ ?>
+                                <img src="<?php echo $about['child_img_2']; ?>" alt="<?php echo $this->lang->line('about_us'); ?>">
+                            <?php }  ?>
                         </div>
                     </div>
                     <div class="col-md-7 pt-10">
