@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = isset($_SERVER['HTTP_HOST']) ? "http://".$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) : '';
+$config['base_url'] = isset($_SERVER['HTTP_HOST']) ? "https://".$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) : '';
 
 /*
 |--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'en';
+$config['language']	= 'germany';
 
 /*
 |--------------------------------------------------------------------------
