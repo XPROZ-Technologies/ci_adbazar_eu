@@ -99,12 +99,12 @@ class Mcoupons extends MY_Model {
                 coupons.coupon_amount,
                 DATE_FORMAT( coupons.start_date, '%Y/%m/%d' ) AS start_date,
                 DATE_FORMAT( coupons.end_date, '%Y/%m/%d' ) AS end_date,
-                ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id GROUP BY coupon_id ) AS coupon_used 
+                ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used 
             FROM
                 coupons 
             WHERE
                 coupons.end_date >= NOW() 
-                AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id GROUP BY coupon_id ) < coupons.coupon_amount 
+                AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) < coupons.coupon_amount 
                 AND coupons.coupon_status_id = ? 
             GROUP BY
                 coupons.business_profile_id 
@@ -112,7 +112,7 @@ class Mcoupons extends MY_Model {
                 coupons.created_at DESC
             LIMIT ?";
        
-        $result = $this->getByQuery($query, array(STATUS_ACTIVED, 20));
+        $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED, 20));
         return $result;
     }
 
