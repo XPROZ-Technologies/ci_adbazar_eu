@@ -55,6 +55,14 @@ class Mcoupons extends MY_Model {
         if(isset($postData['saved_coupons']) && count($postData['saved_coupons']) > 0) $query.=" AND `id` NOT IN (".implode(',', $postData['saved_coupons']).")";
         if(isset($postData['coupon_ids']) && count($postData['coupon_ids']) > 0) $query.=" AND `id` IN (".implode(',', $postData['coupon_ids']).")";
         if(isset($postData['business_profile_ids']) && count($postData['business_profile_ids']) > 0) $query.=" AND `business_profile_id` IN (".implode(',', $postData['business_profile_ids']).")";
+
+        // xử lý điều kiện search cho api
+        if(isset($postData['api']) && $postData['api'] == true) {
+            if(isset($postData['customer_id']) && $postData['customer_id'] > 0) {
+                $query.=" AND coupons.id NOT IN (SELECT coupon_id FROM customer_coupons WHERE customer_coupon_status_id = 2 AND customer_id =".$postData['customer_id'].")";
+            }
+        }
+        
         return $query;
     }
 
@@ -91,7 +99,7 @@ class Mcoupons extends MY_Model {
         return "";
     }
 
-    public function getListHome() {
+    public function getListHome($postData) {
         $query = "SELECT
                 coupons.id,
                 coupons.coupon_subject,
@@ -103,9 +111,10 @@ class Mcoupons extends MY_Model {
             FROM
                 coupons 
             WHERE
-                coupons.end_date >= NOW() 
+                DATE(coupons.end_date) >= CURDATE()
                 AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) < coupons.coupon_amount 
                 AND coupons.coupon_status_id = ? 
+                ".$this->buildQuery($postData)."
             GROUP BY
                 coupons.business_profile_id 
             ORDER BY
@@ -114,6 +123,47 @@ class Mcoupons extends MY_Model {
        
         $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED, 20));
         return $result;
+    }
+
+    public function getCountInApi($postData) {
+        $query = "SELECT coupons.id
+                    FROM
+                        coupons
+                    WHERE
+                        DATE(coupons.end_date) >= CURDATE() 
+                        AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ?  GROUP BY coupon_id ) < coupons.coupon_amount 
+                        AND coupons.coupon_status_id = ?
+                        ".$this->buildQuery($postData)."
+                    GROUP BY
+                        coupons.business_profile_id";
+        return count($this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED)));
+    }
+
+    public function getListInApi($postData, $perPage = 0, $page = 1) {
+        $query = "SELECT
+                    coupons.id,
+                    coupons.coupon_subject,
+                    coupons.coupon_image,
+                    coupons.coupon_amount,
+                    DATE_FORMAT( coupons.start_date, '%Y/%m/%d' ) AS `start_date`,
+                    DATE_FORMAT( coupons.end_date, '%Y/%m/%d' ) AS end_date,
+                    ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used 
+                FROM
+                    coupons
+                WHERE
+                    DATE(coupons.end_date) >= CURDATE() 
+                    AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ?  GROUP BY coupon_id ) < coupons.coupon_amount 
+                    AND coupons.coupon_status_id = ?
+                    ".$this->buildQuery($postData)."
+                GROUP BY
+                    coupons.business_profile_id
+                ORDER BY
+                    coupons.created_at DESC";
+            if($perPage > 0) {
+                $from = ($page-1) * $perPage;
+                $query .= " LIMIT {$from}, {$perPage}";
+            }
+        return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED));
     }
 
 }

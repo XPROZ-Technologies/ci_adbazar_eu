@@ -17,8 +17,24 @@ class Service extends MY_Controller {
     public function list_home() {
         try {
             $this->openAllCors();
+            $customer = $this->apiCheckLogin(true);
             $this->load->model('Mservices');
-            $services = $this->Mservices->getBy(array('service_status_id' => STATUS_ACTIVED), false, "display_order", "id, service_name".$this->langCode." as service_name, service_image", 0, 0, 'ASC');
+            $services = $this->Mservices->getListHome($customer['customer_id'], $this->langCode);
+            for($i = 0; $i < count($services); $i++) {
+                $services[$i]['service_image'] = !empty($services[$i]['service_image']) ? base_url(SERVICE_PATH.$services[$i]['service_image']) : '';
+            }
+            $this->success200(array('list' => $services));
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function list() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(true);
+            $this->load->model('Mservices');
+            $services = $this->Mservices->getListInApi($customer['customer_id'], $this->langCode);
             for($i = 0; $i < count($services); $i++) {
                 $services[$i]['service_image'] = !empty($services[$i]['service_image']) ? base_url(SERVICE_PATH.$services[$i]['service_image']) : '';
             }

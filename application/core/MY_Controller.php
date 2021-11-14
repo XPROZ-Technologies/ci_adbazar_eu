@@ -144,27 +144,6 @@ abstract class MY_Controller extends CI_Controller
         $this->logError();
     }
 
-    protected function arrayFromPostRawJson($fields)
-    {
-        $data = json_decode(file_get_contents('php://input'), true);
-        $outPut = array();
-        $outPutFalse = '';
-
-        foreach ($fields as $field) {
-            if (isset($data[$field])) {
-                $outPut[$field] = ($data[$field]);
-            } else {
-                $outPutFalse .= $field.", ";
-                // $outPut[$field] = null;
-            }
-        }
-        if(!empty($outPutFalse)) {
-            $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
-            die;
-        }
-        else return $outPut;
-    }
-
     protected function logError()
     {
         log_message('error', $this->router->fetch_class() . '/' . $this->router->fetch_method() . ': Server: ' . json_encode($_SERVER));
@@ -280,19 +259,6 @@ abstract class MY_Controller extends CI_Controller
     {
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
-        $this->language =  $language;
-        $this->lang->load('login', $this->language);
-        $this->lang->load('customer', $this->language);
-        $this->lang->load('business_profile', $this->language);
-        $this->lang->load('business_management', $this->language);
-        $this->lang->load('user_account_management', $this->language);
-    }
-
-    public function getLanguageApi()
-    {
-        $languageId = $this->input->get_request_header('language_id', TRUE);
-        $languageId = !empty($languageId) ? $languageId : 1;
-        $language = $this->Mconstants->languageCodes[$languageId];
         $this->language =  $language;
         $this->lang->load('login', $this->language);
         $this->lang->load('customer', $this->language);
@@ -651,6 +617,59 @@ abstract class MY_Controller extends CI_Controller
         curl_close($curl);
         $result = json_decode($response2);
         return $result;
+    }
+
+    //========================================api==========================//
+
+    protected function arrayFromPostRawJson($fields) {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $outPut = array();
+        $outPutFalse = '';
+
+        foreach ($fields as $field) {
+            if (isset($data[$field])) {
+                $outPut[$field] = ($data[$field]);
+            } else {
+                $outPutFalse .= $field.", ";
+                // $outPut[$field] = null;
+            }
+        }
+        if(!empty($outPutFalse)) {
+            $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
+            die;
+        }
+        else return $outPut;
+    }
+
+    public function getLanguageApi() {
+        $languageId = $this->input->get_request_header('language_id', TRUE);
+        $languageId = !empty($languageId) ? $languageId : 1;
+        $language = $this->Mconstants->languageCodes[$languageId];
+        $this->language =  $language;
+        $this->lang->load('login', $this->language);
+        $this->lang->load('customer', $this->language);
+        $this->lang->load('business_profile', $this->language);
+        $this->lang->load('business_management', $this->language);
+        $this->lang->load('user_account_management', $this->language);
+    }
+
+    protected function apiCheckLogin($flag = false) {
+        $token = $this->input->get_request_header('X-Auth-Token', TRUE);
+        if(!empty($token)) {
+            $this->load->model('Mcustomers');
+            $id = $this->Mcustomers->getFieldValue(array('token_reset' => $token, 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
+            if($id == 0) {
+                $this->error401('Client account does not exist.');
+                die;
+            }
+            return ['customer_id' => $id];
+        } else {
+            if($flag == false) {
+                $this->error401('You do not have permission to view this content, please login');
+                die;
+            } else return ['customer_id' => 0];
+            
+        }
     }
 
     protected function error500($text = 'Có lỗi xảy ra, vui lòng thử lại') {
