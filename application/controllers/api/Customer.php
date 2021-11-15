@@ -36,8 +36,11 @@ class Customer extends MY_Controller {
 
             if($customer) {
                 if ($customer) {
+                    $this->load->library('Authorization_Token');
+                    // generte a token
+                    $token = $this->authorization_token->generateToken(array('id' => $customer['id'], 'created_at' => getCurentDateTime()));
                     $postData = array(
-                        'token_reset' =>  guidV4('customer'),
+                        'token_reset' =>  $token,
                         'language_id' => $this->languageId
                     );
                     $this->Mcustomers->save($postData, $customer['id']);
@@ -101,16 +104,19 @@ class Customer extends MY_Controller {
                     die;
                 }
                 $data['customer_password'] =  md5($postData['customer_password']);
+                $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
             } else if (intval($postData['login_type_id']) == 1) { //facebook
                 $data['facebook_id'] = $postData['facebook_id'];
                 $data['customer_first_name'] = $postData['customer_first_name'];
                 $data['customer_last_name'] = $postData['customer_last_name'];
                 $data['customer_password'] = md5('12345678@aM');
+                $data['customer_status_id'] = STATUS_ACTIVE; 
             } else if (intval($postData['login_type_id']) == 2) { //google
                 $data['facebook_id'] = $postData['facebook_id'];
                 $data['customer_first_name'] = $postData['customer_first_name'];
                 $data['customer_last_name'] = $postData['customer_last_name'];
                 $data['customer_password'] = md5('12345678@aM');
+                $data['customer_status_id'] = STATUS_ACTIVE; 
             }
 
             $data['login_type_id'] =  $postData['login_type_id'];
@@ -119,7 +125,6 @@ class Customer extends MY_Controller {
             if($data) {
                 $data['created_at'] = getCurentDateTime();
                 $data['created_by'] = 0;
-                $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
                 $data['free_trial'] = STATUS_FREE_TRIAL;
                 if (intval($postData['login_type_id']) == 0) {
                     $flag = $this->Mcustomers->save($data);
@@ -163,7 +168,9 @@ class Customer extends MY_Controller {
             $this->load->model('Mcustomers');
             $customer = $this->Mcustomers->getBy(array('customer_email' => $customer_email));
             if ($customer && count($customer) > 0) {
-                $tokenReset = guidV4('reset-passs');
+                $this->load->library('Authorization_Token');
+                // generte a token
+                $tokenReset = $this->authorization_token->generateToken(array('id' => $customer['id'], 'created_at' => getCurentDateTime()));
                 $customer = $customer[0];
                 $customerId = $this->Mcustomers->save(array('token_reset' => $tokenReset), $customer['id']);
                 if($customerId > 0){

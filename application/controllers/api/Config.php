@@ -14,7 +14,6 @@ class Config extends MY_Controller {
         try {
             $init = [];
             $this->load->model('Mconfigs');
-            $configLangs = $this->Mconfigs->getListMap(1, $this->languageId);
             $config = $this->Mconfigs->getListMap(1, 4);
           
             $slogan = '';
@@ -42,8 +41,8 @@ class Config extends MY_Controller {
                     'twitter' => $config['TWITTER_URL'],
                     'pinterest' => $config['PINTEREST_URL']
                 ),
-                'term_of_use' => !empty($configLangs['TERM_OF_USE']) ? $configLangs['TERM_OF_USE'] : "",
-                'privacy_policy' => !empty($configLangs['PRIVACY_POLICY']) ? $configLangs['PRIVACY_POLICY'] : ""
+                'term_of_use' => "https://adbazar.eu/term-of-use.html",
+                'privacy_policy' => "https://adbazar.eu/privacy-policy.html"
             );
             $this->success200($init);
         } catch (\Throwable $th) {

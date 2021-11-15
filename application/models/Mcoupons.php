@@ -61,6 +61,18 @@ class Mcoupons extends MY_Model {
             if(isset($postData['customer_id']) && $postData['customer_id'] > 0) {
                 $query.=" AND coupons.id NOT IN (SELECT coupon_id FROM customer_coupons WHERE customer_coupon_status_id = 2 AND customer_id =".$postData['customer_id'].")";
             }
+            if(isset($postData['service_id']) && $postData['service_id'] > 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) < 0) {
+                $query.=" AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles  WHERE business_profiles.service_id = ".$postData['service_id'].")";
+            }
+            if(isset($postData['service_id']) && $postData['service_id'] < 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
+                $serviceTypeIds = join(",",$postData['service_type_id']);
+                $query .= " AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles LEFT JOIN service_types ON service_types.service_id = business_profiles.service_id WHERE  service_types.id IN (".$serviceTypeIds."))";
+            }
+            if(isset($postData['service_id']) && $postData['service_id'] > 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
+                $serviceTypeIds = join(",",$postData['service_type_id']);
+                $query .= " AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles LEFT JOIN service_types ON service_types.service_id = business_profiles.service_id WHERE business_profiles.service_id = ".$postData['service_id']." AND service_types.id IN (".$serviceTypeIds."))";
+            }
+
         }
         
         return $query;
@@ -140,6 +152,8 @@ class Mcoupons extends MY_Model {
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {
+        $orderBy = $postData['order_by'];
+        if(empty($orderBy)) $orderBy = 'DESC';
         $query = "SELECT
                     coupons.id,
                     coupons.coupon_subject,
@@ -158,12 +172,29 @@ class Mcoupons extends MY_Model {
                 GROUP BY
                     coupons.business_profile_id
                 ORDER BY
-                    coupons.created_at DESC";
+                    coupons.created_at ".$orderBy;
             if($perPage > 0) {
                 $from = ($page-1) * $perPage;
                 $query .= " LIMIT {$from}, {$perPage}";
             }
         return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED));
+    }
+
+    public function getServicesInCoupon($langCode = '_vi') {
+        $query = "SELECT services.id, services.service_name".$langCode." as service_name FROM `services`
+                    LEFT JOIN business_profiles ON business_profiles.service_id = services.id
+                    LEFT JOIN coupons ON coupons.business_profile_id = business_profiles.id
+                    WHERE services.service_status_id = ? AND coupons.business_profile_id > 0
+                    GROUP BY services.id";
+        $services = $this->getByQuery($query, array(STATUS_ACTIVED));
+        if($services) {
+            $this->load->model('Mservicetypes');
+            for($i = 0; $i < count($services); $i++){
+                $serviceTypes = $this->Mservicetypes->getBy(array('service_id' => $services[$i]['id'], 'status_id' => STATUS_ACTIVED), false, 'display_order', 'id, service_type_name'.$langCode.' as service_type_name', 0,0,'asc');
+                $services[$i]['service_types'] = $serviceTypes;
+            }   
+        }
+        return $services;           
     }
 
 }

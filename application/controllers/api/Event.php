@@ -36,19 +36,20 @@ class Event extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page'));
+            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'selected_date'));
+            if(empty($postData['selected_date'])) $postData['selected_date'] = ddMMyyyy(date('Y-m-d'), 'Y-m-d');
+            else $postData['selected_date'] = ddMMyyyy($postData['selected_date'], 'Y-m-d');
             $postData['api'] = true;
             $postData['customer_id'] = $customer['customer_id'];
             
             $this->loadModel(array('Mevents', 'Mconfigs'));
-            $configs = $this->Mconfigs->getListMap(1, $this->languageId);
             $rowCount = $this->Mevents->getCountInApi($postData);
             $events = [];
             $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
             $pageCount = 0;
+            $page = $postData['page_id'];
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);
-                $page = $postData['page_id'];
                 if(!is_numeric($page) || $page < 1) $page = 1;
                 $events = $this->Mevents->getListInApi($postData, $perPage, $page);
                 for($i = 0; $i < count($events); $i++){
@@ -60,8 +61,6 @@ class Event extends MY_Controller {
                 'per_page' => $perPage,
                 'page_count' => $pageCount,
                 'totals' => $rowCount,
-                'event_text' => $configs['EVENT_MOBILE_TEXT'],
-                'event_image' => !empty($configs['EVENT_MOBILE_IMAGE']) ? base_url(CONFIG_PATH.$configs['EVENT_MOBILE_IMAGE']) : '',
                 'list' => $events
             ));
         } catch (\Throwable $th) {

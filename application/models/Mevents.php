@@ -45,6 +45,9 @@ class Mevents extends MY_Model {
         // xử lý điều kiện search cho api
         if(isset($postData['api']) && $postData['api'] == true) {
             if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query.=" AND `customer_events.customer_id` = {$postData['customer_id']}";
+            if(isset($postData['selected_date']) && !empty($postData['selected_date'])) {
+                $query .= " AND DATE(`events`.start_date) >= ".$postData['selected_date']." <= DATE(`events`.end_date)";
+            }
         }
         return $query;
     }
@@ -82,8 +85,7 @@ class Mevents extends MY_Model {
                 FROM
                     `events`
                 WHERE
-                    DATE_FORMAT(CONCAT(`events`.end_date, ' ', TIME_FORMAT(`events`.start_time, '%H:%i')) , '%Y-%m-%d %H:%i:%s') >= NOW()
-                    AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ?)
+                    `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ?)
                     AND `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData);
         return count($this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED)));
     }
@@ -103,8 +105,7 @@ class Mevents extends MY_Model {
                     `events`
                     LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
                 WHERE
-                    DATE_FORMAT(CONCAT(`events`.end_date, ' ', TIME_FORMAT(`events`.start_time, '%H:%i')) , '%Y-%m-%d %H:%i:%s') >= NOW()
-                    AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ?)
+                    `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ?)
                     AND `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData)."
                 GROUP BY
                     `events`.business_profile_id 

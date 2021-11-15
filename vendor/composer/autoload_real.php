@@ -22,8 +22,6 @@ class ComposerAutoloaderInit93042033cb3dd5dcd3e0b3512e377cd0
             return self::$loader;
         }
 
-        require __DIR__ . '/platform_check.php';
-
         spl_autoload_register(array('ComposerAutoloaderInit93042033cb3dd5dcd3e0b3512e377cd0', 'loadClassLoader'), true, true);
         self::$loader = $loader = new \Composer\Autoload\ClassLoader(\dirname(\dirname(__FILE__)));
         spl_autoload_unregister(array('ComposerAutoloaderInit93042033cb3dd5dcd3e0b3512e377cd0', 'loadClassLoader'));
@@ -59,11 +57,6 @@ class ComposerAutoloaderInit93042033cb3dd5dcd3e0b3512e377cd0
         }
         foreach ($includeFiles as $fileIdentifier => $file) {
             composerRequire93042033cb3dd5dcd3e0b3512e377cd0($fileIdentifier, $file);
-        }
-
-        if(!empty(getenv('REDIS_CONNECT'))) {
-            require __DIR__.'/../predis/src/Autoloader.php';
-            Predis\Autoloader::register();
         }
 
         return $loader;
