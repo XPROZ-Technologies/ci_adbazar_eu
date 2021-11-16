@@ -511,14 +511,3 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-
-
-
-// GOOGLE CREDENTIAL
-$config['GOOGLE_APP_NAME'] = 'Adbazar demo';
-$config['GOOGLE_ID'] = '1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c.apps.googleusercontent.com';
-$config['GOOGLE_SECRET'] = 'b82BAjvFggoRlQ2LBRrofhxl';
-$config['GOOGLE_CALLBACK_URL'] = 'test/callBack';
-$config['FACEBOOK_ID'] = '177851481129433';
-$config['FACEBOOK_SECRET'] = 'abea49b547059b4008edad2f8c2fc0b5';
-$config['GRAPH_version'] = 'v2.5';

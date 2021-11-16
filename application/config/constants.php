@@ -145,3 +145,12 @@ define('PAYPAL_SEC_KEY', 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRC
 define('PAYPAL_HOST', 'https://api-m.sandbox.paypal.com');
 define('PAYPAL_PROD_ID', 'PROD-4NX43137GP917693J');
 define('PAYPAL_PLAN_DEFAULT', 'P-8L942028P24070304MGAB6XY');
+
+// GOOGLE CREDENTIAL
+define('GOOGLE_APP_NAME', '');
+// define('GOOGLE_ID', '1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c.apps.googleusercontent.com');
+define('GOOGLE_SECRET', 'b82BAjvFggoRlQ2LBRrofhxl');
+define('REDIRECT_URI', 'http://freetuts.app/google_api/login/login.php');
+define('FACEBOOK_ID', '177851481129433');
+define('FACEBOOK_SECRET', 'abea49b547059b4008edad2f8c2fc0b5');
+define('GRAPH_version', 'v2.5');

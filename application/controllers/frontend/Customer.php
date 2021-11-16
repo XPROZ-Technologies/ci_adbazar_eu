@@ -399,7 +399,7 @@ class Customer extends MY_Controller
             $customerCouponId = $this->Mcustomerevents->getFieldValue(array('customer_id' => $postData['customer_id'], 'event_id' => $postData['event_id'], 'customer_event_status_id >' => 0), 'id', 0);
 
             if ($customerCouponId > 0) {
-                echo json_encode(array('code' => 0, 'message' => "$this->lang->line('you-have-joined-this-event1635566199')"));
+                echo json_encode(array('code' => 0, 'message' => $this->lang->line('you-have-joined-this-event1635566199')));
                 die;
             }
 

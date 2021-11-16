@@ -9,7 +9,7 @@ class Mcustomers extends MY_Model {
         $this->_primary_key = "id";
     }
 
-    public function login($userEmail, $customerPass, $fb_gg_id = '', $loginTypeId = 0){
+    public function login($userEmail, $customerPass, $loginTypeId = 0){
         if(!empty($userEmail) && !empty($customerPass)){
             $query = "SELECT * FROM customers WHERE customer_password=? AND customer_status_id=? AND customer_email=? LIMIT 1";
             $customers = $this->getByQuery($query, array(md5($customerPass), STATUS_ACTIVED, $userEmail));
@@ -19,10 +19,8 @@ class Mcustomers extends MY_Model {
             }
         }
         if(in_array(intval($loginTypeId), [1,2])) {
-            $where = 'facebook_id = ? AND';
-            if(intval($loginTypeId) == 2) $where = 'google_id = ? AND ';
-            $query = "SELECT * FROM customers WHERE ".$where." customer_status_id=? AND login_type_id = ? LIMIT 1";
-            $customers = $this->getByQuery($query, array($fb_gg_id, STATUS_ACTIVED, $loginTypeId));
+            $query = "SELECT * FROM customers WHERE customer_email=? AND customer_status_id=?  LIMIT 1";
+            $customers = $this->getByQuery($query, array($userEmail, STATUS_ACTIVED));
             if(!empty($customers)){
                 $customer = $customers[0];
                 return $customer;

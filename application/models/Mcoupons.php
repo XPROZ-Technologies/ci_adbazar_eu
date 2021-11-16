@@ -197,4 +197,32 @@ class Mcoupons extends MY_Model {
         return $services;           
     }
 
+    public function getDetailCoupon($postData) {
+        $query = "SELECT
+                    coupons.id,
+                    coupons.coupon_subject,
+                    coupons.coupon_image,
+                    coupons.coupon_amount,
+                    DATE_FORMAT( coupons.start_date, '%Y/%m/%d' ) AS `start_date`,
+                    DATE_FORMAT( coupons.end_date, '%Y/%m/%d' ) AS end_date,
+                    coupons.coupon_description,
+                    coupons.business_profile_id,
+                    business_profiles.business_name,
+                    business_profiles.business_avatar,
+                    business_profiles.business_address,
+                    business_profiles.business_phone,
+                    CASE WHEN customer_coupons.customer_id > 0 THEN customer_coupons.customer_coupon_code ELSE '' END AS coupon_code,
+                    customer_coupons.customer_id
+                FROM
+                    coupons
+                    LEFT JOIN customer_coupons ON customer_coupons.coupon_id = coupons.id
+                    LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id
+                    AND customer_coupons.customer_coupon_status_id = ? 
+                WHERE
+                    coupons.coupon_status_id = ? 
+                    AND coupons.id = ? AND business_profiles.id IS NOT NULL";
+        $data = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $postData['coupon_id']));
+        return $data;
+    }
+
 }

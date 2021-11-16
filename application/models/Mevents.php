@@ -120,4 +120,35 @@ class Mevents extends MY_Model {
         $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED));
         return $result;
     }
+
+    public function getDetailEvent($postData) {
+        $query = "SELECT
+                `events`.id,
+                `events`.event_subject,
+                `events`.event_image,
+                `events`.event_description,
+                DATE_FORMAT( `events`.`start_date`, '%Y/%m/%d' ) AS `start_date`,
+                DATE_FORMAT( `events`.end_date, '%Y/%m/%d' ) AS end_date,
+                TIME_FORMAT(`events`.start_time, '%H:%i') AS start_time,
+                TIME_FORMAT(`events`.end_time, '%H:%i') AS end_time,
+                business_profiles.id as business_profile_id,
+                business_profiles.business_name,
+                business_profiles.business_avatar,
+                business_profiles.business_address,
+                business_profiles.business_phone,
+                COUNT(CASE WHEN customer_events.event_id > 0 THEN 0 END) AS number_of_joined,
+                customer_events.customer_id
+            FROM
+                `events`
+                LEFT JOIN customer_events ON customer_events.event_id = `events`.id  AND customer_events.customer_event_status_id = ?
+                LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
+            WHERE
+                `events`.event_status_id = ? 
+                AND `events`.id = ?  AND business_profiles.id IS NOT NULL
+                
+            GROUP BY
+                `events`.id ";
+        $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $postData['event_id']));
+        return $result;
+    }
 }
