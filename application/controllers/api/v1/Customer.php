@@ -103,7 +103,7 @@ class Customer extends MY_Controller {
                     else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
                     $customer['token'] = $customer['token_reset'];
                     unset($customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
-                    $this->success200($customer);
+                    $this->success200(array('customer' => $customer));
                 }
                 
             } else {
@@ -362,7 +362,7 @@ class Customer extends MY_Controller {
                     else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
                     $customer['token'] = $customer['token_reset'];
                     unset($customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
-                    $this->success200($customer);
+                    $this->success200(array('customer' => $customer));
                 } else {
                     $this->error400('Account activation failed');
                     die;
