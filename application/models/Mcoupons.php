@@ -73,6 +73,10 @@ class Mcoupons extends MY_Model {
                 $query .= " AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles LEFT JOIN service_types ON service_types.service_id = business_profiles.service_id WHERE business_profiles.service_id = ".$postData['service_id']." AND service_types.id IN (".$serviceTypeIds."))";
             }
 
+            if(isset($postData['business_id']) && $postData['business_id'] > 0) {
+                if(isset($postData['business_id']) && $postData['business_id'] > 0) $query.=" AND coupons.business_profile_id = {$postData['business_id']}";
+            }
+
         }
         
         return $query;

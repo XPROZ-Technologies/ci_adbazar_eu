@@ -35,7 +35,7 @@ class Coupon extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'service_id', 'service_type_id', 'order_by'));
+            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'service_id', 'service_type_id', 'order_by', 'business_id'));
             if(empty($postData['service_type_id'])) $postData['service_type_id'] = [];
             $postData['api'] = true;
             $postData['customer_id'] = $customer['customer_id'];
