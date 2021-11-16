@@ -94,6 +94,7 @@ class Customer extends MY_Controller {
                     $postData['language_id'] = $this->languageId;
                     unset($postData['facebook_token']);
                     unset($postData['google_token']);
+                    unset($postData['customer_password']);
                    $flag = $this->Mcustomers->save($postData, $customer['id']);
                 }
                 if($flag) {
