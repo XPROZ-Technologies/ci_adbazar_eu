@@ -90,7 +90,7 @@ class Customer extends MY_Controller {
                     $this->load->library('Authorization_Token');
                     // generte a token
                     $token = $this->authorization_token->generateToken(array('id' => $customer['id'], 'created_at' => getCurentDateTime()));
-                    $postData['token'] = $token;
+                    $postData['token_reset'] = $token;
                     $postData['language_id'] = $this->languageId;
                     unset($postData['facebook_token']);
                     unset($postData['google_token']);
@@ -100,7 +100,8 @@ class Customer extends MY_Controller {
                     $customer = $this->Mcustomers->get($flag);
                     if(empty($customer['customer_avatar'])) $customer['customer_avatar'] = base_url(CUSTOMER_PATH.NO_IMAGE);
                     else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
-                    unset($customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
+                    $customer['token'] = $customer['token_reset'];
+                    unset($customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
                     $this->success200($customer);
                 }
                 
