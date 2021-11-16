@@ -58,4 +58,28 @@ class Businessprofile extends MY_Controller {
             $this->error500();
         }
     }
+
+    public function detail() {
+        try {
+            $this->openAllCors();
+            $postData = $this->arrayFromPostRawJson(array('business_id'));
+            if(empty($postData['business_id']) && $postData['business_id'] < 0) {
+                $this->error204($this->lang->line('incorrect-information1635566199'));
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mservices'));
+            $detail = $this->Mbusinessprofiles->get($postData['business_id'], false, '', 'id, service_id, business_name, business_slogan, business_email, business_address, business_whatsapp, business_url, country_code_id, business_phone, business_description, business_avatar, business_status_id');
+            if($detail && $detail['business_status_id'] == STATUS_ACTIVED) {
+                $detail['business_avatar'] = !empty($detail['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$detail['business_avatar']) : '';
+                $serviceName = $this->Mservices->getFieldValue(array('id' => $detail['service_id']), 'service_name'.$this->langCode.'', '');
+                $detail['service_name'] = $serviceName;
+                $this->success200(array('list' => $detail));
+            } else {
+                $this->error204($this->lang->line('incorrect-information1635566199'));
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
 }
