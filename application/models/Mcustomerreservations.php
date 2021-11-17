@@ -51,6 +51,11 @@ class Mcustomerreservations extends MY_Model {
         if(isset($postData['time_arrived']) && !empty($postData['time_arrived']))  $query.=" AND time_arrived = '".$postData['time_arrived']."'";
         if(isset($postData['date_arrived']) && !empty($postData['date_arrived']))  $query.=" AND date_arrived = '".$postData['date_arrived']."'";
 
+        if(isset($postData['api']) && $postData['api'] == 'api') {
+            if(isset($postData['business_id']) && $postData['business_id'] > 0)  $query.=" AND business_profile_id = ".$postData['business_id'];
+        }
+        
+
         return $query;
     }
 }

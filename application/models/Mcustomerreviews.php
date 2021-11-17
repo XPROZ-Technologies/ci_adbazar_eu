@@ -41,8 +41,27 @@ class Mcustomerreviews extends MY_Model {
         }else if(isset($postData['review_star']) && !empty($postData['review_star'])){
             $query.=" AND review_star = ".$postData['review_star'];
         }
+
+        // xử lý điều kiện search cho api
+        if(isset($postData['api']) && $postData['api'] == true) {
+            if(isset($postData['business_id']) && $postData['business_id'] > 0) $query .=" AND `business_id` = ".$postData['business_id'];
+        }
         
 
         return $query;
+    }
+
+    public function getCountInApi($postData){
+        $query = "customer_review_status_id = 2" . $this->buildQuery($postData);
+        return $this->countRows($query);
+    }
+
+    public function getListInApi($postData, $perPage = 0, $page = 1) {
+        $query = "SELECT * FROM customer_reviews WHERE customer_review_status_id = 2" . $this->buildQuery($postData). " ORDER BY created_at DESC";
+        if($perPage > 0) { 
+            $from = ($page-1) * $perPage;
+            $query .= " LIMIT {$from}, {$perPage}";
+        }
+        return $this->getByQuery($query);
     }
 }

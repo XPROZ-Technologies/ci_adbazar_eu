@@ -185,4 +185,113 @@ class Businessprofile extends MY_Controller {
             $this->error500();
         }
     }
+
+    public function reviews() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(true);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page'));
+            $postData['customer_id'] = $customer['customer_id'];
+            if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
+                $postData['api'] = true;
+                $this->load->model(array('Mcustomerreviews', 'Mcustomers', 'Mbusinessprofiles'));
+                $rowCount = $this->Mcustomerreviews->getCountInApi($postData);
+                $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
+                $pageCount = 0;
+                $page = $postData['page_id'];
+                $reviews = [];
+                $allowReview = 0;
+                if(intval($postData['customer_id']) < 0) $allowReview = 0;
+                if($rowCount > 0) {
+                    if(intval($postData['customer_id']) > 0) $allowReview = 1;
+                    $pageCount = ceil($rowCount / $perPage);
+                    if(!is_numeric($page) || $page < 1) $page = 1;
+                    $customerReviews = $this->Mcustomerreviews->getListInApi($postData, $perPage, $page);
+                    // $videos = [];
+                    for($i = 0; $i < count($customerReviews); $i++) {
+                        $data = $customerReviews[$i];
+                        $customer = $this->Mcustomers->get($data['customer_id']);
+                        $reviews[] = array(
+                            'id' => $data['id'],
+                            'review_star' => $data['review_star'],
+                            'customer_comment' => $data['customer_comment'],
+                            'customer_name' => isset($customer['customer_last_name']) ? $customer['customer_last_name'] : '',
+                            'customer_avatar' => isset($customer['customer_avatar']) && !empty($customer['customer_avatar']) ? base_url(CUSTOMER_PATH.$customer['customer_avatar']) : '',
+                            'created_date' => ddMMyyyy($data['created_at'], 'Y/m/d'),
+                            "reply" => array(
+                                'business_name' => $this->Mbusinessprofiles->getFieldValue(array('id' => $data['business_id']), 'business_name', ''),
+                                'business_comment' => $data['business_comment'],
+                                'created_date' => ddMMyyyy($data['updated_at'], 'Y/m/d')
+                            )
+
+                        );
+                    }
+                }
+                $this->success200(array(
+                    'page_id' => $page,
+                    'per_page' => $perPage,
+                    'page_count' => $pageCount,
+                    'totals' => $rowCount,
+                    'allow_review' => $allowReview,
+                    'list' => $reviews
+                ));
+            } else {
+                $this->error204('business_id does not exist');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function customer_reservation() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page'));
+            $postData['customer_id'] = $customer['customer_id'];
+            $postData['api'] = true;
+            $this->load->model(array('Mcustomerreservations','Mbusinessprofiles'));
+            $rowCount = $this->Mcustomerreservations->getCount($postData);
+            $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
+            $pageCount = 0;
+            $page = $postData['page_id'];
+            $customerReservations = [];
+            $datas = [];
+            if($rowCount > 0) {
+                if(intval($postData['customer_id']) > 0) $allowReview = 1;
+                $pageCount = ceil($rowCount / $perPage);
+                if(!is_numeric($page) || $page < 1) $page = 1;
+                $customerReservations = $this->Mcustomerreservations->search($postData, $perPage, $page);
+                
+                for($i = 0; $i < count($customerReservations); $i++) {
+                    $data = $customerReservations[$i];
+                    $businessInfo = $this->Mbusinessprofiles->get($data['business_profile_id']);
+                    $datas[] = array(
+                        'id' => $data['id'],
+                        'book_code' => $data['book_code'],
+                        'book_name' => $data['book_name'],
+                        'number_of_people' => $data['number_of_people'],
+                        'date_arrived' => ddMMyyyy($data['date_arrived'], 'Y/m/d'),
+                        'time_arrived' => ddMMyyyy($data['time_arrived'], 'H:i'),
+                        'book_status_id' => $data['book_status_id'],
+                        'business_info' => array(
+                            "id" =>  $businessInfo['id'],
+                            "business_name" =>  $businessInfo['business_name'],
+                            "business_avatar" =>  !empty($businessInfo['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$businessInfo['business_avatar']):'',
+                        )
+                    );
+                }
+            }
+            $this->success200(array(
+                'page_id' => $page,
+                'per_page' => $perPage,
+                'page_count' => $pageCount,
+                'totals' => $rowCount,
+                'list' => $datas
+            ));
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
 }
