@@ -216,13 +216,17 @@ class Customer extends MY_Controller {
                     $flag = $this->Mcustomers->save($data, $customerId);
                 }
                 if($flag) {
+                    $this->load->library('Authorization_Token');
+                    // generte a token
+                    $token_active = $this->authorization_token->generateToken(array('id' => $flag, 'created_at' => getCurentDateTime()));
                     $this->load->model('Memailqueue');
                     $dataEmail = array(
                         'name' => $postData['customer_email'],
                         'email_to' => $postData['customer_email'],
-                        'email_to_name' => $postData['customer_email']
+                        'email_to_name' => $postData['customer_email'],
+                        'token' => $token_active
                     );
-                    $this->Memailqueue->createEmail($dataEmail, 1);
+                    $this->Memailqueue->createEmail($dataEmail, 99);
                     $this->success200($flag, $this->lang->line('successfully_register_account'));
                 } else {
                     $this->error400('Registration failed');
