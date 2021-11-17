@@ -76,7 +76,7 @@ class Coupon extends MY_Controller {
         }
     }
 
-    public function list_coupon_code() {
+    public function get() {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin();
@@ -126,7 +126,7 @@ class Coupon extends MY_Controller {
         }
     }
 
-    public function detail_coupon() {
+    public function detail() {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);

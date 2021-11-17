@@ -654,20 +654,11 @@ abstract class MY_Controller extends CI_Controller
     }
 
     protected function apiCheckLogin($flag = false) {
-        $headers = $this->getAuthorizationHeader();
-        
-        // HEADER: Get the access token from the header
-        $token = '';
-        if (!empty($headers)) {
-            if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
-                $token = $matches[1];
-            }
-        }
-       
+        $token = $this->getAuthorizationHeader();
         // $token = $this->input->get_request_header('X-Auth-Token', TRUE);
         if(!empty($token)) {
             $this->load->model('Mcustomers');
-            $id = $this->Mcustomers->getFieldValue(array('token_reset' => $token, 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
+            $id = $this->Mcustomers->getFieldValue(array('token' => $token, 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
             if($id == 0) {
                 $this->error401('Client account does not exist.');
                 die;
@@ -682,23 +673,27 @@ abstract class MY_Controller extends CI_Controller
         }
     }
 
-    function getAuthorizationHeader(){
+    protected function getAuthorizationHeader(){
         $headers = null;
         if (isset($_SERVER['Authorization'])) {
             $headers = trim($_SERVER["Authorization"]);
         }
-        else if (isset($_SERVER['HTTP_AUTHORIZATION'])) { //Nginx or fast CGI
+        else if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
             $headers = trim($_SERVER["HTTP_AUTHORIZATION"]);
         } elseif (function_exists('apache_request_headers')) {
             $requestHeaders = apache_request_headers();
-            // Server-side fix for bug in old Android versions (a nice side-effect of this fix means we don't care about capitalization for Authorization)
             $requestHeaders = array_combine(array_map('ucwords', array_keys($requestHeaders)), array_values($requestHeaders));
-            //print_r($requestHeaders);
             if (isset($requestHeaders['Authorization'])) {
                 $headers = trim($requestHeaders['Authorization']);
             }
         }
-        return $headers;
+        $token = '';
+        if (!empty($headers)) {
+            if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+                $token = $matches[1];
+            }
+        }
+        return $token;
     }
 
     protected function error500($text = 'Có lỗi xảy ra, vui lòng thử lại') {

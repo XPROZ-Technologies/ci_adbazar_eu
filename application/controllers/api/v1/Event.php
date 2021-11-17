@@ -68,7 +68,7 @@ class Event extends MY_Controller {
         }
     }
 
-    public function join_event() {
+    public function join() {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
@@ -150,7 +150,7 @@ class Event extends MY_Controller {
         }
     }
 
-    public function event_detail() {
+    public function detail() {
         try {
             $customer = $this->apiCheckLogin(true);
             $postData = $this->arrayFromPostRawJson(array('event_id'));

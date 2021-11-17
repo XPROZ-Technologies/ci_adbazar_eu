@@ -34,8 +34,8 @@ class Businessprofile extends MY_Controller {
                 $serviceTypes = [];
                 for($i = 0; $i < count($businessProfiles); $i++) {
                     $openStatusId = $this->checkBusinessOpenHours($businessProfiles[$i]['id']);
-                    if($openStatusId) $openStatusId = 1;
-                    else $openStatusId = 0;
+                    if($openStatusId) $openStatusId = 2;
+                    else $openStatusId = 1;
                     $businessProfiles[$i]['open_status_id'] = $openStatusId;
                     $businessProfiles[$i]['business_avatar'] = !empty($businessProfiles[$i]['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$businessProfiles[$i]['business_avatar']) : '';
                     $serviceTypes = $this->Mservices->getServiceTypeInService($businessProfiles[$i]['id'], $postData['service_id'], $postData['service_type_id'], $this->langCode);
@@ -67,13 +67,38 @@ class Businessprofile extends MY_Controller {
                 $this->error204($this->lang->line('incorrect-information1635566199'));
                 die;
             }
-            $this->load->model(array('Mbusinessprofiles', 'Mservices'));
-            $detail = $this->Mbusinessprofiles->get($postData['business_id'], false, '', 'id, service_id, business_name, business_slogan, business_email, business_address, business_whatsapp, business_url, country_code_id, business_phone, business_description, business_avatar, business_status_id');
-            if($detail && $detail['business_status_id'] == STATUS_ACTIVED) {
-                $detail['business_avatar'] = !empty($detail['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$detail['business_avatar']) : '';
-                $serviceName = $this->Mservices->getFieldValue(array('id' => $detail['service_id']), 'service_name'.$this->langCode.'', '');
-                $detail['service_name'] = $serviceName;
-                $this->success200(array('list' => $detail));
+            $this->load->model(array('Mbusinessprofiles', 'Mservicetypes', 'Mopeninghours'));
+            $detail = $this->Mbusinessprofiles->getDetailInApi($postData['business_id']);
+            if($detail && count($detail) > 0) {
+                $detail = $detail[0];
+                $serviceTypes = $this->Mservicetypes->getServiceTypeInService($detail['service_id'], $this->langCode);
+                $openingHours = $this->Mopeninghours->getBy(array('business_profile_id' => $detail['id']), false, 'day_id', 'opening_hours_status_id as open_status_id, day_id, start_time, end_time', 0,0, 'asc');
+                $openStatusId = $this->checkBusinessOpenHours($detail['id']);
+                if($openStatusId) $openStatusId = 2;
+                else $openStatusId = 1;
+                $data = array(
+                    'business_info' => array(
+                        "id" => $detail['id'],
+                        "business_name" => $detail['business_name'],
+                        "service_types" => $serviceTypes,
+                        "business_slogan" => $detail['business_slogan'],
+                        "business_phone" => $detail['business_phone'],
+                        "business_whatsapp" => $detail['business_whatsapp'],
+                        "business_email" => $detail['business_email'],
+                        "business_address" => $detail['business_address'],
+                        "business_avatar" => !empty($detail['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$detail['business_avatar']) : '',
+                        "business_image_cover" => !empty($detail['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$detail['business_image_cover']) : '',
+                        "business_description" => $detail['business_description'],
+                        "open_status_id" => $openStatusId,
+                        "has_location" => $detail['has_location'],
+                        "lat" => $detail['lat'],
+                        "lng" => $detail['lng'],
+                        "star" => $detail['star'],
+                        "number_of_reviews" => $detail['number_of_reviews']
+                    ),
+                    'open_hours' => $openingHours
+                );
+                $this->success200($data);
             } else {
                 $this->error204($this->lang->line('incorrect-information1635566199'));
                 die;
