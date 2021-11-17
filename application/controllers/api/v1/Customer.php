@@ -17,7 +17,7 @@ class Customer extends MY_Controller {
         $this->client = new Google_Client();
         $this->client->setClientId(KEY_GG.'.apps.googleusercontent.com');
         $this->client->setClientSecret(GOOGLE_SECRET);
-        $this->client->setRedirectUri(REDIRECT_URI);
+        // $this->client->setRedirectUri(REDIRECT_URI);
         $this->client->addScope("email");
         $this->client->addScope("profile");
 
@@ -92,9 +92,7 @@ class Customer extends MY_Controller {
                     $token = $this->authorization_token->generateToken(array('id' => $customer['id'], 'created_at' => getCurentDateTime()));
                     $postData['token_reset'] = $token;
                     $postData['language_id'] = $this->languageId;
-                    unset($postData['facebook_token']);
-                    unset($postData['google_token']);
-                    unset($postData['customer_password']);
+                    unset($postData['facebook_token'], $postData['google_token'], $postData['customer_password']);
                    $flag = $this->Mcustomers->save($postData, $customer['id']);
                 }
                 if($flag) {
@@ -119,9 +117,10 @@ class Customer extends MY_Controller {
     public function logout() {
         try {
             $this->openAllCors();
-            $token = $this->input->get_request_header('X-Auth-Token', TRUE);
+            $token = $this->getAuthorizationHeader();
+            // $token = $this->input->get_request_header('X-Auth-Token', TRUE);
             if(empty($token)) {
-                $this->error410('X-Auth-Token has not been uploaded yet');
+                $this->error410('Token has not been uploaded yet');
                 die;
             }else {
                 $this->load->model('Mcustomers');

@@ -217,4 +217,39 @@ class Mbusinessprofiles extends MY_Model {
             }
         return $this->getByQuery($query, array(STATUS_ACTIVED));
     }
+
+    public function getDetailInApi($businessId = 0) {
+        $query = "SELECT
+                    business_profiles.id,
+                    business_profiles.service_id,
+                    business_profiles.business_name,
+                    business_profiles.business_slogan,
+                    business_profiles.business_email,
+                    business_profiles.business_address,
+                    business_profiles.business_whatsapp,
+                    business_profiles.business_url,
+                    business_profiles.country_code_id,
+                    business_profiles.business_phone,
+                    business_profiles.business_description,
+                    business_profiles.business_avatar,
+                    business_profiles.business_image_cover,
+                    business_profiles.business_status_id,
+                    ROUND(AVG(customer_reviews.review_star),1) as star,
+                    COUNT(CASE  WHEN customer_reviews.business_id > 0 THEN 1 END) as number_of_reviews,
+                CASE  WHEN business_profile_locations.business_profile_id > 0 THEN 1 ELSE 0 END as has_location,
+                    locations.lat,
+                    locations.lng
+                FROM
+                    `business_profiles`
+                    LEFT JOIN business_profile_locations ON business_profile_locations.business_profile_id = business_profiles.id 
+                    AND business_profile_locations.business_profile_location_status_id = ?
+                    LEFT JOIN locations ON locations.id = business_profile_locations.location_id
+                    LEFT JOIN customer_reviews ON customer_reviews.business_id = business_profiles.id 
+                WHERE
+                    business_profiles.business_status_id = ? 
+                    AND business_profiles.id = ? 
+                GROUP BY
+                    business_profiles.id";
+        return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $businessId));
+    }
 }
