@@ -17,7 +17,7 @@ class Customer extends MY_Controller {
         $this->client = new Google_Client();
         $this->client->setClientId(KEY_GG.'.apps.googleusercontent.com');
         $this->client->setClientSecret(GOOGLE_SECRET);
-        $this->client->setRedirectUri(REDIRECT_URI);
+        // $this->client->setRedirectUri(REDIRECT_URI);
         $this->client->addScope("email");
         $this->client->addScope("profile");
 
