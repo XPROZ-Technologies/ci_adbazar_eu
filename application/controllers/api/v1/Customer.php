@@ -208,7 +208,7 @@ class Customer extends MY_Controller {
                 $data['created_by'] = 0;
                 $data['free_trial'] = STATUS_FREE_TRIAL;
                 $token_active = guidV4('reset-passs');
-                $data['token'] = $token_active;
+                $data['token_reset'] = $token_active;
                 if (intval($postData['login_type_id']) == 0) {
                     $flag = $this->Mcustomers->save($data);
                 } else {
@@ -225,7 +225,7 @@ class Customer extends MY_Controller {
                         'name' => $postData['customer_email'],
                         'email_to' => $postData['customer_email'],
                         'email_to_name' => $postData['customer_email'],
-                        'token_reset' => $token_active
+                        'token' => $token_active
                     );
                     $this->Memailqueue->createEmail($dataEmail, 99);
                     $this->success200($flag, $this->lang->line('successfully_register_account'));
