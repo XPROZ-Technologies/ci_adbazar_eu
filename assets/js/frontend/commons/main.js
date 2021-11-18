@@ -665,6 +665,7 @@ $(window).scroll(function(event) {
   }
 });
 */
+var windowsize = $(window).width();
 
 var windowsize = $(window).width();
 

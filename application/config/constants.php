@@ -133,10 +133,16 @@ define('ZOOM_MAP_ADMIN', 17);
 define('EMAIL_FROM', 'server@adbazar.eu');
 define('EMAIL_FROM_NAME', 'AdBazar.eu');
 
+// //email server
+// define('EMAIL_USER', 'server@adbazar.eu');
+// define('EMAIL_PASS', 'changeM3!!Adbazar12345');
+// define('EMAIL_HOST', 'ssl://smtpout.asia.secureserver.net');
+// define('EMAIL_PORT', '465');
+
 //email server
-define('EMAIL_USER', 'server@adbazar.eu');
-define('EMAIL_PASS', 'changeM3!!Adbazar12345');
-define('EMAIL_HOST', 'ssl://smtpout.asia.secureserver.net');
+define('EMAIL_USER', 'mailout.dkh@gmail.com');
+define('EMAIL_PASS', 'fqvpygxkmeotvqfz');
+define('EMAIL_HOST', 'ssl://smtp.googlemail.com');
 define('EMAIL_PORT', '465');
 
 //paypal
@@ -145,3 +151,9 @@ define('PAYPAL_SEC_KEY', 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRC
 define('PAYPAL_HOST', 'https://api-m.sandbox.paypal.com');
 define('PAYPAL_PROD_ID', 'PROD-4NX43137GP917693J');
 define('PAYPAL_PLAN_DEFAULT', 'P-8L942028P24070304MGAB6XY');
+
+// GOOGLE CREDENTIAL
+define('GOOGLE_SECRET', 'b82BAjvFggoRlQ2LBRrofhxl');
+define('FACEBOOK_ID', '177851481129433');
+define('FACEBOOK_SECRET', 'abea49b547059b4008edad2f8c2fc0b5');
+define('GRAPH_version', 'v2.5');

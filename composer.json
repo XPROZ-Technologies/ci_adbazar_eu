@@ -1,7 +1,9 @@
 {
     "require": {
         "vlucas/phpdotenv": "^5.3",
-        "phpoffice/phpspreadsheet": "^1.17"
+        "phpoffice/phpspreadsheet": "^1.17",
+        "google/apiclient": "^2.11",
+        "facebook/php-sdk-v4": "^5.5"
     },
     "config": {
         "platform-check": false

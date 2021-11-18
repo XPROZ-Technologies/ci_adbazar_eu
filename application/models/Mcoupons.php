@@ -55,6 +55,30 @@ class Mcoupons extends MY_Model {
         if(isset($postData['saved_coupons']) && count($postData['saved_coupons']) > 0) $query.=" AND `id` NOT IN (".implode(',', $postData['saved_coupons']).")";
         if(isset($postData['coupon_ids']) && count($postData['coupon_ids']) > 0) $query.=" AND `id` IN (".implode(',', $postData['coupon_ids']).")";
         if(isset($postData['business_profile_ids']) && count($postData['business_profile_ids']) > 0) $query.=" AND `business_profile_id` IN (".implode(',', $postData['business_profile_ids']).")";
+
+        // xử lý điều kiện search cho api
+        if(isset($postData['api']) && $postData['api'] == true) {
+            if(isset($postData['customer_id']) && $postData['customer_id'] > 0) {
+                $query.=" AND coupons.id NOT IN (SELECT coupon_id FROM customer_coupons WHERE customer_coupon_status_id = 2 AND customer_id =".$postData['customer_id'].")";
+            }
+            if(isset($postData['service_id']) && $postData['service_id'] > 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) < 0) {
+                $query.=" AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles  WHERE business_profiles.service_id = ".$postData['service_id'].")";
+            }
+            if(isset($postData['service_id']) && $postData['service_id'] < 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
+                $serviceTypeIds = join(",",$postData['service_type_id']);
+                $query .= " AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles LEFT JOIN service_types ON service_types.service_id = business_profiles.service_id WHERE  service_types.id IN (".$serviceTypeIds."))";
+            }
+            if(isset($postData['service_id']) && $postData['service_id'] > 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
+                $serviceTypeIds = join(",",$postData['service_type_id']);
+                $query .= " AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles LEFT JOIN service_types ON service_types.service_id = business_profiles.service_id WHERE business_profiles.service_id = ".$postData['service_id']." AND service_types.id IN (".$serviceTypeIds."))";
+            }
+
+            if(isset($postData['business_id']) && $postData['business_id'] > 0) {
+                if(isset($postData['business_id']) && $postData['business_id'] > 0) $query.=" AND coupons.business_profile_id = {$postData['business_id']}";
+            }
+
+        }
+        
         return $query;
     }
 
@@ -89,6 +113,122 @@ class Mcoupons extends MY_Model {
             }
         }
         return "";
+    }
+
+    public function getListHome($postData) {
+        $query = "SELECT
+                coupons.id,
+                coupons.coupon_subject,
+                coupons.coupon_image,
+                coupons.coupon_amount,
+                DATE_FORMAT( coupons.start_date, '%Y/%m/%d' ) AS start_date,
+                DATE_FORMAT( coupons.end_date, '%Y/%m/%d' ) AS end_date,
+                ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used 
+            FROM
+                coupons 
+            WHERE
+                DATE(coupons.end_date) >= CURDATE()
+                AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) < coupons.coupon_amount 
+                AND coupons.coupon_status_id = ? 
+                ".$this->buildQuery($postData)."
+            GROUP BY
+                coupons.business_profile_id 
+            ORDER BY
+                coupons.created_at DESC
+            LIMIT ?";
+       
+        $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED, 20));
+        return $result;
+    }
+
+    public function getCountInApi($postData) {
+        $query = "SELECT coupons.id
+                    FROM
+                        coupons
+                    WHERE
+                        DATE(coupons.end_date) >= CURDATE() 
+                        AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ?  GROUP BY coupon_id ) < coupons.coupon_amount 
+                        AND coupons.coupon_status_id = ?
+                        ".$this->buildQuery($postData)."
+                    GROUP BY
+                        coupons.business_profile_id";
+        return count($this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED)));
+    }
+
+    public function getListInApi($postData, $perPage = 0, $page = 1) {
+        $orderBy = $postData['order_by'];
+        if(empty($orderBy)) $orderBy = 'DESC';
+        $query = "SELECT
+                    coupons.id,
+                    coupons.coupon_subject,
+                    coupons.coupon_image,
+                    coupons.coupon_amount,
+                    DATE_FORMAT( coupons.start_date, '%Y/%m/%d' ) AS `start_date`,
+                    DATE_FORMAT( coupons.end_date, '%Y/%m/%d' ) AS end_date,
+                    ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used 
+                FROM
+                    coupons
+                WHERE
+                    DATE(coupons.end_date) >= CURDATE() 
+                    AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ?  GROUP BY coupon_id ) < coupons.coupon_amount 
+                    AND coupons.coupon_status_id = ?
+                    ".$this->buildQuery($postData)."
+                GROUP BY
+                    coupons.business_profile_id
+                ORDER BY
+                    coupons.created_at ".$orderBy;
+            if($perPage > 0) {
+                $from = ($page-1) * $perPage;
+                $query .= " LIMIT {$from}, {$perPage}";
+            }
+        return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED));
+    }
+
+    public function getServicesInCoupon($customerId = 0, $langCode = '_vi') {
+        $where = '';
+        if($customerId > 0) $where = " AND business_profiles.customer_id = ".$customerId;
+        $query = "SELECT services.id, services.service_name".$langCode." as service_name FROM `services`
+                    LEFT JOIN business_profiles ON business_profiles.service_id = services.id
+                    LEFT JOIN coupons ON coupons.business_profile_id = business_profiles.id
+                    WHERE services.service_status_id = ? AND coupons.business_profile_id > 0 ".$where."
+                    GROUP BY services.id";
+        $services = $this->getByQuery($query, array(STATUS_ACTIVED));
+        if($services) {
+            $this->load->model('Mservicetypes');
+            for($i = 0; $i < count($services); $i++){
+                $serviceTypes = $this->Mservicetypes->getBy(array('service_id' => $services[$i]['id'], 'status_id' => STATUS_ACTIVED), false, 'display_order', 'id, service_type_name'.$langCode.' as service_type_name', 0,0,'asc');
+                $services[$i]['service_types'] = $serviceTypes;
+            }   
+        }
+        return $services;           
+    }
+
+    public function getDetailCoupon($postData) {
+        $query = "SELECT
+                    coupons.id,
+                    coupons.coupon_subject,
+                    coupons.coupon_image,
+                    coupons.coupon_amount,
+                    DATE_FORMAT( coupons.start_date, '%Y/%m/%d' ) AS `start_date`,
+                    DATE_FORMAT( coupons.end_date, '%Y/%m/%d' ) AS end_date,
+                    coupons.coupon_description,
+                    coupons.business_profile_id,
+                    business_profiles.business_name,
+                    business_profiles.business_avatar,
+                    business_profiles.business_address,
+                    business_profiles.business_phone,
+                    CASE WHEN customer_coupons.customer_id > 0 THEN customer_coupons.customer_coupon_code ELSE '' END AS coupon_code,
+                    customer_coupons.customer_id
+                FROM
+                    coupons
+                    LEFT JOIN customer_coupons ON customer_coupons.coupon_id = coupons.id
+                    LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id
+                    AND customer_coupons.customer_coupon_status_id = ? 
+                WHERE
+                    coupons.coupon_status_id = ? 
+                    AND coupons.id = ? AND business_profiles.id IS NOT NULL";
+        $data = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $postData['coupon_id']));
+        return $data;
     }
 
 }

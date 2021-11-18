@@ -476,3 +476,9 @@ if(!function_exists('dateDifference')) {
         return $interval->format($differenceFormat);
     }
 }
+if(!function_exists('checkemail')) {
+    function checkemail($str) {
+        $checkExit = (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
+        return $checkExit;
+    }
+}
