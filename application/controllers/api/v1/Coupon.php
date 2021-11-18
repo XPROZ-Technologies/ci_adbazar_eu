@@ -39,7 +39,7 @@ class Coupon extends MY_Controller {
             if(empty($postData['service_type_id'])) $postData['service_type_id'] = [];
             $postData['api'] = true;
             $postData['customer_id'] = $customer['customer_id'];
-            $this->load->model('Mcoupons');
+            $this->load->model(array('Mcoupons', 'Mbusinessprofiles'));
             $rowCount = $this->Mcoupons->getCountInApi($postData);
             $coupons = [];
             $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
@@ -53,11 +53,23 @@ class Coupon extends MY_Controller {
                     $coupons[$i]['coupon_image'] = !empty($coupons[$i]['coupon_image']) ? base_url(COUPONS_PATH.$coupons[$i]['coupon_image']) : '';
                 }
             }
+            $business = $this->Mbusinessprofiles->get($postData['business_id']);
+            $businessInfo = '';
+            if($business) {
+                $businessInfo = array(
+                    'id' => $business['id'],
+                    'business_name' => $business['business_name'],
+                    'business_slogan' => $business['business_slogan'],
+                    'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                    'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                );
+            }
             $this->success200(array(
                                 'page_id' => $page,
                                 'per_page' => $perPage,
                                 'page_count' => $pageCount,
                                 'totals' => $rowCount,
+                                'business_info' => $businessInfo,
                                 'list' => $coupons
                             ));
         } catch (\Throwable $th) {
@@ -69,7 +81,8 @@ class Coupon extends MY_Controller {
         try {
             $this->openAllCors();
             $this->load->model('Mcoupons');
-            $services = $this->Mcoupons->getServicesInCoupon($this->langCode);
+            $postData = $this->arrayFromPostRawJson(array('customer_id'));
+            $services = $this->Mcoupons->getServicesInCoupon($postData['customer_id'], $this->langCode);
             $this->success200(array('list' => $services));
         } catch (\Throwable $th) {
             $this->error500();

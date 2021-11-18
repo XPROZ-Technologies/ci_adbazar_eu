@@ -36,13 +36,13 @@ class Event extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'selected_date'));
+            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'selected_date', 'business_id'));
             if(empty($postData['selected_date'])) $postData['selected_date'] = ddMMyyyy(date('Y-m-d'), 'Y-m-d');
             else $postData['selected_date'] = ddMMyyyy($postData['selected_date'], 'Y-m-d');
             $postData['api'] = true;
             $postData['customer_id'] = $customer['customer_id'];
             
-            $this->loadModel(array('Mevents', 'Mconfigs'));
+            $this->loadModel(array('Mevents', 'Mconfigs', 'Mbusinessprofiles'));
             $rowCount = $this->Mevents->getCountInApi($postData);
             $events = [];
             $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
@@ -56,11 +56,23 @@ class Event extends MY_Controller {
                     $events[$i]['event_image'] = !empty($events[$i]['event_image']) ? base_url(EVENTS_PATH.$events[$i]['event_image']) : '';
                 }
             }
+            $business = $this->Mbusinessprofiles->get($postData['business_id']);
+            $businessInfo = '';
+            if($business) {
+                $businessInfo = array(
+                    'id' => $business['id'],
+                    'business_name' => $business['business_name'],
+                    'business_slogan' => $business['business_slogan'],
+                    'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                    'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                );
+            }
             $this->success200(array(
                 'page_id' => $page,
                 'per_page' => $perPage,
                 'page_count' => $pageCount,
                 'totals' => $rowCount,
+                'business_info' => $businessInfo,
                 'list' => $events
             ));
         } catch (\Throwable $th) {

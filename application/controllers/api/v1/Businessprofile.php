@@ -114,7 +114,7 @@ class Businessprofile extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page'));
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
                 $postData['api'] = true;
-                $this->load->model('Mbusinessphotos');
+                $this->load->model(array('Mbusinessphotos', 'Mbusinessprofiles'));
                 $rowCount = $this->Mbusinessphotos->getCountInApi($postData);
                 $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
                 $pageCount = 0;
@@ -130,11 +130,24 @@ class Businessprofile extends MY_Controller {
                         $photos[] = !empty($businessPhotos[$i]['photo_image']) ? base_url(BUSINESS_PROFILE_PATH.$businessPhotos[$i]['photo_image']) : '';
                     }
                 }
+                $business = $this->Mbusinessprofiles->get($postData['business_id']);
+                $businessInfo = '';
+                if($business) {
+                    $businessInfo = array(
+                        'id' => $business['id'],
+                        'business_name' => $business['business_name'],
+                        'business_slogan' => $business['business_slogan'],
+                        'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                        'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                    );
+                }
+                
                 $this->success200(array(
                     'page_id' => $page,
                     'per_page' => $perPage,
                     'page_count' => $pageCount,
                     'totals' => $rowCount,
+                    'business_info' => $businessInfo,
                     'list' => $photos
                 ));
             } else {
@@ -153,7 +166,7 @@ class Businessprofile extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page'));
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
                 $postData['api'] = true;
-                $this->load->model('Mbusinessvideos');
+                $this->load->model(array('Mbusinessvideos', 'Mbusinessprofiles'));
                 $rowCount = $this->Mbusinessvideos->getCountInApi($postData);
                 $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
                 $pageCount = 0;
@@ -169,11 +182,23 @@ class Businessprofile extends MY_Controller {
                         $videos[] = !empty($businessVideos[$i]['video_url']) ? base_url(BUSINESS_PROFILE_PATH.$businessVideos[$i]['video_url']) : '';
                     }
                 }
+                $business = $this->Mbusinessprofiles->get($postData['business_id']);
+                $businessInfo = '';
+                if($business) {
+                    $businessInfo = array(
+                        'id' => $business['id'],
+                        'business_name' => $business['business_name'],
+                        'business_slogan' => $business['business_slogan'],
+                        'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                        'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                    );
+                }
                 $this->success200(array(
                     'page_id' => $page,
                     'per_page' => $perPage,
                     'page_count' => $pageCount,
                     'totals' => $rowCount,
+                    'business_info' => $businessInfo,
                     'list' => $videos
                 ));
             } else {
@@ -190,7 +215,7 @@ class Businessprofile extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'is_image', 'review_star'));
             $postData['customer_id'] = $customer['customer_id'];
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
                 $postData['api'] = true;
@@ -202,6 +227,7 @@ class Businessprofile extends MY_Controller {
                 $reviews = [];
                 $allowReview = 0;
                 if(intval($postData['customer_id']) < 0) $allowReview = 0;
+                
                 if($rowCount > 0) {
                     if(intval($postData['customer_id']) > 0) $allowReview = 1;
                     $pageCount = ceil($rowCount / $perPage);
@@ -227,12 +253,34 @@ class Businessprofile extends MY_Controller {
                         );
                     }
                 }
+                $businessProfile = $this->Mcustomerreviews->getRatingAndBusinesInfo($postData['business_id']);
+                $businessInfo = '';
+                $ratingInfo = '';
+                if($businessProfile) {
+                    $businessInfo = array(
+                        'id' => $businessProfile['id'],
+                        'business_name' => $businessProfile['business_name'],
+                        'business_slogan' => $businessProfile['business_slogan'],
+                        'business_avatar' => !empty($businessProfile['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$businessProfile['business_avatar']): '',
+                        'business_image_cover' => !empty($businessProfile['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$businessProfile['business_avatar']) :''
+                    );
+                    $ratingInfo = array(
+                        "overall_rating" =>  $businessProfile['overall_rating'],
+                        "count_one_star" =>  $businessProfile['count_one_star'],
+                        "count_two_star" =>  $businessProfile['count_two_star'],
+                        "count_three_star" =>  $businessProfile['count_three_star'],
+                        "count_four_star" =>  $businessProfile['count_four_star'],
+                        "count_five_star" =>  $businessProfile['count_five_star']
+                    );
+                }
                 $this->success200(array(
                     'page_id' => $page,
                     'per_page' => $perPage,
                     'page_count' => $pageCount,
                     'totals' => $rowCount,
                     'allow_review' => $allowReview,
+                    'business_info' => $businessInfo,
+                    'rating_info' => $ratingInfo,
                     'list' => $reviews
                 ));
             } else {
@@ -248,11 +296,11 @@ class Businessprofile extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
-            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'search_text', 'book_status_id'));
             $postData['customer_id'] = $customer['customer_id'];
             $postData['api'] = true;
             $this->load->model(array('Mcustomerreservations','Mbusinessprofiles'));
-            $rowCount = $this->Mcustomerreservations->getCount($postData);
+            $rowCount = $this->Mcustomerreservations->getCountApi($postData);
             $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
             $pageCount = 0;
             $page = $postData['page_id'];
@@ -262,7 +310,7 @@ class Businessprofile extends MY_Controller {
                 if(intval($postData['customer_id']) > 0) $allowReview = 1;
                 $pageCount = ceil($rowCount / $perPage);
                 if(!is_numeric($page) || $page < 1) $page = 1;
-                $customerReservations = $this->Mcustomerreservations->search($postData, $perPage, $page);
+                $customerReservations = $this->Mcustomerreservations->searchApi($postData, $perPage, $page);
                 
                 for($i = 0; $i < count($customerReservations); $i++) {
                     $data = $customerReservations[$i];
@@ -283,11 +331,23 @@ class Businessprofile extends MY_Controller {
                     );
                 }
             }
+            $business = $this->Mbusinessprofiles->get($postData['business_id']);
+            $businessInfo = '';
+            if($business) {
+                $businessInfo = array(
+                    'id' => $business['id'],
+                    'business_name' => $business['business_name'],
+                    'business_slogan' => $business['business_slogan'],
+                    'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                    'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                );
+            }
             $this->success200(array(
                 'page_id' => $page,
                 'per_page' => $perPage,
                 'page_count' => $pageCount,
                 'totals' => $rowCount,
+                'business_info' => $businessInfo,
                 'list' => $datas
             ));
         } catch (\Throwable $th) {

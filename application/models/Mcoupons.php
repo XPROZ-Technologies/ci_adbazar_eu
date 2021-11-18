@@ -184,11 +184,13 @@ class Mcoupons extends MY_Model {
         return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED));
     }
 
-    public function getServicesInCoupon($langCode = '_vi') {
+    public function getServicesInCoupon($customerId = 0, $langCode = '_vi') {
+        $where = '';
+        if($customerId > 0) $where = " AND business_profiles.customer_id = ".$customerId;
         $query = "SELECT services.id, services.service_name".$langCode." as service_name FROM `services`
                     LEFT JOIN business_profiles ON business_profiles.service_id = services.id
                     LEFT JOIN coupons ON coupons.business_profile_id = business_profiles.id
-                    WHERE services.service_status_id = ? AND coupons.business_profile_id > 0
+                    WHERE services.service_status_id = ? AND coupons.business_profile_id > 0 ".$where."
                     GROUP BY services.id";
         $services = $this->getByQuery($query, array(STATUS_ACTIVED));
         if($services) {
