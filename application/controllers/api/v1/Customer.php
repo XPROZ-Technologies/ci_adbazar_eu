@@ -36,10 +36,15 @@ class Customer extends MY_Controller {
                     $this->error204($this->lang->line('please-enter-your-email1635566199'));
                     die;
                 }
+                if(!checkemail($postData['customer_email'])) {
+                    $this->error204($this->lang->line('email-not-exist1635566199'));
+                    die;
+                }
                 if(empty($postData['customer_password'])) {
                     $this->error204($this->lang->line('your_password_does_not_match_p'));
                     die;
                 }
+                
                 
                 $customer = $this->Mcustomers->login($postData['customer_email'], $postData['customer_password']);
                 
@@ -147,6 +152,10 @@ class Customer extends MY_Controller {
             if (intval($postData['login_type_id']) == 0) {
                 if (empty($postData['customer_email'])) {
                     $this->error204($this->lang->line('please_enter_a_valid_email'));
+                    die;
+                }
+                if(!checkemail($postData['customer_email'])) {
+                    $this->error204($this->lang->line('email-not-exist1635566199'));
                     die;
                 }
                 $this->validatePassWord($postData);
