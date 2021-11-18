@@ -198,7 +198,7 @@ class Home extends MY_Controller {
          */
 
 
-        $data = $this->commonDataCustomer('Term of Use');
+        $data = $this->commonDataCustomer($this->lang->line('term_of_use'));
         $data['activeMenu'] = "";
         /**
          * Commons data
@@ -217,7 +217,7 @@ class Home extends MY_Controller {
          */
 
 
-        $data = $this->commonDataCustomer('Privacy Policy');
+        $data = $this->commonDataCustomer($this->lang->line('privacy_policy'));
         $data['activeMenu'] = "";
         /**
          * Commons data
@@ -226,6 +226,6 @@ class Home extends MY_Controller {
         $data['content'] = $this->Mconfigs->getConfigValueByLang('PRIVACY_POLICY', $data['language_id']);
         
 
-        $this->load->view('frontend/home/term', $data);
+        $this->load->view('frontend/home/privacy', $data);
     }
 }
