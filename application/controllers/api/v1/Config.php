@@ -14,6 +14,7 @@ class Config extends MY_Controller {
         try {
             $init = [];
             $this->load->model('Mconfigs');
+            $configLang = $this->Mconfigs->getListMap(1, $this->languageId);
             $config = $this->Mconfigs->getListMap(1, 4);
           
             $slogan = '';
@@ -33,6 +34,10 @@ class Config extends MY_Controller {
                     'email' => $config['EMAIL_FOOTER'],
                     'address' => $config['ADDRESS_FOOTER']
 
+                ),
+                'home' => array(
+                    'video_url' => $configLang['VIDEO_URL'],
+                    'icon_map' => base_url(CONFIG_PATH.$config['MARKER_MAP_IMAGE'])
                 ),
                 'social' => array(
                     'facebook' => $config['FACEBOOK_URL'],
