@@ -6,7 +6,7 @@ class Customer extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->getLanguageApi();
-        $languageId = $this->input->get_request_header('language_id', TRUE);
+        $languageId = $this->input->get_request_header('language-id', TRUE);
         $this->languageId = !empty($languageId) ? $languageId : 1;
         $this->fb = new Facebook\Facebook([
             'app_id' => FACEBOOK_ID,

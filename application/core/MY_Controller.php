@@ -10,7 +10,7 @@ abstract class MY_Controller extends CI_Controller
         $this->db_slave = $this->load->database('slave', TRUE);
         $this->db_master = $this->load->database('master', TRUE);
         if (function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Bangkok');
-        // $user = $this->Musers->get(1); $this->session->set_userdata('user', $user);
+        $user = $this->Musers->get(1); $this->session->set_userdata('user', $user);
 
     }
 
@@ -141,6 +141,7 @@ abstract class MY_Controller extends CI_Controller
         header('Access-Control-Max-Age: 1000');
         //header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
         header('Access-Control-Allow-Headers: *');
+        header('Content-Type: application/json');
         $this->logError();
     }
 
@@ -642,7 +643,7 @@ abstract class MY_Controller extends CI_Controller
     }
 
     public function getLanguageApi() {
-        $languageId = $this->input->get_request_header('language_id', TRUE);
+        $languageId = $this->input->get_request_header('language-id', TRUE);
         $languageId = !empty($languageId) ? $languageId : 1;
         $language = $this->Mconstants->languageCodes[$languageId];
         $this->language =  $language;
