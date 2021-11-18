@@ -18,10 +18,10 @@ class Config extends MY_Controller {
             $config = $this->Mconfigs->getListMap(1, 4);
           
             $slogan = '';
-            if($this->languageId == 1) $slogan = $config['HOME_BANNER_TEXT'];
-            else if($this->languageId == 2) $slogan = $config['HOME_BANNER_TEXT_CZ'];
-            else if($this->languageId == 3) $slogan = $config['HOME_BANNER_TEXT_DE'];
-            else if($this->languageId == 4) $slogan = $config['HOME_BANNER_TEXT_VI'];
+            if($this->languageId == 1) $slogan = $configLang['HOME_BANNER_TEXT'];
+            else if($this->languageId == 2) $slogan = $configLang['HOME_BANNER_TEXT_CZ'];
+            else if($this->languageId == 3) $slogan = $configLang['HOME_BANNER_TEXT_DE'];
+            else if($this->languageId == 4) $slogan = $configLang['HOME_BANNER_TEXT_VI'];
 
             $init = array(
                 'header' => array(
@@ -46,8 +46,8 @@ class Config extends MY_Controller {
                     'twitter' => $config['TWITTER_URL'],
                     'pinterest' => $config['PINTEREST_URL']
                 ),
-                'term_of_use' => "https://adbazar.eu/term-of-use.html",
-                'privacy_policy' => "https://adbazar.eu/privacy-policy.html"
+                'term_of_use' => base_url("term-of-use.html"),
+                'privacy_policy' => base_url("privacy-policy.html")
             );
             $this->success200($init);
         } catch (\Throwable $th) {
