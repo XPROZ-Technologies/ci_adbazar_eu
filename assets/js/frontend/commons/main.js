@@ -665,15 +665,34 @@ $(window).scroll(function(event) {
   }
 });
 */
+var windowsize = $(window).width();
 
-$('.input-eye').mousedown(function(event){
-  event.stopPropagation();
-    $(this).prev('input').attr('type', 'text');
+$(window).resize(function() {
+  var windowsize = $(window).width();
 });
-$('.input-eye').mouseup(function(event){
-  event.stopPropagation();
-    $(this).prev('input').attr('type', 'password');
-});
+
+if (windowsize < 768) {
+  $('.input-eye').click(function(event){
+    event.stopPropagation();
+    var passtype = $(this).prev('input').attr('type');
+    if(passtype == 'password') {
+      $(this).prev('input').attr('type', 'text');
+    }else if(passtype == 'text'){
+      $(this).prev('input').attr('type', 'password');
+    }
+  });
+}else{
+  $('.input-eye').mousedown(function(event){
+    event.stopPropagation();
+      $(this).prev('input').attr('type', 'text');
+  });
+  $('.input-eye').mouseup(function(event){
+    event.stopPropagation();
+      $(this).prev('input').attr('type', 'password');
+  });
+}
+
+
 $(document).on('keyup', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
   event.stopPropagation();
   var password = $(this).val();
