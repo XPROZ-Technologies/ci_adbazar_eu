@@ -726,11 +726,16 @@ abstract class MY_Controller extends CI_Controller
     }
 
     protected function success200($datas, $message = 'Return data') {
-        echo json_encode(array(
+        $data = array(
             'code' => 200,
             'message' => $message,
             'data' => $datas
-        ));
+        );
+        if(empty($datas)) $data = array(
+            'code' => 200,
+            'message' => $message
+        );
+        echo json_encode($data);
     }
 
     protected function error204($text = 'Danh sách rỗng') {

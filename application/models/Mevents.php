@@ -94,6 +94,7 @@ class Mevents extends MY_Model {
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {
+        if(empty($postData['order_by'])) $postData['order_by'] = 'ASC';
         $query = "SELECT
                     `events`.id,
                     `events`.event_subject,
@@ -113,7 +114,7 @@ class Mevents extends MY_Model {
                 GROUP BY
                     `events`.business_profile_id 
                 ORDER BY
-                    `events`.`start_date`, TIME_FORMAT(`events`.start_time, '%H:%i') ASC";
+                    `events`.`start_date`, TIME_FORMAT(`events`.start_time, '%H:%i') ".$postData['order_by'];
         
         if($perPage > 0) {
             $from = ($page-1) * $perPage;

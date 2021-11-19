@@ -463,4 +463,140 @@ class Customer extends MY_Controller {
             $this->error500();
         }
     }
+
+    public function update_profile() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('customer_first_name', 'customer_last_name', 'customer_avatar', 'customer_birthday', 'customer_gender_id', 'customer_phone', 'customer_phone_code', 'customer_occupation', 'customer_address'));
+            $this->checkValidateCustomerProfile($postData);
+            if(isset($_FILES['File']) && !empty($_FILES['File'])){
+                $file = $_FILES['File'];
+                if ($file['error'] > 0) {
+                    $this->error204('Avatar update failed');
+                    die;
+                } else {
+                    $names = explode('.', $file['name']);
+                    $fileExt = strtolower($names[count($names) - 1]);
+                    if(in_array($fileExt, array('jpeg', 'jpg', 'png', 'bmp', 'svg'))) {
+                        $dir = BUSINESS_PROFILE_PATH . date('Y-m-d') . '/';
+                        @mkdir($dir, 0777, true);
+                        @system("/bin/chown -R nginx:nginx " . $dir);
+                        $filePath = $dir . uniqid() . '.' . $fileExt;
+                        $flag = move_uploaded_file($file['tmp_name'], $filePath);
+                        if ($flag) {
+                            $photo = replaceFileUrl($filePath, CUSTOMER_PATH);
+                            $postData['customer_avatar'] = $photo;
+                        } else {
+                            $this->error204('Avatar update failed');
+                            die;
+                        }
+                    } else {
+                        $this->error204('The image is not in the correct format: jpeg, jpg, png, bmp, svg');
+                        die;
+                    }
+                }
+            }
+            $this->loadModel(array('Mcustomers'));
+            $checkExit = $this->Mcustomers->get($customer['customer_id']);
+            if($checkExit && $checkExit['customer_status_id'] == STATUS_ACTIVED) {
+                $postData['customer_birthday'] = ddMMyyyy($postData['customer_birthday'], 'Y-m-d');
+                $postData['updated_at'] = getCurentDateTime();
+                $postData['updated_by'] = 0;
+                $postData['language_id'] = $this->languageId;
+
+                $flag = $this->Mcustomers->save($postData, $customer['customer_id']);
+                $postData['customer_email'] = $checkExit['customer_email'];
+                $postData['customer_birthday'] = ddMMyyyy($postData['customer_birthday'], 'Y/m/d');
+                $postData['id'] = $flag;
+                $postData['customer_avatar'] = !empty($postData['customer_avatar']) ? base_url(CUSTOMER_PATH.$postData['customer_avatar']) : '';
+                if($flag) {
+                    $this->success200($postData, 'Successfully updated account information');
+                    die;
+                } else {
+                    $this->error204('Invalid account information update');
+                    die;
+                }
+            } else {
+                $this->error204('Invalid account information update');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    private function checkValidateCustomerProfile($postData) {
+        if(empty($postData['customer_first_name'])) {
+            $this->error204('Please enter the first name');
+            die;
+        }
+        if(empty($postData['customer_last_name'])) {
+            $this->error204('Please enter the last name');
+            die;
+        }
+        if(empty($postData['customer_birthday'])) {
+            $this->error204('Please enter your date of birth');
+            die;
+        }
+        if(empty($postData['customer_gender_id']) && $postData['customer_gender_id'] < 0 && $postData['customer_gender_id'] > 4) {
+            $this->error204('Please enter gender');
+            die;
+        }
+        if(empty($postData['customer_phone'])) {
+            $this->error204('Please enter your date of birth');
+            die;
+        }
+        if(!preg_match("/^[0-9]{10}+$/", $postData['customer_phone'])) {
+            $this->error204('Invalid phone number');
+            die;
+        }
+        if(empty($postData['customer_phone_code'])) {
+            $this->error204('Please enter phone code');
+            die;
+        }
+        if(empty($postData['customer_occupation'])) {
+            $this->error204('Please enter occupation');
+            die;
+        }
+        if(empty($postData['customer_address'])) {
+            $this->error204('Please enter address');
+            die;
+        }
+    }
+
+    public function update_password() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('current_password', 'customer_password', 'confirm_password'));
+            
+            $this->loadModel(array('Mcustomers'));
+            $checkExit = $this->Mcustomers->get($customer['customer_id']);
+            if(!$checkExit) {
+                $this->error204('Accounts doesn’t doing');
+                die;
+            }
+            if(md5($postData['current_password']) != $checkExit['customer_password']) {
+                $this->error204('Current password is incorrect');
+                die;
+            }
+            $this->validatePassWord($postData);
+            $data['customer_password'] = md5($postData['customer_password']);
+            $data['updated_at'] = getCurentDateTime();
+            $data['updated_by'] = 0;
+            $data['language_id'] = $this->languageId;
+
+            $flag = $this->Mcustomers->save($data, $customer['customer_id']);
+            if($flag) {
+                $this->success200('', 'Password update successful');
+                die;
+            } else {
+                $this->error204('Invalid account information update');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
 }

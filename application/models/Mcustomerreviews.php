@@ -57,7 +57,7 @@ class Mcustomerreviews extends MY_Model {
 
         // xử lý điều kiện search cho api
         if(isset($postData['api']) && $postData['api'] == true) {
-            if(isset($postData['search_text_fe']) && !empty($postData['search_text_fe'])) $query .=" AND ( `business_name` LIKE '%{$postData['search_text_fe']}%' OR `business_description` LIKE '%{$postData['search_text_fe']}%')";
+            if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `business_name` LIKE '%{$postData['search_text']}%' OR `business_description` LIKE '%{$postData['search_text']}%')";
             if(isset($postData['business_id']) && $postData['business_id'] > 0) $query .=" AND `business_id` = ".$postData['business_id'];
             if(isset($postData['review_star']) && $postData['review_star'] > 0) $query .=" AND `review_star` = ".$postData['review_star'];
             if(isset($postData['is_image']) && $postData['is_image'] > 0) $query .=" AND `is_image` = ".$postData['is_image'];
