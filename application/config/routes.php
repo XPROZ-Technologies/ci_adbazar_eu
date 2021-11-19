@@ -135,6 +135,7 @@ $route['sys-admin/event/change-status'] = 'backend/event/changeStatus';
 $route['sys-admin/config/term-of-use'] = 'backend/config/termOfUse';
 $route['sys-admin/config/policy'] = 'backend/config/policy';
 $route['sys-admin/config/video'] = 'backend/config/video';
+$route['sys-admin/config/event'] = 'backend/config/event';
 
 /**
  * FRONT-END ROUTES

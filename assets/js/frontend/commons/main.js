@@ -665,6 +665,7 @@ $(window).scroll(function(event) {
   }
 });
 */
+var windowsize = $(window).width();
 
 var windowsize = $(window).width();
 
@@ -692,6 +693,7 @@ if (windowsize < 768) {
       $(this).prev('input').attr('type', 'password');
   });
 }
+
 
 $(document).on('keyup', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
   event.stopPropagation();

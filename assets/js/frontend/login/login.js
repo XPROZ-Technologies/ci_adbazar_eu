@@ -135,8 +135,14 @@ function onLoad() {
   }
 
 function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    loginGG_FB(profile.rT, profile.XS, profile.GU, profile.St, 2)
+    var auth2 = gapi.auth2.getAuthInstance();
+    var profile = auth2.currentUser.get().getBasicProfile();
+    var email = profile.getEmail();
+    var id = profile.getId();
+    var customer_first_name = profile.getFamilyName();
+    var customer_last_name = profile.getGivenName();
+    // console.log(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token)
+    loginGG_FB(id, customer_first_name, customer_last_name, email, 2)
     return false;
 }
 

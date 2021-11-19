@@ -124,4 +124,67 @@ class Mservices extends MY_Model {
         $query = "SELECT * FROM services WHERE service_status_id = 2  ".$where." LIMIT 200";
         return $this->getByQuery($query);
     }
+
+    public function getListHome($customerId = 0, $langCode = '_vi') {
+        $select = "services.id, services.service_name".$this->langCode." as service_name, services.service_image";
+        $where = '';
+        if($customerId > 0) $where = " AND services.id NOT IN (SELECT service_id FROM business_profiles WHERE business_status_id = 2 AND customer_id = ".$customerId.")";
+        $query = "SELECT ".$select." 
+                    FROM services 
+                    WHERE services.service_status_id = ? ".$where."
+                ";
+        return $this->getByQuery($query, array(STATUS_ACTIVED));
+    }
+
+    public function getListInApi($customerId = 0, $langCode = '_vi') {
+        $select = "services.id, services.service_name".$this->langCode." as service_name, services.service_image";
+        $where = '';
+        if($customerId > 0) $where = " AND services.id NOT IN (SELECT service_id FROM business_profiles WHERE business_status_id = 2 AND customer_id = ".$customerId.")";
+        $query = "SELECT ".$select." 
+                    FROM services 
+                    WHERE services.service_status_id = ? ".$where."
+                ";
+        return $this->getByQuery($query, array(STATUS_ACTIVED));
+    }
+
+    public function getServiceTypeInService($businessProfileId = 0, $serviceId = 0, $serviceTypeId = [], $langCode = '_vi') {
+        if($serviceId > 0 && $businessProfileId > 0) {
+            $where = ' AND business_profiles.id = '.$businessProfileId;
+            if(count($serviceTypeId) > 0) {
+                $serviceTypeIds = join(",",$serviceTypeId);
+                $where = ' AND service_types.id IN ('.$serviceTypeIds.')';
+            }
+            $query = "SELECT
+                service_types.id,
+                service_types.service_type_name".$langCode." as service_type_name,
+                services.service_name".$langCode." as service_name
+            FROM
+                service_types 
+            LEFT JOIN services ON services.id = service_types.service_id
+            LEFT JOIN business_profiles ON business_profiles.service_id = service_types.service_id
+            WHERE
+                service_types.status_id = ? AND business_profiles.id > 0 AND service_types.service_id = ? ".$where;
+            $datas = $this->getByQuery($query, array(STATUS_ACTIVED,$serviceId));
+
+            $serviceTypeNames = '';
+            $serviceName = '';
+            $serviceType = [];
+            foreach($datas as $data) {
+                $serviceTypeNames .= $data['service_type_name'].', ';
+                $serviceName = $data['service_name'];
+                $serviceType[] = array(
+                    'id' => $data['id'],
+                    'service_type_name' => $data['service_type_name']
+                );
+
+            } 
+            return array(
+                'serviceTypeNames' => rtrim($serviceTypeNames, ', '),
+                'serviceName' => $serviceName,
+                'serviceType' => $serviceType
+            );
+
+        } else return '';
+        
+    }
 }

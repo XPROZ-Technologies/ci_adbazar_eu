@@ -10,7 +10,7 @@ abstract class MY_Controller extends CI_Controller
         $this->db_slave = $this->load->database('slave', TRUE);
         $this->db_master = $this->load->database('master', TRUE);
         if (function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Bangkok');
-        // $user = $this->Musers->get(1); $this->session->set_userdata('user', $user);
+        $user = $this->Musers->get(1); $this->session->set_userdata('user', $user);
 
     }
 
@@ -141,28 +141,8 @@ abstract class MY_Controller extends CI_Controller
         header('Access-Control-Max-Age: 1000');
         //header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
         header('Access-Control-Allow-Headers: *');
+        header('Content-Type: application/json');
         $this->logError();
-    }
-
-    protected function arrayFromPostRawJson($fields)
-    {
-        $data = json_decode(file_get_contents('php://input'), true);
-        $outPut = array();
-        $outPutFalse = '';
-
-        foreach ($fields as $field) {
-            if (isset($data[$field])) {
-                $outPut[$field] = ($data[$field]);
-            } else {
-                $outPutFalse .= $field.", ";
-                // $outPut[$field] = null;
-            }
-        }
-        if(!empty($outPutFalse)) {
-            $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
-            die;
-        }
-        else return $outPut;
     }
 
     protected function logError()
@@ -280,19 +260,6 @@ abstract class MY_Controller extends CI_Controller
     {
         $this->load->helper('cookie');
         $language = $this->input->cookie('customer') ? json_decode($this->input->cookie('customer', true), true)["language_name"] : config_item('language');
-        $this->language =  $language;
-        $this->lang->load('login', $this->language);
-        $this->lang->load('customer', $this->language);
-        $this->lang->load('business_profile', $this->language);
-        $this->lang->load('business_management', $this->language);
-        $this->lang->load('user_account_management', $this->language);
-    }
-
-    public function getLanguageApi()
-    {
-        $languageId = $this->input->get_request_header('language_id', TRUE);
-        $languageId = !empty($languageId) ? $languageId : 1;
-        $language = $this->Mconstants->languageCodes[$languageId];
         $this->language =  $language;
         $this->lang->load('login', $this->language);
         $this->lang->load('customer', $this->language);
@@ -651,6 +618,83 @@ abstract class MY_Controller extends CI_Controller
         curl_close($curl);
         $result = json_decode($response2);
         return $result;
+    }
+
+    //========================================api==========================//
+
+    protected function arrayFromPostRawJson($fields) {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $outPut = array();
+        $outPutFalse = '';
+
+        foreach ($fields as $field) {
+            if (isset($data[$field])) {
+                $outPut[$field] = ($data[$field]);
+            } else {
+                $outPutFalse .= $field.", ";
+                // $outPut[$field] = null;
+            }
+        }
+        if(!empty($outPutFalse)) {
+            $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
+            die;
+        }
+        else return $outPut;
+    }
+
+    public function getLanguageApi() {
+        $languageId = $this->input->get_request_header('language-id', TRUE);
+        $languageId = !empty($languageId) ? $languageId : 1;
+        $language = $this->Mconstants->languageCodes[$languageId];
+        $this->language =  $language;
+        $this->lang->load('login', $this->language);
+        $this->lang->load('customer', $this->language);
+        $this->lang->load('business_profile', $this->language);
+        $this->lang->load('business_management', $this->language);
+        $this->lang->load('user_account_management', $this->language);
+    }
+
+    protected function apiCheckLogin($flag = false) {
+        $token = $this->getAuthorizationHeader();
+        // $token = $this->input->get_request_header('X-Auth-Token', TRUE);
+        if(!empty($token)) {
+            $this->load->model('Mcustomers');
+            $id = $this->Mcustomers->getFieldValue(array('token' => $token, 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
+            if($id == 0) {
+                $this->error401('Client account does not exist.');
+                die;
+            }
+            return ['customer_id' => $id];
+        } else {
+            if($flag == false) {
+                $this->error401('You do not have permission to view this content, please login');
+                die;
+            } else return ['customer_id' => 0];
+            
+        }
+    }
+
+    protected function getAuthorizationHeader(){
+        $headers = null;
+        if (isset($_SERVER['Authorization'])) {
+            $headers = trim($_SERVER["Authorization"]);
+        }
+        else if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            $headers = trim($_SERVER["HTTP_AUTHORIZATION"]);
+        } elseif (function_exists('apache_request_headers')) {
+            $requestHeaders = apache_request_headers();
+            $requestHeaders = array_combine(array_map('ucwords', array_keys($requestHeaders)), array_values($requestHeaders));
+            if (isset($requestHeaders['Authorization'])) {
+                $headers = trim($requestHeaders['Authorization']);
+            }
+        }
+        $token = '';
+        if (!empty($headers)) {
+            if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+                $token = $matches[1];
+            }
+        }
+        return $token;
     }
 
     protected function error500($text = 'Có lỗi xảy ra, vui lòng thử lại') {

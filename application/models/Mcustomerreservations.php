@@ -51,6 +51,44 @@ class Mcustomerreservations extends MY_Model {
         if(isset($postData['time_arrived']) && !empty($postData['time_arrived']))  $query.=" AND time_arrived = '".$postData['time_arrived']."'";
         if(isset($postData['date_arrived']) && !empty($postData['date_arrived']))  $query.=" AND date_arrived = '".$postData['date_arrived']."'";
 
+        if(isset($postData['api']) && $postData['api'] == 'api') {
+            if(isset($postData['business_id']) && $postData['business_id'] > 0)  $query.=" AND business_profile_id = ".$postData['business_id'];
+            if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `book_code` LIKE '%{$postData['search_text']}%' OR `book_name` LIKE '%{$postData['search_text']}%' OR `book_phone` LIKE '%{$postData['search_text']}%')";
+        }
+        
+
+        return $query;
+    }
+
+    public function getCountApi($postData){
+        $query = "book_status_id > 0" . $this->buildQueryApi($postData);
+        return $this->countRows($query);
+    }
+
+    public function searchApi($postData, $perPage = 0, $page = 1){
+        $query = "SELECT * FROM customer_reservations WHERE book_status_id > 0" . $this->buildQueryApi($postData);
+
+        if(isset($postData['order_by'])){
+            $query .= " ORDER BY created_at ".$postData['order_by'];
+        }else{
+            $query .= " ORDER BY created_at DESC";
+        }
+
+        if($perPage > 0) {
+            $from = ($page-1) * $perPage;
+            $query .= " LIMIT {$from}, {$perPage}";
+        }
+        return $this->getByQuery($query);
+    }
+
+    private function buildQueryApi($postData){
+        $query = '';
+
+        if(isset($postData['api']) && $postData['api'] == 'api') {
+            if(isset($postData['business_id']) && $postData['business_id'] > 0)  $query.=" AND business_profile_id = ".$postData['business_id'];
+            if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `book_code` LIKE '%{$postData['search_text']}%' OR `book_name` LIKE '%{$postData['search_text']}%' OR `book_phone` LIKE '%{$postData['search_text']}%')";
+            if(isset($postData['book_status_id']) && $postData['book_status_id'] != '') $query.=" AND book_status_id = ".$postData['book_status_id'];
+        }
         return $query;
     }
 }
