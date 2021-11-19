@@ -101,12 +101,14 @@ class Customer extends MY_Controller
                     redirect(base_url('signup.html?2'));
                 } else {
                     $customerPass = $postData['customer_password'];
-                    $postData['customer_status_id'] = STATUS_ACTIVED;
+                    $postData['customer_status_id'] = STATUS_WAITING_ACTIVE;
                     $postData['free_trial'] = STATUS_FREE_TRIAL;
                     $postData['customer_password'] = !empty($customerPass) ? md5($customerPass) : md5('123456');
                     $postData['created_by'] = 0;
                     $postData['login_type_id'] = 0;
                     $postData['created_at'] = getCurentDateTime();
+                    $token_active = guidV4('acctive-email'.time());
+                    $postData['token_reset'] = $token_active;
 
                     $customerId = $this->Mcustomers->update($postData);
                     if ($customerId > 0) {
@@ -117,9 +119,10 @@ class Customer extends MY_Controller
                         $dataEmail = array(
                             'name' => $postData['customer_email'],
                             'email_to' => $postData['customer_email'],
-                            'email_to_name' => $postData['customer_email']
+                            'email_to_name' => $postData['customer_email'],
+                            'token' => $token_active
                         );
-                        $emailResult = $this->Memailqueue->createEmail($dataEmail, 1);
+                        $emailResult = $this->Memailqueue->createEmail($dataEmail, 99);
                         /**
                          * END. Save Email
                          */
@@ -927,5 +930,39 @@ class Customer extends MY_Controller
         }
 
         $this->load->view('frontend/customer/um-reservation', $data);
+    }
+
+    public function verifyEmail() {
+        try {
+            $token = $this->input->get('token');
+            if(empty($postData['token'])) {
+                $this->session->set_flashdata('notice_message', 'Token cannot be empty');
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url('login.html'));
+            }
+            $this->load->model('Mcustomers');
+            $customer = $this->Mcustomers->getBy(array('token_reset' => $token, 'customer_status_id' => STATUS_WAITING_ACTIVE));
+            if($customer) {
+                $customer = $customer[0];
+                $flag = $this->Mcustomers->save(['token_reset' => '', 'customer_status_id' => STATUS_ACTIVED, 'updated_at' => getCurentDateTime()], $customer['id']);
+                if($flag) {
+                    $this->session->set_flashdata('notice_message', 'Account activation successfully');
+                    $this->session->set_flashdata('notice_type', 'success');
+                    redirect(base_url('login.html'));
+                } else {
+                    $this->session->set_flashdata('notice_message', 'Account activation failed');
+                    $this->session->set_flashdata('notice_type', 'error');
+                    redirect(base_url('login.html'));
+                }
+            } else {
+                $this->session->set_flashdata('notice_message', 'Token does not exist or account has been activated');
+                $this->session->set_flashdata('notice_type', 'error');
+                redirect(base_url('login.html'));
+            }
+        } catch (\Throwable $th) {
+            $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
+            $this->session->set_flashdata('notice_type', 'error');
+            redirect(base_url('login.html'));
+        }
     }
 }

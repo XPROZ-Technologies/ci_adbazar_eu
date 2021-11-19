@@ -156,6 +156,7 @@ $route['customer-change-password'] = 'frontend/customer/customerChangePassword';
 $route['customer-update-information'] = 'frontend/customer/customerUpdateInformation';
 $route['forgot-password'] = 'frontend/customer/forgotPassword';
 $route['submit-change-password'] = 'frontend/customer/submitChangePassword';
+$route['customer/verify-email'] = 'frontend/customer/verifyEmail';
 
 //user management
 $route['customer/my-coupons'] = 'frontend/customer/my_coupons';
