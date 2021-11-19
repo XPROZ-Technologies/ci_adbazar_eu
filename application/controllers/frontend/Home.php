@@ -175,9 +175,11 @@ class Home extends MY_Controller {
 
         $data['about']['img_banner'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_IMAGE_BANNER', $data['language_id']);
         $data['about']['child_text_1'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_TEXT_1', $data['language_id']);
-        $data['about']['child_img_1'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_1', $data['language_id']);
+        $child_img_1 = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_1', $data['language_id']);
+        $data['about']['child_img_1'] =  (!empty($child_img_1)) ? CONFIG_PATH . $child_img_1 : "";
         $data['about']['child_text_2'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_TEXT_2', $data['language_id']);
-        $data['about']['child_img_2'] = CONFIG_PATH . $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_2', $data['language_id']);
+        $child_img_2 = $this->Mconfigs->getConfigValueByLang('ABOUT_US_CHILD_IMAGE_2', $data['language_id']);
+        $data['about']['child_img_2'] =  (!empty($child_img_2)) ? CONFIG_PATH . $child_img_2 : "";
         $data['about']['about_text_bottom'] = $this->Mconfigs->getConfigValueByLang('ABOUT_US_TEXT', $data['language_id']);
 
         // echo "<pre>";
@@ -196,7 +198,7 @@ class Home extends MY_Controller {
          */
 
 
-        $data = $this->commonDataCustomer('Term of Use');
+        $data = $this->commonDataCustomer($this->lang->line('term_of_use'));
         $data['activeMenu'] = "";
         /**
          * Commons data
@@ -215,7 +217,7 @@ class Home extends MY_Controller {
          */
 
 
-        $data = $this->commonDataCustomer('Privacy Policy');
+        $data = $this->commonDataCustomer($this->lang->line('privacy_policy'));
         $data['activeMenu'] = "";
         /**
          * Commons data
@@ -224,6 +226,6 @@ class Home extends MY_Controller {
         $data['content'] = $this->Mconfigs->getConfigValueByLang('PRIVACY_POLICY', $data['language_id']);
         
 
-        $this->load->view('frontend/home/term', $data);
+        $this->load->view('frontend/home/privacy', $data);
     }
 }

@@ -667,6 +667,8 @@ $(window).scroll(function(event) {
 */
 var windowsize = $(window).width();
 
+var windowsize = $(window).width();
+
 $(window).resize(function() {
   var windowsize = $(window).width();
 });
