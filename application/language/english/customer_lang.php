@@ -108,3 +108,7 @@ $lang['221121_subscription_not_exist'] = 'Subscription does not exist';
 $lang['221121_plan_not_exist'] = 'Plan does not exist';
 $lang['22112021_login_failed'] = 'Login failed';
 $lang['22112021_login_successful'] = 'Login successful';
+
+$lang['22112021_account_activation_failed'] = 'Account activation failed';
+$lang['22112021_account_activation_successfully'] = 'Account activation successfully';
+$lang['22112021_token_expired_or_account_has_been_activated'] = 'Token expired or account has been activated';

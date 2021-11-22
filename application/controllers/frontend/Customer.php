@@ -936,7 +936,7 @@ class Customer extends MY_Controller
         try {
             $token = $this->input->get('token');
             if(empty($postData['token'])) {
-                $this->session->set_flashdata('notice_message', 'Account activation failed');
+                $this->session->set_flashdata('notice_message', $this->lang->line('22112021_account_activation_failed'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('login.html'));
             }
@@ -946,16 +946,16 @@ class Customer extends MY_Controller
                 $customer = $customer[0];
                 $flag = $this->Mcustomers->save(['token_reset' => '', 'customer_status_id' => STATUS_ACTIVED, 'updated_at' => getCurentDateTime()], $customer['id']);
                 if($flag) {
-                    $this->session->set_flashdata('notice_message', 'Account activation successfully');
+                    $this->session->set_flashdata('notice_message', $this->lang->line('22112021_account_activation_successfully'));
                     $this->session->set_flashdata('notice_type', 'success');
                     redirect(base_url('login.html'));
                 } else {
-                    $this->session->set_flashdata('notice_message', 'Account activation failed');
+                    $this->session->set_flashdata('notice_message', $this->lang->line('22112021_account_activation_failed'));
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('login.html'));
                 }
             } else {
-                $this->session->set_flashdata('notice_message', 'Token does not exist or account has been activated');
+                $this->session->set_flashdata('notice_message', $this->lang->line('22112021_token_expired_or_account_has_been_activated'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('login.html'));
             }

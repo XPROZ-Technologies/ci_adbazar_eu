@@ -109,3 +109,7 @@ $lang['221121_subscription_not_exist'] = 'Předplatné neexistuje'; // cz
 $lang['221121_plan_not_exist'] = 'Plán neexistuje'; // cz
 $lang['22112021_login_failed'] = 'Přihlásit se nezdařila';
 $lang['22112021_login_successful'] = 'Přihlásit se úspěšné';
+
+$lang['22112021_account_activation_failed'] = 'Aktivace účtu se nezdařila';
+$lang['22112021_account_activation_successfully'] = 'Aktivace účtu proběhla úspěšně';
+$lang['22112021_token_expired_or_account_has_been_activated'] = 'Platnost tokenu vypršela nebo byl účet aktivován';

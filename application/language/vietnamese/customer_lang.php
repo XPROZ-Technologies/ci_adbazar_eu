@@ -108,3 +108,7 @@ $lang['221121_subscription_not_exist'] = 'Đăng ký không tồn tại'; //vi
 $lang['221121_plan_not_exist'] = 'Gói không tồn tại';
 $lang['22112021_login_failed'] = 'Đăng nhập thất bại';
 $lang['22112021_login_successful'] = 'Đăng nhập thành công';
+
+$lang['22112021_account_activation_failed'] = 'Kích hoạt tài khoản thất bại';
+$lang['22112021_account_activation_successfully'] = 'Kích hoạt tài khoản thành công';
+$lang['22112021_token_expired_or_account_has_been_activated'] = 'Token đã hết hạn hoặc tài khoản đã được kích hoạt';
