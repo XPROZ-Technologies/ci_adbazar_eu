@@ -268,4 +268,4 @@ $lang["please-enter-your-contact-info1635566199"] = "Zadejte prosím své kontak
 $lang["business-suspended-reservation1635566199"] = "Obchodní pozastavené rezervace";
 $lang["there-is-no-time-period1635566199"] = "Neexistuje žádné časové období";
 $lang['invalid'] = "Neplatná";
-
+$lang["22112021_successful1"] = "aktualizace";

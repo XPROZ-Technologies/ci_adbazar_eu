@@ -1628,7 +1628,7 @@ class Businessprofile extends MY_Controller
                     //remove subscription_id in business
                     $businessId = $this->Mbusinessprofiles->save(array('subscription_id' => '', 'token' => '', 'ba_token' => '', 'token_draft' => ''), $businessId);
                     
-                    echo json_encode(array('code' => 1, 'message' => 'Cancel subscription sucessfully', 'data' => $result));die;
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('cancel_subscription').' '.$this->lang->line('22112021_successful1'), 'data' => $result));die;
                 }else{
                     echo json_encode(array('code' => -1, 'message' => $this->lang->line('221121_subscription_not_exist')));die;
                 }
