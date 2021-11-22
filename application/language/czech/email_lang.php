@@ -27,3 +27,22 @@ $lang['email_this_email_serves_to_join_the_event'] = "This email serves as a not
 $lang['email_you_can_check_the_event_details'] = "You can check the event details by clicking the button below.";
 $lang['email_looking_forward_to_seeing_you.'] = "Looking forward to seeing you. ";
 $lang['email_see_event_details'] = "See Event Details";
+$lang['21222021_no_coupons'] = "Ne poukázky";
+
+
+// Email title
+
+$lang['22112021_email_your_event_has_been_cancelled'] = 'Vaše událost byla zrušena';
+$lang['22112021_email_your_event_has_been_updated'] = 'Vaše událost byla aktualizována';
+$lang['22112021_email_event_reminder'] = 'Přípomínka události';
+$lang['22112021_email_you_have_successfully_registered_to_join_the_event'] = 'Uspěšně jste se zaregistroval do události';
+
+$lang['22112021_email_your_reservation_has_been_declined'] = 'Vaše rezervace byla zamítnuta';
+
+
+$lang['22112021_email_your_free_trial_has_expired'] = 'Vaše bezplatná zkušební verze skončila';
+$lang['22112021_email_your subscription_for_business_will_expire_soon'] = 'Vaše předplatné pro <BUSINESS_NAME> brzy skončí';
+$lang['22112021_email_your_subscription_for_business_has_expire'] = 'Vaše předplatné pro <BUSINESS_NAME> skončilo';
+$lang['22112021_email_your_subscription_for_business_was_successful'] = 'Vaše předplatné pro <BUSINESS_NAME> bylo uspěšné';
+$lang['22112021_email_account_registration_confirmation'] = 'Potvrzení registrace';
+$lang['22112021_email_password_assistance'] = 'Pomoc s heslem';

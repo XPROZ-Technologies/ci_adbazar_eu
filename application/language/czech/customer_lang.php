@@ -100,3 +100,16 @@ $lang["1310_results"] = "Výsledky";
 $lang["1310_oldest"] = "Nejstarší";
 $lang["1310_newest"] = "Nejnovější";
 $lang["1310_of"] = "z";
+
+$lang['221121_email_already_exist'] = "Email already exist";
+$lang['221121_please_enter_your_email'] = "Zadejte prosím svůj email";
+$lang['221121_register_failed_please_try_again'] = "Registrace se nezdařila, zkuste to znovu!";
+$lang['221121_subscription_not_exist'] = 'Předplatné neexistuje'; // cz
+
+$lang['221121_plan_not_exist'] = 'Plán neexistuje'; // cz
+$lang['22112021_login_failed'] = 'Přihlásit se nezdařila';
+$lang['22112021_login_successful'] = 'Přihlásit se úspěšné';
+
+$lang['22112021_account_activation_failed'] = 'Aktivace účtu se nezdařila';
+$lang['22112021_account_activation_successfully'] = 'Aktivace účtu proběhla úspěšně';
+$lang['22112021_token_expired_or_account_has_been_activated'] = 'Platnost tokenu vypršela nebo byl účet aktivován';

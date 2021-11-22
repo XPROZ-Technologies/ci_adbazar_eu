@@ -269,4 +269,4 @@ $lang["please-enter-your-contact-info1635566199"] = "Vui lòng điền thông ti
 $lang["business-suspended-reservation1635566199"] = "Doanh nghiệp tạm ngừng nhận đặt chỗ";
 $lang["there-is-no-time-period1635566199"] = "Không có khoảng thời gian nào";
 $lang['invalid'] = "Không hợp lệ";
-
+$lang["22112021_successful1"] = "thành công";

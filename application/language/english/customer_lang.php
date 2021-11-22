@@ -100,3 +100,15 @@ $lang["1310_results"] = "Results";
 $lang["1310_oldest"] = "Oldest";
 $lang["1310_newest"] = "Newest";
 $lang["1310_of"] = "of"; 
+
+$lang['221121_email_already_exist'] = "Email already exists";
+$lang['221121_please_enter_your_email'] = "Please enter your email";
+$lang['221121_register_failed_please_try_again'] = 'Register failed, please try again!';
+$lang['221121_subscription_not_exist'] = 'Subscription does not exist';
+$lang['221121_plan_not_exist'] = 'Plan does not exist';
+$lang['22112021_login_failed'] = 'Login failed';
+$lang['22112021_login_successful'] = 'Login successful';
+
+$lang['22112021_account_activation_failed'] = 'Account activation failed';
+$lang['22112021_account_activation_successfully'] = 'Account activation successfully';
+$lang['22112021_token_expired_or_account_has_been_activated'] = 'Token expired or account has been activated';

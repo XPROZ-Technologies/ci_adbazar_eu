@@ -176,7 +176,7 @@
       $('#isTrial').val(isTrial||'0');
       $('#formSelectPlan').submit();
     } else {
-      $(".notiPopup .text-secondary").html("Plan does not exist");
+      $(".notiPopup .text-secondary").html('<?php echo $this->lang->line("221121_plan_not_exist"); ?>');
       $(".ico-noti-error").removeClass('ico-hidden');
       $(".notiPopup").fadeIn('slow').fadeOut(5000);
     }

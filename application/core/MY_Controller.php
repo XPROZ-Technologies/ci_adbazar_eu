@@ -266,6 +266,7 @@ abstract class MY_Controller extends CI_Controller
         $this->lang->load('business_profile', $this->language);
         $this->lang->load('business_management', $this->language);
         $this->lang->load('user_account_management', $this->language);
+        $this->lang->load('email', $this->language);
     }
 
     public function getNotificationLists($searchData = array(), $perPage = 50, $page = 0)

@@ -268,3 +268,4 @@ $lang["please-enter-your-contact-info1635566199"] = "Please enter your contact i
 $lang["business-suspended-reservation1635566199"] = "Business suspended reservations";
 $lang["there-is-no-time-period1635566199"] = "There is no time period";
 $lang['invalid'] = "Invalid";
+$lang["22112021_successful1"] = "successful";
