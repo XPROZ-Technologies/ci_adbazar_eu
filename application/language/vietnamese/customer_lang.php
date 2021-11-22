@@ -100,3 +100,9 @@ $lang["1310_results"] = "kết quả";
 $lang["1310_oldest"] = "Cũ nhất";
 $lang["1310_newest"] = "Mới nhất";
 $lang["1310_of"] = "của";
+
+$lang['221121_email_already_exist'] = "Email đã tồn tại";
+$lang['221121_please_enter_your_email'] = "Vui lòng điền email";
+$lang['221121_register_failed_please_try_again'] = 'Đăng ký thất bại, vui lòng thử lại';
+$lang['221121_subscription_not_exist'] = 'Đăng ký không tồn tại'; //vi
+$lang['221121_plan_not_exist'] = 'Gói không tồn tại';
