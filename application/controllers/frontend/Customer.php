@@ -88,7 +88,7 @@ class Customer extends MY_Controller
             if (!empty($postData['customer_email'])) {
                 $confirmPassword = $this->input->post('confirm_password');
                 if ($confirmPassword !== $postData['customer_password']) {
-                    $this->session->set_flashdata('notice_message', 'Password does not match');
+                    $this->session->set_flashdata('notice_message', $this->lang->line('passwords-does-not-match1635566199'));
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('signup.html?1'));
                 }
@@ -96,7 +96,7 @@ class Customer extends MY_Controller
                 $postData['customer_email'] = strtolower($postData['customer_email']);
                 $this->load->model('Mcustomers');
                 if ($this->Mcustomers->checkExist(0, $postData['customer_email'])) {
-                    $this->session->set_flashdata('notice_message', "Customer phone or email already exist");
+                    $this->session->set_flashdata('notice_message', $this->lang->line('221121_email_already_exist'));
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('signup.html?2'));
                 } else {
@@ -127,17 +127,17 @@ class Customer extends MY_Controller
                          * END. Save Email
                          */
                         
-                        $this->session->set_flashdata('notice_message', 'Successfully register account');
+                        $this->session->set_flashdata('notice_message', $this->lang->line('221121_please_enter_your_email'));
                         $this->session->set_flashdata('notice_type', 'success');
                         redirect(base_url('login.html'));
                     } else {
-                        $this->session->set_flashdata('notice_message', 'Register failed, please try again!');
+                        $this->session->set_flashdata('notice_message', $this->lang->line('221121_register_failed_please_try_again'));
                         $this->session->set_flashdata('notice_type', 'error');
                         redirect(base_url('signup.html?3'));
                     }
                 }
             } else {
-                $this->session->set_flashdata('notice_message', "Please enter email");
+                $this->session->set_flashdata('notice_message', $this->lang->line('221121_please_enter_your_email'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('signup.html?4'));
             }
@@ -211,7 +211,7 @@ class Customer extends MY_Controller
             if (!empty($postData['customer_password']) && !empty($postData['rePassword'])) {
                 
                 if($postData['customer_password'] != $postData['rePassword']){
-                    echo json_encode(array('code' => 0, 'message' => 'Password does not match'));die;
+                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('passwords-does-not-match1635566199')));die;
                 }
               
                 $this->load->model('Mcustomers');
@@ -936,7 +936,7 @@ class Customer extends MY_Controller
         try {
             $token = $this->input->get('token');
             if(empty($postData['token'])) {
-                $this->session->set_flashdata('notice_message', 'Token cannot be empty');
+                $this->session->set_flashdata('notice_message', 'Account activation failed');
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('login.html'));
             }

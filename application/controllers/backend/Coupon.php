@@ -92,7 +92,7 @@ class Coupon extends MY_Controller {
                     $postData['created_at'] = getCurentDateTime();
                 }
                 else {
-                    $message = 'Update successful';
+                    $message = $this->lang->line('update-successful1635566199');
                     $postData['updated_by'] = ($user) ? $user['id'] : 0;
                     $postData['updated_at'] = getCurentDateTime();
                 }

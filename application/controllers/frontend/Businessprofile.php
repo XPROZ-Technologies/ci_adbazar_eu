@@ -1630,10 +1630,10 @@ class Businessprofile extends MY_Controller
                     
                     echo json_encode(array('code' => 1, 'message' => 'Cancel subscription sucessfully', 'data' => $result));die;
                 }else{
-                    echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
+                    echo json_encode(array('code' => -1, 'message' => $this->lang->line('221121_subscription_not_exist')));die;
                 }
             } else {
-                echo json_encode(array('code' => -1, 'message' => 'You do not have permission to view this page'));die;
+                echo json_encode(array('code' => -1, 'message' => $this->lang->line('you-do-not-have-permission-on-1635566199')));die;
             } 
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
@@ -1653,12 +1653,12 @@ class Businessprofile extends MY_Controller
                     //update 1: annual/ 0: monthly
                     $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 0), $businessId);
                     
-                    echo json_encode(array('code' => 1, 'message' => 'Turn off auto renewal sucessfully', 'data' => $result));die;
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('update-successful1635566199'), 'data' => $result));die;
                 }else{
-                    echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
+                    echo json_encode(array('code' => -1, 'message' => $this->lang->line('221121_subscription_not_exist')));die;
                 }
             } else {
-                echo json_encode(array('code' => -1, 'message' => 'You do not have permission to view this page'));die;
+                echo json_encode(array('code' => -1, 'message' => $this->lang->line('you-do-not-have-permission-on-1635566199')));die;
             } 
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
@@ -1678,12 +1678,12 @@ class Businessprofile extends MY_Controller
                     //update 1: annual/ 0: monthly
                     $businessId = $this->Mbusinessprofiles->save(array('is_annual_payment' => 1), $businessId);
                     
-                    echo json_encode(array('code' => 1, 'message' => 'Turn on auto renewal sucessfully', 'data' => $result));die;
+                    echo json_encode(array('code' => 1, 'message' => $this->lang->line('update-successful1635566199'), 'data' => $result));die;
                 }else{
-                    echo json_encode(array('code' => -1, 'message' => 'Subscription not exist'));die;
+                    echo json_encode(array('code' => -1, 'message' => $this->lang->line('221121_subscription_not_exist')));die;
                 }
             } else {
-                echo json_encode(array('code' => -1, 'message' => 'You do not have permission to view this page'));die;
+                echo json_encode(array('code' => -1, 'message' => $this->lang->line('you-do-not-have-permission-on-1635566199')));die;
             } 
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));die;
@@ -1700,7 +1700,7 @@ class Businessprofile extends MY_Controller
             $expired_date = date('Y-m-d', strtotime("+3 months"));
 
             if (empty($postData['business_plan'])) {
-                $this->session->set_flashdata('notice_message', "Plan does not exist");
+                $this->session->set_flashdata('notice_message', $this->lang->line('221121_plan_not_exist'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('business-profile/select-plan?0'));
             }
@@ -1776,7 +1776,7 @@ class Businessprofile extends MY_Controller
         $data['isTrial'] = $this->input->get('isTrial');
 
         if (!in_array($data['plan'], array(1,2,3,4))) {
-            $this->session->set_flashdata('notice_message', "Plan does not exist");
+            $this->session->set_flashdata('notice_message',  $this->lang->line("221121_plan_not_exist"));
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('my-business-profile'));
         }
@@ -1810,7 +1810,7 @@ class Businessprofile extends MY_Controller
                 $data['isTrial'] = $this->input->get('isTrial');
 
                 if (!in_array($data['plan'], array(1, 2, 3, 4))) {
-                    $this->session->set_flashdata('notice_message', "Plan does not exist");
+                    $this->session->set_flashdata('notice_message', $this->lang->line('221121_plan_not_exist'));
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('business-profile/my-business-profile'));
                 }
