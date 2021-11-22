@@ -27,7 +27,7 @@ $lang['email_this_email_serves_to_join_the_event'] = "This email serves as a not
 $lang['email_you_can_check_the_event_details'] = "You can check the event details by clicking the button below.";
 $lang['email_looking_forward_to_seeing_you.'] = "Looking forward to seeing you. ";
 $lang['email_see_event_details'] = "See Event Details";
-$lang['21222021_no_coupons'] = "Žádné kupony";
+$lang['21222021_no_coupons'] = "Ne poukázky";
 
 
 // Email title
