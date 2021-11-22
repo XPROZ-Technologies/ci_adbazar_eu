@@ -27,3 +27,22 @@ $lang['email_this_email_serves_to_join_the_event'] = "This email serves as a not
 $lang['email_you_can_check_the_event_details'] = "You can check the event details by clicking the button below.";
 $lang['email_looking_forward_to_seeing_you.'] = "Looking forward to seeing you. ";
 $lang['email_see_event_details'] = "See Event Details";
+$lang['21222021_no_coupons'] = "Keine Gutscheine";
+
+
+// email title
+
+$lang['22112021_email_your_event_has_been_cancelled'] = 'Ihre Veranstaltung wurde abgesagt.';
+$lang['22112021_email_your_event_has_been_updated'] = 'Ihre Veranstaltung wurde aktualisiert.';
+$lang['22112021_email_event_reminder'] = 'Ereigniserinnerung';
+$lang['22112021_email_you_have_successfully_registered_to_join_the_event'] = 'Sie haben sich erfolgreich für die Teilnahme an der Veranstaltung registriert.';
+
+$lang['22112021_email_your_reservation_has_been_declined'] = 'Ihre Reservierung wurde abgelehnt.';
+
+
+$lang['22112021_email_your_free_trial_has_expired'] = 'Ihre kostenlose Testversion ist abgelaufen.';
+$lang['22112021_email_your subscription_for_business_will_expire_soon'] = 'Ihr Abonnement für <BUSINESS_NAME> läuft bald ab.';
+$lang['22112021_email_your_subscription_for_business_has_expire'] = 'Ihr Abonnement für <BUSINESS_NAME> ist abgelaufen';
+$lang['22112021_email_your_subscription_for_business_was_successful'] = 'Ihr Abonnement für <BUSINESS_NAME> war erfolgreich';
+$lang['22112021_email_account_registration_confirmation'] = 'Bestätigung der Kontoregistrierung';
+$lang['22112021_email_password_assistance'] = 'Passworthilfe';
