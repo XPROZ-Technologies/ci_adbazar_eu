@@ -55,7 +55,7 @@ class Customer extends MY_Controller
 
                     $user['SessionId'] = uniqid();
 
-                    $this->session->set_flashdata('notice_message', "Login successfull");
+                    $this->session->set_flashdata('notice_message', $this->lang->line('22112021_login_successful'));
                     $this->session->set_flashdata('notice_type', 'success');
                     if(!empty($postData['redirectOldUrl'])){
                         redirect($postData['redirectOldUrl']);
@@ -64,7 +64,7 @@ class Customer extends MY_Controller
                     }
                     
                 } else {
-                    $this->session->set_flashdata('notice_message', "Login failed");
+                    $this->session->set_flashdata('notice_message', $this->lang->line('22112021_login_failed'));
                     $this->session->set_flashdata('notice_type', 'error');
                     redirect(base_url('login.html'));
                 }
