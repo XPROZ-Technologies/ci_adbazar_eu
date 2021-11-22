@@ -118,7 +118,7 @@
         <?php }else{ ?>
           <div class="zero-event zero-box">
             <img src="assets/img/frontend/img-empty-box.svg" alt="img-empty-box" class="img-fluid d-block mx-auto">
-            <p class="text-secondary page-text-lg">No coupons</p>
+            <p class="text-secondary page-text-lg"><?php echo $this->lang->line('21222021_no_coupons'); ?></p>
           </div>
         <?php } ?>
       </div>
