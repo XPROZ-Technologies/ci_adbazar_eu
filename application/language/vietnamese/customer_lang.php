@@ -106,3 +106,5 @@ $lang['221121_please_enter_your_email'] = "Vui lòng điền email";
 $lang['221121_register_failed_please_try_again'] = 'Đăng ký thất bại, vui lòng thử lại';
 $lang['221121_subscription_not_exist'] = 'Đăng ký không tồn tại'; //vi
 $lang['221121_plan_not_exist'] = 'Gói không tồn tại';
+$lang['22112021_login_failed'] = 'Đăng nhập thất bại';
+$lang['22112021_login_successful'] = 'Đăng nhập thành công';

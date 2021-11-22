@@ -107,3 +107,5 @@ $lang['221121_register_failed_please_try_again'] = "Registrace se nezdařila, zk
 $lang['221121_subscription_not_exist'] = 'Předplatné neexistuje'; // cz
 
 $lang['221121_plan_not_exist'] = 'Plán neexistuje'; // cz
+$lang['22112021_login_failed'] = 'Přihlásit se nezdařila';
+$lang['22112021_login_successful'] = 'Přihlásit se úspěšné';
