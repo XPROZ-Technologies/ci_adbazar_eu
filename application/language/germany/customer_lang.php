@@ -110,3 +110,7 @@ $lang['221121_subscription_not_exist'] = 'Abonnement existiert nicht'; //ger
 $lang['221121_plan_not_exist'] = 'Tarif existiert nicht'; // ger
 $lang['22112021_login_failed'] = 'Anmeldung fehlgeschlagen';
 $lang['22112021_login_successful'] = 'Anmeldung erfolgreich';
+
+$lang['22112021_account_activation_failed'] = 'Kontoaktivierung fehlgeschlagen';
+$lang['22112021_account_activation_successfully'] = 'Kontoaktivierung erfolgreich';
+$lang['22112021_token_expired_or_account_has_been_activated'] = 'Token ist abgelaufen oder Konto wurde aktiviert';
