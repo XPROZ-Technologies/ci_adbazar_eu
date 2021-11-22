@@ -108,3 +108,5 @@ $lang['221121_register_failed_please_try_again'] = "Registrierung fehlgeschlagen
 $lang['221121_subscription_not_exist'] = 'Abonnement existiert nicht'; //ger
 
 $lang['221121_plan_not_exist'] = 'Tarif existiert nicht'; // ger
+$lang['22112021_login_failed'] = 'Anmeldung fehlgeschlagen';
+$lang['22112021_login_successful'] = 'Anmeldung erfolgreich';
