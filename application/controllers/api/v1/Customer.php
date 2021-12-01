@@ -468,18 +468,18 @@ class Customer extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
-            $postData = $this->arrayFromPostRawJson(array('customer_first_name', 'customer_last_name', 'customer_avatar', 'customer_birthday', 'customer_gender_id', 'customer_phone', 'customer_phone_code', 'customer_occupation', 'customer_address'));
+            $postData = $this->arrayFromPostApi(array('customer_first_name', 'customer_last_name', 'customer_birthday', 'customer_gender_id', 'customer_phone', 'customer_phone_code', 'customer_occupation', 'customer_address'));
             $this->checkValidateCustomerProfile($postData);
-            if(isset($_FILES['File']) && !empty($_FILES['File'])){
-                $file = $_FILES['File'];
+            if(isset($_FILES['customer_avatar']) && !empty($_FILES['customer_avatar'])){
+                $file = $_FILES['customer_avatar'];
                 if ($file['error'] > 0) {
                     $this->error204('Avatar update failed');
                     die;
                 } else {
                     $names = explode('.', $file['name']);
                     $fileExt = strtolower($names[count($names) - 1]);
-                    if(in_array($fileExt, array('jpeg', 'jpg', 'png', 'bmp', 'svg'))) {
-                        $dir = BUSINESS_PROFILE_PATH . date('Y-m-d') . '/';
+                    if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
+                        $dir = CUSTOMER_PATH . date('Y-m-d') . '/';
                         @mkdir($dir, 0777, true);
                         @system("/bin/chown -R nginx:nginx " . $dir);
                         $filePath = $dir . uniqid() . '.' . $fileExt;
@@ -492,7 +492,7 @@ class Customer extends MY_Controller {
                             die;
                         }
                     } else {
-                        $this->error204('The image is not in the correct format: jpeg, jpg, png, bmp, svg');
+                        $this->error204('The image is not in the correct format: jpeg, jpg, png');
                         die;
                     }
                 }

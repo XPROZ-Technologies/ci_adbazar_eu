@@ -622,7 +622,6 @@ abstract class MY_Controller extends CI_Controller
     }
 
     //========================================api==========================//
-
     protected function arrayFromPostRawJson($fields) {
         $data = json_decode(file_get_contents('php://input'), true);
         $outPut = array();
@@ -630,7 +629,7 @@ abstract class MY_Controller extends CI_Controller
 
         foreach ($fields as $field) {
             if (isset($data[$field])) {
-                $outPut[$field] = ($data[$field]);
+                $outPut[$field] = trim($data[$field]);
             } else {
                 $outPutFalse .= $field.", ";
                 // $outPut[$field] = null;
@@ -643,6 +642,26 @@ abstract class MY_Controller extends CI_Controller
         else return $outPut;
     }
 
+    protected function arrayFromPostApi($fields) {
+        $data = array();
+        $outPutFalse = '';
+        foreach ($fields as $field) {
+            if (isset($_POST[$field]) && $_POST[$field] >= 0) {
+                $data[$field] = trim($this->input->post($field));
+            } else {
+                $outPutFalse .= $field.", ";
+            }
+            
+        }
+        if(!empty($outPutFalse)) {
+            $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
+            die;
+        }
+        else return $data;
+
+        
+    }
+
     public function getLanguageApi() {
         $languageId = $this->input->get_request_header('language-id', TRUE);
         $languageId = !empty($languageId) ? $languageId : 1;
@@ -653,6 +672,7 @@ abstract class MY_Controller extends CI_Controller
         $this->lang->load('business_profile', $this->language);
         $this->lang->load('business_management', $this->language);
         $this->lang->load('user_account_management', $this->language);
+        $this->lang->load('email', $this->language);
     }
 
     protected function apiCheckLogin($flag = false) {

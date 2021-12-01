@@ -21,6 +21,7 @@ class Businessprofile extends MY_Controller {
             if(empty($postData['service_type_id'])) $postData['service_type_id'] = [];
             $postData['api'] = true;
             $this->load->model(array('Mbusinessprofiles','Mservices'));
+            $postData['business_status_id'] = STATUS_ACTIVED;
             $rowCount = $this->Mbusinessprofiles->getCountInApi($postData);
             $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
             $pageCount = 0;
@@ -179,7 +180,7 @@ class Businessprofile extends MY_Controller {
                     $businessVideos = $this->Mbusinessvideos->getListInApi($postData, $perPage, $page);
                     $videos = [];
                     for($i = 0; $i < count($businessVideos); $i++) {
-                        $videos[] = !empty($businessVideos[$i]['video_url']) ? base_url(BUSINESS_PROFILE_PATH.$businessVideos[$i]['video_url']) : '';
+                        $videos[] = $businessVideos[$i]['video_url'];
                     }
                 }
                 $business = $this->Mbusinessprofiles->get($postData['business_id']);
