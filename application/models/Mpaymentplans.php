@@ -28,6 +28,15 @@ class Mpaymentplans extends MY_Model {
         if(isset($postData['search_text']) && !empty($postData['search_text'])) $query.=" AND ( `plan_name` LIKE '%{$postData['search_text']}%' OR plan_amount LIKE '%{$postData['search_text']}%' OR plan_vat LIKE '%{$postData['search_text']}%' OR plan_amount LIKE '%{$postData['search_text']}%' OR `plan_save` LIKE '%{$postData['search_text']}%')";
         if(isset($postData['plan_id']) && $postData['plan_id'] > 0) $query .= " AND plan_id = ".$postData['plan_id'];
         if(isset($postData['plan_type_id']) && $postData['plan_type_id'] > 0) $query .= " AND plan_type_id = ".$postData['plan_type_id'];
+        if(isset($postData['api']) && $postData['api'] == true) {
+            if(isset($postData['plan_currency_id']) && $postData['plan_currency_id'] > 0) $query .= " AND plan_currency_id = ".$postData['plan_currency_id'];
+        }
         return $query;
+    }
+
+    public function getSearchListPlan($postData) {
+        $query = "SELECT plan_type_id, plan_currency_id, amount_per_month, plan_save, plan_vat
+                    FROM payment_plans WHERE plan_status_id > 0" . $this->buildQuery($postData);
+        return $this->getByQuery($query);
     }
 }

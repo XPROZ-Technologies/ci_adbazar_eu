@@ -76,6 +76,11 @@ class Mconstants extends CI_Model {
         6 => 'Sunday'
     );
 
+    public $currenyCodes = array(
+        'CZK' => 1,
+        'EUR' => 2
+    );
+
     public function dayShortIds() {
         return array(
             0 => $this->lang->line('mon'),

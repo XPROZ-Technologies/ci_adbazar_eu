@@ -186,7 +186,7 @@ class Mbusinessprofiles extends MY_Model {
     }
 
     public function getCountInApi($postData) {
-        $query = "business_status_id = 2" . $this->buildQuery($postData);
+        $query = "business_status_id > 0" . $this->buildQuery($postData);
         return $this->countRows($query);
     }
 
@@ -251,5 +251,10 @@ class Mbusinessprofiles extends MY_Model {
                 GROUP BY
                     business_profiles.id";
         return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $businessId));
+    }
+
+    public function getSearchMyBusiness($postData) {
+        $query = "SELECT id, business_name, business_avatar FROM business_profiles WHERE business_status_id > 0 ".$this->buildQuery($postData);
+        return $this->getByQuery($query);
     }
 }

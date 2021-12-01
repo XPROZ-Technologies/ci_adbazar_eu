@@ -18,7 +18,7 @@ class Review extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin();
-            $postData = $this->arrayFromPostRawJson(array('business_id', 'photo', 'review_star', 'customer_comment'));
+            $postData = $this->arrayFromPostApi(array('business_id', 'review_star', 'customer_comment'));
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model('Mcustomerreviews');
             $checkExit = $this->Mcustomerreviews->getFieldValue(array('customer_id' => $postData['customer_id'], 'business_id' => $postData['business_id']), 'id', 0);
@@ -29,8 +29,8 @@ class Review extends MY_Controller {
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
                 if(empty($postData['review_star'])) $postData['review_star'] = 0;
                 
-                if(isset($_FILES['File']) && !empty($_FILES['File'])){
-                    $file = $_FILES['File'];
+                if(isset($_FILES['photo']) && !empty($_FILES['photo'])){
+                    $file = $_FILES['photo'];
                     if ($file['error'] > 0) {
                         $this->error204('Avatar update failed');
                         die;
