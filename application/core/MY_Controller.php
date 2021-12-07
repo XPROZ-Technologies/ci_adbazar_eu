@@ -629,17 +629,18 @@ abstract class MY_Controller extends CI_Controller
 
         foreach ($fields as $field) {
             if (isset($data[$field])) {
-                $outPut[$field] = trim($data[$field]);
+                $outPut[$field] = ($data[$field]);
             } else {
                 $outPutFalse .= $field.", ";
                 // $outPut[$field] = null;
             }
         }
-        if(!empty($outPutFalse)) {
-            $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
-            die;
-        }
-        else return $outPut;
+        // if(!empty($outPutFalse)) {
+        //     $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
+        //     die;
+        // }
+        // else 
+        return $outPut;
     }
 
     protected function arrayFromPostApi($fields) {
@@ -653,11 +654,12 @@ abstract class MY_Controller extends CI_Controller
             }
             
         }
-        if(!empty($outPutFalse)) {
-            $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
-            die;
-        }
-        else return $data;
+        // if(!empty($outPutFalse)) {
+        //     $this->error410(rtrim($outPutFalse, ', ').': Missing input variable');
+        //     die;
+        // }
+        // else 
+        return $data;
 
         
     }

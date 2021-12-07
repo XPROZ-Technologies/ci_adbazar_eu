@@ -147,14 +147,16 @@ class Mservices extends MY_Model {
         return $this->getByQuery($query, array(STATUS_ACTIVED));
     }
 
-    public function getServiceTypeInService($businessProfileId = 0, $serviceId = 0, $serviceTypeId = [], $langCode = '_vi') {
-        if($serviceId > 0 && $businessProfileId > 0) {
+    public function getServiceTypeInService($businessProfileId = 0, $serviceId = [], $serviceTypeId = [], $langCode = '_vi') {
+        if(count($serviceId) > 0 && $businessProfileId > 0) {
             $where = ' AND business_profiles.id = '.$businessProfileId;
+            $serviceIds = join(",",$serviceId);
             if(count($serviceTypeId) > 0) {
                 $serviceTypeIds = join(",",$serviceTypeId);
                 $where = ' AND service_types.id IN ('.$serviceTypeIds.')';
             }
             $query = "SELECT
+                service_types.service_id,
                 service_types.id,
                 service_types.service_type_name".$langCode." as service_type_name,
                 services.service_name".$langCode." as service_name
@@ -163,24 +165,69 @@ class Mservices extends MY_Model {
             LEFT JOIN services ON services.id = service_types.service_id
             LEFT JOIN business_profiles ON business_profiles.service_id = service_types.service_id
             WHERE
-                service_types.status_id = ? AND business_profiles.id > 0 AND service_types.service_id = ? ".$where;
-            $datas = $this->getByQuery($query, array(STATUS_ACTIVED,$serviceId));
-
+                service_types.status_id = ? AND business_profiles.id > 0 AND service_types.service_id IN (".$serviceIds.") ".$where;
+            $datas = $this->getByQuery($query, array(STATUS_ACTIVED));
             $serviceTypeNames = '';
             $serviceName = '';
             $serviceType = [];
             foreach($datas as $data) {
                 $serviceTypeNames .= $data['service_type_name'].', ';
-                $serviceName = $data['service_name'];
                 $serviceType[] = array(
                     'id' => $data['id'],
-                    'service_type_name' => $data['service_type_name']
+                    'service_type_name' => $data['service_type_name'],
                 );
 
             } 
             return array(
                 'serviceTypeNames' => rtrim($serviceTypeNames, ', '),
-                'serviceName' => $serviceName,
+                'serviceName' => rtrim($serviceName, ', '),
+                'serviceType' => $serviceType
+            );
+
+        } else return '';
+        
+    }
+
+    public function getServiceTypeInServiceAll($serviceId = [], $serviceTypeId = [], $langCode = '_vi') {
+        if(count($serviceId) > 0) {
+          
+            $serviceIds = join(",",$serviceId);
+            
+            $query = "SELECT
+                service_types.service_id,
+                service_types.id,
+                service_types.service_type_name".$langCode." as service_type_name,
+                services.service_name".$langCode." as service_name
+            FROM
+                  services
+            LEFT JOIN service_types ON services.id = service_types.service_id
+            WHERE
+                service_types.status_id = ? AND services.id IN (".$serviceIds.")";
+            $datas = $this->getByQuery($query, array(STATUS_ACTIVED));
+            $serviceTypeNames = '';
+            $serviceName = '';
+            $serviceType = [];
+            $duplcateServiceName = [];
+            foreach($datas as $data) {
+                if(!in_array($data['service_name'], $duplcateServiceName)) {
+                    $serviceName .= $data['service_name'].', ';
+                    $duplcateServiceName[] = $data['service_name'];
+                }
+                
+                
+                $isSelected = 0;
+                if(in_array($data['id'], $serviceTypeId)) {
+                    $isSelected = 1;
+                }
+                $serviceType[] = array(
+                    'id' => $data['id'],
+                    'service_type_name' => $data['service_type_name'],
+                    'is_selected' => $isSelected
+                );
+
+            } 
+            return array(
+                'serviceName' => rtrim($serviceName, ', '),
                 'serviceType' => $serviceType
             );
 

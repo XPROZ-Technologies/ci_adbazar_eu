@@ -19,6 +19,9 @@ class Businessprofile extends MY_Controller {
             $this->openAllCors();
             $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'service_id', 'service_type_id'));
             if(empty($postData['service_type_id'])) $postData['service_type_id'] = [];
+            if(empty($postData['service_id'])) $postData['service_ids'] = [];
+            else $postData['service_ids'] = $postData['service_id'];
+            unset($postData['service_id']);
             $postData['api'] = true;
             $this->load->model(array('Mbusinessprofiles','Mservices'));
             $postData['business_status_id'] = STATUS_ACTIVED;
@@ -33,22 +36,25 @@ class Businessprofile extends MY_Controller {
                 if(!is_numeric($page) || $page < 1) $page = 1;
                 $businessProfiles = $this->Mbusinessprofiles->getListInApi($postData, $perPage, $page);
                 $serviceTypes = [];
+                $businessIds = [];
                 for($i = 0; $i < count($businessProfiles); $i++) {
+                    $businessIds[] = $businessProfiles[$i]['id'];
                     $openStatusId = $this->checkBusinessOpenHours($businessProfiles[$i]['id']);
                     if($openStatusId) $openStatusId = 2;
                     else $openStatusId = 1;
                     $businessProfiles[$i]['open_status_id'] = $openStatusId;
                     $businessProfiles[$i]['business_avatar'] = !empty($businessProfiles[$i]['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$businessProfiles[$i]['business_avatar']) : '';
-                    $serviceTypes = $this->Mservices->getServiceTypeInService($businessProfiles[$i]['id'], $postData['service_id'], $postData['service_type_id'], $this->langCode);
+                    $serviceTypes = $this->Mservices->getServiceTypeInService($businessProfiles[$i]['id'], $postData['service_ids'], $postData['service_type_id'], $this->langCode);
                     $businessProfiles[$i]['service_types'] = '';
                     if($serviceTypes) {
                         $businessProfiles[$i]['service_types'] = $serviceTypes['serviceTypeNames'];
                     }
                 }
+                $serviceTypesAll = $this->Mservices->getServiceTypeInServiceAll($postData['service_ids'], $postData['service_type_id'], $this->langCode);
             }
             $this->success200(array(
-                'service_name' => !empty($serviceTypes) && count($serviceTypes) > 0 ? $serviceTypes['serviceName']: '',
-                'service_types' => !empty($serviceTypes) && count($serviceTypes) > 0 ? $serviceTypes['serviceType']: [],
+                'service_name' => !empty($serviceTypesAll) && count($serviceTypesAll) > 0 ? $serviceTypesAll['serviceName']: '',
+                'service_types' => !empty($serviceTypesAll) && count($serviceTypesAll) > 0 ? $serviceTypesAll['serviceType']: [],
                 'page_id' => $page,
                 'per_page' => $perPage,
                 'page_count' => $pageCount,
@@ -216,7 +222,7 @@ class Businessprofile extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'is_image', 'review_star'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'has_image', 'review_star'));
             $postData['customer_id'] = $customer['customer_id'];
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
                 $postData['api'] = true;
@@ -249,7 +255,8 @@ class Businessprofile extends MY_Controller {
                                 'business_name' => $this->Mbusinessprofiles->getFieldValue(array('id' => $data['business_id']), 'business_name', ''),
                                 'business_comment' => $data['business_comment'],
                                 'created_date' => ddMMyyyy($data['updated_at'], 'Y/m/d')
-                            )
+                            ),
+                            'has_image' => intval($data['is_image'])
 
                         );
                     }

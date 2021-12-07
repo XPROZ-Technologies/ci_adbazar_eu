@@ -60,7 +60,7 @@ class Mcustomerreviews extends MY_Model {
             if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `business_name` LIKE '%{$postData['search_text']}%' OR `business_description` LIKE '%{$postData['search_text']}%')";
             if(isset($postData['business_id']) && $postData['business_id'] > 0) $query .=" AND `business_id` = ".$postData['business_id'];
             if(isset($postData['review_star']) && $postData['review_star'] > 0) $query .=" AND `review_star` = ".$postData['review_star'];
-            if(isset($postData['is_image']) && $postData['is_image'] > 0) $query .=" AND `is_image` = ".$postData['is_image'];
+            if(isset($postData['has_image']) && $postData['has_image'] > 0) $query .=" AND `is_image` = ".$postData['has_image'];
         }
         
 

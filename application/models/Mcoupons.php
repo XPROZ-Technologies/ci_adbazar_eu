@@ -61,16 +61,19 @@ class Mcoupons extends MY_Model {
             if(isset($postData['customer_id']) && $postData['customer_id'] > 0) {
                 $query.=" AND coupons.id NOT IN (SELECT coupon_id FROM customer_coupons WHERE customer_coupon_status_id = 2 AND customer_id =".$postData['customer_id'].")";
             }
-            if(isset($postData['service_id']) && $postData['service_id'] > 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) < 0) {
-                $query.=" AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles  WHERE business_profiles.service_id = ".$postData['service_id'].")";
+           
+            if(isset($postData['service_id']) && count($postData['service_id']) > 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) <= 0) {
+                $serviceIds = join(",",$postData['service_id']);
+                $query.=" AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles  WHERE business_profiles.service_id IN (".$serviceIds."))";
             }
-            if(isset($postData['service_id']) && $postData['service_id'] < 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
+            if(isset($postData['service_id']) && count($postData['service_id']) <= 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
                 $serviceTypeIds = join(",",$postData['service_type_id']);
                 $query .= " AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles LEFT JOIN service_types ON service_types.service_id = business_profiles.service_id WHERE  service_types.id IN (".$serviceTypeIds."))";
             }
-            if(isset($postData['service_id']) && $postData['service_id'] > 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
+            if(isset($postData['service_id']) && count($postData['service_id']) > 0 && isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
                 $serviceTypeIds = join(",",$postData['service_type_id']);
-                $query .= " AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles LEFT JOIN service_types ON service_types.service_id = business_profiles.service_id WHERE business_profiles.service_id = ".$postData['service_id']." AND service_types.id IN (".$serviceTypeIds."))";
+                $serviceIds = join(",",$postData['service_id']);
+                $query .= " AND coupons.business_profile_id IN (SELECT business_profiles.id FROM business_profiles LEFT JOIN service_types ON service_types.service_id = business_profiles.service_id WHERE business_profiles.service_id IN (".$serviceIds.") AND service_types.id IN (".$serviceTypeIds."))";
             }
 
             if(isset($postData['business_id']) && $postData['business_id'] > 0) {
