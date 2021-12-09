@@ -469,6 +469,10 @@ class Customer extends MY_Controller {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostApi(array('customer_first_name', 'customer_last_name', 'customer_birthday', 'customer_gender_id', 'customer_phone', 'customer_phone_code', 'customer_occupation', 'customer_address'));
+            
+            var_dump($postData);
+            var_dump($postData['customer_first_name']);
+            
             // $this->checkValidateCustomerProfile($postData);
             if(empty($postData['customer_first_name'])) {
                 $this->error204('Please enter the first name');
