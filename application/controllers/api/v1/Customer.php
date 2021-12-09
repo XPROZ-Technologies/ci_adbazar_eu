@@ -469,7 +469,47 @@ class Customer extends MY_Controller {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostApi(array('customer_first_name', 'customer_last_name', 'customer_birthday', 'customer_gender_id', 'customer_phone', 'customer_phone_code', 'customer_occupation', 'customer_address'));
-            $this->checkValidateCustomerProfile($postData);
+            // $this->checkValidateCustomerProfile($postData);
+            if(empty($postData['customer_first_name'])) {
+                $this->error204('Please enter the first name');
+                die;
+            }
+            if(empty($postData['customer_last_name'])) {
+                $this->error204('Please enter the last name');
+                die;
+            }
+            if(empty($postData['customer_birthday'])) {
+                $this->error204('Please enter your date of birth');
+                die;
+            }
+            if(empty($postData['customer_gender_id']) && $postData['customer_gender_id'] < 0 && $postData['customer_gender_id'] > 4) {
+                $this->error204('Please enter gender');
+                die;
+            }
+            if(empty($postData['customer_phone'])) {
+                $this->error204('Please enter your date of birth');
+                die;
+            }
+            // if(!preg_match("/^[0-9]{10}+$/", $postData['customer_phone'])) {
+            //     $this->error204('Invalid phone number');
+            //     die;
+            // }
+            if(empty($postData['customer_phone'])) {
+                $this->error204('Invalid phone number');
+                die;
+            }
+            if(empty($postData['customer_phone_code'])) {
+                $this->error204('Please enter phone code');
+                die;
+            }
+            if(empty($postData['customer_occupation'])) {
+                $this->error204('Please enter occupation');
+                die;
+            }
+            if(empty($postData['customer_address'])) {
+                $this->error204('Please enter address');
+                die;
+            }
             if(isset($_FILES['customer_avatar']) && !empty($_FILES['customer_avatar'])){
                 $file = $_FILES['customer_avatar'];
                 if ($file['error'] > 0) {
