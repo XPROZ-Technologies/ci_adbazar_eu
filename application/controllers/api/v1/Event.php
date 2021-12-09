@@ -56,16 +56,19 @@ class Event extends MY_Controller {
                     $events[$i]['event_image'] = !empty($events[$i]['event_image']) ? base_url(EVENTS_PATH.$events[$i]['event_image']) : '';
                 }
             }
-            $business = $this->Mbusinessprofiles->get($postData['business_id']);
-            $businessInfo = '';
-            if($business) {
-                $businessInfo = array(
-                    'id' => $business['id'],
-                    'business_name' => $business['business_name'],
-                    'business_slogan' => $business['business_slogan'],
-                    'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
-                    'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
-                );
+            $businessInfo = (object) [];
+            if(isset($postData['business_id']) && intval($postData['business_id']) > 0) {
+                $business = $this->Mbusinessprofiles->get($postData['business_id']);
+                $businessInfo = '';
+                if($business) {
+                    $businessInfo = array(
+                        'id' => $business['id'],
+                        'business_name' => $business['business_name'],
+                        'business_slogan' => $business['business_slogan'],
+                        'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                        'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                    );
+                }
             }
             $this->success200(array(
                 'page_id' => $page,
