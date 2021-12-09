@@ -42,6 +42,7 @@ class Businessprofile extends MY_Controller {
                     $openStatusId = $this->checkBusinessOpenHours($businessProfiles[$i]['id']);
                     if($openStatusId) $openStatusId = 2;
                     else $openStatusId = 1;
+                    $businessProfiles[$i]['star'] = !empty($businessProfiles[$i]['star']) ? $businessProfiles[$i]['star'] : '0';
                     $businessProfiles[$i]['open_status_id'] = $openStatusId;
                     $businessProfiles[$i]['business_avatar'] = !empty($businessProfiles[$i]['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$businessProfiles[$i]['business_avatar']) : '';
                     $serviceTypes = $this->Mservices->getServiceTypeInService($businessProfiles[$i]['id'], $postData['service_ids'], $postData['service_type_id'], $this->langCode);

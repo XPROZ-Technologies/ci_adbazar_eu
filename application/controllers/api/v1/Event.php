@@ -91,6 +91,11 @@ class Event extends MY_Controller {
                 die;
             }
             $this->loadModel(array('Mevents', 'Mcustomerevents'));
+            $checkExit = $this->Mcustomerevents->getFieldValue(array('email' => $postData['customer_email']), 'id', 0);
+            if($checkExit > 0) {
+                $this->error204('This email has registered to participate in the event');
+                die;
+            }
             if(intval($postData['customer_id']) > 0) {
                 $customerCouponId = $this->Mcustomerevents->getFieldValue(array('customer_id' => $postData['customer_id'], 'event_id' => $postData['event_id'], 'customer_event_status_id >' => 0), 'id', 0);
                 if ($customerCouponId > 0) {
@@ -103,6 +108,9 @@ class Event extends MY_Controller {
                     $customerEventId = $this->Mcustomerevents->save(array(
                         'customer_id' => $postData['customer_id'],
                         'event_id' => $postData['event_id'],
+                        'first_name' => $postData['customer_first_name'],
+                        'last_name' => $postData['customer_last_name'],
+                        'email' => $postData['customer_email'],
                         'customer_event_status_id' => STATUS_ACTIVED
                     ));
     
@@ -145,6 +153,7 @@ class Event extends MY_Controller {
                     'event_id' => $postData['event_id'],
                     'first_name' => $postData['customer_first_name'],
                     'last_name' => $postData['customer_last_name'],
+                    'email' => $postData['customer_email'],
                     'is_guest' => 1,
                     'customer_event_status_id' => STATUS_ACTIVED
                 ));

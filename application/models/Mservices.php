@@ -170,8 +170,12 @@ class Mservices extends MY_Model {
             $serviceTypeNames = '';
             $serviceName = '';
             $serviceType = [];
+            $exitServiceTypeName = [];
             foreach($datas as $data) {
-                $serviceTypeNames .= $data['service_type_name'].', ';
+                if(!in_array($data['service_type_name'], $exitServiceTypeName)) {
+                    $serviceTypeNames .= $data['service_type_name'].', ';
+                    $exitServiceTypeName[] = $data['service_type_name'];
+                }
                 $serviceType[] = array(
                     'id' => $data['id'],
                     'service_type_name' => $data['service_type_name'],

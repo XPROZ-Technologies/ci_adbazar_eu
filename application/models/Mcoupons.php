@@ -221,7 +221,8 @@ class Mcoupons extends MY_Model {
                     business_profiles.business_address,
                     business_profiles.business_phone,
                     CASE WHEN customer_coupons.customer_id > 0 THEN customer_coupons.customer_coupon_code ELSE '' END AS coupon_code,
-                    customer_coupons.customer_id
+                    customer_coupons.customer_id,
+                    ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used
                 FROM
                     coupons
                     LEFT JOIN customer_coupons ON customer_coupons.coupon_id = coupons.id
@@ -230,7 +231,7 @@ class Mcoupons extends MY_Model {
                 WHERE
                     coupons.coupon_status_id = ? 
                     AND coupons.id = ? AND business_profiles.id IS NOT NULL";
-        $data = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $postData['coupon_id']));
+        $data = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED, $postData['coupon_id']));
         return $data;
     }
 
