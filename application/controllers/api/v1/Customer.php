@@ -128,12 +128,12 @@ class Customer extends MY_Controller {
                 die;
             }else {
                 $this->load->model('Mcustomers');
-                $customerId = $this->Mcustomers->getFieldValue(array('token_reset' => $token), 'id', 0);
+                $customerId = $this->Mcustomers->getFieldValue(array('token' => $token), 'id', 0);
                 if(!$customerId) {
                     $this->error204('Token does not exist');
                     die;
                 } else {
-                    $flag = $this->Mcustomers->save(array('token_reset' => '', 'updated_at' => getCurentDateTime()), $customerId);
+                    $flag = $this->Mcustomers->save(array('token' => '', 'updated_at' => getCurentDateTime()), $customerId);
                     if($flag) $this->success200($customerId, 'Logout successful');
                     else $this->error500();
                 }
