@@ -142,7 +142,7 @@ class Businessmanagement extends MY_Controller {
                         die;
                     }
                 } else {
-                    $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                    $this->error204('The conver is not in the correct format: jpeg, jpg, png');
                     die;
                 }
             }
@@ -246,7 +246,7 @@ class Businessmanagement extends MY_Controller {
             die;
         }
         if(!checkemail($postData['business_email'])) {
-            $this->error204($this->lang->line('email-not-exist1635566199'));
+            $this->error204('Email not exist');
             die;
         }
         if(empty($postData['business_address'])) {
@@ -430,7 +430,7 @@ class Businessmanagement extends MY_Controller {
                 }
                
                 if(empty($postData['coupon_subject']) || $postData['coupon_subject'] == ""){
-                    $this->error204($this->lang->line('coupon-subject-is-required1635566199'));
+                    $this->error204('Coupon subject is required');
                     die;
                 }
                 $postData['start_date'] = date("Y-m-d", strtotime($postData['start_date']));
@@ -438,16 +438,16 @@ class Businessmanagement extends MY_Controller {
                 $currentDay = strtotime(date('Y-m-d'));
 
                 if(strtotime($postData['start_date']) < $currentDay || strtotime($postData['end_date']) < $currentDay){
-                    $this->error204($this->lang->line('please-select-date-in-present-1635566199'));
+                    $this->error204('Please select date in present or future');
                     die;
                 }
                 if(strtotime($postData['start_date']) > strtotime($postData['end_date'])){
-                    $this->error204($this->lang->line('please-select-different-date163556619'));
+                    $this->error204('Please select different date');
                     die;
                 }
 
                 if(empty($postData['coupon_amount']) || $postData['coupon_amount'] == 0){
-                    $this->error204($this->lang->line('amount-of-coupon-must-be-large1635566199'));
+                    $this->error204('Amount of coupon must be larger than 0');
                     die;
                 }
                 if(isset($_FILES['coupon_image']) && !empty($_FILES['coupon_image'])){
@@ -485,7 +485,7 @@ class Businessmanagement extends MY_Controller {
                     $postData['created_by'] = 0;
                     $postData['created_at'] = getCurentDateTime();
                 } else {
-                    $message = $this->lang->line('update-successful1635566199');
+                    $message = 'Update successful';
                     $postData['updated_by'] = 0;
                     $postData['updated_at'] = getCurentDateTime();
                 }
@@ -497,7 +497,7 @@ class Businessmanagement extends MY_Controller {
                     $this->success200(array('coupon_id' => $flag), $message);
                     die;
                 } else {
-                    $this->error204($this->lang->line('creating-coupon-failed1635566199'));
+                    $this->error204('Creating coupon failed');
                     die;
                 }
             } else {

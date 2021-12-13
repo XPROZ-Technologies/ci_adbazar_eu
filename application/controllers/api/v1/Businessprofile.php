@@ -72,7 +72,7 @@ class Businessprofile extends MY_Controller {
             $this->openAllCors();
             $postData = $this->arrayFromPostRawJson(array('business_id'));
             if(empty($postData['business_id']) && $postData['business_id'] < 0) {
-                $this->error204($this->lang->line('incorrect-information1635566199'));
+                $this->error204('Incorrect information');
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mservicetypes', 'Mopeninghours'));
@@ -108,7 +108,7 @@ class Businessprofile extends MY_Controller {
                 );
                 $this->success200($data);
             } else {
-                $this->error204($this->lang->line('incorrect-information1635566199'));
+                $this->error204('Incorrect information');
                 die;
             }
         } catch (\Throwable $th) {

@@ -90,7 +90,7 @@ class Event extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('event_id', 'customer_first_name', 'customer_last_name', 'customer_email'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['event_id']) && $postData['event_id'] < 0) {
-                $this->error204($this->lang->line('incorrect-information1635566199'));
+                $this->error204('Incorrect information');
                 die;
             }
             $this->loadModel(array('Mevents', 'Mcustomerevents'));
@@ -105,7 +105,7 @@ class Event extends MY_Controller {
             if(intval($postData['customer_id']) > 0) {
                 $customerCouponId = $this->Mcustomerevents->getFieldValue(array('customer_id' => $postData['customer_id'], 'event_id' => $postData['event_id'], 'customer_event_status_id >' => 0), 'id', 0);
                 if ($customerCouponId > 0) {
-                    $this->error204($this->lang->line('you-have-joined-this-event1635566199'));
+                    $this->error204('You have joined this event');
                     die;
                 }
                 $eventInfo = $this->Mevents->get($postData['event_id']);
@@ -142,15 +142,15 @@ class Event extends MY_Controller {
                          * END. Save Email
                          */
                     }
-                    $this->success200('', $this->lang->line('you-have-been-successfully-reg1635566199'));
+                    $this->success200('', 'You have been successfully registered for the event!');
                     die;
                 } else {
-                    $this->error204($this->lang->line('event-has-expired1635566199'));
+                    $this->error204('Event has expired');
                     die;
                 }
             } else {
                 if (empty($postData['event_id']) || empty($postData['customer_first_name']) || empty($postData['customer_last_name']) || empty($postData['customer_email'])) {
-                    $this->error204($this->lang->line('incorrect-information1635566199'));
+                    $this->error204('Incorrect information');
                     die;
                 }
                 //join event
@@ -165,10 +165,10 @@ class Event extends MY_Controller {
                 ));
 
                 if($flag) {
-                    $this->success200('', $this->lang->line('you-have-been-successfully-reg1635566199'));
+                    $this->success200('', 'You have been successfully registered for the event!');
                     die;
                 } else {
-                    $this->error204($this->lang->line('event-has-expired1635566199'));
+                    $this->error204('Event has expired');
                     die;
                 }
             }
@@ -183,7 +183,7 @@ class Event extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('event_id'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['event_id']) && $postData['event_id'] < 0) {
-                $this->error204($this->lang->line('incorrect-information1635566199'));
+                $this->error204('Incorrect information');
                 die;
             }
             $this->load->model('Mevents');

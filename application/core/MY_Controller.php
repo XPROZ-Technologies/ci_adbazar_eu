@@ -684,7 +684,7 @@ abstract class MY_Controller extends CI_Controller
             $this->load->model('Mcustomers');
             $id = $this->Mcustomers->getFieldValue(array('token' => $token, 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
             if($id == 0) {
-                $this->error401('Client account does not exist.');
+                $this->error401('Account does not exist');
                 die;
             }
             return ['customer_id' => $id];
@@ -720,28 +720,28 @@ abstract class MY_Controller extends CI_Controller
         return $token;
     }
 
-    protected function error500($text = 'Có lỗi xảy ra, vui lòng thử lại') {
+    protected function error500($text = 'An error occurred, please try again') {
         echo json_encode(array(
             'code' => 500,
             'mesage' => $text
         ));
     }
 
-    protected function error202($text = 'Dữ liệu không tìm thấy') {
+    protected function error202($text = 'Data not found') {
         echo json_encode(array(
             'code' => 202,
             'message' => $text
         ));
     }
 
-    protected function error401($text = 'Tài khoản không tồn tại') {
+    protected function error401($text = 'Account does not exist') {
         echo json_encode(array(
             'code' => 401,
             'message' => $text
         ));
     }
 
-    protected function error410($text = 'Cú pháp không hợp lệ') {
+    protected function error410($text = 'Invalid syntax') {
         echo json_encode(array(
             'code' => 410,
             'message' => $text
@@ -761,7 +761,7 @@ abstract class MY_Controller extends CI_Controller
         echo json_encode($data);
     }
 
-    protected function error204($text = 'Danh sách rỗng') {
+    protected function error204($text = 'List is empty') {
         echo json_encode(array(
            'code' => 204,
            'message' => $text

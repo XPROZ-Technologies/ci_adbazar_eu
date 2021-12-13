@@ -33,15 +33,15 @@ class Customer extends MY_Controller {
             $customer = [];
             if(intval($postData['login_type_id']) == 0) {
                 if(empty($postData['customer_email'])) {
-                    $this->error204($this->lang->line('please-enter-your-email1635566199'));
+                    $this->error204('Please enter your email');
                     die;
                 }
                 if(!checkemail($postData['customer_email'])) {
-                    $this->error204($this->lang->line('email-not-exist1635566199'));
+                    $this->error204('Email not exist');
                     die;
                 }
                 if(empty($postData['customer_password'])) {
-                    $this->error204($this->lang->line('your_password_does_not_match_p'));
+                    $this->error204('Your password does not match, please try again.');
                     die;
                 }
                 
@@ -151,11 +151,11 @@ class Customer extends MY_Controller {
             $data = [];
             if (intval($postData['login_type_id']) == 0) {
                 if (empty($postData['customer_email'])) {
-                    $this->error204($this->lang->line('please_enter_a_valid_email'));
+                    $this->error204('Please enter a valid email.');
                     die;
                 }
                 if(!checkemail($postData['customer_email'])) {
-                    $this->error204($this->lang->line('email-not-exist1635566199'));
+                    $this->error204('Email not exist');
                     die;
                 }
                 $this->validatePassWord($postData);
@@ -236,7 +236,7 @@ class Customer extends MY_Controller {
                         'token' => $token_active
                     );
                     $this->Memailqueue->createEmail($dataEmail, 99);
-                    $this->success200($flag, $this->lang->line('successfully_register_account'));
+                    $this->success200($flag, 'Successfully register account');
                 } else {
                     $this->error400('Registration failed');
                     die;
@@ -256,7 +256,7 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('customer_email'));
             $customer_email = strtolower($postData['customer_email']);
             if (empty($customer_email)) {
-                $this->error204($this->lang->line('please-enter-your-email1635566199'));
+                $this->error204('Please enter your email');
                 die;
             }
             $this->load->model('Mcustomers');
@@ -283,18 +283,18 @@ class Customer extends MY_Controller {
                      * END. Save Email
                      */
                     if ($emailResult){
-                        $this->success200('', $this->lang->line('successfully-sent-password-rec1635566199'));
+                        $this->success200('', 'Successfully sent password recover');
                         die;
                     } else {
-                        $this->error400($this->lang->line('sending-password-recover-faile1635566199'));
+                        $this->error400('Sending password recover failed');
                         die;
                     }
                 } else {
-                    $this->error400($this->lang->line('sending-password-recover-faile1635566199'));
+                    $this->error400('Sending password recover failed');
                     die;
                 }
             } else {
-                $this->error204($this->lang->line('email-not-exist1635566199'));
+                $this->error204('Email not exist');
                 die;
             }
         } catch (\Throwable $th) {
@@ -322,14 +322,14 @@ class Customer extends MY_Controller {
                 );
                 $flag = $this->Mcustomers->save($dataUpdate, $customerId);
                 if($flag > 0){
-                    $this->success200($flag, $this->lang->line('successfully-reset-password1635566199'));
+                    $this->success200($flag, 'Successfully reset password');
                     die;
                 }else{
-                    $this->error400($this->lang->line('resetting-password-failed1635566199'));
+                    $this->error400('Resetting password failed');
                     die;
                 }
             } else {
-                $this->error204($this->lang->line('token-not-exist-or-expired1635566199'));
+                $this->error204('Token not exist or expired');
                 die;
             }
         } catch (\Throwable $th) {
@@ -340,7 +340,7 @@ class Customer extends MY_Controller {
 
     private function validatePassWord($postData) {
         if (empty($postData['customer_password']) || empty($postData['confirm_password'])) {
-            $this->error204($this->lang->line('please-enter-your-new-password1635566199'));
+            $this->error204('Please enter your new password');
             die;
         }
         if ($postData['customer_password'] != $postData['confirm_password']) {
@@ -401,7 +401,7 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('coupon_id'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['coupon_id']) && $postData['coupon_id'] < 0) {
-                $this->error204($this->lang->line('incorrect-information1635566199'));
+                $this->error204('Incorrect information');
                 die;
             }
             $this->load->model('Mcustomercoupons');
@@ -409,14 +409,14 @@ class Customer extends MY_Controller {
             if($customerCouponId) {
                 $flag = $this->Mcustomercoupons->save(['customer_coupon_status_id' => 0, 'deleted_at' => getCurentDateTime()]);
                 if($flag) {
-                    $this->success200('', $this->lang->line('successfully-removed!1635566199'));
+                    $this->success200('', 'Successfully removed!');
                     die;
                 } else {
-                    $this->error204($this->lang->line('coupon-code-not-exist1635566199'));
+                    $this->error204('Coupon code not exist');
                     die;
                 }
             } else {
-                $this->error204($this->lang->line('coupon-code-not-exist1635566199'));
+                $this->error204('Coupon code not exist');
                 die;
             }
         } catch (\Throwable $th) {
@@ -431,7 +431,7 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('event_id'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['event_id']) && $postData['event_id'] < 0) {
-                $this->error204($this->lang->line('incorrect-information1635566199'));
+                $this->error204('Incorrect information');
                 die;
             }
             $this->loadModel(array('Mevents', 'Mcustomerevents'));
@@ -449,14 +449,14 @@ class Customer extends MY_Controller {
                     )
                 );
                 if($flag) {
-                    $this->success200('', $this->lang->line('you-have-left-the-event1635566199'));
+                    $this->success200('', 'You have left the event');
                     die;
                 } else {
-                    $this->error204($this->lang->line('the-event-has-ended-or-does-no1635566199'));
+                    $this->error204('The event has ended or does not exist');
                     die;
                 }
             } else {
-                $this->error204($this->lang->line('the-event-has-ended-or-does-no1635566199'));
+                $this->error204('The event has ended or does not exist');
                 die;
             }
         } catch (\Throwable $th) {
