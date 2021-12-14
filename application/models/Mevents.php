@@ -155,4 +155,23 @@ class Mevents extends MY_Model {
         $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $postData['event_id']));
         return $result;
     }
+
+    public function getCalendar() {
+        $query = "SELECT
+                    (
+                    SELECT
+                        start_date 
+                    FROM
+                    EVENTS 
+                    WHERE
+                        DATE_FORMAT( CONCAT( start_date, ' ', start_time ), '%Y-%m-%d %H %i %s' ) >= NOW( ) 
+                        ORDER BY
+                        DATE_FORMAT( CONCAT( start_date, ' ', start_time ), '%Y-%m-%d %H %i %s' ) ASC 
+                        LIMIT 1 
+                    ) AS start_date,
+                    MAX( end_date ) AS end_date 
+                FROM
+                    `events`";
+        return $this->getByQuery($query);
+    }
 }

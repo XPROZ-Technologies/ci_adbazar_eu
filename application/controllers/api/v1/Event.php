@@ -245,4 +245,33 @@ class Event extends MY_Controller {
         }
     }
 
+    public function calendar() {
+        try {
+            $customer = $this->apiCheckLogin(true);
+            $this->load->model(array('Mevents'));
+            $calendar = $this->Mevents->getCalendar();
+            $arrCalendar = [];
+            if(count($calendar) > 0) {
+                $calendar = $calendar[0];
+                $period = new DatePeriod(
+                    new DateTime($calendar['start_date']),
+                    new DateInterval('P1D'),
+                    new DateTime($calendar['end_date'])
+                );
+                foreach ($period as $key => $value) {
+                    $arrCalendar[] =  $value->format('Y/m/d');
+                  
+                }
+                $arrCalendar[] =$calendar['end_date'];
+                
+            }
+           
+            $this->success200(array(
+                'dates' => $arrCalendar
+            ));
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
 }
