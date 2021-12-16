@@ -203,7 +203,7 @@ class Event extends MY_Controller {
                     $detail['joined_event'] = 1;
                 }
                 unset($detail['business_profile_id'], $detail['customer_id'], $detail['business_avatar'], $detail['business_address'], $detail['business_phone']);
-                $this->success200(array('list' => $detail));
+                $this->success200($detail);
             } else {
                 $this->error204('No data');
                 die;
