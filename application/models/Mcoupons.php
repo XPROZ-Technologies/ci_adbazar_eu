@@ -119,6 +119,9 @@ class Mcoupons extends MY_Model {
     }
 
     public function getListHome($postData) {
+        /*
+            AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) < coupons.coupon_amount 
+        */
         $query = "SELECT
                 coupons.id,
                 coupons.coupon_subject,
@@ -131,7 +134,7 @@ class Mcoupons extends MY_Model {
                 coupons 
             WHERE
                 DATE(coupons.end_date) >= CURDATE()
-                AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) < coupons.coupon_amount 
+                
                 AND coupons.coupon_status_id = ? 
                 ".$this->buildQuery($postData)."
             GROUP BY
@@ -140,7 +143,7 @@ class Mcoupons extends MY_Model {
                 coupons.created_at DESC
             LIMIT ?";
        
-        $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED, 20));
+        $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, 10));
         return $result;
     }
 
