@@ -379,7 +379,17 @@ class Customer extends MY_Controller {
                     if(empty($customer['customer_avatar'])) $customer['customer_avatar'] = base_url(CUSTOMER_PATH.NO_IMAGE);
                     else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
                     $customer['token'] = $token;
-                    unset($customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
+                    $customer['customer_first_name'] = !empty($customer['customer_first_name']) ? $customer['customer_first_name'] : '';
+                    $customer['customer_last_name'] = !empty($customer['customer_last_name']) ? $customer['customer_last_name'] : '';
+                    $customer['customer_birthday'] = !empty($customer['customer_birthday']) ? $customer['customer_birthday'] : '';
+                    $customer['customer_phone'] = !empty($customer['customer_phone']) ? $customer['customer_phone'] : '';
+                    $customer['customer_occupation'] = !empty($customer['customer_occupation']) ? $customer['customer_occupation'] : '';
+                    $customer['customer_address'] = !empty($customer['customer_address']) ? $customer['customer_address'] : '';
+                    unset($customer['token_reset'], $customer['customer_password'], 
+                        $customer['created_at'], $customer['created_by'], $customer['updated_at'],  
+                        $customer['updated_by'],  $customer['deleted_at'],$customer['id'],$customer['customer_gender_id']
+                        ,$customer['free_trial'],$customer['free_trial_type'],$customer['customer_status_id'],$customer['facebook_id'],$customer['google_id']
+                        ,$customer['login_type_id']);
                     $this->success200(array('customer' => $customer));
                 } else {
                     $this->error400('Account activation failed');
@@ -407,7 +417,7 @@ class Customer extends MY_Controller {
             $this->load->model('Mcustomercoupons');
             $customerCouponId = $this->Mcustomercoupons->getFieldValue(array('customer_id' => $postData['customer_id'], 'coupon_id' => $postData['coupon_id']), 'id', 0);
             if($customerCouponId) {
-                $flag = $this->Mcustomercoupons->save(['customer_coupon_status_id' => 0, 'deleted_at' => getCurentDateTime()]);
+                $flag = $this->Mcustomercoupons->save(['customer_coupon_status_id' => 0, 'deleted_at' => getCurentDateTime()], $customerCouponId);
                 if($flag) {
                     $this->success200('', 'Successfully removed!');
                     die;

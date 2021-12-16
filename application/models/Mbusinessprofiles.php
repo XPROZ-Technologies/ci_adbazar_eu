@@ -209,8 +209,10 @@ class Mbusinessprofiles extends MY_Model {
                     LEFT JOIN business_profile_locations ON business_profile_locations.business_profile_id = business_profiles.id
                 WHERE
                     business_profiles.business_status_id = ? ".$this->buildQuery($postData)."
+                
                 GROUP BY
-                    business_profiles.id";
+                    business_profiles.id
+                ORDER BY star DESC";
             if($perPage > 0) {
                 $from = ($page-1) * $perPage;
                 $query .= " LIMIT {$from}, {$perPage}";
