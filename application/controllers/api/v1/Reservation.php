@@ -14,7 +14,7 @@ class Reservation extends MY_Controller {
         elseif ($this->languageId == 3) $this->langCode = '_de';
     }
 
-    public function config() {
+    public function available_time() {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
