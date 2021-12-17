@@ -93,7 +93,7 @@ class Businessmanagement extends MY_Controller {
             }
         }
         
-        if(isset($_FILES['business_avatar']) && !empty($_FILES['business_avatar'])){
+        if(isset($_FILES['business_avatar']) && !empty($_FILES['business_avatar']['name'])){
             $file = $_FILES['business_avatar'];
             if ($file['error'] > 0) {
                 $this->error204('Avatar update failed');
@@ -120,7 +120,7 @@ class Businessmanagement extends MY_Controller {
                 }
             }
         }
-        if(isset($_FILES['business_image_cover']) && !empty($_FILES['business_image_cover'])){
+        if(isset($_FILES['business_image_cover']) && !empty($_FILES['business_image_cover']['name'])){
             $file_2 = $_FILES['business_image_cover'];
             if ($file['error'] > 0) {
                 $this->error204('Image conver update failed');

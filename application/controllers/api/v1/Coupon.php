@@ -45,9 +45,9 @@ class Coupon extends MY_Controller {
             $this->load->model(array('Mcoupons', 'Mbusinessprofiles'));
             $rowCount = $this->Mcoupons->getCountInApi($postData);
             $coupons = [];
-            $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             $pageCount = 0;
-            $page = $postData['page_id'];
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);
                 if(!is_numeric($page) || $page < 1) $page = 1;
@@ -191,9 +191,9 @@ class Coupon extends MY_Controller {
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model(array('Mcustomercoupons'));
             $rowCount = $this->Mcustomercoupons->getCountInApi($postData);
-            $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
             $pageCount = 0;
-            $page = $postData['page_id'];
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             $coupons = [];
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);
