@@ -172,18 +172,12 @@ class Mevents extends MY_Model {
     }
 
     public function getCalendar() {
-        $query = "SELECT
-                    (
-                    SELECT
-                        start_date 
-                    FROM
-                    EVENTS 
-                    WHERE
-                        DATE_FORMAT( CONCAT( start_date, ' ', start_time ), '%Y-%m-%d %H %i %s' ) >= NOW( ) 
+        $query = "SELECT ( SELECT `start_date` FROM `events`  WHERE
+                        DATE_FORMAT( CONCAT( `start_date`, ' ', `start_time` ), '%Y-%m-%d %H %i %s' ) >= NOW( ) 
                         ORDER BY
-                        DATE_FORMAT( CONCAT( start_date, ' ', start_time ), '%Y-%m-%d %H %i %s' ) ASC 
+                        DATE_FORMAT( CONCAT( `start_date`, ' ', `start_time` ), '%Y-%m-%d %H %i %s' ) ASC 
                         LIMIT 1 
-                    ) AS start_date,
+                    ) AS `start_date`,
                     MAX( end_date ) AS end_date 
                 FROM
                     `events`";
