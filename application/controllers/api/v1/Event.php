@@ -45,9 +45,9 @@ class Event extends MY_Controller {
             $this->loadModel(array('Mevents', 'Mconfigs', 'Mbusinessprofiles'));
             $rowCount = $this->Mevents->getCountInApi($postData);
             $events = [];
-            $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
             $pageCount = 0;
-            $page = $postData['page_id'];
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);
                 if(!is_numeric($page) || $page < 1) $page = 1;
@@ -221,10 +221,10 @@ class Event extends MY_Controller {
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model(array('Mcustomerevents'));
             $rowCount = $this->Mcustomerevents->getCountInApi($postData);
-            $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
             $pageCount = 0;
-            $page = $postData['page_id'];
             $events = [];
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);
                 if(!is_numeric($page) || $page < 1) $page = 1;

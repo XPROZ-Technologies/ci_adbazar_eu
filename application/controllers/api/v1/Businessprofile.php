@@ -26,10 +26,11 @@ class Businessprofile extends MY_Controller {
             $this->load->model(array('Mbusinessprofiles','Mservices'));
             $postData['business_status_id'] = STATUS_ACTIVED;
             $rowCount = $this->Mbusinessprofiles->getCountInApi($postData);
-            $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
             $pageCount = 0;
-            $page = $postData['page_id'];
             $businessProfiles = [];
+
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
 
             if($rowCount > 0) {
                 $pageCount = ceil($rowCount / $perPage);
@@ -124,10 +125,11 @@ class Businessprofile extends MY_Controller {
                 $postData['api'] = true;
                 $this->load->model(array('Mbusinessphotos', 'Mbusinessprofiles'));
                 $rowCount = $this->Mbusinessphotos->getCountInApi($postData);
-                $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
                 $pageCount = 0;
-                $page = $postData['page_id'];
                 $businessPhotos = [];
+
+                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+                $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
 
                 if($rowCount > 0) {
                     $pageCount = ceil($rowCount / $perPage);
@@ -176,10 +178,11 @@ class Businessprofile extends MY_Controller {
                 $postData['api'] = true;
                 $this->load->model(array('Mbusinessvideos', 'Mbusinessprofiles'));
                 $rowCount = $this->Mbusinessvideos->getCountInApi($postData);
-                $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
                 $pageCount = 0;
-                $page = $postData['page_id'];
                 $businessVideos = [];
+
+                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+                $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
 
                 if($rowCount > 0) {
                     $pageCount = ceil($rowCount / $perPage);
@@ -229,9 +232,11 @@ class Businessprofile extends MY_Controller {
                 $postData['api'] = true;
                 $this->load->model(array('Mcustomerreviews', 'Mcustomers', 'Mbusinessprofiles'));
                 $rowCount = $this->Mcustomerreviews->getCountInApi($postData);
-                $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
                 $pageCount = 0;
-                $page = $postData['page_id'];
+
+                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+                $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
+
                 $reviews = [];
                 $allowReview = 0;
                 if(intval($postData['customer_id']) < 0) $allowReview = 0;
@@ -310,9 +315,9 @@ class Businessprofile extends MY_Controller {
             $postData['api'] = true;
             $this->load->model(array('Mcustomerreservations','Mbusinessprofiles'));
             $rowCount = $this->Mcustomerreservations->getCountApi($postData);
-            $perPage = intval($postData['per_page']) < 1 ? DEFAULT_LIMIT :$postData['per_page'];
             $pageCount = 0;
-            $page = $postData['page_id'];
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             $customerReservations = [];
             $datas = [];
             if($rowCount > 0) {

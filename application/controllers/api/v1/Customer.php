@@ -481,32 +481,26 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostApi(array('customer_first_name', 'customer_last_name', 'customer_birthday', 'customer_gender_id', 'customer_phone', 'customer_phone_code', 'customer_occupation', 'customer_address'));
             
             $this->checkValidateCustomerProfile($postData);
-            
-            if(isset($_FILES['customer_avatar']) && !empty($_FILES['customer_avatar'])){
+            if(isset($_FILES['customer_avatar']) && !empty($_FILES['customer_avatar']['name'])){
                 $file = $_FILES['customer_avatar'];
-                if ($file['error'] > 0) {
-                    $this->error204('Avatar update failed');
-                    die;
-                } else {
-                    $names = explode('.', $file['name']);
-                    $fileExt = strtolower($names[count($names) - 1]);
-                    if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
-                        $dir = CUSTOMER_PATH . date('Y-m-d') . '/';
-                        @mkdir($dir, 0777, true);
-                        @system("/bin/chown -R nginx:nginx " . $dir);
-                        $filePath = $dir . uniqid() . '.' . $fileExt;
-                        $flag = move_uploaded_file($file['tmp_name'], $filePath);
-                        if ($flag) {
-                            $photo = replaceFileUrl($filePath, CUSTOMER_PATH);
-                            $postData['customer_avatar'] = $photo;
-                        } else {
-                            $this->error204('Avatar update failed');
-                            die;
-                        }
+                $names = explode('.', $file['name']);
+                $fileExt = strtolower($names[count($names) - 1]);
+                if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
+                    $dir = CUSTOMER_PATH . date('Y-m-d') . '/';
+                    @mkdir($dir, 0777, true);
+                    @system("/bin/chown -R nginx:nginx " . $dir);
+                    $filePath = $dir . uniqid() . '.' . $fileExt;
+                    $flag = move_uploaded_file($file['tmp_name'], $filePath);
+                    if ($flag) {
+                        $photo = replaceFileUrl($filePath, CUSTOMER_PATH);
+                        $postData['customer_avatar'] = $photo;
                     } else {
-                        $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                        $this->error204('Avatar update failed');
                         die;
                     }
+                } else {
+                    $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                    die;
                 }
             }
             $this->loadModel(array('Mcustomers'));
