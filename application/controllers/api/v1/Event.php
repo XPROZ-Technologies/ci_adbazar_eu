@@ -260,17 +260,15 @@ class Event extends MY_Controller {
                 );
                 foreach ($period as $key => $value) {
                     $arrCalendar[] =  $value->format('Y/m/d');
-                  
                 }
                 $arrCalendar[] =$calendar['end_date'];
-                
             }
            
             $this->success200(array(
                 'dates' => $arrCalendar
             ));
-        } catch (\Throwable $th) {
-            $this->error500();
+        } catch (Exception $e) {
+            $this->error500($e->getMessage());
         }
     }
 
