@@ -198,7 +198,7 @@ class Event extends MY_Controller {
                     'business_address' => $detail['business_address'],
                     'business_phone' => $detail['business_phone']
                 );
-                $detail['joined_event'] = 0;
+                $detail['joined_event'] = 2;
                 if(!empty($detail['customer_id']) && intval($detail['customer_id']) == intval($postData['customer_id'])) {
                     $detail['joined_event'] = 1;
                 }
