@@ -149,22 +149,34 @@ class Mcoupons extends MY_Model {
     }
 
     public function getCountInApi($postData) {
+        $where = "";
+        if($postData['customer_id'] > 0) {
+            $where = " AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED."  GROUP BY coupon_id ) < coupons.coupon_amount ";
+        }
+
         $query = "SELECT coupons.id
                     FROM
                         coupons
                     WHERE
                         DATE(coupons.end_date) >= CURDATE() 
-                        AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ?  GROUP BY coupon_id ) < coupons.coupon_amount 
+                        ".$where."
                         AND coupons.coupon_status_id = ?
-                        ".$this->buildQuery($postData)."
-                    GROUP BY
-                        coupons.business_profile_id";
-        return count($this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED)));
+                        ".$this->buildQuery($postData);
+        return count($this->getByQuery($query, array(STATUS_ACTIVED)));
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {
-        $orderBy = $postData['order_by'];
-        if(empty($orderBy)) $orderBy = 'DESC';
+        
+        $orderBy = 'DESC';
+        if(isset($postData['order_by']) && !empty($postData['order_by'])) {
+            $orderBy = $postData['order_by'];
+        }
+        
+        $where = "";
+        if($postData['customer_id'] > 0) {
+            $where = " AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED."  GROUP BY coupon_id ) < coupons.coupon_amount ";
+        }
+
         $query = "SELECT
                     coupons.id,
                     coupons.coupon_subject,
@@ -177,18 +189,16 @@ class Mcoupons extends MY_Model {
                     coupons
                 WHERE
                     DATE(coupons.end_date) >= CURDATE() 
-                    AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ?  GROUP BY coupon_id ) < coupons.coupon_amount 
+                    ".$where." 
                     AND coupons.coupon_status_id = ?
                     ".$this->buildQuery($postData)."
-                GROUP BY
-                    coupons.business_profile_id
                 ORDER BY
                     coupons.created_at ".$orderBy;
             if($perPage > 0) {
                 $from = ($page-1) * $perPage;
                 $query .= " LIMIT {$from}, {$perPage}";
             }
-        return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED));
+        return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED));
     }
 
     public function getServicesInCoupon($customerId = 0, $langCode = '_vi') {

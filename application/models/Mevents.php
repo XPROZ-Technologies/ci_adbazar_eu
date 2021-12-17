@@ -78,8 +78,7 @@ class Mevents extends MY_Model {
                     LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
                 WHERE
                     DATE_FORMAT(CONCAT(`events`.end_date, ' ', TIME_FORMAT(`events`.start_time, '%H:%i')) , '%Y-%m-%d %H:%i:%s') >= NOW()
-                    ".$where."
-                     AND `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData)."
+                    AND `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData)." ".$where."
                 GROUP BY
                     `events`.business_profile_id 
                 ORDER BY
@@ -90,18 +89,30 @@ class Mevents extends MY_Model {
     }
 
     public function getCountInApi($postData) {
+
+        $where = "";
+        if(!empty($postData['customer_id']) && $postData['customer_id'] > 0) {
+            $where = "AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ".STATUS_ACTIVED." AND customer_id = ".$postData['customer_id'].")";
+        }
+        
         $query = "SELECT
                     `events`.id
                 FROM
                     `events`
                 WHERE
-                    `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ?)
-                    AND `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData);
-        return count($this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED)));
+                    `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData)." ".$where;
+                    
+        return count($this->getByQuery($query, array(STATUS_ACTIVED)));
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {
         if(empty($postData['order_by'])) $postData['order_by'] = 'ASC';
+
+        $where = "";
+        if(!empty($postData['customer_id']) && $postData['customer_id'] > 0) {
+            $where = "AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ".STATUS_ACTIVED." AND customer_id = ".$postData['customer_id'].")";
+        }
+
         $query = "SELECT
                     `events`.id,
                     `events`.event_subject,
@@ -116,10 +127,7 @@ class Mevents extends MY_Model {
                     `events`
                     LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
                 WHERE
-                    `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ?)
-                    AND `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData)."
-                GROUP BY
-                    `events`.business_profile_id 
+                    `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData)." ".$where."
                 ORDER BY
                     `events`.`start_date`, TIME_FORMAT(`events`.start_time, '%H:%i') ".$postData['order_by'];
         
@@ -128,7 +136,7 @@ class Mevents extends MY_Model {
             $query .= " LIMIT {$from}, {$perPage}";
         }
 
-        $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED));
+        $result = $this->getByQuery($query, array(STATUS_ACTIVED));
         return $result;
     }
 
