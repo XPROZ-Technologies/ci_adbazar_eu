@@ -269,8 +269,8 @@ class Event extends MY_Controller {
             $this->success200(array(
                 'dates' => $arrCalendar
             ));
-        } catch (\Throwable $th) {
-            $this->error500();
+        } catch (Exception $e) {
+            $this->error500($e->getMessage());
         }
     }
 
