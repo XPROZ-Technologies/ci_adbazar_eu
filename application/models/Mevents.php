@@ -42,16 +42,6 @@ class Mevents extends MY_Model {
         if(isset($postData['joined_events']) && count($postData['joined_events']) > 0) $query.=" AND `id` NOT IN (".implode(',', $postData['joined_events']).")";
         if(isset($postData['event_ids']) && count($postData['event_ids']) > 0) $query.=" AND `id` IN (".implode(',', $postData['event_ids']).")";
 
-        // xử lý điều kiện search cho api
-        if(isset($postData['api']) && $postData['api'] == true) {
-            if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query.=" AND `customer_events.customer_id` = {$postData['customer_id']}";
-            if(isset($postData['selected_date']) && !empty($postData['selected_date'])) {
-                $query .= " AND DATE(`events`.`start_date`) >= ".$postData['selected_date']." <= DATE(`events`.end_date)";
-            }
-            if(isset($postData['business_id']) && $postData['business_id'] > 0) {
-                if(isset($postData['business_id']) && $postData['business_id'] > 0) $query.=" AND `events`.business_profile_id = {$postData['business_id']}";
-            }
-        }
         return $query;
     }
 
@@ -88,6 +78,24 @@ class Mevents extends MY_Model {
         return $result;
     }
 
+    public function buildQueryInApi($postData) {
+        $query = '';
+
+        
+        // xử lý điều kiện search cho api
+        if(isset($postData['api']) && $postData['api'] == true) {
+            if(isset($postData['search_text']) && !empty($postData['search_text'])) $query.=" AND (`business_profiles`.business_name LIKE '%{$postData['search_text']}%' OR `events`.`event_subject` LIKE '%{$postData['search_text']}%' OR  `events`.`event_description` LIKE '%{$postData['search_text']}%')";
+            if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query.=" AND `customer_events.customer_id` = {$postData['customer_id']}";
+            if(isset($postData['selected_date']) && !empty($postData['selected_date'])) {
+                $query .= " AND DATE(`events`.`start_date`) >= ".$postData['selected_date']." <= DATE(`events`.end_date)";
+            }
+            if(isset($postData['business_id']) && $postData['business_id'] > 0) {
+                if(isset($postData['business_id']) && $postData['business_id'] > 0) $query.=" AND `events`.business_profile_id = {$postData['business_id']}";
+            }
+        }
+        return $query;
+    }
+
     public function getCountInApi($postData) {
 
         $where = "";
@@ -99,8 +107,9 @@ class Mevents extends MY_Model {
                     `events`.id
                 FROM
                     `events`
+                    LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
                 WHERE
-                    `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData)." ".$where;
+                    `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQueryInApi($postData)." ".$where;
                     
         return count($this->getByQuery($query, array(STATUS_ACTIVED)));
     }
@@ -127,7 +136,7 @@ class Mevents extends MY_Model {
                     `events`
                     LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
                 WHERE
-                    `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQuery($postData)." ".$where."
+                    `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQueryInApi($postData)." ".$where."
                 ORDER BY
                     `events`.`start_date`, TIME_FORMAT(`events`.start_time, '%H:%i') ".$postData['order_by'];
         
