@@ -46,14 +46,15 @@ class Businessprofile extends MY_Controller {
                     $businessProfiles[$i]['star'] = !empty($businessProfiles[$i]['star']) ? $businessProfiles[$i]['star'] : '0';
                     $businessProfiles[$i]['open_status_id'] = $openStatusId;
                     $businessProfiles[$i]['business_avatar'] = !empty($businessProfiles[$i]['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$businessProfiles[$i]['business_avatar']) : '';
-                    $serviceTypes = $this->Mservices->getServiceTypeInService($businessProfiles[$i]['id'], $postData['service_ids'], $postData['service_type_id'], $this->langCode);
+                    $serviceTypes = $this->Mservices->getServiceTypeInService($businessProfiles[$i]['id'], $this->langCode);
                     $businessProfiles[$i]['service_types'] = '';
                     if($serviceTypes) {
                         $businessProfiles[$i]['service_types'] = $serviceTypes['serviceTypeNames'];
                     }
                 }
-                $serviceTypesAll = $this->Mservices->getServiceTypeInServiceAll($postData['service_ids'], $postData['service_type_id'], $this->langCode);
+                
             }
+            $serviceTypesAll = $this->Mservices->getServiceTypeInServiceAll($postData['service_ids'], $postData['service_type_id'], $this->langCode);
             $this->success200(array(
                 'service_name' => !empty($serviceTypesAll) && count($serviceTypesAll) > 0 ? $serviceTypesAll['serviceName']: '',
                 'service_types' => !empty($serviceTypesAll) && count($serviceTypesAll) > 0 ? $serviceTypesAll['serviceType']: [],

@@ -146,29 +146,23 @@ class Mservices extends MY_Model {
                 ";
         return $this->getByQuery($query, array(STATUS_ACTIVED));
     }
-
-    public function getServiceTypeInService($businessProfileId = 0, $serviceId = [], $serviceTypeId = [], $langCode = '_vi') {
-        if(count($serviceId) > 0 && $businessProfileId > 0) {
-            $where = ' AND business_profiles.id = '.$businessProfileId;
-            $serviceIds = join(",",$serviceId);
-            if(count($serviceTypeId) > 0) {
-                $serviceTypeIds = join(",",$serviceTypeId);
-                $where = ' AND service_types.id IN ('.$serviceTypeIds.')';
-            }
+    // LEFT JOIN services ON services.id = service_types.service_id
+    // LEFT JOIN business_profiles ON business_profiles.service_id = service_types.service_id
+    public function getServiceTypeInService($businessProfileId = 0, $langCode = '_vi') {
+        if($businessProfileId > 0) {
+            $where = ' AND business_service_types.business_profile_id = '.$businessProfileId;
             $query = "SELECT
                 service_types.service_id,
                 service_types.id,
-                service_types.service_type_name".$langCode." as service_type_name,
-                services.service_name".$langCode." as service_name
+                service_types.service_type_name".$langCode." as service_type_name
             FROM
-                service_types 
-            LEFT JOIN services ON services.id = service_types.service_id
-            LEFT JOIN business_profiles ON business_profiles.service_id = service_types.service_id
+                business_service_types 
+                LEFT JOIN service_types ON business_service_types.service_type_id = service_types.id
             WHERE
-                service_types.status_id = ? AND business_profiles.id > 0 AND service_types.service_id IN (".$serviceIds.") ".$where;
+                service_types.status_id = ? ".$where;
             $datas = $this->getByQuery($query, array(STATUS_ACTIVED));
             $serviceTypeNames = '';
-            $serviceName = '';
+           
             $serviceType = [];
             $exitServiceTypeName = [];
             foreach($datas as $data) {
@@ -184,7 +178,6 @@ class Mservices extends MY_Model {
             } 
             return array(
                 'serviceTypeNames' => rtrim($serviceTypeNames, ', '),
-                'serviceName' => rtrim($serviceName, ', '),
                 'serviceType' => $serviceType
             );
 

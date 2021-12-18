@@ -43,6 +43,10 @@ class Mbusinessprofiles extends MY_Model {
         // xử lý điều kiện search cho api
         if(isset($postData['api']) && $postData['api'] == true) {
             if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `business_name` LIKE '%{$postData['search_text']}%')";
+            if(isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
+                $service_type_ids = join(",",$postData['service_type_id']);
+                if(!empty($service_type_ids)) $query .= " AND business_service_types.service_type_id IN (".$service_type_ids.")";
+            }
         }
         
         return $query;
@@ -186,8 +190,16 @@ class Mbusinessprofiles extends MY_Model {
     }
 
     public function getCountInApi($postData) {
-        $query = "business_status_id > 0" . $this->buildQuery($postData);
-        return $this->countRows($query);
+        $query = "SELECT
+                business_profiles.id
+                FROM
+                business_profiles
+                LEFT JOIN business_service_types ON business_service_types.business_profile_id = business_profiles.id
+            WHERE
+                business_profiles.business_status_id = ? ".$this->buildQuery($postData)."
+            GROUP BY
+                business_profiles.id";
+        return count($this->getByQuery($query, array(STATUS_ACTIVED)));
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {
@@ -207,6 +219,7 @@ class Mbusinessprofiles extends MY_Model {
                     business_profiles
                     LEFT JOIN customer_reviews ON customer_reviews.business_id = business_profiles.id
                     LEFT JOIN business_profile_locations ON business_profile_locations.business_profile_id = business_profiles.id
+                    LEFT JOIN business_service_types ON business_service_types.business_profile_id = business_profiles.id
                 WHERE
                     business_profiles.business_status_id = ? ".$this->buildQuery($postData)."
                 

@@ -56,8 +56,18 @@ class Mcoupons extends MY_Model {
         if(isset($postData['coupon_ids']) && count($postData['coupon_ids']) > 0) $query.=" AND `id` IN (".implode(',', $postData['coupon_ids']).")";
         if(isset($postData['business_profile_ids']) && count($postData['business_profile_ids']) > 0) $query.=" AND `business_profile_id` IN (".implode(',', $postData['business_profile_ids']).")";
 
+        return $query;
+    }
+
+    public function buildQueryInApi($postData) {
+        $query = '';
+       
+
         // xử lý điều kiện search cho api
         if(isset($postData['api']) && $postData['api'] == true) {
+            if(isset($postData['search_text']) && !empty($postData['search_text'])) {
+                $query.=" AND ( business_profiles.business_name LIKE '%{$postData['search_text']}%' OR coupons.`coupon_code` LIKE '%{$postData['search_text']}%' OR coupons.coupon_subject LIKE '%{$postData['search_text']}%' OR coupons.coupon_amount LIKE '%{$postData['search_text']}%')";
+            }
             if(isset($postData['customer_id']) && $postData['customer_id'] > 0) {
                 $query.=" AND coupons.id NOT IN (SELECT coupon_id FROM customer_coupons WHERE customer_coupon_status_id = 2 AND customer_id =".$postData['customer_id'].")";
             }
@@ -157,11 +167,12 @@ class Mcoupons extends MY_Model {
         $query = "SELECT coupons.id
                     FROM
                         coupons
+                        LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id
                     WHERE
                         DATE(coupons.end_date) >= CURDATE() 
                         ".$where."
                         AND coupons.coupon_status_id = ?
-                        ".$this->buildQuery($postData);
+                        ".$this->buildQueryInApi($postData);
         return count($this->getByQuery($query, array(STATUS_ACTIVED)));
     }
 
@@ -187,11 +198,12 @@ class Mcoupons extends MY_Model {
                     ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used 
                 FROM
                     coupons
+                LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id
                 WHERE
                     DATE(coupons.end_date) >= CURDATE() 
                     ".$where." 
                     AND coupons.coupon_status_id = ?
-                    ".$this->buildQuery($postData)."
+                    ".$this->buildQueryInApi($postData)."
                 ORDER BY
                     coupons.created_at ".$orderBy;
             if($perPage > 0) {
