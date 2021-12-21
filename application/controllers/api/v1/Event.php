@@ -190,7 +190,7 @@ class Event extends MY_Controller {
             $detail = $this->Mevents->getDetailEvent($postData);
             if(count($detail) > 0) {
                 $detail = $detail[0];
-                $detail['event_image'] = !empty($detail['event_image']) ? base_url(COUPONS_PATH.$detail['event_image']) : '';
+                $detail['event_image'] = !empty($detail['event_image']) ? base_url(EVENTS_PATH.$detail['event_image']) : '';
                 $detail['business_info'] = array(
                     'id' => $detail['business_profile_id'],
                     'business_name' => $detail['business_name'],
@@ -262,7 +262,7 @@ class Event extends MY_Controller {
                     $arrCalendar[] =  $value->format('Y/m/d');
                   
                 }
-                $arrCalendar[] =$calendar['end_date'];
+                $arrCalendar[] = ddMMyyyy($calendar['end_date'], 'Y/m/d');
                 
             }
            
