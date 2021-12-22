@@ -88,6 +88,7 @@ class Coupon extends MY_Controller {
             $this->openAllCors();
             $this->load->model('Mcoupons');
             $postData = $this->arrayFromPostRawJson(array('customer_id'));
+            if(!isset($postData['customer_id'])) $postData['customer_id'] = 0;
             $services = $this->Mcoupons->getServicesInCoupon($postData['customer_id'], $this->langCode);
             $this->success200(array('list' => $services));
         } catch (\Throwable $th) {
