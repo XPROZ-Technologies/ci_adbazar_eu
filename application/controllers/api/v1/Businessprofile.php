@@ -279,15 +279,16 @@ class Businessprofile extends MY_Controller {
                         'business_avatar' => !empty($businessProfile['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$businessProfile['business_avatar']): '',
                         'business_image_cover' => !empty($businessProfile['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$businessProfile['business_avatar']) :''
                     );
-                    $ratingInfo = array(
-                        "overall_rating" =>  $businessProfile['overall_rating'],
-                        "count_one_star" =>  $businessProfile['count_one_star'],
-                        "count_two_star" =>  $businessProfile['count_two_star'],
-                        "count_three_star" =>  $businessProfile['count_three_star'],
-                        "count_four_star" =>  $businessProfile['count_four_star'],
-                        "count_five_star" =>  $businessProfile['count_five_star']
-                    );
+                    
                 }
+                $ratingInfo = array(
+                    "overall_rating" =>  isset($businessProfile['overall_rating']) ? $businessProfile['overall_rating'] : 0,
+                    "count_one_star" =>  isset($businessProfile['count_one_star']) ? $businessProfile['count_one_star'] : 0,
+                    "count_two_star" =>  isset($businessProfile['count_two_star']) ? $businessProfile['count_two_star'] : 0,
+                    "count_three_star" => isset($businessProfile['count_three_star']) ? $businessProfile['count_three_star'] : 0,
+                    "count_four_star" =>  isset($businessProfile['count_four_star']) ? $businessProfile['count_four_star'] : 0,
+                    "count_five_star" =>  isset($businessProfile['count_five_star']) ? $businessProfile['count_five_star'] : 0
+                );
                 $this->success200(array(
                     'page_id' => $page,
                     'per_page' => $perPage,

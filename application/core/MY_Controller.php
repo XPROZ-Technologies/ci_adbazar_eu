@@ -10,7 +10,7 @@ abstract class MY_Controller extends CI_Controller
         $this->db_slave = $this->load->database('slave', TRUE);
         $this->db_master = $this->load->database('master', TRUE);
         if (function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Bangkok');
-        $user = $this->Musers->get(1); $this->session->set_userdata('user', $user);
+        // $user = $this->Musers->get(1); $this->session->set_userdata('user', $user);
 
     }
 

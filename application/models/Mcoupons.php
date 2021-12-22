@@ -146,7 +146,7 @@ class Mcoupons extends MY_Model {
             WHERE
                 DATE(coupons.end_date) >= CURDATE()
                 ".$where."
-                 AND coupons.coupon_status_id = ? 
+                 AND coupons.coupon_status_id = ? AND coupons.is_hot = 2 
                 ".$this->buildQuery($postData)."
             GROUP BY
                 coupons.business_profile_id 
