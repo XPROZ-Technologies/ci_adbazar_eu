@@ -62,6 +62,12 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
+                                        <label class="control-label">Is hot</label><br>
+                                        <input type="checkbox" value="1" name="is_hot" class="js-switch"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
                                         <label class="control-label">Description</label>
                                         <textarea rows="9"  class="form-control" name="coupon_description"></textarea>
                                     </div>
