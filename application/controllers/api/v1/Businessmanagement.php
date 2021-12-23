@@ -509,5 +509,64 @@ class Businessmanagement extends MY_Controller {
         }
     }
 
+    public function reservation() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'search_text', 'selected_date', 'book_status_id', 'order_by'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mcustomerreservations', 'Mcustomers'));
+            $postData['customer_id'] = $customer['customer_id'];
+            $postData['api'] = true;
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('customer_id' => $postData['customer_id'], 'id' => $postData['business_id']), 'id', 0);
+            if($checkExit == 0) {
+                $this->error204('Business profile does not belong to this customer');
+                die;
+            }
+            $rowCount = $this->Mcustomerreservations->getCountApi($postData);
+            $pageCount = 0;
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
+            $dataReturn = [];
+            if($rowCount > 0) {
+                $pageCount = ceil($rowCount / $perPage);
+                if(!is_numeric($page) || $page < 1) $page = 1;
+                $customerReservations = $this->Mcustomerreservations->searchReservationApi($postData, $perPage, $page);
+                
+                for($i = 0; $i < count($customerReservations); $i++) {
+                    $reservation = $customerReservations[$i];
+                    $customer = $this->Mcustomers->get($postData['customer_id']);
+                    $firstName = !empty($customer['customer_first_name']) ? $customer['customer_first_name'].' ' : '';
+                    $lastName = !empty($customer['customer_last_name']) ? $customer['customer_last_name'] : '';
+                    $phoneNumber = !empty($customer['customer_phone']) ? ltrim($customer['customer_phone'], '0') : '';
+                    $phoneCode = !empty($customer['customer_phone_code']) ? '+'.$customer['customer_phone_code'] : '';
+                    $dataReturn[] = array(
+                        "id" => $reservation['id'],
+                        "book_code" => $reservation['book_code'],
+                        "book_phone" => $phoneCode.$phoneNumber,
+                        "book_name" => $reservation['book_name'],
+                        "customer_name" => $firstName.$lastName,
+                        "number_of_people" => intval($reservation['number_of_people']),
+                        "date_arrived" => ddMMyyyy($reservation['date_arrived'], 'Y/m/d'),
+                        "time_arrived" => ddMMyyyy($reservation['time_arrived'], 'H:i'),
+                        "book_status_id" => intval($reservation['book_status_id'])
+                    );
+                }
+            }
+            $this->success200(array(
+                'page_id' => $page,
+                'per_page' => $perPage,
+                'page_count' => $pageCount,
+                'totals' => $rowCount,
+                'list' => $dataReturn
+            ));
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
    
 }
