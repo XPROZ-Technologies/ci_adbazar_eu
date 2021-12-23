@@ -478,7 +478,7 @@ class Customer extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
-            $postData = $this->arrayFromPostApi(array('customer_first_name', 'customer_last_name', 'customer_birthday', 'customer_gender_id', 'customer_phone', 'customer_phone_code', 'customer_occupation', 'customer_address'));
+            $postData = $this->arrayFromPostApi(array('customer_first_name', 'customer_last_name', 'customer_birthday', 'customer_gender_id', 'customer_phone', 'customer_phone_code', 'customer_occupation', 'customer_address', 'language_id'));
             
             $this->checkValidateCustomerProfile($postData);
             if(isset($_FILES['customer_avatar']) && !empty($_FILES['customer_avatar']['name'])){
@@ -506,10 +506,11 @@ class Customer extends MY_Controller {
             $this->loadModel(array('Mcustomers'));
             $checkExit = $this->Mcustomers->get($customer['customer_id']);
             if($checkExit && $checkExit['customer_status_id'] == STATUS_ACTIVED) {
+                $languageId = isset($postData['language_id']) && (in_array($postData['language_id'], [1,2,3,4])) ? $postData['language_id'] : 0;
                 $postData['customer_birthday'] = ddMMyyyy($postData['customer_birthday'], 'Y-m-d');
                 $postData['updated_at'] = getCurentDateTime();
                 $postData['updated_by'] = 0;
-                $postData['language_id'] = $this->languageId;
+                $postData['language_id'] = $languageId;
 
                 $flag = $this->Mcustomers->save($postData, $customer['customer_id']);
                 $postData['customer_email'] = $checkExit['customer_email'];
