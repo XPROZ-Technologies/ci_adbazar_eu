@@ -506,7 +506,7 @@ class Customer extends MY_Controller {
             $this->loadModel(array('Mcustomers'));
             $checkExit = $this->Mcustomers->get($customer['customer_id']);
             if($checkExit && $checkExit['customer_status_id'] == STATUS_ACTIVED) {
-                $languageId = isset($postData['language_id']) && (in_array($postData['language_id'], [1,2,3,4])) ? $postData['language_id'] : $this->languageId;
+                $languageId = isset($postData['language_id']) && (in_array($postData['language_id'], [1,2,3,4])) ? $postData['language_id'] : 0;
                 $postData['customer_birthday'] = ddMMyyyy($postData['customer_birthday'], 'Y-m-d');
                 $postData['updated_at'] = getCurentDateTime();
                 $postData['updated_by'] = 0;
