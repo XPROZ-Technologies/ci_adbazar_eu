@@ -117,4 +117,18 @@ class Mcustomerreservations extends MY_Model {
         }
         return $this->getByQuery($query);
     }
+
+    public function checkTimeBookReservations($strDateTime, $business_id){
+        $query = "SELECT business_profile_id, date_arrived, time_arrived, SUM(number_of_people) as number_of_people  
+                    FROM `customer_reservations`
+                    WHERE book_status_id = 2 
+                    AND business_profile_id = ".$business_id." 
+                    AND DATE_FORMAT(CONCAT(date_arrived,' ',time_arrived), '%Y-%m-%d %H:%i:%s') >= DATE_FORMAT(CONCAT('".$strDateTime."'), '%Y-%m-%d %H:%i:%s')
+                    GROUP BY business_profile_id";
+        return $this->getByQuery($query);
+    }
+
+    public function getListServiceType($customerId = 0) {
+
+    }
 }

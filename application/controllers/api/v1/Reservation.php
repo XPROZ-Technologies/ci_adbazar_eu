@@ -91,19 +91,31 @@ class Reservation extends MY_Controller {
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mreservationconfigs', 'Mcustomerreservations'));
+           
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id']), 'id', 0);
-            if($checkExit <= 0) {
+           
+            if(intval($checkExit) <= 0) {
                 $this->error204('This type of business does not belong to this customer');
                 die;
             }
-            $dayId = date('N', strtotime($postData['date_arrived'])) - 1;
+          
+            $dayId = date('N', $dateData) - 1;
             $timeConfig = $this->Mreservationconfigs->getBy(array('day_id' => $dayId, 'business_profile_id' => $postData['business_id']));
             if(count($timeConfig) > 0) {
                 $timeConfig = $timeConfig[0];
-                if(intval($timeConfig['max_per_reservation']) < intval($postData['number_of_people'])) {
+                if(intval($postData['number_of_people'] > intval($timeConfig['max_per_reservation']))) {
                     $this->error204('Can only book up to '.$timeConfig['max_per_reservation'].' people');
                     die;
                 }
+                $strDateTime = $postData['date_arrived'].' '.$postData['time_arrived'].":00";
+                $customerReser = $this->Mcustomerreservations->checkTimeBookReservations($strDateTime, $postData['business_id']);
+                if($customerReser && count($customerReser) > 0) {
+                    $customerReser = $customerReser[0];
+                    if($postData['number_of_people'] > (intval($timeConfig['max_people']) - intval($customerReser['number_of_people']))) {
+                        $this->error204('The number of people you want to place must be less than the number of people in the system');
+                        die;
+                    }
+                } 
                 if( (strtotime($timeConfig['start_time']) < strtotime($postData['time_arrived'])) &&  (strtotime($postData['time_arrived']) < strtotime($timeConfig['end_time'])) ) { 
                     $businessInfo = $this->Mbusinessprofiles->get($postData['business_id']);
                     $preNameCode = str_replace('-', '', $businessInfo['business_url']);
