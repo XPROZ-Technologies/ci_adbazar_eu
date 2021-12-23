@@ -15,7 +15,9 @@ class Mcustomerreservations extends MY_Model {
     }
 
     public function search($postData, $perPage = 0, $page = 1){
-        $query = "SELECT * FROM customer_reservations WHERE book_status_id > 0" . $this->buildQuery($postData);
+        $query = "SELECT id, book_code, customer_id, business_profile_id, book_name, number_of_people, country_code_id, book_phone, date_arrived, time_arrived, book_status_id,
+                    (CASE WHEN (book_status_id = 2 AND DATE_FORMAT(CONCAT(date_arrived,' ',time_arrived), '%Y-%m-%d %H:%i:%s') < NOW()) THEN 1 ELSE book_status_id END) as book_status_id
+                FROM customer_reservations WHERE book_status_id > 0" . $this->buildQuery($postData);
 
         if(isset($postData['order_by'])){
             $query .= " ORDER BY created_at ".$postData['order_by'];
@@ -51,12 +53,6 @@ class Mcustomerreservations extends MY_Model {
         if(isset($postData['time_arrived']) && !empty($postData['time_arrived']))  $query.=" AND time_arrived = '".$postData['time_arrived']."'";
         if(isset($postData['date_arrived']) && !empty($postData['date_arrived']))  $query.=" AND date_arrived = '".$postData['date_arrived']."'";
 
-        if(isset($postData['api']) && $postData['api'] == 'api') {
-            if(isset($postData['business_id']) && $postData['business_id'] > 0)  $query.=" AND business_profile_id = ".$postData['business_id'];
-            if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `book_code` LIKE '%{$postData['search_text']}%' OR `book_name` LIKE '%{$postData['search_text']}%' OR `book_phone` LIKE '%{$postData['search_text']}%')";
-        }
-        
-
         return $query;
     }
 
@@ -66,7 +62,10 @@ class Mcustomerreservations extends MY_Model {
     }
 
     public function searchApi($postData, $perPage = 0, $page = 1){
-        $query = "SELECT * FROM customer_reservations WHERE book_status_id > 0" . $this->buildQueryApi($postData);
+        $query = "SELECT 
+                        id, book_code, customer_id, business_profile_id, book_name, number_of_people, country_code_id, book_phone, date_arrived, time_arrived, book_status_id,
+                        (CASE WHEN (book_status_id = 2 AND DATE_FORMAT(CONCAT(date_arrived,' ',time_arrived), '%Y-%m-%d %H:%i:%s') < NOW()) THEN 1 ELSE book_status_id END) as book_status_id
+                    FROM customer_reservations WHERE book_status_id > 0" . $this->buildQueryApi($postData);
 
         if(isset($postData['order_by'])){
             $query .= " ORDER BY created_at ".$postData['order_by'];
@@ -85,10 +84,37 @@ class Mcustomerreservations extends MY_Model {
         $query = '';
 
         if(isset($postData['api']) && $postData['api'] == 'api') {
+            if(isset($postData['customer_id']) && $postData['customer_id'] > 0)  $query.=" AND customer_id = ".$postData['customer_id'];
             if(isset($postData['business_id']) && $postData['business_id'] > 0)  $query.=" AND business_profile_id = ".$postData['business_id'];
-            if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( `book_code` LIKE '%{$postData['search_text']}%' OR `book_name` LIKE '%{$postData['search_text']}%' OR `book_phone` LIKE '%{$postData['search_text']}%')";
-            if(isset($postData['book_status_id']) && $postData['book_status_id'] != '') $query.=" AND book_status_id = ".$postData['book_status_id'];
+            if(isset($postData['search_text']) && !empty($postData['search_text'])) {
+                $query .=" AND ( `book_code` LIKE '%{$postData['search_text']}%' OR 
+                                `book_name` LIKE '%{$postData['search_text']}%' OR 
+                                `book_phone` LIKE '%{$postData['search_text']}%' OR
+                                `customer_id` IN (Select id FROM customers where customer_first_name LIKE '%{$postData['search_text']}%' OR customer_last_name LIKE '%{$postData['search_text']}%')
+                            )";
+            }
+            if(isset($postData['book_status_id']) && $postData['book_status_id'] != '' && $postData['book_status_id'] > 0) $query.=" AND book_status_id = ".$postData['book_status_id'];
+            if(isset($postData['selected_date']) && !empty($postData['selected_date'])) {
+                $selectedDate = ddMMyyyy($postData['selected_date'], 'Y-m-d');
+                $query.=" AND date_arrived = ".$selectedDate;
+            }
         }
         return $query;
+    }
+
+    public function searchReservationApi($postData, $perPage = 0, $page = 1) {
+        $query = "SELECT customer_reservations.* FROM customer_reservations WHERE book_status_id > 0" . $this->buildQueryApi($postData);
+
+        if(isset($postData['order_by'])){
+            $query .= " ORDER BY created_at ".$postData['order_by'];
+        }else{
+            $query .= " ORDER BY created_at DESC";
+        }
+
+        if($perPage > 0) {
+            $from = ($page-1) * $perPage;
+            $query .= " LIMIT {$from}, {$perPage}";
+        }
+        return $this->getByQuery($query);
     }
 }

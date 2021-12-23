@@ -313,6 +313,7 @@ class Businessprofile extends MY_Controller {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'search_text', 'book_status_id'));
+            if(!isset($postData['business_id'])) $postData['business_id'] = 0;
             $postData['customer_id'] = $customer['customer_id'];
             $postData['api'] = true;
             $this->load->model(array('Mcustomerreservations','Mbusinessprofiles'));
@@ -323,7 +324,6 @@ class Businessprofile extends MY_Controller {
             $customerReservations = [];
             $datas = [];
             if($rowCount > 0) {
-                if(intval($postData['customer_id']) > 0) $allowReview = 1;
                 $pageCount = ceil($rowCount / $perPage);
                 if(!is_numeric($page) || $page < 1) $page = 1;
                 $customerReservations = $this->Mcustomerreservations->searchApi($postData, $perPage, $page);
@@ -334,7 +334,6 @@ class Businessprofile extends MY_Controller {
                     $datas[] = array(
                         'id' => $data['id'],
                         'book_code' => $data['book_code'],
-                        'book_name' => $data['book_name'],
                         'number_of_people' => $data['number_of_people'],
                         'date_arrived' => ddMMyyyy($data['date_arrived'], 'Y/m/d'),
                         'time_arrived' => ddMMyyyy($data['time_arrived'], 'H:i'),
@@ -347,25 +346,29 @@ class Businessprofile extends MY_Controller {
                     );
                 }
             }
-            $business = $this->Mbusinessprofiles->get($postData['business_id']);
-            $businessInfo = '';
-            if($business) {
-                $businessInfo = array(
-                    'id' => $business['id'],
-                    'business_name' => $business['business_name'],
-                    'business_slogan' => $business['business_slogan'],
-                    'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
-                    'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
-                );
-            }
-            $this->success200(array(
+            $dataReturn = array(
                 'page_id' => $page,
                 'per_page' => $perPage,
                 'page_count' => $pageCount,
                 'totals' => $rowCount,
-                'business_info' => $businessInfo,
                 'list' => $datas
-            ));
+            );
+            if($postData['business_id'] > 0) {
+                $business = $this->Mbusinessprofiles->get($postData['business_id']);
+                $businessInfo = '';
+                if($business) {
+                    $businessInfo = array(
+                        'id' => $business['id'],
+                        'business_name' => $business['business_name'],
+                        'business_slogan' => $business['business_slogan'],
+                        'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                        'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                    );
+                }
+                $dataReturn['business_info'] = $businessInfo;
+            }
+            
+            $this->success200($dataReturn);
         } catch (\Throwable $th) {
             $this->error500();
         }
