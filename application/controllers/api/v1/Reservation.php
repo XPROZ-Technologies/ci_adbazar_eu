@@ -155,4 +155,96 @@ class Reservation extends MY_Controller {
             $this->error500();
         }
     }
+
+    public function cancel_a_reservation() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('reservation_id'));
+            if(!isset($postData['reservation_id'])) {
+                $this->error204('reservation_id: not transmitted');
+                die;
+            }
+            $this->load->model(array('Mcustomerreservations'));
+            $reservation = $this->Mcustomerreservations->get($postData['reservation_id']);
+            if(empty($reservation)) {
+                $this->error204('Reservation does not exist');
+                die;
+            }
+            if($reservation['customer_id'] != $customer['customer_id']) {
+                $this->error204('Reservation does not belong to this customer');
+                die;
+            }
+            if($reservation['book_status_id'] != 2) {
+                $this->error204('Reservation is not in an active state so it cannot be canceled');
+                die;
+            }
+            $flag = $this->Mcustomerreservations->save(array(
+                'book_status_id' => 3,
+                'updated_by' => getCurentDateTime()
+            ), $postData['reservation_id']);
+            if($flag) {
+                $this->success200('', 'Cancellation is successful');
+            } else {
+                $this->error204('Cancellation failed');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function decline_a_reservation() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('reservation_id', 'business_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            if(!isset($postData['reservation_id'])) {
+                $this->error204('reservation_id: not transmitted');
+                die;
+            }
+            $this->load->model(array('Mcustomerreservations', 'Mbusinessprofiles'));
+            $checkExitBusiness = $this->Mbusinessprofiles->getFieldValue(array('customer_id' => $customer['customer_id'], 'id' => $postData['business_id']), 'id', 0);
+            if($checkExitBusiness == 0) {
+                $this->error204('Business profile does not belong to this customer');
+                die;
+            }
+            $reservation = $this->Mcustomerreservations->get($postData['reservation_id']);
+            if(empty($reservation)) {
+                $this->error204('Reservation does not exist');
+                die;
+            }
+            if($reservation['customer_id'] != $customer['customer_id']) {
+                $this->error204('Reservation does not belong to this customer');
+                die;
+            }
+
+            if($reservation['business_profile_id'] != $postData['business_id']) {
+                $this->error204('Reservation does not belong to this business');
+                die;
+            }
+            if($reservation['book_status_id'] != 2) {
+                $this->error204('Reservation is not in an active state so it cannot be canceled');
+                die;
+            }
+
+            $flag = $this->Mcustomerreservations->save(array(
+                'book_status_id' => 4,
+                'updated_by' => getCurentDateTime()
+            ), $postData['reservation_id']);
+            if($flag) {
+                $this->success200('', 'Refused to make an appointment successfully');
+            } else {
+                $this->error204('Refused to make an appointment failed');
+                die;
+            }
+        
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
 }
