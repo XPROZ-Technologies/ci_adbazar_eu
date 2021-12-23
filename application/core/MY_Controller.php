@@ -167,7 +167,13 @@ abstract class MY_Controller extends CI_Controller
      */
     protected function checkBusinessOpenHours($businessId = 0)
     {
-        return true;
+        $this->load->model('Mopeninghours');
+        $dayId = date('N', strtotime(date('Y-m-d'))) - 1;
+        $query = "SELECT id FROM `opening_hours`
+            WHERE business_profile_id = ".$businessId." AND day_id = ".$dayId." AND start_time <= CURTIME() AND CURTIME() <= end_time AND opening_hours_status_id = 2";
+        $checkTime = count($this->Mopeninghours->getByQuery($query));
+        if($checkTime) return true;
+        else return false;
     }
 
     /**

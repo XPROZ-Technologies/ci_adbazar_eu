@@ -24,6 +24,9 @@ class Location extends MY_Controller {
             $arrLocation = [];
             for($i = 0; $i < count($locations); $i++){
                 $location = $locations[$i];
+                $openStatusId = $this->checkBusinessOpenHours($location['business_profile_id']);
+                if($openStatusId) $openStatusId = 2;
+                else $openStatusId = 1;
                 $arrLocation[] = array(
                     'id' => $location['id'],
                     'lat' => $location['lat'],
@@ -33,7 +36,8 @@ class Location extends MY_Controller {
                         'business_name' => $location['business_name'],
                         'business_phone' => $location['business_phone'],
                         'business_slogan' => $location['business_slogan'],
-                        'business_avatar' => !empty($location['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$location['business_avatar']): ''
+                        'business_avatar' => !empty($location['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$location['business_avatar']): '',
+                        'open_status_id' => $openStatusId
                     )
                 );
             }
