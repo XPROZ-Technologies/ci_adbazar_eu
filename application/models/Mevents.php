@@ -85,7 +85,7 @@ class Mevents extends MY_Model {
         // xử lý điều kiện search cho api
         if(isset($postData['api']) && $postData['api'] == true) {
             if(isset($postData['search_text']) && !empty($postData['search_text'])) $query.=" AND (`business_profiles`.business_name LIKE '%{$postData['search_text']}%' OR `events`.`event_subject` LIKE '%{$postData['search_text']}%' OR  `events`.`event_description` LIKE '%{$postData['search_text']}%')";
-            if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query.=" AND `customer_events.customer_id` = {$postData['customer_id']}";
+            // if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query.=" AND `customer_events`.customer_id = {$postData['customer_id']}";
             if(isset($postData['selected_date']) && !empty($postData['selected_date'])) {
                 $query .= " AND DATE(`events`.`start_date`) >= ".$postData['selected_date']." <= DATE(`events`.end_date)";
             }
@@ -100,7 +100,7 @@ class Mevents extends MY_Model {
 
         $where = "";
         if(!empty($postData['customer_id']) && $postData['customer_id'] > 0) {
-            $where = "AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ".STATUS_ACTIVED." AND customer_id = ".$postData['customer_id'].")";
+            $where = " AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = 2 AND customer_id = ".$postData['customer_id'].")";
         }
         
         $query = "SELECT
@@ -109,9 +109,9 @@ class Mevents extends MY_Model {
                     `events`
                     LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
                 WHERE
-                    `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQueryInApi($postData)." ".$where;
+                    `events`.event_status_id = 2 AND `events`.business_profile_id > 0 ".$this->buildQueryInApi($postData).$where;
                     
-        return count($this->getByQuery($query, array(STATUS_ACTIVED)));
+        return count($this->getByQuery($query));
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {

@@ -29,7 +29,7 @@ class Businessprofile extends MY_Controller {
             $pageCount = 0;
             $businessProfiles = [];
 
-            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
             $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
 
             if($rowCount > 0) {
@@ -129,7 +129,7 @@ class Businessprofile extends MY_Controller {
                 $pageCount = 0;
                 $businessPhotos = [];
 
-                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
                 $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
 
                 if($rowCount > 0) {
@@ -182,7 +182,7 @@ class Businessprofile extends MY_Controller {
                 $pageCount = 0;
                 $businessVideos = [];
 
-                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
                 $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
 
                 if($rowCount > 0) {
@@ -235,32 +235,31 @@ class Businessprofile extends MY_Controller {
                 $rowCount = $this->Mcustomerreviews->getCountInApi($postData);
                 $pageCount = 0;
 
-                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
                 $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
 
                 $reviews = [];
                 $allowReview = 0;
                 if(intval($postData['customer_id']) < 0) $allowReview = 0;
-                
                 if($rowCount > 0) {
                     if(intval($postData['customer_id']) > 0) $allowReview = 1;
                     $pageCount = ceil($rowCount / $perPage);
                     if(!is_numeric($page) || $page < 1) $page = 1;
                     $customerReviews = $this->Mcustomerreviews->getListInApi($postData, $perPage, $page);
-                    // $videos = [];
+                  
                     for($i = 0; $i < count($customerReviews); $i++) {
                         $data = $customerReviews[$i];
                         $customer = $this->Mcustomers->get($data['customer_id']);
                         $reviews[] = array(
                             'id' => $data['id'],
                             'review_star' => $data['review_star'],
-                            'customer_comment' => $data['customer_comment'],
+                            'customer_comment' => str_replace(['<p>','</p>'],['',''],$data['customer_comment']),
                             'customer_name' => isset($customer['customer_last_name']) ? $customer['customer_last_name'] : '',
                             'customer_avatar' => isset($customer['customer_avatar']) && !empty($customer['customer_avatar']) ? base_url(CUSTOMER_PATH.$customer['customer_avatar']) : '',
                             'created_date' => ddMMyyyy($data['created_at'], 'Y/m/d'),
                             "reply" => array(
                                 'business_name' => $this->Mbusinessprofiles->getFieldValue(array('id' => $data['business_id']), 'business_name', ''),
-                                'business_comment' => $data['business_comment'],
+                                'business_comment' => str_replace(['<p>','</p>'],['',''],$data['business_comment']),
                                 'created_date' => ddMMyyyy($data['updated_at'], 'Y/m/d')
                             ),
                             'has_image' => intval($data['is_image'])
@@ -320,7 +319,7 @@ class Businessprofile extends MY_Controller {
             $this->load->model(array('Mcustomerreservations','Mbusinessprofiles'));
             $rowCount = $this->Mcustomerreservations->getCountApi($postData);
             $pageCount = 0;
-            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
             $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             $customerReservations = [];
             $datas = [];
