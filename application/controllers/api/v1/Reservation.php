@@ -259,4 +259,226 @@ class Reservation extends MY_Controller {
             $this->error500();
         }
     }
+
+    public function update_config() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'day_id', 'max_people', 'max_per_reservation', 'duration', 'start_time', 'end_time', 'is_all'));
+            $postData['customer_id'] = $customer['customer_id'];
+            $this->load->model(array('Mbusinessprofiles', 'Mreservationconfigs'));
+            $this->checkValidateUpdateConfig($postData);
+
+            // TH: is_all = 1
+            $flag = false;
+            if($postData['is_all'] == 1) {
+                for($i = 0; $i <= 6; $i++) {
+                    $configId = $this->Mreservationconfigs->getFieldValue(array('business_profile_id' => $postData['business_id'], 'day_id' => $i , 'reservation_config_status_id' => 2), 'id', 0);
+                    $dataSave = array(
+                        'business_profile_id' => $postData['business_id'],
+                        'day_id' => $postData['day_id'],
+                        'max_people' => $postData['max_people'],
+                        'max_per_reservation' => $postData['max_per_reservation'],
+                        'duration' => $postData['duration'],
+                        'start_time' => $postData['start_time'].':00',
+                        'end_time' => $postData['end_time'].':00',
+                        'updated_by' => getCurentDateTime(),
+                        'reservation_config_status_id' => 2
+                    );
+                    $flag = $this->Mreservationconfigs->save($dataSave, $configId);
+                }
+            } else {
+                $configId = $this->Mreservationconfigs->getFieldValue(array('business_profile_id' => $postData['business_id'], 'day_id' => $postData['day_id'] , 'reservation_config_status_id' => 2), 'id', 0);
+                $dataSave = array(
+                    'business_profile_id' => $postData['business_id'],
+                    'day_id' => $postData['day_id'],
+                    'max_people' => $postData['max_people'],
+                    'max_per_reservation' => $postData['max_per_reservation'],
+                    'duration' => $postData['duration'],
+                    'start_time' => $postData['start_time'].':00',
+                    'end_time' => $postData['end_time'].':00',
+                    'updated_by' => getCurentDateTime(),
+                    'reservation_config_status_id' => 2
+                );
+                $flag = $this->Mreservationconfigs->save($dataSave, $configId);
+            }
+            if($flag) {
+                $this->success200('', 'Successful configuration');
+            } else {
+                $this->error204('Configuration failed');
+                die;
+            }
+
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    private function checkValidateUpdateConfig($postData) {
+        if(!isset($postData['business_id'])) {
+            $this->error204('business_id: not transmitted');
+            die;
+        }
+        if(!isset($postData['day_id'])) {
+            $this->error204('day_id: not transmitted');
+            die;
+        }
+        if(!isset($postData['max_people'])) {
+            $this->error204('max_people: not transmitted');
+            die;
+        }
+        if(!isset($postData['max_per_reservation'])) {
+            $this->error204('max_per_reservation: not transmitted');
+            die;
+        }
+        if(!isset($postData['duration'])) {
+            $this->error204('duration: not transmitted');
+            die;
+        }
+        if(!isset($postData['start_time'])) {
+            $this->error204('start_time: not transmitted');
+            die;
+        }
+        if(!isset($postData['end_time'])) {
+            $this->error204('end_time: not transmitted');
+            die;
+        }
+        if(!isset($postData['is_all'])) {
+            $this->error204('is_all: not transmitted');
+            die;
+        }
+        $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
+        if(!$checkExit) {
+            $this->error204('Business does not belong to this customer');
+            die;
+        }
+        if(!in_array($postData['day_id'], [0,1,2,3,4,5,6])) {
+            $this->error204('Invalid number of days');
+            die;
+        }
+        if(!is_numeric($postData['max_people'])) {
+            $this->error204('max_people: not a numeric type');
+            die;
+        }
+        if(!is_numeric($postData['max_per_reservation'])) {
+            $this->error204('max_per_reservation: not a numeric type');
+            die;
+        }
+        if(!is_numeric($postData['duration'])) {
+            $this->error204('duration: not a numeric type');
+            die;
+        }
+        if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['start_time'])) {
+            $this->error204('start_time: not time format');
+            die;
+        }
+        if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['end_time'])) {
+            $this->error204('start_time: not time format');
+            die;
+        }
+        if(!in_array($postData['is_all'], [0,1])) {
+            $this->error204('is_all: not in 0 or 1');
+            die;
+        }
+        
+    }
+
+    public function get_config() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'day_id'));
+            $postData['customer_id'] = $customer['customer_id'];
+            $this->load->model(array('Mbusinessprofiles', 'Mreservationconfigs'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            if(!isset($postData['day_id'])) {
+                $this->error204('day_id: not transmitted');
+                die;
+            }
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
+            if(!$checkExit) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+            if(!in_array($postData['day_id'], [0,1,2,3,4,5,6])) {
+                $this->error204('Invalid number of days');
+                die;
+            }
+            $config = $this->Mreservationconfigs->getBy(array('business_profile_id' => $postData['business_id'], 'reservation_config_status_id' => 2));
+            $dataConfig = [];
+            if($config && count($config) > 0) {
+                $config = $config[0];
+                $dataConfig = array(
+                    "day_id" => intval($config['day_id']),
+                    "max_people" => intval($config['max_people']),
+                    "max_per_reservation" => intval($config['max_per_reservation']),
+                    "duration" => floatval($config['duration']),
+                    "start_time" => ddMMyyyy($config['start_time'], 'H:i'),
+                    "end_time" => ddMMyyyy($config['end_time'], 'H:i'),
+                    "reservation_config_status_id" => 2
+                );
+            } else {
+                $dataConfig = array(
+                    "day_id" => intval($postData['day_id']),
+                    "max_people" => 0,
+                    "max_per_reservation" => 0,
+                    "duration" => 0,
+                    "start_time" => '',
+                    "end_time" => '',
+                    "reservation_config_status_id" => 1
+                );
+            }
+            $this->success200($dataConfig);
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function update_status() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'allow_book'));
+            $postData['customer_id'] = $customer['customer_id'];
+            $this->load->model(array('Mbusinessprofiles'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            if(!isset($postData['allow_book'])) {
+                $this->error204('allow_book: not transmitted');
+                die;
+            }
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
+            if(!$checkExit) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+            if(!in_array($postData['allow_book'], [1,2])) {
+                $this->error204('allow_book: Downlink value must be 1 or 2');
+                die;
+            }
+
+            $dataUpdate = array(
+                'allow_book' => $postData['allow_book'],
+                'updated_at' => getCurentDateTime()
+            );
+            $flag = $this->Mbusinessprofiles->save($dataUpdate, $postData['business_id']);
+            if($flag) {
+                $message = "Turn on receiving booking successfully";
+                if(intval($postData['allow_book']) == 1) $message = "Turn off receiving booking successfully";
+                $this->success200('', $message);
+            } else {
+                $message = "Turn on receive booking failed";
+                if(intval($postData['allow_book']) == 1) $message = "Turn off receive booking failed";
+                $this->error204($message);
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
 }

@@ -98,6 +98,11 @@ class Mcustomerreservations extends MY_Model {
                 $selectedDate = ddMMyyyy($postData['selected_date'], 'Y-m-d');
                 $query.=" AND date_arrived = ".$selectedDate;
             }
+
+            if(isset($postData['service_type_id']) && count($postData['service_type_id']) > 0) {
+                $service_type_ids = join(",",$postData['service_type_id']);
+                if(!empty($service_type_ids)) $query .= " AND customer_reservations.business_profile_id IN (select business_profile_id FROM business_service_types WHERE service_type_id IN (".$service_type_ids.") )";
+            }
         }
         return $query;
     }
@@ -128,7 +133,16 @@ class Mcustomerreservations extends MY_Model {
         return $this->getByQuery($query);
     }
 
-    public function getListServiceType($customerId = 0) {
-
+    public function getListServiceType($customerId = 0, $langCode = '_vi') {
+        $query = "SELECT
+                        service_types.id, service_types.service_type_name".$langCode." AS service_type_name
+                    FROM
+                        customer_reservations 
+                        LEFT JOIN business_service_types ON business_service_types.business_profile_id = customer_reservations.business_profile_id
+	                    LEFT JOIN service_types ON service_types.id = business_service_types.service_type_id
+                    WHERE
+                        customer_reservations.customer_id = ? AND service_types.status_id = 2
+                    GROUP BY service_types.id";
+        return $this->getByQuery($query, array($customerId));
     }
 }
