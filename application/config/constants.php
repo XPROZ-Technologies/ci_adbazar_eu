@@ -90,6 +90,7 @@ define('STATUS_ACTIVED', 2);
 define('STATUS_WAITING_ACTIVE', 1);
 define('NO_IMAGE', 'no_image.png');
 define('DEFAULT_LIMIT', 20);
+define('LIMIT_PER_PAGE', 10);
 define('DEFAULT_LIMIT_BUSINESS_PROFILE', 10);
 define('DEFAULT_LIMIT_BUSINESS_PROFILE_MAP', 4);
 define('DEFAULT_LIMIT_COUPON', 50);

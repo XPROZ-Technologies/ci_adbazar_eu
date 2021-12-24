@@ -528,7 +528,7 @@ class Businessmanagement extends MY_Controller {
             }
             $rowCount = $this->Mcustomerreservations->getCountApi($postData);
             $pageCount = 0;
-            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
             $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             $dataReturn = [];
             if($rowCount > 0) {

@@ -46,8 +46,9 @@ class Event extends MY_Controller {
             $rowCount = $this->Mevents->getCountInApi($postData);
             $events = [];
             $pageCount = 0;
-            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
             $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
+           
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);
                 if(!is_numeric($page) || $page < 1) $page = 1;
@@ -56,10 +57,13 @@ class Event extends MY_Controller {
                     $events[$i]['event_image'] = !empty($events[$i]['event_image']) ? base_url(EVENTS_PATH.$events[$i]['event_image']) : '';
                 }
             }
+           
             $businessInfo = (object) [];
+           
             if(isset($postData['business_id']) && intval($postData['business_id']) > 0) {
+                
                 $business = $this->Mbusinessprofiles->get($postData['business_id']);
-                $businessInfo = '';
+                
                 if($business) {
                     $businessInfo = array(
                         'id' => $business['id'],
@@ -70,6 +74,7 @@ class Event extends MY_Controller {
                     );
                 }
             }
+            
             $this->success200(array(
                 'page_id' => $page,
                 'per_page' => $perPage,
@@ -79,6 +84,7 @@ class Event extends MY_Controller {
                 'list' => $events
             ));
         } catch (\Throwable $th) {
+           
             $this->error500();
         }
     }
@@ -223,7 +229,7 @@ class Event extends MY_Controller {
             $rowCount = $this->Mcustomerevents->getCountInApi($postData);
             $pageCount = 0;
             $events = [];
-            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
             $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);

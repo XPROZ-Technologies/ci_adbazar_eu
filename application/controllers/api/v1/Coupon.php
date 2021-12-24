@@ -45,7 +45,7 @@ class Coupon extends MY_Controller {
             $this->load->model(array('Mcoupons', 'Mbusinessprofiles'));
             $rowCount = $this->Mcoupons->getCountInApi($postData);
             $coupons = [];
-            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
             $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             $pageCount = 0;
             if($rowCount > 0){
@@ -193,7 +193,7 @@ class Coupon extends MY_Controller {
             $this->load->model(array('Mcustomercoupons'));
             $rowCount = $this->Mcustomercoupons->getCountInApi($postData);
             $pageCount = 0;
-            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
             $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             $coupons = [];
             if($rowCount > 0){

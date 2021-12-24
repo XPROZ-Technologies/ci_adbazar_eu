@@ -16,7 +16,7 @@ class Phonecode extends MY_Controller {
             $rowCount = $this->Mphonecodes->getCountInApi($postData);
             $datas = [];
             $pageCount = 0;
-            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : DEFAULT_LIMIT;
+            $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
             $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);
