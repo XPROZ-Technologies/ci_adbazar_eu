@@ -568,5 +568,499 @@ class Businessmanagement extends MY_Controller {
         }
     }
 
+    public function create_event() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostApi(array('business_id', 'event_image', 'event_subject', 'start_date', 'start_time', 'end_date', 'end_time', 'event_description'));
+            $postData['customer_id'] = $customer['customer_id'];
+            $this->load->model(array('Mbusinessprofiles', 'Mevents'));
+            $this->checkValidateCreateEvent($postData);
+            if(isset($_FILES['event_image']) && !empty($_FILES['event_image'])){
+                $file = $_FILES['event_image'];
+                if ($file['error'] > 0) {
+                    $this->error204('Event image update failed');
+                    die;
+                } else {
+                    $event_image = explode('.', $file['name']);
+                    $fileExt = strtolower($event_image[count($event_image) - 1]);
+                    if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
+                        $dir = COUPONS_PATH . date('Y-m-d') . '/';
+                        @mkdir($dir, 0777, true);
+                        @system("/bin/chown -R nginx:nginx " . $dir);
+                        $filePath = $dir . uniqid() . '.' . $fileExt;
+                        $flag = move_uploaded_file($file['tmp_name'], $filePath);
+                        if ($flag) {
+                            $event_image = replaceFileUrl($filePath, COUPONS_PATH);
+                            $postData['event_image'] = $event_image;
+                        } else {
+                            $this->error204('Event image update failed');
+                            die;
+                        }
+                    } else {
+                        $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                        die;
+                    }
+                }
+            }
+
+            $postData['start_date'] = ddMMyyyy($postData['start_date'], 'Y-m-d');
+            $postData['start_time'] = ddMMyyyy($postData['start_time'], 'H:i');
+
+            $postData['end_date'] = ddMMyyyy($postData['end_date'], 'Y-m-d');
+            $postData['end_time'] = ddMMyyyy($postData['end_time'], 'H:i');
+
+            $postData['business_profile_id'] = $postData['business_id'];
+            $postData['event_status_id'] = STATUS_ACTIVED;
+
+            unset($postData['business_id'], $postData['customer_id']);
+
+            $flag = $this->Mevents->save($postData);
+            if ($flag > 0) {
+                $this->success200(array('event_id' => $flag), 'Successful event creation');
+                die;
+            } else {
+                $this->error204('Successful event failed');
+                die;
+            }
+
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    private function checkValidateCreateEvent($postData) {
+        if(!isset($postData['business_id'])) {
+            $this->error204('business_id: not transmitted');
+            die;
+        }
+       
+        if(!isset($postData['event_subject'])) {
+            $this->error204('event_subject: not transmitted');
+            die;
+        }
+        if(!isset($postData['start_date'])) {
+            $this->error204('start_date: not transmitted');
+            die;
+        }
+        if(!isset($postData['start_time'])) {
+            $this->error204('start_time: not transmitted');
+            die;
+        }
+        if(!isset($postData['end_date'])) {
+            $this->error204('end_date: not transmitted');
+            die;
+        }
+        if(!isset($postData['end_time'])) {
+            $this->error204('end_time: not transmitted');
+            die;
+        }
+        if(!isset($postData['event_description'])) {
+            $this->error204('event_description: not transmitted');
+            die;
+        }
+        $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
+        if(!$checkExit) {
+            $this->error204('Business does not belong to this customer');
+            die;
+        }
+        if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['start_time'])) {
+            $this->error204('start_time: not time format');
+            die;
+        }
+        if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['end_time'])) {
+            $this->error204('end_time: not time format');
+            die;
+        }
+        if(empty($postData['event_subject'])) {
+            $this->error204('Event subject must not be empty');
+            die;
+        }
+        if(empty($postData['start_date'])) {
+            $this->error204('Start date must not be empty');
+            die;
+        }
+        if(empty($postData['start_time'])) {
+            $this->error204('Start time must not be empty');
+            die;
+        }
+        if(empty($postData['end_date'])) {
+            $this->error204('End date must not be empty');
+            die;
+        }
+        if(empty($postData['end_time'])) {
+            $this->error204('End time must not be empty');
+            die;
+        }
+        if(empty($postData['event_description'])) {
+            $this->error204('Event description must not be empty');
+            die;
+        }
+        $startDate = ddMMyyyy($postData['start_date'], 'Y-m-d');
+        $startTime = ddMMyyyy($postData['start_time'], 'H:i:s');
+        $startDateTime = strtotime($startDate.' '.$startTime);
+
+        $endDate = ddMMyyyy($postData['end_date'], 'Y-m-d');
+        $emdTime = ddMMyyyy($postData['end_time'], 'H:i:s');
+        $endDateTime = strtotime($endDate.' '.$emdTime);
+
+        $dateNow = strtotime(getCurentDateTime());
+
+        if($startDateTime < $dateNow) {
+            $this->error204('Start date and start time must not be less than the current date and time');
+            die;
+        }
+        if($endDateTime < $dateNow) {
+            $this->error204('End date and end time must not be less than the current date and time');
+            die;
+        }
+
+        if($endDateTime < $startDateTime) {
+            $this->error204('Start date and start time must not be less than the current end date and end time');
+            die;
+        }
+
+
+    }
+
+    public function update_event() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostApi(array('business_id', 'event_id', 'event_image', 'event_subject', 'end_date', 'end_time', 'event_description'));
+            $postData['customer_id'] = $customer['customer_id'];
+            $this->load->model(array('Mbusinessprofiles', 'Mevents'));
+            $dataUpdate = $this->checkValedateUpdateEvent($postData);
+            $eventId = $dataUpdate['id'];
+            unset($dataUpdate['id']);
+            $flag = $this->Mevents->save($dataUpdate, $eventId);
+            if ($flag > 0) {
+                $this->success200(array('event_id' => $flag), 'Successful event update');
+                die;
+            } else {
+                $this->error204('Event update failed');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    private function checkValedateUpdateEvent($postData) {
+        if(!isset($postData['business_id'])) {
+            $this->error204('business_id: not transmitted');
+            die;
+        }
+        if(!isset($postData['event_id'])) {
+            $this->error204('event_id: not transmitted');
+            die;
+        }
+
+        $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
+        if(!$checkExit) {
+            $this->error204('Business does not belong to this customer');
+            die;
+        }
+
+        $event = $this->Mevents->get($postData['event_id']);
+        
+        if($event && $event['business_profile_id'] != $postData['business_id'] && $event['event_status_id'] != STATUS_ACTIVED) {
+            $this->error204('Event does not belong to this Business');
+            die;
+        }
+
+        $startDate = ddMMyyyy($event['start_date'], 'Y-m-d');
+        $startTime = ddMMyyyy($event['start_time'], 'H:i:s');
+        $startDateTime = strtotime($startDate.' '.$startTime);
+
+        $endDate = ddMMyyyy($postData['end_date'], 'Y-m-d');
+        $emdTime = ddMMyyyy($postData['end_time'], 'H:i:s');
+        $endDateTime = strtotime($endDate.' '.$emdTime);
+
+        $dateNow = strtotime(getCurentDateTime());
+
+        $dataUpdate = [];
+        if($dateNow <= $startDateTime) {
+            if(!isset($postData['end_date'])) {
+                $this->error204('end_date: not transmitted');
+                die;
+            }
+            if(!isset($postData['end_time'])) {
+                $this->error204('end_time: not transmitted');
+                die;
+            }
+            if(!isset($postData['event_description'])) {
+                $this->error204('event_description: not transmitted');
+                die;
+            }
+            if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['end_time'])) {
+                $this->error204('end_time: not time format');
+                die;
+            }
+            if(empty($postData['event_subject'])) {
+                $this->error204('Event subject must not be empty');
+                die;
+            }
+            if(empty($postData['end_date'])) {
+                $this->error204('End date must not be empty');
+                die;
+            }
+            if(empty($postData['end_time'])) {
+                $this->error204('End time must not be empty');
+                die;
+            }
+            if(empty($postData['event_description'])) {
+                $this->error204('Event description must not be empty');
+                die;
+            }
+
+            if($endDateTime < $dateNow) {
+                $this->error204('End date and end time must not be less than the current date and time');
+                die;
+            }
+    
+            if($endDateTime < $startDateTime) {
+                $this->error204('Start date and start time must not be less than the current end date and end time');
+                die;
+            }
+
+            if(isset($_FILES['event_image']) && !empty($_FILES['event_image'])){
+                $file = $_FILES['event_image'];
+                if ($file['error'] > 0) {
+                    $this->error204('Event image update failed');
+                    die;
+                } else {
+                    $event_image = explode('.', $file['name']);
+                    $fileExt = strtolower($event_image[count($event_image) - 1]);
+                    if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
+                        $dir = COUPONS_PATH . date('Y-m-d') . '/';
+                        @mkdir($dir, 0777, true);
+                        @system("/bin/chown -R nginx:nginx " . $dir);
+                        $filePath = $dir . uniqid() . '.' . $fileExt;
+                        $flag = move_uploaded_file($file['tmp_name'], $filePath);
+                        if ($flag) {
+                            $event_image = replaceFileUrl($filePath, COUPONS_PATH);
+                            $postData['event_image'] = $event_image;
+                        } else {
+                            $this->error204('Event image update failed');
+                            die;
+                        }
+                    } else {
+                        $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                        die;
+                    }
+                }
+            }
+
+            $dataUpdate = array(
+                'business_profile_id' => $postData['business_id'],
+                'event_image' => $postData['event_image'],
+                'event_subject' => $postData['event_subject'],
+                'end_date' => $postData['end_date'],
+                'end_time' => $postData['end_time'],
+                'event_description' => $postData['event_description'],
+                'updated_at' => getCurentDateTime(),
+                'id' => $event['id']
+            );
+        } else if ($dateNow >= $startDateTime && $dateNow >= $endDateTime){
+            if(!isset($postData['end_date'])) {
+                $this->error204('end_date: not transmitted');
+                die;
+            }
+            if(!isset($postData['end_time'])) {
+                $this->error204('end_time: not transmitted');
+                die;
+            }
+            if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['end_time'])) {
+                $this->error204('end_time: not time format');
+                die;
+            }
+            if(empty($postData['end_date'])) {
+                $this->error204('End date must not be empty');
+                die;
+            }
+            if(empty($postData['end_time'])) {
+                $this->error204('End time must not be empty');
+                die;
+            }
+            $dataUpdate = array(
+                'end_date' => $postData['end_date'],
+                'end_time' => $postData['end_time'],
+                'updated_at' => getCurentDateTime(),
+                'id' => $event['id']
+            );
+        }
+
+
+        return $dataUpdate;
+
+    }
+
+    public function cancel_event() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'event_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            if(!isset($postData['event_id'])) {
+                $this->error204('event_id: not transmitted');
+                die;
+            }
+
+            $this->load->model(array('Mbusinessprofiles', 'Mevents'));
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
+            if(!$checkExit) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+
+            $checkExitEvent = $this->Mevents->getFieldValue(array('id' => $postData['event_id'], 'business_profile_id' => $postData['business_id'], 'event_status_id' => 2), 'id', 0);
+            if(!$checkExitEvent) {
+                $this->error204('Event does not belong to this Business');
+                die;
+            }
+            $cancelData = array(
+                'event_status_id' => 0,
+                'deleted_at' => getCurentDateTime()
+            );
+            $flag = $this->Mevents->save($cancelData, $postData['event_id']);
+            if ($flag > 0) {
+                $this->success200('', 'Successful event cancellation');
+                die;
+            } else {
+                $this->error204('Canceling failed event');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function check_coupon_code() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'customer_code'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            if(!isset($postData['customer_code'])) {
+                $this->error204('customer_code: not transmitted');
+                die;
+            }
+            if(empty($postData['customer_code'])) {
+                $this->error204('Customer code is not null');
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mcustomercoupons', 'Mcoupons'));
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
+            if(!$checkExit) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+            $couponId = $this->Mcustomercoupons->getFieldValue(array('customer_coupon_code' => $postData['customer_code'], 'customer_id' => $customer['customer_id'], 'customer_coupon_status_id >' => 0), 'coupon_id', 0);
+            if(!$couponId) {
+                $this->error204('Coupon code does not exist');
+                die;
+            }
+            $coupon = $this->Mcoupons->get($couponId);
+           
+            if(!$coupon || ($coupon && $coupon['coupon_status_id'] != 2)) {
+                $this->error204('Coupon code does not exist');
+                die;
+            }
+
+            $startDate = strtotime(ddMMyyyy($coupon['start_date'], 'Y-m-d H:i:s'));
+            $endDate = strtotime(ddMMyyyy($coupon['end_date'], 'Y-m-d H:i:s'));
+           
+            $dataRetrun = [];
+            $dateNow = strtotime(getCurentDateTime());
+            $message = 'Code has expired or cannot be used';
+            if ($endDate < $dateNow || $startDate > $dateNow) {
+                $dataReturn['customer_coupon_status_id'] = 3; //Mã đã hết hạn hoặc chưa thể sử dụng
+            } else {
+                $customercoupons = $this->Mcustomercoupons->getBy(array('customer_coupon_code' => $postData['customer_code'], 'customer_id' => $customer['customer_id'], 'customer_coupon_status_id >' => 0));
+                $customercoupons = $customercoupons[0];
+                if($customercoupons['customer_coupon_status_id'] == 2) {
+                    $message = 'Valid code';
+                    $dataReturn['customer_coupon_status_id'] = 2; //Mã hợp lệ
+                } else if($customercoupons['customer_coupon_status_id'] == 1) {
+                    $message = 'Code already used';
+                    $dataReturn['customer_coupon_status_id'] = 1; // Mã đã được sử dụng
+                }
+            }
+            $dataReturn['customer_code'] = $postData['customer_code'];
+            $this->success200($dataReturn, $message);
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function active_coupon_code() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'customer_code'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            if(!isset($postData['customer_code'])) {
+                $this->error204('customer_code: not transmitted');
+                die;
+            }
+            if(empty($postData['customer_code'])) {
+                $this->error204('Customer code is not null');
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mcustomercoupons', 'Mcoupons'));
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
+            if(!$checkExit) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+            $customerCoupons = $this->Mcustomercoupons->getBy(array('customer_coupon_code' => $postData['customer_code'], 'customer_id' => $customer['customer_id'], 'customer_coupon_status_id' => 2));
+            if(count($customerCoupons) == 0) {
+                $this->error204('Coupon code does not exist');
+                die;
+            }
+
+            $customerCoupons = $customerCoupons[0];
+            $coupon = $this->Mcoupons->get($customerCoupons['coupon_id']);
+           
+            if(!$coupon || ($coupon && $coupon['coupon_status_id'] != 2)) {
+                $this->error204('Coupon code does not exist');
+                die;
+            }
+            $startDate = strtotime(ddMMyyyy($coupon['start_date'], 'Y-m-d H:i:s'));
+            $endDate = strtotime(ddMMyyyy($coupon['end_date'], 'Y-m-d H:i:s'));
+           
+            $dateNow = strtotime(getCurentDateTime());
+
+            if($startDate < $dateNow && $endDate > $dateNow) {
+                $flag = $this->Mcustomercoupons->save(array(
+                    'customer_coupon_status_id' => 1,
+                    'updated_at' => getCurentDateTime()
+                ), $customerCoupons['id']);
+                if ($flag > 0) {
+                    $this->success200('', 'Activation code successful');
+                    die;
+                } else {
+                    $this->error204('Activation code failed');
+                    die;
+                }
+            } else {
+                $this->error204('Code has expired or cannot be used');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
    
 }
