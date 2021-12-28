@@ -133,6 +133,19 @@ class Mcustomerreservations extends MY_Model {
         return $this->getByQuery($query);
     }
 
+    // public function getListServiceType($customerId = 0, $langCode = '_vi') {
+    //     $query = "SELECT
+    //                     service_types.id, service_types.service_type_name".$langCode." AS service_type_name
+    //                 FROM
+    //                     customer_reservations 
+    //                     LEFT JOIN business_service_types ON business_service_types.business_profile_id = customer_reservations.business_profile_id
+	//                     LEFT JOIN service_types ON service_types.id = business_service_types.service_type_id
+    //                 WHERE
+    //                     customer_reservations.customer_id = ? AND service_types.status_id = 2
+    //                 GROUP BY service_types.id";
+    //     return $this->getByQuery($query, array($customerId));
+    // }
+
     public function getListServiceType($customerId = 0, $langCode = '_vi') {
         $query = "SELECT
                         service_types.id, service_types.service_type_name".$langCode." AS service_type_name
