@@ -159,7 +159,7 @@ class Reservation extends MY_Controller {
                     die;
                 }
             } else {
-                $this->error204('This type of business does not belong to this customer');
+                $this->error204('There is no suitable time period, please choose another date');
                 die;
             }
         } catch (\Throwable $th) {
