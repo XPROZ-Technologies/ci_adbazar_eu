@@ -109,6 +109,7 @@ define('SLIDER_PATH', 'assets/uploads/sliders/');
 define('CONFIG_PATH', 'assets/uploads/configs/');
 define('SERVICE_PATH', 'assets/uploads/services/');
 define('BUSINESS_PROFILE_PATH', 'assets/uploads/busines_profile/');
+define('REVIEW_PATH', 'assets/uploads/reviews/');
 define('COUPONS_PATH', 'assets/uploads/coupons/');
 define('EVENTS_PATH', 'assets/uploads/events/');
 define('BUSINESS_PROFILE_URL', '');

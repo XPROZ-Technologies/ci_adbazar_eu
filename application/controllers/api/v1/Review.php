@@ -23,7 +23,7 @@ class Review extends MY_Controller {
             $this->load->model('Mcustomerreviews');
             $checkExit = $this->Mcustomerreviews->getFieldValue(array('customer_id' => $postData['customer_id'], 'business_id' => $postData['business_id']), 'id', 0);
             if($checkExit) {
-                $this->error204('Customers have left a review');
+                $this->error204('Customers already have left a review');
                 die;
             }
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
@@ -32,7 +32,7 @@ class Review extends MY_Controller {
                 if(isset($_FILES['photo']) && !empty($_FILES['photo'])){
                     $file = $_FILES['photo'];
                     if ($file['error'] > 0) {
-                        $this->error204('Avatar update failed');
+                        $this->error204('Photo upload failed');
                         die;
                     } else {
                         $names = explode('.', $file['name']);
@@ -48,7 +48,7 @@ class Review extends MY_Controller {
                                 $postData['photo'] = $photo;
                                 $postData['is_image'] = 1;
                             } else {
-                                $this->error204('Avatar update failed');
+                                $this->error204('Upload photo failed');
                                 die;
                             }
                         } else {
@@ -57,6 +57,7 @@ class Review extends MY_Controller {
                         }
                     }
                 }
+                $postData['customer_review_status_id'] = STATUS_ACTIVED;
                 $flag = $this->Mcustomerreviews->save($postData);
                 if($flag) {
                     $this->success200('', 'Successful business evaluation');
@@ -65,7 +66,7 @@ class Review extends MY_Controller {
                     die;
                 }
             } else {
-                $this->error204('business_id does not exist');
+                $this->error204('Business does not exist');
                 die;
             }
 
