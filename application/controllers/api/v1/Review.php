@@ -38,13 +38,13 @@ class Review extends MY_Controller {
                         $names = explode('.', $file['name']);
                         $fileExt = strtolower($names[count($names) - 1]);
                         if(in_array($fileExt, array('jpeg', 'jpg', 'png', 'bmp', 'svg'))) {
-                            $dir = BUSINESS_PROFILE_PATH . date('Y-m-d') . '/';
+                            $dir = REVIEW_PATH . date('Y-m-d') . '/';
                             @mkdir($dir, 0777, true);
                             @system("/bin/chown -R nginx:nginx " . $dir);
                             $filePath = $dir . uniqid() . '.' . $fileExt;
                             $flag = move_uploaded_file($file['tmp_name'], $filePath);
                             if ($flag) {
-                                $photo = replaceFileUrl($filePath, BUSINESS_PROFILE_PATH);
+                                $photo = replaceFileUrl($filePath, REVIEW_PATH);
                                 $postData['photo'] = $photo;
                                 $postData['is_image'] = 1;
                             } else {

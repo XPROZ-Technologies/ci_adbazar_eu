@@ -253,13 +253,14 @@ class Businessprofile extends MY_Controller {
                         $reviews[] = array(
                             'id' => $data['id'],
                             'review_star' => $data['review_star'],
-                            'customer_comment' => str_replace(['<p>','</p>'],['',''],$data['customer_comment']),
+                            'photo' => !empty($data['photo']) ? base_url(REVIEW_PATH.$data['photo']) : '',
+                            'customer_comment' => nl2br(strip_tags($data['customer_comment'])),
                             'customer_name' => isset($customer['customer_last_name']) ? $customer['customer_last_name'] : '',
                             'customer_avatar' => isset($customer['customer_avatar']) && !empty($customer['customer_avatar']) ? base_url(CUSTOMER_PATH.$customer['customer_avatar']) : '',
                             'created_date' => ddMMyyyy($data['created_at'], 'Y/m/d'),
                             "reply" => array(
                                 'business_name' => $this->Mbusinessprofiles->getFieldValue(array('id' => $data['business_id']), 'business_name', ''),
-                                'business_comment' => str_replace(['<p>','</p>'],['',''],$data['business_comment']),
+                                'business_comment' => nl2br(strip_tags($data['business_comment'])),
                                 'created_date' => ddMMyyyy($data['updated_at'], 'Y/m/d')
                             ),
                             'has_image' => intval($data['is_image'])
