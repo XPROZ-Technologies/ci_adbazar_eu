@@ -28,11 +28,11 @@ class Reservation extends MY_Controller {
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mreservationconfigs'));
-            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id']), 'id', 0);
-            if($checkExit <= 0) {
-                $this->error204('This type of business does not belong to this customer');
-                die;
-            }
+            // $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id']), 'id', 0);
+            // if($checkExit <= 0) {
+            //     $this->error204('This type of business does not belong to this customer');
+            //     die;
+            // }
             $dayId = date('N', strtotime($postData['book_date'])) - 1;
             $timeConfig = $this->Mreservationconfigs->getBy(array('day_id' => $dayId, 'business_profile_id' => $postData['business_id']));
             if(count($timeConfig) > 0) {
@@ -92,12 +92,11 @@ class Reservation extends MY_Controller {
             }
             $this->load->model(array('Mbusinessprofiles', 'Mreservationconfigs', 'Mcustomerreservations'));
            
-            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id']), 'id', 0);
-           
-            if(intval($checkExit) <= 0) {
-                $this->error204('This type of business does not belong to this customer');
-                die;
-            }
+            // $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id']), 'id', 0);
+            // if(intval($checkExit) <= 0) {
+            //     $this->error204('This type of business does not belong to this customer');
+            //     die;
+            // }
           
             $dayId = date('N', $dateData) - 1;
             $timeConfig = $this->Mreservationconfigs->getBy(array('day_id' => $dayId, 'business_profile_id' => $postData['business_id']));
