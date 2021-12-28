@@ -43,7 +43,7 @@ class Reservation extends MY_Controller {
                 $times = getRangeHours($timeConfig['start_time'], $timeConfig['end_time'], 30, $checkTimeNow);
                 $this->success200(array('list' => $times));
             } else {
-                $this->error204('This type of business does not belong to this customer');
+                $this->error204('There is no suitable time period, please choose another date');
                 die;
             }
         } catch (\Throwable $th) {
