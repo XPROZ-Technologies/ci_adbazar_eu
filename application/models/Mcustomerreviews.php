@@ -73,7 +73,9 @@ class Mcustomerreviews extends MY_Model {
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {
-        $query = "SELECT * FROM customer_reviews WHERE customer_review_status_id = 2" . $this->buildQueryApi($postData). " ORDER BY created_at DESC";
+        if(empty($postData['order_by'])) $postData['order_by'] = 'DESC';
+
+        $query = "SELECT * FROM customer_reviews WHERE customer_review_status_id = 2" . $this->buildQueryApi($postData). " ORDER BY created_at ".$postData['order_by'];
         if($perPage > 0) { 
             $from = ($page-1) * $perPage;
             $query .= " LIMIT {$from}, {$perPage}";

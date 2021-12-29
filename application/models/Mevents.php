@@ -115,7 +115,7 @@ class Mevents extends MY_Model {
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {
-        if(empty($postData['order_by'])) $postData['order_by'] = 'ASC';
+        if(empty($postData['order_by'])) $postData['order_by'] = 'DESC';
 
         $where = "";
         if(!empty($postData['customer_id']) && $postData['customer_id'] > 0) {

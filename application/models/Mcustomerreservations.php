@@ -62,16 +62,15 @@ class Mcustomerreservations extends MY_Model {
     }
 
     public function searchApi($postData, $perPage = 0, $page = 1){
+        if(empty($postData['order_by'])) $postData['order_by'] = 'DESC';
+
         $query = "SELECT 
                         id, book_code, customer_id, business_profile_id, book_name, number_of_people, country_code_id, book_phone, date_arrived, time_arrived, book_status_id,
                         (CASE WHEN (book_status_id = 2 AND DATE_FORMAT(CONCAT(date_arrived,' ',time_arrived), '%Y-%m-%d %H:%i:%s') < NOW()) THEN 1 ELSE book_status_id END) as book_status_id
                     FROM customer_reservations WHERE book_status_id > 0" . $this->buildQueryApi($postData);
-
-        if(isset($postData['order_by'])){
-            $query .= " ORDER BY created_at ".$postData['order_by'];
-        }else{
-            $query .= " ORDER BY created_at DESC";
-        }
+        
+        $query .= " ORDER BY created_at ".$postData['order_by'];
+        
 
         if($perPage > 0) {
             $from = ($page-1) * $perPage;
