@@ -227,7 +227,7 @@ class Businessprofile extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'has_image', 'review_star'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'has_image', 'review_star', 'order_by'));
             $postData['customer_id'] = $customer['customer_id'];
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
                 $postData['api'] = true;
@@ -312,7 +312,7 @@ class Businessprofile extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
-            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'search_text', 'book_status_id', 'service_type_id'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'search_text', 'book_status_id', 'service_type_id', 'order_by'));
            
             if(!isset($postData['business_id'])) $postData['business_id'] = 0;
             $postData['customer_id'] = $customer['customer_id'];
