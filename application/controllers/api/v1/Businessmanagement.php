@@ -203,7 +203,10 @@ class Businessmanagement extends MY_Controller {
                 $postData['expired_date'] = date('Y-m-d H:i:s', $date);
                 
                 $postData['business_status_id'] = STATUS_ACTIVED;
+            } else {
+                $postData['business_status_id'] = 1;
             }
+            $postData['plan_id'] = $planId;
             $postData['customer_id'] = $customer['customer_id'];
             $postData['created_at'] = getCurentDateTime();
             $postData['updated_at'] = 0;
@@ -223,8 +226,11 @@ class Businessmanagement extends MY_Controller {
             if (!empty($businessServiceTypes)) {
                 $resultServiceTypes = $this->Mbusinessservicetype->saveServiceType($businessServiceTypes, $flag);
             }
-
-            $this->success200(array('business_id' => $flag), $message);
+            $dataReturn = array('business_id' => $flag);
+            if($businessId == 0) {
+                $dataReturn['business_status_id'] = $postData['business_status_id'];
+            }
+            $this->success200($dataReturn, $message);
             die;
         }else {
             $this->error204('Business profile creation failed');
@@ -1057,6 +1063,103 @@ class Businessmanagement extends MY_Controller {
                 $this->error204('Code has expired or cannot be used');
                 die;
             }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function get_billing_info() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mpaymentplans'));
+            $checkExit = $this->Mbusinessprofiles->get($postData['business_id']);
+            $flag = false;
+            if(empty($checkExit)) $flag = true;
+            if($checkExit['customer_id'] != $customer['customer_id'] && $customer['business_status_id'] <=0 ) $flag = true;
+            if($flag) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+            $paymentPlan = $this->Mpaymentplans->get($checkExit['plan_id']);
+            if(!$paymentPlan || ($paymentPlan && $paymentPlan['plan_status_id'] != STATUS_ACTIVED)) {
+                $this->error204('Payment Plans do not exist');
+                die;
+            }
+            $paymentAmount = floatval($paymentPlan['plan_amount']);
+            $planVat = floatval($paymentPlan['plan_vat']);
+            $vatPrice = ($planVat / 100) * floatval($paymentPlan['plan_total']);
+            $totalPrice =  floatval($paymentPlan['plan_total']);
+            
+            
+            $this->success200(array('plan_infor' => array(
+                "payment_amount" => $paymentAmount,
+                "plan_vat" => $planVat,
+                "vat_price" => round($vatPrice),
+                "total_price" => $totalPrice
+            )));
+            die;
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function save_billing_info() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'payment_name', 'payment_address', 'payment_company_id', 'payment_company_vat_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            if(!isset($postData['payment_name'])) {
+                $this->error204('payment_name: not transmitted');
+                die;
+            }
+            if(!isset($postData['payment_address'])) {
+                $this->error204('payment_address: not transmitted');
+                die;
+            }
+            if(empty($postData['payment_name'])) {
+                $this->error204('Payment name cannot be empty');
+                die;
+            }
+            if(empty($postData['payment_address'])) {
+                $this->error204('Payment address cannot be empty');
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mbusinesspayments'));
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
+            if(!$checkExit) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+
+            $data = array(
+                'business_profile_id' => $postData['business_id'],
+                'payment_gateway_id' => 1,
+                'payment_name' => $postData['payment_name'],
+                'payment_address' => $postData['payment_address'],
+                'payment_company_id' => isset($postData['payment_company_id']) ? $postData['payment_company_id']: '',
+                'payment_compnay_vat_id' => isset($postData['payment_compnay_vat_id']) ? $postData['payment_compnay_vat_id']: '',
+                'payment_status_id' => 1
+            );
+
+            $flag = $this->Mbusinesspayments->save($data);
+            if ($flag > 0) {
+                $this->success200('', 'Success save billing info');
+                die;
+            } else {
+                $this->error204('Failed to save payment information');
+                die;
+            }
+            
         } catch (\Throwable $th) {
             $this->error500();
         }
