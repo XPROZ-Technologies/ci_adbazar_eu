@@ -41,7 +41,7 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('currency_code'));
             if(empty($postData['currency_code']) && !isset($this->Mconstants->currenyCodes[$postData['currency_code']])) {
-                $this->error204('The currency is not correct');
+                $this->error204($this->lang->line('the_currency_is_not_correct'));
                 die;
             }
             $postData['customer_id'] = $customer['customer_id'];
@@ -88,7 +88,7 @@ class Businessmanagement extends MY_Controller {
         if ($businessId > 0) {
             $checkExit = $this->Mbusinessprofiles->countRows(array('customer_id' => $customer['customer_id'], 'id' => $businessId));
             if($checkExit <= 0) {
-                $this->error204('Business profile does not exist');
+                $this->error204($this->lang->line('business_profile_does_not_exist'));
                 die;
             }
         }
@@ -96,7 +96,7 @@ class Businessmanagement extends MY_Controller {
         if(isset($_FILES['business_avatar']) && !empty($_FILES['business_avatar']['name'])){
             $file = $_FILES['business_avatar'];
             if ($file['error'] > 0) {
-                $this->error204('Avatar update failed');
+                $this->error204($this->lang->line('avatar_update_failed'));
                 die;
             } else {
                 $business_avatar = explode('.', $file['name']);
@@ -111,11 +111,11 @@ class Businessmanagement extends MY_Controller {
                         $business_avatar = replaceFileUrl($filePath, BUSINESS_PROFILE_PATH);
                         $postData['business_avatar'] = $business_avatar;
                     } else {
-                        $this->error204('Avatar update failed');
+                        $this->error204($this->lang->line('avatar_update_failed'));
                         die;
                     }
                 } else {
-                    $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                    $this->error204($this->lang->line('the_image_is_not_in_the_correct_format_jpeg_jpg_png'));
                     die;
                 }
             }
@@ -123,7 +123,7 @@ class Businessmanagement extends MY_Controller {
         if(isset($_FILES['business_image_cover']) && !empty($_FILES['business_image_cover']['name'])){
             $file_2 = $_FILES['business_image_cover'];
             if ($file['error'] > 0) {
-                $this->error204('Image conver update failed');
+                $this->error204($this->lang->line('avatar_update_failed'));
                 die;
             } else {
                 $business_image_cover = explode('.', $file_2['name']);
@@ -138,11 +138,11 @@ class Businessmanagement extends MY_Controller {
                         $business_image_cover = replaceFileUrl($filePath, BUSINESS_PROFILE_PATH);
                         $postData['business_image_cover'] = $business_image_cover;
                     } else {
-                        $this->error204('Image conver update failed');
+                        $this->error204($this->lang->line('avatar_update_failed'));
                         die;
                     }
                 } else {
-                    $this->error204('The conver is not in the correct format: jpeg, jpg, png');
+                    $this->error204($this->lang->line('the_image_is_not_in_the_correct_format_jpeg_jpg_png'));
                     die;
                 }
             }
@@ -233,22 +233,22 @@ class Businessmanagement extends MY_Controller {
             $this->success200($dataReturn, $message);
             die;
         }else {
-            $this->error204('Business profile creation failed');
+            $this->error204($this->lang->line('business_profile_creation_failed'));
             die;
         }
     }
 
     private function validateBusiness($postData) {
         if(empty($postData['service_id']) && $postData['service_id'] < 0) {
-            $this->error204('Please select service');
+            $this->error204($this->lang->line('please_select_service'));
             die;
         }
         if(empty($postData['business_name'])) {
-            $this->error204('Please enter business name');
+            $this->error204($this->lang->line('please_enter_business_name'));
             die;
         }
         if(empty($postData['business_slogan'])) {
-            $this->error204('Please enter business slogan');
+            $this->error204($this->lang->line('please_enter_business_slogan'));
             die;
         }
         if(!checkemail($postData['business_email'])) {
@@ -256,7 +256,7 @@ class Businessmanagement extends MY_Controller {
             die;
         }
         if(empty($postData['business_address'])) {
-            $this->error204('Please enter business address');
+            $this->error204($this->lang->line('please_enter_business_address'));
             die;
         }
     }
@@ -270,7 +270,7 @@ class Businessmanagement extends MY_Controller {
             if ($postData['business_id'] > 0) {
                 $checkExit = $this->Mbusinessprofiles->countRows(array('customer_id' => $customer['customer_id'], 'id' => $postData['business_id']));
                 if($checkExit <= 0) {
-                    $this->error204('Business profile does not exist');
+                    $this->error204($this->lang->line('business_profile_does_not_exist'));
                     die;
                 }
                 $arrPhotos = [];
@@ -279,7 +279,7 @@ class Businessmanagement extends MY_Controller {
                     $tmp_name = $_FILES['photos']['tmp_name'][$i];
                     $error = $_FILES['photos']['error'][$i];
                     if ($error > 0) {
-                        $this->error204('Avatar update failed');
+                        $this->error204($this->lang->line('avatar_update_failed'));
                         die;
                     }
                     $photo = explode('.', $name);
@@ -294,11 +294,11 @@ class Businessmanagement extends MY_Controller {
                             $photo_image = replaceFileUrl($filePath, BUSINESS_PROFILE_PATH);
                             $arrPhotos[] = $photo_image;
                         } else {
-                            $this->error204('Avatar update failed');
+                            $this->error204($this->lang->line('avatar_update_failed'));
                             die;
                         }
                     } else {
-                        $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                        $this->error204($this->lang->line('the_image_is_not_in_the_correct_format_jpeg_jpg_png'));
                         die;
                     }
                 }
@@ -329,15 +329,15 @@ class Businessmanagement extends MY_Controller {
                             'list' => $photos
                         ), 'Upload image successfully');
                     } else {
-                        $this->error204('Image upload failed');
+                        $this->error204($this->lang->line('image_upload_failed'));
                         die;
                     }
                 } else {
-                    $this->error204('Please add pictures');
+                    $this->error204($this->lang->line('please_add_pictures'));
                     die;
                 }
             } else {
-                $this->error204('Business profile does not exist');
+                $this->error204($this->lang->line('business_profile_does_not_exist'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -354,7 +354,7 @@ class Businessmanagement extends MY_Controller {
             if ($postData['business_id'] > 0) {
                 $checkExit = $this->Mbusinessprofiles->countRows(array('customer_id' => $customer['customer_id'], 'id' => $postData['business_id']));
                 if($checkExit <= 0) {
-                    $this->error204('Business profile does not exist');
+                    $this->error204($this->lang->line('business_profile_does_not_exist'));
                     die;
                 }
                 if(empty($postData['videos']) || count($postData['videos']) <= 0) {
@@ -390,7 +390,7 @@ class Businessmanagement extends MY_Controller {
                     die;
                 }
             } else {
-                $this->error204('Business profile does not exist');
+                $this->error204($this->lang->line('business_profile_does_not_exist'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -431,12 +431,12 @@ class Businessmanagement extends MY_Controller {
             if ($postData['business_id'] > 0) {
                 $checkExit = $this->Mbusinessprofiles->countRows(array('customer_id' => $customer['customer_id'], 'id' => $postData['business_id']));
                 if($checkExit <= 0) {
-                    $this->error204('Business profile does not exist');
+                    $this->error204($this->lang->line('business_profile_does_not_exist'));
                     die;
                 }
                
                 if(empty($postData['coupon_subject']) || $postData['coupon_subject'] == ""){
-                    $this->error204('Coupon subject is required');
+                    $this->error204($this->lang->line('coupon_subject_is_required'));
                     die;
                 }
                 $postData['start_date'] = date("Y-m-d", strtotime($postData['start_date']));
@@ -444,22 +444,22 @@ class Businessmanagement extends MY_Controller {
                 $currentDay = strtotime(date('Y-m-d'));
 
                 if(strtotime($postData['start_date']) < $currentDay || strtotime($postData['end_date']) < $currentDay){
-                    $this->error204('Please select date in present or future');
+                    $this->error204($this->lang->line('please_select_date_in_present_or_future'));
                     die;
                 }
                 if(strtotime($postData['start_date']) > strtotime($postData['end_date'])){
-                    $this->error204('Please select different date');
+                    $this->error204($this->lang->line('please_select_different_date'));
                     die;
                 }
 
                 if(empty($postData['coupon_amount']) || $postData['coupon_amount'] == 0){
-                    $this->error204('Amount of coupon must be larger than 0');
+                    $this->error204($this->lang->line('amount_of_coupon_must_be_larger_than_0'));
                     die;
                 }
                 if(isset($_FILES['coupon_image']) && !empty($_FILES['coupon_image'])){
                     $file = $_FILES['coupon_image'];
                     if ($file['error'] > 0) {
-                        $this->error204('Avatar update failed');
+                        $this->error204($this->lang->line('avatar_update_failed'));
                         die;
                     } else {
                         $coupon_image = explode('.', $file['name']);
@@ -474,11 +474,11 @@ class Businessmanagement extends MY_Controller {
                                 $coupon_image = replaceFileUrl($filePath, COUPONS_PATH);
                                 $postData['coupon_image'] = $coupon_image;
                             } else {
-                                $this->error204('Avatar update failed');
+                                $this->error204($this->lang->line('avatar_update_failed'));
                                 die;
                             }
                         } else {
-                            $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                            $this->error204($this->lang->line('the_image_is_not_in_the_correct_format_jpeg_jpg_png'));
                             die;
                         }
                     }
@@ -503,11 +503,11 @@ class Businessmanagement extends MY_Controller {
                     $this->success200(array('coupon_id' => $flag), $message);
                     die;
                 } else {
-                    $this->error204('Creating coupon failed');
+                    $this->error204($this->lang->line('creating_coupon_failed'));
                     die;
                 }
             } else {
-                $this->error204('Business profile does not exist');
+                $this->error204($this->lang->line('business_profile_does_not_exist'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -604,7 +604,7 @@ class Businessmanagement extends MY_Controller {
                             die;
                         }
                     } else {
-                        $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                        $this->error204($this->lang->line('the_image_is_not_in_the_correct_format_jpeg_jpg_png'));
                         die;
                     }
                 }

@@ -675,12 +675,7 @@ abstract class MY_Controller extends CI_Controller
         $languageId = !empty($languageId) ? $languageId : 1;
         $language = $this->Mconstants->languageCodes[$languageId];
         $this->language =  $language;
-        $this->lang->load('login', $this->language);
-        $this->lang->load('customer', $this->language);
-        $this->lang->load('business_profile', $this->language);
-        $this->lang->load('business_management', $this->language);
-        $this->lang->load('user_account_management', $this->language);
-        $this->lang->load('email', $this->language);
+        $this->lang->load('mobile', $this->language);
     }
 
     protected function apiCheckLogin($flag = false) {
@@ -690,13 +685,13 @@ abstract class MY_Controller extends CI_Controller
             $this->load->model('Mcustomers');
             $id = $this->Mcustomers->getFieldValue(array('token' => $token, 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
             if($id == 0) {
-                $this->error401('Account does not exist');
+                $this->error401($this->lang->line('account_does_not_exist'));
                 die;
             }
             return ['customer_id' => $id];
         } else {
             if($flag == false) {
-                $this->error401('You do not have permission to view this content, please login');
+                $this->error401($this->lang->line('you_do_not_have_permission_to_view_this_content_please_login'));
                 die;
             } else return ['customer_id' => 0];
             
@@ -733,28 +728,32 @@ abstract class MY_Controller extends CI_Controller
         ));
     }
 
-    protected function error202($text = 'Data not found') {
+    protected function error202($text = '') {
+        if(empty($text)) $text = $this->lang->line('data_not_found');
         echo json_encode(array(
             'code' => 202,
             'message' => $text
         ));
     }
 
-    protected function error401($text = 'Account does not exist') {
+    protected function error401($text = '') {
+        if(empty($text)) $text = $this->lang->line('account_does_not_exist');
         echo json_encode(array(
             'code' => 401,
             'message' => $text
         ));
     }
 
-    protected function error410($text = 'Invalid syntax') {
+    protected function error410($text = '') {
+        if(empty($text)) $text = $this->lang->line('invalid_syntax');
         echo json_encode(array(
             'code' => 410,
             'message' => $text
         ));
     }
 
-    protected function success200($datas, $message = 'Return data') {
+    protected function success200($datas, $message = '') {
+        if(empty($message)) $message = $this->lang->line('return_data');
         $data = array(
             'code' => 200,
             'message' => $message,
@@ -767,7 +766,8 @@ abstract class MY_Controller extends CI_Controller
         echo json_encode($data);
     }
 
-    protected function error204($text = 'List is empty') {
+    protected function error204($text = '') {
+        if(empty($text)) $text = $this->lang->line('list_is_empty');
         echo json_encode(array(
            'code' => 204,
            'message' => $text

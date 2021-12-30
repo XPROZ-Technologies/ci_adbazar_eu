@@ -20,11 +20,11 @@ class Reservation extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'book_date'));
             if($postData['business_id'] < 0) {
-                $this->error204('Please add business');
+                $this->error204($this->lang->line('please_add_business'));
                 die;
             }
             if(empty($postData['book_date'])) {
-                $this->error204('Please select a date');
+                $this->error204($this->lang->line('please_select_a_date'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mreservationconfigs'));
@@ -57,37 +57,37 @@ class Reservation extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'book_name', 'number_of_people', 'country_code_id', 'book_phone', 'date_arrived', 'time_arrived'));
             if($postData['business_id'] < 0) {
-                $this->error204('Please add business');
+                $this->error204($this->lang->line('please_add_business'));
                 die;
             }
             if(empty($postData['book_name'])) {
-                $this->error204('Please enter your name');
+                $this->error204($this->lang->line('please_enter_your_name'));
                 die;
             }
             if(empty($postData['number_of_people']) && $postData['number_of_people'] < 0) {
-                $this->error204('Please add the number of people');
+                $this->error204($this->lang->line('please_add_the_number_of_people'));
                 die;
             }
             if(empty($postData['country_code_id']) && $postData['country_code_id'] < 0) {
-                $this->error204('Please add country code');
+                $this->error204($this->lang->line('please_add_country_code'));
                 die;
             }
             if(empty($postData['book_phone'])) {
-                $this->error204('Please add phone number');
+                $this->error204($this->lang->line('please_add_phone_number'));
                 die;
             }
             if(empty($postData['date_arrived'])) {
-                $this->error204('Please add date');
+                $this->error204($this->lang->line('please_add_date'));
                 die;
             }
             if(empty($postData['time_arrived'])) {
-                $this->error204('Please add hours');
+                $this->error204($this->lang->line('please_add_hours'));
                 die;
             }
             $dateNow = strtotime(getCurentDateTime());
             $dateData = strtotime($postData['date_arrived'].' '.$postData['time_arrived'].":00");
             if($dateData < $dateNow) {
-                $this->error204("Can't choose past date");
+                $this->error204($this->lang->line('cant_choose_past_date'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mreservationconfigs', 'Mcustomerreservations'));
@@ -103,7 +103,9 @@ class Reservation extends MY_Controller {
             if(count($timeConfig) > 0) {
                 $timeConfig = $timeConfig[0];
                 if(intval($postData['number_of_people'] > intval($timeConfig['max_per_reservation']))) {
-                    $this->error204('Can only book up to '.$timeConfig['max_per_reservation'].' people');
+                    $mssErr = $this->lang->line('can_only_book_up_to_{max_per_reservation}_people');
+                    $extMess = explode('{max_per_reservation}',$mssErr);
+                    $this->error204($extMess[0].' '.$timeConfig['max_per_reservation'].' '.$extMess[1]);
                     die;
                 }
                 $strDateTime = $postData['date_arrived'].' '.$postData['time_arrived'].":00";
@@ -155,7 +157,7 @@ class Reservation extends MY_Controller {
                     }
 
                 } else {
-                    $this->error204('The time you choose must be within the opening hours');
+                    $this->error204($this->lang->line('the_time_you_choose_must_be_within_the_opening_hours'));
                     die;
                 }
             } else {

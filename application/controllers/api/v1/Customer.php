@@ -33,7 +33,7 @@ class Customer extends MY_Controller {
             $customer = [];
             if(intval($postData['login_type_id']) == 0) {
                 if(empty($postData['customer_email'])) {
-                    $this->error204('Please enter your email');
+                    $this->error204($this->lang->line('please_enter_your_email'));
                     die;
                 }
                 if(!checkemail($postData['customer_email'])) {
@@ -41,7 +41,7 @@ class Customer extends MY_Controller {
                     die;
                 }
                 if(empty($postData['customer_password'])) {
-                    $this->error204('Your password does not match, please try again.');
+                    $this->error204($this->lang->line('your_password_does_not_match_please_try_again.'));
                     die;
                 }
                 
@@ -61,10 +61,10 @@ class Customer extends MY_Controller {
                     $customer = $this->Mcustomers->login($postData['customer_email'], '', $postData['login_type_id']);
                     if(!$customer) $customer['id'] = 0;
                 } catch (Facebook\Exceptions\FacebookResponseException $e) {
-                    $this->error204('Graph returned an error: ' . $e->getMessage());
+                    $this->error204($this->lang->line('graph_returned_an_error') . $e->getMessage());
                     die;
                 } catch (Facebook\Exceptions\FacebookSDKException $e) {
-                    $this->error204('Facebook SDK returned an error: ' . $e->getMessage());
+                    $this->error204($this->lang->line('facebook_sdk_returned_an_error') . $e->getMessage());
                     die;
                 }
             } else if (intval($postData['login_type_id']) == 2) {
@@ -80,7 +80,7 @@ class Customer extends MY_Controller {
                         $customer = $this->Mcustomers->login($postData['customer_email'], '', $postData['login_type_id']);
                         if(!$customer) $customer['id'] = 0;
                     } else {
-                        $this->error204('Graph returned an error');
+                        $this->error204($this->lang->line('graph_returned_an_error'));
                         die;
                     }
                 } catch (\Throwable $th) {
@@ -109,7 +109,7 @@ class Customer extends MY_Controller {
                 }
                 
             } else {
-                $this->error204('You entered an invalid email or password. Please re-enter.');
+                $this->error204($this->lang->line('you_entered_an_invalid_email_or_password'));
                 die;
             }
             
@@ -124,17 +124,17 @@ class Customer extends MY_Controller {
             $token = $this->getAuthorizationHeader();
             // $token = $this->input->get_request_header('X-Auth-Token', TRUE);
             if(empty($token)) {
-                $this->error410('Token has not been uploaded yet');
+                $this->error410($this->lang->line('token_has_not_been_uploaded_yet'));
                 die;
             }else {
                 $this->load->model('Mcustomers');
                 $customerId = $this->Mcustomers->getFieldValue(array('token' => $token), 'id', 0);
                 if(!$customerId) {
-                    $this->error204('Token does not exist');
+                    $this->error204($this->lang->line('token_does_not_exist'));
                     die;
                 } else {
                     $flag = $this->Mcustomers->save(array('token' => '', 'updated_at' => getCurentDateTime()), $customerId);
-                    if($flag) $this->success200($customerId, 'Logout successful');
+                    if($flag) $this->success200($customerId, $this->lang->line('logout_successful'));
                     else $this->error500();
                 }
             }
@@ -151,7 +151,7 @@ class Customer extends MY_Controller {
             $data = [];
             if (intval($postData['login_type_id']) == 0) {
                 if (empty($postData['customer_email'])) {
-                    $this->error204('Please enter a valid email.');
+                    $this->error204($this->lang->line('please_enter_a_valid_email.'));
                     die;
                 }
                 if(!checkemail($postData['customer_email'])) {
@@ -162,7 +162,7 @@ class Customer extends MY_Controller {
                
                 $customer = $this->Mcustomers->checkExist(0, $postData['customer_email']);
                 if($customer) {
-                    $this->error204('Email already exists in the system');
+                    $this->error204($this->lang->line('email_already_exists_in_the_system'));
                     die;
                 }
                 $data['customer_password'] =  md5($postData['customer_password']);
@@ -180,10 +180,10 @@ class Customer extends MY_Controller {
                     $data['customer_status_id'] = STATUS_ACTIVE; 
 
                 } catch (Facebook\Exceptions\FacebookResponseException $e) {
-                    $this->error204('Graph returned an error: ' . $e->getMessage());
+                    $this->error204($this->lang->line('graph_returned_an_error') . $e->getMessage());
                     die;
                 } catch (Facebook\Exceptions\FacebookSDKException $e) {
-                    $this->error204('Facebook SDK returned an error: ' . $e->getMessage());
+                    $this->error204($this->lang->line('facebook_sdk_returned_an_error') . $e->getMessage());
                     die;
                 }
             } else if (intval($postData['login_type_id']) == 2) { //google
@@ -199,7 +199,7 @@ class Customer extends MY_Controller {
                         $data['customer_password'] = md5('12345678@aM');
                         $data['customer_status_id'] = STATUS_ACTIVED;
                     } else {
-                        $this->error204('Graph returned an error');
+                        $this->error204($this->lang->line('graph_returned_an_error'));
                         die;
                     }
                 } catch (\Throwable $th) {
@@ -238,12 +238,12 @@ class Customer extends MY_Controller {
                     $this->Memailqueue->createEmail($dataEmail, 99);
                     $this->success200($flag, 'Successfully register account');
                 } else {
-                    $this->error400('Registration failed');
+                    $this->error400($this->lang->line('registration_failed'));
                     die;
                 }
 
             } else {
-                $this->error400('Registration failed');
+                $this->error400($this->lang->line('registration_failed'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -283,14 +283,14 @@ class Customer extends MY_Controller {
                      * END. Save Email
                      */
                     if ($emailResult){
-                        $this->success200('', 'Successfully sent password recover');
+                        $this->success200('', $this->lang->line('successfully_sent_password_recover'));
                         die;
                     } else {
-                        $this->error400('Sending password recover failed');
+                        $this->error400($this->lang->line('sending_password_recover_failed'));
                         die;
                     }
                 } else {
-                    $this->error400('Sending password recover failed');
+                    $this->error400($this->lang->line('sending_password_recover_failed'));
                     die;
                 }
             } else {
@@ -308,7 +308,7 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('customer_password', 'confirm_password', 'token_reset'));
             $this->validatePassWord($postData);
             if(empty($postData['token_reset'])) {
-                $this->error204('Tokens cannot be empty');
+                $this->error204($this->lang->line('tokens_cannot_be_empty'));
                 die;
             }
             $this->load->model('Mcustomers');
@@ -340,7 +340,7 @@ class Customer extends MY_Controller {
 
     private function validatePassWord($postData) {
         if (empty($postData['customer_password']) || empty($postData['confirm_password'])) {
-            $this->error204('Please enter your new password');
+            $this->error204($this->lang->line('please_enter_your_new_password'));
             die;
         }
         if ($postData['customer_password'] != $postData['confirm_password']) {
@@ -352,7 +352,7 @@ class Customer extends MY_Controller {
         $number    = preg_match('@[0-9]@', $postData['customer_password']);
         $specialChars = preg_match('@[^\w]@', $postData['customer_password']);
         if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($postData['customer_password']) < 8) {
-            $this->error204('Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.');
+            $this->error204($this->lang->line('password_should_be_at_least_8_characters_in_length_and_should_include_at_least_one_upper_case_letter_one_number_and_one_special_character.'));
             die;
         }
     }
@@ -362,7 +362,7 @@ class Customer extends MY_Controller {
             $this->openAllCors();
             $postData = $this->arrayFromPostRawJson(array('token'));
             if(empty($postData['token'])) {
-                $this->error204('Tokens cannot be empty');
+                $this->error204($this->lang->line('tokens_cannot_be_empty'));
                 die;
             }
             $this->load->model('Mcustomers');
@@ -392,11 +392,11 @@ class Customer extends MY_Controller {
                         ,$customer['login_type_id']);
                     $this->success200(array('customer' => $customer));
                 } else {
-                    $this->error400('Account activation failed');
+                    $this->error400($this->lang->line('account_activation_failed'));
                     die;
                 }
             } else {
-                $this->error204('Token does not exist or account has been activated');
+                $this->error204($this->lang->line('token_does_not_exist_or_account_has_been_activated'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -411,7 +411,7 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('coupon_id'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['coupon_id']) && $postData['coupon_id'] < 0) {
-                $this->error204('Incorrect information');
+                $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
             $this->load->model('Mcustomercoupons');
@@ -419,7 +419,7 @@ class Customer extends MY_Controller {
             if($customerCouponId) {
                 $flag = $this->Mcustomercoupons->save(['customer_coupon_status_id' => 0, 'deleted_at' => getCurentDateTime()], $customerCouponId);
                 if($flag) {
-                    $this->success200('', 'Successfully removed!');
+                    $this->success200('', $this->lang->line('successfully_removed!'));
                     die;
                 } else {
                     $this->error204('Coupon code not exist');
@@ -441,7 +441,7 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('event_id'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['event_id']) && $postData['event_id'] < 0) {
-                $this->error204('Incorrect information');
+                $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
             $this->loadModel(array('Mevents', 'Mcustomerevents'));
@@ -459,7 +459,7 @@ class Customer extends MY_Controller {
                     )
                 );
                 if($flag) {
-                    $this->success200('', 'You have left the event');
+                    $this->success200('', $this->lang->line('you_have_left_the_event'));
                     die;
                 } else {
                     $this->error204('The event has ended or does not exist');
@@ -495,11 +495,11 @@ class Customer extends MY_Controller {
                         $photo = replaceFileUrl($filePath, CUSTOMER_PATH);
                         $postData['customer_avatar'] = $photo;
                     } else {
-                        $this->error204('Avatar update failed');
+                        $this->error204($this->lang->line('avatar_update_failed'));
                         die;
                     }
                 } else {
-                    $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                    $this->error204($this->lang->line('the_image_is_not_in_the_correct_format_jpeg_jpg_png'));
                     die;
                 }
             }
@@ -518,14 +518,14 @@ class Customer extends MY_Controller {
                 $postData['id'] = $flag;
                 $postData['customer_avatar'] = !empty($postData['customer_avatar']) ? base_url(CUSTOMER_PATH.$postData['customer_avatar']) : '';
                 if($flag) {
-                    $this->success200($postData, 'Successfully updated account information');
+                    $this->success200($postData, $this->lang->line('successfully_updated_account_information'));
                     die;
                 } else {
-                    $this->error204('Invalid account information update');
+                    $this->error204($this->lang->line('invalid_account_information_update'));
                     die;
                 }
             } else {
-                $this->error204('Invalid account information update');
+                $this->error204($this->lang->line('invalid_account_information_update'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -535,35 +535,35 @@ class Customer extends MY_Controller {
 
     private function checkValidateCustomerProfile($postData) {
         if(empty($postData['customer_first_name'])) {
-            $this->error204('Please enter the first name');
+            $this->error204($this->lang->line('please_enter_the_first_name'));
             die;
         }
         if(empty($postData['customer_last_name'])) {
-            $this->error204('Please enter the last name');
+            $this->error204($this->lang->line('please_enter_the_last_name'));
             die;
         }
         if(empty($postData['customer_birthday'])) {
-            $this->error204('Please enter your date of birth');
+            $this->error204($this->lang->line('please_enter_your_date_of_birth'));
             die;
         }
         if(empty($postData['customer_gender_id']) && $postData['customer_gender_id'] < 0 && $postData['customer_gender_id'] > 4) {
-            $this->error204('Please enter gender');
+            $this->error204($this->lang->line('please_enter_gender'));
             die;
         }
         if(empty($postData['customer_phone'])) {
-            $this->error204('Invalid phone number');
+            $this->error204($this->lang->line('invalid_phone_number'));
             die;
         }
         if(empty($postData['customer_phone_code'])) {
-            $this->error204('Please enter phone code');
+            $this->error204($this->lang->line('please_enter_phone_code'));
             die;
         }
         if(empty($postData['customer_occupation'])) {
-            $this->error204('Please enter occupation');
+            $this->error204($this->lang->line('please_enter_occupation'));
             die;
         }
         if(empty($postData['customer_address'])) {
-            $this->error204('Please enter address');
+            $this->error204($this->lang->line('please_enter_address'));
             die;
         }
     }
@@ -577,11 +577,11 @@ class Customer extends MY_Controller {
             $this->loadModel(array('Mcustomers'));
             $checkExit = $this->Mcustomers->get($customer['customer_id']);
             if(!$checkExit) {
-                $this->error204('Accounts doesn’t doing');
+                $this->error204($this->lang->line('accounts_doesnt_doing'));
                 die;
             }
             if(md5($postData['current_password']) != $checkExit['customer_password']) {
-                $this->error204('Current password is incorrect');
+                $this->error204($this->lang->line('current_password_is_incorrect'));
                 die;
             }
             $this->validatePassWord($postData);
@@ -592,10 +592,10 @@ class Customer extends MY_Controller {
 
             $flag = $this->Mcustomers->save($data, $customer['customer_id']);
             if($flag) {
-                $this->success200('', 'Password update successful');
+                $this->success200('', $this->lang->line('password_update_successful'));
                 die;
             } else {
-                $this->error204('Invalid account information update');
+                $this->error204($this->lang->line('invalid_account_information_update'));
                 die;
             }
         } catch (\Throwable $th) {
