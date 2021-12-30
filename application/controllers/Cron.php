@@ -186,4 +186,76 @@ class Cron extends MY_Controller {
         }
     }
     
+
+    public function sendNoti(){
+        $this->loadModel(array('Mnotificationusers', 'Mcustomertokens', 'Musertokens', 'Morders'));
+        $select = 'notificationusers.NotificationUserId, notificationusers.UserId, notificationusers.UserTypeId,
+        notifications.Title, notifications.Message, notifications.NotificationTypeId, notifications.ItemId';
+        $listNotifications = $this->Mnotificationusers->search(array('IsSend' => 0), 20, 1, $select, 'NotificationUserId ASC', array('notification'));
+        //echo '<pre>';print_r($listNotifications);exit;
+        if (!empty($listNotifications)) {
+            foreach ($listNotifications as $notification) {
+                $model = $notification['UserTypeId'] == 1 ? 'Mcustomertokens' : 'Musertokens';
+                $field_name = $notification['UserTypeId'] == 1 ? 'CustomerId' : 'UserId';
+                $tokens = $this->$model->getListFieldValue(array($field_name => $notification['UserId']), 'DeviceToken');
+                if (!empty($tokens)) {
+                    $flag = $this->Mnotificationusers->save(array('IsSend' => 1), $notification['NotificationUserId']);
+                    if ($flag) {
+                        foreach ($tokens as $token) {
+                            $addOn = array(
+                                'NotificationTypeId' => $notification['NotificationTypeId'], 
+                                'ItemId' => $notification['ItemId']
+                            );
+                            if(intval($notification['NotificationTypeId']) == 1){
+                                $orderStatusId = $this->Morders->getListFieldValue(array('OrderId' => $notification['ItemId']), 'OrderStatusId');
+                                $orderType = 0;
+                                if(in_array($orderStatusId, array(4,5))){
+                                    $orderType = 2;
+                                }
+                                if(in_array($orderStatusId, array(1,2,3))){
+                                    $orderType = 1;
+                                }
+                                $addOn['OrderType'] = $orderType;
+                            }
+                            sendNotification($token, $notification['Title'], $notification['Message'], $addOn);
+                            //log_message('error', $message);
+                        }
+
+                        $message =  getCurentDateTime() . ': Notification - '. $model .' - '. $notification['NotificationUserId'] . ': Send success';
+                        echo $message. PHP_EOL;
+                        log_message('error', $message);
+                    }else{
+                        $this->Mnotificationusers->save(array('IsSend' => 3), $notification['NotificationUserId']);
+                        $message = getCurentDateTime() . ': Notification - '. $model .' - '. $notification['NotificationUserId'] . ': '. ERROR_COMMON_MESSAGE;
+                        log_message('error', $message);
+                        echo $message . PHP_EOL;
+                    }
+                } else {
+                    $this->Mnotificationusers->save(array('IsSend' => 3), $notification['NotificationUserId']);
+                    $message = getCurentDateTime() . ': Notification - '. $model .' - '. $notification['NotificationUserId'] . ': Không có DeviceToken';
+                    log_message('error', $message);
+                    echo $message . PHP_EOL;
+                }
+            }
+        } else {
+            $message = 'NotificationUser: Không có dữ liệu';
+            log_message('error', $message);
+            echo $message . PHP_EOL;
+        }
+    }
+
+    public function testNotification(){
+        try {
+            $postData = $this->arrayFromPostRawJson(array('DeviceToken', 'NotificationTypeId', 'ItemId'));
+
+            $DeviceToken = trim($this->input->get('DeviceToken'));
+            $NotificationTypeId = trim($this->input->get('NotificationTypeId'));
+            $ItemId = trim($this->input->get('ItemId'));
+            
+            sendNotification($postData['DeviceToken'], "Test title noti firebase".date('Y/m/d'), "Message noti firebase", array('NotificationTypeId' => $postData['NotificationTypeId'], 'ItemId' => $postData['ItemId']));
+        } catch (\Throwable $th) {
+            
+            echo $message . PHP_EOL;
+        }
+    }
 }

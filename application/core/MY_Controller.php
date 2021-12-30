@@ -670,12 +670,20 @@ abstract class MY_Controller extends CI_Controller
         
     }
 
-    public function getLanguageApi() {
+    public function getLanguageApi($loadAll = false) {
         $languageId = $this->input->get_request_header('language-id', TRUE);
         $languageId = !empty($languageId) ? $languageId : 1;
         $language = $this->Mconstants->languageCodes[$languageId];
         $this->language =  $language;
         $this->lang->load('mobile', $this->language);
+        if($loadAll) {
+            $this->lang->load('login', $this->language);
+            $this->lang->load('customer', $this->language);
+            $this->lang->load('business_profile', $this->language);
+            $this->lang->load('business_management', $this->language);
+            $this->lang->load('user_account_management', $this->language);
+            $this->lang->load('email', $this->language);
+        }
     }
 
     protected function apiCheckLogin($flag = false) {
