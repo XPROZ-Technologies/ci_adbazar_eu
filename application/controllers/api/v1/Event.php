@@ -280,4 +280,17 @@ class Event extends MY_Controller {
         }
     }
 
+    public function event24h() {
+        // $date24h = date('Y-m-d H:i',strtotime('+24 hours')); // lấy ngày hiện tại
+        $date24h = date('Y-m-d H:i',strtotime('+24 hours', strtotime('2021-11-17 06:58'))); // truyền theo ngày mong muốn
+        $dateBefore = date('Y-m-d H:i',strtotime('-5 minutes', strtotime($date24h) ));
+        $dateAfter = date('Y-m-d H:i',strtotime('+5 minutes', strtotime($date24h) ));
+
+        $this->load->model(array('Mevents'));
+        $list = $this->Mevents->event24h($dateBefore, $dateAfter);
+        $this->success200($list);
+        die;
+
+    }
+
 }

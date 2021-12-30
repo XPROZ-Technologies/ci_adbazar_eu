@@ -77,23 +77,25 @@ class Businessprofile extends MY_Controller {
                 $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
-            $this->load->model(array('Mbusinessprofiles', 'Mservicetypes', 'Mopeninghours'));
+            $this->load->model(array('Mbusinessprofiles', 'Mservicetypes', 'Mopeninghours', 'Mphonecodes'));
             $detail = $this->Mbusinessprofiles->getDetailInApi($postData['business_id']);
             if($detail && count($detail) > 0) {
                 $detail = $detail[0];
                 $serviceTypes = $this->Mservicetypes->getServiceTypeInService($detail['service_id'], $this->langCode);
                 $openingHours = $this->Mopeninghours->getBy(array('business_profile_id' => $detail['id']), false, 'day_id', 'opening_hours_status_id as open_status_id, day_id, start_time, end_time', 0,0, 'asc');
                 $openStatusId = $this->checkBusinessOpenHours($detail['id']);
-                if($openStatusId) $openStatusId = 2;
-                else $openStatusId = 1;
+                if($openStatusId) $openStatusId = 2; // mở cửa
+                else $openStatusId = 1; // dóng cửa
+                $businessPhoneCode = $this->Mphonecodes->getFieldValue(array('id' => $detail['country_code_id']), 'phonecode','');
+                $whatsappPhoneCode = $this->Mphonecodes->getFieldValue(array('id' => $detail['country_code_whatsapp_id']), 'phonecode','');
                 $data = array(
                     'business_info' => array(
                         "id" => $detail['id'],
                         "business_name" => $detail['business_name'],
                         "service_types" => $serviceTypes,
                         "business_slogan" => $detail['business_slogan'],
-                        "business_phone" => $detail['business_phone'],
-                        "business_whatsapp" => $detail['business_whatsapp'],
+                        "business_phone" => $businessPhoneCode.ltrim($detail['business_phone'], '0'),
+                        "business_whatsapp" => $whatsappPhoneCode.ltrim($detail['business_whatsapp'], '0'),
                         "business_email" => $detail['business_email'],
                         "business_address" => $detail['business_address'],
                         "business_avatar" => !empty($detail['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$detail['business_avatar']) : '',
@@ -104,7 +106,9 @@ class Businessprofile extends MY_Controller {
                         "lat" => $detail['lat'],
                         "lng" => $detail['lng'],
                         "star" => $detail['star'],
-                        "number_of_reviews" => $detail['number_of_reviews']
+                        "number_of_reviews" => $detail['number_of_reviews'],
+                        'is_annual_payment' => $detail['is_annual_payment'],
+                        'business_status_id' => $detail['business_status_id']
                     ),
                     'open_hours' => $openingHours
                 );
