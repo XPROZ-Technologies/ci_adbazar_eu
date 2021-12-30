@@ -1243,7 +1243,7 @@ class Businessmanagement extends MY_Controller {
                 $business['id']
             );
             if($flag) {
-                $this->success200(array('business_id' => $flag), 'Success save billing info');
+                $this->success200(array('business_id' => $flag), 'Update successfully');
                 die;
             } else {
                 $this->error204('Update failed');
