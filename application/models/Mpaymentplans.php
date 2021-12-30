@@ -39,4 +39,10 @@ class Mpaymentplans extends MY_Model {
                     FROM payment_plans WHERE plan_status_id > 0" . $this->buildQuery($postData);
         return $this->getByQuery($query);
     }
+
+    public function getAvailablePlan($postData) {
+        $query = "SELECT id, plan_type_id, plan_currency_id, amount_per_month, plan_save, plan_vat
+        FROM payment_plans WHERE plan_status_id > 0" . $this->buildQuery($postData);
+        return $this->getByQuery($query);
+    }
 }

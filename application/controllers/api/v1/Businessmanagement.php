@@ -84,7 +84,7 @@ class Businessmanagement extends MY_Controller {
     private function updateOrInsertBusiness($businessId = 0, $planId = 0, $isTrial = 0) {
         $customer = $this->apiCheckLogin(false);
         $this->load->model('Mbusinessprofiles');
-        $postData = $this->arrayFromPostApi(array('service_id', 'business_name', 'business_slogan', 'business_email', 'business_address', 'business_whatsapp', 'business_phone', 'business_description', 'country_code_id', 'open_hours', 'service_type_ids'));
+        $postData = $this->arrayFromPostApi(array('service_id', 'business_name', 'business_slogan', 'business_email', 'business_address', 'business_whatsapp', 'business_phone', 'business_description', 'country_code_id', 'open_hours', 'service_type_ids', 'country_code_whatsapp_id'));
         if ($businessId > 0) {
             $checkExit = $this->Mbusinessprofiles->countRows(array('customer_id' => $customer['customer_id'], 'id' => $businessId));
             if($checkExit <= 0) {
@@ -1134,9 +1134,9 @@ class Businessmanagement extends MY_Controller {
                 $this->error204('Payment address cannot be empty');
                 die;
             }
-            $this->load->model(array('Mbusinessprofiles', 'Mbusinesspayments'));
-            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
-            if(!$checkExit) {
+            $this->load->model(array('Mbusinessprofiles', 'Mbusinesspayments', 'Mpaymentplans'));
+            $business = $this->Mbusinessprofiles->get($postData['business_id']);
+            if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
                 $this->error204('Business does not belong to this customer');
                 die;
             }
@@ -1153,7 +1153,11 @@ class Businessmanagement extends MY_Controller {
 
             $flag = $this->Mbusinesspayments->save($data);
             if ($flag > 0) {
-                $this->success200('', 'Success save billing info');
+                $dataReturn = array(
+                    "payment_id" => $flag,
+                    "paypal_plan_id" => $this->Mpaymentplans->getFieldValue(array('id' => $business['plan_id']), 'plan_id', '')
+                );
+                $this->success200($dataReturn, 'Success save billing info');
                 die;
             } else {
                 $this->error204('Failed to save payment information');
@@ -1165,5 +1169,89 @@ class Businessmanagement extends MY_Controller {
         }
     }
 
+    public function available_plan() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'currency_code'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+
+            if(!isset($postData['currency_code'])) $postData['currency_code'] = 'CZK';
+            $postData['api'] = true;
+            $this->load->model(array('Mbusinessprofiles', 'Mpaymentplans'));
+            $business = $this->Mbusinessprofiles->get($postData['business_id']);
+            if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+            $postData['plan_currency_id'] = $this->Mconstants->currenyCodes[$postData['currency_code']];
+            $postData['customer_id'] = $customer['customer_id'];
+            $listPlan = $this->Mpaymentplans->getAvailablePlan($postData);
+            for($i = 0; $i < count($listPlan); $i++) {
+                $selectedId = 0;
+                if($listPlan[$i]['id'] == $business['plan_id']) {
+                    $selectedId = 1;
+                }
+                $listPlan[$i]['is_selected'] = $selectedId;
+
+                unset($listPlan[$i]['id']);
+            }
+            $this->success200(array(
+                'currency_code' => $postData['currency_code'],
+                'plans' => $listPlan
+            ));
+            die;
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function change_plan() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'plan_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            if(!isset($postData['plan_id'])) {
+                $this->error204('plan_id: not transmitted');
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mpaymentplans'));
+            $business = $this->Mbusinessprofiles->get($postData['business_id']);
+            if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+
+            $planId = $this->Mpaymentplans->getFieldValue(array('id' => $postData['plan_id'], 'plan_status_id' => 2), 'id', 0);
+            if($planId == 0) {
+                $this->error204('Payment plans do not exist');
+                die;
+            }
+
+            $flag = $this->Mbusinessprofiles->save(
+                array(
+                    'plan_id' => $planId,
+                    'updated_at' => getCurentDateTime(),
+                ),
+                $business['id']
+            );
+            if($flag) {
+                $this->success200(array('business_id' => $flag), 'Success save billing info');
+                die;
+            } else {
+                $this->error204('Update failed');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
    
 }
