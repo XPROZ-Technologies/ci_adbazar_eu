@@ -103,14 +103,14 @@ class Coupon extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('coupon_id'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['coupon_id']) && $postData['coupon_id'] < 0) {
-                $this->error204('Incorrect information');
+                $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
             $this->loadModel(array('Mcoupons', 'Mcustomercoupons'));
             $customerCouponId = $this->Mcustomercoupons->getFieldValue(array('customer_id' => $postData['customer_id'], 'coupon_id' => $postData['coupon_id'], 'customer_coupon_status_id >' => 0), 'id', 0);
 
             if ($customerCouponId > 0) {
-                $this->error204('You have saved this coupon code');
+                $this->error204($this->lang->line('you_have_saved_this_coupon_code'));
                 die;
             }
             $couponInfo = $this->Mcoupons->get($postData['coupon_id']);
@@ -133,7 +133,7 @@ class Coupon extends MY_Controller {
                     if($presentUsed >= $couponInfo['coupon_amount']){
                         $this->Mcoupons->save(array('is_full' => 1), $postData['coupon_id']);
                     }
-                    $this->success200('', 'Successfully Saved!');
+                    $this->success200('', $this->lang->line('successfully_saved!'));
                     die;
                 } else {
                     $this->error500();
@@ -153,7 +153,7 @@ class Coupon extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('coupon_id'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['coupon_id']) && $postData['coupon_id'] < 0) {
-                $this->error204('Incorrect information');
+                $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
             $this->load->model('Mcoupons');
@@ -175,7 +175,7 @@ class Coupon extends MY_Controller {
                 unset($detail['business_profile_id'], $detail['customer_id'], $detail['business_avatar'], $detail['business_address'], $detail['business_phone']);
                 $this->success200($detail);
             } else {
-                $this->error204('No data');
+                $this->error204($this->lang->line('no_data'));
                 die;
             }
         } catch (\Throwable $th) {

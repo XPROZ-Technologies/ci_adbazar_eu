@@ -52,7 +52,7 @@ class Review extends MY_Controller {
                                 die;
                             }
                         } else {
-                            $this->error204('The image is not in the correct format: jpeg, jpg, png, bmp, svg');
+                            $this->error204($this->lang->line('the_image_is_not_in_the_correct_format_jpeg_jpg_png'));
                             die;
                         }
                     }
@@ -60,9 +60,9 @@ class Review extends MY_Controller {
                 $postData['customer_review_status_id'] = STATUS_ACTIVED;
                 $flag = $this->Mcustomerreviews->save($postData);
                 if($flag) {
-                    $this->success200('', 'Successful business evaluation');
+                    $this->success200('', $this->lang->line('successful_business_evaluation'));
                 } else {
-                    $this->error204('Unsuccessful business review');
+                    $this->error204($this->lang->line('unsuccessful_business_review'));
                     die;
                 }
             } else {

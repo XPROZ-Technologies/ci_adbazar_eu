@@ -74,7 +74,7 @@ class Businessprofile extends MY_Controller {
             $this->openAllCors();
             $postData = $this->arrayFromPostRawJson(array('business_id'));
             if(empty($postData['business_id']) && $postData['business_id'] < 0) {
-                $this->error204('Incorrect information');
+                $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mservicetypes', 'Mopeninghours'));
@@ -110,7 +110,7 @@ class Businessprofile extends MY_Controller {
                 );
                 $this->success200($data);
             } else {
-                $this->error204('Incorrect information');
+                $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -162,7 +162,7 @@ class Businessprofile extends MY_Controller {
                     'list' => $photos
                 ));
             } else {
-                $this->error204('business_id does not exist');
+                $this->error204($this->lang->line('business_id_does_not_exist'));
                 die;
             }
             
@@ -214,7 +214,7 @@ class Businessprofile extends MY_Controller {
                     'list' => $videos
                 ));
             } else {
-                $this->error204('business_id does not exist');
+                $this->error204($this->lang->line('business_id_does_not_exist'));
                 die;
             }
             
@@ -300,7 +300,7 @@ class Businessprofile extends MY_Controller {
                     'list' => $reviews
                 ));
             } else {
-                $this->error204('business_id does not exist');
+                $this->error204($this->lang->line('business_id_does_not_exist'));
                 die;
             }
         } catch (\Throwable $th) {
