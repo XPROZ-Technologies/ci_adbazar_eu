@@ -26,8 +26,23 @@ class Review extends MY_Controller {
                 $this->error204('Customers already have left a review');
                 die;
             }
+
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
+                if(!isset($postData['review_star'])) $postData['review_star'] = 0;
                 if(empty($postData['review_star'])) $postData['review_star'] = 0;
+                if(!isset($postData['customer_comment'])) {
+                    $this->error204('customer_comment: not transmitted');
+                    die;
+                }
+                if(empty($postData['customer_comment'])) {
+                    $this->error204('Customer comment is not null');
+                    die;
+                }
+
+                if(!empty($postData['customer_comment']) && strlen($postData['customer_comment']) <= 4) {
+                    $this->error204('Review content must be above 4 characters');
+                    die;
+                }
                 
                 if(isset($_FILES['photo']) && !empty($_FILES['photo'])){
                     $file = $_FILES['photo'];
@@ -58,6 +73,8 @@ class Review extends MY_Controller {
                     }
                 }
                 $postData['customer_review_status_id'] = STATUS_ACTIVED;
+                $postData['created_at'] = getCurentDateTime();
+                $postData['created_by'] = $customer['customer_id'];
                 $flag = $this->Mcustomerreviews->save($postData);
                 if($flag) {
                     $this->success200('', $this->lang->line('successful_business_evaluation'));
@@ -89,7 +106,11 @@ class Review extends MY_Controller {
             }
             
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
-                $flag = $this->Mcustomerreviews->save(array('business_comment' => $postData['business_comment']), $postData['review_id']);
+                $flag = $this->Mcustomerreviews->save(array(
+                    'business_comment' => $postData['business_comment'],
+                    'updated_at' =>  getCurentDateTime(),
+                    'updated_at' => $customer['customer_id']
+                ), $postData['review_id']);
                 if($flag) {
                     $this->success200('', $this->lang->line('successful_business_evaluation'));
                 } else {
@@ -115,7 +136,7 @@ class Review extends MY_Controller {
             $this->load->model('Mcustomerreviews');
             
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
-                $flag = $this->Mcustomerreviews->save(array('business_comment' => ""), $postData['review_id']);
+                $flag = $this->Mcustomerreviews->save(array('business_comment' => "",  'updated_at' =>  getCurentDateTime()), $postData['review_id']);
                 if($flag) {
                     $this->success200('', $this->lang->line('additional_successful1'));
                 } else {
@@ -141,7 +162,7 @@ class Review extends MY_Controller {
             $this->load->model('Mcustomerreviews');
             
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
-                $flag = $this->Mcustomerreviews->save(array('customer_review_status_id' => 0), $postData['review_id']);
+                $flag = $this->Mcustomerreviews->save(array('customer_review_status_id' => 0, 'updated_at' =>  getCurentDateTime(), 'updated_by' => $customer['customer_id']), $postData['review_id']);
                 if($flag) {
                     $this->success200('', $this->lang->line('additional_successful1'));
                 } else {

@@ -244,9 +244,12 @@ class Businessprofile extends MY_Controller {
 
                 $reviews = [];
                 $allowReview = 0;
-                if(intval($postData['customer_id']) < 0) $allowReview = 0;
+                if(intval($postData['customer_id']) > 0) {
+                    $checkCustomerReviewId = $this->Mcustomerreviews->getFieldValue(array('customer_id' => $postData['customer_id'], 'customer_review_status_id' => 2), 'id', 0);
+                    if($checkCustomerReviewId == 0) $allowReview = 0;
+                    else $allowReview = 1;
+                }
                 if($rowCount > 0) {
-                    if(intval($postData['customer_id']) > 0) $allowReview = 1;
                     $pageCount = ceil($rowCount / $perPage);
                     if(!is_numeric($page) || $page < 1) $page = 1;
                     $customerReviews = $this->Mcustomerreviews->getListInApi($postData, $perPage, $page);

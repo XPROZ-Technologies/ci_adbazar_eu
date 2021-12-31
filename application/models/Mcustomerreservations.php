@@ -69,7 +69,7 @@ class Mcustomerreservations extends MY_Model {
                         (CASE WHEN (book_status_id = 2 AND DATE_FORMAT(CONCAT(date_arrived,' ',time_arrived), '%Y-%m-%d %H:%i:%s') < NOW()) THEN 1 ELSE book_status_id END) as book_status_id
                     FROM customer_reservations WHERE book_status_id > 0" . $this->buildQueryApi($postData);
         
-        $query .= " ORDER BY created_at ".$postData['order_by'];
+        $query .= " ORDER BY IF(created_at IS NOT NULL, created_at, updated_at) ".$postData['order_by'];
         
 
         if($perPage > 0) {
@@ -89,8 +89,9 @@ class Mcustomerreservations extends MY_Model {
                 $query .=" AND ( `book_code` LIKE '%{$postData['search_text']}%' OR 
                                 `book_name` LIKE '%{$postData['search_text']}%' OR 
                                 `book_phone` LIKE '%{$postData['search_text']}%' OR
-                                `customer_id` IN (Select id FROM customers where customer_first_name LIKE '%{$postData['search_text']}%' OR customer_last_name LIKE '%{$postData['search_text']}%')
-                            )";
+                                `customer_id` IN (Select id FROM customers where customer_first_name LIKE '%{$postData['search_text']}%' OR customer_last_name LIKE '%{$postData['search_text']}%') OR
+                                `business_profile_id` IN (select id FROM business_profiles where business_name LIKE '%{$postData['search_text']}%')
+                            )"; 
             }
             if(isset($postData['book_status_id']) && $postData['book_status_id'] != '' && $postData['book_status_id'] > 0) $query.=" AND book_status_id = ".$postData['book_status_id'];
             if(isset($postData['selected_date']) && !empty($postData['selected_date'])) {
@@ -107,13 +108,10 @@ class Mcustomerreservations extends MY_Model {
     }
 
     public function searchReservationApi($postData, $perPage = 0, $page = 1) {
+        if(empty($postData['order_by'])) $postData['order_by'] = 'DESC';
         $query = "SELECT customer_reservations.* FROM customer_reservations WHERE book_status_id > 0" . $this->buildQueryApi($postData);
 
-        if(isset($postData['order_by'])){
-            $query .= " ORDER BY created_at ".$postData['order_by'];
-        }else{
-            $query .= " ORDER BY created_at DESC";
-        }
+        $query .= " ORDER BY IF(created_at IS NOT NULL, created_at, updated_at) ".$postData['order_by'];
 
         if($perPage > 0) {
             $from = ($page-1) * $perPage;
