@@ -422,6 +422,37 @@ class Businessmanagement extends MY_Controller {
         }
     }
 
+    public function cancel_coupon() {
+        try {
+            $this->openAllCors();
+            $postData = $this->arrayFromPostApi(array('coupon_id', 'business_id'));
+            
+            if ($postData['business_id'] > 0) {
+                $checkExit = $this->Mbusinessprofiles->countRows(array('customer_id' => $customer['customer_id'], 'id' => $postData['business_id']));
+                if($checkExit <= 0) {
+                    $this->error204($this->lang->line('business_profile_does_not_exist'));
+                    die;
+                }
+
+                $couponId = $postData['coupon_id'];
+
+                $flag = $this->Mcoupons->update(array('coupon_status_id' => 0), $couponId);
+                
+                if ($flag > 0) {
+                    $this->success200(array('coupon_id' => $flag), $this->lang->line('additional_successful1'));
+                    die;
+                } else {
+                    $this->error204("Failed");
+                    die;
+                }
+            }
+
+        } catch (\Throwable $th) {
+            echo $th;
+            $this->error500();
+        }
+    }
+
     private function createOrUpdateCoupon($couponId = 0) {
         try {
             $customer = $this->apiCheckLogin(false);
