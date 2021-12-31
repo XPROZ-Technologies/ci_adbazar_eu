@@ -82,9 +82,14 @@ class Review extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('business_id', 'review_id', 'business_comment'));
 
             $this->load->model('Mcustomerreviews');
+
+            if(empty($postData['business_comment'])){
+                $this->error204('Reply cannot blank');
+                die;
+            }
             
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
-                $flag = $this->Mcustomerreviews->save(array('business_comment'), $postData['review_id']);
+                $flag = $this->Mcustomerreviews->save(array('business_comment' => $postData['business_comment']), $postData['review_id']);
                 if($flag) {
                     $this->success200('', $this->lang->line('successful_business_evaluation'));
                 } else {
@@ -105,7 +110,7 @@ class Review extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin();
-            $postData = $this->arrayFromPostRawJson(array('business_id', 'review_id', 'business_comment'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'review_id'));
 
             $this->load->model('Mcustomerreviews');
             
