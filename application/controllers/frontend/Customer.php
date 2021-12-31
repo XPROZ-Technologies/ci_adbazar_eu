@@ -935,16 +935,24 @@ class Customer extends MY_Controller
     public function verifyEmail() {
         try {
             $token = $this->input->get('token');
-            if(empty($postData['token'])) {
+
+            if(empty($token)) {
+                $postData = $this->arrayFromPostRawJson(array('token'));
+
+                $token = $postData['token'];
+            }
+
+            if(empty($token)) {
                 $this->session->set_flashdata('notice_message', $this->lang->line('22112021_account_activation_failed'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('login.html'));
             }
             $this->load->model('Mcustomers');
             $customer = $this->Mcustomers->getBy(array('token_reset' => $token, 'customer_status_id' => STATUS_WAITING_ACTIVE));
+            
             if($customer) {
                 $customer = $customer[0];
-                $flag = $this->Mcustomers->save(['token_reset' => '', 'customer_status_id' => STATUS_ACTIVED, 'updated_at' => getCurentDateTime()], $customer['id']);
+                $flag = $this->Mcustomers->save(array('token_reset' => '', 'customer_status_id' => STATUS_ACTIVED, 'updated_at' => getCurentDateTime()), $customer['id']);
                 if($flag) {
                     $this->session->set_flashdata('notice_message', $this->lang->line('22112021_account_activation_successfully'));
                     $this->session->set_flashdata('notice_type', 'success');
