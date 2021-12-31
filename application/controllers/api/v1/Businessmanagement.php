@@ -425,7 +425,7 @@ class Businessmanagement extends MY_Controller {
     public function cancel_coupon() {
         try {
             $this->openAllCors();
-            $postData = $this->arrayFromPostApi(array('coupon_id', 'business_id'));
+            $postData = $this->arrayFromPostRawJson(array('coupon_id', 'business_id'));
             
             if ($postData['business_id'] > 0) {
                 $checkExit = $this->Mbusinessprofiles->countRows(array('customer_id' => $customer['customer_id'], 'id' => $postData['business_id']));

@@ -79,7 +79,7 @@ class Review extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin();
-            $postData = $this->arrayFromPostApi(array('business_id', 'review_id', 'business_comment'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'review_id', 'business_comment'));
 
             $this->load->model('Mcustomerreviews');
             
@@ -105,7 +105,7 @@ class Review extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin();
-            $postData = $this->arrayFromPostApi(array('business_id', 'review_id', 'business_comment'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'review_id', 'business_comment'));
 
             $this->load->model('Mcustomerreviews');
             
@@ -131,7 +131,7 @@ class Review extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin();
-            $postData = $this->arrayFromPostApi(array('business_id', 'review_id'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'review_id'));
 
             $this->load->model('Mcustomerreviews');
             
