@@ -54,6 +54,7 @@ class Coupon extends MY_Controller {
                 $coupons = $this->Mcoupons->getListInApi($postData, $perPage, $page);
                 for($i = 0; $i < count($coupons); $i++){
                     $coupons[$i]['coupon_image'] = !empty($coupons[$i]['coupon_image']) ? base_url(COUPONS_PATH.$coupons[$i]['coupon_image']) : '';
+                    $coupons[$i]['coupon_used'] = !empty($coupons[$i]['coupon_used']) ? $coupons[$i]['coupon_used'] : 0;
                 }
             }
             $businessInfo = (object) [];

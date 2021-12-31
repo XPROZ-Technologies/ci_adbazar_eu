@@ -99,3 +99,4 @@ $lang["the_time_you_choose_must_be_within_the_opening_hours"] = "Die von Ihnen g
 $lang["customers_have_left_a_review"] = "Kunden haben eine Bewertung hinterlassen";
 $lang["successful_business_evaluation"] = "Erfolgreiche Unternehmensbewertung";
 $lang["unsuccessful_business_review"] = "Unerfolgreiche Unternehmensbewertung";
+$lang["additional_successful1"] = "erfolgreich";

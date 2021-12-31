@@ -75,6 +75,82 @@ class Review extends MY_Controller {
         }
     }
 
+    public function leave_a_reply() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin();
+            $postData = $this->arrayFromPostApi(array('business_id', 'review_id', 'business_comment'));
 
+            $this->load->model('Mcustomerreviews');
+            
+            if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
+                $flag = $this->Mcustomerreviews->save(array('business_comment'), $postData['review_id']);
+                if($flag) {
+                    $this->success200('', $this->lang->line('successful_business_evaluation'));
+                } else {
+                    $this->error204($this->lang->line('unsuccessful_business_review'));
+                    die;
+                }
+            } else {
+                $this->error204('Business does not exist');
+                die;
+            }
+
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function delete_reply() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin();
+            $postData = $this->arrayFromPostApi(array('business_id', 'review_id', 'business_comment'));
+
+            $this->load->model('Mcustomerreviews');
+            
+            if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
+                $flag = $this->Mcustomerreviews->save(array('business_comment' => ""), $postData['review_id']);
+                if($flag) {
+                    $this->success200('', $this->lang->line('additional_successful1'));
+                } else {
+                    $this->error204($this->lang->line('unsuccessful_business_review'));
+                    die;
+                }
+            } else {
+                $this->error204('Business does not exist');
+                die;
+            }
+
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function delete_review() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin();
+            $postData = $this->arrayFromPostApi(array('business_id', 'review_id'));
+
+            $this->load->model('Mcustomerreviews');
+            
+            if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
+                $flag = $this->Mcustomerreviews->save(array('customer_review_status_id' => 0), $postData['review_id']);
+                if($flag) {
+                    $this->success200('', $this->lang->line('additional_successful1'));
+                } else {
+                    $this->error204($this->lang->line('unsuccessful_business_review'));
+                    die;
+                }
+            } else {
+                $this->error204('Business does not exist');
+                die;
+            }
+
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
 
 }

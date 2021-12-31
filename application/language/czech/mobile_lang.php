@@ -99,3 +99,4 @@ $lang["the_time_you_choose_must_be_within_the_opening_hours"] = "Zvolený čas m
 $lang["customers_have_left_a_review"] = "Zákazníci zanechali recenzi";
 $lang["successful_business_evaluation"] = "Úspěšné obchodní hodnocení";
 $lang["unsuccessful_business_review"] = "Neúspěšná obchodní revize";
+$lang["additional_successful1"] = "aktualizace";

@@ -99,3 +99,4 @@ $lang["the_time_you_choose_must_be_within_the_opening_hours"] = "The time you ch
 $lang["customers_have_left_a_review"] = "Customers have left a review";
 $lang["successful_business_evaluation"] = "Successful business evaluation";
 $lang["unsuccessful_business_review"] = "Unsuccessful business review";
+$lang["additional_successful1"] = "Successful";
