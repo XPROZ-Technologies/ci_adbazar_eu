@@ -99,3 +99,4 @@ $lang["the_time_you_choose_must_be_within_the_opening_hours"] = "Thời gian b�
 $lang["customers_have_left_a_review"] = "Khách hàng đã để lại đánh giá";
 $lang["successful_business_evaluation"] = "Đánh giá kinh doanh thành công";
 $lang["unsuccessful_business_review"] = "Đánh giá doanh nghiệp không thành công";
+$lang["additional_successful1"] = "Thành công";
