@@ -93,7 +93,16 @@ class Mcustomerreservations extends MY_Model {
                                 `business_profile_id` IN (select id FROM business_profiles where business_name LIKE '%{$postData['search_text']}%')
                             )"; 
             }
-            if(isset($postData['book_status_id']) && $postData['book_status_id'] != '' && $postData['book_status_id'] > 0) $query.=" AND book_status_id = ".$postData['book_status_id'];
+            if(isset($postData['book_status_id']) && $postData['book_status_id'] != '' && $postData['book_status_id'] > 0) {
+                if(intval($postData['book_status_id']) == 2) {
+                    $query.=" AND book_status_id = ".$postData['book_status_id']." AND DATE_FORMAT(CONCAT(date_arrived,' ',time_arrived), '%Y-%m-%d %H:%i:%s') >= NOW()";
+                } else if(intval($postData['book_status_id']) == 1) {
+                    $query.=" AND book_status_id = 2 AND DATE_FORMAT(CONCAT(date_arrived,' ',time_arrived), '%Y-%m-%d %H:%i:%s') < NOW()";
+                } else {
+                    $query.=" AND book_status_id = ".$postData['book_status_id'];
+                }
+            }
+            
             if(isset($postData['selected_date']) && !empty($postData['selected_date'])) {
                 $selectedDate = ddMMyyyy($postData['selected_date'], 'Y-m-d');
                 $query.=" AND date_arrived = ".$selectedDate;

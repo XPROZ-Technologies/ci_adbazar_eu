@@ -230,10 +230,8 @@ class Mcoupons extends MY_Model {
                 FROM
                     `customer_coupons`
                     LEFT JOIN coupons ON coupons.id = customer_coupons.coupon_id 
-                    LEFT JOIN business_profiles ON business_profiles.customer_id = customer_coupons.customer_id
+                    LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id
                     LEFT JOIN services ON business_profiles.service_id = services.id
-                    
-                    
                 WHERE
                     services.service_status_id = ? 
                     AND coupons.business_profile_id > 0 
