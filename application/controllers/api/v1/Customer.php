@@ -48,13 +48,14 @@ class Customer extends MY_Controller {
                 
                 $customer = $this->Mcustomers->login($postData['customer_email'], $postData['customer_password']);
                 
-            } else if (intval($postData['login_type_id']) == 1) {
+            } else if (intval($postData['login_type_id']) == 1) { // facebook
                 // $postData['facebook_token'] = 'EAAChwUZAbAdkBAM1qYHnHLPIuuXZAhehZAbrXO4Enbt3WEDIxRyEoO33RZCJEh40QfZCtQOlwCQgqbZAA3cYE4kGLaNlZCJDc843NZAZBZBIoyKCPA4nCY4YhtB68590THpBkJdeQJcBh8ZCELlBsYP8ojur4Oy7UN8Iw5Jt9XceCtJTR7ejTZC7ZCrww2eervxZCtTSUoJgUomFyH2zCPVCRf47QxXaZBbK3eYDlJwqX8NqtQpL47Of7yiZBX51';
                 $this->fb->setDefaultAccessToken($postData['facebook_token']);
                 try {
                     $response = $this->fb->get('/me?fields=id,name,email');
                     $userNode = json_decode($response->getGraphUser(), true);
                     $postData['facebook_id'] = $userNode['id'];
+                    $postData['customer_first_name'] = $userNode['name'];
                     $postData['customer_last_name'] = $userNode['name'];
                     $postData['customer_email'] = $userNode['email'];
                     $postData['customer_status_id'] = STATUS_ACTIVED;
@@ -67,7 +68,7 @@ class Customer extends MY_Controller {
                     $this->error204($this->lang->line('facebook_sdk_returned_an_error') . $e->getMessage());
                     die;
                 }
-            } else if (intval($postData['login_type_id']) == 2) {
+            } else if (intval($postData['login_type_id']) == 2) { // google
                 $this->client->setAccessToken($postData['google_token']);
                 try {
                     $googleInfo = $this->service->userinfo->get();
@@ -175,10 +176,10 @@ class Customer extends MY_Controller {
                     $userNode = json_decode($response->getGraphUser(), true);
                     $data['facebook_id'] = $userNode['id'];
                     $data['customer_first_name'] = $userNode['name'];
-                    $data['customer_last_name'] = $userNode['email'];
+                    $data['customer_last_name'] = $userNode['name'];
+                    $data['customer_email'] = $userNode['email'];
                     $data['customer_password'] = md5('12345678@aM');
-                    $data['customer_status_id'] = STATUS_ACTIVE; 
-
+                    $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
                 } catch (Facebook\Exceptions\FacebookResponseException $e) {
                     $this->error204($this->lang->line('graph_returned_an_error') . $e->getMessage());
                     die;
@@ -226,16 +227,17 @@ class Customer extends MY_Controller {
                     $flag = $this->Mcustomers->save($data, $customerId);
                 }
                 if($flag) {
-                    // generte a token
-                   
-                    $this->load->model('Memailqueue');
-                    $dataEmail = array(
-                        'name' => $postData['customer_email'],
-                        'email_to' => $postData['customer_email'],
-                        'email_to_name' => $postData['customer_email'],
-                        'token' => $token_active
-                    );
-                    $this->Memailqueue->createEmail($dataEmail, 99);
+                    // generate a token
+                    if (intval($postData['login_type_id']) !== 1) {
+                        $this->load->model('Memailqueue');
+                        $dataEmail = array(
+                            'name' => $postData['customer_email'],
+                            'email_to' => $postData['customer_email'],
+                            'email_to_name' => $postData['customer_email'],
+                            'token' => $token_active
+                        );
+                        $this->Memailqueue->createEmail($dataEmail, 99);
+                    }
                     $this->success200($flag, 'Successfully register account');
                 } else {
                     $this->error400($this->lang->line('registration_failed'));
@@ -244,6 +246,52 @@ class Customer extends MY_Controller {
 
             } else {
                 $this->error400($this->lang->line('registration_failed'));
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function facebook_add_email(){
+        try {
+            $postData = $this->arrayFromPostRawJson(array('customer_email', 'customer_id'));
+            $customer_email = strtolower($postData['customer_email']);
+            if (empty($customer_email)) {
+                $this->error204('Please enter your email');
+                die;
+            }
+            $this->load->model('Mcustomers');
+
+            // Check existing customer with waiting active and login by facebook
+            $customerId = $this->Mcustomercoupons->getFieldValue(array('customer_id' => $postData['customer_id'], 'login_type_id' => 1, 'customer_status_id' => STATUS_WAITING_ACTIVE), 'id', 0);
+            if($customerId == 0) {
+                $this->error204('Customer doest not exist');
+                die;
+            }
+
+            // Check email exist on database
+            $customer = $this->Mcustomers->checkExist(0, $customer_email);
+            if($customer) {
+                $this->error204($this->lang->line('email_already_exists_in_the_system'));
+                die;
+            }
+
+            // Generate token and send email
+            $token_active = guidV4('facebook-add-email');
+            $customerId = $this->Mcustomers->save(array('customer_email' => $customer_email, 'token_reset' => $token_active), $postData['customer_id']);
+            if($customerId > 0) {
+                $this->load->model('Memailqueue');
+                $dataEmail = array(
+                    'name' => $postData['customer_email'],
+                    'email_to' => $postData['customer_email'],
+                    'email_to_name' => $postData['customer_email'],
+                    'token' => $token_active
+                );
+                $this->Memailqueue->createEmail($dataEmail, 99);
+                $this->success200($flag, 'Update email for customer success, please check your email and active your account');
+            }else{
+                $this->error400('Update email for customer failed');
                 die;
             }
         } catch (\Throwable $th) {
