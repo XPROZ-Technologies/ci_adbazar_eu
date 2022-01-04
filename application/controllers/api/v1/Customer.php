@@ -264,7 +264,7 @@ class Customer extends MY_Controller {
             $this->load->model('Mcustomers');
 
             // Check existing customer with waiting active and login by facebook
-            $customerId = $this->Mcustomercoupons->getFieldValue(array('customer_id' => $postData['customer_id'], 'login_type_id' => 1, 'customer_status_id' => STATUS_WAITING_ACTIVE), 'id', 0);
+            $customerId = $this->Mcustomers->getFieldValue(array('id' => $postData['customer_id'], 'login_type_id' => 1, 'customer_status_id' => STATUS_WAITING_ACTIVE), 'id', 0);
             if($customerId == 0) {
                 $this->error204('Customer doest not exist');
                 die;
