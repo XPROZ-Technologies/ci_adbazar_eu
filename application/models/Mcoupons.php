@@ -195,6 +195,7 @@ class Mcoupons extends MY_Model {
                     coupons.coupon_subject,
                     coupons.coupon_image,
                     coupons.coupon_amount,
+                    coupons.coupon_status_id,
                     DATE_FORMAT( coupons.start_date, '%Y/%m/%d' ) AS `start_date`,
                     DATE_FORMAT( coupons.end_date, '%Y/%m/%d' ) AS end_date,
                     ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used 

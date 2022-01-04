@@ -129,6 +129,7 @@ class Mevents extends MY_Model {
                     `events`.event_subject,
                     `events`.event_image,
                     `events`.business_profile_id as business_id,
+                    `events`.event_status_id,
                     DATE_FORMAT( `events`.`start_date`, '%Y/%m/%d' ) AS `start_date`,
                     DATE_FORMAT( `events`.end_date, '%Y/%m/%d' ) AS end_date,
                     TIME_FORMAT(`events`.start_time, '%H:%i') AS start_time,
