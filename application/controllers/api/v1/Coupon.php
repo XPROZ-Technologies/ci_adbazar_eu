@@ -21,6 +21,7 @@ class Coupon extends MY_Controller {
             $postData['api'] = true;
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model('Mcoupons');
+            // echo "<pre>";print_r($postData); echo "</pre>";
             $coupons = $this->Mcoupons->getListHome($postData);
             for($i = 0; $i < count($coupons); $i++){
                 $coupons[$i]['coupon_image'] = !empty($coupons[$i]['coupon_image']) ? base_url(COUPONS_PATH.$coupons[$i]['coupon_image']) : '';
