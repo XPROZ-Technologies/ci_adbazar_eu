@@ -860,7 +860,7 @@ class Businessmanagement extends MY_Controller {
                 $this->error204('Start date and start time must not be less than the current end date and end time');
                 die;
             }
-
+            $dataEventImage = '';
             if(isset($_FILES['event_image']) && !empty($_FILES['event_image'])){
                 $file = $_FILES['event_image'];
                 if ($file['error'] > 0) {
@@ -877,7 +877,7 @@ class Businessmanagement extends MY_Controller {
                         $flag = move_uploaded_file($file['tmp_name'], $filePath);
                         if ($flag) {
                             $event_image = replaceFileUrl($filePath, COUPONS_PATH);
-                            $postData['event_image'] = $event_image;
+                            $dataEventImage = $event_image;
                         } else {
                             $this->error204('Event image update failed');
                             die;
@@ -891,7 +891,7 @@ class Businessmanagement extends MY_Controller {
 
             $dataUpdate = array(
                 'business_profile_id' => $postData['business_id'],
-                'event_image' => $postData['event_image'],
+                'event_image' => $dataEventImage,
                 'event_subject' => $postData['event_subject'],
                 'end_date' => $postData['end_date'],
                 'end_time' => $postData['end_time'],

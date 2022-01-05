@@ -278,11 +278,11 @@ class Mcoupons extends MY_Model {
                     coupons
                     LEFT JOIN customer_coupons ON customer_coupons.coupon_id = coupons.id
                     LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id
-                    AND customer_coupons.customer_coupon_status_id = ? 
+                   
                 WHERE
                     coupons.coupon_status_id = ? 
-                    AND coupons.id = ? AND business_profiles.id IS NOT NULL";
-        $data = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, STATUS_ACTIVED, $postData['coupon_id']));
+                    AND coupons.id = ? AND business_profiles.id IS NOT NULL"; // AND customer_coupons.customer_coupon_status_id1 = ? 
+        $data = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $postData['coupon_id']));
         return $data;
     }
 
