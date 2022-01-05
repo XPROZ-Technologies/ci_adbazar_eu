@@ -190,6 +190,24 @@ class Coupon extends MY_Controller {
                     $detail['get_coupon'] = 1;
                 }
                 unset($detail['business_profile_id'], $detail['customer_id'], $detail['business_avatar'], $detail['business_address'], $detail['business_phone']);
+                
+                $currentDate = strtotime(date('Y/m/d'));
+                $startDate = strtotime($detail['start_date']);
+                $endDate = strtotime($detail['end_date']);
+                // 1: Upcoming : start_date > current_date
+                if($startDate > $currentDate) {
+                    $detail['coupon_status_id'] = 1;
+                } else if ($startDate < $currentDate && $currentDate < $endDate) {
+                    // 2: Ongoing: start_date < current_date < end_date
+                    $detail['coupon_status_id'] = 2;
+                } else if ($endDate < $currentDate) {
+                    // 3: End: end_date < current_date
+                    $detail['coupon_status_id'] = 3;
+                } else {
+                    // 4: Recall: coupon_status_id = 1
+                    $detail['coupon_status_id'] = 4;
+                }
+                
                 $this->success200($detail);
             } else {
                 $this->error204($this->lang->line('no_data'));
