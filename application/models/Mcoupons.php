@@ -163,7 +163,7 @@ class Mcoupons extends MY_Model {
     public function getCountInApi($postData) {
         $where = "";
         if($postData['customer_id'] > 0) {
-            $where = " AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED."  GROUP BY coupon_id ) < coupons.coupon_amount ";
+            $where = " AND coupons.id NOT IN (select coupon_id from customer_coupons WHERE customer_coupons.customer_id = ".$postData['customer_id']." AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED.") ";
         }
 
         $query = "SELECT coupons.id
@@ -172,6 +172,7 @@ class Mcoupons extends MY_Model {
                         LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id
                     WHERE
                         DATE(coupons.end_date) >= CURDATE() 
+                        AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED." ) < coupons.coupon_amount 
                         ".$where."
                         AND coupons.coupon_status_id = ?
                         ".$this->buildQueryInApi($postData);
@@ -187,7 +188,7 @@ class Mcoupons extends MY_Model {
         
         $where = "";
         if($postData['customer_id'] > 0) {
-            $where = " AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED."  GROUP BY coupon_id ) < coupons.coupon_amount ";
+            $where = " AND coupons.id NOT IN (select coupon_id from customer_coupons WHERE customer_coupons.customer_id = ".$postData['customer_id']." AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED.") ";
         }
 
         $query = "SELECT
@@ -204,6 +205,7 @@ class Mcoupons extends MY_Model {
                 LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id
                 WHERE
                     DATE(coupons.end_date) >= CURDATE() 
+                    AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED." ) < coupons.coupon_amount 
                     ".$where." 
                     AND coupons.coupon_status_id = ?
                     ".$this->buildQueryInApi($postData)."
