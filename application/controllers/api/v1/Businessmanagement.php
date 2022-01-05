@@ -1284,5 +1284,55 @@ class Businessmanagement extends MY_Controller {
             $this->error500();
         }
     }
+
+    public function recall_coupon() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'coupon_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
+            if(!isset($postData['coupon_id'])) {
+                $this->error204('coupon_id: not transmitted');
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mcoupons'));
+            $business = $this->Mbusinessprofiles->get($postData['business_id']);
+            if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
+                $this->error204('Business does not belong to this customer');
+                die;
+            }
+            $coupon = $this->Mcoupons->get($postData['coupon_id']);
+            if(empty($coupon)) {
+                $this->error204('Coupon id does not exist');
+                die;
+            }
+            if($coupon['business_profile_id'] != $postData['business_id']) {
+                $this->error204('Coupon id does not busines profile');
+                die;
+            }
+            $currentDate = strtotime(date('Y-m-d'));
+            $startDate = strtotime($coupon['start_date']);
+            if($coupon['coupon_status_id'] != 2 || $startDate < $currentDate) {
+                $this->error204('Coupon inactive or not yet due');
+                die;
+            }
+            $flag = $this->Mcoupons->save(array(
+                'coupon_status_id' => 1,
+                'updated_at' => getCurentDateTime()
+            ), $coupon['id']);
+            if($flag) {
+                $this->success200('', 'Recall coupon success');
+                die;
+            } else {
+                $this->error204('Coupon callback failed');
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
    
 }

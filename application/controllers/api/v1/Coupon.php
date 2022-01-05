@@ -21,7 +21,6 @@ class Coupon extends MY_Controller {
             $postData['api'] = true;
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model('Mcoupons');
-            // echo "<pre>";print_r($postData); echo "</pre>";
             $coupons = $this->Mcoupons->getListHome($postData);
             for($i = 0; $i < count($coupons); $i++){
                 $coupons[$i]['coupon_image'] = !empty($coupons[$i]['coupon_image']) ? base_url(COUPONS_PATH.$coupons[$i]['coupon_image']) : '';
@@ -54,6 +53,22 @@ class Coupon extends MY_Controller {
                 if(!is_numeric($page) || $page < 1) $page = 1;
                 $coupons = $this->Mcoupons->getListInApi($postData, $perPage, $page);
                 for($i = 0; $i < count($coupons); $i++){
+                    $currentDate = strtotime(date('Y/m/d'));
+                    $startDate = strtotime($coupons[$i]['start_date']);
+                    $endDate = strtotime($coupons[$i]['end_date']);
+                    // 1: Upcoming : start_date > current_date
+                    if($startDate > $currentDate) {
+                        $coupons[$i]['coupon_status_id'] = 1;
+                    } else if ($startDate < $currentDate && $currentDate < $endDate) {
+                        // 2: Ongoing: start_date < current_date < end_date
+                        $coupons[$i]['coupon_status_id'] = 2;
+                    } else if ($endDate < $currentDate) {
+                        // 3: End: end_date < current_date
+                        $coupons[$i]['coupon_status_id'] = 3;
+                    } else {
+                        // 4: Recall: coupon_status_id = 1
+                        $coupons[$i]['coupon_status_id'] = 4;
+                    }
                     $coupons[$i]['coupon_image'] = !empty($coupons[$i]['coupon_image']) ? base_url(COUPONS_PATH.$coupons[$i]['coupon_image']) : '';
                     $coupons[$i]['coupon_used'] = !empty($coupons[$i]['coupon_used']) ? $coupons[$i]['coupon_used'] : 0;
                 }

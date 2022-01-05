@@ -54,6 +54,22 @@ class Event extends MY_Controller {
                 if(!is_numeric($page) || $page < 1) $page = 1;
                 $events = $this->Mevents->getListInApi($postData, $perPage, $page);
                 for($i = 0; $i < count($events); $i++){
+                    $currentDate = strtotime(getCurentDateTime());
+                    $startDate = strtotime($events[$i]['start_date'].' '.$events[$i]['start_time'].":00");
+                    $endDate = strtotime($events[$i]['end_date'].' '.$events[$i]['start_time'].":00");
+                    //  1: Upcoming : start_date start_time > current_date
+                    if($startDate > $currentDate) {
+                        $events[$i]['event_status_id'] = 1;
+                    } else if ($startDate < $currentDate && $currentDate < $endDate) {
+                        // 2: Ongoing: start_date start_time < current_date < end_date end_time
+                        $events[$i]['event_status_id'] = 2;
+                    } else if ($endDate < $currentDate) {
+                        // 3: Expired: end_date end_time < current_date
+                        $events[$i]['event_status_id'] = 3;
+                    } else {
+                        // 4: Cancelled: event_status_id = 1
+                        $events[$i]['event_status_id'] = 4;
+                    }
                     $events[$i]['event_image'] = !empty($events[$i]['event_image']) ? base_url(EVENTS_PATH.$events[$i]['event_image']) : '';
                 }
             }
