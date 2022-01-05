@@ -28,7 +28,7 @@ class Customer extends MY_Controller {
     public function login() {
         try {
             $this->openAllCors();
-            $postData = $this->arrayFromPostRawJson(array('login_type_id', 'customer_email', 'customer_password', 'facebook_token', 'google_token'));
+            $postData = $this->arrayFromPostRawJson(array('login_type_id', 'customer_email', 'customer_password', 'facebook_token', 'google_token', 'device_token'));
             $this->load->model('Mcustomers');
             $customer = [];
             if(intval($postData['login_type_id']) == 0) {
@@ -98,6 +98,7 @@ class Customer extends MY_Controller {
                     $token = $this->authorization_token->generateToken(array('id' => $customer['id'], 'created_at' => getCurentDateTime()));
                     $postData['token'] = $token;
                     $postData['language_id'] = $this->languageId;
+                    $postData['device_token'] = isset($postData['device_token']) ? $postData['device_token'] : NULL;
                     unset($postData['facebook_token'], $postData['google_token'], $postData['customer_password']);
                    $flag = $this->Mcustomers->save($postData, $customer['id']);
                 }
@@ -105,7 +106,7 @@ class Customer extends MY_Controller {
                     $customer = $this->Mcustomers->get($flag);
                     if(empty($customer['customer_avatar'])) $customer['customer_avatar'] = base_url(CUSTOMER_PATH.NO_IMAGE);
                     else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
-                    unset($customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
+                    unset($customer['device_token'], $customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
                     $this->success200(array('customer' => $customer));
                 }
                 
@@ -129,7 +130,7 @@ class Customer extends MY_Controller {
                 die;
             }else {
                 $this->load->model('Mcustomers');
-                $customerId = $this->Mcustomers->getFieldValue(array('token' => $token), 'id', 0);
+                $customerId = $this->Mcustomers->getFieldValue(array('token' => $token, 'device_token' => NULL), 'id', 0);
                 if(!$customerId) {
                     $this->error204($this->lang->line('token_does_not_exist'));
                     die;
