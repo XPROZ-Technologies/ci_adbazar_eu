@@ -64,6 +64,7 @@ class Notification extends MY_Controller {
                         "image" => $notiData[$i]['image'],
                         "message" => $notiData[$i]['text'],
                         "item_id" => $notiData[$i]['item_id'],
+                        "business_id" => $notiData[$i]['business_id'],
                         "notification_type_id" => $notiData[$i]['notification_type'],
                         "is_read" => $notiData[$i]['notification_status_id']
                     );

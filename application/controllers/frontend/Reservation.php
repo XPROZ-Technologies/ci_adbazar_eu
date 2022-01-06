@@ -206,7 +206,7 @@ class Reservation extends MY_Controller
                      * Add notification
                      */
                     $dataNoti = array(
-                        'notification_type' => 1, //business reply customer comment
+                        'notification_type' => 6, //business reply customer comment
                         'customer_id'   => $customerId,
                         'business_id'   => $postData['business_id'],
                         'item_id'   => $bookId,
