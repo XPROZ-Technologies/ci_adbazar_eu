@@ -175,7 +175,7 @@ class Reservation extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('reservation_id'));
             if(!isset($postData['reservation_id'])) {
-                $this->error204('reservation_id: not transmitted');
+                $this->error204('Reservation does not exist');
                 die;
             }
             $this->load->model(array('Mcustomerreservations'));
@@ -194,7 +194,7 @@ class Reservation extends MY_Controller {
             }
             $flag = $this->Mcustomerreservations->save(array(
                 'book_status_id' => 3,
-                'updated_by' => getCurentDateTime()
+                'updated_at' => getCurentDateTime()
             ), $postData['reservation_id']);
             if($flag) {
                 $this->success200('', 'Cancellation is successful');
@@ -247,7 +247,7 @@ class Reservation extends MY_Controller {
 
             $flag = $this->Mcustomerreservations->save(array(
                 'book_status_id' => 4,
-                'updated_by' => getCurentDateTime()
+                'updated_at' => getCurentDateTime()
             ), $postData['reservation_id']);
             if($flag) {
                 $this->success200('', 'Refused to make an appointment successfully');
@@ -283,7 +283,7 @@ class Reservation extends MY_Controller {
                         'duration' => $postData['duration'],
                         'start_time' => $postData['start_time'].':00',
                         'end_time' => $postData['end_time'].':00',
-                        'updated_by' => getCurentDateTime(),
+                        'updated_at' => getCurentDateTime(),
                         'reservation_config_status_id' => 2
                     );
                     $flag = $this->Mreservationconfigs->save($dataSave, $configId);
@@ -298,7 +298,7 @@ class Reservation extends MY_Controller {
                     'duration' => $postData['duration'],
                     'start_time' => $postData['start_time'].':00',
                     'end_time' => $postData['end_time'].':00',
-                    'updated_by' => getCurentDateTime(),
+                    'updated_at' => getCurentDateTime(),
                     'reservation_config_status_id' => 2
                 );
                 $flag = $this->Mreservationconfigs->save($dataSave, $configId);

@@ -192,7 +192,9 @@ class Businessmanagement extends MY_Controller {
         unset($postData['open_hours'], $postData['service_type_ids']);
         
         $message = 'Create a successful business profile';
+        $isEdit = false;
         if($businessId > 0) {
+            $isEdit = true;
             $postData['customer_id'] = $customer['customer_id'];
             $postData['updated_at'] = getCurentDateTime();
             $postData['updated_by'] = 0;
@@ -219,7 +221,8 @@ class Businessmanagement extends MY_Controller {
             }
             //open hours
             if (!empty($openingHours)) {
-                $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $flag);
+
+                $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $flag, $isEdit);
             }
 
             //service types
