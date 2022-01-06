@@ -464,7 +464,7 @@ class Customer extends MY_Controller {
                 die;
             }
             $this->load->model('Mcustomercoupons');
-            $customerCouponId = $this->Mcustomercoupons->getFieldValue(array('customer_id' => $postData['customer_id'], 'coupon_id' => $postData['coupon_id']), 'id', 0);
+            $customerCouponId = $this->Mcustomercoupons->getFieldValue(array('customer_coupon_status_id' => 2, 'customer_id' => $postData['customer_id'], 'coupon_id' => $postData['coupon_id']), 'id', 0);
             if($customerCouponId) {
                 $flag = $this->Mcustomercoupons->save(['customer_coupon_status_id' => 0, 'deleted_at' => getCurentDateTime()], $customerCouponId);
                 if($flag) {
