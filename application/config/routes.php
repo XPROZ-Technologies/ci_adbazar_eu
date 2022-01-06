@@ -141,6 +141,8 @@ $route['sys-admin/config/event'] = 'backend/config/event';
  * FRONT-END ROUTES
  */
 
+$route['apple-app-site-association'] = 'frontend/app/apple_verify';
+
 $route['change-customer-language'] = 'frontend/site/changeLanguage';
 
 
