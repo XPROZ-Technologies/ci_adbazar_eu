@@ -199,7 +199,8 @@ class Mservices extends MY_Model {
                   services
             LEFT JOIN service_types ON services.id = service_types.service_id
             WHERE
-                service_types.status_id = ? AND services.id IN (".$serviceIds.")";
+                service_types.status_id = ? AND services.id IN (".$serviceIds.")
+            ORDER BY  service_types.display_order ASC";
             $datas = $this->getByQuery($query, array(STATUS_ACTIVED));
             $serviceTypeNames = '';
             $serviceName = '';
