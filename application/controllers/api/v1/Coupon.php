@@ -57,18 +57,16 @@ class Coupon extends MY_Controller {
                     $startDate = strtotime($coupons[$i]['start_date']);
                     $endDate = strtotime($coupons[$i]['end_date']);
                     // 1: Upcoming : start_date > current_date
-                    if($startDate > $currentDate) {
+                    if($startDate > $currentDate && $coupons[$i]['coupon_status_id'] == 2) {
                         $coupons[$i]['coupon_status_id'] = 1;
-                    } else if ($startDate < $currentDate && $currentDate < $endDate) {
+                    } else if ($startDate < $currentDate && $currentDate < $endDate && $coupons[$i]['coupon_status_id'] == 2) {
                         // 2: Ongoing: start_date < current_date < end_date
                         $coupons[$i]['coupon_status_id'] = 2;
-                    } else if ($endDate < $currentDate) {
+                    } else if ($endDate < $currentDate && $coupons[$i]['coupon_status_id'] != 1) {
                         // 3: End: end_date < current_date
                         $coupons[$i]['coupon_status_id'] = 3;
-                    } else {
-                        // 4: Recall: coupon_status_id = 1
-                        $coupons[$i]['coupon_status_id'] = 4;
-                    }
+                    } 
+
                     $coupons[$i]['coupon_image'] = !empty($coupons[$i]['coupon_image']) ? base_url(COUPONS_PATH.$coupons[$i]['coupon_image']) : '';
                     $coupons[$i]['coupon_used'] = !empty($coupons[$i]['coupon_used']) ? $coupons[$i]['coupon_used'] : 0;
                 }
@@ -195,18 +193,15 @@ class Coupon extends MY_Controller {
                 $startDate = strtotime($detail['start_date']);
                 $endDate = strtotime($detail['end_date']);
                 // 1: Upcoming : start_date > current_date
-                if($startDate > $currentDate) {
-                    $detail['coupon_status_id'] = 1;
-                } else if ($startDate < $currentDate && $currentDate < $endDate) {
+                if($startDate > $currentDate && $coupons[$i]['coupon_status_id'] == 2) {
+                    $coupons[$i]['coupon_status_id'] = 1;
+                } else if ($startDate < $currentDate && $currentDate < $endDate && $coupons[$i]['coupon_status_id'] == 2) {
                     // 2: Ongoing: start_date < current_date < end_date
-                    $detail['coupon_status_id'] = 2;
-                } else if ($endDate < $currentDate) {
+                    $coupons[$i]['coupon_status_id'] = 2;
+                } else if ($endDate < $currentDate && $coupons[$i]['coupon_status_id'] != 1) {
                     // 3: End: end_date < current_date
-                    $detail['coupon_status_id'] = 3;
-                } else {
-                    // 4: Recall: coupon_status_id = 1
-                    $detail['coupon_status_id'] = 4;
-                }
+                    $coupons[$i]['coupon_status_id'] = 3;
+                } 
                 
                 $this->success200($detail);
             } else {
