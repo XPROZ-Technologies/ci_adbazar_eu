@@ -151,11 +151,11 @@ class Businessmanagement extends MY_Controller {
         $openHours =  json_decode($postData['open_hours'], true);
         $openingHours = array();
         foreach ($this->Mconstants->dayIds as $day_id => $itemHours) {
-            if (isset($open_hours[$day_id])) {
-                $itemHours = $open_hours[$day_id];
+            if (isset($openHours[$day_id])) {
+                $itemHours = $openHours[$day_id];
                 $itemDay = array();
                 $itemDay['day_id'] = $day_id;
-                if (isset($itemHours['opening_hours_status_id']) && $itemHours['opening_hours_status_id'] == 'on') {
+                if (isset($itemHours['open_status_id']) && $itemHours['open_status_id'] == '2' && !empty($itemHours['start_time']) && !empty($itemHours['end_time'])) {
                     $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
                 } else {
                     $itemDay['opening_hours_status_id'] = 1;
