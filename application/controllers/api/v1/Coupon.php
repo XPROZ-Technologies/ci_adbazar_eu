@@ -36,14 +36,20 @@ class Coupon extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'service_id', 'service_type_id', 'order_by', 'business_id'));
+            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'service_id', 'service_type_id', 'order_by', 'business_id', 'is_business'));
             if(empty($postData['service_type_id'])) $postData['service_type_id'] = [];
             if(empty($postData['service_id'])) $postData['service_id'] = [];
             
             $postData['api'] = true;
+
+            $isAdmin = false;
+            if(isset($postData['is_business']) && $postData['is_business'] == 1) {
+                $isAdmin = true;
+            }
+
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model(array('Mcoupons', 'Mbusinessprofiles'));
-            $rowCount = $this->Mcoupons->getCountInApi($postData);
+            $rowCount = $this->Mcoupons->getCountInApi($postData, $isAdmin);
             $coupons = [];
             $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
             $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
@@ -51,7 +57,7 @@ class Coupon extends MY_Controller {
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);
                 if(!is_numeric($page) || $page < 1) $page = 1;
-                $coupons = $this->Mcoupons->getListInApi($postData, $perPage, $page);
+                $coupons = $this->Mcoupons->getListInApi($postData, $perPage, $page, $isAdmin);
                 for($i = 0; $i < count($coupons); $i++){
                     $currentDate = strtotime(date('Y/m/d'));
                     $startDate = strtotime($coupons[$i]['start_date']);
@@ -65,7 +71,9 @@ class Coupon extends MY_Controller {
                     } else if ($endDate < $currentDate && $coupons[$i]['coupon_status_id'] != 1) {
                         // 3: End: end_date < current_date
                         $coupons[$i]['coupon_status_id'] = 3;
-                    } 
+                    } else if($coupons[$i]['coupon_status_id'] == 1) {
+                        $coupons[$i]['coupon_status_id'] = 4;
+                    }
 
                     $coupons[$i]['coupon_image'] = !empty($coupons[$i]['coupon_image']) ? base_url(COUPONS_PATH.$coupons[$i]['coupon_image']) : '';
                     $coupons[$i]['coupon_used'] = !empty($coupons[$i]['coupon_used']) ? $coupons[$i]['coupon_used'] : 0;
@@ -165,14 +173,20 @@ class Coupon extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('coupon_id'));
+            $postData = $this->arrayFromPostRawJson(array('coupon_id', 'is_business'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['coupon_id']) && $postData['coupon_id'] < 0) {
                 $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
             $this->load->model('Mcoupons');
-            $detail = $this->Mcoupons->getDetailCoupon($postData);
+
+            $isAdmin = false;
+            if(isset($postData['is_business']) && $postData['is_business'] == 1) {
+                $isAdmin = true;
+            }
+
+            $detail = $this->Mcoupons->getDetailCoupon($postData, $isAdmin);
             if(count($detail) > 0) {
                 $detail = $detail[0];
                 $detail['coupon_image'] = !empty($detail['coupon_image']) ? base_url(COUPONS_PATH.$detail['coupon_image']) : '';
@@ -193,15 +207,18 @@ class Coupon extends MY_Controller {
                 $startDate = strtotime($detail['start_date']);
                 $endDate = strtotime($detail['end_date']);
                 // 1: Upcoming : start_date > current_date
-                if($startDate > $currentDate && $coupons[$i]['coupon_status_id'] == 2) {
-                    $coupons[$i]['coupon_status_id'] = 1;
-                } else if ($startDate < $currentDate && $currentDate < $endDate && $coupons[$i]['coupon_status_id'] == 2) {
+                if($startDate > $currentDate && $detail['coupon_status_id'] == 2) {
+                    $detail['coupon_status_id'] = 1;
+                } else if ($startDate < $currentDate && $currentDate < $endDate && $detail['coupon_status_id'] == 2) {
                     // 2: Ongoing: start_date < current_date < end_date
-                    $coupons[$i]['coupon_status_id'] = 2;
-                } else if ($endDate < $currentDate && $coupons[$i]['coupon_status_id'] != 1) {
+                    $detail['coupon_status_id'] = 2;
+                } else if ($endDate < $currentDate && $detail['coupon_status_id'] != 1) {
                     // 3: End: end_date < current_date
-                    $coupons[$i]['coupon_status_id'] = 3;
-                } 
+                    $detail['coupon_status_id'] = 3;
+                } else if($detail['coupon_status_id'] == 1) {
+                    $detail['coupon_status_id'] = 4;
+                }
+                $detail['coupon_used'] = !empty($detail['coupon_used']) ? $detail['coupon_used'] : 0;
                 
                 $this->success200($detail);
             } else {
