@@ -138,8 +138,7 @@ class Mservices extends MY_Model {
 
     public function getListInApi($customerId = 0, $langCode = '_vi') {
         $select = "services.id, services.service_name".$this->langCode." as service_name, services.service_image";
-        $where = '';
-        if($customerId > 0) $where = " AND services.id NOT IN (SELECT service_id FROM business_profiles WHERE business_status_id = 2 AND customer_id = ".$customerId.")";
+
         $query = "SELECT ".$select." 
                     FROM services 
                     WHERE services.service_status_id = ? ".$where."
