@@ -684,6 +684,12 @@ abstract class MY_Controller extends CI_Controller
             $this->lang->load('user_account_management', $this->language);
             $this->lang->load('email', $this->language);
         }
+        $languageId = $this->input->get_request_header('language-id', TRUE);
+        $this->languageId = !empty($languageId) ? $languageId : 1;
+        $this->langCode = '_vi';
+        if ($this->languageId == STATUS_NUMBER_ONE) $this->langCode = '_en';
+        elseif ($this->languageId == STATUS_NUMBER_THREE) $this->langCode = '_cz';
+        elseif ($this->languageId == STATUS_NUMBER_FOR) $this->langCode = '_de';
     }
 
     protected function apiCheckLogin($flag = false) {
