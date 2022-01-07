@@ -90,7 +90,6 @@ class Mcustomercoupons extends MY_Model {
             $from = ($page-1) * $perPage;
             $query .= " LIMIT {$from}, {$perPage}";
         }
-        echo  $query;die;
         return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED));
     }
 }
