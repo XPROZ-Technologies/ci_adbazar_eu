@@ -45,7 +45,9 @@ class Mcustomercoupons extends MY_Model {
         // xử lý điều kiện search cho api
         if(isset($postData['api']) && $postData['api'] == true) {
             if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND ( coupons.coupon_code LIKE '%{$postData['search_text']}%' OR coupons.coupon_subject LIKE '%{$postData['search_text']}%')";
-            if(isset($postData['service_id']) && $postData['service_id'] > 0) $query .= " AND business_profiles.service_id = ".$postData['service_id'];
+            if(isset($postData['service_id']) && $postData['service_id'] > 0) {
+                $query .= " AND coupons.business_profile_id IN (select id FROM business_profiles WHERE service_id = ".$postData['service_id'].")";
+            } 
             if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query .= " AND customer_coupons.customer_id = ".$postData['customer_id'];
         }
         return $query;
@@ -79,7 +81,6 @@ class Mcustomercoupons extends MY_Model {
                 FROM
                     coupons
                     LEFT JOIN customer_coupons ON customer_coupons.coupon_id = coupons.id
-                    LEFT JOIN business_profiles ON business_profiles.customer_id = customer_coupons.customer_id 
                 WHERE customer_coupons.id IS NOT NULL  AND
                     coupons.coupon_status_id = ? 
                     AND customer_coupons.customer_coupon_status_id = ?  " . $this->buildQueryApi($postData). "
@@ -89,6 +90,7 @@ class Mcustomercoupons extends MY_Model {
             $from = ($page-1) * $perPage;
             $query .= " LIMIT {$from}, {$perPage}";
         }
+        echo  $query;die;
         return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED));
     }
 }
