@@ -6,8 +6,7 @@ class Customer extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->getLanguageApi();
-        $languageId = $this->input->get_request_header('language-id', TRUE);
-        $this->languageId = !empty($languageId) ? $languageId : 1;
+       
         $this->fb = new Facebook\Facebook([
             'app_id' => FACEBOOK_ID,
             'app_secret' => FACEBOOK_SECRET,
@@ -31,6 +30,7 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('login_type_id', 'customer_email', 'customer_password', 'facebook_token', 'google_token', 'device_token'));
             $this->load->model('Mcustomers');
             $customer = [];
+            $customerNewId = 0;
             if(intval($postData['login_type_id']) == 0) {
                 if(empty($postData['customer_email'])) {
                     $this->error204($this->lang->line('please_enter_your_email'));
@@ -50,24 +50,34 @@ class Customer extends MY_Controller {
                 
             } else if (intval($postData['login_type_id']) == 1) { // facebook
                 // $postData['facebook_token'] = 'EAAChwUZAbAdkBAM1qYHnHLPIuuXZAhehZAbrXO4Enbt3WEDIxRyEoO33RZCJEh40QfZCtQOlwCQgqbZAA3cYE4kGLaNlZCJDc843NZAZBZBIoyKCPA4nCY4YhtB68590THpBkJdeQJcBh8ZCELlBsYP8ojur4Oy7UN8Iw5Jt9XceCtJTR7ejTZC7ZCrww2eervxZCtTSUoJgUomFyH2zCPVCRf47QxXaZBbK3eYDlJwqX8NqtQpL47Of7yiZBX51';
-                $this->fb->setDefaultAccessToken($postData['facebook_token']);
-                try {
-                    $response = $this->fb->get('/me?fields=id,name,email');
-                    $userNode = json_decode($response->getGraphUser(), true);
-                    $postData['facebook_id'] = $userNode['id'];
-                    $postData['customer_first_name'] = $userNode['name'];
-                    $postData['customer_last_name'] = $userNode['name'];
-                    $postData['customer_email'] = $userNode['email'];
-                    $postData['customer_status_id'] = STATUS_ACTIVED;
-                    $customer = $this->Mcustomers->login($postData['customer_email'], '', $postData['login_type_id']);
-                    if(!$customer) $customer['id'] = 0;
-                } catch (Facebook\Exceptions\FacebookResponseException $e) {
-                    $this->error204($this->lang->line('graph_returned_an_error') . $e->getMessage());
-                    die;
-                } catch (Facebook\Exceptions\FacebookSDKException $e) {
-                    $this->error204($this->lang->line('facebook_sdk_returned_an_error') . $e->getMessage());
-                    die;
+                // $this->fb->setDefaultAccessToken($postData['facebook_token']);
+                // try {
+                //     $response = $this->fb->get('/me?fields=id,name,email');
+                //     $userNode = json_decode($response->getGraphUser(), true);
+                //     $postData['facebook_id'] = $userNode['id'];
+                //     $postData['customer_first_name'] = $userNode['name'];
+                //     $postData['customer_last_name'] = $userNode['name'];
+                //     $postData['customer_email'] = $userNode['email'];
+                //     $postData['customer_status_id'] = STATUS_ACTIVED;
+                //     $customer = $this->Mcustomers->login($postData['customer_email'], '', $postData['login_type_id']);
+                //     if(!$customer) $customer['id'] = 0;
+                // } catch (Facebook\Exceptions\FacebookResponseException $e) {
+                //     $this->error204($this->lang->line('graph_returned_an_error') . $e->getMessage());
+                //     die;
+                // } catch (Facebook\Exceptions\FacebookSDKException $e) {
+                //     $this->error204($this->lang->line('facebook_sdk_returned_an_error') . $e->getMessage());
+                //     die;
+                // }
+                if(empty($postData['facebook_token'])) {
+                    $this->error204($this->lang->line('graph_returned_an_error'));
+                   die;
                 }
+                $postData['facebook_id'] = $postData['facebook_token'];
+                $customer = $this->Mcustomers->login($postData['facebook_id'], '', $postData['login_type_id']);
+                if(!$customer) {
+                   $customerNewId = 0;
+                   $customer['id'] = 0;
+                } 
             } else if (intval($postData['login_type_id']) == 2) { // google
                 $this->client->setAccessToken($postData['google_token']);
                 try {
@@ -79,7 +89,10 @@ class Customer extends MY_Controller {
                         $postData['customer_email'] = $info['email'];
                         $postData['customer_status_id'] = STATUS_ACTIVED;
                         $customer = $this->Mcustomers->login($postData['customer_email'], '', $postData['login_type_id']);
-                        if(!$customer) $customer['id'] = 0;
+                        if(!$customer) {
+                            $customerNewId = 0;
+                            $customer['id'] = 0;
+                        } 
                     } else {
                         $this->error204($this->lang->line('graph_returned_an_error'));
                         die;
@@ -107,6 +120,10 @@ class Customer extends MY_Controller {
                     if(empty($customer['customer_avatar'])) $customer['customer_avatar'] = base_url(CUSTOMER_PATH.NO_IMAGE);
                     else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
                     unset($customer['device_token'], $customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
+                    $customer['need_email'] = 0;
+                    if($customerNewId == 0 && intval($postData['login_type_id']) == 1) {
+                        $customer['need_email'] = 1;
+                    }
                     $this->success200(array('customer' => $customer));
                 }
                 
@@ -171,23 +188,28 @@ class Customer extends MY_Controller {
                 $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
             } else if (intval($postData['login_type_id']) == 1) { //facebook
                 
-                $this->fb->setDefaultAccessToken($postData['facebook_token']);
-                try {
-                    $response = $this->fb->get('/me?fields=id,name,email');
-                    $userNode = json_decode($response->getGraphUser(), true);
-                    $data['facebook_id'] = $userNode['id'];
-                    $data['customer_first_name'] = $userNode['name'];
-                    $data['customer_last_name'] = $userNode['name'];
-                    $data['customer_email'] = $userNode['email'];
-                    $data['customer_password'] = md5('12345678@aM');
-                    $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
-                } catch (Facebook\Exceptions\FacebookResponseException $e) {
-                    $this->error204($this->lang->line('graph_returned_an_error') . $e->getMessage());
-                    die;
-                } catch (Facebook\Exceptions\FacebookSDKException $e) {
-                    $this->error204($this->lang->line('facebook_sdk_returned_an_error') . $e->getMessage());
-                    die;
-                }
+                // $this->fb->setDefaultAccessToken($postData['facebook_token']);
+                // try {
+                //     $response = $this->fb->get('/me?fields=id,name,email');
+                //     $userNode = json_decode($response->getGraphUser(), true);
+                //     $data['facebook_id'] = $userNode['id'];
+                //     $data['customer_first_name'] = $userNode['name'];
+                //     $data['customer_last_name'] = $userNode['name'];
+                //     $data['customer_email'] = $userNode['email'];
+                //     $data['customer_password'] = md5('12345678@aM');
+                //     $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
+                // } catch (Facebook\Exceptions\FacebookResponseException $e) {
+                //     $this->error204($this->lang->line('graph_returned_an_error') . $e->getMessage());
+                //     die;
+                // } catch (Facebook\Exceptions\FacebookSDKException $e) {
+                //     $this->error204($this->lang->line('facebook_sdk_returned_an_error') . $e->getMessage());
+                //     die;
+                // }
+                $data['facebook_id'] = $postData['facebook_token'];
+                $data['customer_first_name'] = $postData['customer_first_name'];
+                $data['customer_last_name'] = $postData['customer_last_name'];
+                $data['customer_email'] = $postData['customer_email'];
+                $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
             } else if (intval($postData['login_type_id']) == 2) { //google
                 
                 $this->client->setAccessToken($postData['google_token']);

@@ -5,6 +5,7 @@ class Phonecode extends MY_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->getLanguageApi();
     }
 
     public function list() {

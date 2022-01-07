@@ -6,12 +6,6 @@ class Coupon extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->getLanguageApi();
-        $languageId = $this->input->get_request_header('language-id', TRUE);
-        $this->languageId = !empty($languageId) ? $languageId : 1;
-        $this->langCode = '_vi';
-        if ($this->languageId == 1) $this->langCode = '_en';
-        elseif ($this->languageId == 2) $this->langCode = '_cz';
-        elseif ($this->languageId == 3) $this->langCode = '_de';
     }
 
     public function list_home() {
