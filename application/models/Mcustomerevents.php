@@ -14,6 +14,11 @@ class Mcustomerevents extends MY_Model {
         return $this->countRows($query);
     }
 
+    public function getCountUsedApi($postData){
+        $query = "customer_event_status_id = 2 " . $this->buildQuery($postData);
+        return $this->countRows($query);
+    }
+
     private function buildQuery($postData){
         $query = '';
         

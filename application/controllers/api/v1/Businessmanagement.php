@@ -963,7 +963,7 @@ class Businessmanagement extends MY_Controller {
                 die;
             }
             $cancelData = array(
-                'event_status_id' => 0,
+                'event_status_id' => 4,
                 'deleted_at' => getCurentDateTime()
             );
             $flag = $this->Mevents->save($cancelData, $postData['event_id']);

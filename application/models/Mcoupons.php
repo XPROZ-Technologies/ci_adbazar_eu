@@ -160,10 +160,14 @@ class Mcoupons extends MY_Model {
         return $result;
     }
 
-    public function getCountInApi($postData) {
+    public function getCountInApi($postData, $isAdmin = false) {
         $where = "";
         if($postData['customer_id'] > 0) {
-            $where = " AND coupons.id NOT IN (select coupon_id from customer_coupons WHERE customer_coupons.customer_id = ".$postData['customer_id']." AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED.") ";
+            $where .= " AND coupons.id NOT IN (select coupon_id from customer_coupons WHERE customer_coupons.customer_id = ".$postData['customer_id']." AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED.") ";
+        }
+        $where_status = " AND coupons.coupon_status_id = 2 ";
+        if($isAdmin) {
+            $where_status = " AND coupons.coupon_status_id > 0 ";
         }
 
         $query = "SELECT coupons.id
@@ -174,12 +178,12 @@ class Mcoupons extends MY_Model {
                         DATE(coupons.end_date) >= CURDATE() 
                         AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED." ) < coupons.coupon_amount 
                         ".$where."
-                        AND coupons.coupon_status_id = ?
+                        ".$where_status."
                         ".$this->buildQueryInApi($postData);
-        return count($this->getByQuery($query, array(STATUS_ACTIVED)));
+        return count($this->getByQuery($query));
     }
 
-    public function getListInApi($postData, $perPage = 0, $page = 1) {
+    public function getListInApi($postData, $perPage = 0, $page = 1, $isAdmin = false) {
         
         $orderBy = 'DESC';
         if(isset($postData['order_by']) && !empty($postData['order_by'])) {
@@ -189,6 +193,11 @@ class Mcoupons extends MY_Model {
         $where = "";
         if($postData['customer_id'] > 0) {
             $where = " AND coupons.id NOT IN (select coupon_id from customer_coupons WHERE customer_coupons.customer_id = ".$postData['customer_id']." AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED.") ";
+        }
+
+        $where_status = " AND coupons.coupon_status_id = 2 ";
+        if($isAdmin) {
+            $where_status = " AND coupons.coupon_status_id > 0 ";
         }
 
         $query = "SELECT
@@ -207,7 +216,7 @@ class Mcoupons extends MY_Model {
                     DATE(coupons.end_date) >= CURDATE() 
                     AND ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ".STATUS_ACTIVED." ) < coupons.coupon_amount 
                     ".$where." 
-                    AND coupons.coupon_status_id = ?
+                    ".$where_status."
                     ".$this->buildQueryInApi($postData)."
                 ORDER BY
                     coupons.created_at ".$orderBy;
@@ -215,7 +224,7 @@ class Mcoupons extends MY_Model {
                 $from = ($page-1) * $perPage;
                 $query .= " LIMIT {$from}, {$perPage}";
             }
-        return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED));
+        return $this->getByQuery($query, array(STATUS_ACTIVED));
     }
 
     public function getServicesInCoupon($customerId = 0, $langCode = '_vi') {
@@ -257,7 +266,12 @@ class Mcoupons extends MY_Model {
         return $services;           
     }
 
-    public function getDetailCoupon($postData) {
+    public function getDetailCoupon($postData, $isAdmin = false) {
+        $where = " AND coupons.coupon_status_id = 2";
+        if($isAdmin) {
+            $where = " AND coupons.coupon_status_id > 0";
+        }
+
         $query = "SELECT
                     coupons.id,
                     coupons.coupon_subject,
@@ -273,17 +287,13 @@ class Mcoupons extends MY_Model {
                     business_profiles.business_address,
                     business_profiles.business_phone,
                     CASE WHEN customer_coupons.customer_id > 0 THEN customer_coupons.customer_coupon_code ELSE '' END AS coupon_code,
-                    customer_coupons.customer_id,
                     ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used
                 FROM
                     coupons
                     LEFT JOIN customer_coupons ON customer_coupons.coupon_id = coupons.id
-                    LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id
-                   
-                WHERE
-                    coupons.coupon_status_id = ? 
-                    AND coupons.id = ? AND business_profiles.id IS NOT NULL"; // AND customer_coupons.customer_coupon_status_id1 = ? 
-        $data = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $postData['coupon_id']));
+                    LEFT JOIN business_profiles ON business_profiles.id = coupons.business_profile_id  
+                WHERE coupons.id = ? AND business_profiles.id IS NOT NULL ".$where; 
+        $data = $this->getByQuery($query, array(STATUS_ACTIVED, $postData['coupon_id']));
         return $data;
     }
 

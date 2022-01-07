@@ -36,14 +36,19 @@ class Event extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'selected_date', 'business_id', 'order_by'));
+            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'selected_date', 'business_id', 'order_by', 'is_business'));
             if(empty($postData['selected_date'])) $postData['selected_date'] = ddMMyyyy(date('Y-m-d'), 'Y-m-d');
             else $postData['selected_date'] = ddMMyyyy($postData['selected_date'], 'Y-m-d');
             $postData['api'] = true;
             $postData['customer_id'] = $customer['customer_id'];
-            
+
+            $isAdmin = false;
+            if(isset($postData['is_business']) && $postData['is_business'] == 1) {
+                $isAdmin = true;
+            }
+
             $this->loadModel(array('Mevents', 'Mconfigs', 'Mbusinessprofiles'));
-            $rowCount = $this->Mevents->getCountInApi($postData);
+            $rowCount = $this->Mevents->getCountInApi($postData, $isAdmin);
             $events = [];
             $pageCount = 0;
             $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
@@ -52,24 +57,21 @@ class Event extends MY_Controller {
             if($rowCount > 0){
                 $pageCount = ceil($rowCount / $perPage);
                 if(!is_numeric($page) || $page < 1) $page = 1;
-                $events = $this->Mevents->getListInApi($postData, $perPage, $page);
+                $events = $this->Mevents->getListInApi($postData, $perPage, $page, $isAdmin);
                 for($i = 0; $i < count($events); $i++){
                     $currentDate = strtotime(getCurentDateTime());
                     $startDate = strtotime($events[$i]['start_date'].' '.$events[$i]['start_time'].":00");
                     $endDate = strtotime($events[$i]['end_date'].' '.$events[$i]['start_time'].":00");
                     //  1: Upcoming : start_date start_time > current_date
-                    if($startDate > $currentDate) {
+                    if($startDate > $currentDate && $events[$i]['event_status_id'] == 2) {
                         $events[$i]['event_status_id'] = 1;
-                    } else if ($startDate < $currentDate && $currentDate < $endDate) {
+                    } else if ($startDate < $currentDate && $currentDate < $endDate && $events[$i]['event_status_id'] == 2) {
                         // 2: Ongoing: start_date start_time < current_date < end_date end_time
                         $events[$i]['event_status_id'] = 2;
-                    } else if ($endDate < $currentDate) {
+                    } else if ($endDate < $currentDate && $events[$i]['event_status_id'] != 4) {
                         // 3: Expired: end_date end_time < current_date
                         $events[$i]['event_status_id'] = 3;
-                    } else {
-                        // 4: Cancelled: event_status_id = 1
-                        $events[$i]['event_status_id'] = 4;
-                    }
+                    } 
                     $events[$i]['event_image'] = !empty($events[$i]['event_image']) ? base_url(EVENTS_PATH.$events[$i]['event_image']) : '';
                 }
             }
@@ -202,14 +204,20 @@ class Event extends MY_Controller {
     public function detail() {
         try {
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('event_id'));
+            $postData = $this->arrayFromPostRawJson(array('event_id', 'is_business'));
             $postData['customer_id'] = $customer['customer_id'];
             if (empty($postData['event_id']) && $postData['event_id'] < 0) {
                 $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
             $this->load->model('Mevents');
-            $detail = $this->Mevents->getDetailEvent($postData);
+
+            $isAdmin = false;
+            if(isset($postData['is_business']) && $postData['is_business'] == 1) {
+                $isAdmin = true;
+            }
+
+            $detail = $this->Mevents->getDetailEvent($postData, $isAdmin);
             if(count($detail) > 0) {
                 $detail = $detail[0];
                 $detail['event_image'] = !empty($detail['event_image']) ? base_url(EVENTS_PATH.$detail['event_image']) : '';
@@ -224,6 +232,8 @@ class Event extends MY_Controller {
                 if(!empty($detail['customer_id']) && intval($detail['customer_id']) == intval($postData['customer_id'])) {
                     $detail['joined_event'] = 1;
                 }
+                $this->load->model('Mcustomerevents');
+                $detail['number_of_joined'] = $this->Mcustomerevents->getCountUsedApi(array('event_id' => $detail['id']));
                 unset($detail['business_profile_id'], $detail['customer_id'], $detail['business_avatar'], $detail['business_address'], $detail['business_phone']);
                 $this->success200($detail);
             } else {

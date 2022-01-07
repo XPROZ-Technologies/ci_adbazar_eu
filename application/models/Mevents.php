@@ -98,30 +98,40 @@ class Mevents extends MY_Model {
         return $query;
     }
 
-    public function getCountInApi($postData) {
+    public function getCountInApi($postData, $isAdmin = false) {
 
         $where = "";
         if(!empty($postData['customer_id']) && $postData['customer_id'] > 0) {
             $where = " AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = 2 AND customer_id = ".$postData['customer_id'].")";
         }
         
+        $where_status = " AND events.event_status_id = 2 ";
+        if($isAdmin) {
+            $where_status = " AND events.event_status_id > 0 ";
+        }
+
         $query = "SELECT
                     `events`.id
                 FROM
                     `events`
                     LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
                 WHERE
-                    `events`.event_status_id = 2 AND `events`.business_profile_id > 0 ".$this->buildQueryInApi($postData).$where;
+                    `events`.business_profile_id > 0 ".$where_status." ".$this->buildQueryInApi($postData).$where;
                     
         return count($this->getByQuery($query));
     }
 
-    public function getListInApi($postData, $perPage = 0, $page = 1) {
+    public function getListInApi($postData, $perPage = 0, $page = 1, $isAdmin = false) {
         if(empty($postData['order_by'])) $postData['order_by'] = 'DESC';
 
         $where = "";
         if(!empty($postData['customer_id']) && $postData['customer_id'] > 0) {
             $where = "AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ".STATUS_ACTIVED." AND customer_id = ".$postData['customer_id'].")";
+        }
+
+        $where_status = " AND events.event_status_id = 2 ";
+        if($isAdmin) {
+            $where_status = " AND events.event_status_id > 0 ";
         }
 
         $query = "SELECT
@@ -139,20 +149,24 @@ class Mevents extends MY_Model {
                     `events`
                     LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
                 WHERE
-                    `events`.event_status_id = ? AND `events`.business_profile_id > 0 ".$this->buildQueryInApi($postData)." ".$where."
+                    `events`.business_profile_id > 0 ".$where_status." ".$this->buildQueryInApi($postData)." ".$where."
                 ORDER BY
                     `events`.`start_date`, TIME_FORMAT(`events`.start_time, '%H:%i') ".$postData['order_by'];
-        
         if($perPage > 0) {
             $from = ($page-1) * $perPage;
             $query .= " LIMIT {$from}, {$perPage}";
         }
 
-        $result = $this->getByQuery($query, array(STATUS_ACTIVED));
+        $result = $this->getByQuery($query);
         return $result;
     }
 
-    public function getDetailEvent($postData) {
+    public function getDetailEvent($postData, $isAdmin = false) {
+        $where = " AND `events`.event_status_id = 2 ";
+        if($isAdmin) {
+            $where = " AND `events`.event_status_id > 0 ";
+        }
+
         $query = "SELECT
                 `events`.id,
                 `events`.event_subject,
@@ -166,20 +180,14 @@ class Mevents extends MY_Model {
                 business_profiles.business_name,
                 business_profiles.business_avatar,
                 business_profiles.business_address,
-                business_profiles.business_phone,
-                COUNT(CASE WHEN customer_events.event_id > 0 THEN 0 END) AS number_of_joined,
-                customer_events.customer_id
+                business_profiles.business_phone
             FROM
                 `events`
-                LEFT JOIN customer_events ON customer_events.event_id = `events`.id  AND customer_events.customer_event_status_id = ?
+                LEFT JOIN customer_events ON customer_events.event_id = `events`.id
                 LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
-            WHERE
-                `events`.event_status_id = ? 
-                AND `events`.id = ?  AND business_profiles.id IS NOT NULL
-                
-            GROUP BY
-                `events`.id ";
-        $result = $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $postData['event_id']));
+            WHERE `events`.id = ?  AND business_profiles.id IS NOT NULL ".$where." ";
+       
+        $result = $this->getByQuery($query, array($postData['event_id']));
         return $result;
     }
 
