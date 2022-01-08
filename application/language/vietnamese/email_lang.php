@@ -48,3 +48,19 @@ $lang['22112021_email_password_assistance'] = 'Hỗ trợ mật khẩu';
 
 // Email - content
 
+// Noti
+$lang['noti_event_happen_in_next_24h'] = "Sự kiện <EVENT_NAME> được tổ chức bởi <BUSINESS_NAME> sẽ diễn ra trong 24h tới.";
+$lang['noti_event_updated'] = "Sự kiện <EVENT_NAME> được tổ chức bởi <BUSINESS_NAME> vừa được cập nhật.";
+$lang['noti_reservation_canceled'] = "Mã đặt chỗ <RESERVATION_ID> đã bị hủy";
+$lang['noti_event_canceled'] = "Sự kiện <EVENT_NAME> được tổ chức bởi <BUSINESS_NAME> đã bị hủy.";
+$lang['noti_subscription_trial_end'] = "Thời gian dùng thử miễn phí của <BUSINESS_NAME> đã hết.";
+$lang['noti_reservation_declined'] = "Mã đặt chỗ <RESERVATION_ID> tại <BUSINESS_NAME> đã bị từ chối.";
+$lang['noti_reservation_happen_in_the_next_15_minutes'] = "Đặt hẹn <RESERVATION_ID> tại <BUSINESS_NAME> sẽ bắt đầu trong 15 phút nữa.";
+$lang['noti_renew_subscription_failed'] = "<BUSINESS_NAME> gia hạn thất bại";
+
+
+
+
+
+
+

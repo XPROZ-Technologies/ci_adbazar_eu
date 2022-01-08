@@ -46,3 +46,14 @@ $lang['22112021_email_your_subscription_for_business_has_expire'] = 'Ihr Abonnem
 $lang['22112021_email_your_subscription_for_business_was_successful'] = 'Ihr Abonnement für <BUSINESS_NAME> war erfolgreich';
 $lang['22112021_email_account_registration_confirmation'] = 'Bestätigung der Kontoregistrierung';
 $lang['22112021_email_password_assistance'] = 'Passworthilfe';
+
+
+// Noti
+$lang['noti_event_happen_in_next_24h'] = "Die Veranstaltung <EVENT_NAME> von <BUSINESS_NAME> findet in den nächsten 24 Stunden statt.";
+$lang['noti_event_updated'] = "Die Veranstaltung <EVENT_NAME> von <BUSINESS_NAME> wurde aktualisiert.";
+$lang['noti_reservation_canceled'] = "Reservierung <RESERVATION_ID> wurde storniert.";
+$lang['noti_event_canceled'] = "Veranstaltung <EVENT_NAME>, die von <BUSINESS_NAME> gehalten wird, wurde storniert.";
+$lang['noti_subscription_trial_end'] = "<BUSINESS_NAME> konstelose Testversion ist beendet.";
+$lang['noti_reservation_declined'] = "Reservierung <RESERVATION_ID> bei <BUSINESS_NAME> wurde abgelehnt.";
+$lang['noti_reservation_happen_in_the_next_15_minutes'] = "Die Reservierung <RESERVATION_ID> bei <BUSINESS_NAME> wird in den nächsten 15 Minuten stattfinden.";
+$lang['noti_renew_subscription_failed'] = "Erneuerung des Abonnements von <BUSINESS_NAME> fehlgeschlagen";

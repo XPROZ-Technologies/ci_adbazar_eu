@@ -211,3 +211,4 @@ $lang["turn_off_receive_booking_failed"] = "Vypnutí rezervace příjmu se nezda
 $lang["customer_comment_is_not_null"] = "Zákaznický komentář není nulový";
 $lang["review_content_must_be_above_4_characters"] = "Obsah recenze musí mít více než 4 znaky";
 $lang["is_annual_payment_must_be_0_or_1"] = "Je roční platba musí být 0 nebo 1";
+$lang["login_please_active_your_account_email_link"] = "Aktivujte prosím svůj účet. Na váš e-mail byl odeslán ověřovací odkaz.";

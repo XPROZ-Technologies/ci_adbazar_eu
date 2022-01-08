@@ -317,8 +317,67 @@ abstract class MY_Controller extends CI_Controller
 
                     $notificationUrl = base_url('business/'.$businessUrl.'/reviews');
                 } else if ($notificationInfo['notification_type'] == 2) {
+                    // Event start in next 24h
+
+                    $eventInfo = $this->Mevents->get(array($notificationInfo['item_id']));
+                    $businessInfo = $this->Mbusinessprofiles->get(array($notificationInfo['business_id']));
+
+                    if (!empty($eventInfo['event_image'])) {
+                        $notificationImg = EVENTS_PATH . $eventInfo['event_image'];
+                    }
+                    
+
+                    $find = array('<BUSINESS_NAME>', 'EVENT_NAME');
+                    $replace = array($businessInfo['business_name'], $eventInfo['event_subject']);
+                    $notificationText = str_replace($find, $replace, $this->lang->line('noti_event_happen_in_next_24h'));
+
+                    $notificationUrl = base_url('customer/my-events');
+
                 } else if ($notificationInfo['notification_type'] == 3) {
+                    // Event updated
+
+                    $eventInfo = $this->Mevents->get(array($notificationInfo['item_id']));
+                    $businessInfo = $this->Mbusinessprofiles->get(array($notificationInfo['business_id']));
+
+                    if (!empty($eventInfo['event_image'])) {
+                        $notificationImg = EVENTS_PATH . $eventInfo['event_image'];
+                    }
+                    
+                    $find = array('<BUSINESS_NAME>', 'EVENT_NAME');
+                    $replace = array($businessInfo['business_name'], $eventInfo['event_subject']);
+                    $notificationText = str_replace($find, $replace, $this->lang->line('noti_event_updated'));
+
+                    $notificationUrl = base_url('customer/my-events');
                 } else if ($notificationInfo['notification_type'] == 4) {
+                    // Event cancelled
+
+                    $eventInfo = $this->Mevents->get(array($notificationInfo['item_id']));
+                    $businessInfo = $this->Mbusinessprofiles->get(array($notificationInfo['business_id']));
+
+                    if (!empty($eventInfo['event_image'])) {
+                        $notificationImg = EVENTS_PATH . $eventInfo['event_image'];
+                    }
+                    
+
+                    $find = array('<BUSINESS_NAME>', 'EVENT_NAME');
+                    $replace = array($businessInfo['business_name'], $eventInfo['event_subject']);
+                    $notificationText = str_replace($find, $replace, $this->lang->line('noti_event_canceled'));
+
+                    $notificationUrl = base_url('customer/my-events');
+                } else if ($notificationInfo['notification_type'] == 5) {
+                    // reservation start in 15 minutes
+                    $businessInfo = $this->Mbusinessprofiles->get($notificationInfo['business_id']);
+                    $reservationCode = $this->Mcustomerreservations->getFieldValue(array('id' => $notificationInfo['item_id']), 'book_code', '');
+                    
+                    if (!empty($businessInfo['business_avatar'])) {
+                        $notificationImg = BUSINESS_PROFILE_PATH . $businessInfo['business_avatar'];
+                    }
+
+                    $find = array('<RESERVATION_ID>', '<BUSINESS_NAME>');
+                    $replace = array($reservationCode, $businessInfo['business_name']);
+                    $notificationText = str_replace($find, $replace, $this->lang->line('noti_reservation_happen_in_the_next_15_minutes'));
+                    $notificationUrl = base_url('customer/my-reservation');
+                } else if ($notificationInfo['notification_type'] == 6) {
                     // customer cancel reservation
                     $customerImg = $this->Mcustomers->getFieldValue(array('id' =>  $notificationInfo['customer_id']), 'customer_avatar', '');
                     if (!empty($customerImg)) {
@@ -331,8 +390,6 @@ abstract class MY_Controller extends CI_Controller
                     $replace = array($reservationCode);
                     $notificationText = str_replace($find, $replace, $this->lang->line('reservation_id_has_been_canceled'));
                     $notificationUrl = base_url('business-management/'.$businessUrl.'/reservations');
-                } else if ($notificationInfo['notification_type'] == 5) {
-                } else if ($notificationInfo['notification_type'] == 6) {
                 } else if ($notificationInfo['notification_type'] == 7) {
                     // business decline reservation
                     $businessImg = $this->Mbusinessprofiles->getFieldValue(array('id' =>  $notificationInfo['business_id']), 'business_avatar', '');
@@ -346,6 +403,30 @@ abstract class MY_Controller extends CI_Controller
                     $replace = array($reservationCode, $businessName);
                     $notificationText = str_replace($find, $replace, $this->lang->line('reservation__id__at__businessname_has_been_declined'));
                     $notificationUrl = base_url('customer/my-reservation');
+                } else if ($notificationInfo['notification_type'] == 8) {
+                    // business trial end
+                    $businessInfo = $this->Mbusinessprofiles->get($notificationInfo['business_id']);
+
+                    if (!empty($businessInfo['business_avatar'])) {
+                        $notificationImg = BUSINESS_PROFILE_PATH . $businessInfo['business_avatar'];
+                    }
+                    
+                    $find = array('<BUSINESS_NAME>');
+                    $replace = array($businessInfo['business_name']);
+                    $notificationText = str_replace($find, $replace, $this->lang->line('noti_subscription_trial_end'));
+                    $notificationUrl = base_url('business-management/'.$businessInfo['business_url'].'/subscriptions');
+                } else if ($notificationInfo['notification_type'] == 9) {
+                    // business renew subsciption failed
+                    $businessInfo = $this->Mbusinessprofiles->get($notificationInfo['business_id']);
+
+                    if (!empty($businessInfo['business_avatar'])) {
+                        $notificationImg = BUSINESS_PROFILE_PATH . $businessInfo['business_avatar'];
+                    }
+                    
+                    $find = array('<BUSINESS_NAME>');
+                    $replace = array($businessInfo['business_name']);
+                    $notificationText = str_replace($find, $replace, $this->lang->line('noti_renew_subscription_failed'));
+                    $notificationUrl = base_url('business-management/'.$businessInfo['business_url'].'/subscriptions');
                 }
 
                 $lists[$i]['text'] = $notificationText;

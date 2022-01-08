@@ -18,8 +18,16 @@ class Mcustomers extends MY_Model {
                 return $customer;
             }
         }
-        if(in_array(intval($loginTypeId), [1,2])) {
+        if(in_array(intval($loginTypeId), [2])) {
             $query = "SELECT * FROM customers WHERE customer_email=? AND customer_status_id=?  LIMIT 1";
+            $customers = $this->getByQuery($query, array($userEmail, STATUS_ACTIVED));
+            if(!empty($customers)){
+                $customer = $customers[0];
+                return $customer;
+            }
+        }
+        if(in_array(intval($loginTypeId), [1])) {
+            $query = "SELECT * FROM customers WHERE facebook_id=? AND customer_status_id=?  LIMIT 1";
             $customers = $this->getByQuery($query, array($userEmail, STATUS_ACTIVED));
             if(!empty($customers)){
                 $customer = $customers[0];

@@ -45,3 +45,15 @@ $lang['22112021_email_your_subscription_for_business_has_expire'] = 'Your subscr
 $lang['22112021_email_your_subscription_for_business_was_successful'] = 'Your subscription for <BUSINESS_NAME> was successful';
 $lang['22112021_email_account_registration_confirmation'] = 'Account registration confirmation';
 $lang['22112021_email_password_assistance'] = 'Password assistance';
+
+
+
+// Noti
+$lang['noti_event_happen_in_next_24h'] = "<EVENT_NAME> held by <BUSINESS_NAME>  is going to happen in the next 24 hours.";
+$lang['noti_event_updated'] = "Event <EVENT_NAME> held by <BUSINESS_NAME> has been updated.";
+$lang['noti_reservation_canceled'] = "Reservation <RESERVATION_ID> has been cancelled.";
+$lang['noti_event_canceled'] = "Event <EVENT_NAME> held by <BUSINESS_NAME> has been cancelled.";
+$lang['noti_subscription_trial_end'] = "<BUSINESS_NAME 's  free trial has ended.";
+$lang['noti_reservation_declined'] = "Reservation  <RESERVATION_ID> at  <BUSINESS_NAME> has been declined.";
+$lang['noti_reservation_happen_in_the_next_15_minutes'] = "Reservation <RESERVATION_ID> at <BUSINESS_NAME> is going to happen in the next 15 minutes.";
+$lang['noti_renew_subscription_failed'] = "<BUSINESS_NAME>'s renew subscription failed";

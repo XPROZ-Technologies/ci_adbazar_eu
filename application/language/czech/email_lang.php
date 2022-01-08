@@ -46,3 +46,14 @@ $lang['22112021_email_your_subscription_for_business_has_expire'] = 'Vaše před
 $lang['22112021_email_your_subscription_for_business_was_successful'] = 'Vaše předplatné pro <BUSINESS_NAME> bylo uspěšné';
 $lang['22112021_email_account_registration_confirmation'] = 'Potvrzení registrace';
 $lang['22112021_email_password_assistance'] = 'Pomoc s heslem';
+
+
+// Noti
+$lang['noti_event_happen_in_next_24h'] = "Událost <EVENT_NAME> pořádaná společností <BUSINESS_NAME> se uskuteční v příštích 24 hodinách.";
+$lang['noti_event_updated'] = "Událost <EVENT_NAME> pořádaná společností <BUSINESS_NAME> byla aktualizována.";
+$lang['noti_reservation_canceled'] = "Rezervace č. <RESERVATION_ID> byla zrušena.";
+$lang['noti_event_canceled'] = "Událost <EVENT_NAME> podniku <BUSINESS_NAME> byla zrušena";
+$lang['noti_subscription_trial_end'] = "<BUSINESS_NAME> bezplatná zkušební verze skončila";
+$lang['noti_reservation_declined'] = "Rezervace č. <RESERVATION_ID> u <BUSINESS_NAME> byla zamítnuta.";
+$lang['noti_reservation_happen_in_the_next_15_minutes'] = "Rezervace <RESERVATION_ID> na <BUSINESS_NAME> se uskuteční během následujících 15 minut.";
+$lang['noti_renew_subscription_failed'] = "Obnovení odběru <BUSINESS_NAME> se nezdařilo";

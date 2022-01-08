@@ -213,5 +213,5 @@ $lang["turn_off_receive_booking_failed"] = "Không thể tắt nhận đặt ch�
 $lang["customer_comment_is_not_null"] = "Nhận xét của khách hàng không có giá trị";
 $lang["review_content_must_be_above_4_characters"] = "Nội dung đánh giá phải trên 4 ký tự";
 $lang["is_annual_payment_must_be_0_or_1"] = "Khoản thanh toán hàng năm phải là 0 hoặc 1";
-
+$lang["login_please_active_your_account_email_link"] = "Vui lòng kích hoạt tài khoản. Đường dẫn kích hoạt đã được gửi đến email";
 
