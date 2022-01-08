@@ -219,7 +219,7 @@ class Reservation extends MY_Controller {
                 $this->error204('reservation_id: not transmitted');
                 die;
             }
-            $this->load->model(array('Mcustomerreservations', 'Mbusinessprofiles'));
+            $this->load->model(array('Mcustomerreservations', 'Mbusinessprofiles', 'Mcustomers', 'Mcustomernotifications', 'Memailqueue', 'Mphonecodes'));
             $checkExitBusiness = $this->Mbusinessprofiles->getFieldValue(array('customer_id' => $customer['customer_id'], 'id' => $postData['business_id']), 'id', 0);
             if($checkExitBusiness == 0) {
                 $this->error204('Business profile does not belong to this customer');
@@ -249,6 +249,40 @@ class Reservation extends MY_Controller {
                 'updated_at' => getCurentDateTime()
             ), $postData['reservation_id']);
             if($flag) {
+
+                /**
+                 * Email & noti
+                 */
+                $bookId = $postData['book_id'];
+                $reservationInfo = $this->Mcustomerreservations->get($bookId);
+                $customerInfo = $this->Mcustomers->get($reservationInfo['customer_id']);
+                $businessInfo = $this->Mbusinessprofiles->get($postData['business_id']);
+
+                $dataNoti = array(
+                    'notification_type' => 7, //business reply customer comment
+                    'customer_id'   => $reservationInfo['customer_id'],
+                    'business_id'   => $postData['business_id'],
+                    'item_id'   => $bookId,
+                    'notification_status_id' => STATUS_ACTIVED,
+                    'created_at' => getCurentDateTime()
+                );
+                $notificationId = $this->Mcustomernotifications->save($dataNoti);
+
+
+                // Send email
+                $customer_name = !empty($customerInfo['customer_first_name']) ? $customerInfo['customer_first_name'] : $customerInfo['customer_email'];
+                $business_phone = $this->Mphonecodes->getPhoneCodeById($businessInfo['country_code_id']).$businessInfo['business_phone'];
+                $dataEmail = array(
+                    'name' => $customer_name,
+                    'email_to' => $customerInfo['customer_email'],
+                    'email_to_name' => $customer_name,
+                    'time_arrived' => $reservationInfo['time_arrived'],
+                    'date_arrived' => $reservationInfo['date_arrived'],
+                    'business_name' => $this->Mbusinessprofiles->getNameById($itemEvent['business_profile_id']),
+                    'business_phone' => $business_phone
+                );
+                $this->Memailqueue->createEmail($dataEmail, 12);
+
                 $this->success200('', 'Refused to make an appointment successfully');
             } else {
                 $this->error204('Refused to make an appointment failed');

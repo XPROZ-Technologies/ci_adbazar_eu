@@ -258,4 +258,89 @@ class Cron extends MY_Controller {
             echo $message . PHP_EOL;
         }
     }
+
+    /**
+     * Run cron each 10 minutes
+     */
+
+    public function event24h() {
+        $date24h = date('Y-m-d H:i',strtotime('+24 hours')); // lấy ngày hiện tại
+        // $date24h = date('Y-m-d H:i',strtotime('+24 hours', strtotime('2021-11-17 06:58'))); // truyền theo ngày mong muốn
+        $dateBefore = date('Y-m-d H:i',strtotime('-5 minutes', strtotime($date24h) ));
+        $dateAfter = date('Y-m-d H:i',strtotime('+5 minutes', strtotime($date24h) ));
+
+        $this->load->model(array('Mevents', 'Mcustomernotifications', 'Memailqueue', 'Mbusinessprofiles', 'Mcustomers'));
+        $list = $this->Mevents->event24h($dateBefore, $dateAfter);
+        
+        for($i = 0; $i < count($list); $i++) {
+            $itemEvent = $list[$i];
+            // Get all customer joined event
+            $customers = $this->Mcustomerevents->getBy(array('event_id' => $itemEvent['id'], 'customer_event_status_id' => STATUS_ACTIVED));
+            if(count($customers) > 0) {
+                for($j = 0; $j < count($customers); $j++) {
+                    $itemCustomer = $customers[$j];
+
+                    // Only send noti to register customer
+                    if($itemCustomer['customer_id'] > 0) {
+                        // Send noti
+                        $dataNoti = array(
+                            'notification_type' => 2, //Event will start next 24h
+                            'customer_id'   => $itemCustomer['customer_id'],
+                            'business_id'   => $itemEvent['business_profile_id'],
+                            'item_id'   => $itemEvent['id'],
+                            'notification_status_id'  => STATUS_ACTIVED,
+                            'created_at' => getCurentDateTime()
+                        );
+                        $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                    }
+
+                    $customerInfo = $this->Mcustomers->get($itemCustomer['customer_id']);
+                    $customer_name = !empty($customerInfo['customer_first_name']) ? $customerInfo['customer_first_name'] : $customerInfo['customer_email'];
+                    // Send email
+                    $dataEmail = array(
+                        'name' => $customer_name,
+                        'email_to' => $customerInfo['customer_email'],
+                        'email_to_name' => $customer_name,
+                        'event_subject' => $itemEvent['event_subject'],
+                        'business_name' => $this->Mbusinessprofiles->getNameById($itemEvent['business_profile_id']),
+                        'url' => site_url('event/'.makeSlug($itemEvent['event_subject']).'-'.$itemEvent['id'].'.html')
+                    );
+                    $this->Memailqueue->createEmail($dataEmail, 9);
+                }
+            }
+        }
+    }
+
+    /**
+     * Run cron each minutes
+     */
+
+    public function reservation15m() {
+        $dateBefore = date('Y-m-d H:i',strtotime('-15 minutes', strtotime(date('Y-m-d H:i')) ));
+
+        $this->load->model(array('Mcustomerreservations', 'Mcustomernotifications'));
+        $list = $this->Mcustomerreservations->reservation15m($dateBefore);
+        if(count($list) > 0) {
+            for($i = 0; $i < count($list); $i++) {
+                $dateArrived =  date('Y-m-d H:i',strtotime($list[$i]['date_arrived'].' '.$list[$i]['time_arrived']));
+                $currentDate = date('Y-m-d H:i',strtotime('-15 minutes', strtotime($dateArrived) ));
+                $list[$i]['current_date'] = $currentDate;
+
+                $itemReservation = $list[$i];
+
+                // Send noti
+                $dataNoti = array(
+                    'notification_type' => 5, //Event will start next 24h
+                    'customer_id'   => $itemReservation['customer_id'],
+                    'business_id'   => $itemReservation['business_profile_id'],
+                    'item_id'   => $itemReservation['id'],
+                    'notification_status_id'  => STATUS_ACTIVED,
+                    'created_at' => getCurentDateTime()
+                );
+                $notificationId = $this->Mcustomernotifications->save($dataNoti);
+            }
+        }
+        $this->success200($list);
+        die;
+    }
 }

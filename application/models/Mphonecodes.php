@@ -16,6 +16,21 @@ class Mphonecodes extends MY_Model {
         return $this->getByQuery($query);
     }
 
+    public function getPhoneCodeById($phoneCodeId = 0) {
+        if($phoneCodeId > 0) {
+            $query = "SELECT phonecode FROM phonecodes WHERE id = ".$phoneCodeId;
+            $phoneCodeInfo = $this->getByQuery($query);
+            if(count($phoneCodeInfo) > 0) {
+                return $phoneCodeInfo[0]['phonecode'];
+            }else{
+                return "";
+            }
+        }else{
+            return "";
+        }
+        
+    }
+
     private function buildQuery($postData){
         $query = '';
 

@@ -237,6 +237,122 @@ class Memailqueue extends MY_Model
         return $data;
     }
 
+    /**
+     * 9
+     */
+    public function eventStartNext24h($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Event reminder </p>
+                            <p>Hello ' . $emailData['name'] . ',</p>
+                            <p>&nbsp;</p>
+                            <p> ' . $emailData['event_subject'] . ' held by '.$emailData['business_name'].' is going to happen in the next 24 hours.</p>
+                            <p>&nbsp;</p>
+                            <p> We are looking forward to greeting you in our event.</p>
+                            <p>&nbsp;</p>
+                            <p> You can view details of your events by clicking the button below. </p>
+                            <p>&nbsp;</p>
+                           
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">View event</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
+    /**
+     * 10
+     */
+    public function eventUpdated($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Your event has been updated. </p>
+                            <p>Hello ' . $emailData['name'] . ',</p>
+                            <p>&nbsp;</p>
+                            <p> ' . $emailData['event_subject'] . ' held by '.$emailData['business_name'].' has been updated. </p>
+                            <p>&nbsp;</p>
+                            <p>We sincerely apologize for any inconvenience this may caused and look forward to greeting you in our event.</p>
+                            <p>&nbsp;</p>
+                            <p> Thank you for understanding. </p>
+                            <p>&nbsp;</p>
+                            <p> You can view details of the event by clicking the button below.</p>
+                            <p>&nbsp;</p>
+
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">View event</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
+    /**
+     * 11
+     */
+    public function eventCancelled($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Your event has been cancelled. </p>
+                            <p>Hello ' . $emailData['name'] . ',</p>
+                            <p>&nbsp;</p>
+                            <p> ' . $emailData['event_subject'] . ' held by '.$emailData['business_name'].' as been cancelled. </p>
+                            <p>&nbsp;</p>
+                            <p>We sincerely apologize for any inconvenience this may caused and look forward to greeting you in our next event.</p>
+                            <p>&nbsp;</p>
+                            <p> Thank you for understanding. </p>
+                            <p>&nbsp;</p>
+                            <p> You can view details of other events by clicking the button below.</p>
+                            <p>&nbsp;</p>
+
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="' . site_url('events.html') . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">View events</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
+    /**
+     * 12
+     */
+    public function reservationDeclined($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Your reservation has been declined. </p>
+                            <p>Dear ' . $emailData['name'] . ',</p>
+                            <p>&nbsp;</p>
+                            <p> This email serves as a notification that you have cancelled your appointment at ' . $emailData['business_name'] . ' on ' . $emailData['date_arrived'] . ' at ' . $emailData['time_arrived'] . '.</p>
+                            <p>&nbsp;</p>
+                            <p>If you would like to reschedule, please contact <Business name> by clicking the button below. </p>
+                            <p>&nbsp;</p>
+                            <p> Thank you for understanding. </p>
+                            <p>&nbsp;</p>
+                            <p> Kind regards, <br>
+                            ' . $emailData['business_name'] . '
+                            </p>
+                            <p>&nbsp;</p>
+
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="tel:' . $emailData['business_phone'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">Contact Us</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
     public function createEmail($emailData = array(), $emailType = 0)
     {
         try {
@@ -440,6 +556,75 @@ class Memailqueue extends MY_Model
                     $emailContent = $this->subscriptionExtended($emailData);
                     $dataInsert = array(
                         'email_subject' => 'Your subscription for '.$emailData['business_name'].' was successful',
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if ($emailType == 9) {
+                    // Event start in next 24h
+                    $emailContent = $this->eventStartNext24h($emailData);
+                    $dataInsert = array(
+                        'email_subject' => 'Event reminder',
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if ($emailType == 10) {
+                    // Event updated
+                    $emailContent = $this->eventUpdated($emailData);
+                    $dataInsert = array(
+                        'email_subject' => 'Your event has been updated.',
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if ($emailType == 11) {
+                    // Event cancelled
+                    $emailContent = $this->eventCancelled($emailData);
+                    $dataInsert = array(
+                        'email_subject' => 'Your event has been cancelled.',
                         'email_content' => $emailContent,
                         'email_from' => EMAIL_FROM,
                         'email_from_name' => EMAIL_FROM_NAME,
