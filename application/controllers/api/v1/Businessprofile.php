@@ -228,7 +228,7 @@ class Businessprofile extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'has_image', 'review_star', 'order_by'));
             $postData['customer_id'] = $customer['customer_id'];
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {

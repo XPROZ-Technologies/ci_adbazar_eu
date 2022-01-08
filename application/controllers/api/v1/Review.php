@@ -17,7 +17,7 @@ class Review extends MY_Controller {
             $this->load->model('Mcustomerreviews');
             $checkExit = $this->Mcustomerreviews->getFieldValue(array('customer_id' => $postData['customer_id'], 'business_id' => $postData['business_id']), 'id', 0);
             if($checkExit) {
-                $this->error204('Customers already have left a review');
+                $this->error204($this->lang->line('customers_have_left_a_review'));
                 die;
             }
 
@@ -25,23 +25,23 @@ class Review extends MY_Controller {
                 if(!isset($postData['review_star'])) $postData['review_star'] = 0;
                 if(empty($postData['review_star'])) $postData['review_star'] = 0;
                 if(!isset($postData['customer_comment'])) {
-                    $this->error204('customer_comment: not transmitted');
+                    $this->error204('customer_comment: '.$this->lang->line('not_transmitted'));
                     die;
                 }
                 if(empty($postData['customer_comment'])) {
-                    $this->error204('Customer comment is not null');
+                    $this->error204($this->lang->line('customer_comment_is_not_null'));
                     die;
                 }
 
                 if(!empty($postData['customer_comment']) && strlen($postData['customer_comment']) <= 4) {
-                    $this->error204('Review content must be above 4 characters');
+                    $this->error204($this->lang->line('review_content_must_be_above_4_characters'));
                     die;
                 }
                 
                 if(isset($_FILES['photo']) && !empty($_FILES['photo'])){
                     $file = $_FILES['photo'];
                     if ($file['error'] > 0) {
-                        $this->error204('Photo upload failed');
+                        $this->error204($this->lang->line('photo_upload_failed'));
                         die;
                     } else {
                         $names = explode('.', $file['name']);
@@ -57,7 +57,7 @@ class Review extends MY_Controller {
                                 $postData['photo'] = $photo;
                                 $postData['is_image'] = 1;
                             } else {
-                                $this->error204('Upload photo failed');
+                                $this->error204($this->lang->line('photo_upload_failed'));
                                 die;
                             }
                         } else {
@@ -77,7 +77,7 @@ class Review extends MY_Controller {
                     die;
                 }
             } else {
-                $this->error204('Business does not exist');
+                $this->error204($this->lang->line('business_does_not_exist'));
                 die;
             }
 
@@ -95,7 +95,7 @@ class Review extends MY_Controller {
             $this->load->model('Mcustomerreviews');
 
             if(empty($postData['business_comment'])){
-                $this->error204('Reply cannot blank');
+                $this->error204($this->lang->line('reply_cannot_be_blank'));
                 die;
             }
             
@@ -112,7 +112,7 @@ class Review extends MY_Controller {
                     die;
                 }
             } else {
-                $this->error204('Business does not exist');
+                $this->error204($this->lang->line('business_does_not_exist'));
                 die;
             }
 
@@ -138,7 +138,7 @@ class Review extends MY_Controller {
                     die;
                 }
             } else {
-                $this->error204('Business does not exist');
+                $this->error204($this->lang->line('business_does_not_exist'));
                 die;
             }
 
@@ -164,7 +164,7 @@ class Review extends MY_Controller {
                     die;
                 }
             } else {
-                $this->error204('Business does not exist');
+                $this->error204($this->lang->line('business_does_not_exist'));
                 die;
             }
 
