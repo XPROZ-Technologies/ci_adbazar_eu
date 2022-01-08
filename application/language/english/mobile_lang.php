@@ -213,4 +213,5 @@ $lang["turn_off_receive_booking_failed"] = "Turn off receive booking failed";
 $lang["customer_comment_is_not_null"] = "Customer comment is not null";
 $lang["review_content_must_be_above_4_characters"] = "Review content must be above 4 characters";
 $lang["is_annual_payment_must_be_0_or_1"] = "Is annual payment must be 0 or 1";
+$lang["login_please_active_your_account_email_link"] = "Please active your account. A verification link has been sent to your email.";
 
