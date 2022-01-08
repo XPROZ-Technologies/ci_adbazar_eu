@@ -319,15 +319,15 @@ abstract class MY_Controller extends CI_Controller
                 } else if ($notificationInfo['notification_type'] == 2) {
                     // Event start in next 24h
 
-                    $eventInfo = $this->Mevents->get(array($notificationInfo['item_id']));
-                    $businessInfo = $this->Mbusinessprofiles->get(array($notificationInfo['business_id']));
+                    $eventInfo = $this->Mevents->get($notificationInfo['item_id']);
+                    $businessInfo = $this->Mbusinessprofiles->get($notificationInfo['business_id']);
 
                     if (!empty($eventInfo['event_image'])) {
                         $notificationImg = EVENTS_PATH . $eventInfo['event_image'];
                     }
                     
 
-                    $find = array('<BUSINESS_NAME>', 'EVENT_NAME');
+                    $find = array('<BUSINESS_NAME>', '<EVENT_NAME>');
                     $replace = array($businessInfo['business_name'], $eventInfo['event_subject']);
                     $notificationText = str_replace($find, $replace, $this->lang->line('noti_event_happen_in_next_24h'));
 
@@ -336,14 +336,14 @@ abstract class MY_Controller extends CI_Controller
                 } else if ($notificationInfo['notification_type'] == 3) {
                     // Event updated
 
-                    $eventInfo = $this->Mevents->get(array($notificationInfo['item_id']));
-                    $businessInfo = $this->Mbusinessprofiles->get(array($notificationInfo['business_id']));
+                    $eventInfo = $this->Mevents->get($notificationInfo['item_id']);
+                    $businessInfo = $this->Mbusinessprofiles->get($notificationInfo['business_id']);
 
                     if (!empty($eventInfo['event_image'])) {
                         $notificationImg = EVENTS_PATH . $eventInfo['event_image'];
                     }
                     
-                    $find = array('<BUSINESS_NAME>', 'EVENT_NAME');
+                    $find = array('<BUSINESS_NAME>', '<EVENT_NAME>');
                     $replace = array($businessInfo['business_name'], $eventInfo['event_subject']);
                     $notificationText = str_replace($find, $replace, $this->lang->line('noti_event_updated'));
 
@@ -351,15 +351,15 @@ abstract class MY_Controller extends CI_Controller
                 } else if ($notificationInfo['notification_type'] == 4) {
                     // Event cancelled
 
-                    $eventInfo = $this->Mevents->get(array($notificationInfo['item_id']));
-                    $businessInfo = $this->Mbusinessprofiles->get(array($notificationInfo['business_id']));
+                    $eventInfo = $this->Mevents->get($notificationInfo['item_id']);
+                    $businessInfo = $this->Mbusinessprofiles->get($notificationInfo['business_id']);
 
                     if (!empty($eventInfo['event_image'])) {
                         $notificationImg = EVENTS_PATH . $eventInfo['event_image'];
                     }
                     
 
-                    $find = array('<BUSINESS_NAME>', 'EVENT_NAME');
+                    $find = array('<BUSINESS_NAME>', '<EVENT_NAME>');
                     $replace = array($businessInfo['business_name'], $eventInfo['event_subject']);
                     $notificationText = str_replace($find, $replace, $this->lang->line('noti_event_canceled'));
 
