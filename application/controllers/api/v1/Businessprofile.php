@@ -382,4 +382,16 @@ class Businessprofile extends MY_Controller {
             $this->error500();
         }
     }
+
+    public function oneDay() {
+        $this->load->model(array('Mbusinessprofiles'));
+        $expiredDate = $this->Mbusinessprofiles->oneDayExpiredDate();
+        $this->success200($expiredDate);
+    }
+
+    public function threeDay() {
+        $this->load->model(array('Mbusinessprofiles'));
+        $expiredDate = $this->Mbusinessprofiles->threeDayExpiredDate();
+        $this->success200($expiredDate);
+    }
 }

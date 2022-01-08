@@ -33,8 +33,13 @@ class Reservation extends MY_Controller {
                 $timeConfig = $timeConfig[0];
                 
                 $checkTimeNow = $this->Mreservationconfigs->checkTimeNow($dayId, $postData['business_id']);
+                if($checkTimeNow) {
+                    if(strtotime(ddMMyyyy($postData['book_date'], 'Y-m-d')) == strtotime(date('Y-m-d'))) {
+                        $checkTimeNow = true;
+                    }else $checkTimeNow = false;
+                }
                 
-                $times = getRangeHours($timeConfig['start_time'], $timeConfig['end_time'], 30, $checkTimeNow);
+                $times = getRangeHours($timeConfig['start_time'], $timeConfig['end_time'], $timeConfig['duration'], $checkTimeNow);
                 $this->success200(array('list' => $times));
             } else {
                 $this->error204('There is no suitable time period, please choose another date');
@@ -475,5 +480,23 @@ class Reservation extends MY_Controller {
         } catch (\Throwable $th) {
             $this->error500();
         }
+    }
+
+    public function reservation15m() {
+        $dateBefore = date('Y-m-d H:i',strtotime('-15 minutes', strtotime(date('Y-m-d H:i')) ));
+
+        $this->load->model(array('Mcustomerreservations'));
+        $list = $this->Mcustomerreservations->reservation15m($dateBefore);
+        if(count($list) > 0) {
+            for($i = 0; $i < count($list); $i++) {
+                //current_date = (date_arrived + time_arrived) - 15 phút date_arrived, time_arrived
+                $dateArrived =  date('Y-m-d H:i',strtotime($list[$i]['date_arrived'].' '.$list[$i]['time_arrived']));
+                $currentDate= date('Y-m-d H:i',strtotime('-15 minutes', strtotime($dateArrived) ));
+                $list[$i]['current_date'] = $currentDate;
+            }
+        }
+        $this->success200($list);
+        die;
+
     }
 }

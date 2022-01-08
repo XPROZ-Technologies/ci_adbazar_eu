@@ -164,4 +164,9 @@ class Mcustomerreservations extends MY_Model {
                     GROUP BY service_types.id";
         return $this->getByQuery($query, array($customerId));
     }
+
+    public function reservation15m($dateBefore) {
+        $query = "SELECT id, book_code, customer_id, business_profile_id, date_arrived, time_arrived FROM `customer_reservations` WHERE book_status_id = 2";
+        return $this->getByQuery($query);
+    }
 }

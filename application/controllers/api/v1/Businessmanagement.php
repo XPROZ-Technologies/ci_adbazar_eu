@@ -185,14 +185,14 @@ class Businessmanagement extends MY_Controller {
 
         unset($postData['open_hours'], $postData['service_type_ids']);
         
-        $message = 'Create a successful business profile';
+        $message = $this->lang->line('create_a_successful_business_profile');
         $isEdit = false;
         if($businessId > 0) {
             $isEdit = true;
             $postData['customer_id'] = $customer['customer_id'];
             $postData['updated_at'] = getCurentDateTime();
             $postData['updated_by'] = 0;
-            $message = 'Update a successful business profile';
+            $message = $this->lang->line('update_a_successful_business_profile');
         } else {
             if(intval($isTrial) == STATUS_NUMBER_ONE){
                 $date = strtotime("+3 months", strtotime(date('Y-m-d H:i:s')));
@@ -324,7 +324,7 @@ class Businessmanagement extends MY_Controller {
                             'page_count' => $pageCount,
                             'totals' => $rowCount,
                             'list' => $photos
-                        ), 'Upload image successfully');
+                        ), $this->lang->line('upload_image_successfully'));
                     } else {
                         $this->error204($this->lang->line('image_upload_failed'));
                         die;
@@ -355,7 +355,7 @@ class Businessmanagement extends MY_Controller {
                     die;
                 }
                 if(empty($postData['videos']) || count($postData['videos']) <= 0) {
-                    $this->error204('Please add video link');
+                    $this->error204($this->lang->line('please_add_video_link'));
                     die;
                 }
                 $flag = $this->Mbusinessvideos->saveVideos($postData['videos'], $postData['business_id']);
@@ -381,9 +381,9 @@ class Businessmanagement extends MY_Controller {
                         'page_count' => $pageCount,
                         'totals' => $rowCount,
                         'list' => $videos
-                    ), 'Download video successfully');
+                    ), $this->lang->line('download_video_successfully'));
                 } else {
-                    $this->error204('Add failed video');
+                    $this->error204($this->lang->line('add_failed_video'));
                     die;
                 }
             } else {
@@ -439,7 +439,7 @@ class Businessmanagement extends MY_Controller {
                     $this->success200(array('coupon_id' => $flag), $this->lang->line('additional_successful1'));
                     die;
                 } else {
-                    $this->error204("Failed");
+                    $this->error204($this->lang->line('failed'));
                     die;
                 }
             }
@@ -513,7 +513,7 @@ class Businessmanagement extends MY_Controller {
                     
                 }
 
-                $message = 'Create success';
+                $message = $this->lang->line('update_successful');
                 if ($couponId == 0) {
                     $postData['coupon_status_id'] = STATUS_ACTIVED;
                     $postData['created_by'] = 0;
@@ -525,7 +525,7 @@ class Businessmanagement extends MY_Controller {
                         $this->error204('The time allowed to edit coupons has expired');
                         die;
                     }
-                    $message = 'Update successful';
+                    $message = $this->lang->line('update_successful');
                     $postData['updated_by'] = 0;
                     $postData['updated_at'] = getCurentDateTime();
                 }
