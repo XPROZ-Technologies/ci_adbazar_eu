@@ -277,7 +277,7 @@ abstract class MY_Controller extends CI_Controller
 
     public function getNotificationLists($searchData = array(), $perPage = 50, $page = 0)
     {
-        $this->loadModel(array('Mbusinessprofiles', 'Mcustomernotifications', 'Mcustomers', 'Mcustomerreservations', 'Mcustomerreviews'));
+        $this->loadModel(array('Mbusinessprofiles', 'Mevents', 'Mcustomernotifications', 'Mcustomers', 'Mcustomerreservations', 'Mcustomerreviews'));
 
         $lists = $this->Mcustomernotifications->search($searchData, $perPage, $page);
 
