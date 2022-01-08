@@ -104,7 +104,7 @@ class Customer extends MY_Controller {
                     $postData['token'] = $token;
                     $postData['language_id'] = $this->languageId;
                     $postData['device_token'] = isset($postData['device_token']) ? $postData['device_token'] : NULL;
-                    unset($postData['facebook_token'], $postData['google_token'], $postData['customer_password'], $postData['customer_email']);
+                    unset($postData['facebook_token'], $postData['google_token'], $postData['customer_password'], $postData['customer_email'], $postData['customer_first_name'], $postData['customer_last_name']);
                    $flag = $this->Mcustomers->save($postData, $customer['id']);
                 }
                 if($flag) {
