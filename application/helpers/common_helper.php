@@ -409,9 +409,9 @@ if(!function_exists('getRangeHours')) {
         
 
         $startPoint = $minuteStart;
-        if($minuteCurrent > $minuteStart){
-            $startPoint = $minuteCurrent;
-        }
+        // if($minuteCurrent > $minuteStart){
+        //     $startPoint = $minuteCurrent;
+        // }
 
         $endPoint = $minuteEnd;
 
@@ -420,12 +420,16 @@ if(!function_exists('getRangeHours')) {
         $arrHours = array();
         for($i = $startPoint; $i <= $endPoint; $i = $i + $duration){
             $tmpHours = intdiv($i, 60);
-            if(strlen($tmpHours) == 1) $tmpHours = "0".$tmpHours;
-            
             $tmpMin = ($i % 60);
-            if(strlen($tmpMin) == 1) $tmpMin = "0".$tmpMin;
+            
+            $currItemLoop = $tmpHours * 60 + $tmpMin;
 
-            $arrHours[] = $tmpHours.':'. $tmpMin;
+            if($minuteCurrent <= $currItemLoop) {
+                if(strlen($tmpHours) == 1) $tmpHours = "0".$tmpHours;
+                if(strlen($tmpMin) == 1) $tmpMin = "0".$tmpMin;
+
+                $arrHours[] = $tmpHours.':'. $tmpMin;
+            }
         }
 
         return $arrHours;

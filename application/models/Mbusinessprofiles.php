@@ -274,4 +274,14 @@ class Mbusinessprofiles extends MY_Model {
         $query = "SELECT id, business_name, business_avatar FROM business_profiles WHERE business_status_id > 0 ".$this->buildQuery($postData);
         return $this->getByQuery($query);
     }
+
+    public function oneDayExpiredDate() {
+        $query = 'SELECT id FROM business_profiles  WHERE business_status_id = 2 AND DATE_FORMAT(expired_date, "%Y-%m-%d") = DATE_FORMAT(NOW(),"%Y-%m-%d")';
+        return $this->getByQuery($query);
+    } 
+
+    public function threeDayExpiredDate() {
+        $query = 'SELECT id FROM business_profiles  WHERE business_status_id = 2 AND DATE_FORMAT(expired_date, "%Y-%m-%d") - INTERVAL 3 DAY = DATE_FORMAT(NOW(),"%Y-%m-%d")';
+        return $this->getByQuery($query);
+    }
 }
