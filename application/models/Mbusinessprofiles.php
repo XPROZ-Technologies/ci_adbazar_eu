@@ -275,6 +275,21 @@ class Mbusinessprofiles extends MY_Model {
         return $this->getByQuery($query);
     }
 
+    public function getNameById($businessId = 0) {
+        if($businessId > 0) {
+            $query = "SELECT business_name FROM business_profiles WHERE business_id = ".$businessId;
+            $businessInfo = $this->getByQuery($query);
+            if(count($businessInfo) > 0) {
+                return $businessInfo[0]['business_name'];
+            }else {
+                return "";
+            }
+        } else {
+            return "";
+        }
+        
+    }
+
     public function oneDayExpiredDate() {
         $query = 'SELECT id FROM business_profiles  WHERE business_status_id = 2 AND DATE_FORMAT(expired_date, "%Y-%m-%d") = DATE_FORMAT(NOW(),"%Y-%m-%d")';
         return $this->getByQuery($query);
