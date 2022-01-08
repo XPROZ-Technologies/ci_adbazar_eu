@@ -182,12 +182,12 @@ class Reservation extends MY_Controller {
                 $this->error204('Reservation does not belong to this customer');
                 die;
             }
-            if($reservation['book_status_id'] != 2) {
+            if($reservation['book_status_id'] != STATUS_ACTIVED) {
                 $this->error204('Reservation is not in an active state so it cannot be canceled');
                 die;
             }
             $flag = $this->Mcustomerreservations->save(array(
-                'book_status_id' => 3,
+                'book_status_id' => STATUS_NUMBER_THREE,
                 'updated_at' => getCurentDateTime()
             ), $postData['reservation_id']);
             if($flag) {
@@ -234,13 +234,13 @@ class Reservation extends MY_Controller {
                 $this->error204('Reservation does not belong to this business');
                 die;
             }
-            if($reservation['book_status_id'] != 2) {
+            if($reservation['book_status_id'] != STATUS_ACTIVED) {
                 $this->error204('Reservation is not in an active state so it cannot be canceled');
                 die;
             }
 
             $flag = $this->Mcustomerreservations->save(array(
-                'book_status_id' => 4,
+                'book_status_id' => STATUS_NUMBER_FOR,
                 'updated_at' => getCurentDateTime()
             ), $postData['reservation_id']);
             if($flag) {
@@ -413,7 +413,7 @@ class Reservation extends MY_Controller {
                     "duration" => floatval($config['duration']),
                     "start_time" => ddMMyyyy($config['start_time'], 'H:i'),
                     "end_time" => ddMMyyyy($config['end_time'], 'H:i'),
-                    "reservation_config_status_id" => 2
+                    "reservation_config_status_id" => STATUS_ACTIVED
                 );
             } else {
                 $dataConfig = array(
@@ -423,7 +423,7 @@ class Reservation extends MY_Controller {
                     "duration" => 0,
                     "start_time" => '',
                     "end_time" => '',
-                    "reservation_config_status_id" => 1
+                    "reservation_config_status_id" => STATUS_NUMBER_ONE
                 );
             }
             $this->success200($dataConfig);

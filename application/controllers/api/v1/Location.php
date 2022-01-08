@@ -19,8 +19,8 @@ class Location extends MY_Controller {
             for($i = 0; $i < count($locations); $i++){
                 $location = $locations[$i];
                 $openStatusId = $this->checkBusinessOpenHours($location['business_profile_id']);
-                if($openStatusId) $openStatusId = 2;
-                else $openStatusId = 1;
+                if($openStatusId) $openStatusId = STATUS_ACTIVED;
+                else $openStatusId = STATUS_NUMBER_ONE;
                 $arrLocation[] = array(
                     'id' => $location['id'],
                     'lat' => $location['lat'],

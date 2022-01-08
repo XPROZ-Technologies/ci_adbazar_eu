@@ -27,7 +27,7 @@ class Customer extends MY_Controller {
     public function login() {
         try {
             $this->openAllCors();
-            $postData = $this->arrayFromPostRawJson(array('login_type_id', 'customer_email', 'customer_password', 'facebook_token', 'google_token', 'device_token'));
+            $postData = $this->arrayFromPostRawJson(array('login_type_id', 'customer_email', 'customer_password', 'facebook_token', 'google_token', 'device_token', 'customer_first_name', 'customer_last_name'));
             $this->load->model('Mcustomers');
             $customer = [];
             $customerNewId = 0;
@@ -73,11 +73,14 @@ class Customer extends MY_Controller {
                    die;
                 }
                 $postData['facebook_id'] = $postData['facebook_token'];
+                $postData['customer_first_name'] = isset($postData['customer_first_name']) ? $postData['customer_first_name'] : '';
+                $postData['customer_last_name'] = isset($postData['customer_last_name']) ? $postData['customer_last_name'] : '';
                 $customer = $this->Mcustomers->login($postData['facebook_id'], '', $postData['login_type_id']);
                 if(!$customer) {
                    $customerNewId = 0;
                    $customer['id'] = 0;
-                } 
+                   $postData['customer_status_id'] = STATUS_WAITING_ACTIVE; 
+                }
             } else if (intval($postData['login_type_id']) == 2) { // google
                 $this->client->setAccessToken($postData['google_token']);
                 try {
@@ -120,11 +123,11 @@ class Customer extends MY_Controller {
                     if(empty($customer['customer_avatar'])) $customer['customer_avatar'] = base_url(CUSTOMER_PATH.NO_IMAGE);
                     else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
                     unset($customer['device_token'], $customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
-                    $customer['need_email'] = 0;
+                    $needEmail = 0;
                     if($customerNewId == 0 && intval($postData['login_type_id']) == 1) {
-                        $customer['need_email'] = 1;
+                        $needEmail = 1;
                     }
-                    $this->success200(array('customer' => $customer));
+                    $this->success200(array('customer' => $customer, 'need_email' => $needEmail));
                 }
                 
             } else {
@@ -206,8 +209,8 @@ class Customer extends MY_Controller {
                 //     die;
                 // }
                 $data['facebook_id'] = $postData['facebook_token'];
-                $data['customer_first_name'] = $postData['customer_first_name'];
-                $data['customer_last_name'] = $postData['customer_last_name'];
+                $data['customer_first_name'] = isset($postData['customer_first_name']) ? $postData['customer_first_name'] : '';
+                $data['customer_last_name'] = isset($postData['customer_last_name']) ? $postData['customer_last_name'] : '';
                 $data['customer_email'] = $postData['customer_email'];
                 $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
             } else if (intval($postData['login_type_id']) == 2) { //google
@@ -526,7 +529,7 @@ class Customer extends MY_Controller {
                         'event_id' => $postData['event_id']
                     ),
                     array(
-                        'customer_event_status_id' => 0
+                        'customer_event_status_id' => STATUS_NUMBER_ZERO
                     )
                 );
                 if($flag) {

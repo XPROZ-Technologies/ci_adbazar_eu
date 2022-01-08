@@ -42,7 +42,7 @@ class Coupon extends MY_Controller {
             }
 
             $postData['customer_id'] = $customer['customer_id'];
-            $this->load->model(array('Mcoupons', 'Mbusinessprofiles'));
+            $this->load->model(array('Mcoupons', 'Mbusinessprofiles', 'Mcustomercoupons'));
             $rowCount = $this->Mcoupons->getCountInApi($postData, $isAdmin);
             $coupons = [];
             $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
@@ -71,6 +71,21 @@ class Coupon extends MY_Controller {
 
                     $coupons[$i]['coupon_image'] = !empty($coupons[$i]['coupon_image']) ? base_url(COUPONS_PATH.$coupons[$i]['coupon_image']) : '';
                     $coupons[$i]['coupon_used'] = !empty($coupons[$i]['coupon_used']) ? $coupons[$i]['coupon_used'] : 0;
+                    
+                    if($isAdmin) {
+                        $isRecall = 1;
+                        $isEdit = 0;
+                        $checkExitRecall = $this->Mcustomercoupons->getFieldValue(array('coupon_id' =>  $coupons[$i]['id'], 'customer_coupon_status_id' => STATUS_ACTIVED), 'id', 0);
+                        if($checkExitRecall > 0) $isRecall = 0;
+
+                        $createdAt20 = strtotime(date('Y-m-d H:i:s',strtotime('+20 minutes', strtotime($coupons[$i]['created_at']) )));
+                        if(strtotime(getCurentDateTime()) <= $createdAt20) {
+                            $isEdit = 1;
+                        }
+                        $coupons[$i]['is_recall'] = $isRecall;
+                        $coupons[$i]['is_edit'] = $isEdit;
+                    }
+                    unset($coupons[$i]['created_at']);
                 }
             }
             $businessInfo = (object) [];
@@ -173,7 +188,7 @@ class Coupon extends MY_Controller {
                 $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
-            $this->load->model('Mcoupons');
+            $this->load->model(array('Mcoupons', 'Mcustomercoupons'));
 
             $isAdmin = false;
             if(isset($postData['is_business']) && $postData['is_business'] == 1) {
@@ -201,18 +216,33 @@ class Coupon extends MY_Controller {
                 $startDate = strtotime($detail['start_date']);
                 $endDate = strtotime($detail['end_date']);
                 // 1: Upcoming : start_date > current_date
-                if($startDate > $currentDate && $detail['coupon_status_id'] == 2) {
-                    $detail['coupon_status_id'] = 1;
-                } else if ($startDate < $currentDate && $currentDate < $endDate && $detail['coupon_status_id'] == 2) {
+                if($startDate > $currentDate && $detail['coupon_status_id'] == STATUS_ACTIVED) {
+                    $detail['coupon_status_id'] = STATUS_NUMBER_ONE;
+                } else if ($startDate < $currentDate && $currentDate < $endDate && $detail['coupon_status_id'] == STATUS_ACTIVED) {
                     // 2: Ongoing: start_date < current_date < end_date
-                    $detail['coupon_status_id'] = 2;
-                } else if ($endDate < $currentDate && $detail['coupon_status_id'] != 1) {
+                    $detail['coupon_status_id'] = STATUS_ACTIVED;
+                } else if ($endDate < $currentDate && $detail['coupon_status_id'] != STATUS_NUMBER_ONE) {
                     // 3: End: end_date < current_date
-                    $detail['coupon_status_id'] = 3;
-                } else if($detail['coupon_status_id'] == 1) {
-                    $detail['coupon_status_id'] = 4;
+                    $detail['coupon_status_id'] = STATUS_NUMBER_THREE;
+                } else if($detail['coupon_status_id'] == STATUS_NUMBER_ONE) {
+                    $detail['coupon_status_id'] = STATUS_NUMBER_FOR;
                 }
                 $detail['coupon_used'] = !empty($detail['coupon_used']) ? $detail['coupon_used'] : 0;
+
+                if($isAdmin) {
+                    $isRecall = 1;
+                    $isEdit = 0;
+                    $checkExitRecall = $this->Mcustomercoupons->getFieldValue(array('coupon_id' =>  $detail['id'], 'customer_coupon_status_id' => STATUS_ACTIVED), 'id', 0);
+                    if($checkExitRecall > 0) $isRecall = 0;
+
+                    $createdAt20 = strtotime(date('Y-m-d H:i:s',strtotime('+20 minutes', strtotime($detail['created_at']) )));
+                    if(strtotime(getCurentDateTime()) <= $createdAt20) {
+                        $isEdit = 1;
+                    }
+                    $detail['is_recall'] = $isRecall;
+                    $detail['is_edit'] = $isEdit;
+                }
+                unset($detail['created_at']);
                 
                 $this->success200($detail);
             } else {

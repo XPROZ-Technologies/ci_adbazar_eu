@@ -156,7 +156,7 @@ class Review extends MY_Controller {
             $this->load->model('Mcustomerreviews');
             
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
-                $flag = $this->Mcustomerreviews->save(array('customer_review_status_id' => 0, 'updated_at' =>  getCurentDateTime(), 'updated_by' => $customer['customer_id']), $postData['review_id']);
+                $flag = $this->Mcustomerreviews->save(array('customer_review_status_id' => STATUS_NUMBER_ZERO, 'updated_at' =>  getCurentDateTime(), 'updated_by' => $customer['customer_id']), $postData['review_id']);
                 if($flag) {
                     $this->success200('', $this->lang->line('additional_successful1'));
                 } else {
