@@ -227,6 +227,10 @@ class Businessprofile extends MY_Controller {
             $customer = $this->apiCheckLogin(true);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'has_image', 'review_star', 'order_by'));
             $postData['customer_id'] = $customer['customer_id'];
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: not transmitted');
+                die;
+            }
             if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
                 $postData['api'] = true;
                 $this->load->model(array('Mcustomerreviews', 'Mcustomers', 'Mbusinessprofiles'));
@@ -239,9 +243,9 @@ class Businessprofile extends MY_Controller {
                 $reviews = [];
                 $allowReview = 0;
                 if(intval($postData['customer_id']) > 0) {
-                    $checkCustomerReviewId = $this->Mcustomerreviews->getFieldValue(array('customer_id' => $postData['customer_id'], 'customer_review_status_id' => 2), 'id', 0);
-                    if($checkCustomerReviewId == 0) $allowReview = 0;
-                    else $allowReview = 1;
+                    $checkCustomerReviewId = $this->Mcustomerreviews->getFieldValue(array('customer_id' => $postData['customer_id'], 'business_id' => $postData['business_id'], 'customer_review_status_id' => 2), 'id', 0);
+                    if($checkCustomerReviewId == 0) $allowReview = 1;
+                    else $allowReview = 0;
                 }
                 if($rowCount > 0) {
                     $pageCount = ceil($rowCount / $perPage);
@@ -355,10 +359,12 @@ class Businessprofile extends MY_Controller {
                 'totals' => $rowCount,
                 'list' => $datas
             );
+            $allowBook = STATUS_NUMBER_ONE;
             if($postData['business_id'] > 0) {
                 $business = $this->Mbusinessprofiles->get($postData['business_id']);
                 $businessInfo = '';
                 if($business) {
+                    if(intval($business['allow_book']) == STATUS_ACTIVED) $allowBook = STATUS_ACTIVED;
                     $businessInfo = array(
                         'id' => $business['id'],
                         'business_name' => $business['business_name'],
@@ -369,6 +375,7 @@ class Businessprofile extends MY_Controller {
                 }
                 $dataReturn['business_info'] = $businessInfo;
             }
+            $dataReturn['allow_book'] = $allowBook;
             
             $this->success200($dataReturn);
         } catch (\Throwable $th) {

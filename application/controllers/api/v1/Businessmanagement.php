@@ -142,17 +142,17 @@ class Businessmanagement extends MY_Controller {
             }
         }
         $this->validateBusiness($postData);
-        $openHours =  json_decode($postData['open_hours'], true);
+        $openHours =  json_decode(stripslashes($postData['open_hours']), true);
         $openingHours = array();
         foreach ($this->Mconstants->dayIds as $day_id => $itemHours) {
             if (isset($openHours[$day_id])) {
                 $itemHours = $openHours[$day_id];
                 $itemDay = array();
                 $itemDay['day_id'] = $day_id;
-                if (isset($itemHours['open_status_id']) && $itemHours['open_status_id'] == '2' && !empty($itemHours['start_time']) && !empty($itemHours['end_time'])) {
+                if (isset($itemHours['open_status_id']) && intval($itemHours['open_status_id']) == STATUS_ACTIVED && !empty($itemHours['start_time']) && !empty($itemHours['end_time'])) {
                     $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
                 } else {
-                    $itemDay['opening_hours_status_id'] = 1;
+                    $itemDay['opening_hours_status_id'] = STATUS_NUMBER_ONE;
                 }
 
                 if (!empty($itemHours['start_time'])) {
@@ -169,7 +169,7 @@ class Businessmanagement extends MY_Controller {
             } else {
                 $itemDay = array();
                 $itemDay['day_id'] = $day_id;
-                $itemDay['opening_hours_status_id'] = 1;
+                $itemDay['opening_hours_status_id'] = STATUS_NUMBER_ONE;
                 $itemDay['start_time'] = "00:00";
                 $itemDay['end_time'] = "00:00";
             }
@@ -194,13 +194,13 @@ class Businessmanagement extends MY_Controller {
             $postData['updated_by'] = 0;
             $message = 'Update a successful business profile';
         } else {
-            if(intval($isTrial) == 1){
+            if(intval($isTrial) == STATUS_NUMBER_ONE){
                 $date = strtotime("+3 months", strtotime(date('Y-m-d H:i:s')));
                 $postData['expired_date'] = date('Y-m-d H:i:s', $date);
                 
                 $postData['business_status_id'] = STATUS_ACTIVED;
             } else {
-                $postData['business_status_id'] = 1;
+                $postData['business_status_id'] = STATUS_NUMBER_ONE;
             }
             $postData['plan_id'] = $planId;
             $postData['customer_id'] = $customer['customer_id'];
@@ -210,8 +210,8 @@ class Businessmanagement extends MY_Controller {
         $this->load->model(array('Mopeninghours', 'Mbusinessservicetype'));
         $flag = $this->Mbusinessprofiles->save($postData, $businessId);
         if($flag) {
-            if(intval($isTrial) == 1 && $businessId <= 0){
-                $this->Mcustomers->save(array('free_trial' => 1, 'free_trial_type' => $planId), $customer['customer_id']);
+            if(intval($isTrial) == STATUS_NUMBER_ONE && $businessId <= 0){
+                $this->Mcustomers->save(array('free_trial' => STATUS_NUMBER_ONE, 'free_trial_type' => $planId), $customer['customer_id']);
             }
             //open hours
             if (!empty($openingHours)) {
@@ -519,6 +519,12 @@ class Businessmanagement extends MY_Controller {
                     $postData['created_by'] = 0;
                     $postData['created_at'] = getCurentDateTime();
                 } else {
+                    $coupon = $this->Mcoupons->get($couponId);
+                    $createdAt20 = strtotime(date('Y-m-d H:i:s',strtotime('+20 minutes', strtotime($coupon['created_at']) )));
+                    if(strtotime(getCurentDateTime()) > $createdAt20) {
+                        $this->error204('The time allowed to edit coupons has expired');
+                        die;
+                    }
                     $message = 'Update successful';
                     $postData['updated_by'] = 0;
                     $postData['updated_at'] = getCurentDateTime();
@@ -1003,7 +1009,7 @@ class Businessmanagement extends MY_Controller {
             }
             $coupon = $this->Mcoupons->get($couponId);
            
-            if(!$coupon || ($coupon && $coupon['coupon_status_id'] != 2)) {
+            if(!$coupon || ($coupon && $coupon['coupon_status_id'] != STATUS_ACTIVED)) {
                 $this->error204('Coupon code does not exist');
                 die;
             }
@@ -1015,16 +1021,16 @@ class Businessmanagement extends MY_Controller {
             $dateNow = strtotime(getCurentDateTime());
             $message = 'Code has expired or cannot be used';
             if ($endDate < $dateNow || $startDate > $dateNow) {
-                $dataReturn['customer_coupon_status_id'] = 3; //Mã đã hết hạn hoặc chưa thể sử dụng
+                $dataReturn['customer_coupon_status_id'] = STATUS_NUMBER_THREE; //Mã đã hết hạn hoặc chưa thể sử dụng
             } else {
                 $customercoupons = $this->Mcustomercoupons->getBy(array('customer_coupon_code' => $postData['customer_code'], 'customer_id' => $customer['customer_id'], 'customer_coupon_status_id >' => 0));
                 $customercoupons = $customercoupons[0];
-                if($customercoupons['customer_coupon_status_id'] == 2) {
+                if($customercoupons['customer_coupon_status_id'] == STATUS_ACTIVED) {
                     $message = 'Valid code';
-                    $dataReturn['customer_coupon_status_id'] = 2; //Mã hợp lệ
-                } else if($customercoupons['customer_coupon_status_id'] == 1) {
+                    $dataReturn['customer_coupon_status_id'] = STATUS_ACTIVED; //Mã hợp lệ
+                } else if($customercoupons['customer_coupon_status_id'] == STATUS_NUMBER_ONE) {
                     $message = 'Code already used';
-                    $dataReturn['customer_coupon_status_id'] = 1; // Mã đã được sử dụng
+                    $dataReturn['customer_coupon_status_id'] = STATUS_NUMBER_ONE; // Mã đã được sử dụng
                 }
             }
             $dataReturn['customer_code'] = $postData['customer_code'];
@@ -1066,7 +1072,7 @@ class Businessmanagement extends MY_Controller {
             $customerCoupons = $customerCoupons[0];
             $coupon = $this->Mcoupons->get($customerCoupons['coupon_id']);
            
-            if(!$coupon || ($coupon && $coupon['coupon_status_id'] != 2)) {
+            if(!$coupon || ($coupon && $coupon['coupon_status_id'] != STATUS_ACTIVED)) {
                 $this->error204('Coupon code does not exist');
                 die;
             }
@@ -1257,7 +1263,7 @@ class Businessmanagement extends MY_Controller {
                 die;
             }
 
-            $planId = $this->Mpaymentplans->getFieldValue(array('id' => $postData['plan_id'], 'plan_status_id' => 2), 'id', 0);
+            $planId = $this->Mpaymentplans->getFieldValue(array('id' => $postData['plan_id'], 'plan_status_id' => STATUS_ACTIVED), 'id', 0);
             if($planId == 0) {
                 $this->error204('Payment plans do not exist');
                 die;
@@ -1295,12 +1301,13 @@ class Businessmanagement extends MY_Controller {
                 $this->error204('coupon_id: not transmitted');
                 die;
             }
-            $this->load->model(array('Mbusinessprofiles', 'Mcoupons'));
+            $this->load->model(array('Mbusinessprofiles', 'Mcoupons', 'Mcustomercoupons'));
             $business = $this->Mbusinessprofiles->get($postData['business_id']);
             if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
                 $this->error204('Business does not belong to this customer');
                 die;
             }
+            
             $coupon = $this->Mcoupons->get($postData['coupon_id']);
             if(empty($coupon)) {
                 $this->error204('Coupon id does not exist');
@@ -1312,8 +1319,13 @@ class Businessmanagement extends MY_Controller {
             }
             $currentDate = strtotime(date('Y-m-d'));
             $startDate = strtotime($coupon['start_date']);
-            if($coupon['coupon_status_id'] != 2 || $startDate < $currentDate) {
+            if($coupon['coupon_status_id'] != STATUS_ACTIVED || $startDate < $currentDate) {
                 $this->error204('Coupon inactive or not yet due');
+                die;
+            }
+            $checkExitRecall = $this->Mcustomercoupons->getFieldValue(array('coupon_id' =>  $postData['coupon_id'], 'customer_coupon_status_id' => STATUS_ACTIVED), 'id', 0);
+            if($checkExitRecall > 0) {
+                $this->error204("Can not recall coupon");
                 die;
             }
             $flag = $this->Mcoupons->save(array(

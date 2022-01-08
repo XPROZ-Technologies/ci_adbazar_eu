@@ -87,6 +87,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 //common
 define('STATUS_FREE_TRIAL', 0);
 define('STATUS_ACTIVED', 2);
+define('STATUS_NUMBER_ZERO', 0);
 define('STATUS_NUMBER_ONE', 1);
 define('STATUS_NUMBER_THREE', 3);
 define('STATUS_NUMBER_FOR', 4);

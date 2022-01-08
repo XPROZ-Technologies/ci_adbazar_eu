@@ -61,14 +61,14 @@ class Event extends MY_Controller {
                     $startDate = strtotime($events[$i]['start_date'].' '.$events[$i]['start_time'].":00");
                     $endDate = strtotime($events[$i]['end_date'].' '.$events[$i]['start_time'].":00");
                     //  1: Upcoming : start_date start_time > current_date
-                    if($startDate > $currentDate && $events[$i]['event_status_id'] == 2) {
-                        $events[$i]['event_status_id'] = 1;
-                    } else if ($startDate < $currentDate && $currentDate < $endDate && $events[$i]['event_status_id'] == 2) {
+                    if($startDate > $currentDate && $events[$i]['event_status_id'] == STATUS_ACTIVED) {
+                        $events[$i]['event_status_id'] = STATUS_NUMBER_ONE;
+                    } else if ($startDate < $currentDate && $currentDate < $endDate && $events[$i]['event_status_id'] == STATUS_ACTIVED) {
                         // 2: Ongoing: start_date start_time < current_date < end_date end_time
-                        $events[$i]['event_status_id'] = 2;
+                        $events[$i]['event_status_id'] = STATUS_ACTIVED;
                     } else if ($endDate < $currentDate && $events[$i]['event_status_id'] != 4) {
                         // 3: Expired: end_date end_time < current_date
-                        $events[$i]['event_status_id'] = 3;
+                        $events[$i]['event_status_id'] = STATUS_NUMBER_THREE;
                     } 
                     $events[$i]['event_image'] = !empty($events[$i]['event_image']) ? base_url(EVENTS_PATH.$events[$i]['event_image']) : '';
                 }
@@ -226,9 +226,9 @@ class Event extends MY_Controller {
                     'business_address' => $detail['business_address'],
                     'business_phone' => $detail['business_phone']
                 );
-                $detail['joined_event'] = 2;
+                $detail['joined_event'] = STATUS_ACTIVED;
                 if(!empty($detail['customer_id']) && intval($detail['customer_id']) == intval($postData['customer_id'])) {
-                    $detail['joined_event'] = 1;
+                    $detail['joined_event'] = STATUS_NUMBER_ONE;
                 }
                 $this->load->model('Mcustomerevents');
                 $detail['number_of_joined'] = $this->Mcustomerevents->getCountUsedApi(array('event_id' => $detail['id']));

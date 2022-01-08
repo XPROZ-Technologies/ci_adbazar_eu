@@ -123,7 +123,7 @@ class Notification extends MY_Controller {
                 die;
             }
             
-            $notificationId = $this->Mcustomernotifications->save(array('notification_status_id' => 1), $postData['notification_id']);
+            $notificationId = $this->Mcustomernotifications->save(array('notification_status_id' => STATUS_NUMBER_ONE), $postData['notification_id']);
 
             $this->success200('', $this->lang->line('22112021_successful1'));
             die;

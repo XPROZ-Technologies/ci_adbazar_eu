@@ -208,6 +208,7 @@ class Mcoupons extends MY_Model {
                     coupons.coupon_status_id,
                     DATE_FORMAT( coupons.start_date, '%Y/%m/%d' ) AS `start_date`,
                     DATE_FORMAT( coupons.end_date, '%Y/%m/%d' ) AS end_date,
+                    coupons.created_at,
                     ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used 
                 FROM
                     coupons
@@ -286,6 +287,7 @@ class Mcoupons extends MY_Model {
                     business_profiles.business_avatar,
                     business_profiles.business_address,
                     business_profiles.business_phone,
+                    coupons.created_at,
                     CASE WHEN customer_coupons.customer_id > 0 THEN customer_coupons.customer_coupon_code ELSE '' END AS coupon_code,
                     ( SELECT count( id ) FROM customer_coupons WHERE customer_coupons.coupon_id = coupons.id AND customer_coupons.customer_coupon_status_id = ? GROUP BY coupon_id ) AS coupon_used
                 FROM

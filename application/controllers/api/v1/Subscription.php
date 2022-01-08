@@ -61,7 +61,7 @@ class Subscription extends MY_Controller {
                 die;
             }
             
-            $flag = $this->Mbusinesspayments->save(array('payment_status_id' => 2), $businessPaymentId);
+            $flag = $this->Mbusinesspayments->save(array('payment_status_id' => STATUS_ACTIVED), $businessPaymentId);
            
             if ($flag > 0) {
                 
