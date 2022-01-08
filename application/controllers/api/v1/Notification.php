@@ -55,7 +55,7 @@ class Notification extends MY_Controller {
                         "id" => $notiData[$i]['id'],
                         "title" => $notiData[$i]['text'],
                         "created_date" => ddMMyyyy($notiData[$i]['created_at'], 'Y-m-d H:i'),
-                        "image" => $notiData[$i]['image'],
+                        "image" => base_url($notiData[$i]['image']),
                         "message" => $notiData[$i]['text'],
                         "item_id" => $notiData[$i]['item_id'],
                         "business_id" => $notiData[$i]['business_id'],
