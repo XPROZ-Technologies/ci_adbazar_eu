@@ -101,7 +101,7 @@ class Customer extends MY_Controller {
                         die;
                     }
                 } catch (\Throwable $th) {
-                    $this->error204('Google SDK returned an error');
+                    $this->error204($this->lang->line('google_sdk_returned_an_error'));
                     die;
                 }
             }
@@ -177,7 +177,7 @@ class Customer extends MY_Controller {
                     die;
                 }
                 if(!checkemail($postData['customer_email'])) {
-                    $this->error204('Email not exist');
+                    $this->error204($this->lang->line('email_does_not_exist'));
                     die;
                 }
                 $this->validatePassWord($postData);
@@ -230,7 +230,7 @@ class Customer extends MY_Controller {
                         die;
                     }
                 } catch (\Throwable $th) {
-                    $this->error204('Google SDK returned an error');
+                    $this->error204($this->lang->line('google_sdk_returned_an_error'));
                     die;
                 }
             }
@@ -264,7 +264,7 @@ class Customer extends MY_Controller {
                         );
                         $this->Memailqueue->createEmail($dataEmail, 99);
                     }
-                    $this->success200($flag, 'Successfully register account');
+                    $this->success200($flag, $this->lang->line('successfully_registered_account'));
                 } else {
                     $this->error400($this->lang->line('registration_failed'));
                     die;
@@ -284,7 +284,7 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('customer_email', 'customer_id'));
             $customer_email = strtolower($postData['customer_email']);
             if (empty($customer_email)) {
-                $this->error204('Please enter your email');
+                $this->error204($this->lang->line('please_enter_a_valid_email'));
                 die;
             }
             $this->load->model('Mcustomers');
@@ -292,7 +292,7 @@ class Customer extends MY_Controller {
             // Check existing customer with waiting active and login by facebook
             $customerId = $this->Mcustomers->getFieldValue(array('id' => $postData['customer_id'], 'login_type_id' => 1, 'customer_status_id' => STATUS_WAITING_ACTIVE), 'id', 0);
             if($customerId == 0) {
-                $this->error204('Customer doest not exist');
+                $this->error204($this->lang->line('customer_doest_not_exist'));
                 die;
             }
 
@@ -315,9 +315,9 @@ class Customer extends MY_Controller {
                     'token' => $token_active
                 );
                 $this->Memailqueue->createEmail($dataEmail, 99);
-                $this->success200($flag, 'Update email for customer success, please check your email and active your account');
+                $this->success200($flag, $this->lang->line('update_email_for_customer_success_please_check_your_email_and_active_your_account'));
             }else{
-                $this->error400('Update email for customer failed');
+                $this->error400($this->lang->line('update_email_for_customer_failed'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -330,7 +330,7 @@ class Customer extends MY_Controller {
             $postData = $this->arrayFromPostRawJson(array('customer_email'));
             $customer_email = strtolower($postData['customer_email']);
             if (empty($customer_email)) {
-                $this->error204('Please enter your email');
+                $this->error204($this->lang->line('please_enter_your_email'));
                 die;
             }
             $this->load->model('Mcustomers');
@@ -368,7 +368,7 @@ class Customer extends MY_Controller {
                     die;
                 }
             } else {
-                $this->error204('Email not exist');
+                $this->error204($this->lang->line('email_does_not_exist'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -396,14 +396,14 @@ class Customer extends MY_Controller {
                 );
                 $flag = $this->Mcustomers->save($dataUpdate, $customerId);
                 if($flag > 0){
-                    $this->success200($flag, 'Successfully reset password');
+                    $this->success200($flag, $this->lang->line('successfully_reset_password'));
                     die;
                 }else{
-                    $this->error400('Resetting password failed');
+                    $this->error400($this->lang->line('resetting_password_failed'));
                     die;
                 }
             } else {
-                $this->error204('Token not exist or expired');
+                $this->error204($this->lang->line('token_does_not_exist_or_is_expired'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -418,7 +418,7 @@ class Customer extends MY_Controller {
             die;
         }
         if ($postData['customer_password'] != $postData['confirm_password']) {
-            $this->error204('Password does not match');
+            $this->error204($this->lang->line('password_does_not_match'));
             die;
         }
         $uppercase = preg_match('@[A-Z]@', $postData['customer_password']);
@@ -496,11 +496,11 @@ class Customer extends MY_Controller {
                     $this->success200('', $this->lang->line('successfully_removed!'));
                     die;
                 } else {
-                    $this->error204('Coupon code not exist');
+                    $this->error204($this->lang->line('coupon_code_does_not_exist'));
                     die;
                 }
             } else {
-                $this->error204('Coupon code not exist');
+                $this->error204($this->lang->line('coupon_code_does_not_exist'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -536,11 +536,11 @@ class Customer extends MY_Controller {
                     $this->success200('', $this->lang->line('you_have_left_the_event'));
                     die;
                 } else {
-                    $this->error204('The event has ended or does not exist');
+                    $this->error204($this->lang->line('the_event_has_ended_or_does_not_exist'));
                     die;
                 }
             } else {
-                $this->error204('The event has ended or does not exist');
+                $this->error204($this->lang->line('the_event_has_ended_or_does_not_exist'));
                 die;
             }
         } catch (\Throwable $th) {

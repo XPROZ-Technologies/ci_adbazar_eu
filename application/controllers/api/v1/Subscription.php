@@ -14,50 +14,50 @@ class Subscription extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'payment_id', 'subscription_id', 'token', 'ba_token', 'status'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['payment_id'])) {
-                $this->error204('payment_id: not transmitted');
+                $this->error204('payment_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['subscription_id'])) {
-                $this->error204('subscription_id: not transmitted');
+                $this->error204('subscription_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['token'])) {
-                $this->error204('token: not transmitted');
+                $this->error204('token: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['ba_token'])) {
-                $this->error204('ba_token: not transmitted');
+                $this->error204('ba_token: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(empty($postData['payment_id'])) {
-                $this->error204('payment_id: is not empty');
+                $this->error204('payment_id: '.$this->lang->line('is_not_empty'));
                 die;
             }
             if(empty($postData['subscription_id'])) {
-                $this->error204('subscription_id: is not empty');
+                $this->error204('subscription_id: '.$this->lang->line('is_not_empty'));
                 die;
             }
             if(empty($postData['token'])) {
-                $this->error204('token: is not empty');
+                $this->error204('token: '.$this->lang->line('is_not_empty'));
                 die;
             }
             if(empty($postData['ba_token'])) {
-                $this->error204('ba_token: is not empty');
+                $this->error204('ba_token: '.$this->lang->line('is_not_empty'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mbusinesspayments', 'Mpaymentplans'));
             $business = $this->Mbusinessprofiles->get($postData['business_id']);
             if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             $businessPaymentId = $this->Mbusinesspayments->getFieldValue(array('id' => $postData['payment_id'], 'business_profile_id' => $postData['business_id']), 'id', 0);
             if($businessPaymentId == 0) {
-                $this->error204('Payment does not belong to this business');
+                $this->error204($this->lang->line('payment_does_not_belong_to_this_business'));
                 die;
             }
             
@@ -93,10 +93,10 @@ class Subscription extends MY_Controller {
                // nếu plan_type_id =1  30 , 2: 365
                 $this->Mbusinessprofiles->save($dataUpdate, $business['id']);
 
-                $this->success200(array('business_id' => $flag), 'Payment success');
+                $this->success200(array('business_id' => $flag), $this->lang->line('payment_success'));
                 die;
             } else {
-                $this->error204('Payment failed');
+                $this->error204($this->lang->line('payment_failed'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -110,13 +110,13 @@ class Subscription extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles'));
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
             if($checkExit == 0) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             $dataUpate = array(
@@ -127,10 +127,10 @@ class Subscription extends MY_Controller {
             );
             $flag = $this->Mbusinessprofiles->save($dataUpdate, $checkExit);
             if ($flag > 0) {
-                $this->success200(array('business_id' => $flag), 'Canceling the package successfully');
+                $this->success200(array('business_id' => $flag), $this->lang->line('successfully_cancelled_the_package'));
                 die;
             } else {
-                $this->error204('Unsuccessful package cancellation');
+                $this->error204($this->lang->line('unsuccessful_package_cancellation'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -144,18 +144,18 @@ class Subscription extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'is_annual_payment'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
            
             if(!in_array($postData['is_annual_payment'], [0, 1])) {
-                $this->error204('Is annual payment must be 0 or 1');
+                $this->error204($this->lang->line('is_annual_payment_must_be_0_or_1'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles'));
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
             if($checkExit == 0) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             $dataUpdate = array(
@@ -164,10 +164,10 @@ class Subscription extends MY_Controller {
             );
             $flag = $this->Mbusinessprofiles->save($dataUpdate, $checkExit);
             if ($flag > 0) {
-                $this->success200(array('business_id' => $flag), 'Canceling the package successfully');
+                $this->success200(array('business_id' => $flag), $this->lang->line('successfully_cancelled_the_package'));
                 die;
             } else {
-                $this->error204('Unsuccessful package cancellation');
+                $this->error204($this->lang->line('unsuccessful_package_cancellation'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -181,13 +181,13 @@ class Subscription extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mpaymentplans'));
             $business = $this->Mbusinessprofiles->get($postData['business_id']);
             if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             $paymentPlan = $this->Mpaymentplans->get($business['plan_id']);

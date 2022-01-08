@@ -513,7 +513,7 @@ class Businessmanagement extends MY_Controller {
                     
                 }
 
-                $message = $this->lang->line('update_successful');
+                $message = $this->lang->line('created_successfully');
                 if ($couponId == 0) {
                     $postData['coupon_status_id'] = STATUS_ACTIVED;
                     $postData['created_by'] = 0;
@@ -522,7 +522,7 @@ class Businessmanagement extends MY_Controller {
                     $coupon = $this->Mcoupons->get($couponId);
                     $createdAt20 = strtotime(date('Y-m-d H:i:s',strtotime('+20 minutes', strtotime($coupon['created_at']) )));
                     if(strtotime(getCurentDateTime()) > $createdAt20) {
-                        $this->error204('The time allowed to edit coupons has expired');
+                        $this->error204($this->lang->line('the_time_allowed_to_edit_coupons_has_expired'));
                         die;
                     }
                     $message = $this->lang->line('update_successful');
@@ -555,7 +555,7 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page', 'search_text', 'selected_date', 'book_status_id', 'order_by'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mcustomerreservations', 'Mcustomers'));
@@ -563,7 +563,7 @@ class Businessmanagement extends MY_Controller {
             $postData['api'] = true;
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('customer_id' => $postData['customer_id'], 'id' => $postData['business_id']), 'id', 0);
             if($checkExit == 0) {
-                $this->error204('Business profile does not belong to this customer');
+                $this->error204($this->lang->line('business_profile_does_not_belong_to_this_customer'));
                 die;
             }
             $rowCount = $this->Mcustomerreservations->getCountApi($postData);
@@ -619,7 +619,7 @@ class Businessmanagement extends MY_Controller {
             if(isset($_FILES['event_image']) && !empty($_FILES['event_image'])){
                 $file = $_FILES['event_image'];
                 if ($file['error'] > 0) {
-                    $this->error204('Event image update failed');
+                    $this->error204($this->lang->line('event_image_update_failed'));
                     die;
                 } else {
                     $event_image = explode('.', $file['name']);
@@ -634,7 +634,7 @@ class Businessmanagement extends MY_Controller {
                             $event_image = replaceFileUrl($filePath, COUPONS_PATH);
                             $postData['event_image'] = $event_image;
                         } else {
-                            $this->error204('Event image update failed');
+                            $this->error204($this->lang->line('event_image_update_failed'));
                             die;
                         }
                     } else {
@@ -657,10 +657,10 @@ class Businessmanagement extends MY_Controller {
 
             $flag = $this->Mevents->save($postData);
             if ($flag > 0) {
-                $this->success200(array('event_id' => $flag), 'Successful event creation');
+                $this->success200(array('event_id' => $flag), $this->lang->line('successful_event_creation'));
                 die;
             } else {
-                $this->error204('Successful event failed');
+                $this->error204($this->lang->line('event_creation_failed'));
                 die;
             }
 
@@ -671,69 +671,69 @@ class Businessmanagement extends MY_Controller {
 
     private function checkValidateCreateEvent($postData) {
         if(!isset($postData['business_id'])) {
-            $this->error204('business_id: not transmitted');
+            $this->error204('business_id: '.$this->lang->line('not_transmitted'));
             die;
         }
        
         if(!isset($postData['event_subject'])) {
-            $this->error204('event_subject: not transmitted');
+            $this->error204('event_subject: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['start_date'])) {
-            $this->error204('start_date: not transmitted');
+            $this->error204('start_date: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['start_time'])) {
-            $this->error204('start_time: not transmitted');
+            $this->error204('start_time: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['end_date'])) {
-            $this->error204('end_date: not transmitted');
+            $this->error204('end_date: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['end_time'])) {
-            $this->error204('end_time: not transmitted');
+            $this->error204('end_time: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['event_description'])) {
-            $this->error204('event_description: not transmitted');
+            $this->error204('event_description: '.$this->lang->line('not_transmitted'));
             die;
         }
         $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
         if(!$checkExit) {
-            $this->error204('Business does not belong to this customer');
+            $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
             die;
         }
         if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['start_time'])) {
-            $this->error204('start_time: not time format');
+            $this->error204('start_time: '.$this->lang->line('incorrect_time_format'));
             die;
         }
         if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['end_time'])) {
-            $this->error204('end_time: not time format');
+            $this->error204('end_time: '.$this->lang->line('incorrect_time_format'));
             die;
         }
         if(empty($postData['event_subject'])) {
-            $this->error204('Event subject must not be empty');
+            $this->error204($this->lang->line('event_subject_must_not_be_empty'));
             die;
         }
         if(empty($postData['start_date'])) {
-            $this->error204('Start date must not be empty');
+            $this->error204($this->lang->line('start_date_must_not_be_empty'));
             die;
         }
         if(empty($postData['start_time'])) {
-            $this->error204('Start time must not be empty');
+            $this->error204($this->lang->line('start_time_must_not_be_empty'));
             die;
         }
         if(empty($postData['end_date'])) {
-            $this->error204('End date must not be empty');
+            $this->error204($this->lang->line('end_date_must_not_be_empty'));
             die;
         }
         if(empty($postData['end_time'])) {
-            $this->error204('End time must not be empty');
+            $this->error204($this->lang->line('end_time_must_not_be_empty'));
             die;
         }
         if(empty($postData['event_description'])) {
-            $this->error204('Event description must not be empty');
+            $this->error204($this->lang->line('event_description_must_not_be_empty'));
             die;
         }
         $startDate = ddMMyyyy($postData['start_date'], 'Y-m-d');
@@ -747,16 +747,16 @@ class Businessmanagement extends MY_Controller {
         $dateNow = strtotime(getCurentDateTime());
 
         if($startDateTime < $dateNow) {
-            $this->error204('Start date and start time must not be less than the current date and time');
+            $this->error204($this->lang->line('start_date_and_start_time_must_not_be_earlier_than_the_current_date_and_time'));
             die;
         }
         if($endDateTime < $dateNow) {
-            $this->error204('End date and end time must not be less than the current date and time');
+            $this->error204($this->lang->line('end_date_and_end_time_must_not_be_earlier_than_the_current_date_and_time'));
             die;
         }
 
         if($endDateTime < $startDateTime) {
-            $this->error204('Start date and start time must not be less than the current end date and end time');
+            $this->error204($this->lang->line('start_date_and_start_time_must_not_be_earlier_than_the_current_end_date_and_end_time'));
             die;
         }
 
@@ -775,10 +775,10 @@ class Businessmanagement extends MY_Controller {
             unset($dataUpdate['id']);
             $flag = $this->Mevents->save($dataUpdate, $eventId);
             if ($flag > 0) {
-                $this->success200(array('event_id' => $flag), 'Successful event update');
+                $this->success200(array('event_id' => $flag), $this->lang->line('successful_event_update'));
                 die;
             } else {
-                $this->error204('Event update failed');
+                $this->error204($this->lang->line('event_update_failed'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -788,24 +788,24 @@ class Businessmanagement extends MY_Controller {
 
     private function checkValedateUpdateEvent($postData) {
         if(!isset($postData['business_id'])) {
-            $this->error204('business_id: not transmitted');
+            $this->error204('business_id: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['event_id'])) {
-            $this->error204('event_id: not transmitted');
+            $this->error204('event_id: '.$this->lang->line('not_transmitted'));
             die;
         }
 
         $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
         if(!$checkExit) {
-            $this->error204('Business does not belong to this customer');
+            $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
             die;
         }
 
         $event = $this->Mevents->get($postData['event_id']);
         
         if($event && $event['business_profile_id'] != $postData['business_id'] && $event['event_status_id'] != STATUS_ACTIVED) {
-            $this->error204('Event does not belong to this Business');
+            $this->error204($this->lang->line('event_does_not_belong_to_this_business'));
             die;
         }
 
@@ -822,52 +822,52 @@ class Businessmanagement extends MY_Controller {
         $dataUpdate = [];
         if($dateNow <= $startDateTime) {
             if(!isset($postData['end_date'])) {
-                $this->error204('end_date: not transmitted');
+                $this->error204('end_date: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['end_time'])) {
-                $this->error204('end_time: not transmitted');
+                $this->error204('end_time: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['event_description'])) {
-                $this->error204('event_description: not transmitted');
+                $this->error204('event_description: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['end_time'])) {
-                $this->error204('end_time: not time format');
+                $this->error204('end_time: '.$this->lang->line('incorrect_time_format'));
                 die;
             }
             if(empty($postData['event_subject'])) {
-                $this->error204('Event subject must not be empty');
+                $this->error204($this->lang->line('event_subject_must_not_be_empty'));
                 die;
             }
             if(empty($postData['end_date'])) {
-                $this->error204('End date must not be empty');
+                $this->error204($this->lang->line('end_date_must_not_be_empty'));
                 die;
             }
             if(empty($postData['end_time'])) {
-                $this->error204('End time must not be empty');
+                $this->error204($this->lang->line('end_time_must_not_be_empty'));
                 die;
             }
             if(empty($postData['event_description'])) {
-                $this->error204('Event description must not be empty');
+                $this->error204($this->lang->line('event_description_must_not_be_empty'));
                 die;
             }
 
             if($endDateTime < $dateNow) {
-                $this->error204('End date and end time must not be less than the current date and time');
+                $this->error204($this->lang->line('end_date_and_end_time_must_not_be_earlier_than_the_current_date_and_time'));
                 die;
             }
     
             if($endDateTime < $startDateTime) {
-                $this->error204('Start date and start time must not be less than the current end date and end time');
+                $this->error204($this->lang->line('start_date_and_start_time_must_not_be_earlier_than_the_current_end_date_and_end_time'));
                 die;
             }
             $dataEventImage = '';
             if(isset($_FILES['event_image']) && !empty($_FILES['event_image'])){
                 $file = $_FILES['event_image'];
                 if ($file['error'] > 0) {
-                    $this->error204('Event image update failed');
+                    $this->error204($this->lang->line('event_image_update_failed'));
                     die;
                 } else {
                     $event_image = explode('.', $file['name']);
@@ -882,11 +882,11 @@ class Businessmanagement extends MY_Controller {
                             $event_image = replaceFileUrl($filePath, COUPONS_PATH);
                             $dataEventImage = $event_image;
                         } else {
-                            $this->error204('Event image update failed');
+                            $this->error204($this->lang->line('event_image_update_failed'));
                             die;
                         }
                     } else {
-                        $this->error204('The image is not in the correct format: jpeg, jpg, png');
+                        $this->error204($this->lang->line('the_image_is_not_in_the_correct_format:_jpeg,_jpg,_png'));
                         die;
                     }
                 }
@@ -904,23 +904,23 @@ class Businessmanagement extends MY_Controller {
             );
         } else if ($dateNow >= $startDateTime && $dateNow >= $endDateTime){
             if(!isset($postData['end_date'])) {
-                $this->error204('end_date: not transmitted');
+                $this->error204('end_date: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['end_time'])) {
-                $this->error204('end_time: not transmitted');
+                $this->error204('end_time: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['end_time'])) {
-                $this->error204('end_time: not time format');
+                $this->error204('end_time: '.$this->lang->line('incorrect_time_format'));
                 die;
             }
             if(empty($postData['end_date'])) {
-                $this->error204('End date must not be empty');
+                $this->error204($this->lang->line('end_date_must_not_be_empty'));
                 die;
             }
             if(empty($postData['end_time'])) {
-                $this->error204('End time must not be empty');
+                $this->error204($this->lang->line('end_time_must_not_be_empty'));
                 die;
             }
             $dataUpdate = array(
@@ -942,24 +942,24 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'event_id'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['event_id'])) {
-                $this->error204('event_id: not transmitted');
+                $this->error204('event_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
 
             $this->load->model(array('Mbusinessprofiles', 'Mevents'));
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
             if(!$checkExit) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
 
             $checkExitEvent = $this->Mevents->getFieldValue(array('id' => $postData['event_id'], 'business_profile_id' => $postData['business_id'], 'event_status_id' => 2), 'id', 0);
             if(!$checkExitEvent) {
-                $this->error204('Event does not belong to this Business');
+                $this->error204($this->lang->line('event_does_not_belong_to_this_business'));
                 die;
             }
             $cancelData = array(
@@ -968,10 +968,10 @@ class Businessmanagement extends MY_Controller {
             );
             $flag = $this->Mevents->save($cancelData, $postData['event_id']);
             if ($flag > 0) {
-                $this->success200('', 'Successful event cancellation');
+                $this->success200('', $this->lang->line('successful_event_cancellation'));
                 die;
             } else {
-                $this->error204('Canceling failed event');
+                $this->error204($this->lang->line('canceling_event_failed'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -985,32 +985,32 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'customer_code'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['customer_code'])) {
-                $this->error204('customer_code: not transmitted');
+                $this->error204('customer_code: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(empty($postData['customer_code'])) {
-                $this->error204('Customer code is not null');
+                $this->error204($this->lang->line('customer_code_is_null'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mcustomercoupons', 'Mcoupons'));
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
             if(!$checkExit) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             $couponId = $this->Mcustomercoupons->getFieldValue(array('customer_coupon_code' => $postData['customer_code'], 'customer_id' => $customer['customer_id'], 'customer_coupon_status_id >' => 0), 'coupon_id', 0);
             if(!$couponId) {
-                $this->error204('Coupon code does not exist');
+                $this->error204($this->lang->line('coupon_code_does_not_exist'));
                 die;
             }
             $coupon = $this->Mcoupons->get($couponId);
            
             if(!$coupon || ($coupon && $coupon['coupon_status_id'] != STATUS_ACTIVED)) {
-                $this->error204('Coupon code does not exist');
+                $this->error204($this->lang->line('coupon_code_does_not_exist'));
                 die;
             }
 
@@ -1046,26 +1046,26 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'customer_code'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['customer_code'])) {
-                $this->error204('customer_code: not transmitted');
+                $this->error204('customer_code: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(empty($postData['customer_code'])) {
-                $this->error204('Customer code is not null');
+                $this->error204($this->lang->line('customer_code_is_null'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mcustomercoupons', 'Mcoupons'));
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
             if(!$checkExit) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             $customerCoupons = $this->Mcustomercoupons->getBy(array('customer_coupon_code' => $postData['customer_code'], 'customer_id' => $customer['customer_id'], 'customer_coupon_status_id' => 2));
             if(count($customerCoupons) == 0) {
-                $this->error204('Coupon code does not exist');
+                $this->error204($this->lang->line('coupon_code_does_not_exist'));
                 die;
             }
 
@@ -1073,7 +1073,7 @@ class Businessmanagement extends MY_Controller {
             $coupon = $this->Mcoupons->get($customerCoupons['coupon_id']);
            
             if(!$coupon || ($coupon && $coupon['coupon_status_id'] != STATUS_ACTIVED)) {
-                $this->error204('Coupon code does not exist');
+                $this->error204($this->lang->line('coupon_code_does_not_exist'));
                 die;
             }
             $startDate = strtotime(ddMMyyyy($coupon['start_date'], 'Y-m-d H:i:s'));
@@ -1087,14 +1087,14 @@ class Businessmanagement extends MY_Controller {
                     'updated_at' => getCurentDateTime()
                 ), $customerCoupons['id']);
                 if ($flag > 0) {
-                    $this->success200('', 'Activation code successful');
+                    $this->success200('', $this->lang->line('activation_code_successful'));
                     die;
                 } else {
-                    $this->error204('Activation code failed');
+                    $this->error204($this->lang->line('activation_code_failed'));
                     die;
                 }
             } else {
-                $this->error204('Code has expired or cannot be used');
+                $this->error204($this->lang->line('code_has_expired_or_cannot_be_used'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -1108,7 +1108,7 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mpaymentplans'));
@@ -1117,12 +1117,12 @@ class Businessmanagement extends MY_Controller {
             if(empty($checkExit)) $flag = true;
             if($checkExit['customer_id'] != $customer['customer_id'] && $customer['business_status_id'] <=0 ) $flag = true;
             if($flag) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             $paymentPlan = $this->Mpaymentplans->get($checkExit['plan_id']);
             if(!$paymentPlan || ($paymentPlan && $paymentPlan['plan_status_id'] != STATUS_ACTIVED)) {
-                $this->error204('Payment Plans do not exist');
+                $this->error204($this->lang->line('payment_plans_do_not_exist'));
                 die;
             }
             $paymentAmount = floatval($paymentPlan['plan_amount']);
@@ -1149,29 +1149,29 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'payment_name', 'payment_address', 'payment_company_id', 'payment_company_vat_id'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['payment_name'])) {
-                $this->error204('payment_name: not transmitted');
+                $this->error204('payment_name: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['payment_address'])) {
-                $this->error204('payment_address: not transmitted');
+                $this->error204('payment_address: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(empty($postData['payment_name'])) {
-                $this->error204('Payment name cannot be empty');
+                $this->error204($this->lang->line('payment_name_cannot_be_empty'));
                 die;
             }
             if(empty($postData['payment_address'])) {
-                $this->error204('Payment address cannot be empty');
+                $this->error204($this->lang->line('payment_address_cannot_be_empty'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mbusinesspayments', 'Mpaymentplans'));
             $business = $this->Mbusinessprofiles->get($postData['business_id']);
             if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
 
@@ -1191,10 +1191,10 @@ class Businessmanagement extends MY_Controller {
                     "payment_id" => $flag,
                     "paypal_plan_id" => $this->Mpaymentplans->getFieldValue(array('id' => $business['plan_id']), 'plan_id', '')
                 );
-                $this->success200($dataReturn, 'Success save billing info');
+                $this->success200($dataReturn, $this->lang->line('successfully_saved_billing_info'));
                 die;
             } else {
-                $this->error204('Failed to save payment information');
+                $this->error204($this->lang->line('failed_to_save_payment_information'));
                 die;
             }
             
@@ -1209,7 +1209,7 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'currency_code'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
 
@@ -1218,7 +1218,7 @@ class Businessmanagement extends MY_Controller {
             $this->load->model(array('Mbusinessprofiles', 'Mpaymentplans'));
             $business = $this->Mbusinessprofiles->get($postData['business_id']);
             if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             $postData['plan_currency_id'] = $this->Mconstants->currenyCodes[$postData['currency_code']];
@@ -1249,23 +1249,23 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'plan_id'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['plan_id'])) {
-                $this->error204('plan_id: not transmitted');
+                $this->error204('plan_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mpaymentplans'));
             $business = $this->Mbusinessprofiles->get($postData['business_id']);
             if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
 
             $planId = $this->Mpaymentplans->getFieldValue(array('id' => $postData['plan_id'], 'plan_status_id' => STATUS_ACTIVED), 'id', 0);
             if($planId == 0) {
-                $this->error204('Payment plans do not exist');
+                $this->error204($this->lang->line('payment_plans_do_not_exist'));
                 die;
             }
 
@@ -1277,10 +1277,10 @@ class Businessmanagement extends MY_Controller {
                 $business['id']
             );
             if($flag) {
-                $this->success200(array('business_id' => $flag), 'Update successfully');
+                $this->success200(array('business_id' => $flag), $this->lang->line('update_successful'));
                 die;
             } else {
-                $this->error204('Update failed');
+                $this->error204($this->lang->line('update_failed'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -1294,38 +1294,38 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'coupon_id'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['coupon_id'])) {
-                $this->error204('coupon_id: not transmitted');
+                $this->error204('coupon_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mcoupons', 'Mcustomercoupons'));
             $business = $this->Mbusinessprofiles->get($postData['business_id']);
             if(empty($business) || (!empty($business) && $business['customer_id'] != $customer['customer_id'] && $business['business_status_id'] <= 0)) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             
             $coupon = $this->Mcoupons->get($postData['coupon_id']);
             if(empty($coupon)) {
-                $this->error204('Coupon id does not exist');
+                $this->error204($this->lang->line('coupon_code_does_not_exist'));
                 die;
             }
             if($coupon['business_profile_id'] != $postData['business_id']) {
-                $this->error204('Coupon id does not busines profile');
+                $this->error204($this->lang->line('coupon_id_does_not_busines_profile'));
                 die;
             }
             $currentDate = strtotime(date('Y-m-d'));
             $startDate = strtotime($coupon['start_date']);
             if($coupon['coupon_status_id'] != STATUS_ACTIVED || $startDate < $currentDate) {
-                $this->error204('Coupon inactive or not yet due');
+                $this->error204($this->lang->line('coupon_inactive_or_not_yet_due'));
                 die;
             }
             $checkExitRecall = $this->Mcustomercoupons->getFieldValue(array('coupon_id' =>  $postData['coupon_id'], 'customer_coupon_status_id' => STATUS_ACTIVED), 'id', 0);
             if($checkExitRecall > 0) {
-                $this->error204("Can not recall coupon");
+                $this->error204($this->lang->line('can_not_recall_coupon'));
                 die;
             }
             $flag = $this->Mcoupons->save(array(
@@ -1333,10 +1333,10 @@ class Businessmanagement extends MY_Controller {
                 'updated_at' => getCurentDateTime()
             ), $coupon['id']);
             if($flag) {
-                $this->success200('', 'Recall coupon success');
+                $this->success200('', $this->lang->line('recall_coupon_success'));
                 die;
             } else {
-                $this->error204('Coupon callback failed');
+                $this->error204($this->lang->line('coupon_callback_failed'));
                 die;
             }
         } catch (\Throwable $th) {

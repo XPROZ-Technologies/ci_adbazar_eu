@@ -197,5 +197,21 @@ $lang["upload_image_successfully"] = "Cập nhật ảnh thành công";
 $lang["download_video_successfully"] = "Tải video thành công";
 $lang["add_failed_video"] = "Thêm video không thành công";
 $lang["the_time_allowed_to_edit_coupons_has_expired"] = "Thời gian được phép chỉnh sửa phiếu giảm giá đã hết";
+$lang["coupon_id_does_not_busines_profile"] = "Id phiếu giảm giá không hỗ trợ cấu hình";
+$lang["coupon_inactive_or_not_yet_due"] = "Phiếu giảm giá không hoạt động hoặc chưa đến hạn";
+$lang["can_not_recall_coupon"] = "Không thể gọi lại phiếu giảm giá";
+$lang["repeat_coupon_success"] = "Thu hồi phiếu giảm giá thành công";
+$lang["coupon_callback_failed"] = "Không gọi lại được phiếu thưởng";
+$lang["update_email_for_customer_success_please_check_your_email_and_active_your_account"] = "Cập nhật email để khách hàng thành công, vui lòng kiểm tra email và kích hoạt tài khoản của bạn";
+$lang["update_email_for_customer_failed"] = "Không cập nhật được email cho khách hàng";
+$lang["success_reset_password"] = "Đặt lại mật khẩu thành công";
+$lang["not_in_0_or_1"] = "không thuộc 0 hoặc 1";
+$lang["turn_on_receiving_booking_successently"] = "Bật nhận đặt chỗ thành công";
+$lang["turn_off_receiving_booking_successently"] = "Tắt nhận đặt chỗ thành công";
+$lang["turn_on_receive_booking_failed"] = "Không thể bật nhận đặt chỗ";
+$lang["turn_off_receive_booking_failed"] = "Không thể tắt nhận đặt chỗ";
+$lang["customer_comment_is_not_null"] = "Nhận xét của khách hàng không có giá trị";
+$lang["review_content_must_be_above_4_characters"] = "Nội dung đánh giá phải trên 4 ký tự";
+$lang["is_annual_payment_must_be_0_or_1"] = "Khoản thanh toán hàng năm phải là 0 hoặc 1";
 
 

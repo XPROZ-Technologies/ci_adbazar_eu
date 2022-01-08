@@ -42,7 +42,7 @@ class Reservation extends MY_Controller {
                 $times = getRangeHours($timeConfig['start_time'], $timeConfig['end_time'], $timeConfig['duration'], $checkTimeNow);
                 $this->success200(array('list' => $times));
             } else {
-                $this->error204('There is no suitable time period, please choose another date');
+                $this->error204($this->lang->line('there_is_no_suitable_time_period,_please_choose_another_date'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -112,7 +112,7 @@ class Reservation extends MY_Controller {
                 if($customerReser && count($customerReser) > 0) {
                     $customerReser = $customerReser[0];
                     if($postData['number_of_people'] > (intval($timeConfig['max_people']) - intval($customerReser['number_of_people']))) {
-                        $this->error204('The number of people you want to place must be less than the number of people in the system');
+                        $this->error204($this->lang->line('the_number_of_people_you_want_to_place_must_be_less_than_the_number_of_people_in_the_system'));
                         die;
                     }
                 } 
@@ -160,7 +160,7 @@ class Reservation extends MY_Controller {
                     die;
                 }
             } else {
-                $this->error204('There is no suitable time period, please choose another date');
+                $this->error204($this->lang->line('there_is_no_suitable_time_period,_please_choose_another_date'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -174,21 +174,21 @@ class Reservation extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('reservation_id'));
             if(!isset($postData['reservation_id'])) {
-                $this->error204('Reservation does not exist');
+                $this->error204($this->lang->line('reservation_does_not_exist'));
                 die;
             }
             $this->load->model(array('Mcustomerreservations'));
             $reservation = $this->Mcustomerreservations->get($postData['reservation_id']);
             if(empty($reservation)) {
-                $this->error204('Reservation does not exist');
+                $this->error204($this->lang->line('reservation_does_not_exist'));
                 die;
             }
             if($reservation['customer_id'] != $customer['customer_id']) {
-                $this->error204('Reservation does not belong to this customer');
+                $this->error204($this->lang->line('reservation_does_not_belong_to_this_customer'));
                 die;
             }
             if($reservation['book_status_id'] != STATUS_ACTIVED) {
-                $this->error204('Reservation is not in an active state so it cannot be canceled');
+                $this->error204($this->lang->line('reservation_is_not_in_an_active_state_so_it_cannot_be_canceled'));
                 die;
             }
             $flag = $this->Mcustomerreservations->save(array(
@@ -196,9 +196,9 @@ class Reservation extends MY_Controller {
                 'updated_at' => getCurentDateTime()
             ), $postData['reservation_id']);
             if($flag) {
-                $this->success200('', 'Cancellation is successful');
+                $this->success200('', $this->lang->line('cancellation_is_successful'));
             } else {
-                $this->error204('Cancellation failed');
+                $this->error204($this->lang->line('cancellation_failed'));
                 die;
             }
         } catch (\Throwable $th) {
@@ -212,35 +212,35 @@ class Reservation extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('reservation_id', 'business_id'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['reservation_id'])) {
-                $this->error204('reservation_id: not transmitted');
+                $this->error204('reservation_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             $this->load->model(array('Mcustomerreservations', 'Mbusinessprofiles'));
             $checkExitBusiness = $this->Mbusinessprofiles->getFieldValue(array('customer_id' => $customer['customer_id'], 'id' => $postData['business_id']), 'id', 0);
             if($checkExitBusiness == 0) {
-                $this->error204('Business profile does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             $reservation = $this->Mcustomerreservations->get($postData['reservation_id']);
             if(empty($reservation)) {
-                $this->error204('Reservation does not exist');
+                $this->error204($this->lang->line('reservation_does_not_exist'));
                 die;
             }
             if($reservation['customer_id'] != $customer['customer_id']) {
-                $this->error204('Reservation does not belong to this customer');
+                $this->error204($this->lang->line('reservation_does_not_belong_to_this_customer'));
                 die;
             }
 
             if($reservation['business_profile_id'] != $postData['business_id']) {
-                $this->error204('Reservation does not belong to this business');
+                $this->error204($this->lang->line('reservation_does_not_belong_to_this_business'));
                 die;
             }
             if($reservation['book_status_id'] != STATUS_ACTIVED) {
-                $this->error204('Reservation is not in an active state so it cannot be canceled');
+                $this->error204($this->lang->line('reservation_is_not_in_an_active_state_so_it_cannot_be_canceled'));
                 die;
             }
 
@@ -249,9 +249,9 @@ class Reservation extends MY_Controller {
                 'updated_at' => getCurentDateTime()
             ), $postData['reservation_id']);
             if($flag) {
-                $this->success200('', 'Refused to make an appointment successfully');
+                $this->success200('', $this->lang->line('refused_to_make_an_appointment_successfully'));
             } else {
-                $this->error204('Refused to make an appointment failed');
+                $this->error204($this->lang->line('refused_to_make_an_appointment_failed'));
                 die;
             }
         
@@ -303,9 +303,9 @@ class Reservation extends MY_Controller {
                 $flag = $this->Mreservationconfigs->save($dataSave, $configId);
             }
             if($flag) {
-                $this->success200('', 'Successful configuration');
+                $this->success200('', $this->lang->line('successful_configuration'));
             } else {
-                $this->error204('Configuration failed');
+                $this->error204($this->lang->line('configuration_failed'));
                 die;
             }
 
@@ -316,68 +316,68 @@ class Reservation extends MY_Controller {
 
     private function checkValidateUpdateConfig($postData) {
         if(!isset($postData['business_id'])) {
-            $this->error204('business_id: not transmitted');
+            $this->error204('business_id: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['day_id'])) {
-            $this->error204('day_id: not transmitted');
+            $this->error204('day_id: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['max_people'])) {
-            $this->error204('max_people: not transmitted');
+            $this->error204('max_people: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['max_per_reservation'])) {
-            $this->error204('max_per_reservation: not transmitted');
+            $this->error204('max_per_reservation: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['duration'])) {
-            $this->error204('duration: not transmitted');
+            $this->error204('duration: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['start_time'])) {
-            $this->error204('start_time: not transmitted');
+            $this->error204('start_time: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['end_time'])) {
-            $this->error204('end_time: not transmitted');
+            $this->error204('end_time: '.$this->lang->line('not_transmitted'));
             die;
         }
         if(!isset($postData['is_all'])) {
-            $this->error204('is_all: not transmitted');
+            $this->error204('is_all: '.$this->lang->line('not_transmitted'));
             die;
         }
         $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
         if(!$checkExit) {
-            $this->error204('Business does not belong to this customer');
+            $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
             die;
         }
         if(!in_array($postData['day_id'], [0,1,2,3,4,5,6])) {
-            $this->error204('Invalid number of days');
+            $this->error204($this->lang->line('invalid_number_of_days'));
             die;
         }
         if(!is_numeric($postData['max_people'])) {
-            $this->error204('max_people: not a numeric type');
+            $this->error204('max_people: '.$this->lang->line('not_a_numeric_type'));
             die;
         }
         if(!is_numeric($postData['max_per_reservation'])) {
-            $this->error204('max_per_reservation: not a numeric type');
+            $this->error204('max_per_reservation: '.$this->lang->line('not_a_numeric_type'));
             die;
         }
         if(!is_numeric($postData['duration'])) {
-            $this->error204('duration: not a numeric type');
+            $this->error204('duration: '.$this->lang->line('not_a_numeric_type'));
             die;
         }
         if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['start_time'])) {
-            $this->error204('start_time: not time format');
+            $this->error204('start_time: '.$this->lang->line('incorrect_time_format'));
             die;
         }
         if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['end_time'])) {
-            $this->error204('start_time: not time format');
+            $this->error204('start_time: '.$this->lang->line('incorrect_time_format'));
             die;
         }
         if(!in_array($postData['is_all'], [0,1])) {
-            $this->error204('is_all: not in 0 or 1');
+            $this->error204('is_all: '.$this->lang->line('not_in_0_or_1'));
             die;
         }
         
@@ -391,20 +391,20 @@ class Reservation extends MY_Controller {
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model(array('Mbusinessprofiles', 'Mreservationconfigs'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['day_id'])) {
-                $this->error204('day_id: not transmitted');
+                $this->error204('day_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
             if(!$checkExit) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             if(!in_array($postData['day_id'], [0,1,2,3,4,5,6])) {
-                $this->error204('Invalid number of days');
+                $this->error204($this->lang->line('invalid_number_of_days'));
                 die;
             }
             $config = $this->Mreservationconfigs->getBy(array('business_profile_id' => $postData['business_id'], 'reservation_config_status_id' => 2));
@@ -445,20 +445,20 @@ class Reservation extends MY_Controller {
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model(array('Mbusinessprofiles'));
             if(!isset($postData['business_id'])) {
-                $this->error204('business_id: not transmitted');
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
             }
             if(!isset($postData['allow_book'])) {
-                $this->error204('allow_book: not transmitted');
+                $this->error204('allow_book: '.$this->lang->line('not_transmitted'));
                 die;
             }
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
             if(!$checkExit) {
-                $this->error204('Business does not belong to this customer');
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
             if(!in_array($postData['allow_book'], [1,2])) {
-                $this->error204('allow_book: Downlink value must be 1 or 2');
+                $this->error204('allow_book: '.$this->lang->line('downlink_value_must_be_1_or_2'));
                 die;
             }
 
