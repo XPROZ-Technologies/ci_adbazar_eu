@@ -101,7 +101,7 @@ class Mevents extends MY_Model {
     public function getCountInApi($postData, $isAdmin = false) {
 
         $where = "";
-        if(!empty($postData['customer_id']) && $postData['customer_id'] > 0) {
+        if(!empty($postData['customer_id']) && $postData['customer_id'] > 0 && $isAdmin == false) {
             $where = " AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = 2 AND customer_id = ".$postData['customer_id'].")";
         }
         
@@ -125,7 +125,7 @@ class Mevents extends MY_Model {
         if(empty($postData['order_by'])) $postData['order_by'] = 'DESC';
 
         $where = "";
-        if(!empty($postData['customer_id']) && $postData['customer_id'] > 0) {
+        if(!empty($postData['customer_id']) && $postData['customer_id'] > 0 && $isAdmin == false) {
             $where = "AND `events`.id NOT IN (SELECT customer_events.event_id FROM customer_events WHERE customer_events.customer_event_status_id = ".STATUS_ACTIVED." AND customer_id = ".$postData['customer_id'].")";
         }
 

@@ -769,12 +769,51 @@ class Businessmanagement extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostApi(array('business_id', 'event_id', 'event_image', 'event_subject', 'end_date', 'end_time', 'event_description'));
             $postData['customer_id'] = $customer['customer_id'];
-            $this->load->model(array('Mbusinessprofiles', 'Mevents'));
+            $this->load->model(array('Mbusinessprofiles', 'Mevents', 'Mcustomerevents', 'Mcustomernotifications', 'Mcustomers', 'Memailqueue'));
             $dataUpdate = $this->checkValedateUpdateEvent($postData);
             $eventId = $dataUpdate['id'];
             unset($dataUpdate['id']);
             $flag = $this->Mevents->save($dataUpdate, $eventId);
             if ($flag > 0) {
+                /**
+                 *  Noti & email
+                 * */ 
+                $itemEvent = $this->Mevents->get($eventId);
+                $customers = $this->Mcustomerevents->getBy(array('event_id' => $eventId, 'customer_event_status_id' => STATUS_ACTIVED));
+                if(count($customers) > 0) {
+                    for($j = 0; $j < count($customers); $j++) {
+                        $itemCustomer = $customers[$j];
+
+                        // Only send noti to register customer
+                        if($itemCustomer['customer_id'] > 0) {
+                            // Send noti
+                            $dataNoti = array(
+                                'notification_type' => 3, //Event updated
+                                'customer_id'   => $itemCustomer['customer_id'],
+                                'business_id'   => $itemEvent['business_profile_id'],
+                                'item_id'   => $eventId,
+                                'notification_status_id'  => STATUS_ACTIVED,
+                                'created_at' => getCurentDateTime()
+                            );
+                            $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                        }
+
+                        $customerInfo = $this->Mcustomers->get($itemCustomer['customer_id']);
+                        $customer_name = !empty($customerInfo['customer_first_name']) ? $customerInfo['customer_first_name'] : $customerInfo['customer_email'];
+                        // Send email
+                        $dataEmail = array(
+                            'name' => $customer_name,
+                            'email_to' => $customerInfo['customer_email'],
+                            'email_to_name' => $customer_name,
+                            'event_subject' => $itemEvent['event_subject'],
+                            'business_name' => $this->Mbusinessprofiles->getNameById($itemEvent['business_profile_id']),
+                            'url' => site_url('event/'.makeSlug($itemEvent['event_subject']).'-'.$eventId.'.html')
+                        );
+                        $this->Memailqueue->createEmail($dataEmail, 10);
+                    }
+                }
+
+
                 $this->success200(array('event_id' => $flag), 'Successful event update');
                 die;
             } else {
@@ -950,7 +989,7 @@ class Businessmanagement extends MY_Controller {
                 die;
             }
 
-            $this->load->model(array('Mbusinessprofiles', 'Mevents'));
+            $this->load->model(array('Mbusinessprofiles', 'Mevents', 'Mcustomerevents', 'Mcustomernotifications', 'Mcustomers', 'Memailqueue'));
             $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
             if(!$checkExit) {
                 $this->error204('Business does not belong to this customer');
@@ -968,6 +1007,46 @@ class Businessmanagement extends MY_Controller {
             );
             $flag = $this->Mevents->save($cancelData, $postData['event_id']);
             if ($flag > 0) {
+                /**
+                 *  Noti & email
+                 * */ 
+                $eventId = $postData['event_id'];
+                $itemEvent = $this->Mevents->get($eventId);
+                $customers = $this->Mcustomerevents->getBy(array('event_id' => $eventId, 'customer_event_status_id' => STATUS_ACTIVED));
+                if(count($customers) > 0) {
+                    for($j = 0; $j < count($customers); $j++) {
+                        $itemCustomer = $customers[$j];
+
+                        // Only send noti to register customer
+                        if($itemCustomer['customer_id'] > 0) {
+                            // Send noti
+                            $dataNoti = array(
+                                'notification_type' => 4, //Event cancelled
+                                'customer_id'   => $itemCustomer['customer_id'],
+                                'business_id'   => $itemEvent['business_profile_id'],
+                                'item_id'   => $eventId,
+                                'notification_status_id'  => STATUS_ACTIVED,
+                                'created_at' => getCurentDateTime()
+                            );
+                            $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                        }
+
+                        $customerInfo = $this->Mcustomers->get($itemCustomer['customer_id']);
+                        $customer_name = !empty($customerInfo['customer_first_name']) ? $customerInfo['customer_first_name'] : $customerInfo['customer_email'];
+                        // Send email
+                        $dataEmail = array(
+                            'name' => $customer_name,
+                            'email_to' => $customerInfo['customer_email'],
+                            'email_to_name' => $customer_name,
+                            'event_subject' => $itemEvent['event_subject'],
+                            'business_name' => $this->Mbusinessprofiles->getNameById($itemEvent['business_profile_id']),
+                            'url' => site_url('event/'.makeSlug($itemEvent['event_subject']).'-'.$eventId.'.html')
+                        );
+                        $this->Memailqueue->createEmail($dataEmail, 11);
+                    }
+                }
+
+
                 $this->success200('', 'Successful event cancellation');
                 die;
             } else {
