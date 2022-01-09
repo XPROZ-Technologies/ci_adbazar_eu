@@ -484,12 +484,10 @@ class Businessmanagement extends MY_Controller {
                     $this->error204($this->lang->line('amount_of_coupon_must_be_larger_than_0'));
                     die;
                 }
+                $dataCouponImage = '';
                 if(isset($_FILES['coupon_image']) && !empty($_FILES['coupon_image'])){
                     $file = $_FILES['coupon_image'];
-                    if ($file['error'] > 0) {
-                        $this->error204($this->lang->line('avatar_update_failed'));
-                        die;
-                    } else {
+                    if (!empty($file['name'])) {
                         $coupon_image = explode('.', $file['name']);
                         $fileExt = strtolower($coupon_image[count($coupon_image) - 1]);
                         if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
@@ -500,7 +498,7 @@ class Businessmanagement extends MY_Controller {
                             $flag = move_uploaded_file($file['tmp_name'], $filePath);
                             if ($flag) {
                                 $coupon_image = replaceFileUrl($filePath, COUPONS_PATH);
-                                $postData['coupon_image'] = $coupon_image;
+                                $dataCouponImage = $coupon_image;
                             } else {
                                 $this->error204($this->lang->line('avatar_update_failed'));
                                 die;
@@ -512,6 +510,9 @@ class Businessmanagement extends MY_Controller {
                     }
                     
                 }
+
+                if(empty($dataCouponImage)) $postData['coupon_image'] = 'no_image.png';
+                else $postData['coupon_image'] = $dataEventImage;
 
                 $message = $this->lang->line('created_successfully');
                 if ($couponId == 0) {
@@ -616,12 +617,10 @@ class Businessmanagement extends MY_Controller {
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model(array('Mbusinessprofiles', 'Mevents'));
             $this->checkValidateCreateEvent($postData);
+            $dataEventImage = '';
             if(isset($_FILES['event_image']) && !empty($_FILES['event_image'])){
                 $file = $_FILES['event_image'];
-                if ($file['error'] > 0) {
-                    $this->error204($this->lang->line('event_image_update_failed'));
-                    die;
-                } else {
+                if (!empty($file['name'])) {
                     $event_image = explode('.', $file['name']);
                     $fileExt = strtolower($event_image[count($event_image) - 1]);
                     if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
@@ -632,7 +631,7 @@ class Businessmanagement extends MY_Controller {
                         $flag = move_uploaded_file($file['tmp_name'], $filePath);
                         if ($flag) {
                             $event_image = replaceFileUrl($filePath, COUPONS_PATH);
-                            $postData['event_image'] = $event_image;
+                            $dataEventImage = $event_image;
                         } else {
                             $this->error204($this->lang->line('event_image_update_failed'));
                             die;
@@ -643,6 +642,9 @@ class Businessmanagement extends MY_Controller {
                     }
                 }
             }
+
+            if(empty($dataEventImage)) $postData['event_image'] = 'no_image.png';
+            else  $postData['event_image'] = $dataEventImage;
 
             $postData['start_date'] = ddMMyyyy($postData['start_date'], 'Y-m-d');
             $postData['start_time'] = ddMMyyyy($postData['start_time'], 'H:i');
@@ -906,10 +908,7 @@ class Businessmanagement extends MY_Controller {
             $dataEventImage = '';
             if(isset($_FILES['event_image']) && !empty($_FILES['event_image'])){
                 $file = $_FILES['event_image'];
-                if ($file['error'] > 0) {
-                    $this->error204($this->lang->line('event_image_update_failed'));
-                    die;
-                } else {
+                if (!empty($file['name'])) {
                     $event_image = explode('.', $file['name']);
                     $fileExt = strtolower($event_image[count($event_image) - 1]);
                     if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
@@ -931,6 +930,8 @@ class Businessmanagement extends MY_Controller {
                     }
                 }
             }
+
+            if(empty($dataEventImage)) $dataEventImage = 'no_image.png';
 
             $dataUpdate = array(
                 'business_profile_id' => $postData['business_id'],
