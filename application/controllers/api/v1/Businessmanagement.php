@@ -177,10 +177,13 @@ class Businessmanagement extends MY_Controller {
             $openingHours[] = $itemDay;
         }
 
-        $service_type_ids = json_decode($postData['service_type_ids'], true);
+        // $service_type_ids = json_decode($postData['service_type_ids'], true);
         $businessServiceTypes = array();
-        if (!empty($service_type_ids)) {
-            $businessServiceTypes = $service_type_ids;
+        if (!empty($postData['service_type_ids'])) {
+            $service_type_ids = explode(',', $postData['service_type_ids']);
+            if(is_array($service_type_ids)) {
+                $businessServiceTypes = $service_type_ids;
+            }
         }
 
         unset($postData['open_hours'], $postData['service_type_ids']);
@@ -1272,8 +1275,8 @@ class Businessmanagement extends MY_Controller {
                     }
                 }
                 // auth paypal business
-                $paypalUser['successUrl'] = base_url().'business-management/bm-payment?isResult=true&customerId='.$customer['customer_id'].'&businessId='.$postData['business_id'].'&paymentTypeId='.$postData['payment_type_id'];
-                $paypalUser['cancelUrl'] = base_url().'business-profile/bm-payment?isResult=false&customerId='.$customer['customer_id'].'&businessId='.$postData['business_id'].'&paymentTypeId='.$postData['payment_type_id'];
+                $paypalUser['successUrl'] = base_url().'business-management/bm-payment?isResult=true&customerId='.$customer['customer_id'].'&businessId='.$postData['business_id'].'&paymentTypeId='.$postData['payment_type_id'].'&paymentId='.$flag;
+                $paypalUser['cancelUrl'] = base_url().'business-profile/bm-payment?isResult=false&customerId='.$customer['customer_id'].'&businessId='.$postData['business_id'].'&paymentTypeId='.$postData['payment_type_id'].'&paymentId='.$flag;
                 //paypal product id: PROD-4NX43137GP917693J
                 $payUrl = $this->getPaymentLink($paypalUser);
 
