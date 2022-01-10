@@ -75,7 +75,14 @@ class Businessprofile extends MY_Controller {
             $detail = $this->Mbusinessprofiles->getDetailInApi($postData['business_id']);
             if($detail && count($detail) > 0) {
                 $detail = $detail[0];
-                $serviceTypes = $this->Mservicetypes->getServiceTypeInService($detail['service_id'], $this->langCode);
+                
+                // $serviceTypes = $this->Mservicetypes->getServiceTypeInService($detail['service_id'], $this->langCode);
+                $serviceTypes = $this->Mservicetypes->getListByBusiness($detail['id'], "service_type_name".$this->langCode);
+                $serviceTypeNames = '';
+                foreach($serviceTypes as $data) {
+                    $serviceTypeNames .= $data['service_type_name'].', ';
+
+                }
                 $openingHours = $this->Mopeninghours->getBy(array('business_profile_id' => $detail['id']), false, 'day_id', 'opening_hours_status_id as open_status_id, day_id, start_time, end_time', 0,0, 'asc');
                 $openStatusId = $this->checkBusinessOpenHours($detail['id']);
                 if($openStatusId) $openStatusId = 2; // mở cửa
@@ -86,8 +93,9 @@ class Businessprofile extends MY_Controller {
                     'business_info' => array(
                         "id" => $detail['id'],
                         "service_id" => $detail['service_id'],
+                        "service_type_ids" => $serviceTypes,
                         "business_name" => $detail['business_name'],
-                        "service_types" => $serviceTypes,
+                        "service_types" =>  $serviceTypeNames,
                         "business_slogan" => $detail['business_slogan'],
                         "business_phone" => $businessPhoneCode.ltrim($detail['business_phone'], '0'),
                         "business_whatsapp" => $whatsappPhoneCode.ltrim($detail['business_whatsapp'], '0'),
