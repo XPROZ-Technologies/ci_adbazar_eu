@@ -34,16 +34,20 @@ class Event extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'selected_date', 'business_id', 'order_by', 'is_business'));
-            if(empty($postData['selected_date'])) $postData['selected_date'] = ddMMyyyy(date('Y-m-d'), 'Y-m-d');
-            else $postData['selected_date'] = ddMMyyyy($postData['selected_date'], 'Y-m-d');
-            $postData['api'] = true;
-            $postData['customer_id'] = $customer['customer_id'];
-
+            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'business_id', 'order_by', 'is_business'));
+            $postDataOther = $this->arrayFromPostRawJson(array('selected_date'));
             $isAdmin = false;
             if(isset($postData['is_business']) && $postData['is_business'] == 1) {
                 $isAdmin = true;
             }
+
+            if(empty($postDataOther['selected_date']) && $isAdmin == false) {
+                $postData['selected_date'] = ddMMyyyy(date('Y-m-d'), 'Y-m-d');
+            } else {
+                $postData['selected_date'] = ddMMyyyy($postDataOther['selected_date'], 'Y-m-d');
+            } 
+            $postData['api'] = true;
+            $postData['customer_id'] = $customer['customer_id'];
 
             $this->loadModel(array('Mevents', 'Mconfigs', 'Mbusinessprofiles'));
             $rowCount = $this->Mevents->getCountInApi($postData, $isAdmin);
