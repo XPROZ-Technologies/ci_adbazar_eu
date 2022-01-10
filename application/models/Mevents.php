@@ -132,6 +132,11 @@ class Mevents extends MY_Model {
             $where_status = " AND events.event_status_id > 0 ";
         }
 
+        $order_by = " `events`.`start_date`, TIME_FORMAT(`events`.start_time, '%H:%i') ".$postData['order_by'];
+        if($isAdmin) {
+            $order_by = " `events`.`created_at` ".$postData['order_by'];
+        }
+
         $query = "SELECT
                     `events`.id,
                     `events`.event_subject,
@@ -148,8 +153,7 @@ class Mevents extends MY_Model {
                     LEFT JOIN business_profiles ON business_profiles.id = `events`.business_profile_id
                 WHERE
                     `events`.business_profile_id > 0 ".$where_status." ".$this->buildQueryInApi($postData)." ".$where."
-                ORDER BY
-                    `events`.`start_date`, TIME_FORMAT(`events`.start_time, '%H:%i') ".$postData['order_by'];
+                ORDER BY ".$order_by;
         if($perPage > 0) {
             $from = ($page-1) * $perPage;
             $query .= " LIMIT {$from}, {$perPage}";
