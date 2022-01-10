@@ -868,4 +868,39 @@ abstract class MY_Controller extends CI_Controller
            'message' => $text
         ));
     }
+
+    public function getPaymentLink($paypalUser)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => PAYPAL_HOST . '/v1/billing/subscriptions',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+              "plan_id": "' . $paypalUser['paypalPlanId'] . '",
+              "application_context": {
+                "return_url": "' . $paypalUser['successUrl'] . '",
+                "cancel_url": "' . $paypalUser['cancelUrl'] . '"
+              }
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization: Basic ' . base64_encode(PAYPAL_CLIENT_KEY . ':' . PAYPAL_SEC_KEY),
+                'Prefer: return=representation',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response2 = curl_exec($curl);
+
+        curl_close($curl);
+        $pay = json_decode($response2);
+        //echo "<pre>";print_r($pay);exit;
+        return $pay->links['0']->href;
+    }
 }
