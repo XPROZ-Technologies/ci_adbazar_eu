@@ -643,6 +643,8 @@ class Businessmanagement extends MY_Controller {
             $postData['business_profile_id'] = $postData['business_id'];
             $postData['event_status_id'] = STATUS_ACTIVED;
 
+            $postData['created_at'] = getCurentDateTime();
+
             unset($postData['business_id'], $postData['customer_id']);
 
             $flag = $this->Mevents->save($postData);
@@ -762,6 +764,7 @@ class Businessmanagement extends MY_Controller {
             $this->load->model(array('Mbusinessprofiles', 'Mevents', 'Mcustomerevents', 'Mcustomernotifications', 'Mcustomers', 'Memailqueue'));
             $dataUpdate = $this->checkValedateUpdateEvent($postData);
             $eventId = $dataUpdate['id'];
+            $dataUpdate['updated_at'] = getCurentDateTime();
             unset($dataUpdate['id']);
             $flag = $this->Mevents->save($dataUpdate, $eventId);
             if ($flag > 0) {
