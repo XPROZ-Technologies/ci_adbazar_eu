@@ -185,7 +185,6 @@ class Businessmanagement extends MY_Controller {
                 $businessServiceTypes = $service_type_ids;
             }
         }
-        //var_dump($businessServiceTypes);die;
         unset($postData['open_hours'], $postData['service_type_ids']);
         
         $message = $this->lang->line('create_a_successful_business_profile');
@@ -218,7 +217,6 @@ class Businessmanagement extends MY_Controller {
             }
             //open hours
             if (!empty($openingHours)) {
-var_dump($openingHours);
                 $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $flag, $isEdit);
             }
 
