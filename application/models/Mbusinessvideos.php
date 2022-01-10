@@ -52,7 +52,7 @@ class Mbusinessvideos extends MY_Model
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {
-        $query = "SELECT video_url FROM business_videos WHERE business_profile_id > 0" . $this->buildQuery($postData);
+        $query = "SELECT id, video_url FROM business_videos WHERE business_profile_id > 0" . $this->buildQuery($postData);
         if($perPage > 0) {
             $from = ($page-1) * $perPage;
             $query .= " LIMIT {$from}, {$perPage}";

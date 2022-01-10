@@ -318,13 +318,7 @@ class Businessmanagement extends MY_Controller {
                                 $photos[] = !empty($businessPhotos[$i]['photo_image']) ? base_url(BUSINESS_PROFILE_PATH.$businessPhotos[$i]['photo_image']) : '';
                             }
                         }
-                        $this->success200(array(
-                            'page_id' => $page,
-                            'per_page' => $perPage,
-                            'page_count' => $pageCount,
-                            'totals' => $rowCount,
-                            'list' => $photos
-                        ), $this->lang->line('upload_image_successfully'));
+                        $this->success200('', $this->lang->line('upload_image_successfully'));
                     } else {
                         $this->error204($this->lang->line('image_upload_failed'));
                         die;
@@ -375,13 +369,7 @@ class Businessmanagement extends MY_Controller {
                             $videos[] = $businessVideos[$i]['video_url'];
                         }
                     }
-                    $this->success200(array(
-                        'page_id' => $page,
-                        'per_page' => $perPage,
-                        'page_count' => $pageCount,
-                        'totals' => $rowCount,
-                        'list' => $videos
-                    ), $this->lang->line('download_video_successfully'));
+                    $this->success200('', $this->lang->line('download_video_successfully'));
                 } else {
                     $this->error204($this->lang->line('add_failed_video'));
                     die;
@@ -1424,5 +1412,199 @@ class Businessmanagement extends MY_Controller {
             $this->error500();
         }
     }
-   
+    
+
+    public function photos() {
+        try {
+            $this->openAllCors();
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page'));
+            if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
+                $postData['api'] = true;
+                $this->load->model(array('Mbusinessphotos', 'Mbusinessprofiles'));
+                $rowCount = $this->Mbusinessphotos->getCountInApi($postData);
+                $pageCount = 0;
+                $businessPhotos = [];
+
+                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
+                $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
+
+                if($rowCount > 0) {
+                    $pageCount = ceil($rowCount / $perPage);
+                    if(!is_numeric($page) || $page < 1) $page = 1;
+                    $businessPhotos = $this->Mbusinessphotos->getListInApi($postData, $perPage, $page);
+                    $photos = [];
+                    for($i = 0; $i < count($businessPhotos); $i++) {
+                        $photos[] = array(
+                            "id" => $businessPhotos[$i]['id'],
+                            "url" => !empty($businessPhotos[$i]['photo_image']) ? base_url(BUSINESS_PROFILE_PATH.$businessPhotos[$i]['photo_image']) : ''
+                        );
+                    }
+                }
+                $business = $this->Mbusinessprofiles->get($postData['business_id']);
+                $businessInfo = '';
+                if($business) {
+                    $businessInfo = array(
+                        'id' => $business['id'],
+                        'business_name' => $business['business_name'],
+                        'business_slogan' => $business['business_slogan'],
+                        'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                        'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                    );
+                }
+                
+                $this->success200(array(
+                    'page_id' => $page,
+                    'per_page' => $perPage,
+                    'page_count' => $pageCount,
+                    'totals' => $rowCount,
+                    'business_info' => $businessInfo,
+                    'list' => $photos
+                ));
+            } else {
+                $this->error204($this->lang->line('business_id_does_not_exist'));
+                die;
+            }
+            
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function delete_photo() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'photo_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
+                die;
+            }
+            if(!isset($postData['photo_id'])) {
+                $this->error204('photo_id: '.$this->lang->line('not_transmitted'));
+                die;
+            }
+            
+            $this->load->model(array('Mbusinessprofiles', 'Mbusinessphotos'));
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+            if(!$checkExit) {
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
+                die;
+            }
+
+            $checkExitPhoto = $this->Mbusinessphotos->getFieldValue(array('business_profile_id' => $postData['business_id'], 'id' => $postData['photo_id']), 'id', 0);
+            if(!$checkExitPhoto) {
+                $this->error204($this->lang->line('photo_not_exist'));
+                die;
+            }
+            
+            $flag = $this->Mbusinessphotos->delete($postData['photo_id']);
+
+            if ($flag) {
+                $this->success200('', $this->lang->line('app_successful'));
+                die;
+            } else {
+                $this->error204($this->lang->line('failed'));
+                die;
+            }
+            
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function videos() {
+        try {
+            $this->openAllCors();
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'page_id', 'per_page'));
+            if(!empty($postData['business_id']) && $postData['business_id'] > 0) {
+                $postData['api'] = true;
+                $this->load->model(array('Mbusinessvideos', 'Mbusinessprofiles'));
+                $rowCount = $this->Mbusinessvideos->getCountInApi($postData);
+                $pageCount = 0;
+                $businessVideos = [];
+                $videos = [];
+
+                $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
+                $page = isset($postData['page_id']) && intval($postData['page_id']) > 0 ?  $postData['page_id'] : 1;
+
+                if($rowCount > 0) {
+                    $pageCount = ceil($rowCount / $perPage);
+                    if(!is_numeric($page) || $page < 1) $page = 1;
+                    $businessVideos = $this->Mbusinessvideos->getListInApi($postData, $perPage, $page);
+                    for($i = 0; $i < count($businessVideos); $i++) {
+                        $videos[] = array(
+                            'id' => $businessVideos[$i]['id'],
+                            'url' => $businessVideos[$i]['video_url']
+                        );
+                    }
+                }
+                $business = $this->Mbusinessprofiles->get($postData['business_id']);
+                $businessInfo = '';
+                if($business) {
+                    $businessInfo = array(
+                        'id' => $business['id'],
+                        'business_name' => $business['business_name'],
+                        'business_slogan' => $business['business_slogan'],
+                        'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                        'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                    );
+                }
+                $this->success200(array(
+                    'page_id' => $page,
+                    'per_page' => $perPage,
+                    'page_count' => $pageCount,
+                    'totals' => $rowCount,
+                    'business_info' => $businessInfo,
+                    'list' => $videos
+                ));
+            } else {
+                $this->error204($this->lang->line('business_id_does_not_exist'));
+                die;
+            }
+            
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function delete_video() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'video_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
+                die;
+            }
+            if(!isset($postData['video_id'])) {
+                $this->error204('video_id: '.$this->lang->line('not_transmitted'));
+                die;
+            }
+            
+            $this->load->model(array('Mbusinessprofiles', 'Mbusinessvideos'));
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+            if(!$checkExit) {
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
+                die;
+            }
+
+            $checkExitVideo = $this->Mbusinessvideos->getFieldValue(array('business_profile_id' => $postData['business_id'], 'id' => $postData['video_id']), 'id', 0);
+            if(!$checkExitVideo) {
+                $this->error204($this->lang->line('video_not_exist'));
+                die;
+            }
+            
+            $flag = $this->Mbusinessvideos->delete($postData['video_id']);
+
+            if ($flag) {
+                $this->success200('', $this->lang->line('app_successful'));
+                die;
+            } else {
+                $this->error204($this->lang->line('failed'));
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
 }
