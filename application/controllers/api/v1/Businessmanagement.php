@@ -142,7 +142,7 @@ class Businessmanagement extends MY_Controller {
             }
         }
         $this->validateBusiness($postData);
-        $openHours =  json_decode(stripslashes($postData['open_hours']), true);
+        $openHours =  json_decode(stripslashes($postData['open_hours']), true, JSON_UNESCAPED_SLASHES);
         $openingHours = array();
         foreach ($this->Mconstants->dayIds as $day_id => $itemHours) {
             if (isset($openHours[$day_id])) {
