@@ -47,7 +47,7 @@ class Mbusinessphotos extends MY_Model {
     }
 
     public function getListInApi($postData, $perPage = 0, $page = 1) {
-        $query = "SELECT photo_image FROM business_photos WHERE id > 0" . $this->buildQuery($postData);
+        $query = "SELECT id, photo_image FROM business_photos WHERE id > 0" . $this->buildQuery($postData);
         if($perPage > 0) {
             $from = ($page-1) * $perPage;
             $query .= " LIMIT {$from}, {$perPage}";

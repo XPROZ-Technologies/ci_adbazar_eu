@@ -214,4 +214,6 @@ $lang["customer_comment_is_not_null"] = "Nhận xét của khách hàng không c
 $lang["review_content_must_be_above_4_characters"] = "Nội dung đánh giá phải trên 4 ký tự";
 $lang["is_annual_payment_must_be_0_or_1"] = "Khoản thanh toán hàng năm phải là 0 hoặc 1";
 $lang["login_please_active_your_account_email_link"] = "Vui lòng kích hoạt tài khoản. Đường dẫn kích hoạt đã được gửi đến email";
-
+$lang["app_successful"] = "Thành công";
+$lang["photo_not_exist"] = "Hình ảnh không tồn tại";
+$lang["video_not_exist"] = "Video không tồn tại";

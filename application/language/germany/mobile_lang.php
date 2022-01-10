@@ -216,3 +216,6 @@ $lang["customer_comment_is_not_null"] = "Kundenkommentar ist nicht null";
 $lang["review_content_must_be_above_4_characters"] = "Der Inhalt der Rezension muss länger als 4 Zeichen sein";
 $lang["is_annual_payment_must_be_0_or_1"] = "Die jährliche Zahlung muss 0 oder 1 sein";
 $lang["login_please_active_your_account_email_link"] = "Bitte aktiviere dein Konto. Ein Bestätigungslink wurde an Ihre E-Mail gesendet.";
+$lang["app_successful"] = "Erfolgreich";
+$lang["photo_not_exist"] = "Foto existiert nicht";
+$lang["video_not_exist"] = "Video existiert nicht";
