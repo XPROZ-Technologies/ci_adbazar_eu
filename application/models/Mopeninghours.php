@@ -14,22 +14,38 @@ class Mopeninghours extends MY_Model {
             
             $arrOpenHours = array();
             foreach ($openingHours as $u) {
+                $starTime = NULL;
+                $expStarTime = explode(':', $u['start_time']);
+                if(count($expStarTime) == 3) {
+                    $starTime = $u['start_time'];
+                } else {
+                    if(!empty($u['start_time'])) $starTime = $u['start_time'].':00';
+                }
+                $endTime = NULL;
+                $expEndTime = explode(':', $u['end_time']);
+                if(count($expEndTime) == 3) {
+                    $endTime = $u['end_time'];
+                } else {
+                    if(!empty($u['end_time'])) $endTime = $u['start_time'].':00';
+                }
                 $arrOpenHours[] = array(
                     'business_profile_id' => $businessProfileId,
                     'day_id' => $u['day_id'],
-                    'start_time' => !empty($u['start_time']) ? $u['start_time'].':00': NULL,
-                    'end_time' => !empty($u['end_time']) ? $u['end_time'].':00': NULL,
+                    'start_time' => $starTime,
+                    'end_time' => $endTime,
                     'opening_hours_status_id' => $u['opening_hours_status_id'],
                     'created_at' => getCurentDateTime(),
                     'created_by' => 0
                 );
             }
 
-            if($isEdit && !empty($openingHours)){
+            if($isEdit && count($arrOpenHours) > 0){
                 $this->db->delete('opening_hours', array('business_profile_id' => $businessProfileId));
             }
             
-            if (!empty($arrOpenHours)) $this->db->insert_batch('opening_hours', $arrOpenHours);
+            if (count($arrOpenHours) > 0) {
+                $this->db->insert_batch('opening_hours', $arrOpenHours);
+            }
             return true;
         }
         return false;

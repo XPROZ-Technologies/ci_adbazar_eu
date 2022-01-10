@@ -218,7 +218,7 @@ class Businessmanagement extends MY_Controller {
             }
             //open hours
             if (!empty($openingHours)) {
-
+var_dump($openingHours);
                 $resultOpenHours = $this->Mopeninghours->saveOpenHours($openingHours, $flag, $isEdit);
             }
 
@@ -1204,13 +1204,15 @@ class Businessmanagement extends MY_Controller {
             $planVat = floatval($paymentPlan['plan_vat']);
             $vatPrice = ($planVat / 100) * floatval($paymentPlan['plan_total']);
             $totalPrice =  floatval($paymentPlan['plan_total']);
-            
+            $currency = 'CZK';
+            if($paymentPlan['plan_currency_id'] == 2) $currency = 'EUR';
             
             $this->success200(array('plan_infor' => array(
                 "payment_amount" => $paymentAmount,
                 "plan_vat" => $planVat,
                 "vat_price" => round($vatPrice),
-                "total_price" => $totalPrice
+                "total_price" => $totalPrice,
+                "currency" => $currency
             )));
             die;
         } catch (\Throwable $th) {
@@ -1324,8 +1326,6 @@ class Businessmanagement extends MY_Controller {
                     $selectedId = 1;
                 }
                 $listPlan[$i]['is_selected'] = $selectedId;
-
-                unset($listPlan[$i]['id']);
             }
             $this->success200(array(
                 'currency_code' => $postData['currency_code'],
