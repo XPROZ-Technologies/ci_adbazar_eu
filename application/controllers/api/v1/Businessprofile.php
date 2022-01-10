@@ -81,7 +81,6 @@ class Businessprofile extends MY_Controller {
                 $serviceTypeNames = '';
                 foreach($serviceTypes as $data) {
                     $serviceTypeNames .= $data['service_type_name'].', ';
-
                 }
                 $openingHours = $this->Mopeninghours->getBy(array('business_profile_id' => $detail['id']), false, 'day_id', 'opening_hours_status_id as open_status_id, day_id, start_time, end_time', 0,0, 'asc');
                 $openStatusId = $this->checkBusinessOpenHours($detail['id']);
@@ -95,10 +94,14 @@ class Businessprofile extends MY_Controller {
                         "service_id" => $detail['service_id'],
                         "service_type_ids" => $serviceTypes,
                         "business_name" => $detail['business_name'],
-                        "service_types" =>  $serviceTypeNames,
+                        "service_types" =>  trim(trim($serviceTypeNames),','),
                         "business_slogan" => $detail['business_slogan'],
-                        "business_phone" => $businessPhoneCode.ltrim($detail['business_phone'], '0'),
-                        "business_whatsapp" => $whatsappPhoneCode.ltrim($detail['business_whatsapp'], '0'),
+                        "country_code_id" => $detail['country_code_id'],
+                        "business_phone_code" => $businessPhoneCode,
+                        "business_phone" => ltrim($detail['business_phone'], '0'),
+                        "country_code_whatsapp_id" => $detail['country_code_whatsapp_id'],
+                        "whatsapp_phone_code" => $whatsappPhoneCode,
+                        "business_whatsapp" => ltrim($detail['business_whatsapp'], '0'),
                         "business_email" => $detail['business_email'],
                         "business_address" => $detail['business_address'],
                         "business_avatar" => !empty($detail['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$detail['business_avatar']) : '',
