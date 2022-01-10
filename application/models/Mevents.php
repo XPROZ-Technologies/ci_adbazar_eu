@@ -88,8 +88,6 @@ class Mevents extends MY_Model {
             // if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query.=" AND `customer_events`.customer_id = {$postData['customer_id']}";
             if(isset($postData['selected_date']) && !empty($postData['selected_date'])) {
                 $query .= " AND (DATE( `events`.`start_date` ) <= DATE('".ddMMyyyy($postData['selected_date'], 'Y-m-d')."') AND  DATE('".ddMMyyyy($postData['selected_date'], 'Y-m-d')."') <= DATE( `events`.end_date )) ";
-            }else{
-                $query .= " AND DATE(`events`.`start_date`) >= CURDATE() <= DATE(`events`.end_date)";
             }
             if(isset($postData['business_id']) && $postData['business_id'] > 0) {
                 if(isset($postData['business_id']) && $postData['business_id'] > 0) $query.=" AND `events`.business_profile_id = {$postData['business_id']}";
