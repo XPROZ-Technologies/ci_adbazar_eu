@@ -11,9 +11,7 @@ class Mopeninghours extends MY_Model {
     public function saveOpenHours($openingHours = array(), $businessProfileId = 0, $isEdit = false){
         //Save open hours
         if(!empty($openingHours) && $businessProfileId > 0) {
-            if($isEdit){
-                $this->db->delete('opening_hours', array('business_profile_id' => $businessProfileId));
-            }
+            
             $arrOpenHours = array();
             foreach ($openingHours as $u) {
                 $arrOpenHours[] = array(
@@ -26,7 +24,11 @@ class Mopeninghours extends MY_Model {
                     'created_by' => 0
                 );
             }
-        
+
+            if($isEdit && !empty($openingHours)){
+                $this->db->delete('opening_hours', array('business_profile_id' => $businessProfileId));
+            }
+            
             if (!empty($arrOpenHours)) $this->db->insert_batch('opening_hours', $arrOpenHours);
             return true;
         }
