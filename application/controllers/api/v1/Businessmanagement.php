@@ -500,7 +500,7 @@ class Businessmanagement extends MY_Controller {
                 }
 
                 if(empty($dataCouponImage)) $postData['coupon_image'] = 'no_image.png';
-                else $postData['coupon_image'] = $dataEventImage;
+                else $postData['coupon_image'] = $dataCouponImage;
 
                 $message = $this->lang->line('created_successfully');
                 if ($couponId == 0) {
@@ -612,13 +612,13 @@ class Businessmanagement extends MY_Controller {
                     $event_image = explode('.', $file['name']);
                     $fileExt = strtolower($event_image[count($event_image) - 1]);
                     if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
-                        $dir = COUPONS_PATH . date('Y-m-d') . '/';
+                        $dir = EVENTS_PATH . date('Y-m-d') . '/';
                         @mkdir($dir, 0777, true);
                         @system("/bin/chown -R nginx:nginx " . $dir);
                         $filePath = $dir . uniqid() . '.' . $fileExt;
                         $flag = move_uploaded_file($file['tmp_name'], $filePath);
                         if ($flag) {
-                            $event_image = replaceFileUrl($filePath, COUPONS_PATH);
+                            $event_image = replaceFileUrl($filePath, EVENTS_PATH);
                             $dataEventImage = $event_image;
                         } else {
                             $this->error204($this->lang->line('event_image_update_failed'));
@@ -687,10 +687,10 @@ class Businessmanagement extends MY_Controller {
             $this->error204('end_time: '.$this->lang->line('not_transmitted'));
             die;
         }
-        if(!isset($postData['event_description'])) {
-            $this->error204('event_description: '.$this->lang->line('not_transmitted'));
-            die;
-        }
+        // if(!isset($postData['event_description'])) {
+        //     $this->error204('event_description: '.$this->lang->line('not_transmitted'));
+        //     die;
+        // }
         $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $postData['customer_id'], 'business_status_id >' => 0), 'id', 0);
         if(!$checkExit) {
             $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
@@ -724,10 +724,10 @@ class Businessmanagement extends MY_Controller {
             $this->error204($this->lang->line('end_time_must_not_be_empty'));
             die;
         }
-        if(empty($postData['event_description'])) {
-            $this->error204($this->lang->line('event_description_must_not_be_empty'));
-            die;
-        }
+        // if(empty($postData['event_description'])) {
+        //     $this->error204($this->lang->line('event_description_must_not_be_empty'));
+        //     die;
+        // }
         $startDate = ddMMyyyy($postData['start_date'], 'Y-m-d');
         $startTime = ddMMyyyy($postData['start_time'], 'H:i:s');
         $startDateTime = strtotime($startDate.' '.$startTime);
@@ -862,10 +862,10 @@ class Businessmanagement extends MY_Controller {
                 $this->error204('end_time: '.$this->lang->line('not_transmitted'));
                 die;
             }
-            if(!isset($postData['event_description'])) {
-                $this->error204('event_description: '.$this->lang->line('not_transmitted'));
-                die;
-            }
+            // if(!isset($postData['event_description'])) {
+            //     $this->error204('event_description: '.$this->lang->line('not_transmitted'));
+            //     die;
+            // }
             if(!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $postData['end_time'])) {
                 $this->error204('end_time: '.$this->lang->line('incorrect_time_format'));
                 die;
@@ -882,10 +882,10 @@ class Businessmanagement extends MY_Controller {
                 $this->error204($this->lang->line('end_time_must_not_be_empty'));
                 die;
             }
-            if(empty($postData['event_description'])) {
-                $this->error204($this->lang->line('event_description_must_not_be_empty'));
-                die;
-            }
+            // if(empty($postData['event_description'])) {
+            //     $this->error204($this->lang->line('event_description_must_not_be_empty'));
+            //     die;
+            // }
 
             if($endDateTime < $dateNow) {
                 $this->error204($this->lang->line('end_date_and_end_time_must_not_be_earlier_than_the_current_date_and_time'));
@@ -903,13 +903,13 @@ class Businessmanagement extends MY_Controller {
                     $event_image = explode('.', $file['name']);
                     $fileExt = strtolower($event_image[count($event_image) - 1]);
                     if(in_array($fileExt, array('jpeg', 'jpg', 'png'))) {
-                        $dir = COUPONS_PATH . date('Y-m-d') . '/';
+                        $dir = EVENTS_PATH . date('Y-m-d') . '/';
                         @mkdir($dir, 0777, true);
                         @system("/bin/chown -R nginx:nginx " . $dir);
                         $filePath = $dir . uniqid() . '.' . $fileExt;
                         $flag = move_uploaded_file($file['tmp_name'], $filePath);
                         if ($flag) {
-                            $event_image = replaceFileUrl($filePath, COUPONS_PATH);
+                            $event_image = replaceFileUrl($filePath, EVENTS_PATH);
                             $dataEventImage = $event_image;
                         } else {
                             $this->error204($this->lang->line('event_image_update_failed'));
