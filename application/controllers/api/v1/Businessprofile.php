@@ -85,6 +85,7 @@ class Businessprofile extends MY_Controller {
                 $data = array(
                     'business_info' => array(
                         "id" => $detail['id'],
+                        "service_id" => $detail['service_id'],
                         "business_name" => $detail['business_name'],
                         "service_types" => $serviceTypes,
                         "business_slogan" => $detail['business_slogan'],
