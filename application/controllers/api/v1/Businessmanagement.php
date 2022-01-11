@@ -149,7 +149,7 @@ class Businessmanagement extends MY_Controller {
                 $itemHours = $openHours[$day_id];
                 $itemDay = array();
                 $itemDay['day_id'] = $day_id;
-                if (isset($itemHours['open_status_id']) && intval($itemHours['open_status_id']) == STATUS_ACTIVED && !empty($itemHours['start_time']) && !empty($itemHours['end_time'])) {
+                if (isset($itemHours['open_status_id']) && intval($itemHours['open_status_id']) == STATUS_ACTIVED && !empty($itemHours['start_time']) && !empty($itemHours['end_time']) && $itemHours['start_time'] != $itemHours['end_time']) {
                     $itemDay['opening_hours_status_id'] = STATUS_ACTIVED;
                 } else {
                     $itemDay['opening_hours_status_id'] = STATUS_NUMBER_ONE;
