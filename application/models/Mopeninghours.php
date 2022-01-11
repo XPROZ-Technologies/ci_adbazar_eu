@@ -26,7 +26,7 @@ class Mopeninghours extends MY_Model {
                 if(count($expEndTime) == 3) {
                     $endTime = $u['end_time'];
                 } else {
-                    if(!empty($u['end_time'])) $endTime = $u['start_time'].':00';
+                    if(!empty($u['end_time'])) $endTime = $u['end_time'].':00';
                 }
                 $arrOpenHours[] = array(
                     'business_profile_id' => $businessProfileId,
