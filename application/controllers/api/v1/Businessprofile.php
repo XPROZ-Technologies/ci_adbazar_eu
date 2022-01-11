@@ -17,7 +17,7 @@ class Businessprofile extends MY_Controller {
             else $postData['service_ids'] = $postData['service_id'];
             unset($postData['service_id']);
             $postData['api'] = true;
-            $this->load->model(array('Mbusinessprofiles','Mservices'));
+            $this->load->model(array('Mbusinessprofiles', 'Mservices', 'Mcustomerreviews'));
             $postData['business_status_id'] = STATUS_ACTIVED;
             $rowCount = $this->Mbusinessprofiles->getCountInApi($postData);
             $pageCount = 0;
@@ -37,7 +37,8 @@ class Businessprofile extends MY_Controller {
                     $openStatusId = $this->checkBusinessOpenHours($businessProfiles[$i]['id']);
                     if($openStatusId) $openStatusId = 2;
                     else $openStatusId = 1;
-                    $businessProfiles[$i]['star'] = !empty($businessProfiles[$i]['star']) ? $businessProfiles[$i]['star'] : '0';
+                    $businessRating = $this->Mcustomerreviews->getRatingAndBusinesInfo($businessProfiles[$i]['id']);
+                    $businessProfiles[$i]['star'] = isset($businessRating['overall_rating']) ? $businessRating['overall_rating'] : 0;
                     $businessProfiles[$i]['open_status_id'] = $openStatusId;
                     $businessProfiles[$i]['business_avatar'] = !empty($businessProfiles[$i]['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$businessProfiles[$i]['business_avatar']) : '';
                     $serviceTypes = $this->Mservices->getServiceTypeInService($businessProfiles[$i]['id'], $this->langCode);
@@ -71,7 +72,7 @@ class Businessprofile extends MY_Controller {
                 $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
-            $this->load->model(array('Mbusinessprofiles', 'Mservicetypes', 'Mopeninghours', 'Mphonecodes'));
+            $this->load->model(array('Mbusinessprofiles', 'Mservicetypes', 'Mopeninghours', 'Mphonecodes', 'Mcustomerreviews'));
             $detail = $this->Mbusinessprofiles->getDetailInApi($postData['business_id']);
             if($detail && count($detail) > 0) {
                 $detail = $detail[0];
@@ -88,6 +89,7 @@ class Businessprofile extends MY_Controller {
                 else $openStatusId = 1; // dóng cửa
                 $businessPhoneCode = $this->Mphonecodes->getFieldValue(array('id' => $detail['country_code_id']), 'phonecode','');
                 $whatsappPhoneCode = $this->Mphonecodes->getFieldValue(array('id' => $detail['country_code_whatsapp_id']), 'phonecode','');
+                $businessRating = $this->Mcustomerreviews->getRatingAndBusinesInfo($detail['id']);
                 $data = array(
                     'business_info' => array(
                         "id" => $detail['id'],
@@ -111,7 +113,7 @@ class Businessprofile extends MY_Controller {
                         "has_location" => $detail['has_location'],
                         "lat" => $detail['lat'],
                         "lng" => $detail['lng'],
-                        "star" => $detail['star'],
+                        "star" => isset($businessRating['overall_rating']) ? $businessRating['overall_rating'] : 0,
                         "number_of_reviews" => $detail['number_of_reviews'],
                         'is_annual_payment' => $detail['is_annual_payment'],
                         'business_status_id' => $detail['business_status_id']
