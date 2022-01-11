@@ -226,7 +226,8 @@ class Businessmanagement extends MY_Controller {
             }
             $dataReturn = array('business_id' => $flag);
             if($businessId == 0) {
-                $dataReturn['business_status_id'] = $postData['business_status_id'];
+                if($isTrial == 0) $dataReturn['has_payment'] = 1;
+                else if($isTrial == 1) $dataReturn['has_payment'] = 0;
             }
             $this->success200($dataReturn, $message);
             die;
