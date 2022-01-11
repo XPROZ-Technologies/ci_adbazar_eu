@@ -218,6 +218,30 @@ abstract class MY_Controller extends CI_Controller
         return false;
     }
 
+    protected function sendMailFile($emailFrom, $nameFrom, $emailTo, $nameTo,$subject, $message){
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => EMAIL_HOST,
+            'smtp_port' => EMAIL_PORT,
+            'smtp_user' => EMAIL_USER,
+            'smtp_pass' => EMAIL_PASS,
+            'mailtype'  => 'html',
+            'starttls'  => true,
+            'newline'   => "\r\n"
+        );
+
+        $this->load->library('email', $config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+        $this->email->from($emailFrom, $nameFrom);
+        $this->email->to($emailTo, $nameTo);
+        $this->email->subject($subject);
+        $this->email->message($message);
+        $this->email->attach('https://adb.xproz.com/assets/uploads/sample.pdf');   
+        if ($this->email->send()) return true;
+        return false;
+    }
+
     /**
      * example
      * example public function index() {
