@@ -343,4 +343,70 @@ class Cron extends MY_Controller {
         $this->success200($list);
         die;
     }
+
+    public function sendNotificationApp()
+    {
+        try {
+            $this->getLanguageApiNotify(true, 1);
+
+            $this->loadModel(array('Mbusinessprofiles', 'Mcustomernotifications', 'Mcustomers', 'Mcustomerreservations'));
+
+
+            $order_by = 'DESC';
+
+            $searchData = array(
+                'is_send' => 0
+            );
+            
+            $notiData = $this->getNotificationLists($searchData, 10, 1);
+            // echo "<pre>";print_r($notiData);die;
+            if(!empty($notiData)) {
+                for($i = 0; $i < count($notiData); $i++) {
+
+                    $languageId = $this->Mcustomers->getFieldValue(array('id' => $notiData[$i]['customer_id']), 'language_id', 3);
+
+                    if($languageId == 0) $languageId = 3;
+                    
+                    $notiItem = array(
+                        "id" => $notiData[$i]['id'],
+                        "title" => $notiData[$i]['text'],
+                        "created_date" => ddMMyyyy($notiData[$i]['created_at'], 'Y-m-d H:i'),
+                        "image" => base_url($notiData[$i]['image']),
+                        "message" => $notiData[$i]['text'],
+                        "item_id" => $notiData[$i]['item_id'],
+                        "business_id" => $notiData[$i]['business_id'],
+                        "notification_type_id" => $notiData[$i]['notification_type'],
+                        "is_read" => $notiData[$i]['notification_status_id']
+                    );
+
+                    //send to app
+                    $deviceToken = $this->Mcustomers->getFieldValue(array('id' => $notiData[$i]['customer_id']), 'device_token', "");
+                    // echo "<pre>";print_r($notiData[$i]);die;
+                    if(!empty($deviceToken)) {
+                        $data = array(
+                            "id" => $notiItem['id'],
+                            "item_id" => $notiItem['item_id'],
+                            "business_id" => $notiItem['business_id'],
+                            "notification_type_id" => $notiItem['notification_type_id'],
+                        );
+                        sendNotificationExpo($deviceToken, $notiItem['title'], $notiItem['message'], $data);
+                    }
+
+                    $this->Mcustomernotifications->updateBy(
+                        array(
+                            'id' => $notiItem['id']
+                        ),
+                        array(
+                            'is_send' => 1    
+                        )
+                    );
+                }
+            }else{
+                echo "empty";
+            }
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 }

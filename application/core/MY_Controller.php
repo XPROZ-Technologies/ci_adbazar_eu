@@ -773,6 +773,26 @@ abstract class MY_Controller extends CI_Controller
         elseif ($this->languageId == STATUS_NUMBER_FOR) $this->langCode = '_de';
     }
 
+    public function getLanguageApiNotify($loadAll = false, $languageId = 3) {
+        $language = $this->Mconstants->languageCodes[$languageId];
+        $this->language =  $language;
+        $this->lang->load('mobile', $this->language);
+        if($loadAll) {
+            $this->lang->load('login', $this->language);
+            $this->lang->load('customer', $this->language);
+            $this->lang->load('business_profile', $this->language);
+            $this->lang->load('business_management', $this->language);
+            $this->lang->load('user_account_management', $this->language);
+            $this->lang->load('email', $this->language);
+        }
+        $languageId = $this->input->get_request_header('language-id', TRUE);
+        $this->languageId = !empty($languageId) ? $languageId : 1;
+        $this->langCode = '_vi';
+        if ($this->languageId == STATUS_NUMBER_ONE) $this->langCode = '_en';
+        elseif ($this->languageId == STATUS_NUMBER_THREE) $this->langCode = '_cz';
+        elseif ($this->languageId == STATUS_NUMBER_FOR) $this->langCode = '_de';
+    }
+
     protected function apiCheckLogin($flag = false) {
         $token = $this->getAuthorizationHeader();
         // $token = $this->input->get_request_header('X-Auth-Token', TRUE);
