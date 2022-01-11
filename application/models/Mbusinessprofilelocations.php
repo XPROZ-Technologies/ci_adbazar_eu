@@ -12,7 +12,7 @@ class Mbusinessprofilelocations extends MY_Model {
     private function buildQuery($postData){
         $query = '';
         if(isset($postData['api']) && $postData['api'] == true) {
-            if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND `business_profiles.business_name` LIKE '%{$postData['search_text']}%' ";
+            if(isset($postData['search_text']) && !empty($postData['search_text'])) $query .=" AND business_profiles.business_name LIKE '%{$postData['search_text']}%' ";
             if(isset($postData['service_id']) && count($postData['service_id']) > 0) {
                 $serviceids = join(",",$postData['service_id']);
                 if(!empty($serviceids)) $query .= " AND business_profiles.service_id IN (".$serviceids.")";
