@@ -753,7 +753,7 @@ abstract class MY_Controller extends CI_Controller
 
     public function getLanguageApi($loadAll = false) {
         $languageId = $this->input->get_request_header('language-id', TRUE);
-        $languageId = !empty($languageId) ? $languageId : 1;
+        $languageId = !empty($languageId) ? $languageId : 3;
         $language = $this->Mconstants->languageCodes[$languageId];
         $this->language =  $language;
         $this->lang->load('mobile', $this->language);
@@ -766,11 +766,11 @@ abstract class MY_Controller extends CI_Controller
             $this->lang->load('email', $this->language);
         }
         $languageId = $this->input->get_request_header('language-id', TRUE);
-        $this->languageId = !empty($languageId) ? $languageId : 1;
-        $this->langCode = '_vi';
+        $this->languageId = !empty($languageId) ? $languageId : 3;
+        $this->langCode = '_de';
         if ($this->languageId == STATUS_NUMBER_ONE) $this->langCode = '_en';
-        elseif ($this->languageId == STATUS_NUMBER_THREE) $this->langCode = '_cz';
-        elseif ($this->languageId == STATUS_NUMBER_FOR) $this->langCode = '_de';
+        elseif ($this->languageId == STATUS_NUMBER_TWO) $this->langCode = '_cz';
+        elseif ($this->languageId == STATUS_NUMBER_FOR) $this->langCode = '_vi';
     }
 
     protected function apiCheckLogin($flag = false) {
