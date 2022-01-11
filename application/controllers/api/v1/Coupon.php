@@ -244,13 +244,9 @@ class Coupon extends MY_Controller {
 
                     $detail['amount_sold'] = $this->Mcustomercoupons->getCountByStatus($detail['id'], 1);
                     $detail['amount_used'] = $this->Mcustomercoupons->getCountByStatus($detail['id'], 2);
-                    $detail['amount_ramaining'] = intval($detail['coupon_amount']) - intval($detail['amount_sold']) - intval($detail['amount_used']);
+                    $detail['amount_remaining'] = intval($detail['coupon_amount']) - intval($detail['amount_sold']) - intval($detail['amount_used']);
                 }
                 unset($detail['created_at']);
-
-
-                
-                
                 $this->success200($detail);
             } else {
                 $this->error204($this->lang->line('no_data'));

@@ -935,7 +935,7 @@ class Businessmanagement extends MY_Controller {
                 'updated_at' => getCurentDateTime(),
                 'id' => $event['id']
             );
-        } else if ($dateNow >= $startDateTime && $dateNow >= $endDateTime){
+        } else if ($startDateTime > $dateNow && $dateNow < $endDateTime){
             if(!isset($postData['end_date'])) {
                 $this->error204('end_date: '.$this->lang->line('not_transmitted'));
                 die;
