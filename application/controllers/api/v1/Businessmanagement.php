@@ -1630,4 +1630,86 @@ class Businessmanagement extends MY_Controller {
             $this->error500();
         }
     }
+
+    public function update_image_cover() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'photo_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
+                die;
+            }
+            if(!isset($postData['photo_id'])) {
+                $this->error204('photo_id: '.$this->lang->line('not_transmitted'));
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mbusinessphotos'));
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+            if(!$checkExit) {
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
+                die;
+            }
+            $businessPhoto = $this->Mbusinessphotos->get($postData['photo_id']);
+            if(!$businessPhoto) {
+                $this->error204($this->lang->line('photo_not_exist'));
+                die;
+            }
+            if($businessPhoto['id'] != $postData['photo_id'] && $postData['business_id'] != $businessPhoto['business_profile_id']) {
+                $this->error204($this->lang->line('photo_not_exist'));
+                die;
+            }
+            $flag = $this->Mbusinessprofiles->save(array('business_image_cover' => $businessPhoto['photo_image'], 'updated_at' => getCurentDateTime()), $postData['business_id']);
+            if ($flag) {
+                $this->success200('', $this->lang->line('app_successful'));
+                die;
+            } else {
+                $this->error204($this->lang->line('failed'));
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function update_avatar() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'photo_id'));
+            if(!isset($postData['business_id'])) {
+                $this->error204('business_id: '.$this->lang->line('not_transmitted'));
+                die;
+            }
+            if(!isset($postData['photo_id'])) {
+                $this->error204('photo_id: '.$this->lang->line('not_transmitted'));
+                die;
+            }
+            $this->load->model(array('Mbusinessprofiles', 'Mbusinessphotos'));
+            $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id' => STATUS_ACTIVED), 'id', 0);
+            if(!$checkExit) {
+                $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
+                die;
+            }
+            $businessPhoto = $this->Mbusinessphotos->get($postData['photo_id']);
+            if(!$businessPhoto) {
+                $this->error204($this->lang->line('photo_not_exist'));
+                die;
+            }
+            if($businessPhoto['id'] != $postData['photo_id'] && $postData['business_id'] != $businessPhoto['business_profile_id']) {
+                $this->error204($this->lang->line('photo_not_exist'));
+                die;
+            }
+            $flag = $this->Mbusinessprofiles->save(array('business_avatar' => $businessPhoto['photo_image'], 'updated_at' => getCurentDateTime()), $postData['business_id']);
+            if ($flag) {
+                $this->success200('', $this->lang->line('app_successful'));
+                die;
+            } else {
+                $this->error204($this->lang->line('failed'));
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
 }
