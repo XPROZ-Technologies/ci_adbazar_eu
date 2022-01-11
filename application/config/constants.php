@@ -90,6 +90,7 @@ define('STATUS_ACTIVED', 2);
 define('STATUS_WAITING_ACTIVE', 1);
 define('STATUS_NUMBER_ZERO', 0);
 define('STATUS_NUMBER_ONE', 1);
+define('STATUS_NUMBER_TWO', 2);
 define('STATUS_NUMBER_THREE', 3);
 define('STATUS_NUMBER_FOR', 4);
 define('NO_IMAGE', 'no_image.png');
