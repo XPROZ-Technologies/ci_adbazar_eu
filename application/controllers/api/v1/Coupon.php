@@ -241,8 +241,15 @@ class Coupon extends MY_Controller {
                     }
                     $detail['is_recall'] = $isRecall;
                     $detail['is_edit'] = $isEdit;
+
+                    $detail['amount_sold'] = $this->Mcustomercoupons->getCountByStatus($detail['id'], 1);
+                    $detail['amount_used'] = $this->Mcustomercoupons->getCountByStatus($detail['id'], 2);
+                    $detail['amount_ramaining'] = intval($detail['coupon_amount']) - intval($detail['amount_sold']) - intval($detail['amount_used']);
                 }
                 unset($detail['created_at']);
+
+
+                
                 
                 $this->success200($detail);
             } else {

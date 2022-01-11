@@ -31,6 +31,21 @@ class Mcustomercoupons extends MY_Model {
         return 0;
     }
 
+    public function getCountByStatus($coupon_id = 0, $type = 1) {
+        if($coupon_id > 0){
+            if($type == 1) {
+                // Sold
+                $query = "customer_id > 0 AND customer_coupon_status_id = 2 " . $this->buildQuery(array('coupon_id' => $coupon_id));
+            }else if($type == 2) {
+                // Used
+                $query = "customer_id > 0 AND customer_coupon_status_id = 1 " . $this->buildQuery(array('coupon_id' => $coupon_id));
+            }
+            
+            return $this->countRows($query);
+        } 
+        return 0;
+    }
+
     private function buildQuery($postData){
         $query = '';
         
