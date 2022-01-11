@@ -935,7 +935,7 @@ class Businessmanagement extends MY_Controller {
                 'updated_at' => getCurentDateTime(),
                 'id' => $event['id']
             );
-        } else if ($startDateTime > $dateNow && $dateNow < $endDateTime){
+        } else if ($startDateTime < $dateNow && $dateNow < $endDateTime){
             if(!isset($postData['end_date'])) {
                 $this->error204('end_date: '.$this->lang->line('not_transmitted'));
                 die;
@@ -962,9 +962,16 @@ class Businessmanagement extends MY_Controller {
                 'updated_at' => getCurentDateTime(),
                 'id' => $event['id']
             );
+        } else {
+            if($startDateTime < $dateNow) {
+                $this->error204($this->lang->line('start_date_and_start_time_must_not_be_earlier_than_the_current_date_and_time'));
+                die;
+            }
+            if($endDateTime < $dateNow) {
+                $this->error204($this->lang->line('end_date_and_end_time_must_not_be_earlier_than_the_current_date_and_time'));
+                die;
+            }
         }
-
-
         return $dataUpdate;
 
     }
