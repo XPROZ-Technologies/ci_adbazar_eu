@@ -92,6 +92,18 @@ class Mevents extends MY_Model {
             if(isset($postData['business_id']) && $postData['business_id'] > 0) {
                 if(isset($postData['business_id']) && $postData['business_id'] > 0) $query.=" AND `events`.business_profile_id = {$postData['business_id']}";
             }
+
+            if(isset($postData['filter_by']) && in_array(intval($postData['filter_by']), [1,2,3, 4])) {
+                if(intval($postData['filter_by']) == 1) {
+                    $query .= " AND (DATE_FORMAT(CONCAT(`events`.`start_date`,' ',`events`.start_time), '%Y-%m-%d %H:%i') > DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') AND `events`.event_status_id = 2)";
+                } else if (intval($postData['filter_by']) == 2) {
+                    $query .= " AND (DATE_FORMAT(CONCAT(`events`.`start_date`,' ',`events`.start_time), '%Y-%m-%d %H:%i') < DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') AND DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') < DATE_FORMAT(CONCAT(`events`.`end_date`,' ',`events`.end_time), '%Y-%m-%d %H:%i') AND `events`.event_status_id = 2 )";
+                } else if (intval($postData['filter_by']) == 3) {
+                    $query .= " AND (DATE_FORMAT(CONCAT(`events`.`end_date`,' ',`events`.end_time), '%Y-%m-%d %H:%i') < DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') AND `events`.event_status_id != 4)";
+                } else if (intval($postData['filter_by']) == 4) {
+                    $query .= " AND `events`.event_status_id = 4";
+                }
+            }
         }
         return $query;
     }
