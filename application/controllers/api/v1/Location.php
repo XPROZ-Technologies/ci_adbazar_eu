@@ -26,6 +26,7 @@ class Location extends MY_Controller {
                     'id' => $location['id'],
                     'lat' => $location['lat'],
                     'lng' => $location['lng'],
+                    'location_name' => $location['location_name'],
                     'business_info' => array(
                         'id' => $location['business_profile_id'],
                         'business_name' => $location['business_name'],
