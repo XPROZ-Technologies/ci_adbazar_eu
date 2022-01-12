@@ -409,4 +409,17 @@ class Cron extends MY_Controller {
             echo $e->getMessage();
         }
     }
+
+    public function test_invoice() {
+        $business_id = 100;
+        $invoice_url = $this->create_invoice_pdf($business_id);
+
+        $sendMail = $this->sendMailFile('info@adbazar.eu', 'ADBazar.eu', 'huongthien1993@gmail.com', 'Thien Nguyen', 'Payment invoice', "email content", $invoice_url);
+
+        if($sendMail) {
+            echo "oke";
+        }else{
+            echo "failed";
+        }
+    }
 }

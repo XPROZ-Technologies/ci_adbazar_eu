@@ -121,6 +121,7 @@ define('COUPONS_PATH', 'assets/uploads/coupons/');
 define('EVENTS_PATH', 'assets/uploads/events/');
 define('BUSINESS_PROFILE_URL', '');
 define('PRODUCT_PATH', 'assets/uploads/products/');
+define('INVOICE_PATH', 'assets/uploads/invoices/');
 
 
 define('DEFAULT_IMG', '');
