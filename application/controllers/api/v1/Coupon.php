@@ -30,7 +30,7 @@ class Coupon extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'service_id', 'service_type_id', 'order_by', 'business_id', 'is_business'));
+            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'service_id', 'service_type_id', 'order_by', 'business_id', 'is_business', 'filter_by'));
             if(empty($postData['service_type_id'])) $postData['service_type_id'] = [];
             if(empty($postData['service_id'])) $postData['service_id'] = [];
             
@@ -66,6 +66,7 @@ class Coupon extends MY_Controller {
                         // 3: End: end_date < current_date
                         $coupons[$i]['coupon_status_id'] = 3;
                     } else if($coupons[$i]['coupon_status_id'] == 1) {
+                        // 4: Recall
                         $coupons[$i]['coupon_status_id'] = 4;
                     }
 

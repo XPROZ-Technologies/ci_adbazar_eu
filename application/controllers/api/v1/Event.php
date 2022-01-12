@@ -34,7 +34,7 @@ class Event extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(true);
-            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'business_id', 'order_by', 'is_business'));
+            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'business_id', 'order_by', 'is_business', 'filter_by'));
             $postDataOther = $this->arrayFromPostRawJson(array('selected_date'));
             $isAdmin = false;
             if(isset($postData['is_business']) && $postData['is_business'] == 1) {
