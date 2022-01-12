@@ -93,7 +93,7 @@ class Subscription extends MY_Controller {
                // nếu plan_type_id =1  30 , 2: 365
                 $this->Mbusinessprofiles->save($dataUpdate, $business['id']);
 
-                $invoice_url = $this->create_invoice_pdf($business_id);
+                $invoice_url = $this->create_invoice_pdf($business['id']);
 
                 $customerInfo = $this->Mcustomers->get($customer['customer_id']);
 
