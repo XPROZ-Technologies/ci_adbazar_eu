@@ -146,6 +146,20 @@ class Businessmanagement extends MY_Controller {
         $openHours =  json_decode(stripslashes($postData['open_hours']), true, JSON_UNESCAPED_SLASHES);
         $openingHours = array();
         foreach ($this->Mconstants->dayIds as $day_id => $itemHours) {
+            if(isset($itemHours['start_time']) && isset($itemHours['end_time'])) {
+                $itemStartTime = strtotime(ddMMyyyy($itemHours['start_time'], 'H:i'));
+                $itemEndTime = strtotime(ddMMyyyy($itemHours['end_time'], 'H:i'));
+                if($itemEndTime < $itemStartTime) {
+                    $itemDay = array();
+                    $itemDay['day_id'] = $day_id;
+                    $itemDay['opening_hours_status_id'] = STATUS_NUMBER_ONE;
+                    $itemDay['start_time'] = "00:00";
+                    $itemDay['end_time'] = "00:00";
+                    $openingHours[] = $itemDay;
+                    continue;
+                }
+            }
+            
             if (isset($openHours[$day_id])) {
                 $itemHours = $openHours[$day_id];
                 $itemDay = array();
