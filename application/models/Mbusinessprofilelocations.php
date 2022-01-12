@@ -25,6 +25,7 @@ class Mbusinessprofilelocations extends MY_Model {
     public function getBusinessprofileLocations($postData) {
         $query = "SELECT
                     locations.id,
+                    locations.location_name,
                     locations.lat,
                     locations.lng,
                     business_profiles.id as business_profile_id,
