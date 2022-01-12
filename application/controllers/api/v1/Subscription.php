@@ -93,6 +93,12 @@ class Subscription extends MY_Controller {
                // nếu plan_type_id =1  30 , 2: 365
                 $this->Mbusinessprofiles->save($dataUpdate, $business['id']);
 
+                $invoice_url = $this->create_invoice_pdf($business_id);
+
+                $customerInfo = $this->Mcustomers->get($customer['customer_id']);
+
+                $sendMail = $this->sendMailFile('info@adbazar.eu', 'ADBazar.eu', $customerInfo['customer_email'], $customerInfo['customer_first_name'], 'Payment invoice', $invoice_url);
+
                 $this->success200(array('business_id' => $flag), $this->lang->line('payment_success'));
                 die;
             } else {

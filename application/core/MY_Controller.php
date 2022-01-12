@@ -219,6 +219,39 @@ abstract class MY_Controller extends CI_Controller
     }
 
     /**
+     * Send mail with attachment
+     */
+    protected function sendMailFile($emailFrom, $nameFrom, $emailTo, $nameTo,$subject, $message, $file_attach = "https://adb.xproz.com/assets/uploads/sample.pdf"){
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => EMAIL_HOST,
+            'smtp_port' => EMAIL_PORT,
+            'smtp_user' => EMAIL_USER,
+            'smtp_pass' => EMAIL_PASS,
+            'mailtype'  => 'html',
+            'starttls'  => true,
+            'newline'   => "\r\n"
+        );
+
+        $this->load->library('email', $config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+        $this->email->from($emailFrom, $nameFrom);
+        $this->email->to($emailTo, $nameTo);
+        $this->email->subject($subject);
+        $this->email->message($message);
+        
+        // Attach file into email
+        if(!empty($file_attach)) {
+            $this->email->attach($file_attach);   
+        }
+        
+        if ($this->email->send()) return true;
+        return false;
+    }
+
+
+    /**
      * example
      * example public function index() {
      *    $flag =  $this->sendMail('facebook12636@gmail.com', 'man', 'haminhman2011@gmail.com', 'Gửi mail', 'ahhihi');
@@ -922,5 +955,141 @@ abstract class MY_Controller extends CI_Controller
         $pay = json_decode($response2);
         //echo "<pre>";print_r($pay);exit;
         return $pay->links['0']->href;
+    }
+
+    public function create_invoice_pdf($businessId = 0){
+
+        if($businessId == 0) {
+            return false;
+        }
+
+        $html = '<!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta http-equiv="x-ua-compatible" content="ie=edge">
+          <title>Invoice</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <style type="text/css">
+               * { font-family: DejaVu Sans, sans-serif; }
+               table.border_table, table.border_table th, table.border_table td{
+                    border:1px solid black;
+                }
+                table.border_table td{
+                    padding: 5px;
+                }
+                table.border_table {
+                    border-collapse:collapse;
+                }
+          </style>
+        </head>
+        <body style="background-color: #FFF;">
+            <table width="100%">
+                <tr>
+                    <td><img src="data:image/jpeg;base64,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" width="180px" height="auto" ></td>
+                    <td><h2>Payment Receipt</h2></td>
+                </tr>
+                <tr>
+                    <td></td><td><i>Receipt No.: #RECEIPE_NUMBER</i></td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td><h3>Invoice to</h3></td><td></td>
+                </tr>
+                <tr>
+                    <td>Name:   BUSINESS_NAME</td><td></td>
+                </tr>
+                <tr>
+                    <td>Address: BUSINESS_ADDRESS</td><td></td>
+                </tr>
+                <tr>
+                    <td>Business ID: BUSINESS_ID</td><td>VAT ID: BUSINESS_VAT_ID</td>
+                </tr>
+                <tr>
+                    <td>Date: PAYMENT_DATE</td><td></td>
+                </tr>
+                <tr>
+                    <td>Payment method: PAYMENT_METHOD</td><td></td>
+                </tr>
+            </table>
+            <table  width="100%">
+                <tr>
+                    <td><h3>Your order summary</h3></td>
+                </tr>
+            </table>
+            <table width="100%" class="border_table">
+                <tr>
+                    <td style="border-width: 1px;">Description</td><td style="border-width: 1px;">Amount</td>
+                </tr>
+                <tr>
+                    <td>Price of Business_name</td><td>AMOUNT_PRICE CURRENCY</td>
+                </tr>
+                <tr>
+                    <td>VAT (NUM_VAT%)</td><td>AMOUNT_VAT CURRENCY</td>
+                </tr>
+                <tr>
+                    <td>Total</td><td>AMOUNT_TOTAL CURRENCY</td>
+                </tr>
+            </table>
+            <p><i>If you have any question, please contact us at asiadragonbazar@adbazar.eu</i></p>
+        </body>
+        </html>';
+
+        $findArray = array(
+            'RECEIPE_NUMBER',
+            'BUSINESS_NAME',
+            'BUSINESS_ADDRESS',
+            'BUSINESS_ID',
+            'BUSINESS_VAT_ID',
+            'PAYMENT_DATE',
+            'PAYMENT_METHOD',
+            'AMOUNT_PRICE',
+            'AMOUNT_VAT',
+            'NUM_VAT',
+            'AMOUNT_TOTAL',
+            'CURRENCY'
+        );
+
+        $this->load->model(array('Mbusinessprofiles', 'Mbusinesspayments', 'Mpaymentplans'));
+        
+        $businessInfo = $this->Mbusinessprofiles->get($businessId);
+        
+        $businessPaymentInfos = $this->Mbusinesspayments->getBy(array('business_profile_id' => $businessId), false, 'id','', 1, 0, 'DESC');
+
+        $paymentInfo = $businessPaymentInfos[0];
+        
+        $planInfo = $this->Mpaymentplans->get($businessInfo['plan_id']);
+        
+        $replaceArray = array(
+            $paymentInfo['id'], // receipe number
+            $paymentInfo['payment_name'], // business  name
+            $paymentInfo['payment_address'], // business address
+            $paymentInfo['payment_company_id'], // business id
+            $paymentInfo['payment_company_vat_id'], // business vat id
+            ddMMyyyy($paymentInfo['created_at'], 'Y-m-d'), // payment date
+            'Paypal', // payment method
+            $planInfo['plan_amount'], // amount price
+            intval($planInfo['plan_total'] - $planInfo['plan_amount']), // amount vat
+            $planInfo['plan_vat'], // num vat
+            $planInfo['plan_total'], // amount total
+            ($planInfo['plan_currency_id'] == 1) ? 'CZK' : 'EUR' // currency
+        );
+
+        $html = str_replace($findArray, $replaceArray, $html);
+        
+        $this->load->library('pdf');
+        $this->pdf->loadHtml($html);
+        $this->pdf->setPaper('A4', 'portrait');
+        $this->pdf->render();
+
+        $invoice_name = $receipe_number."_invoice_adbazar_".str_replace('/', '_', $invoice_date).".pdf";
+        $invoice_path = INVOICE_PATH.$invoice_name;
+        $output = $this->pdf->output();
+
+        file_put_contents($invoice_path, $output);
+
+        return base_url($invoice_path);
+        
     }
 }
