@@ -1279,7 +1279,7 @@ class Businessmanagement extends MY_Controller {
                 'payment_name' => $postData['payment_name'],
                 'payment_address' => $postData['payment_address'],
                 'payment_company_id' => isset($postData['payment_company_id']) ? $postData['payment_company_id']: '',
-                'payment_compnay_vat_id' => isset($postData['payment_compnay_vat_id']) ? $postData['payment_compnay_vat_id']: '',
+                'payment_company_vat_id' => isset($postData['payment_company_vat_id']) ? $postData['payment_company_vat_id']: '',
                 'payment_status_id' => PAYMENT_WAITING,
                 'created_at' => getCurentDateTime(),
                 'created_by' => 0
