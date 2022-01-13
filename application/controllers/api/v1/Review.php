@@ -14,7 +14,7 @@ class Review extends MY_Controller {
             $customer = $this->apiCheckLogin();
             $postData = $this->arrayFromPostApi(array('business_id', 'review_star', 'customer_comment'));
             $postData['customer_id'] = $customer['customer_id'];
-            $this->load->model('Mcustomerreviews');
+            $this->load->model(array('Mcustomerreviews', 'Mcustomernotifications'));
             $checkExit = $this->Mcustomerreviews->getFieldValue(array('customer_id' => $postData['customer_id'], 'business_id' => $postData['business_id']), 'id', 0);
             if($checkExit) {
                 $this->error204($this->lang->line('customers_have_left_a_review'));
@@ -71,6 +71,23 @@ class Review extends MY_Controller {
                 $postData['created_by'] = $customer['customer_id'];
                 $flag = $this->Mcustomerreviews->save($postData);
                 if($flag) {
+
+                    /**
+                     * Add notification
+                     */
+                    $dataNoti = array(
+                        'notification_type' => 0, //business has review
+                        'customer_id'   => $customer['customer_id'],
+                        'business_id'   => $postData['business_id'],
+                        'item_id'   => $flag,
+                        'notification_status_id'    => STATUS_ACTIVED,
+                        'created_at' => getCurentDateTime()
+                    );
+                    $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                    /**
+                     * END. Add notification
+                     */
+
                     $this->success200('', $this->lang->line('successful_business_evaluation'));
                 } else {
                     $this->error204($this->lang->line('unsuccessful_business_review'));
@@ -92,7 +109,7 @@ class Review extends MY_Controller {
             $customer = $this->apiCheckLogin();
             $postData = $this->arrayFromPostRawJson(array('business_id', 'review_id', 'business_comment'));
 
-            $this->load->model('Mcustomerreviews');
+            $this->load->model(array('Mcustomerreviews', 'Mcustomernotifications'));
 
             if(empty($postData['business_comment'])){
                 $this->error204($this->lang->line('reply_cannot_be_blank'));
@@ -103,9 +120,25 @@ class Review extends MY_Controller {
                 $flag = $this->Mcustomerreviews->save(array(
                     'business_comment' => $postData['business_comment'],
                     'updated_at' =>  getCurentDateTime(),
-                    'updated_at' => $customer['customer_id']
+                    'updated_by' => $customer['customer_id']
                 ), $postData['review_id']);
                 if($flag) {
+                    /**
+                     * Add notification
+                     */
+                    $dataNoti = array(
+                        'notification_type' => 1, //business reply customer comment
+                        'customer_id'   => $customer['customer_id'],
+                        'business_id'   => $postData['business_id'],
+                        'item_id'   => $postData['review_id'],
+                        'notification_status_id'    => STATUS_ACTIVED,
+                        'created_at'    => getCurentDateTime()
+                    );
+                    $notificationId = $this->Mcustomernotifications->save($dataNoti);
+                    /**
+                     * END. Add notification
+                     */
+
                     $this->success200('', $this->lang->line('successful_business_evaluation'));
                 } else {
                     $this->error204($this->lang->line('unsuccessful_business_review'));
