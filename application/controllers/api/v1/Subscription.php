@@ -97,7 +97,16 @@ class Subscription extends MY_Controller {
 
                 $customerInfo = $this->Mcustomers->get($customer['customer_id']);
 
-                $sendMail = $this->sendMailFile('info@adbazar.eu', 'ADBazar.eu', $customerInfo['customer_email'], $customerInfo['customer_first_name'], 'Payment invoice', $invoice_url);
+                $this->Mbusinesspayments->save(array('invoice_url' => $invoice_url), $businessPaymentId);
+
+                $dataEmail = array(
+                    'name' => $customerInfo['customer_first_name'],
+                    'email_to' => $customerInfo['customer_email'],
+                    'email_to_name' => $customerInfo['customer_first_name'],
+                    'business_name' => $this->Mbusinessprofiles->getNameById($business['id']),
+                    'attach_file' => $invoice_url
+                );
+                $this->Memailqueue->createEmail($dataEmail, 13);
 
                 $this->success200(array('business_id' => $flag), $this->lang->line('payment_success'));
                 die;

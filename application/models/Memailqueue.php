@@ -27,14 +27,14 @@ class Memailqueue extends MY_Model
         $myProfileUrl = base_url('customer/verify-email?token='.$emailData['token']);
 
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Your account was successfully created.</p>
-                            <p>Hello <strong>' . $emailData['name'] . '</strong> ,</p>
-                            <p>Welcome to Adbazar</p>
-                            <p>Please click the button below to complete your account registration</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('email_verify_your_email_address').'</p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
+                            <p>'.$this->lang->line('email_welcome_to').'</p>
+                            <p>'.$this->lang->line('email_please_click_the_button_below').'</p>
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . $myProfileUrl . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">Verify Email</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_verify_email').'</a>
                             </div>';
 
         $data = $this->email_template($emailContent);
@@ -46,16 +46,15 @@ class Memailqueue extends MY_Model
         $myProfileUrl = base_url('customer/general-information');
 
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Your account was successfully created.</p>
-                            <p>Hello <strong>' . $emailData['name'] . '</strong> ,</p>
-                            <p>Thank you for creating your account at AdBazar</p>
-                            <p>We would like to confirm that your account was created successfully. To review your account, please click the button below.</p>
-                            <p>Best,<br>AdBazar.</p>
-                            <p>You can view details of other events by clicking the button below.</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('email_your_account_was_successfully_created').'</p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
+                            <p>'.$this->lang->line('email_thank_you_for_creating_your_account_at').'</p>
+                            <p>'.$this->lang->line('emnai_we_would_like_to_confirm_that_your_account_was_created_successfully').'</p>
+                            <p>'.$this->lang->line('email_best').',<br>AdBazar.</p>
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . $myProfileUrl . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">See my profile</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('see_my_profile').'</a>
                             </div>';
 
         $data = $this->email_template($emailContent);
@@ -67,16 +66,14 @@ class Memailqueue extends MY_Model
         $urlAction = base_url('password-assistance?token='.$emailData['token']);
 
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Password assistance</p>
-                            <p>Hello ' . $emailData['name'] . ',</p>
-                            <p>We have received your request to change your password.</p>
-                            <p>Please click the button below to set up your new password.</p>
-                            <p>If you did not make this request, please reach out to us immediately.</p>
-                            <p>Best,<br>AdBazar.</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('22112021_email_password_assistance').'</p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
+                            <p>'.$this->lang->line('email_we_have_recieved_your_request_to_change').'</p>
+                            <p>'.$this->lang->line('email_best').',<br>AdBazar.</p>
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . $urlAction . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">Reset Password</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_reset_password').'</a>
                             </div>';
 
         $data = $this->email_template($emailContent);
@@ -86,13 +83,13 @@ class Memailqueue extends MY_Model
     public function sendContactForm($emailData = array())
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Contact from website</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('email_contact_from_website').'</p>
                             <p>Dear Administrator,</p>
                             <p>&nbsp;</p>
-                            <p>Customer Name: ' . $emailData['contact_name'] . '</p>
-                            <p>Contact Name: ' . $emailData['contact_name'] . '</p>
-                            <p>Contact Email: ' . $emailData['contact_email'] . '</p>
-                            <p>Message: </p>
+                            <p>'.$this->lang->line('email_contact_customer_name').': ' . $emailData['contact_name'] . '</p>
+                            <p>'.$this->lang->line('email_contact_contact_name').': ' . $emailData['contact_name'] . '</p>
+                            <p>'.$this->lang->line('email_contact_contact_email').': ' . $emailData['contact_email'] . '</p>
+                            <p>'.$this->lang->line('email_contact_message').': </p>
                             <p>' . nl2br($emailData['contact_message']) . '</p>
                             <p>&nbsp;</p>
                            ';
@@ -104,22 +101,21 @@ class Memailqueue extends MY_Model
     public function joinEvent($emailData = array())
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">You have successfully registered to join
-                            ' . $emailData['event_name'] . '.</p>
-                            <p>Hello ' . $emailData['name'] . ',</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('email_you_have_successfully_registered_to_join_the_event').'</p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
                             <p>&nbsp;</p>
-                            <p>This email serves as a notification that your registration to join the event ' . $emailData['event_name'] . ' at ' . $emailData['business_name'] . ' has been confirmed.</p>
+                            <p>'.str_replace(array('<EVENT_NAME>','<BUSINESS_NAME>'), array($emailData['event_name'], $emailData['business_name']), $this->lang->line('email_this_email_serves_to_join_the_event')).'</p>
                             <p>&nbsp;</p>
-                            <p>You can check the event detail by clicking the button below.</p>
+                            <p>'.$this->lang->line('email_you_can_check_the_event_details').'</p>
                             <p>&nbsp;</p>
-                            <p>Looking forward to seeing you.</p>
+                            <p>'.$this->lang->line('email_looking_forward_to_seeing_you').'</p>
                             <p>&nbsp;</p>
-                            <p>Best,<br>AdBazar.</p>
+                            <p>'.$this->lang->line('email_best').',<br>AdBazar.</p>
                             <p>&nbsp;</p>
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . $emailData['event_url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">See event details</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_see_event_details').'</a>
                             </div>
                            ';
 
@@ -131,18 +127,18 @@ class Memailqueue extends MY_Model
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
                             font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('email_your_reservation_has_been_declined').'</p>
-                            <p>Dear ' . $emailData['name'] . ',</p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_dear_name')).',</p>
                             <p>&nbsp;</p>
-                            <p> This email serves as a notification that you have cancelled your appointment at '. $emailData['business_name'] .' on '. $emailData['reservation_date'] .' at '. $emailData['reservation_time'] .'. </p>
+                            <p> '.str_replace(array('<BUSINESS_NAME>', '<DATE>', '<TIME>'), array($emailData['business_name'], $emailData['reservation_date'], $emailData['reservation_time']), $this->lang->line('email_this_email_serves_as_a_notification_that_you_have_cancelled')).' </p>
                             <p>&nbsp;</p>
-                            <p>If you would like to reschedule, please contact '. $emailData['business_name'] .' by clicking the button below.</p>
+                            <p>'.str_replace('<BUSINESS_NAME>', $emailData['business_name'], $this->lang->line('email_if_you_would_like_to_reschedule')).'</p>
                             <p>&nbsp;</p>
-                            <p>Kind regards,<br>Adbazar.</p>
+                            <p>'.$this->lang->line('email_kind_regards').',<br>Adbazar.</p>
                             <p>&nbsp;</p>
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="https://wa.me/' . $emailData['business_whatsapp'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">Contact Business</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_contact_businesss').'</a>
                             </div>
                            ';
 
@@ -156,21 +152,21 @@ class Memailqueue extends MY_Model
     public function subscriptionExpiredSoon($emailData = array())
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Your subscription for '.$emailData['business_name'].' will expire soon</p>
-                            <p>Hello ' . $emailData['name'] . ',</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.str_replace('<BUSINESS_NAME>', $emailData['business_name'], $this->lang->line('22112021_email_your_subscription_for_business_will_expire_soon')).'</p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
                             <p>&nbsp;</p>
-                            <p>  This email serves as a notification that your subscription at AdBazar for '.$emailData['business_name'].' will expire in '.$emailData['time'].'. </p>
+                            <p>  '.str_replace(array('<BUSINESS_NAME>', '<TIME>'), array($emailData['business_name'], $emailData['time']), $this->lang->line('email_this_email_serves_as_a_notification_subscription_expired_in')).' </p>
                             <p>&nbsp;</p>
-                            <p> Please make a payment to extend your subscription before it is expired by clicking the button below to avoid any disruption while managing your business.</p>
+                            <p> '.$this->lang->line('email_please_make_a_payment_to_extend_your_subscription_before_it_is_expired').'</p>
                             <p>&nbsp;</p>
-                            <p> Looking forward to seeing you at AdBazar.</p>
+                            <p> '.$this->lang->line('email_looking_forward_to_seeing_you').'</p>
                             <p>&nbsp;</p>
-                            <p>Kind regards,<br>Adbazar.</p>
+                            <p>'.$this->lang->line('email_kind_regards').',<br>Adbazar.</p>
                             <p>&nbsp;</p>
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">Renew subscription</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_renew_subscription').'</a>
                             </div>
                            ';
 
@@ -184,23 +180,23 @@ class Memailqueue extends MY_Model
     public function subscriptionExpired($emailData = array())
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Your subscription for '.$emailData['business_name'].' has expired</p>
-                            <p>Hello ' . $emailData['name'] . ',</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.str_replace('<BUSINESS_NAME>',  $emailData['business_name'], $this->lang->line('22112021_email_your_subscription_for_business_has_expire')).'</p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
                             <p>&nbsp;</p>
-                            <p>  This email serves as a notification that your subscription at AdBazar for '.$emailData['business_name'].' has expired.  </p>
+                            <p> '.str_replace('<BUSINESS_NAME>',  $emailData['business_name'], $this->lang->line('email_this_email_serves_as_a_notification_subscription_expired')).'  </p>
                             <p>&nbsp;</p>
-                            <p> We are sorry that we have to temporarily lock all of your accesses to manage '.$emailData['business_name'].'.</p>
+                            <p> '.str_replace('<BUSINESS_NAME>',  $emailData['business_name'], $this->lang->line('email_we_are_sorry_that_we_have_to_temporarily_lock')).'</p>
                             <p>&nbsp;</p>
-                            <p> Please make a payment to extend your subscription by clicking the button below. </p>
+                            <p> '.$this->lang->line('email_please_make_a_payment_to_extend_your_subscription_by_clicking').' </p>
                             <p>&nbsp;</p>
-                            <p> Looking forward to seeing you at AdBazar.</p>
+                            <p> '.$this->lang->line('email_looking_forward_to_seeing_you').'</p>
                             <p>&nbsp;</p>
-                            <p>Best,<br>Adbazar.</p>
+                            <p>'.$this->lang->line('email_best').',<br>Adbazar.</p>
                             <p>&nbsp;</p>
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">Renew subscription</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_renew_subscription').'</a>
                             </div>
                            ';
 
@@ -215,7 +211,7 @@ class Memailqueue extends MY_Model
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
                             font-size: 20px;line-height: 24px;text-align: center;">Your subscription for '.$emailData['business_name'].' was successful </p>
-                            <p>Hello ' . $emailData['name'] . ',</p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
                             <p>&nbsp;</p>
                             <p> This email serves as a notification that your payment for renewing your subscription for '.$emailData['business_name'].' at Adbazar was succesful.   </p>
                             <p>&nbsp;</p>
@@ -224,7 +220,7 @@ class Memailqueue extends MY_Model
                             <p> Please check your receipt by clicking the button below.  </p>
                             <p>&nbsp;</p>
                            
-                            <p>Best,<br>Adbazar.</p>
+                            <p>'.$this->lang->line('email_best').',<br>Adbazar.</p>
                             <p>&nbsp;</p>
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
@@ -243,20 +239,20 @@ class Memailqueue extends MY_Model
     public function eventStartNext24h($emailData = array())
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Event reminder </p>
-                            <p>Hello ' . $emailData['name'] . ',</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('22112021_email_event_reminder').' </p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
                             <p>&nbsp;</p>
-                            <p> ' . $emailData['event_subject'] . ' held by '.$emailData['business_name'].' is going to happen in the next 24 hours.</p>
+                            <p> '.str_replace(array('<EVENT_NAME>', '<BUSINESS_NAME>'), array($emailData['event_subject'], $emailData['business_name']), $this->lang->line('noti_event_happen_in_next_24h')).'</p>
                             <p>&nbsp;</p>
-                            <p> We are looking forward to greeting you in our event.</p>
+                            <p> '.$this->lang->line('email_we_are_looking_forward_to_greeting_you_in_our_event').'</p>
                             <p>&nbsp;</p>
-                            <p> You can view details of your events by clicking the button below. </p>
+                            <p> '.$this->lang->line('email_you_can_view_details_of_your_events').' </p>
                             <p>&nbsp;</p>
                            
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">View event</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_view_events').'</a>
                             </div>
                            ';
 
@@ -270,22 +266,22 @@ class Memailqueue extends MY_Model
     public function eventUpdated($emailData = array())
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Your event has been updated. </p>
-                            <p>Hello ' . $emailData['name'] . ',</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('22112021_email_your_event_has_been_updated').' </p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
                             <p>&nbsp;</p>
-                            <p> ' . $emailData['event_subject'] . ' held by '.$emailData['business_name'].' has been updated. </p>
+                            <p> '.str_replace(array('<EVENT_NAME>', '<BUSINESS_NAME>'), array($emailData['event_subject'], $emailData['business_name']), $this->lang->line('noti_event_updated')).' </p>
                             <p>&nbsp;</p>
-                            <p>We sincerely apologize for any inconvenience this may caused and look forward to greeting you in our event.</p>
+                            <p>'.$this->lang->line('email_we_sincerely_apologize_for_any_inconvenience').'</p>
                             <p>&nbsp;</p>
-                            <p> Thank you for understanding. </p>
+                            <p> '.$this->lang->line('email_thank_you_for_understanding').' </p>
                             <p>&nbsp;</p>
-                            <p> You can view details of the event by clicking the button below.</p>
+                            <p> '.$this->lang->line('email_you_can_view_details_event').'</p>
                             <p>&nbsp;</p>
 
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . $emailData['url'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">View event</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_view_events').'</a>
                             </div>
                            ';
 
@@ -299,22 +295,22 @@ class Memailqueue extends MY_Model
     public function eventCancelled($emailData = array())
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Your event has been cancelled. </p>
-                            <p>Hello ' . $emailData['name'] . ',</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('22112021_email_your_event_has_been_cancelled').' </p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
                             <p>&nbsp;</p>
-                            <p> ' . $emailData['event_subject'] . ' held by '.$emailData['business_name'].' as been cancelled. </p>
+                            <p> '.str_replace(array('<EVENT_NAME>', '<BUSINESS_NAME>'), array($emailData['event_subject'], $emailData['business_name']) , $this->lang->line('noti_event_canceled')).'</p>
                             <p>&nbsp;</p>
-                            <p>We sincerely apologize for any inconvenience this may caused and look forward to greeting you in our next event.</p>
+                            <p>'.$this->lang->line('email_greeting_you_in_our_next_event').'</p>
                             <p>&nbsp;</p>
-                            <p> Thank you for understanding. </p>
+                            <p> '.$this->lang->line('email_thank_you_for_understanding').' </p>
                             <p>&nbsp;</p>
-                            <p> You can view details of other events by clicking the button below.</p>
+                            <p> '.$this->lang->line('email_view_details_of_other_events').'</p>
                             <p>&nbsp;</p>
 
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="' . site_url('events.html') . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">View events</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_view_events').'</a>
                             </div>
                            ';
 
@@ -328,16 +324,16 @@ class Memailqueue extends MY_Model
     public function reservationDeclined($emailData = array())
     {
         $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
-                            font-size: 20px;line-height: 24px;text-align: center;">Your reservation has been declined. </p>
-                            <p>Dear ' . $emailData['name'] . ',</p>
+                            font-size: 20px;line-height: 24px;text-align: center;">'.$this->lang->line('email_your_reservation_has_been_declined').' </p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_dear_name')).',</p>
                             <p>&nbsp;</p>
-                            <p> This email serves as a notification that you have cancelled your appointment at ' . $emailData['business_name'] . ' on ' . $emailData['date_arrived'] . ' at ' . $emailData['time_arrived'] . '.</p>
+                            <p> '.str_replace(array('<BUSINESS_NAME>','<DATE>','<TIME>'), array($emailData['business_name'], $emailData['date_arrived'], $emailData['time_arrived']), $this->lang->line('email_this_email_serves_as_a_notification_that_you_have_cancelled')).' </p>
                             <p>&nbsp;</p>
-                            <p>If you would like to reschedule, please contact <Business name> by clicking the button below. </p>
+                            <p>'.str_replace('<BUSINESS_NAME>', $emailData['business_name'], $this->lang->line('email_if_you_would_like_to_reschedule')).' If you would like to reschedule, please contact <Business name> by clicking the button below. </p>
                             <p>&nbsp;</p>
-                            <p> Thank you for understanding. </p>
+                            <p> '.$this->lang->line('email_thank_you_for_understanding').' </p>
                             <p>&nbsp;</p>
-                            <p> Kind regards, <br>
+                            <p> '.$this->lang->line('email_kind_regards').', <br>
                             ' . $emailData['business_name'] . '
                             </p>
                             <p>&nbsp;</p>
@@ -345,7 +341,37 @@ class Memailqueue extends MY_Model
                             <div style="text-align: center;margin-top: 32px;">
                                 <a target="_blank" href="tel:' . $emailData['business_phone'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
                                 font-size: 18px; line-height: 21px;    text-decoration: inherit;
-                                border-radius: 2px;padding: 10px 20px;color: #fff;">Contact Us</a>
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">'.$this->lang->line('email_contact_businesss').'</a>
+                            </div>
+                           ';
+
+        $data = $this->email_template($emailContent);
+        return $data;
+    }
+
+    /**
+     * 13
+     */
+    public function subscriptionSuccess($emailData = array())
+    {
+        $emailContent = '<p style="margin-bottom: 32px;font-weight: bold;
+                            font-size: 20px;line-height: 24px;text-align: center;">Your subscription for ' . $emailData['business_name'] . ' was successful</p>
+                            <p>'.str_replace('<CUSTOMER_NAME>', $emailData['name'], $this->lang->line('email_hello_name')).',</p>
+                            <p>&nbsp;</p>
+                            <p> This email serves as a notification that your payment for renewing your subscription for ' . $emailData['business_name'] . '  at Adbazar was succesful.</p>
+                            <p>&nbsp;</p>
+                            <p>Thank you for using our service. </p>
+                            <p>&nbsp;</p>
+                            <p>Please check your receipt by clicking the button below. </p>
+                            <p>&nbsp;</p>
+                            <p> '.$this->lang->line('email_best').',<br> AdBazar.
+                            </p>
+                            <p>&nbsp;</p>
+
+                            <div style="text-align: center;margin-top: 32px;">
+                                <a target="_blank" href="tel:' . $emailData['attach_file'] . '" style="background: #C20000;font-style: normal;font-weight: 500;
+                                font-size: 18px; line-height: 21px;    text-decoration: inherit;
+                                border-radius: 2px;padding: 10px 20px;color: #fff;">View my receipt</a>
                             </div>
                            ';
 
@@ -371,7 +397,7 @@ class Memailqueue extends MY_Model
                     //create account
                     $emailContent = $this->verifyEmail($emailData);
                     $dataInsert = array(
-                        'email_subject' => "Verify your email address",
+                        'email_subject' => $this->lang->line('email_verify_your_email_address'),
                         'email_content' => $emailContent,
                         'email_from' => EMAIL_FROM,
                         'email_from_name' => EMAIL_FROM_NAME,
@@ -642,6 +668,53 @@ class Memailqueue extends MY_Model
                         return false;
                     }
                 }
+
+                if ($emailType == 12) {
+                    // Event cancelled
+                    $emailContent = $this->reservationDeclined($emailData);
+                    $dataInsert = array(
+                        'email_subject' => 'Your reservation has been declined.',
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if ($emailType == 13) {
+                    $emailContent = $this->subscriptionSuccess($emailData);
+                    $dataInsert = array(
+                        'email_subject' => str_replace('<BUSINESS_NAME>', $emailData['business_name'], 'Your subscription for <BUSINESS_NAME> was successful'),
+                        'email_content' => $emailContent,
+                        'email_from' => EMAIL_FROM,
+                        'email_from_name' => EMAIL_FROM_NAME,
+                        'email_to' => $emailData['email_to'],
+                        'email_to_name' => $emailData['email_to_name'],
+                        'is_send' => 0,
+                        'attach_file' => $emailData['attach_file'],
+                        'created_at' => getCurentDateTime()
+                    );
+
+                    $emailId = $this->save($dataInsert);
+                    
+                    if ($emailId > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
             }
         } catch (Exception $e) {
             echo $e->getMessage();
