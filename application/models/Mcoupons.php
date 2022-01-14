@@ -94,7 +94,7 @@ class Mcoupons extends MY_Model {
                 if(intval($postData['filter_by']) == 1) {
                     $query .= " AND (DATE_FORMAT(CONCAT(`coupons`.`start_date`), '%Y-%m-%d') > DATE_FORMAT(NOW(),'%Y-%m-%d') AND `coupons`.coupon_status_id = 2)";
                 } else if (intval($postData['filter_by']) == 2) {
-                    $query .= " AND (DATE_FORMAT(CONCAT(`coupons`.`start_date`), '%Y-%m-%d') < DATE_FORMAT(NOW(),'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') < DATE_FORMAT(CONCAT(`coupons`.`end_date`), '%Y-%m-%d') AND `coupons`.coupon_status_id = 2 )";
+                    $query .= " AND (DATE_FORMAT(CONCAT(`coupons`.`start_date`), '%Y-%m-%d') <= DATE_FORMAT(NOW(),'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(CONCAT(`coupons`.`end_date`), '%Y-%m-%d') AND `coupons`.coupon_status_id = 2 )";
                 } else if (intval($postData['filter_by']) == 3) {
                     $query .= " AND (DATE_FORMAT(CONCAT(`coupons`.`end_date`), '%Y-%m-%d') < DATE_FORMAT(NOW(),'%Y-%m-%d') AND `coupons`.coupon_status_id != 1)";
                 } else if (intval($postData['filter_by']) == 4) {

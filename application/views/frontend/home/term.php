@@ -8,7 +8,7 @@
                     <div class="">
                         <p class="page-text-lg">
                             <?php 
-                                 echo $content; 
+                                 echo nl2br($content); 
                             ?>
                         </p>
                     </div>

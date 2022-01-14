@@ -59,7 +59,7 @@ class Coupon extends MY_Controller {
                     // 1: Upcoming : start_date > current_date
                     if($startDate > $currentDate && $coupons[$i]['coupon_status_id'] == 2) {
                         $coupons[$i]['coupon_status_id'] = 1;
-                    } else if ($startDate < $currentDate && $currentDate < $endDate && $coupons[$i]['coupon_status_id'] == 2) {
+                    } else if ($startDate <= $currentDate && $currentDate <= $endDate && $coupons[$i]['coupon_status_id'] == 2) {
                         // 2: Ongoing: start_date < current_date < end_date
                         $coupons[$i]['coupon_status_id'] = 2;
                     } else if ($endDate < $currentDate && $coupons[$i]['coupon_status_id'] != 1) {

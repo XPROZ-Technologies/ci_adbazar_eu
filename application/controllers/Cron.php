@@ -20,7 +20,12 @@ class Cron extends MY_Controller {
         $emails = $this->Memailqueue->getBy(array('is_send' => 0), false, 'created_at','', 10, 0, 'asc');
 
         foreach($emails as $itemEmail){
-            $resultSend  = $this->sendMail($itemEmail['email_from'], $itemEmail['email_from_name'], $itemEmail['email_to'], $itemEmail['email_to_name'], $itemEmail['email_subject'], $itemEmail['email_content']);
+            if(empty($itemEmail['attach_file'])) {
+                $resultSend  = $this->sendMail($itemEmail['email_from'], $itemEmail['email_from_name'], $itemEmail['email_to'], $itemEmail['email_to_name'], $itemEmail['email_subject'], $itemEmail['email_content']);
+            } else {
+                $resultSend = $this->sendMailFile($itemEmail['email_from'], $itemEmail['email_from_name'], $itemEmail['email_to'], $itemEmail['email_to_name'], $itemEmail['email_subject'],  $itemEmail['email_content'], $itemEmail['attach_file']);
+            } 
+
             if($resultSend){
                 $this->Memailqueue->save(array(
                     'is_send' => STATUS_ACTIVED,

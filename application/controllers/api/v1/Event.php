@@ -67,7 +67,7 @@ class Event extends MY_Controller {
                     //  1: Upcoming : start_date start_time > current_date
                     if($startDate > $currentDate && $events[$i]['event_status_id'] == STATUS_ACTIVED) {
                         $events[$i]['event_status_id'] = STATUS_NUMBER_ONE;
-                    } else if ($startDate < $currentDate && $currentDate < $endDate && $events[$i]['event_status_id'] == STATUS_ACTIVED) {
+                    } else if ($startDate <= $currentDate && $currentDate <= $endDate && $events[$i]['event_status_id'] == STATUS_ACTIVED) {
                         // 2: Ongoing: start_date start_time < current_date < end_date end_time
                         $events[$i]['event_status_id'] = STATUS_ACTIVED;
                     } else if ($endDate < $currentDate && $events[$i]['event_status_id'] != 4) {
