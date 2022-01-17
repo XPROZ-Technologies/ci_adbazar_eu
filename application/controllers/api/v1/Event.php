@@ -40,12 +40,15 @@ class Event extends MY_Controller {
             if(isset($postData['is_business']) && $postData['is_business'] == 1) {
                 $isAdmin = true;
             }
-
-            if(empty($postDataOther['selected_date']) && $isAdmin == false) {
-                $postData['selected_date'] = ddMMyyyy(date('Y-m-d'), 'Y-m-d');
-            } else {
-                $postData['selected_date'] = ddMMyyyy($postDataOther['selected_date'], 'Y-m-d');
-            } 
+ 
+            if($isAdmin == false) {
+                if(!isset($postDataOther['selected_date']) || empty($postDataOther['selected_date'])) {
+                    $postData['selected_date'] = ddMMyyyy(date('Y-m-d'), 'Y-m-d');
+                } else {
+                    $postData['selected_date'] = ddMMyyyy($postDataOther['selected_date'], 'Y-m-d');
+                } 
+            }
+            
             $postData['api'] = true;
             $postData['customer_id'] = $customer['customer_id'];
 

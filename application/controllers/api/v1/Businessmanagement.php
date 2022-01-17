@@ -776,7 +776,7 @@ class Businessmanagement extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
-            $postData = $this->arrayFromPostApi(array('business_id', 'event_id', 'event_image', 'event_subject', 'end_date', 'end_time', 'event_description'));
+            $postData = $this->arrayFromPostApi(array('business_id', 'event_id', 'event_image', 'event_subject', 'start_date', 'start_time', 'end_date', 'end_time', 'event_description'));
             $postData['customer_id'] = $customer['customer_id'];
             $this->load->model(array('Mbusinessprofiles', 'Mevents', 'Mcustomerevents', 'Mcustomernotifications', 'Mcustomers', 'Memailqueue'));
             $dataUpdate = $this->checkValedateUpdateEvent($postData);
@@ -945,8 +945,10 @@ class Businessmanagement extends MY_Controller {
                 'business_profile_id' => $postData['business_id'],
                 'event_image' => $dataEventImage,
                 'event_subject' => $postData['event_subject'],
-                'end_date' => $postData['end_date'],
-                'end_time' => $postData['end_time'],
+                'start_date' => ddMMyyyy($postData['start_date'], 'Y-m-d'),
+                'start_time' => ddMMyyyy($postData['start_time'], 'H:i'),
+                'end_date' => ddMMyyyy($postData['end_date'], 'Y-m-d'),
+                'end_time' => ddMMyyyy($postData['end_time'], 'H:i'),
                 'event_description' => $postData['event_description'],
                 'updated_at' => getCurentDateTime(),
                 'id' => $event['id']
@@ -973,8 +975,8 @@ class Businessmanagement extends MY_Controller {
                 die;
             }
             $dataUpdate = array(
-                'end_date' => $postData['end_date'],
-                'end_time' => $postData['end_time'],
+                'end_date' => ddMMyyyy($postData['end_date'], 'Y-m-d'),
+                'end_time' => ddMMyyyy($postData['end_time'], 'H:i'),
                 'updated_at' => getCurentDateTime(),
                 'id' => $event['id']
             );
