@@ -38,7 +38,7 @@ class Mbusinessprofilelocations extends MY_Model {
                     LEFT JOIN locations ON locations.id = business_profile_locations.location_id
                     LEFT JOIN business_profiles ON business_profiles.id = business_profile_locations.business_profile_id 
                 WHERE
-                    business_profile_locations.business_profile_location_status_id = ?".$this->buildQuery($postData);
-        return $this->getByQuery($query, array(STATUS_ACTIVED));
+                    business_profile_locations.business_profile_location_status_id = ? AND business_profiles.business_status_id = ? ".$this->buildQuery($postData);
+        return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED));
     }
 }
