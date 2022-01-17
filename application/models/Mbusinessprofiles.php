@@ -233,7 +233,11 @@ class Mbusinessprofiles extends MY_Model {
         return $this->getByQuery($query, array(STATUS_ACTIVED));
     }
 
-    public function getDetailInApi($businessId = 0) {
+    public function getDetailInApi($businessId = 0, $isOwner = false) {
+        $where = " AND business_profiles.business_status_id = ".STATUS_ACTIVED;
+        if($isOwner) {
+            $where = " AND business_profiles.business_status_id > 0 ";
+        }
         $query = "SELECT
                     business_profiles.id,
                     business_profiles.service_id,
@@ -263,11 +267,10 @@ class Mbusinessprofiles extends MY_Model {
                     LEFT JOIN locations ON locations.id = business_profile_locations.location_id
                     LEFT JOIN customer_reviews ON customer_reviews.business_id = business_profiles.id 
                 WHERE
-                    business_profiles.business_status_id = ? 
-                    AND business_profiles.id = ? 
+                    business_profiles.id = ? ".$where." 
                 GROUP BY
                     business_profiles.id";
-        return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED, $businessId));
+        return $this->getByQuery($query, array(STATUS_ACTIVED, $businessId));
     }
 
     public function getSearchMyBusiness($postData) {

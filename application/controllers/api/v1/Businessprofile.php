@@ -67,13 +67,23 @@ class Businessprofile extends MY_Controller {
     public function detail() {
         try {
             $this->openAllCors();
+            $customer = $this->apiCheckLogin(true);
             $postData = $this->arrayFromPostRawJson(array('business_id'));
             if(empty($postData['business_id']) && $postData['business_id'] < 0) {
                 $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
             $this->load->model(array('Mbusinessprofiles', 'Mservicetypes', 'Mopeninghours', 'Mphonecodes', 'Mcustomerreviews'));
-            $detail = $this->Mbusinessprofiles->getDetailInApi($postData['business_id']);
+
+            $isOwner = false;
+            if(isset($customer['customer_id']) && $customer['customer_id'] > 0) {
+                $checkExit = $this->Mbusinessprofiles->getFieldValue(array('id' => $postData['business_id'], 'customer_id' => $customer['customer_id'], 'business_status_id >' => 0), 'id', 0);
+                if($checkExit) {
+                    $isOwner = true;
+                }
+            }
+
+            $detail = $this->Mbusinessprofiles->getDetailInApi($postData['business_id'], $isOwner);
             if($detail && count($detail) > 0) {
                 $detail = $detail[0];
                 
