@@ -165,8 +165,9 @@ class Mcustomerreservations extends MY_Model {
         return $this->getByQuery($query, array($customerId));
     }
 
-    public function reservation15m($dateBefore) {
-        $query = "SELECT id, book_code, customer_id, business_profile_id, date_arrived, time_arrived FROM `customer_reservations` WHERE book_status_id = 2";
+    public function reservation15m($dateStart) {
+        $query = "SELECT id, book_code, customer_id, business_profile_id, date_arrived, time_arrived FROM `customer_reservations` WHERE book_status_id = 2 
+        AND (DATE_FORMAT(CONCAT(date_arrived,' ', time_arrived), '%Y-%m-%d %H:%i') = '".$dateStart."'";
         return $this->getByQuery($query);
     }
 }

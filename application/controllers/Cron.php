@@ -321,10 +321,10 @@ class Cron extends MY_Controller {
      */
 
     public function reservation15m() {
-        $dateBefore = date('Y-m-d H:i',strtotime('-15 minutes', strtotime(date('Y-m-d H:i')) ));
+        $dateStart = date('Y-m-d H:i',strtotime('+15 minutes', strtotime(date('Y-m-d H:i')) ));
 
         $this->load->model(array('Mcustomerreservations', 'Mcustomernotifications'));
-        $list = $this->Mcustomerreservations->reservation15m($dateBefore);
+        $list = $this->Mcustomerreservations->reservation15m($dateStart);
         if(count($list) > 0) {
             for($i = 0; $i < count($list); $i++) {
                 $dateArrived =  date('Y-m-d H:i',strtotime($list[$i]['date_arrived'].' '.$list[$i]['time_arrived']));
@@ -335,7 +335,7 @@ class Cron extends MY_Controller {
 
                 // Send noti
                 $dataNoti = array(
-                    'notification_type' => 5, //Event will start next 24h
+                    'notification_type' => 5, //Reservation will start in next 15p
                     'customer_id'   => $itemReservation['customer_id'],
                     'business_id'   => $itemReservation['business_profile_id'],
                     'item_id'   => $itemReservation['id'],
