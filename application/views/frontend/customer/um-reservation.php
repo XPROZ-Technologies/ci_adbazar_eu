@@ -86,7 +86,13 @@
                             foreach ($lists as $itemBook) { ?>
 
                               <tr>
-                                <td><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?></td>
+                                <td>
+                                  <?php if($language_id == 1){ ?>
+                                    <?php echo ddMMyyyy($itemBook['date_arrived'], 'M d, Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?>
+                                  <?php } else { ?> 
+                                    <?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?>
+                                  <?php } ?>
+                                </td>
                                 <td>
                                   <a href="<?php if(isset($itemBook['business_url'])){ echo base_url($itemBook['business_url']); }else{ echo 'javascript:void(0)'; } ?>"><?php if(isset($itemBook['business_name'])){ echo getNumberOfWords($itemBook['business_name']," ", 2); }else{ echo '-'; } ?></a>
                                 </td>

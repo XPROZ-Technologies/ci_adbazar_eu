@@ -70,7 +70,13 @@
                         </div>
                         <div class="notification-body">
                           <p><?php echo $itemNoti['text']; ?></p>
-                          <span class="notification-date"><?php echo ddMMyyyy($itemNoti['created_at'], 'Y-m-d H:i'); ?></span>
+                          <span class="notification-date">
+                            <?php if($language_id == 1){ ?>
+                              <?php echo ddMMyyyy($itemNoti['created_at'], 'M d, Y H:i'); ?>
+                            <?php } else { ?> 
+                              <?php echo ddMMyyyy($itemNoti['created_at'], 'Y-m-d H:i'); ?>
+                            <?php } ?>
+                          </span>
                         </div>
                       </div>
                     <?php } ?>

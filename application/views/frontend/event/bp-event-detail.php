@@ -23,7 +23,13 @@
                             <hr>
                             <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between info">
                                 <ul class="list-unstyled mb-0 page-text-md">
-                                    <li class="font500"><?php echo ddMMyyyy($detailInfo['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($detailInfo['end_date'], 'M d, Y'); ?></li>
+                                    <li class="font500">
+                                        <?php if($language_id == 1){ ?>
+                                            <?php echo ddMMyyyy($detailInfo['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($detailInfo['end_date'], 'M d, Y'); ?>
+                                        <?php } else { ?> 
+                                            <?php echo ddMMyyyy($detailInfo['start_date'], 'd/m/Y'); ?> - <?php echo ddMMyyyy($detailInfo['end_date'], 'd/m/Y'); ?>
+                                        <?php } ?>
+                                    </li>
                                     <li class="font500"><?php echo ddMMyyyy($detailInfo['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($detailInfo['end_time'], 'H:i'); ?></li>
                                     <li><?php echo priceFormat($detailInfo['event_join']); ?> <?php echo $this->lang->line('50_others_are_going'); ?></li>
                                 </ul>
