@@ -240,7 +240,7 @@ class Mcoupons extends MY_Model {
         return $this->getByQuery($query, array(STATUS_ACTIVED));
     }
 
-    public function getServicesInCoupon($customerId = 0, $langCode = '_vi') {
+    public function getServicesInCoupon($customerId = 0, $langCode = '_de') {
         $services = [];
        
         if($customerId == 0) {
