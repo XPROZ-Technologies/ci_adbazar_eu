@@ -237,7 +237,7 @@ class Subscription extends MY_Controller {
                 $paymentStatusId = 2;
             }
 
-            if($businessInfo['business_status_id'] == 3 || $isExpired == 1 || $businessInfo['plan_id'] == 0){
+            if($business['business_status_id'] == 3 || $isExpired == 1 || $business['plan_id'] == 0){
                 $paymentStatusId = 1;
             }
 
