@@ -211,6 +211,44 @@ class Subscription extends MY_Controller {
                 $datediff = strtotime($business['expired_date']) - strtotime(getCurentDateTime());
                 $expiredDay = round($datediff / (60 * 60 * 24));
             }
+
+            $paymentStatusId = 2;
+            
+            $expiredDate = strtotime(ddMMyyyy($business['expired_date'], 'Y-m-d'));
+            $currentDate = strtotime(date('Y-m-d'));
+            $isExpired = 0;
+            if($currentDate > $expiredDate && !empty($business['expired_date'])) {
+                $isExpired = 1;
+            }
+
+            if($business['is_trial'] == 1){
+                $paymentStatusId = 2;
+                $expiredDay = dateDifference(date('Y-m-d'), ddMMyyyy($business['expired_date'], 'Y-m-d'));
+            }
+
+            if($isExpired == 1 && $business['is_trial'] == 0){
+                $paymentStatusId = 4;
+            }else if($isExpired == 0 && $business['is_trial'] == 0 && $business['plan_id']){
+                $paymentStatusId = 2;
+            }
+
+            if($businessInfo['business_status_id'] == 3 || $isExpired == 1 || $businessInfo['plan_id'] == 0){
+                $paymentStatusId = 1;
+            }
+
+            $hasCancel = 0;
+            $hasRenewal = 0;
+            if($business['business_status_id'] == 2 && !empty($business['subscription_id']) && $isExpired == 0){ 
+                $hasRenewal = 1;
+                $hasCancel = 1;
+            }
+
+            $hasSwitch = 0;
+            if($business['plan_id'] != 0){
+                $hasSwitch = 1;
+            }
+
+
             $dataReturn = array(
                 "plan_type_id" => isset($paymentPlan['plan_type_id']) ? $paymentPlan['plan_type_id'] : 0,
                 "plan_currency_id" => isset($paymentPlan['plan_currency_id']) ? $paymentPlan['plan_currency_id'] : 0,
@@ -218,8 +256,11 @@ class Subscription extends MY_Controller {
                 "plan_save" => isset($paymentPlan['plan_save']) ? $paymentPlan['plan_save'] : 0,
                 "plan_vat" => isset($paymentPlan['plan_vat']) ? $paymentPlan['plan_vat'] : 0,
                 'expired_date' => !empty($business['expired_date']) ? ddMMyyyy($business['expired_date'], 'Y/m/d') : '',
-                'expired_day' => $expiredDay
-
+                'expired_day' => $expiredDay,
+                'payment_status_id' => $paymentStatusId,
+                'has_cancel' => $hasCancel,
+                'has_switch' => $hasSwitch,
+                'has_renewal' => $hasRenewal
             );
             $this->success200($dataReturn);
             die;
