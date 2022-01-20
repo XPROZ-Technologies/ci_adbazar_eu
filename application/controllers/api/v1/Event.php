@@ -324,4 +324,18 @@ class Event extends MY_Controller {
 
     }
 
+    public function services_in_event() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
+            $this->load->model('Mcustomerevents');
+            
+            $services = $this->Mcustomerevents->getServicesInEvent($customer['customer_id'], $this->langCode);
+
+            $this->success200(array('list' => $services));
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
 }

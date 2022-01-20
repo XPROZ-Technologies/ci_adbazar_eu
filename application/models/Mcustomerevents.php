@@ -81,4 +81,19 @@ class Mcustomerevents extends MY_Model {
         }
         return $this->getByQuery($query, array(STATUS_ACTIVED, STATUS_ACTIVED));
     }
+
+    public function getServicesInEvent($customerId = 0, $langCode = '_de') {
+        $query = "SELECT 
+                    services.id, 
+                    services.service_name".$langCode." as service_name 
+                FROM 
+                    customer_events
+                    LEFT JOIN events ON customer_events.event_id = events.id
+                    LEFT JOIN business_profiles ON business_profiles.id = events.business_profile_id
+                    LEFT JOIN services ON services.id = business_profiles.service_id
+                WHERE 
+                    customer_events.customer_event_status_id = ? AND customer_events.customer_id = ? AND events.event_status_id > 0
+                GROUP BY services.id";
+        return $this->getByQuery($query, array(STATUS_ACTIVED, $customerId));
+    }
 }
