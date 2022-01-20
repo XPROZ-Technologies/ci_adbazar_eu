@@ -215,3 +215,6 @@ $lang["login_please_active_your_account_email_link"] = "Aktivujte prosím svůj 
 $lang["app_successful"] = "Aktualizace";
 $lang["photo_not_exist"] = "Fotografie neexistuje";
 $lang["video_not_exist"] = "Video neexistuje";
+$lang["turn_off_auto_renew_success"] = "Úspěšné vypnutí automatického obnovení";
+$lang["turn_on_auto_renew_success"] = "Úspěšné zapnutí automatického obnovení";
+$lang["update_auto_renew_failed"] = "Automatické obnovení aktualizace se nezdařilo";

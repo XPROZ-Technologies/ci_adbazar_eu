@@ -179,10 +179,14 @@ class Subscription extends MY_Controller {
             );
             $flag = $this->Mbusinessprofiles->save($dataUpdate, $checkExit);
             if ($flag > 0) {
-                $this->success200(array('business_id' => $flag), $this->lang->line('successfully_cancelled_the_package'));
+                $message = $this->lang->line("turn_off_auto_renew_success");
+                if($postData['is_annual_payment'] == 1) {
+                    $message = $this->lang->line("turn_on_auto_renew_success");
+                }
+                $this->success200(array('business_id' => $flag), $message);
                 die;
             } else {
-                $this->error204($this->lang->line('unsuccessful_package_cancellation'));
+                $this->error204($this->lang->line('update_auto_renew_failed'));
                 die;
             }
         } catch (\Throwable $th) {

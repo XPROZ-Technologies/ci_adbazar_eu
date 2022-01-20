@@ -217,3 +217,6 @@ $lang["login_please_active_your_account_email_link"] = "Please active your accou
 $lang["app_successful"] = "Successful";
 $lang["photo_not_exist"] = "Photo not exist";
 $lang["video_not_exist"] = "Video not exist";
+$lang["turn_off_auto_renew_success"] = "Turn off auto renew successfully";
+$lang["turn_on_auto_renew_success"] = "Turn on auto renew successfully";
+$lang["update_auto_renew_failed"] = "Update auto renew failed";
