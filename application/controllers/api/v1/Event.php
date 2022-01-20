@@ -253,9 +253,11 @@ class Event extends MY_Controller {
     public function customer_events() {
         try {
             $customer = $this->apiCheckLogin(false);
-            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page'));
+            $postData = $this->arrayFromPostRawJson(array('search_text', 'page_id', 'per_page', 'service_id', 'order_by'));
             $postData['api'] = true;
             $postData['customer_id'] = $customer['customer_id'];
+            if(empty($postData['service_id'])) $postData['service_id'] = [];
+
             $this->load->model(array('Mcustomerevents'));
             $rowCount = $this->Mcustomerevents->getCountInApi($postData);
             $pageCount = 0;
