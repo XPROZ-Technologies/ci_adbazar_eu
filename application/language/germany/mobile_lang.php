@@ -219,3 +219,6 @@ $lang["login_please_active_your_account_email_link"] = "Bitte aktiviere dein Kon
 $lang["app_successful"] = "Erfolgreich";
 $lang["photo_not_exist"] = "Foto existiert nicht";
 $lang["video_not_exist"] = "Video existiert nicht";
+$lang["turn_off_auto_renew_success"] = "Automatische Verlängerung erfolgreich deaktiviert";
+$lang["turn_on_auto_renew_success"] = "Automatische Verlängerung erfolgreich eingeschalten";
+$lang["update_auto_renew_failed"] = "Automatische Erneuerung fehlgeschlagen";

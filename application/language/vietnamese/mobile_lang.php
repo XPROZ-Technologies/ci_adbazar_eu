@@ -217,3 +217,6 @@ $lang["login_please_active_your_account_email_link"] = "Vui lòng kích hoạt t
 $lang["app_successful"] = "Thành công";
 $lang["photo_not_exist"] = "Hình ảnh không tồn tại";
 $lang["video_not_exist"] = "Video không tồn tại";
+$lang["turn_off_auto_renew_success"] = "Tắt tự động gia hạn thành công";
+$lang["turn_on_auto_renew_success"] = "Bật tự động gia hạn thành công";
+$lang["update_auto_renew_failed"] = "Cập nhật tự động gia hạn thất bại";
