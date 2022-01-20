@@ -205,7 +205,12 @@ class Subscription extends MY_Controller {
                 $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
-            $paymentPlan = $this->Mpaymentplans->get($business['plan_id']);
+            if(!empty($business['plan_id'])) {
+                $paymentPlan = $this->Mpaymentplans->get($business['plan_id']);
+            }else{
+                $paymentPlan = $this->Mpaymentplans->get(1);
+            }
+            
             $expiredDay = 0;
             if(!empty($business['expired_date'])) {
                 $datediff = strtotime($business['expired_date']) - strtotime(getCurentDateTime());
