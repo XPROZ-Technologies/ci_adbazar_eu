@@ -60,6 +60,7 @@ function getFbUserData(){
     if(isNaN(isLogin) == true) {
         FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
         function (response) {
+            console.log("==token FB==", response.authResponse.accessToken)
             loginGG_FB(response.id, response.first_name, response.last_name, response.email, 1)
             return false;
         });
@@ -133,16 +134,32 @@ function onLoad() {
       gapi.auth2.init();
     });
   }
-
-function onSignIn(googleUser) {
-    var auth2 = gapi.auth2.getAuthInstance();
-    var profile = auth2.currentUser.get().getBasicProfile();
-    var email = profile.getEmail();
-    var id = profile.getId();
-    var customer_first_name = profile.getFamilyName();
-    var customer_last_name = profile.getGivenName();
+  
+function onSignIn(element) {
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+        //   document.getElementById('name').innerText = "Signed in: " +
+        //       googleUser.getBasicProfile().getName();
+            var auth2 = gapi.auth2.getAuthInstance();
+            var profile = googleUser.getBasicProfile();
+            var email = profile.getEmail();
+            var id = profile.getId();
+            var customer_first_name = profile.getFamilyName();
+            var customer_last_name = profile.getGivenName();
+            console.log(id, customer_first_name, customer_last_name, email, 2)
+            loginGG_FB(id, customer_first_name, customer_last_name, email, 2)
+        }, function(error) {
+          console.log(JSON.stringify(error, undefined, 2));
+        });
+    console.log("==================")
+    // var auth2 = gapi.auth2.getAuthInstance();
+    // var profile = auth2.currentUser.get().getBasicProfile();
+    // var email = profile.getEmail();
+    // var id = profile.getId();
+    // var customer_first_name = profile.getFamilyName();
+    // var customer_last_name = profile.getGivenName();
     // console.log(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token)
-    loginGG_FB(id, customer_first_name, customer_last_name, email, 2)
+    // loginGG_FB(id, customer_first_name, customer_last_name, email, 2)
     return false;
 }
 
@@ -192,3 +209,16 @@ function loginGG_FB(id, customer_first_name, customer_last_name, customer_email,
     });
     return false;
 }
+
+var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: 'b82BAjvFggoRlQ2LBRrofhxl.apps.googleusercontent.com',
+        // cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      onSignIn(document.getElementById('customBtn'));
+    });
+  };
