@@ -24,7 +24,7 @@ $(document).ready(function () {
 
 window.fbAsyncInit = function() {
     FB.init({
-      appId      : '177851481129433', 
+      appId      : $("input#idFB").val(), 
       cookie     : true, 
       xfbml      : true, 
       version    : 'v3.2'
@@ -60,7 +60,7 @@ function getFbUserData(){
     if(isNaN(isLogin) == true) {
         FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
         function (response) {
-            console.log("==token FB==", response.authResponse.accessToken)
+            // console.log("==token FB==", response.authResponse.accessToken)
             loginGG_FB(response.id, response.first_name, response.last_name, response.email, 1)
             return false;
         });
@@ -151,7 +151,7 @@ function onSignIn(element) {
         }, function(error) {
           console.log(JSON.stringify(error, undefined, 2));
         });
-    console.log("==================")
+    // console.log("==================")
     // var auth2 = gapi.auth2.getAuthInstance();
     // var profile = auth2.currentUser.get().getBasicProfile();
     // var email = profile.getEmail();
@@ -214,7 +214,7 @@ var startApp = function() {
     gapi.load('auth2', function(){
       // Retrieve the singleton for the GoogleAuth library and set up the client.
       auth2 = gapi.auth2.init({
-        client_id: '1001160309619-f30jgqido5nq8v2nt3gbdd0d7pr5hp7c.apps.googleusercontent.com',
+        client_id: $("input#keyGG").val()+'.apps.googleusercontent.com',
         // cookiepolicy: 'single_host_origin',
         // Request scopes in addition to 'profile' and 'email'
         //scope: 'additional_scope'

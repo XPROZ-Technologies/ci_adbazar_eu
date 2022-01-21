@@ -125,6 +125,8 @@
 </script>
 <input type="hidden" value="1" id="typeSocial" />
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
+<input type="hidden" value="<?php echo KEY_GG; ?>" id="keyGG" />
+<input type="hidden" value="<?php echo FACEBOOK_ID; ?>" id="idFB" />
 <script src="https://apis.google.com/js/api:client.js"></script>
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
