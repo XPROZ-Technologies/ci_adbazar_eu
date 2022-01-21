@@ -112,3 +112,8 @@ $lang['22112021_login_successful'] = 'Login successful';
 $lang['22112021_account_activation_failed'] = 'Account activation failed';
 $lang['22112021_account_activation_successfully'] = 'Account activation successfully';
 $lang['22112021_token_expired_or_account_has_been_activated'] = 'Token expired or account has been activated';
+
+$lang['hint_your_password_has_to_meet'] = 'Your password has to meet the following requirements:';
+$lang['hint_at_least_8_characters'] = 'At least 8 characters—the more characters, the better.';
+$lang['hint_at_least_1_uppercase'] = 'At least 1 uppercase letter.';
+$lang['hint_a_mixture_of_letters_and_numbers'] = 'A mixture of letters and numbers.';
