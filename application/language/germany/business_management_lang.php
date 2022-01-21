@@ -269,3 +269,5 @@ $lang["business-suspended-reservation1635566199"] = "Business ausgesetzt Reservi
 $lang["there-is-no-time-period1635566199"] = "Es gibt keine Zeitspanne";
 $lang['invalid'] = "Ungültig";
 $lang["22112021_successful1"] = "erfolgreich";
+
+$lang['input_country_code'] =  "Landesvorwahl";

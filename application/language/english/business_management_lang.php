@@ -269,3 +269,5 @@ $lang["business-suspended-reservation1635566199"] = "Business suspended reservat
 $lang["there-is-no-time-period1635566199"] = "There is no time period";
 $lang['invalid'] = "Invalid";
 $lang["22112021_successful1"] = "successful";
+
+$lang['input_country_code'] =  "Country code";

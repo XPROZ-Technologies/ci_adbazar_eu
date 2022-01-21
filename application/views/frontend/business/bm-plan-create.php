@@ -96,7 +96,7 @@
                     </div>
                     <div class="col-md-4">
                       <div class="form-group mb-3">
-                        <label class="form-label">Contry code<span class="text-danger required">*</span></label>
+                        <label class="form-label"><?php echo $this->lang->line('input_country_code'); ?><span class="text-danger required">*</span></label>
                         <div class="dropdown dropdown-country page-text-lg">
                           <input type="hidden" class="form-control" id="businessPhoneCode" name="country_code_id" value="0">
                           <a href="#" class="wrapper-btn dropdown-toggle current js-country" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">
@@ -120,13 +120,40 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                       <div class="form-group mb-3">
                         <label for="bm-phone" class="form-label"><?php echo $this->lang->line('phone_number'); ?><span class="text-danger required">*</span></label>
                         <input type="tel" class="form-control form-control-lg" id="bm-phone" aria-label="<?php echo $this->lang->line('phone_number'); ?>" name="business_phone" value="<?php echo $businessInfo['business_phone']; ?>">
                       </div>
                     </div>
+                    <!-- phone code whatsapp -->
                     <div class="col-md-4">
+                      <div class="form-group mb-3">
+                        <label class="form-label"><?php echo $this->lang->line('input_country_code'); ?><span class="text-danger required">*</span></label>
+                        <div class="dropdown dropdown-country page-text-lg">
+                          <input type="hidden" class="form-control" id="businessPhoneCodeWhatsapp" name="country_code_whatsapp_id" value="0">
+                          <a href="#" class="wrapper-btn dropdown-toggle current js-country-ws" id="countryDropdownWS" data-bs-toggle="dropdown" aria-expanded="false" value="en">
+                            <img src="<?php if(!empty($phoneCodeWsInfo['country_name'])){ echo "assets/img/iso_flags/".$phoneCodeWsInfo['image']; }else{ echo "assets/img/frontend/ger.png"; } ?>" alt="<?php if(!empty($phoneCodeWsInfo['country_name'])){ echo $phoneCodeWsInfo['country_name']; }else{ echo $this->lang->line('german'); } ?>" class="img-fluid me-2">
+                            <span class="country-text"><?php if(!empty($phoneCodeWsInfo['country_name'])){ echo $phoneCodeWsInfo['country_name']; }else{ echo $this->lang->line('german'); } ?></span>
+                            <span class="country-code">+<?php if(!empty($phoneCodeWsInfo['phonecode'])){ echo $phoneCodeWsInfo['phonecode']; }else{ echo "49"; } ?></span>
+                          </a>
+                          <ul class="dropdown-menu js-list-country-ws" aria-labelledby="countryDropdownWS">
+                            <?php if (!empty($phoneCodes)) { ?>
+                              <?php foreach ($phoneCodes as $itemPhoneCode) { ?>
+                                <li class="<?php if ($businessInfo['country_code_whatsapp_id'] == $itemPhoneCode['id']) {
+                                              echo "active";
+                                            } ?>" data-id="<?php echo $itemPhoneCode['id']; ?>"><a class="dropdown-item" href="javascript:void(0)" data-id="<?php echo $itemPhoneCode['id']; ?>"><img src="assets/img/iso_flags/<?php echo $itemPhoneCode['image']; ?>" alt="<?php echo $itemPhoneCode['country_name']; ?>" class="img-fluid me-2" data-id="<?php echo $itemPhoneCode['id']; ?>">
+                                    <span class="country-text"><?php echo $itemPhoneCode['country_name']; ?></span>
+                                    <span class="country-code">+<?php echo $itemPhoneCode['phonecode']; ?></span>
+                                  </a>
+                                </li>
+                              <?php } ?>
+                            <?php } ?>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
                       <div class="form-group mb-3">
                         <label for="bm-whatapp" class="form-label"><?php echo $this->lang->line('whatsapp_number'); ?><span class="text-danger required">*</span></label>
                         <input type="tel" class="form-control form-control-lg" id="bm-whatapp" aria-label="<?php echo $this->lang->line('whatsapp_number'); ?>" name="business_whatsapp" value="<?php echo $businessInfo['business_whatsapp']; ?>">
@@ -257,7 +284,7 @@
                     </div>
                     <div class="col-md-4">
                       <div class="form-group mb-3">
-                        <label class="form-label">Contry code<span class="text-danger required">*</span></label>
+                        <label class="form-label"><?php echo $this->lang->line('input_country_code'); ?><span class="text-danger required">*</span></label>
                         <div class="dropdown dropdown-country page-text-lg">
                           <input type="hidden" class="form-control" id="businessPhoneCode" name="country_code_id" value="0">
                           <a href="#" class="wrapper-btn dropdown-toggle current js-country" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" value="en">
@@ -279,13 +306,38 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <!--  phonecode whatsapp -->
+                    <div class="col-md-8">
                       <div class="form-group mb-3">
                         <label for="bm-phone" class="form-label"><?php echo $this->lang->line('phone_number'); ?><span class="text-danger required">*</span></label>
                         <input type="tel" class="form-control form-control-lg" id="bm-phone" aria-label="<?php echo $this->lang->line('phone_number'); ?>" name="business_phone">
                       </div>
                     </div>
                     <div class="col-md-4">
+                      <div class="form-group mb-3">
+                        <label class="form-label"><?php echo $this->lang->line('input_country_code'); ?><span class="text-danger required">*</span></label>
+                        <div class="dropdown dropdown-country page-text-lg">
+                          <input type="hidden" class="form-control" id="businessPhoneCodeWhatsapp" name="country_code_whatsapp_id" value="0">
+                          <a href="#" class="wrapper-btn dropdown-toggle current js-country-ws" id="countryDropdownWS" data-bs-toggle="dropdown" aria-expanded="false" value="en">
+                            <img src="assets/img/frontend/ger.png" alt="english flag" class="img-fluid me-2">
+                            <span class="country-text"><?php echo $this->lang->line('german'); ?></span>
+                            <span class="country-code">+49</span>
+                          </a>
+                          <ul class="dropdown-menu js-list-country-ws" aria-labelledby="countryDropdownWS">
+                            <?php if (!empty($phoneCodes)) { ?>
+                              <?php foreach ($phoneCodes as $itemPhoneCode) { ?>
+                                <li class="" data-id="<?php echo $itemPhoneCode['id']; ?>"><a class="dropdown-item" href="javascript:void(0)" data-id="<?php echo $itemPhoneCode['id']; ?>"><img src="assets/img/iso_flags/<?php echo $itemPhoneCode['image']; ?>" alt="<?php echo $itemPhoneCode['country_name']; ?>" class="img-fluid me-2" data-id="<?php echo $itemPhoneCode['id']; ?>">
+                                    <span class="country-text"><?php echo $itemPhoneCode['country_name']; ?></span>
+                                    <span class="country-code">+<?php echo $itemPhoneCode['phonecode']; ?></span>
+                                  </a>
+                                </li>
+                              <?php } ?>
+                            <?php } ?>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
                       <div class="form-group mb-3">
                         <label for="bm-whatapp" class="form-label"><?php echo $this->lang->line('whatsapp_number'); ?><span class="text-danger required">*</span></label>
                         <input type="tel" class="form-control form-control-lg" id="bm-whatapp" aria-label="<?php echo $this->lang->line('whatsapp_number'); ?>" name="business_whatsapp" value="">
@@ -545,6 +597,11 @@
   $("body").on("click", ".js-list-country li a", function() {
     //alert($(this).data('id'));
     $("#businessPhoneCode").val($(this).data('id'));
+  });
+
+  $("body").on("click", ".js-list-country-ws li a", function() {
+    //alert($(this).data('id'));
+    $("#businessPhoneCodeWhatsapp").val($(this).data('id'));
   });
 
 

@@ -269,3 +269,4 @@ $lang["business-suspended-reservation1635566199"] = "Obchodní pozastavené reze
 $lang["there-is-no-time-period1635566199"] = "Neexistuje žádné časové období";
 $lang['invalid'] = "Neplatná";
 $lang["22112021_successful1"] = "aktualizace";
+$lang['input_country_code'] =  "Kód země";

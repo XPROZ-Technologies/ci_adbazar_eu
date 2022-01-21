@@ -221,6 +221,32 @@ $(window).ready(() => {
     });
   });
 
+   // Dropdown country code  whatsapp
+   $(".js-list-country-ws li").each(function () {
+    $(this).click(function (e) {
+      e.preventDefault();
+      $(".js-list-country-ws li").removeClass("selected");
+      const countryText = $(this).find(".country-text").text();
+      const countryCode = $(this).find(".country-code").text();
+      const imgSrc = $(this).find("img").attr("src");
+
+      $(this).addClass("selected");
+
+      if (imgSrc) {
+        $(".js-country-ws").find("img").attr("src", imgSrc);
+      }
+      if (countryText) {
+        $(".js-country-ws").find('.country-text').text(countryText);
+      }
+      if (countryCode) {
+        $(".js-country-ws").find('.country-code').text(countryCode);
+      }
+
+      console.log($(this).find("a").attr("value"));
+      console.log($(this).find("img").attr("src"));
+    });
+  });
+
   // Custom Select option
   $(".custom-select").niceSelect();
 

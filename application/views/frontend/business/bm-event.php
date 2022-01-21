@@ -80,10 +80,10 @@
                                 $timeStart = strtotime(ddMMyyyy($eventItem['start_date'], 'Y-m-d').' '.ddMMyyyy($eventItem['start_time'], 'H:i'));
                                 $timeEnd = strtotime(ddMMyyyy($eventItem['end_date'], 'Y-m-d').' '.ddMMyyyy($eventItem['end_time'], 'H:i'));
                                 $timeCurrent = strtotime(date('Y-m-d H:i'));
-                                if($timeStart <= $timeCurrent){
+                                if($timeStart <= $timeCurrent && $timeEnd >= $timeCurrent){
                                   $event_class = 'badge-approved';
                                   $event_text = 'Ongoing';
-                                }else if($timeStart >= $timeCurrent){
+                                }else if($timeEnd < $timeCurrent){
                                   $event_class = 'badge-expire';
                                   $event_text = 'Expired';
                                 }

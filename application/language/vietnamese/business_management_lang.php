@@ -270,3 +270,5 @@ $lang["business-suspended-reservation1635566199"] = "Doanh nghiệp tạm ngừn
 $lang["there-is-no-time-period1635566199"] = "Không có khoảng thời gian nào";
 $lang['invalid'] = "Không hợp lệ";
 $lang["22112021_successful1"] = "thành công";
+
+$lang['input_country_code'] =  "Mã quốc gia";

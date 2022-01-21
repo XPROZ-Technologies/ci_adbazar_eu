@@ -1862,6 +1862,12 @@ class Businessprofile extends MY_Controller
                         if ($businessInfo['country_code_id'] > 0) {
                             $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['country_code_id']);
                         }
+
+                        $data['phoneCodeWsInfo'] = array();
+                        if ($businessInfo['country_code_whatsapp_id'] > 0) {
+                            $data['phoneCodeWsInfo'] = $this->Mphonecodes->get($businessInfo['country_code_whatsapp_id']);
+                        }
+
                         $data['edit'] = true;
                     }
                 }
@@ -2045,7 +2051,7 @@ class Businessprofile extends MY_Controller
              * Commons data
              */
 
-            $postData = $this->arrayFromPost(array('service_id', 'business_name', 'business_slogan', 'business_email', 'business_address', 'business_whatsapp', 'business_phone', 'business_description', 'country_code_id'));
+            $postData = $this->arrayFromPost(array('service_id', 'business_name', 'business_slogan', 'business_email', 'business_address', 'business_whatsapp', 'business_phone', 'business_description', 'country_code_id', 'country_code_whatsapp_id'));
 
             $getBusinessId = $this->input->post('business_id');
             $getBusinessUrl = $this->input->post('business_url');
@@ -2395,6 +2401,11 @@ class Businessprofile extends MY_Controller
         $data['phoneCodeInfo'] = array();
         if ($businessInfo['country_code_id'] > 0) {
             $data['phoneCodeInfo'] = $this->Mphonecodes->get($businessInfo['country_code_id']);
+        }
+
+        $data['phoneCodeWsInfo'] = array();
+        if ($businessInfo['country_code_whatsapp_id'] > 0) {
+            $data['phoneCodeWsInfo'] = $this->Mphonecodes->get($businessInfo['country_code_whatsapp_id']);
         }
 
         $this->load->view('frontend/business/bm-profile-edit', $data);
