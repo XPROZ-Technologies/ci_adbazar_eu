@@ -222,6 +222,7 @@ class Customer extends MY_Controller
                     
                     $dataUpdate = array(
                         'customer_password' => md5($postData['customer_password']),
+                        'customer_status_id' => STATUS_ACTIVED,
                         'token_reset' => ''
                     );
                     $customerId = $this->Mcustomers->save($dataUpdate, $customerId);

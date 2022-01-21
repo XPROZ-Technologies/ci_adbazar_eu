@@ -22,8 +22,16 @@
                             <div class="form-group">
                                 <label for="inputPassword" class="form-label"><?php echo $this->lang->line('new_password'); ?></label>
                                 <div class="position-relative">
-                                    <input type="password" class="form-control " id="inputPassword" placeholder="Password">
+                                    <input type="password" class="form-control inputPassword" id="inputPassword" placeholder="Password">
                                     <img src="assets/img/frontend/ic-eye.png" class="input-eye">
+                                    <div class="tooltip-signup">
+                                        <p>Your password has to meet the following requirements: </p>
+                                        <ul>
+                                            <li>At least 8 characters—the more characters, the better.</li>
+                                            <li>At least 1 uppercase letter.</li>
+                                            <li>A mixture of letters and numbers.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
