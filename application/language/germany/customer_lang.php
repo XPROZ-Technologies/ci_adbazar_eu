@@ -114,3 +114,8 @@ $lang['22112021_login_successful'] = 'Anmeldung erfolgreich';
 $lang['22112021_account_activation_failed'] = 'Kontoaktivierung fehlgeschlagen';
 $lang['22112021_account_activation_successfully'] = 'Kontoaktivierung erfolgreich';
 $lang['22112021_token_expired_or_account_has_been_activated'] = 'Token ist abgelaufen oder Konto wurde aktiviert';
+
+$lang['hint_your_password_has_to_meet'] = 'Ihr Passwort muss die folgenden Anforderungen erfüllen:';
+$lang['hint_at_least_8_characters'] = 'Mindestens 8 Zeichen - je mehr Zeichen, desto besser.';
+$lang['hint_at_least_1_uppercase'] = 'Mindestens 1 Großbuchstabe.';
+$lang['hint_a_mixture_of_letters_and_numbers'] = 'Eine Mischung aus Buchstaben und Zahlen.';
