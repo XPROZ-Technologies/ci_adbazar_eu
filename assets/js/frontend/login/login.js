@@ -24,7 +24,7 @@ $(document).ready(function () {
 
 window.fbAsyncInit = function() {
     FB.init({
-      appId      : $("input#idFB").val(), 
+      appId      : '177851481129433', 
       cookie     : true, 
       xfbml      : true, 
       version    : 'v3.2'
