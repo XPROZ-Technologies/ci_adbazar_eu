@@ -427,6 +427,7 @@ class Businessmanagement extends MY_Controller {
     public function cancel_coupon() {
         try {
             $this->openAllCors();
+            $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('coupon_id', 'business_id'));
             
             if ($postData['business_id'] > 0) {
@@ -620,6 +621,7 @@ class Businessmanagement extends MY_Controller {
                 'per_page' => $perPage,
                 'page_count' => $pageCount,
                 'totals' => $rowCount,
+                'allow_book' => isset($business['allow_book']) ? $business['allow_book'] : 1,
                 'business_info' => $businessInfo,
                 'list' => $dataReturn
             ));
