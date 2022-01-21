@@ -5,7 +5,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <img src="assets/img/frontend/img-setup.png" alt="set-up img" class="img-fluid mb-40">
+                        <a href="<?php echo base_url(HOME_URL); ?>">
+                            <img src="<?php echo CONFIG_PATH . $configs['LOGO_IMAGE_HEADER']; ?>" alt="<?php echo $configs['TEXT_LOGO_HEADER']; ?>" class="img-fluid">
+                        </a>
                         <h2 class="text-center mb-20 page-title-sm v1"><?php echo $this->lang->line('set_up_your_new_password'); ?></h2>
                     </div>
                 </div>
