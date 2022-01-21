@@ -16,7 +16,7 @@
                 text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: 0 auto 16px;
             }
             .content {
-                padding: 32px;background: #fff;margin: 0 auto 16px;
+                padding: 32px;background: #fff;margin: 0 auto 16px;text-align: justify;
             }
             .social {
                 text-align: center;background: #C20000;padding: 20px 0;width: 640px;margin: auto;
