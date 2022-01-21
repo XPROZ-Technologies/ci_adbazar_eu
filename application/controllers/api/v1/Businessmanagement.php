@@ -572,6 +572,19 @@ class Businessmanagement extends MY_Controller {
                 $this->error204($this->lang->line('business_profile_does_not_belong_to_this_customer'));
                 die;
             }
+
+            $business = $this->Mbusinessprofiles->get($postData['business_id']);
+            $businessInfo = '';
+            if($business) {
+                $businessInfo = array(
+                    'id' => $business['id'],
+                    'business_name' => $business['business_name'],
+                    'business_slogan' => $business['business_slogan'],
+                    'business_avatar' => !empty($business['business_avatar']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']): '',
+                    'business_image_cover' => !empty($business['business_image_cover']) ? base_url(BUSINESS_PROFILE_PATH.$business['business_avatar']) :''
+                );
+            }
+
             $rowCount = $this->Mcustomerreservations->getCountApi($postData);
             $pageCount = 0;
             $perPage = isset($postData['per_page']) && intval($postData['per_page']) > 0 ? $postData['per_page'] : LIMIT_PER_PAGE;
@@ -607,6 +620,7 @@ class Businessmanagement extends MY_Controller {
                 'per_page' => $perPage,
                 'page_count' => $pageCount,
                 'totals' => $rowCount,
+                'business_info' => $businessInfo,
                 'list' => $dataReturn
             ));
         } catch (\Throwable $th) {
