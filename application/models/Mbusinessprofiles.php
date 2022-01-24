@@ -255,6 +255,7 @@ class Mbusinessprofiles extends MY_Model {
                     business_profiles.business_image_cover,
                     business_profiles.business_status_id,
                     business_profiles.is_annual_payment,
+                    business_profiles.is_trial,
                     ROUND(AVG(customer_reviews.review_star),1) as star,
                     COUNT(CASE  WHEN customer_reviews.business_id > 0 THEN 1 END) as number_of_reviews,
                 CASE  WHEN business_profile_locations.business_profile_id > 0 THEN 1 ELSE 0 END as has_location,
