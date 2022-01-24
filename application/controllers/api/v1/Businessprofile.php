@@ -103,6 +103,7 @@ class Businessprofile extends MY_Controller {
                 $data = array(
                     'business_info' => array(
                         "id" => $detail['id'],
+                        "free_trial" => !empty($detail['is_trial']) ? $detail['is_trial'] : 0,
                         "service_id" => $detail['service_id'],
                         "service_type_ids" => $serviceTypes,
                         "business_name" => $detail['business_name'],
