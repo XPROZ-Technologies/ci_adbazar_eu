@@ -141,7 +141,7 @@ class Customer extends MY_Controller {
                     else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
                     unset($customer['device_token'], $customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
                     $needEmail = 0;
-                    if($customerNewId == 0 && intval($postData['login_type_id']) == 1) {
+                    if($customerNewId == 0 && in_array(intval($postData['login_type_id']), [1,3])) {
                         $needEmail = 1;
                     }
                     $this->success200(array('customer' => $customer, 'need_email' => $needEmail));
