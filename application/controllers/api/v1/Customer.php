@@ -27,7 +27,7 @@ class Customer extends MY_Controller {
     public function login() {
         try {
             $this->openAllCors();
-            $postData = $this->arrayFromPostRawJson(array('login_type_id', 'customer_email', 'customer_password', 'facebook_token', 'google_token', 'device_token', 'customer_first_name', 'customer_last_name'));
+            $postData = $this->arrayFromPostRawJson(array('login_type_id', 'customer_email', 'customer_password', 'facebook_token', 'google_token', 'apple_token', 'device_token', 'customer_first_name', 'customer_last_name'));
             $this->load->model('Mcustomers');
             $customer = [];
             $customerNewId = 0;
@@ -93,6 +93,34 @@ class Customer extends MY_Controller {
                     $this->error204($this->lang->line('google_sdk_returned_an_error'));
                     die;
                 }
+            } else if (intval($postData['login_type_id']) == 3) { // apple
+                if(empty($postData['apple_token'])) {
+                    $this->error204($this->lang->line('graph_returned_an_error'));
+                    die;
+                }
+
+                $token = $this->Mconstants->decodeTokenJwtApple($postData['apple_token']); 
+                if (count($token) == 0){
+                    $this->error204($this->lang->line('graph_returned_an_error'));
+                    die;
+                } 
+                $postData['apple_id'] = $token['sub'];
+                $postData['customer_first_name'] = isset($postData['customer_first_name']) ? $postData['customer_first_name'] : '';
+                $postData['customer_last_name'] = isset($postData['customer_last_name']) ? $postData['customer_last_name'] : '';
+                $customer = $this->Mcustomers->login($postData['apple_id'], '', $postData['login_type_id']);
+                
+                if(!$customer) {
+                   $customerCheck = $this->Mcustomers->getFieldValue(array('apple_id' =>  $postData['apple_id']), 'customer_status_id', 0);
+                   if($customerCheck == 1) {
+                        $this->error204($this->lang->line('login_please_active_your_account_email_link'));
+                        die;
+                   }
+                   $customerNewId = 0;
+                   $customer['id'] = 0;
+                   $postData['customer_status_id'] = STATUS_WAITING_ACTIVE; 
+                }
+
+                $customerNewId = $customer['id'];
             }
 
             if($customer) {
@@ -104,7 +132,7 @@ class Customer extends MY_Controller {
                     $postData['token'] = $token;
                     $postData['language_id'] = $this->languageId;
                     $postData['device_token'] = isset($postData['device_token']) ? $postData['device_token'] : NULL;
-                    unset($postData['facebook_token'], $postData['google_token'], $postData['customer_password'], $postData['customer_email'], $postData['customer_first_name'], $postData['customer_last_name']);
+                    unset($postData['apple_token'], $postData['facebook_token'], $postData['google_token'], $postData['customer_password'], $postData['customer_email'], $postData['customer_first_name'], $postData['customer_last_name']);
                    $flag = $this->Mcustomers->save($postData, $customer['id']);
                 }
                 if($flag) {
@@ -198,8 +226,12 @@ class Customer extends MY_Controller {
                 //     die;
                 // }
                 $data['facebook_id'] = $postData['facebook_token'];
-                $data['customer_first_name'] = isset($postData['customer_first_name']) ? $postData['customer_first_name'] : '';
-                $data['customer_last_name'] = isset($postData['customer_last_name']) ? $postData['customer_last_name'] : '';
+                if(isset($postData['customer_first_name']) && !empty($postData['customer_first_name'])) {
+                    $data['customer_first_name'] =  $postData['customer_first_name'];
+                }
+                if(isset($postData['customer_last_name']) && !empty($postData['customer_last_name'])) {
+                    $data['customer_last_name'] =  $postData['customer_last_name'];
+                }
                 $data['customer_email'] = $postData['customer_email'];
                 $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
             } else if (intval($postData['login_type_id']) == 2) { //google
@@ -222,6 +254,15 @@ class Customer extends MY_Controller {
                     $this->error204($this->lang->line('google_sdk_returned_an_error'));
                     die;
                 }
+            } else if (intval($postData['login_type_id']) == 3) { // apple
+                if(isset($postData['customer_first_name']) && !empty($postData['customer_first_name'])) {
+                    $data['customer_first_name'] =  $postData['customer_first_name'];
+                }
+                if(isset($postData['customer_last_name']) && !empty($postData['customer_last_name'])) {
+                    $data['customer_last_name'] =  $postData['customer_last_name'];
+                }
+                $data['customer_email'] = $postData['customer_email'];
+                $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
             }
 
             $data['login_type_id'] =  $postData['login_type_id'];
@@ -243,10 +284,11 @@ class Customer extends MY_Controller {
                 }
                 if($flag) {
                     // generate a token
-                    if (intval($postData['login_type_id']) !== 1) {
+                    if (!in_array(intval($postData['login_type_id']), [1,3])) {
                         $this->load->model('Memailqueue');
+                        $name = !empty($postData['customer_first_name']) ? $postData['customer_first_name'] : $postData['customer_email'];
                         $dataEmail = array(
-                            'name' => $postData['customer_email'],
+                            'name' => $name,
                             'email_to' => $postData['customer_email'],
                             'email_to_name' => $postData['customer_email'],
                             'token' => $token_active
