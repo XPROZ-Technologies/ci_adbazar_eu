@@ -60,7 +60,7 @@ class Customer extends MY_Controller {
                 $customer = $this->Mcustomers->login($postData['facebook_id'], '', $postData['login_type_id']);
                 
                 if(!$customer) {
-                   $customerCheck = $this->Mcustomers->getFieldValue(array('facebook_id' =>  $postData['facebook_id']), 'customer_status_id', 0);
+                   $customerCheck = $this->Mcustomers->getFieldValue(array('facebook_id' =>  $postData['facebook_id'], 'customer_status_id' => STATUS_ACTIVED), 'customer_status_id', 0);
                    if($customerCheck == 1) {
                         $this->error204($this->lang->line('login_please_active_your_account_email_link'));
                         die;
@@ -110,7 +110,7 @@ class Customer extends MY_Controller {
                 $customer = $this->Mcustomers->login($postData['apple_id'], '', $postData['login_type_id']);
                 
                 if(!$customer) {
-                   $customerCheck = $this->Mcustomers->getFieldValue(array('apple_id' =>  $postData['apple_id']), 'customer_status_id', 0);
+                   $customerCheck = $this->Mcustomers->getFieldValue(array('apple_id' =>  $postData['apple_id'], 'customer_status_id' => STATUS_ACTIVED), 'customer_status_id', 0);
                    if($customerCheck == 1) {
                         $this->error204($this->lang->line('login_please_active_your_account_email_link'));
                         die;

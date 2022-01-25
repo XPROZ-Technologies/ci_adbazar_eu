@@ -34,6 +34,14 @@ class Mcustomers extends MY_Model {
                 return $customer;
             }
         }
+        if(in_array(intval($loginTypeId), [3])) {
+            $query = "SELECT * FROM customers WHERE apple_id = ? AND customer_status_id = ?  LIMIT 1";
+            $customers = $this->getByQuery($query, array($userEmail, STATUS_ACTIVED));
+            if(!empty($customers)){
+                $customer = $customers[0];
+                return $customer;
+            }
+        }
         return false;
     }
 
