@@ -321,11 +321,17 @@ class Customer extends MY_Controller {
             $this->load->model('Mcustomers');
 
             // Check existing customer with waiting active and login by facebook
-            $customerId = $this->Mcustomers->getFieldValue(array('id' => $postData['customer_id'], 'login_type_id' => 1, 'customer_status_id' => STATUS_WAITING_ACTIVE), 'id', 0);
+            // $customerId = $this->Mcustomers->getFieldValue(array('id' => $postData['customer_id'], 'login_type_id' => 1, 'customer_status_id' => STATUS_WAITING_ACTIVE), 'id', 0);
+            $customer = $this->Mcustomers->get($postData['customer_id']);
+            $customerId = ($customer && isset($customer['id'])) ? $customer['id'] : 0;
             if($customerId == 0) {
                 $this->error204($this->lang->line('customer_doest_not_exist'));
                 die;
             }
+            if(!in_array($customer['login_type_id'], [1,3]) && $customer['customer_status_id'] != STATUS_WAITING_ACTIVE) {
+                $this->error204($this->lang->line('customer_doest_not_exist'));
+                die;
+            }   
 
             // Check email exist on database
             $customer = $this->Mcustomers->checkExist($postData['customer_id'], $customer_email);
