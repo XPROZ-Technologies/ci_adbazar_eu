@@ -269,7 +269,7 @@ class Customer extends MY_Controller {
                 } else {
                     $customer = $this->Mcustomers->checkExist(0, $postData['customer_email']);
                     $customerId = 0;
-                    if (count($customer) > 0) $customerId = $customer['id'];
+                    if ($customer && count($customer) > 0) $customerId = $customer['id'];
                     $flag = $this->Mcustomers->save($data, $customerId);
                 }
                 if($flag) {
