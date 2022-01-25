@@ -185,7 +185,7 @@ class Customer extends MY_Controller {
     public function sign_up(){
         try {
             $this->openAllCors();
-            $postData = $this->arrayFromPostRawJson(array('login_type_id', 'customer_email', 'customer_password', 'confirm_password' , 'google_token', 'facebook_token'));
+            $postData = $this->arrayFromPostRawJson(array('login_type_id', 'customer_email', 'customer_password', 'confirm_password' , 'google_token', 'facebook_token', 'apple_token'));
             $this->load->model('Mcustomers');
             $data = [];
             if (intval($postData['login_type_id']) == 0) {
@@ -207,24 +207,6 @@ class Customer extends MY_Controller {
                 $data['customer_password'] =  md5($postData['customer_password']);
                 $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
             } else if (intval($postData['login_type_id']) == 1) { //facebook
-                
-                // $this->fb->setDefaultAccessToken($postData['facebook_token']);
-                // try {
-                //     $response = $this->fb->get('/me?fields=id,name,email');
-                //     $userNode = json_decode($response->getGraphUser(), true);
-                //     $data['facebook_id'] = $userNode['id'];
-                //     $data['customer_first_name'] = $userNode['name'];
-                //     $data['customer_last_name'] = $userNode['name'];
-                //     $data['customer_email'] = $userNode['email'];
-                //     $data['customer_password'] = md5('12345678@aM');
-                //     $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
-                // } catch (Facebook\Exceptions\FacebookResponseException $e) {
-                //     $this->error204($this->lang->line('graph_returned_an_error') . $e->getMessage());
-                //     die;
-                // } catch (Facebook\Exceptions\FacebookSDKException $e) {
-                //     $this->error204($this->lang->line('facebook_sdk_returned_an_error') . $e->getMessage());
-                //     die;
-                // }
                 $data['facebook_id'] = $postData['facebook_token'];
                 if(isset($postData['customer_first_name']) && !empty($postData['customer_first_name'])) {
                     $data['customer_first_name'] =  $postData['customer_first_name'];
@@ -254,14 +236,22 @@ class Customer extends MY_Controller {
                     $this->error204($this->lang->line('google_sdk_returned_an_error'));
                     die;
                 }
-            } else if (intval($postData['login_type_id']) == 3) { // apple
-                if(isset($postData['customer_first_name']) && !empty($postData['customer_first_name'])) {
-                    $data['customer_first_name'] =  $postData['customer_first_name'];
+            }
+            else if (intval($postData['login_type_id']) == 3) { // apple
+                if(empty($postData['apple_token'])) {
+                    $this->error204($this->lang->line('graph_returned_an_error'));
+                    die;
                 }
-                if(isset($postData['customer_last_name']) && !empty($postData['customer_last_name'])) {
-                    $data['customer_last_name'] =  $postData['customer_last_name'];
-                }
-                $data['customer_email'] = $postData['customer_email'];
+
+                $token = $this->Mconstants->decodeTokenJwtApple($postData['apple_token']); 
+                if (count($token) == 0){
+                    $this->error204($this->lang->line('graph_returned_an_error'));
+                    die;
+                } 
+                $data['apple_id'] = $token['sub'];
+                $data['customer_first_name'] = isset($postData['customer_first_name']) ? $postData['customer_first_name'] : '';
+                $data['customer_last_name'] = isset($postData['customer_last_name']) ? $postData['customer_last_name'] : '';
+                
                 $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
             }
 
