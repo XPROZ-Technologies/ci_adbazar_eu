@@ -220,3 +220,4 @@ $lang["video_not_exist"] = "Video not exist";
 $lang["turn_off_auto_renew_success"] = "Turn off auto renew successfully";
 $lang["turn_on_auto_renew_success"] = "Turn on auto renew successfully";
 $lang["update_auto_renew_failed"] = "Update auto renew failed";
+$lang['payment_does_not_belong_to_this_customer'] = "";

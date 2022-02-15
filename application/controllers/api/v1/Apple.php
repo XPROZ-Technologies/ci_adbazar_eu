@@ -134,12 +134,20 @@ class Apple extends MY_Controller {
 
             $checkPayment = $this->Mbusinesspayments->getFieldValue(array('business_profile_id' => $postData['business_id'], 'id' => $postData['payment_id']), 'id', 0);
             if(!$checkPayment) {
-                $this->error204('payment không tồn tại');
+                $this->error204($this->lang->line('payment_does_not_belong_to_this_customer'));
                 die;
             }
             // receipt_data bắn lên trên apple qua api 
             //https://sandbox.itunes.apple.com/verifyReceipt
             // có response về
+            // $this->load->helper('slug');
+            // $url = 'https://sandbox.itunes.apple.com/verifyReceipt';
+            // $body = json_decode('{
+            //     "password": "779a40adef34447ca59b6f71d69292f2",
+            //     "receipt-data": "MIIUVQY...4rVpL8NlYh2/8l7rk0BcStXjQ==",
+            //     "exclude-old-transactions": false
+            // }');
+            // $vehicleTracking = callApiApple($url, $body, 'POST');
             $verifyReceipt = $this->verifyReceipt();
             if(isset($verifyReceipt['status']) && $verifyReceipt['status'] == 0) {
                 $originalTransactionId = isset($verifyReceipt['receipt']['in_app']) && count($verifyReceipt['receipt']['in_app']) > 0 ? $verifyReceipt['receipt']['in_app'][0]['original_transaction_id'] : 0;
@@ -199,6 +207,49 @@ class Apple extends MY_Controller {
                         die;
                     } else {
                         $this->error204($this->lang->line('update_failed'));
+                        die;
+                    }
+
+                } else {
+                    $this->error204($this->lang->line('failed'));
+                    die;
+                }
+            } else {
+                $this->error204($this->lang->line('failed'));
+                die;
+            }
+        } catch (\Throwable $th) {
+            $this->error500();
+        }
+    }
+
+    public function webhook() {
+        try {
+            $this->openAllCors();
+            $customer = $this->apiCheckLogin(true);
+            $data = json_decode(file_get_contents('php://input'), true);
+            if(count($data) > 0) {
+                if(isset($data['unified_receipt']) && isset($data['unified_receipt']['latest_receipt_info']) && isset($data['unified_receipt']['latest_receipt_info'][0]) && isset($data['unified_receipt']['latest_receipt_info'][0]['original_transaction_id']) ) {
+                    $originalTransactionId = $data['unified_receipt']['latest_receipt_info'][0]['original_transaction_id'];
+                    $this->load->model(array('Mbusinesspayments'));
+                    $checkPayment = $this->Mbusinesspayments->getFieldValue(array('original_transaction_id' => $originalTransactionId), 'id', 0);
+                    if($checkPayment) {
+                        $data = array(
+                            'webhook_json' => json_encode($data, true),
+                            'updated_at' => getCurentDateTime(),
+                            'updated_by' => 0
+                        );
+    
+                        $flag = $this->Mbusinesspayments->save($data, $checkPayment);
+                        if ($flag) {
+                            $this->success200('', $this->lang->line('update_successful'));
+                            die;
+                        } else {
+                            $this->error204($this->lang->line('failed'));
+                            die;
+                        }
+                    } else {
+                        $this->error204($this->lang->line('failed'));
                         die;
                     }
 

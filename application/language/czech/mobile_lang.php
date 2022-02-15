@@ -218,3 +218,4 @@ $lang["video_not_exist"] = "Video neexistuje";
 $lang["turn_off_auto_renew_success"] = "Úspěšné vypnutí automatického obnovení";
 $lang["turn_on_auto_renew_success"] = "Úspěšné zapnutí automatického obnovení";
 $lang["update_auto_renew_failed"] = "Automatické obnovení aktualizace se nezdařilo";
+$lang['payment_does_not_belong_to_this_customer'] = "Platba tomuto zákazníkovi nepatří";
