@@ -1263,7 +1263,7 @@ class Businessmanagement extends MY_Controller {
         try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
-            $postData = $this->arrayFromPostRawJson(array('business_id', 'payment_name', 'payment_address', 'payment_company_id', 'payment_company_vat_id', 'payment_type_id'));
+            $postData = $this->arrayFromPostRawJson(array('business_id', 'payment_name', 'payment_address', 'payment_company_id', 'payment_company_vat_id', 'payment_type_id', 'payment_method'));
             if(!isset($postData['business_id'])) {
                 $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
@@ -1293,7 +1293,7 @@ class Businessmanagement extends MY_Controller {
 
             $data = array(
                 'business_profile_id' => $postData['business_id'],
-                'payment_gateway_id' => PAYPAL_GATEWAY,
+                'payment_gateway_id' =>  $postData['payment_method'],//PAYPAL_GATEWAY,
                 'payment_name' => $postData['payment_name'],
                 'payment_address' => $postData['payment_address'],
                 'payment_company_id' => isset($postData['payment_company_id']) ? $postData['payment_company_id']: '',
@@ -1305,29 +1305,38 @@ class Businessmanagement extends MY_Controller {
 
             $flag = $this->Mbusinesspayments->save($data);
             if ($flag > 0) {
-                //Get payment url
-                $paypalUser = array();
-                // id plan user select
-                $paypalUser['paypalPlanId'] = PAYPAL_PLAN_DEFAULT;
-                if(!empty($data['plan'])){
-                    $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
-                    if(!empty($paypalPlanId)) {
-                        $paypalUser['paypalPlanId'] = $paypalPlanId;
+                if($postData['payment_method'] == 1) {
+                    //Get payment url
+                    $paypalUser = array();
+                    // id plan user select
+                    $paypalUser['paypalPlanId'] = PAYPAL_PLAN_DEFAULT;
+                    if(!empty($data['plan'])){
+                        $paypalPlanId = $this->Mpaymentplans->getFieldValue(array('id' => $data['plan']), 'plan_id', '');
+                        if(!empty($paypalPlanId)) {
+                            $paypalUser['paypalPlanId'] = $paypalPlanId;
+                        }
                     }
+                    // auth paypal business
+                    $paypalUser['successUrl'] = base_url().'business-management/bm-payment?isResult=true&customerId='.$customer['customer_id'].'&businessId='.$postData['business_id'].'&paymentTypeId='.$postData['payment_type_id'].'&paymentId='.$flag;
+                    $paypalUser['cancelUrl'] = base_url().'business-profile/bm-payment?isResult=false&customerId='.$customer['customer_id'].'&businessId='.$postData['business_id'].'&paymentTypeId='.$postData['payment_type_id'].'&paymentId='.$flag;
+                    //paypal product id: PROD-4NX43137GP917693J
+                    $payUrl = $this->getPaymentLink($paypalUser);
+
+                    $dataReturn = array(
+                        "payment_id" => $flag,
+                        "payment_url" => $payUrl
+                    );
+
+                    $this->success200($dataReturn, $this->lang->line('successfully_saved_billing_info'));
+                    die;
+                    
+                } else {
+                    $dataReturn = array(
+                        "payment_id" => $flag,
+                    );
+                    $this->success200($dataReturn, $this->lang->line('successfully_saved_billing_info'));
+                    die;
                 }
-                // auth paypal business
-                $paypalUser['successUrl'] = base_url().'business-management/bm-payment?isResult=true&customerId='.$customer['customer_id'].'&businessId='.$postData['business_id'].'&paymentTypeId='.$postData['payment_type_id'].'&paymentId='.$flag;
-                $paypalUser['cancelUrl'] = base_url().'business-profile/bm-payment?isResult=false&customerId='.$customer['customer_id'].'&businessId='.$postData['business_id'].'&paymentTypeId='.$postData['payment_type_id'].'&paymentId='.$flag;
-                //paypal product id: PROD-4NX43137GP917693J
-                $payUrl = $this->getPaymentLink($paypalUser);
-
-                $dataReturn = array(
-                    "payment_id" => $flag,
-                    "payment_url" => $payUrl
-                );
-
-                $this->success200($dataReturn, $this->lang->line('successfully_saved_billing_info'));
-                die;
             } else {
                 $this->error204($this->lang->line('failed_to_save_payment_information'));
                 die;
