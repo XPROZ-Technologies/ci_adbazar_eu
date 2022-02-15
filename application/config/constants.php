@@ -101,6 +101,7 @@ define('DEFAULT_LIMIT_BUSINESS_PROFILE_MAP', 4);
 define('DEFAULT_LIMIT_COUPON', 50);
 define('DEFAULT_LIMIT_NOTIFICATION', 10);
 define('PAYPAL_GATEWAY', 1);
+define('APPLE_GATEWAY', 2);
 define('PAYMENT_WAITING', 1);
 //define('API_VERSION', '1.0');
 //message
