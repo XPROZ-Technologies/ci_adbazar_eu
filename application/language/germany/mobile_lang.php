@@ -222,3 +222,4 @@ $lang["video_not_exist"] = "Video existiert nicht";
 $lang["turn_off_auto_renew_success"] = "Automatische Verlängerung erfolgreich deaktiviert";
 $lang["turn_on_auto_renew_success"] = "Automatische Verlängerung erfolgreich eingeschalten";
 $lang["update_auto_renew_failed"] = "Automatische Erneuerung fehlgeschlagen";
+$lang['payment_does_not_belong_to_this_customer'] = "Zahlung gehört diesem Kunden nicht";

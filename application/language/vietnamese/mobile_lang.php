@@ -220,3 +220,4 @@ $lang["video_not_exist"] = "Video không tồn tại";
 $lang["turn_off_auto_renew_success"] = "Tắt tự động gia hạn thành công";
 $lang["turn_on_auto_renew_success"] = "Bật tự động gia hạn thành công";
 $lang["update_auto_renew_failed"] = "Cập nhật tự động gia hạn thất bại";
+$lang['payment_does_not_belong_to_this_customer'] = "Thanh toán không thuộc về khách hàng này";

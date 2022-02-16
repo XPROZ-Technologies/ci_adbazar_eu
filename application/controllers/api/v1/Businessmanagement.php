@@ -1290,10 +1290,12 @@ class Businessmanagement extends MY_Controller {
                 $this->error204($this->lang->line('business_does_not_belong_to_this_customer'));
                 die;
             }
-
+            $paymentGatewayId = PAYPAL_GATEWAY;
+            if(!isset($postData['payment_method']))  $paymentGatewayId = PAYPAL_GATEWAY;
+            else if (!in_array($postData['payment_method'], [1,2])) $paymentGatewayId = PAYPAL_GATEWAY;
             $data = array(
                 'business_profile_id' => $postData['business_id'],
-                'payment_gateway_id' =>  $postData['payment_method'],//PAYPAL_GATEWAY,
+                'payment_gateway_id' =>  $paymentGatewayId,//PAYPAL_GATEWAY,
                 'payment_name' => $postData['payment_name'],
                 'payment_address' => $postData['payment_address'],
                 'payment_company_id' => isset($postData['payment_company_id']) ? $postData['payment_company_id']: '',
