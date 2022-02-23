@@ -168,3 +168,8 @@ define('GOOGLE_SECRET', 'b82BAjvFggoRlQ2LBRrofhxl');
 define('FACEBOOK_ID', '177851481129433');
 define('FACEBOOK_SECRET', 'abea49b547059b4008edad2f8c2fc0b5');
 define('GRAPH_version', 'v2.5');
+
+// APPLE
+define('APPLE_VERIFY_RECEIPT_PASSWORD', '779a40adef34447ca59b6f71d69292f2');
+define('APPLE_VERIFY_RECEIPT_HOST', 'https://sandbox.itunes.apple.com/verifyReceipt'); // sandbox
+//define('APPLE_VERIFY_RECEIPT_HOST', 'https://buy.itunes.apple.com/verifyReceipt'); // production
