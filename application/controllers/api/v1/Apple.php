@@ -140,14 +140,17 @@ class Apple extends MY_Controller {
             // receipt_data bắn lên trên apple qua api 
             //https://sandbox.itunes.apple.com/verifyReceipt
             // có response về
-            // $this->load->helper('slug');
-            // $url = 'https://sandbox.itunes.apple.com/verifyReceipt';
+            $this->load->helper('slug');
+            $body = array(
+                "receipt-data" => $postData['receipt_data'],
+                "password" => APPLE_VERIFY_RECEIPT_PASSWORD
+            );
             // $body = json_decode('{
+            //     "receipt-data": "receipt",
             //     "password": "779a40adef34447ca59b6f71d69292f2",
-            //     "receipt-data": "MIIUVQY...4rVpL8NlYh2/8l7rk0BcStXjQ==",
             //     "exclude-old-transactions": false
             // }');
-            // $vehicleTracking = callApiApple($url, $body, 'POST');
+            $verifyReceipt = callApiApple(APPLE_VERIFY_RECEIPT_HOST, $body, 'POST');
             $verifyReceipt = $this->verifyReceipt();
             if(isset($verifyReceipt['status']) && $verifyReceipt['status'] == 0) {
                 $originalTransactionId = isset($verifyReceipt['receipt']['in_app']) && count($verifyReceipt['receipt']['in_app']) > 0 ? $verifyReceipt['receipt']['in_app'][0]['original_transaction_id'] : 0;
