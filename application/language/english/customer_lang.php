@@ -117,3 +117,8 @@ $lang['hint_your_password_has_to_meet'] = 'Your password has to meet the followi
 $lang['hint_at_least_8_characters'] = 'At least 8 characters—the more characters, the better.';
 $lang['hint_at_least_1_uppercase'] = 'At least 1 uppercase letter.';
 $lang['hint_a_mixture_of_letters_and_numbers'] = 'A mixture of letters and numbers.';
+
+$lang['update_customer_email'] = 'Update Your Email';
+$lang['update_email_success'] = 'Update email success';
+$lang['update_email_failed'] = 'Update email failed';
+$lang['customer_not_exist'] = 'Customer not exist';

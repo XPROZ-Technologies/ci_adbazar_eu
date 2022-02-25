@@ -118,3 +118,8 @@ $lang['hint_your_password_has_to_meet'] = 'Heslo musí splňovat následující 
 $lang['hint_at_least_8_characters'] = 'Alespoň 8 znaků - Čím více znaků, tím lépe.';
 $lang['hint_at_least_1_uppercase'] = 'Alespoň 1 velké písmeno.';
 $lang['hint_a_mixture_of_letters_and_numbers'] = 'Směs písmen a číslic.';
+
+$lang['update_customer_email'] = 'Aktualizujte svůj e-mail';
+$lang['update_email_success'] = 'Aktualizace e-mailu byla úspěšná';
+$lang['update_email_failed'] = 'Aktualizace e-mailu se nezdařila';
+$lang['customer_not_exist'] = 'Zákazník neexistuje';

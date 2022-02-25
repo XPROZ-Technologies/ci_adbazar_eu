@@ -202,6 +202,8 @@ function loginGG_FB(id, customer_first_name, customer_last_name, customer_email,
             $(".notiPopup").fadeIn('slow').fadeOut(5000);
             if(json.code == 1){
                 redirect(false, $("#baseHomeUrl").attr("data-href"));
+            }else if(json.code == 3){
+                redirect(false, json.url);
             }
         },
         error: function (response) {

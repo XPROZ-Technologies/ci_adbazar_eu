@@ -223,3 +223,6 @@ $lang["turn_off_auto_renew_success"] = "Automatische Verlängerung erfolgreich d
 $lang["turn_on_auto_renew_success"] = "Automatische Verlängerung erfolgreich eingeschalten";
 $lang["update_auto_renew_failed"] = "Automatische Erneuerung fehlgeschlagen";
 $lang['payment_does_not_belong_to_this_customer'] = "Zahlung gehört diesem Kunden nicht";
+$lang['facebook_account_exist'] = 'Facebook-Konto ist bereits im System vorhanden';
+$lang["mobile_email_not_exist"] = "E-Mail nicht vorhanden";
+$lang['mobile_successfully_register_account'] = "Konto erfolgreich registrieren";

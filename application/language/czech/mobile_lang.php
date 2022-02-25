@@ -219,3 +219,6 @@ $lang["turn_off_auto_renew_success"] = "Úspěšné vypnutí automatického obno
 $lang["turn_on_auto_renew_success"] = "Úspěšné zapnutí automatického obnovení";
 $lang["update_auto_renew_failed"] = "Automatické obnovení aktualizace se nezdařilo";
 $lang['payment_does_not_belong_to_this_customer'] = "Platba tomuto zákazníkovi nepatří";
+$lang['facebook_account_exist'] = 'Facebookový účet již v systému existuje';
+$lang["mobile_email_not_exist"] = "E-mail neexistuje";
+$lang['mobile_successfully_register_account'] = "Úspěšně zaregistrujte účet";

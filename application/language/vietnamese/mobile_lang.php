@@ -221,3 +221,6 @@ $lang["turn_off_auto_renew_success"] = "Tắt tự động gia hạn thành côn
 $lang["turn_on_auto_renew_success"] = "Bật tự động gia hạn thành công";
 $lang["update_auto_renew_failed"] = "Cập nhật tự động gia hạn thất bại";
 $lang['payment_does_not_belong_to_this_customer'] = "Thanh toán không thuộc về khách hàng này";
+$lang['facebook_account_exist'] = 'Tài khoản facebook đã tồn tại trong hệ thống';
+$lang["mobile_email_not_exist"] = "Email không tồn tại";
+$lang['mobile_successfully_register_account'] = "Đăng ký tài khoản thành công";
