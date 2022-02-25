@@ -117,3 +117,8 @@ $lang['hint_your_password_has_to_meet'] = 'Mật khẩu của bạn phải tho�
 $lang['hint_at_least_8_characters'] = 'Ít nhất 8 ký tự — càng nhiều ký tự, càng tốt.';
 $lang['hint_at_least_1_uppercase'] = 'Ít nhất 1 chữ cái viết hoa.';
 $lang['hint_a_mixture_of_letters_and_numbers'] = 'Một hỗn hợp các chữ cái và số.';
+
+$lang['update_customer_email'] = 'Cập nhật email';
+$lang['update_email_success'] = 'Cập nhật email thành công';
+$lang['update_email_failed'] = 'Cập nhật email thất bại';
+$lang['customer_not_exist'] = 'Người dùng không tồn tại';

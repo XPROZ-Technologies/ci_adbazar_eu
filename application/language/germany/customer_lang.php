@@ -119,3 +119,8 @@ $lang['hint_your_password_has_to_meet'] = 'Ihr Passwort muss die folgenden Anfor
 $lang['hint_at_least_8_characters'] = 'Mindestens 8 Zeichen - je mehr Zeichen, desto besser.';
 $lang['hint_at_least_1_uppercase'] = 'Mindestens 1 Großbuchstabe.';
 $lang['hint_a_mixture_of_letters_and_numbers'] = 'Eine Mischung aus Buchstaben und Zahlen.';
+
+$lang['update_customer_email'] = 'Aktualisieren Sie Ihre E-Mail';
+$lang['update_email_success'] = 'E-Mail-Erfolg aktualisieren';
+$lang['update_email_failed'] = 'E-Mail aktualisieren fehlgeschlagen';
+$lang['customer_not_exist'] = 'Kunde existiert nicht';

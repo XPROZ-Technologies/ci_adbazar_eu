@@ -37,7 +37,7 @@ class Customer extends MY_Controller {
                     die;
                 }
                 if(!checkemail($postData['customer_email'])) {
-                    $this->error204('Email not exist');
+                    $this->error204($this->lang->line('mobile_email_not_exist'));
                     die;
                 }
                 if(empty($postData['customer_password'])) {
@@ -242,7 +242,7 @@ class Customer extends MY_Controller {
                         if($checkExistFBId) {
                             $checkExistFBId_2 = $this->Mcustomers->getFieldValue(array('customer_email' => $postData['customer_email'], 'facebook_id' => $postData['facebook_token'], 'customer_status_id >' => 0), 'id', 0);
                             if(!$checkExistFBId_2) {
-                                $this->error204('Facebook account already exist on system');
+                                $this->error204($this->lang->line('facebook_account_exist'));
                                 die;
                             }
                         }
