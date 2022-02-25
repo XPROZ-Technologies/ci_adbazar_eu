@@ -50,6 +50,7 @@ class Customer extends MY_Controller {
                 
             } else if (intval($postData['login_type_id']) == 1) { // facebook
                 $flagFacebookEmail = false;
+
                 if(isset($postData['customer_email'])) {
                     $ext = explode('@', $postData['customer_email']);
                     if(count($ext) > 1 && $ext[1] != 'facebook.com') {
@@ -64,6 +65,8 @@ class Customer extends MY_Controller {
                         }else{
                             $flagFacebookEmail = true;
                         }
+                    }else{
+                        $customer = $this->Mcustomers->login($postData['facebook_token'], '', 1);
                     }
                 }else{
                     $flagFacebookEmail = true;
@@ -87,6 +90,7 @@ class Customer extends MY_Controller {
                         $this->error204($this->lang->line('login_please_active_your_account_email_link'));
                         die;
                    }
+
                    $customerNewId = 0;
                    $customer['id'] = 0;
                    $postData['customer_status_id'] = STATUS_WAITING_ACTIVE; 
@@ -234,6 +238,14 @@ class Customer extends MY_Controller {
                     $ext = explode('@', $postData['customer_email']);
                     if(count($ext) > 1 && $ext[1] != 'facebook.com') {
                         // check email in DB active account
+                        $checkExistFBId = $this->Mcustomers->getFieldValue(array('facebook_id' => $postData['facebook_token'], 'customer_status_id >' => 0), 'id', 0);
+                        if($checkExistFBId) {
+                            $checkExistFBId_2 = $this->Mcustomers->getFieldValue(array('customer_email' => $postData['customer_email'], 'facebook_id' => $postData['facebook_token'], 'customer_status_id >' => 0), 'id', 0);
+                            if(!$checkExistFBId_2) {
+                                $this->error204('Facebook account already exist on system');
+                                die;
+                            }
+                        }
                         $checkExistEmail = $this->Mcustomers->getFieldValue(array('customer_email' => $postData['customer_email'], 'customer_status_id' => STATUS_ACTIVED), 'id', 0);
                         if($checkExistEmail) {
                             $data['facebook_id'] = $postData['facebook_token'];     
