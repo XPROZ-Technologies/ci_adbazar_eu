@@ -145,16 +145,16 @@ define('EMAIL_FROM', 'server@adbazar.eu');
 define('EMAIL_FROM_NAME', 'AdBazar.eu');
 
 // //email server
-// define('EMAIL_USER', 'server@adbazar.eu');
-// define('EMAIL_PASS', 'changeM3!!Adbazar12345');
-// define('EMAIL_HOST', 'ssl://smtpout.asia.secureserver.net');
-// define('EMAIL_PORT', '465');
+define('EMAIL_USER', 'server@adbazar.eu');
+define('EMAIL_PASS', 'Azndevil1501Server@Adbazar.eu'/* 'changeM3!!Adbazar12345'*/);
+define('EMAIL_HOST', 'ssl://smtpout.asia.secureserver.net');
+define('EMAIL_PORT', '465');
 
 //email server
-define('EMAIL_USER', 'mailout.dkh@gmail.com');
-define('EMAIL_PASS', 'fqvpygxkmeotvqfz');
-define('EMAIL_HOST', 'ssl://smtp.googlemail.com');
-define('EMAIL_PORT', '465');
+//define('EMAIL_USER', 'mailout.dkh@gmail.com');
+//define('EMAIL_PASS', 'fqvpygxkmeotvqfz');
+//define('EMAIL_HOST', 'ssl://smtp.googlemail.com');
+//define('EMAIL_PORT', '465');
 
 //paypal
 define('PAYPAL_CLIENT_KEY', 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX');
