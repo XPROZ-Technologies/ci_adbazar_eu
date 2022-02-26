@@ -14,6 +14,11 @@ class Cron extends MY_Controller {
 
     }
 
+    public function testMail(){
+        $flag = $this->sendMail('contact@adbazar.eu', 'ADB', 'levanhoanhtt@gmail.com', 'Hoan', 'Test', 'Test');
+        echo $flag ? 1 : 0;
+    }
+
     public function cronjob() {
         $this->loadModel(array('Mconfigs', 'Memailqueue'));
 
