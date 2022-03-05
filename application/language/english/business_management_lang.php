@@ -6,6 +6,7 @@ $lang["3-month_free_trial_is_availabl"] = "3-month free trial is available for y
 $lang["currency"] = "Currency";
 $lang["monthly_payment"] = "MONTHLY PAYMENT";
 $lang["czk_month"] = "/Month";
+$lang["czk_year"] = "/Year";
 $lang["create_business_profile"] = "Create business profile";
 $lang["show_on_map"] = "Show on map";
 $lang["marketing"] = "Marketing";
