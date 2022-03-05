@@ -159,7 +159,7 @@
       <?php
     }else{
       ?>
-        $(".main_price").html("50 EUR");
+        $(".main_price").html("51.99 EUR");
         $(".main_price_annual").html("42 EUR");
         $(".bill_save").html('8 EUR');
         $(".monthlyPlan").val("3");

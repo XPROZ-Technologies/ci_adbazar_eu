@@ -177,7 +177,6 @@
       console.log('change');
       if($(this).is(":checked")){
         //CZK
-        console.log('CZK');
         $(".main_price").html("1290 CZK");
         $(".main_price_annual").html("999 CZK");
         $(".bill_save").html('291 CZK');
@@ -185,8 +184,7 @@
         $(".annualPlan").val("2");
       }else{
         //EUR
-        console.log('EUR');
-        $(".main_price").html("50 EUR");
+        $(".main_price").html("51.99 EUR");
         $(".main_price_annual").html("42 EUR");
         $(".bill_save").html('8 EUR');
         $(".monthlyPlan").val("3");
