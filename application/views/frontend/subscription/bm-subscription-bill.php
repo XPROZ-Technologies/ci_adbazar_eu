@@ -359,19 +359,19 @@
                                                 <span class="page-text-lg">
                                                     Price of a business profile per month
                                                 </span>
-                                                <span class="page-text-lg text-danger price">1299 CZK</span>
+                                                <span class="page-text-lg text-danger price">1290 CZK</span>
                                             </div>
                                             <div class="d-flex justify-content-between fw-500 summary-bill-item">
                                                 <span class="page-text-lg">
                                                     VAT (21%)
                                                 </span>
-                                                <span class="page-text-lg text-danger price">100 CZK</span>
+                                                <span class="page-text-lg text-danger price">271 CZK</span>
                                             </div>
                                             <div class="d-flex justify-content-between fw-500 summary-bill-item">
                                                 <span class="page-text-lg">
                                                     Total
                                                 </span>
-                                                <span class="page-text-lg text-danger price">1399 CZK</span>
+                                                <span class="page-text-lg text-danger price">1561 CZK</span>
                                             </div>
                                         </div>
                                     </div>
