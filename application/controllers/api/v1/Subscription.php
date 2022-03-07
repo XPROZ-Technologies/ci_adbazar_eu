@@ -260,6 +260,7 @@ class Subscription extends MY_Controller {
 
             $dataReturn = array(
                 "free_trial" => !empty($business['is_trial']) ? $business['is_trial'] : 0,
+                "plan_amount" => isset($paymentPlan['plan_amount']) ? intval($paymentPlan['plan_amount']) : 0,
                 "plan_type_id" => isset($paymentPlan['plan_type_id']) ? $paymentPlan['plan_type_id'] : 0,
                 "plan_currency_id" => isset($paymentPlan['plan_currency_id']) ? $paymentPlan['plan_currency_id'] : 0,
                 "amount_per_month" => isset($paymentPlan['amount_per_month']) ? $paymentPlan['amount_per_month'] : 0,
