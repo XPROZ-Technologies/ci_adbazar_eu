@@ -1241,7 +1241,7 @@ class Businessmanagement extends MY_Controller {
             }
             $paymentAmount = floatval($paymentPlan['plan_amount']);
             $planVat = floatval($paymentPlan['plan_vat']);
-            $vatPrice = ($planVat / 100) * floatval($paymentPlan['plan_total']);
+            $vatPrice = ($planVat / 100) * floatval($paymentPlan['plan_amount']);
             $totalPrice =  floatval($paymentPlan['plan_total']);
             $currency = 'CZK';
             if($paymentPlan['plan_currency_id'] == 2) $currency = 'EUR';
