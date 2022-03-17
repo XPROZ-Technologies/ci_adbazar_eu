@@ -306,7 +306,9 @@ class Customer extends MY_Controller {
             }
 
             $data['login_type_id'] =  $postData['login_type_id'];
-            $data['customer_email'] =  strtolower($postData['customer_email']);
+            if(!empty($postData['customer_email'])) {
+                $data['customer_email'] = strtolower($postData['customer_email']);
+            }
             
             if($data) {
                 $data['created_at'] = getCurentDateTime();
@@ -317,9 +319,18 @@ class Customer extends MY_Controller {
                 if (intval($postData['login_type_id']) == 0) {
                     $flag = $this->Mcustomers->save($data);
                 } else {
-                    $customer = $this->Mcustomers->checkExist(0, $postData['customer_email']);
                     $customerId = 0;
-                    if ($customer && count($customer) > 0) $customerId = $customer['id'];
+                    if(empty($postData['customer_email']) && intval($postData['login_type_id']) == 3) {
+                        $customerId = $this->Mcustomers->getFieldValue(array('apple_id' => $data['apple_id'], 'customer_status_id >' => 0), 'id', 0);
+                    }else{
+                        $customer = $this->Mcustomers->checkExist(0, $postData['customer_email']);
+                        if ($customer && isset($customer['id'])){
+                            $customerId = $customer['id'];
+                        } 
+                    }
+                    if($customerId > 0) {
+                        unset($data['customer_status_id']);
+                    }
                     $flag = $this->Mcustomers->save($data, $customerId);
                 }
                 if($flag) {
@@ -347,7 +358,12 @@ class Customer extends MY_Controller {
                             $this->Memailqueue->createEmail($dataEmail, 99);
                         }
                     }
-                    $this->success200($flag, $this->lang->line('successfully_registered_account'));
+                    $needEmail = 0; // Qua bước cập nhật email
+                    $customerOld = $this->Mcustomers->get($flag);
+                    if(empty($customerOld['customer_email']) && $customerOld['customer_status_id'] == 1){
+                        $needEmail = 1;  // Qua bước cập nhật email
+                    }
+                    $this->success200(array('customer_id' => $flag, 'need_email' => $needEmail), $this->lang->line('successfully_registered_account'));
                 } else {
                     $this->error400($this->lang->line('registration_failed'));
                     die;
