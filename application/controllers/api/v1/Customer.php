@@ -143,7 +143,7 @@ class Customer extends MY_Controller {
                    }
                    $customerNewId = 0;
                    $customer['id'] = 0;
-                   $postData['customer_status_id'] = STATUS_WAITING_ACTIVE; 
+                   $postData['customer_status_id'] = STATUS_ACTIVED; 
                 }
 
                 $customerNewId = $customer['id'];
@@ -167,7 +167,7 @@ class Customer extends MY_Controller {
                     else $customer['customer_avatar'] = base_url(CUSTOMER_PATH.$customer['customer_avatar']);
                     unset($customer['device_token'], $customer['token_reset'], $customer['customer_password'], $customer['created_at'], $customer['created_by'], $customer['updated_at'],  $customer['updated_by'],  $customer['deleted_at']);
                     $needEmail = 0;
-                    if($customerNewId == 0 && in_array(intval($postData['login_type_id']), [1,3])) {
+                    if($customerNewId == 0 && in_array(intval($postData['login_type_id']), [1])) {
                         $needEmail = 1;
                     }
                     $this->success200(array('customer' => $customer, 'need_email' => $needEmail));
@@ -302,7 +302,7 @@ class Customer extends MY_Controller {
                 $data['customer_first_name'] = isset($postData['customer_first_name']) ? $postData['customer_first_name'] : '';
                 $data['customer_last_name'] = isset($postData['customer_last_name']) ? $postData['customer_last_name'] : '';
                 
-                $data['customer_status_id'] = STATUS_WAITING_ACTIVE; 
+                $data['customer_status_id'] = STATUS_ACTIVED; 
             }
 
             $data['login_type_id'] =  $postData['login_type_id'];
@@ -328,9 +328,9 @@ class Customer extends MY_Controller {
                             $customerId = $customer['id'];
                         } 
                     }
-                    if($customerId > 0) {
-                        unset($data['customer_status_id']);
-                    }
+                    // if($customerId > 0) {
+                    //     unset($data['customer_status_id']);
+                    // }
                     $flag = $this->Mcustomers->save($data, $customerId);
                 }
                 if($flag) {
@@ -360,7 +360,7 @@ class Customer extends MY_Controller {
                     }
                     $needEmail = 0; // Qua bước cập nhật email
                     $customerOld = $this->Mcustomers->get($flag);
-                    if(empty($customerOld['customer_email']) && $customerOld['customer_status_id'] == 1){
+                    if(empty($customerOld['customer_email']) && $customerOld['customer_status_id'] == 1 && intval($postData['login_type_id']) != 3){
                         $needEmail = 1;  // Qua bước cập nhật email
                     }
                     $this->success200(array('customer_id' => $flag, 'need_email' => $needEmail), $this->lang->line('successfully_registered_account'));
