@@ -51,7 +51,7 @@ class Customer extends MY_Controller {
             } else if (intval($postData['login_type_id']) == 1) { // facebook
                 $flagFacebookEmail = false;
 
-                if(isset($postData['customer_email'])) {
+                if(isset($postData['customer_email']) && !empty($postData['customer_email'])) {
                     $ext = explode('@', $postData['customer_email']);
                     if(count($ext) > 1 && $ext[1] != 'facebook.com') {
                         // check email in DB active account
@@ -83,14 +83,13 @@ class Customer extends MY_Controller {
                     }
                     $customer = $this->Mcustomers->login($postData['facebook_id'], '', $postData['login_type_id']);
                 }
-                
+               
                 if(!$customer) {
-                   $customerCheck = $this->Mcustomers->getFieldValue(array('facebook_id' =>  $postData['facebook_id'], 'customer_status_id' => STATUS_ACTIVED), 'customer_status_id', 0);
+                   $customerCheck = $this->Mcustomers->getFieldValue(array('facebook_id' =>  $postData['facebook_id'], 'customer_status_id' => 1), 'customer_status_id', 0);
                    if($customerCheck == 1) {
                         $this->error204($this->lang->line('login_please_active_your_account_email_link'));
                         die;
                    }
-
                    $customerNewId = 0;
                    $customer['id'] = 0;
                    $postData['customer_status_id'] = STATUS_WAITING_ACTIVE; 
@@ -148,7 +147,6 @@ class Customer extends MY_Controller {
 
                 $customerNewId = $customer['id'];
             }
-
             if($customer) {
                 $flag = false;
                 if ($customer) {
