@@ -1083,6 +1083,10 @@ abstract class MY_Controller extends CI_Controller
         $this->pdf->setPaper('A4', 'portrait');
         $this->pdf->render();
 
+        //fake tạm
+        $receipe_number = 1;
+        $invoice_date = date('Y-m-d');
+
         $invoice_name = $receipe_number."_invoice_adbazar_".str_replace('/', '_', $invoice_date).".pdf";
         $invoice_path = INVOICE_PATH.$invoice_name;
         $output = $this->pdf->output();
