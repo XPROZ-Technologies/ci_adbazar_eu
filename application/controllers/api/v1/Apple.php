@@ -107,7 +107,7 @@ class Apple extends MY_Controller {
     }
 
     public function verify() {
-        try {
+        //try {
             $this->openAllCors();
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'receipt_data', 'payment_id'));
@@ -221,9 +221,10 @@ class Apple extends MY_Controller {
                 $this->error204($this->lang->line('failed'));
                 die;
             }
-        } catch (\Throwable $th) {
+        /*}
+        catch (\Throwable $th) {
             $this->error500();
-        }
+        }*/
     }
 
     public function webhook() {
