@@ -162,8 +162,8 @@ class Apple extends MY_Controller {
                         'updated_at' => getCurentDateTime(),
                         'updated_by' => 0
                     );
-                    $flag = $this->Mbusinesspayments->save($data, $checkPayment);
-                    if($flag) {
+                    $businessPaymentId = $this->Mbusinesspayments->save($data, $checkPayment);
+                    if($businessPaymentId > 0) {
                         $businessProfile = $this->Mbusinessprofiles->get($postData['business_id']);
                         $dataUpdate = array(
                             'subscription_id' => $businessProfile['subscription_id'],
@@ -191,7 +191,7 @@ class Apple extends MY_Controller {
                        // nếu plan_type_id =1  30 , 2: 365
                         $this->Mbusinessprofiles->save($dataUpdate, $businessProfile['id']);
         
-                        $invoice_url = $this->create_invoice_pdf($businessProfile['id']);
+                        $invoice_url = '';// $this->create_invoice_pdf($businessProfile['id']);
         
                         $customerInfo = $this->Mcustomers->get($customer['customer_id']);
         
