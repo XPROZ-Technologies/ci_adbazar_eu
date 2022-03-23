@@ -18,7 +18,7 @@ class ColumnCellIterator extends CellIterator
     /**
      * Column index.
      *
-     * @var int
+     * @var string
      */
     private $columnIndex;
 

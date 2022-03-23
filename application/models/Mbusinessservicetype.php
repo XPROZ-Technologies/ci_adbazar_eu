@@ -19,7 +19,7 @@ class Mbusinessservicetype extends MY_Model {
             foreach ($serviceTypes as $u) {
                 $arrBusinessType[] = array(
                     'business_profile_id' => $businessProfileId,
-                    'service_type_id' => intval($u)
+                    'service_type_id' => $u
                 );
             }
                

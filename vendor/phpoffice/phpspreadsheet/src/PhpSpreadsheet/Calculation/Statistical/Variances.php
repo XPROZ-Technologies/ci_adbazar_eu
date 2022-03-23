@@ -29,7 +29,6 @@ class Variances extends VarianceBase
         $aCount = 0;
         foreach ($aArgs as $arg) {
             $arg = self::datatypeAdjustmentBooleans($arg);
-
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 $summerA += ($arg * $arg);
@@ -118,7 +117,6 @@ class Variances extends VarianceBase
         $aCount = 0;
         foreach ($aArgs as $arg) {
             $arg = self::datatypeAdjustmentBooleans($arg);
-
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 $summerA += ($arg * $arg);

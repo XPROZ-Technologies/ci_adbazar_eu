@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
-class StandardDeviations
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+
+class StandardDeviations extends VarianceBase
 {
     /**
      * STDEV.
@@ -19,12 +21,34 @@ class StandardDeviations
      */
     public static function STDEV(...$args)
     {
-        $result = Variances::VAR(...$args);
-        if (!is_numeric($result)) {
-            return $result;
+        $aArgs = Functions::flattenArrayIndexed($args);
+
+        $aMean = Averages::AVERAGE($aArgs);
+
+        if (!is_string($aMean)) {
+            $returnValue = 0.0;
+            $aCount = -1;
+
+            foreach ($aArgs as $k => $arg) {
+                if (
+                    (is_bool($arg)) &&
+                    ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))
+                ) {
+                    $arg = (int) $arg;
+                }
+                // Is it a numeric value?
+                if ((is_numeric($arg)) && (!is_string($arg))) {
+                    $returnValue += ($arg - $aMean) ** 2;
+                    ++$aCount;
+                }
+            }
+
+            if ($aCount > 0) {
+                return sqrt($returnValue / $aCount);
+            }
         }
 
-        return sqrt((float) $result);
+        return Functions::DIV0();
     }
 
     /**
@@ -41,12 +65,32 @@ class StandardDeviations
      */
     public static function STDEVA(...$args)
     {
-        $result = Variances::VARA(...$args);
-        if (!is_numeric($result)) {
-            return $result;
+        $aArgs = Functions::flattenArrayIndexed($args);
+
+        $aMean = Averages::AVERAGEA($aArgs);
+
+        if (!is_string($aMean)) {
+            $returnValue = 0.0;
+            $aCount = -1;
+
+            foreach ($aArgs as $k => $arg) {
+                if ((is_bool($arg)) && (!Functions::isMatrixValue($k))) {
+                } else {
+                    // Is it a numeric value?
+                    if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
+                        $arg = self::datatypeAdjustmentAllowStrings($arg);
+                        $returnValue += ($arg - $aMean) ** 2;
+                        ++$aCount;
+                    }
+                }
+            }
+
+            if ($aCount > 0) {
+                return sqrt($returnValue / $aCount);
+            }
         }
 
-        return sqrt((float) $result);
+        return Functions::DIV0();
     }
 
     /**
@@ -63,12 +107,34 @@ class StandardDeviations
      */
     public static function STDEVP(...$args)
     {
-        $result = Variances::VARP(...$args);
-        if (!is_numeric($result)) {
-            return $result;
+        $aArgs = Functions::flattenArrayIndexed($args);
+
+        $aMean = Averages::AVERAGE($aArgs);
+
+        if (!is_string($aMean)) {
+            $returnValue = 0.0;
+            $aCount = 0;
+
+            foreach ($aArgs as $k => $arg) {
+                if (
+                    (is_bool($arg)) &&
+                    ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))
+                ) {
+                    $arg = (int) $arg;
+                }
+                // Is it a numeric value?
+                if ((is_numeric($arg)) && (!is_string($arg))) {
+                    $returnValue += ($arg - $aMean) ** 2;
+                    ++$aCount;
+                }
+            }
+
+            if ($aCount > 0) {
+                return sqrt($returnValue / $aCount);
+            }
         }
 
-        return sqrt((float) $result);
+        return Functions::DIV0();
     }
 
     /**
@@ -85,11 +151,31 @@ class StandardDeviations
      */
     public static function STDEVPA(...$args)
     {
-        $result = Variances::VARPA(...$args);
-        if (!is_numeric($result)) {
-            return $result;
+        $aArgs = Functions::flattenArrayIndexed($args);
+
+        $aMean = Averages::AVERAGEA($aArgs);
+
+        if (!is_string($aMean)) {
+            $returnValue = 0.0;
+            $aCount = 0;
+
+            foreach ($aArgs as $k => $arg) {
+                if ((is_bool($arg)) && (!Functions::isMatrixValue($k))) {
+                } else {
+                    // Is it a numeric value?
+                    if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
+                        $arg = self::datatypeAdjustmentAllowStrings($arg);
+                        $returnValue += ($arg - $aMean) ** 2;
+                        ++$aCount;
+                    }
+                }
+            }
+
+            if ($aCount > 0) {
+                return sqrt($returnValue / $aCount);
+            }
         }
 
-        return sqrt((float) $result);
+        return Functions::DIV0();
     }
 }

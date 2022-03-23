@@ -409,9 +409,9 @@ if(!function_exists('getRangeHours')) {
         
 
         $startPoint = $minuteStart;
-        // if($minuteCurrent > $minuteStart){
-        //     $startPoint = $minuteCurrent;
-        // }
+        if($minuteCurrent > $minuteStart){
+            $startPoint = $minuteCurrent;
+        }
 
         $endPoint = $minuteEnd;
 
@@ -420,16 +420,12 @@ if(!function_exists('getRangeHours')) {
         $arrHours = array();
         for($i = $startPoint; $i <= $endPoint; $i = $i + $duration){
             $tmpHours = intdiv($i, 60);
-            $tmpMin = ($i % 60);
+            if(strlen($tmpHours) == 1) $tmpHours = "0".$tmpHours;
             
-            $currItemLoop = $tmpHours * 60 + $tmpMin;
+            $tmpMin = ($i % 60);
+            if(strlen($tmpMin) == 1) $tmpMin = "0".$tmpMin;
 
-            if($minuteCurrent <= $currItemLoop) {
-                if(strlen($tmpHours) == 1) $tmpHours = "0".$tmpHours;
-                if(strlen($tmpMin) == 1) $tmpMin = "0".$tmpMin;
-
-                $arrHours[] = $tmpHours.':'. $tmpMin;
-            }
+            $arrHours[] = $tmpHours.':'. $tmpMin;
         }
 
         return $arrHours;
@@ -478,116 +474,5 @@ if(!function_exists('dateDifference')) {
         $interval = date_diff($datetime1, $datetime2);
     
         return $interval->format($differenceFormat);
-    }
-}
-if(!function_exists('checkemail')) {
-    function checkemail($str) {
-        $checkExit = (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
-        return $checkExit;
-    }
-}
-
-if (!function_exists('sendNotification')){
-    function sendNotification($token, $title, $body, $clicks = array()) {
-        if(empty($token) || empty($title)) return;
-       
-        $url = "https://fcm.googleapis.com/fcm/send";
-        $serverKey = "AAAA9Juueqw:APA91bFGYtPdCC9XDHKDeityHdtjMS0LHFahcrbXOIPvwY5HqKG8Moe7-vR4zXP3d_UC6VX9VUfd-ahg_ApdrpaEGgbdnF3E0DaBInxmHu3mqzpTasZYhYIIbGyrGkrILNjBfN4qxDuT";
-        
-        $arrayToSend = array(
-            "to" => $token, 
-            "notification" => array(
-                "title" => $title , 
-                "body" => $body, 
-                "sound" => "default"
-            ),
-            "data" => array()
-        );
-
-        if(!empty($clicks)){
-            $notification = [];
-            foreach($clicks as $k => $v){
-                $notification[$k] = $v;
-            }
-
-            $arrayToSend['data']['notification'] = json_encode($notification);
-        } 
-
-        
-
-        $json = json_encode($arrayToSend);
-        $headers = array(
-            'Content-Type: application/json',
-            'Authorization: key='. $serverKey
-        );
-
-        $crl = curl_init();
-
-        curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, false);
- 
-        curl_setopt($crl, CURLOPT_URL, $url);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, $headers);
- 
-        curl_setopt($crl, CURLOPT_POST, true);
-        curl_setopt($crl, CURLOPT_POSTFIELDS, $json);
-        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
- 
-        $rest = curl_exec($crl);
-
-        if ($rest === false) {
-            print_r('Curl error: ' . curl_error($crl));
-        } else {
-            //$result_noti = 1;
-        }
-        //echo json_encode($rest);
-
-        //echo json_encode($result);
-        //log_message('error', 'FCM: ' . json_encode($arrayToSend));
-        //log_message('error', 'FCM: ' . json_encode($result));
-    }
-}
-
-if (!function_exists('sendNotificationExpo')){
-    function sendNotificationExpo($token, $title, $body, $clicks = array()) {
-        if(empty($token) || empty($title)) return;
-       
-        $payload = array(
-            'to' => 'ExponentPushToken['.$token.']',
-            'title' => $title,
-            'sound' => 'default',
-            'body' => $body,
-            'data' => json_encode($clicks)
-        );
-    
-        $curl = curl_init();
-        
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://exp.host/--/api/v2/push/send",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => json_encode($payload),
-        CURLOPT_HTTPHEADER => array(
-            "Accept: application/json",
-            "Accept-Encoding: gzip, deflate",
-            "Content-Type: application/json",
-            "cache-control: no-cache",
-            "host: exp.host"
-        ),
-        ));
-        
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        
-        curl_close($curl);
-        
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
     }
 }

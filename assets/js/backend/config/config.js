@@ -85,15 +85,6 @@ $(document).ready(function(){
             $('img#imgAboutUsImage2').attr('src', fileUrl).show();
         });
 
-        $('#btnUpEventMobileImage').click(function(){
-            $('#logoFileEventMobileImage').trigger('click');
-        });
-    
-        chooseFile($('#logoFileEventMobileImage'), $('#fileProgress'), 5, function(fileUrl){
-            $('input#logoEventMobileImage').val(fileUrl);
-            $('img#imgEventMobileImage').attr('src', fileUrl).show();
-        });
-
 
         if(aboundId == 0) {
             CKEDITOR.replace('TERM_OF_USE', {
@@ -120,7 +111,6 @@ $(document).ready(function(){
                
                 var form = $('#configForm');
                 var data = form.serializeArray();
-                data.push({ name: "general", value: $("input#general").val()});
                 $.ajax({
                     type: "POST",
                     url: form.attr('action'),

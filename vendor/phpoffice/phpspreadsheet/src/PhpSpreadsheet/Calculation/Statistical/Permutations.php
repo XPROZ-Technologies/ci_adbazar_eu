@@ -2,10 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PhpOffice\PhpSpreadsheet\Shared\IntOrFloat;
 
 class Permutations
 {
@@ -18,29 +16,26 @@ class Permutations
      *        combinations, for which the internal order is not significant. Use this function
      *        for lottery-style probability calculations.
      *
-     * @param mixed $numObjs Integer number of different objects
-     * @param mixed $numInSet Integer number of objects in each permutation
+     * @param int $numObjs Number of different objects
+     * @param int $numInSet Number of objects in each permutation
      *
-     * @return float|int|string Number of permutations, or a string containing an error
+     * @return int|string Number of permutations, or a string containing an error
      */
     public static function PERMUT($numObjs, $numInSet)
     {
         $numObjs = Functions::flattenSingleValue($numObjs);
         $numInSet = Functions::flattenSingleValue($numInSet);
 
-        try {
-            $numObjs = StatisticalValidations::validateInt($numObjs);
-            $numInSet = StatisticalValidations::validateInt($numInSet);
-        } catch (Exception $e) {
-            return $e->getMessage();
+        if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
+            $numInSet = floor($numInSet);
+            if ($numObjs < $numInSet) {
+                return Functions::NAN();
+            }
+
+            return round(MathTrig::FACT($numObjs) / MathTrig::FACT($numObjs - $numInSet));
         }
 
-        if ($numObjs < $numInSet) {
-            return Functions::NAN();
-        }
-        $result = round(MathTrig\Factorial::fact($numObjs) / MathTrig\Factorial::fact($numObjs - $numInSet));
-
-        return IntOrFloat::evaluate($result);
+        return Functions::VALUE();
     }
 
     /**
@@ -49,29 +44,26 @@ class Permutations
      * Returns the number of permutations for a given number of objects (with repetitions)
      *     that can be selected from the total objects.
      *
-     * @param mixed $numObjs Integer number of different objects
-     * @param mixed $numInSet Integer number of objects in each permutation
+     * @param int $numObjs Number of different objects
+     * @param int $numInSet Number of objects in each permutation
      *
-     * @return float|int|string Number of permutations, or a string containing an error
+     * @return int|string Number of permutations, or a string containing an error
      */
     public static function PERMUTATIONA($numObjs, $numInSet)
     {
         $numObjs = Functions::flattenSingleValue($numObjs);
         $numInSet = Functions::flattenSingleValue($numInSet);
 
-        try {
-            $numObjs = StatisticalValidations::validateInt($numObjs);
-            $numInSet = StatisticalValidations::validateInt($numInSet);
-        } catch (Exception $e) {
-            return $e->getMessage();
+        if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
+            $numObjs = floor($numObjs);
+            $numInSet = floor($numInSet);
+            if ($numObjs < 0 || $numInSet < 0) {
+                return Functions::NAN();
+            }
+
+            return $numObjs ** $numInSet;
         }
 
-        if ($numObjs < 0 || $numInSet < 0) {
-            return Functions::NAN();
-        }
-
-        $result = $numObjs ** $numInSet;
-
-        return IntOrFloat::evaluate($result);
+        return Functions::VALUE();
     }
 }

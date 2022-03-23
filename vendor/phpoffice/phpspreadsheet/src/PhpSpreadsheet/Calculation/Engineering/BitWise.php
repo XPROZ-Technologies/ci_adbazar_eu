@@ -7,18 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class BitWise
 {
-    const SPLIT_DIVISOR = 2 ** 24;
-
-    /**
-     * Split a number into upper and lower portions for full 32-bit support.
-     *
-     * @param float|int $number
-     */
-    private static function splitNumber($number): array
-    {
-        return [floor($number / self::SPLIT_DIVISOR), fmod($number, self::SPLIT_DIVISOR)];
-    }
-
     /**
      * BITAND.
      *
@@ -40,10 +28,8 @@ class BitWise
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        $split1 = self::splitNumber($number1);
-        $split2 = self::splitNumber($number2);
 
-        return  self::SPLIT_DIVISOR * ($split1[0] & $split2[0]) + ($split1[1] & $split2[1]);
+        return $number1 & $number2;
     }
 
     /**
@@ -68,10 +54,7 @@ class BitWise
             return $e->getMessage();
         }
 
-        $split1 = self::splitNumber($number1);
-        $split2 = self::splitNumber($number2);
-
-        return  self::SPLIT_DIVISOR * ($split1[0] | $split2[0]) + ($split1[1] | $split2[1]);
+        return $number1 | $number2;
     }
 
     /**
@@ -96,10 +79,7 @@ class BitWise
             return $e->getMessage();
         }
 
-        $split1 = self::splitNumber($number1);
-        $split2 = self::splitNumber($number2);
-
-        return  self::SPLIT_DIVISOR * ($split1[0] ^ $split2[0]) + ($split1[1] ^ $split2[1]);
+        return $number1 ^ $number2;
     }
 
     /**
@@ -113,18 +93,19 @@ class BitWise
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return float|int|string
+     * @return int|string
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
         try {
             $number = self::validateBitwiseArgument($number);
-            $shiftAmount = self::validateShiftAmount($shiftAmount);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        $result = floor($number * (2 ** $shiftAmount));
+        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
+
+        $result = $number << $shiftAmount;
         if ($result > 2 ** 48 - 1) {
             return Functions::NAN();
         }
@@ -143,49 +124,19 @@ class BitWise
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return float|int|string
+     * @return int|string
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
         try {
             $number = self::validateBitwiseArgument($number);
-            $shiftAmount = self::validateShiftAmount($shiftAmount);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        $result = floor($number / (2 ** $shiftAmount));
-        if ($result > 2 ** 48 - 1) { // possible because shiftAmount can be negative
-            return Functions::NAN();
-        }
+        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
 
-        return $result;
-    }
-
-    /**
-     * Validate arguments passed to the bitwise functions.
-     *
-     * @param mixed $value
-     *
-     * @return float|int
-     */
-    private static function validateBitwiseArgument($value)
-    {
-        self::nullFalseTrueToNumber($value);
-
-        if (is_numeric($value)) {
-            if ($value == floor($value)) {
-                if (($value > 2 ** 48 - 1) || ($value < 0)) {
-                    throw new Exception(Functions::NAN());
-                }
-
-                return floor($value);
-            }
-
-            throw new Exception(Functions::NAN());
-        }
-
-        throw new Exception(Functions::VALUE());
+        return $number >> $shiftAmount;
     }
 
     /**
@@ -195,33 +146,25 @@ class BitWise
      *
      * @return int
      */
-    private static function validateShiftAmount($value)
+    private static function validateBitwiseArgument($value)
     {
-        self::nullFalseTrueToNumber($value);
+        $value = Functions::flattenSingleValue($value);
 
-        if (is_numeric($value)) {
-            if (abs($value) > 53) {
-                throw new Exception(Functions::NAN());
+        if (is_int($value)) {
+            return $value;
+        } elseif (is_numeric($value)) {
+            if ($value == (int) ($value)) {
+                $value = (int) ($value);
+                if (($value > 2 ** 48 - 1) || ($value < 0)) {
+                    throw new Exception(Functions::NAN());
+                }
+
+                return $value;
             }
 
-            return (int) $value;
+            throw new Exception(Functions::NAN());
         }
 
         throw new Exception(Functions::VALUE());
-    }
-
-    /**
-     * Many functions accept null/false/true argument treated as 0/0/1.
-     *
-     * @param mixed $number
-     */
-    public static function nullFalseTrueToNumber(&$number): void
-    {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
     }
 }

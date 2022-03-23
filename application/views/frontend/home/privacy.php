@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="">
                         <p class="page-text-lg"><?php 
-                                 echo nl2br($content); 
+                                 echo $content; 
                             ?>
                         </p>
                     </div>

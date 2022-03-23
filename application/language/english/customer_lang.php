@@ -83,7 +83,7 @@ $lang["event_name_held_by_businessname_has_been_updated"] = "Event <EVENT_NAME> 
 $lang["reservation_id_has_been_canceled"] = "Reservation <RESERVATION_ID> has been canceled.";
 $lang["event_name_held_by_businessname_has_been_cancelled"] = "Event <EVENT_NAME> held by <BUSINESS_NAME> has been cancelled.";
 $lang["business_name_s__free_trial_has_ended"] = "<BUSINESS_NAME>'s  free trial has ended.";
-$lang["reservation__id__at__businessname_has_been_declined"] = "Reservation  <RESERVATION_ID> at  <BUSINESS_NAME> has been declined.";
+$lang["reservation__id__at__businessname_has_been_declined"] = "Reservation  <RESERVATION_ID > at  <BUSINESS_NAME> has been declined.";
 $lang["all_coupons"] = "All coupons";
 $lang["get_now"] = "Get now";
 $lang["successfully_saved"] = "Successfully Saved!";
@@ -112,13 +112,3 @@ $lang['22112021_login_successful'] = 'Login successful';
 $lang['22112021_account_activation_failed'] = 'Account activation failed';
 $lang['22112021_account_activation_successfully'] = 'Account activation successfully';
 $lang['22112021_token_expired_or_account_has_been_activated'] = 'Token expired or account has been activated';
-
-$lang['hint_your_password_has_to_meet'] = 'Your password has to meet the following requirements:';
-$lang['hint_at_least_8_characters'] = 'At least 8 characters—the more characters, the better.';
-$lang['hint_at_least_1_uppercase'] = 'At least 1 uppercase letter.';
-$lang['hint_a_mixture_of_letters_and_numbers'] = 'A mixture of letters and numbers.';
-
-$lang['update_customer_email'] = 'Update Your Email';
-$lang['update_email_success'] = 'Update email success';
-$lang['update_email_failed'] = 'Update email failed';
-$lang['customer_not_exist'] = 'Customer not exist';

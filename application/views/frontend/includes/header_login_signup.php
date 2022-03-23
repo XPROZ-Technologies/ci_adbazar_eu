@@ -11,16 +11,16 @@
     <?php $this->load->view('frontend/includes/favicon'); ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/frontend/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/frontend/owl.carousel.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/frontend/animate.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/frontend/nice-select.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/frontend/tempusdominus-bootstrap-4.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/frontend/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/frontend/main.css?version=<?php echo time(); ?>">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/frontend/edit.css?version=<?php echo time(); ?>">
+    <link rel="stylesheet" href="assets/css/frontend/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/frontend/owl.carousel.min.css" />
+    <link rel="stylesheet" href="assets/css/frontend/animate.min.css" />
+    <link rel="stylesheet" href="assets/css/frontend/nice-select.min.css" />
+    <link rel="stylesheet" href="assets/css/frontend/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="assets/css/frontend/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="assets/css/frontend/main.css?version=<?php echo time(); ?>">
+    <link rel="stylesheet" href="assets/css/frontend/edit.css?version=<?php echo time(); ?>">
     <!-- <link rel="stylesheet" href="assets/css/frontend/custom.css?version=<?php echo time(); ?>">     -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/plugins/pnotify/pnotify.custom.min.css"/>
+    <link rel="stylesheet" href="assets/vendor/plugins/pnotify/pnotify.custom.min.css"/>
 </head>
 
 <body>

@@ -42,7 +42,6 @@
                         <li><input class="btn btn-primary submit" type="submit" name="submit" value="Update"></li>
                         <input type="text" hidden="hidden" id="autoLoad" value="1">
                         <input type="text" hidden="hidden" id="aboundId" value="1">
-                        <input type="text" hidden="hidden" id="general" value="0">
                     </ul>
                 </div>
             </section>

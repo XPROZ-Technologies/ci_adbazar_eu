@@ -35,8 +35,8 @@ class Coupon extends MY_Controller {
 		$data = $this->commonData($user,
 			'Add Coupon',
 			array(
-				'scriptHeader' => array('css' =>  array('vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css','vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css')),
-				'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js','vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/coupon/update.js'))
+				'scriptHeader' => array('css' => 'vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css'),
+				'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/coupon/update.js'))
 			)
 		);
 		if ($this->Mactions->checkAccess($data['listActions'], 'coupon/coupon-create')) {
@@ -50,10 +50,10 @@ class Coupon extends MY_Controller {
         if($couponId > 0) {
             $user = $this->checkUserLogin();
             $data = $this->commonData($user,
-                'Edit Coupon',
+                'Edit location',
                 array(
-                    'scriptHeader' => array('css' =>  array('vendor/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css','vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css')),
-                    'scriptFooter' => array('js' => array('vendor/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js','vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/coupon/update.js'))
+                    'scriptHeader' => array('css' => 'vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.min.css'),
+                    'scriptFooter' => array('js' => array('vendor/plugins/jquery-datetimepicker/jquery.datetimepicker.full.min.js', 'js/backend/coupon/update.js'))
                 )
             );
             if ($this->Mactions->checkAccess($data['listActions'], 'sys-admin/coupon-update')) {
@@ -77,7 +77,7 @@ class Coupon extends MY_Controller {
     public function update(){
         try {
             $user = $this->checkUserLogin();
-            $postData = $this->arrayFromPost(array('business_profile_id', 'coupon_subject', 'coupon_image', 'coupon_amount', 'coupon_description', 'start_date', 'end_date', 'is_hot'));
+            $postData = $this->arrayFromPost(array('business_profile_id', 'coupon_subject', 'coupon_image', 'coupon_amount', 'coupon_description', 'start_date', 'end_date'));
             if(!empty($postData['business_profile_id'])  && !empty($postData['coupon_subject'])) {
                 $couponId = $this->input->post('id');
 				$this->load->model('Mcoupons');

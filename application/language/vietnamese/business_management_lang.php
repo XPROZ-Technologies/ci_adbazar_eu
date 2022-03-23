@@ -6,7 +6,6 @@ $lang["3-month_free_trial_is_availabl"] = "3 tháng dùng thử miễn phí cho 
 $lang["currency"] = "Tiền tệ";
 $lang["monthly_payment"] = "MONTHLY PAYMENT";
 $lang["czk_month"] = "/ Tháng";
-$lang["czk_year"] = "/ Năm";
 $lang["create_business_profile"] = "Tạo hồ sơ doanh nghiệp";
 $lang["show_on_map"] = "Hiển thị trên bản đồ";
 $lang["marketing"] = "Marketing";

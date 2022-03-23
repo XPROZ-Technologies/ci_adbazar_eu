@@ -36,7 +36,6 @@ class Column
      */
     public function __destruct()
     {
-        // @phpstan-ignore-next-line
         $this->parent = null;
     }
 

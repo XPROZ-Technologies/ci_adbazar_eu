@@ -36,7 +36,6 @@ class Mcustomernotifications extends MY_Model {
         if(isset($postData['notification_status_id']) && $postData['notification_status_id'] > 0) $query .= " AND notification_status_id = ".$postData['notification_status_id'];
         if(isset($postData['business_id']) && $postData['business_id'] > 0) $query .= " AND business_id = ".$postData['business_id'];
         if(isset($postData['customer_id']) && $postData['customer_id'] > 0) $query .= " AND customer_id = ".$postData['customer_id'];
-        if(isset($postData['is_send'])) $query .= " AND is_send = ".$postData['is_send'];
         
         return $query;
     }

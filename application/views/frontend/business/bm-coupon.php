@@ -76,13 +76,7 @@
                               <div class="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between">
                                 <div class="customer-coupon-body">
                                   <h6 class="card-title page-text-sm"><span><?php echo $itemCoupon['coupon_subject']; ?></span></h6>
-                                  <p class="card-text page-text-xs">
-                                    <?php if($language_id == 1){ ?>
-                                      <?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> <?php echo $this->lang->line('to1635566199'); ?> <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?>
-                                    <?php } else { ?> 
-                                      <?php echo ddMMyyyy($itemCoupon['start_date'], 'd/m/Y'); ?> <?php echo $this->lang->line('to1635566199'); ?> <?php echo ddMMyyyy($itemCoupon['end_date'], 'd/m/Y'); ?>
-                                    <?php } ?>
-                                  </p>
+                                  <p class="card-text page-text-xs"><?php echo ddMMyyyy($itemCoupon['start_date'], 'M d, Y'); ?> to <?php echo ddMMyyyy($itemCoupon['end_date'], 'M d, Y'); ?></p>
                                   <div class="d-flex align-items-center justify-content-between">
                                     <div class="wraper-status">
                                       <div class="badge badge-primary"><?php echo $this->lang->line('upcoming'); ?></div>

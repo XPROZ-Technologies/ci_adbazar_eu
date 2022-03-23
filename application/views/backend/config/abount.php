@@ -78,7 +78,6 @@
                         <input type="text" hidden="hidden" id="autoLoad" value="1">
                         <input type="text" hidden="hidden" id="uploadFileUrl" value="<?php echo base_url('common/file/upload'); ?>">
                         <input type="text" hidden="hidden" id="aboundId" value="1">
-                        <input type="text" hidden="hidden" id="general" value="0">
                     </ul>
                 </div>
             </section>

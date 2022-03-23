@@ -85,10 +85,10 @@ class ConvertOctal extends ConvertBase
                 $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
             }
 
-            return (string) ((bindec($binX) + 1) * -1);
+            return (bindec($binX) + 1) * -1;
         }
 
-        return (string) bindec($binX);
+        return bindec($binX);
     }
 
     /**
@@ -127,16 +127,14 @@ class ConvertOctal extends ConvertBase
             return $e->getMessage();
         }
 
-        $hexVal = strtoupper(dechex((int) self::toDecimal($value)));
-        $hexVal = (PHP_INT_SIZE === 4 && strlen($value) === 10 && $value[0] >= '4') ? "FF$hexVal" : $hexVal;
+        $hexVal = strtoupper(dechex((int) self::toDecimal((int) $value)));
 
         return self::nbrConversionFormat($hexVal, $places);
     }
 
     protected static function validateOctal(string $value): string
     {
-        $numDigits = (int) preg_match_all('/[01234567]/', $value);
-        if (strlen($value) > $numDigits || $numDigits > 10) {
+        if (strlen($value) > preg_match_all('/[01234567]/', $value)) {
             throw new Exception(Functions::NAN());
         }
 

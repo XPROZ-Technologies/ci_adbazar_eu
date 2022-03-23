@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class ConvertBase
 {
-    protected static function validateValue($value): string
+    protected static function validateValue($value, bool $gnumericCheck = false): string
     {
         if (is_bool($value)) {
             if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE) {
@@ -16,10 +16,8 @@ class ConvertBase
             $value = (int) $value;
         }
 
-        if (is_numeric($value)) {
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-                $value = floor((float) $value);
-            }
+        if ($gnumericCheck && Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
+            $value = floor((float) $value);
         }
 
         return strtoupper((string) $value);
@@ -32,7 +30,7 @@ class ConvertBase
         }
 
         if (is_numeric($places)) {
-            if ($places < 0 || $places > 10) {
+            if ($places < 0) {
                 throw new Exception(Functions::NAN());
             }
 

@@ -222,7 +222,6 @@ class Customer extends MY_Controller
                     
                     $dataUpdate = array(
                         'customer_password' => md5($postData['customer_password']),
-                        'customer_status_id' => STATUS_ACTIVED,
                         'token_reset' => ''
                     );
                     $customerId = $this->Mcustomers->save($dataUpdate, $customerId);
@@ -258,7 +257,7 @@ class Customer extends MY_Controller
             $customer = $this->Mcustomers->checkExist(0, $postData['customer_email']);
             $customerId = 0;
             if (count($customer) > 0) $customerId = $customer['id'];
-            $message = $this->lang->line('mobile_successfully_register_account');
+            $message = 'Successfully register account';
             $customer['language_id'] = 1;
 
             if ($customerId == 0) {
@@ -273,30 +272,11 @@ class Customer extends MY_Controller
             }
             $flag = $this->Mcustomers->save($postData, $customerId);
             if ($flag > 0) {
-                $checkExist = true;
-
-                if($postData['login_type_id'] == 1) {
-                    $customerNew = $this->Mcustomers->get($flag);
-                    if(empty($customerNew['customer_email'])) {
-                        $this->session->set_userdata('customer_update_email', $flag);
-                        $checkExist = false;
-                        echo json_encode(array('code' => 3, 'data' => $flag, 'url' => base_url('customer/update-email?customer='.$flag)));die;
-                    }else{
-                        $checkExist = true;
-                        $ext = explode('@', $postData['customer_email']);
-                        if(count($ext) > 1 && $ext[1] == 'facebook.com') {
-                            $this->session->set_userdata('customer_update_email', $flag);
-                            echo json_encode(array('code' => 3, 'data' => $flag, 'url' => base_url('customer/update-email?customer='.$flag)));die;
-                        }
-                    }
-                }
-                if($checkExist == true){
-                    $customer = $this->Mcustomers->get($flag);
-                    $customer['language_name'] = $customer['language_id'] == 0 ? 'english' : $this->Mconstants->languageCodes[$customer['language_id']];
-                    $this->load->helper('cookie');
-                    $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '3600'));
-                    echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
-                }
+                $customer = $this->Mcustomers->get($flag);
+                $customer['language_name'] = $customer['language_id'] == 0 ? 'english' : $this->Mconstants->languageCodes[$customer['language_id']];
+                $this->load->helper('cookie');
+                $this->input->set_cookie($this->configValueCookie('customer', json_encode($customer), '3600'));
+                echo json_encode(array('code' => 1, 'message' => $message, 'data' => $flag));
             } else echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));
         } catch (\Throwable $th) {
             echo json_encode(array('code' => -2, 'message' => ERROR_COMMON_MESSAGE));
@@ -422,7 +402,7 @@ class Customer extends MY_Controller
             $customerCouponId = $this->Mcustomerevents->getFieldValue(array('customer_id' => $postData['customer_id'], 'event_id' => $postData['event_id'], 'customer_event_status_id >' => 0), 'id', 0);
 
             if ($customerCouponId > 0) {
-                echo json_encode(array('code' => 0, 'message' => $this->lang->line('you-have-joined-this-event1635566199')));
+                echo json_encode(array('code' => 0, 'message' => "$this->lang->line('you-have-joined-this-event1635566199')"));
                 die;
             }
 
@@ -955,24 +935,16 @@ class Customer extends MY_Controller
     public function verifyEmail() {
         try {
             $token = $this->input->get('token');
-
-            if(empty($token)) {
-                $postData = $this->arrayFromPostRawJson(array('token'));
-
-                $token = $postData['token'];
-            }
-
-            if(empty($token)) {
+            if(empty($postData['token'])) {
                 $this->session->set_flashdata('notice_message', $this->lang->line('22112021_account_activation_failed'));
                 $this->session->set_flashdata('notice_type', 'error');
                 redirect(base_url('login.html'));
             }
             $this->load->model('Mcustomers');
             $customer = $this->Mcustomers->getBy(array('token_reset' => $token, 'customer_status_id' => STATUS_WAITING_ACTIVE));
-            
             if($customer) {
                 $customer = $customer[0];
-                $flag = $this->Mcustomers->save(array('token_reset' => '', 'customer_status_id' => STATUS_ACTIVED, 'updated_at' => getCurentDateTime()), $customer['id']);
+                $flag = $this->Mcustomers->save(['token_reset' => '', 'customer_status_id' => STATUS_ACTIVED, 'updated_at' => getCurentDateTime()], $customer['id']);
                 if($flag) {
                     $this->session->set_flashdata('notice_message', $this->lang->line('22112021_account_activation_successfully'));
                     $this->session->set_flashdata('notice_type', 'success');
@@ -991,74 +963,6 @@ class Customer extends MY_Controller
             $this->session->set_flashdata('notice_message', ERROR_COMMON_MESSAGE);
             $this->session->set_flashdata('notice_type', 'error');
             redirect(base_url('login.html'));
-        }
-    }
-    
-    public function updateEmail(){
-        $this->loadModel(array('Mconfigs', 'Mcustomers'));
-
-        /**
-         * Commons data
-         */
-        $data = $this->commonDataCustomer($this->lang->line('update_customer_email'));
-        $data['activeMenu'] = "";
-        /**
-         * Commons data
-         */
-
-        $this->load->view('frontend/customer/update-email', $data);
-    }
-
-    public function submitUpdateEMail(){
-        try {
-            $postData = $this->arrayFromPost(array('customer_email'));
-
-            if (!empty($postData['customer_email'])) {
-                $this->load->model('Mcustomers');
-
-                $chkExistEmail = $this->Mcustomers->getFieldValue(array('customer_email' => $postData['customer_email'], 'customer_status_id >' => 0), 'id', 0);
-                if($chkExistEmail){
-                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('221121_email_already_exist')));die;
-                }
-
-                $customerId = $this->rsession->get('customer_update_email');
-                if ($customerId > 0) {
-                    $dataUpdate = array(
-                        'customer_email' => $postData['customer_email']
-                    );
-                    $customerId = $this->Mcustomers->save($dataUpdate, $customerId);
-                    if($customerId > 0){
-                        $this->rsession->delete('customer_update_email');
-
-                        $customerInfo = $this->Mcustomers->get($customerId);
-
-                        $token_active = guidV4('update-email');
-
-                        $flag = $this->Mcustomers->save(array('token_reset' => $token_active), $customerId);
-
-                        $this->load->model('Memailqueue');
-                        $name = !empty($customerInfo['customer_first_name']) ? $postData['customer_first_name'] : $postData['customer_email'];
-                        $dataEmail = array(
-                            'name' => $name,
-                            'email_to' => $customerInfo['customer_email'],
-                            'email_to_name' => $customerInfo['customer_email'],
-                            'token' => $token_active
-                        );
-                        $this->Memailqueue->createEmail($dataEmail, 99);
-
-                        echo json_encode(array('code' => 1, 'message' => $this->lang->line('update_email_success')));die;
-                    }else{
-                        echo json_encode(array('code' => 0, 'message' => $this->lang->line('update_email_failed')));die;
-                    }
-                } else {
-                    echo json_encode(array('code' => 0, 'message' => $this->lang->line('customer_not_exist')));die;
-                }
-                
-            } else {
-                echo json_encode(array('code' => 0, 'message' => $this->lang->line('221121_please_enter_your_email')));die;
-            }
-        } catch (Exception $e) {
-            echo json_encode(array('code' => 0, 'message' => ERROR_COMMON_MESSAGE));die;
         }
     }
 }

@@ -1,22 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-use \Firebase\JWT\JWT;
-
 class Mconstants extends CI_Model {
-
-    /**
-     * Token Key
-     */
-    protected $jwtKey;
-    protected $jwtAlgorithm;
 
     function __construct() {
         parent::__construct();
-
-        $this->load->config('jwt');
-        $this->jwtKey = $this->config->item('jwt_key');
-        $this->jwtAlgorithm = $this->config->item('jwt_algorithm');
     }
 
     public $roles = array(
@@ -86,11 +74,6 @@ class Mconstants extends CI_Model {
         4 => 'Friday',
         5 => 'Saturday',
         6 => 'Sunday'
-    );
-
-    public $currenyCodes = array(
-        'CZK' => 1,
-        'EUR' => 2
     );
 
     public function dayShortIds() {
@@ -199,25 +182,5 @@ class Mconstants extends CI_Model {
             }
         }
         return $returnObj ? false : '';
-    }
-
-    /**
-     * Decode token Apple
-     */
-
-    public function decodeTokenJwtApple($identityToken = ''){
-        try {
-            if(!empty($identityToken)) {
-                $this->load->library('Authorization_Token');
-                list($headb64, $bodyb64, $cryptob64) = explode('.', $identityToken);
-                // $header = JWT::jsonDecode(JWT::urlsafeB64Decode($headb64));
-                $decoded = JWT::jsonDecode(JWT::urlsafeB64Decode($bodyb64));
-
-                // $kid = $header->kid;
-                return (array)$decoded;
-            } else return false;
-        } catch (exception $ex) {
-             return false;
-        }
     }
 }

@@ -66,13 +66,7 @@
                               <span class="event-header page-text-lg fw-500"><?php echo $eventItem['event_subject']; ?></span>
                               <p class="mb-0">By <?php echo $eventItem['business_name']; ?></p>
                               <hr class="my-2 my-lg-3">
-                              <p class="event-date page-text-sm">
-                                <?php if($language_id == 1){ ?>
-                                  <?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?>
-                                <?php } else { ?> 
-                                  <?php echo ddMMyyyy($eventItem['start_date'], 'd/m/Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'd/m/Y'); ?>
-                                <?php } ?>
-                              </p>
+                              <p class="event-date page-text-sm"><?php echo ddMMyyyy($eventItem['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($eventItem['end_date'], 'M d, Y'); ?></p>
                               <p class="mb-0 event-time page-text-sm"><?php echo ddMMyyyy($eventItem['start_time'], 'H:i'); ?> - <?php echo ddMMyyyy($eventItem['end_time'], 'H:i'); ?></p>
                               <?php 
                                 $event_class = 'badge-primary';

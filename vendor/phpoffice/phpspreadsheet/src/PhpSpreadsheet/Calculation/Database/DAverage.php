@@ -38,7 +38,7 @@ class DAverage extends DatabaseAbstract
             return null;
         }
 
-        return Averages::average(
+        return Averages::AVERAGE(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

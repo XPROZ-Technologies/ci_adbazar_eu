@@ -40,7 +40,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Amount <span class="required">*</span></label>
-                                        <input type="number" name="coupon_amount" class="form-control hmdrequired" data-field="Amount" autocomplete="off" value="<?php echo $coupon['coupon_amount']; ?>">
+                                        <input type="number" name="coupon_amount" class="form-control hmdrequired" value="0" data-field="Amount" autocomplete="off" value="<?php echo $coupon['coupon_amount']; ?>">
                                     </div>
                                 </div>
                             </div>
@@ -68,14 +68,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Is hot</label><br>
-                                        <input type="checkbox" value="<?php echo $coupon['is_hot']; ?>" name="is_hot" class="js-switch"<?php if($coupon['is_hot'] == 2) echo ' checked'; ?>/>
-                                    </div>
-                                </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="control-label">Description</label>

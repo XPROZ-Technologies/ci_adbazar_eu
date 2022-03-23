@@ -51,6 +51,14 @@ class RowIterator implements Iterator
     }
 
     /**
+     * Destructor.
+     */
+    public function __destruct()
+    {
+        $this->subject = null;
+    }
+
+    /**
      * (Re)Set the start row and the current row pointer.
      *
      * @param int $startRow The row number at which to start iterating
@@ -115,8 +123,10 @@ class RowIterator implements Iterator
 
     /**
      * Return the current row in this worksheet.
+     *
+     * @return Row
      */
-    public function current(): Row
+    public function current()
     {
         return new Row($this->subject, $this->position);
     }

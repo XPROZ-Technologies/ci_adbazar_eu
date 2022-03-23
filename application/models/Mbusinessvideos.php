@@ -35,28 +35,4 @@ class Mbusinessvideos extends MY_Model
             return false;
         }
     }
-
-    private function buildQuery($postData){
-        $query = '';
-        // xử lý điều kiện search cho api
-        if(isset($postData['api']) && $postData['api'] == true) {
-            if(isset($postData['business_id']) && $postData['business_id'] > 0) $query .=" AND `business_profile_id` = ".$postData['business_id'];
-        }
-        
-        return $query;
-    }
-
-    public function getCountInApi($postData){
-        $query = "business_profile_id > 0" . $this->buildQuery($postData);
-        return $this->countRows($query);
-    }
-
-    public function getListInApi($postData, $perPage = 0, $page = 1) {
-        $query = "SELECT id, video_url FROM business_videos WHERE business_profile_id > 0" . $this->buildQuery($postData) . " ORDER BY id DESC ";
-        if($perPage > 0) {
-            $from = ($page-1) * $perPage;
-            $query .= " LIMIT {$from}, {$perPage}";
-        }
-        return $this->getByQuery($query);
-    }
 }

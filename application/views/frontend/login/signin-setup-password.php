@@ -5,9 +5,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <a href="<?php echo base_url(HOME_URL); ?>">
-                            <img src="<?php echo CONFIG_PATH . $configs['LOGO_IMAGE_HEADER']; ?>" alt="<?php echo $configs['TEXT_LOGO_HEADER']; ?>" class="img-fluid">
-                        </a>
+                        <img src="assets/img/frontend/img-setup.png" alt="set-up img" class="img-fluid mb-40">
                         <h2 class="text-center mb-20 page-title-sm v1"><?php echo $this->lang->line('set_up_your_new_password'); ?></h2>
                     </div>
                 </div>
@@ -22,16 +20,8 @@
                             <div class="form-group">
                                 <label for="inputPassword" class="form-label"><?php echo $this->lang->line('new_password'); ?></label>
                                 <div class="position-relative">
-                                    <input type="password" class="form-control inputPassword" id="inputPassword" placeholder="Password">
+                                    <input type="password" class="form-control " id="inputPassword" placeholder="Password">
                                     <img src="assets/img/frontend/ic-eye.png" class="input-eye">
-                                    <div class="tooltip-signup">
-                                        <p><?php echo $this->lang->line('hint_your_password_has_to_meet'); ?> </p>
-                                        <ul>
-                                            <li><?php echo $this->lang->line('hint_at_least_8_characters'); ?></li>
-                                            <li><?php echo $this->lang->line('hint_at_least_1_uppercase'); ?></li>
-                                            <li><?php echo $this->lang->line('hint_a_mixture_of_letters_and_numbers'); ?></li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
 

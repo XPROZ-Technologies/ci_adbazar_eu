@@ -21,11 +21,6 @@ app.library = function() {
         $('img#imgImage').attr('src', fileUrl).show();
     });
 
-    $('.js-switch').bootstrapSwitch({size: 'mini'}).on('switchChange.bootstrapSwitch', function(event, state) {
-        var isHot = state ? 2 : 1;
-        $(".js-switch").val(isHot)
-    });
-
    
 }
 

@@ -46,12 +46,12 @@
                                     <p class="text-center mb-2 mb-lg-4 text-black"><?php echo $this->lang->line('not_have_an_account_yet'); ?><a href="<?php echo base_url('signup.html'); ?>" class="ms-3 text-black fw-bold"><?php echo $this->lang->line('sign_up'); ?></a></p>
                                     <p class="text-center mt-3 mt-lg-0 position-relative or-line fw-bold"><span><?php echo $this->lang->line('or_sign_up_with_your_social_network'); ?></span></p>
                                     <div class="mx-auto text-center mb-3 sign-social">
-                                        <a href="javascript:void(0);" class="btn btn-outline-red login-gg" id="customBtn">
+                                        <a href="javascript:void(0);" class="btn btn-outline-red login-gg">
                                             <img src="assets/img/frontend/ic-google.png" class="icon-google" alt="icon google">
                                             <?php echo $this->lang->line('sign_in_with_google'); ?>
                                         </a>
-                                        <!--<a style="display:none;" href="javascript:void(0);" class="g-signin2 btn btn-outline-red" data-onsuccess="onSignIn">
-                                        </a>-->
+                                        <a style="display:none;" href="javascript:void(0);" class="g-signin2 btn btn-outline-red" data-onsuccess="onSignIn">
+                                        </a>
                                         <a href="javascript:void(0);" class="btn btn-outline-red" onclick="fbLogin();" id="fbLink">
                                             <img src="assets/img/frontend/ic-facebook.png" class="icon-fb" alt="icon fb">
                                             <?php echo $this->lang->line('sign_in_with_facebook'); ?>
@@ -125,11 +125,8 @@
 </script>
 <input type="hidden" value="1" id="typeSocial" />
 <input type="hidden" value="<?php echo base_url('frontend/customer/loginFb'); ?>" id="loginFacebook">
-<input type="hidden" value="<?php echo KEY_GG; ?>" id="keyGG" />
-<script src="https://apis.google.com/js/api:client.js"></script>
 <?php $this->load->view('frontend/includes/footer_login_signup'); ?>
 <script type="text/javascript" src="<?php echo base_url('assets/js/frontend/login/login.js'); ?>"></script>
-<script>startApp();</script>
 <script>
     $('.btn-forgot-password').click(function(e) {
         e.preventDefault();

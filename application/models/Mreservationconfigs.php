@@ -38,14 +38,4 @@ class Mreservationconfigs extends MY_Model {
 
         return $query;
     }
-
-    public function checkTimeNow($dayId = '', $businessId = 0) {
-        $query = "SELECT id FROM `reservation_configs` WHERE
-            day_id = ? 
-            AND business_profile_id = ? 
-            AND TIME_FORMAT(start_time, '%H:%i:%s') < CURRENT_TIME() AND TIME_FORMAT(end_time, '%H:%i:%s') > CURRENT_TIME()";
-        $data = $this->getByQuery($query, array($dayId, $businessId));
-        if(count($data) > 0) return true;
-        return false;
-    }
 }

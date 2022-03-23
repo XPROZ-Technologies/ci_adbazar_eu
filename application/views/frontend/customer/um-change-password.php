@@ -32,11 +32,11 @@
                         <input type="password" class="form-control form-control-lg" id="profileNewPassword" name="new_password" required >
                         <img src="assets/img/frontend/ic-eye.png" alt="icon-show-pass" class="input-eye">
                         <div class="tooltip-signup">
-                          <p><?php echo $this->lang->line('hint_your_password_has_to_meet'); ?> </p>
+                          <p>Your password has to meet the following requirements: </p>
                           <ul>
-                              <li><?php echo $this->lang->line('hint_at_least_8_characters'); ?></li>
-                              <li><?php echo $this->lang->line('hint_at_least_1_uppercase'); ?></li>
-                              <li><?php echo $this->lang->line('hint_a_mixture_of_letters_and_numbers'); ?></li>
+                              <li>At least 8 characters—the more characters, the better.</li>
+                              <li>At least 1 uppercase letter.</li>
+                              <li>A mixture of letters and numbers.</li>
                           </ul>
                       </div>
                       </div>

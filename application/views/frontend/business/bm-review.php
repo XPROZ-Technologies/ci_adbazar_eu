@@ -176,13 +176,7 @@
                                                         } ?></span>
                           </div>
                           <div class="comment-body">
-                            <p class="font500">
-                              <?php if($language_id == 1){ ?>
-                                <?php echo ddMMyyyy($itemReview['created_at'], 'M d, Y H:i'); ?>
-                              <?php } else { ?> 
-                                <?php echo ddMMyyyy($itemReview['created_at'], 'd/m/Y H:i'); ?>
-                              <?php } ?>
-                            </p>
+                            <p class="font500"><?php echo ddMMyyyy($itemReview['created_at'], 'd/m/Y H:i'); ?></p>
                             <div class="star-rating on line relative mr-8px">
                               <div class="star-base">
                                 <div class="star-rate" data-rate="<?php echo $itemReview['review_star']; ?>"></div>
@@ -211,13 +205,7 @@
                         <?php if (!empty($itemReview['business_comment'])) { ?>
                           <div class="comment-item no-avatar reply-item-">
                             <div class="comment-body">
-                              <p class="font500">
-                              <?php if($language_id == 1){ ?>
-                                <?php echo ddMMyyyy($itemReview['updated_at'], 'M d, Y H:i'); ?>
-                              <?php } else { ?> 
-                                <?php echo ddMMyyyy($itemReview['updated_at'], 'd/m/Y H:i'); ?>
-                              <?php } ?>
-                              </p>
+                              <p class="font500"><?php echo ddMMyyyy($itemReview['updated_at'], 'd/m/Y H:i'); ?></p>
                               <p class="page-text-sm"><?php echo $itemReview['business_comment']; ?></p>
                             </div>
                             <div class="text-right">

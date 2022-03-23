@@ -94,16 +94,4 @@ class Mservicetypes extends MY_Model {
         $query = "SELECT id, {$service_type_name} as service_type_name FROM service_types WHERE status_id = 2 AND  service_id = ".$serviceId.$where." LIMIT 50";
         return $this->getByQuery($query);
     }
-
-    public function getServiceTypeInService($serviceId = 0, $langCode = '_vn') {
-        $service_name = 'service_type_name'.$langCode;
-        $query = "SELECT id, {$service_name} as service_type_name FROM service_types WHERE status_id = ? AND  service_id = ?";
-        $datas = $this->getByQuery($query, array(STATUS_ACTIVED, $serviceId));
-        $serviceTypeNames = '';
-        foreach($datas as $data) {
-            $serviceTypeNames .= $data['service_type_name'].', ';
-
-        } 
-        return rtrim($serviceTypeNames, ', ');
-    }
 }

@@ -26,13 +26,7 @@
                     <?php echo $detailInfo['coupon_subject']; ?>
                   </h5>
                   <div class="row g-0 align-items-lg-center">
-                    <p class="col-lg-7 card-text mb-0 page-text-xs">
-                      <?php if($language_id == 1){ ?>
-                        <?php echo ddMMyyyy($detailInfo['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($detailInfo['end_date'], 'M d, Y'); ?>
-                      <?php } else { ?> 
-                        <?php echo ddMMyyyy($detailInfo['start_date'], 'd/m/Y'); ?> - <?php echo ddMMyyyy($detailInfo['end_date'], 'd/m/Y'); ?>
-                      <?php } ?>
-                    </p>
+                    <p class="col-lg-7 card-text mb-0 page-text-xs"><?php echo ddMMyyyy($detailInfo['start_date'], 'M d, Y'); ?> - <?php echo ddMMyyyy($detailInfo['end_date'], 'M d, Y'); ?></p>
                     <div class="col-lg-5">
                       <div class="d-flex align-items-center ">
                         <?php if (!empty($customerCoupon)) { ?>
