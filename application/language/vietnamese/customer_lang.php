@@ -112,3 +112,13 @@ $lang['22112021_login_successful'] = 'Đăng nhập thành công';
 $lang['22112021_account_activation_failed'] = 'Kích hoạt tài khoản thất bại';
 $lang['22112021_account_activation_successfully'] = 'Kích hoạt tài khoản thành công';
 $lang['22112021_token_expired_or_account_has_been_activated'] = 'Token đã hết hạn hoặc tài khoản đã được kích hoạt';
+
+$lang['hint_your_password_has_to_meet'] = 'Mật khẩu của bạn phải thoả những điều kiện sau:';
+$lang['hint_at_least_8_characters'] = 'Ít nhất 8 ký tự — càng nhiều ký tự, càng tốt.';
+$lang['hint_at_least_1_uppercase'] = 'Ít nhất 1 chữ cái viết hoa.';
+$lang['hint_a_mixture_of_letters_and_numbers'] = 'Một hỗn hợp các chữ cái và số.';
+
+$lang['update_customer_email'] = 'Cập nhật email';
+$lang['update_email_success'] = 'Cập nhật email thành công';
+$lang['update_email_failed'] = 'Cập nhật email thất bại';
+$lang['customer_not_exist'] = 'Người dùng không tồn tại';

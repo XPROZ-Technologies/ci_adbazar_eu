@@ -88,12 +88,21 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('STATUS_FREE_TRIAL', 0);
 define('STATUS_ACTIVED', 2);
 define('STATUS_WAITING_ACTIVE', 1);
+define('STATUS_NUMBER_ZERO', 0);
+define('STATUS_NUMBER_ONE', 1);
+define('STATUS_NUMBER_TWO', 2);
+define('STATUS_NUMBER_THREE', 3);
+define('STATUS_NUMBER_FOR', 4);
 define('NO_IMAGE', 'no_image.png');
 define('DEFAULT_LIMIT', 20);
+define('LIMIT_PER_PAGE', 10);
 define('DEFAULT_LIMIT_BUSINESS_PROFILE', 10);
 define('DEFAULT_LIMIT_BUSINESS_PROFILE_MAP', 4);
 define('DEFAULT_LIMIT_COUPON', 50);
 define('DEFAULT_LIMIT_NOTIFICATION', 10);
+define('PAYPAL_GATEWAY', 1);
+define('APPLE_GATEWAY', 2);
+define('PAYMENT_WAITING', 1);
 //define('API_VERSION', '1.0');
 //message
 define('ERROR_COMMON_MESSAGE', 'An error occurred during execution');
@@ -108,10 +117,12 @@ define('SLIDER_PATH', 'assets/uploads/sliders/');
 define('CONFIG_PATH', 'assets/uploads/configs/');
 define('SERVICE_PATH', 'assets/uploads/services/');
 define('BUSINESS_PROFILE_PATH', 'assets/uploads/busines_profile/');
+define('REVIEW_PATH', 'assets/uploads/reviews/');
 define('COUPONS_PATH', 'assets/uploads/coupons/');
 define('EVENTS_PATH', 'assets/uploads/events/');
 define('BUSINESS_PROFILE_URL', '');
 define('PRODUCT_PATH', 'assets/uploads/products/');
+define('INVOICE_PATH', 'assets/uploads/invoices/');
 
 
 define('DEFAULT_IMG', '');
@@ -133,11 +144,17 @@ define('ZOOM_MAP_ADMIN', 17);
 define('EMAIL_FROM', 'server@adbazar.eu');
 define('EMAIL_FROM_NAME', 'AdBazar.eu');
 
-//email server
+// //email server
 define('EMAIL_USER', 'server@adbazar.eu');
-define('EMAIL_PASS', 'changeM3!!Adbazar12345');
+define('EMAIL_PASS', 'Azndevil1501Server@Adbazar.eu'/* 'changeM3!!Adbazar12345'*/);
 define('EMAIL_HOST', 'ssl://smtpout.asia.secureserver.net');
 define('EMAIL_PORT', '465');
+
+//email server
+//define('EMAIL_USER', 'mailout.dkh@gmail.com');
+//define('EMAIL_PASS', 'fqvpygxkmeotvqfz');
+//define('EMAIL_HOST', 'ssl://smtp.googlemail.com');
+//define('EMAIL_PORT', '465');
 
 //paypal
 define('PAYPAL_CLIENT_KEY', 'AQjmozIDkpBmPkl3Pkgv2qlRWKSAr2Sq1e3C_X0J2A4Iv_PLZcjrD6_5PFPNDasoUjF21_0s8TDN6gjX');
@@ -145,3 +162,14 @@ define('PAYPAL_SEC_KEY', 'EJm5Up0WU7u3KJdO9NfwWVDzB0tVf8LUF1v3eLspA9gQVx83XKSxRC
 define('PAYPAL_HOST', 'https://api-m.sandbox.paypal.com');
 define('PAYPAL_PROD_ID', 'PROD-4NX43137GP917693J');
 define('PAYPAL_PLAN_DEFAULT', 'P-8L942028P24070304MGAB6XY');
+
+// GOOGLE CREDENTIAL
+define('GOOGLE_SECRET', 'b82BAjvFggoRlQ2LBRrofhxl');
+define('FACEBOOK_ID', '177851481129433');
+define('FACEBOOK_SECRET', 'abea49b547059b4008edad2f8c2fc0b5');
+define('GRAPH_version', 'v2.5');
+
+// APPLE
+define('APPLE_VERIFY_RECEIPT_PASSWORD', '779a40adef34447ca59b6f71d69292f2');
+define('APPLE_VERIFY_RECEIPT_HOST', 'https://sandbox.itunes.apple.com/verifyReceipt'); // sandbox
+//define('APPLE_VERIFY_RECEIPT_HOST', 'https://buy.itunes.apple.com/verifyReceipt'); // production

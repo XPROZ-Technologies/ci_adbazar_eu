@@ -9,7 +9,7 @@ class Mconfigs extends MY_Model {
         $this->_primary_key = "id";
     }
 
-    public function getListMap($autoLoad = 1, $languageId = 1){
+    public function getListMap($autoLoad = 1, $languageId = 4){
         $langCode = '';
         $select = "config_code, config_value";
         if($languageId == 1){

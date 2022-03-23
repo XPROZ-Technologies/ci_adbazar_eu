@@ -665,6 +665,7 @@ $(window).scroll(function(event) {
   }
 });
 */
+var windowsize = $(window).width();
 
 var windowsize = $(window).width();
 
@@ -693,13 +694,14 @@ if (windowsize < 768) {
   });
 }
 
-$(document).on('keyup', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
+
+$(document).on('keyup', '.signup-form .signup-form-list .inputPassword,#profileNewPassword, #inputPassword', function (event) {
   event.stopPropagation();
   var password = $(this).val();
   checkPass(password, $(this))
-}).on('blur', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
+}).on('blur', '.signup-form .signup-form-list .inputPassword,#profileNewPassword, #inputPassword', function (event) {
   $(this).parent().find('.tooltip-signup').hide();
-}).on('click', '.signup-form .signup-form-list .inputPassword,#profileNewPassword', function (event) {
+}).on('click', '.signup-form .signup-form-list .inputPassword,#profileNewPassword, #inputPassword', function (event) {
   var password = $(this).val();
   checkPass(password, $(this))
 });

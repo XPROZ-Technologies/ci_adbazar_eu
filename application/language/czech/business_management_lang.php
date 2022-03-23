@@ -6,6 +6,7 @@ $lang["3-month_free_trial_is_availabl"] = "Tříměsíční bezplatná zkušebn�
 $lang["currency"] = "Měna";
 $lang["monthly_payment"] = "Měsíční předplatné";
 $lang["czk_month"] = "/Měsíc";
+$lang["czk_year"] = "/Rok";
 $lang["create_business_profile"] = "Vytvořit firemní profil";
 $lang["show_on_map"] = "Zobrazit na mapě";
 $lang["marketing"] = "Marketing";

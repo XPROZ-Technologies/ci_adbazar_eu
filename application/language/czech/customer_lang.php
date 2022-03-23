@@ -113,3 +113,13 @@ $lang['22112021_login_successful'] = 'Přihlásit se úspěšné';
 $lang['22112021_account_activation_failed'] = 'Aktivace účtu se nezdařila';
 $lang['22112021_account_activation_successfully'] = 'Aktivace účtu proběhla úspěšně';
 $lang['22112021_token_expired_or_account_has_been_activated'] = 'Platnost tokenu vypršela nebo byl účet aktivován';
+
+$lang['hint_your_password_has_to_meet'] = 'Heslo musí splňovat následující požadavky:';
+$lang['hint_at_least_8_characters'] = 'Alespoň 8 znaků - Čím více znaků, tím lépe.';
+$lang['hint_at_least_1_uppercase'] = 'Alespoň 1 velké písmeno.';
+$lang['hint_a_mixture_of_letters_and_numbers'] = 'Směs písmen a číslic.';
+
+$lang['update_customer_email'] = 'Aktualizujte svůj e-mail';
+$lang['update_email_success'] = 'Aktualizace e-mailu byla úspěšná';
+$lang['update_email_failed'] = 'Aktualizace e-mailu se nezdařila';
+$lang['customer_not_exist'] = 'Zákazník neexistuje';

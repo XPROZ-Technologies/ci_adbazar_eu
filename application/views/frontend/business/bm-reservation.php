@@ -101,7 +101,13 @@
                           <?php
                           foreach ($lists as $itemBook) { ?>
                             <tr>
-                              <td><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?></td>
+                              <td>
+                              <?php if($language_id == 1){ ?>
+                                <?php echo ddMMyyyy($itemBook['date_arrived'], 'M d, Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?>
+                              <?php } else { ?> 
+                                <?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?>
+                              <?php } ?>
+                              </td>
                               <td>
                                 <div class="hover-name-infor">
                                   <?php if(isset($itemBook['customer_first_name'])){ echo $itemBook['customer_first_name']; }else{ echo '-'; } ?>
@@ -112,7 +118,13 @@
                                       <li>Phone number: <span>+<?php echo $itemBook['phone_code']; ?><?php echo ltrim($itemBook['book_phone'], '0'); ?></span></li>
                                       <li>Reservation ID: <span><?php echo $itemBook['book_code']; ?></span></li>
                                       <li>Number of people: <span><?php echo $itemBook['number_of_people']; ?></span></li>
-                                      <li>Date time: <span><?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?> - <?php echo getOnlyHourMinute($itemBook['time_arrived']); ?></span></li>
+                                      <li>Date time: <span>
+                                        <?php if($language_id == 1){ ?>
+                                          <?php echo ddMMyyyy($itemBook['date_arrived'], 'M d, Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?>
+                                        <?php } else { ?> 
+                                          <?php echo ddMMyyyy($itemBook['date_arrived'], 'd/m/Y'); ?><br><?php echo getOnlyHourMinute($itemBook['time_arrived']); ?>
+                                        <?php } ?>
+                                      </span></li>
                                     </ul>
                                   </div>
                                 </div>

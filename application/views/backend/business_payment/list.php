@@ -59,7 +59,7 @@
                                     <td><?php echo $this->Mbusinessprofiles->getFieldValue(array('id' =>$s['business_profile_id']), 'business_name', ''); ?></td>
                                     <td><?php echo $this->Mconstants->paymentGatewayIds[$s['payment_gateway_id']]; ?></td>
                                     <td><?php echo $s['payment_company_id']; ?></td>
-                                    <td><?php echo $s['payment_compnay_vat_id']; ?></td>
+                                    <td><?php echo $s['payment_company_vat_id']; ?></td>
                                     <td><?php echo priceFormat($s['payment_amount'], true); ?></td>
                                     <td><?php echo priceFormat($s['payment_vat'], true); ?></td>
                                     <td><?php echo priceFormat($s['payment_total'], true); ?></td>

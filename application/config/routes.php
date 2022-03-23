@@ -135,14 +135,17 @@ $route['sys-admin/event/change-status'] = 'backend/event/changeStatus';
 $route['sys-admin/config/term-of-use'] = 'backend/config/termOfUse';
 $route['sys-admin/config/policy'] = 'backend/config/policy';
 $route['sys-admin/config/video'] = 'backend/config/video';
+$route['sys-admin/config/event'] = 'backend/config/event';
 
 /**
  * FRONT-END ROUTES
  */
 
+$route['apple-app-site-association'] = 'frontend/app/apple_verify';
+
 $route['change-customer-language'] = 'frontend/site/changeLanguage';
 
-
+$route['customer/update-email'] = 'frontend/customer/updateEmail';
 $route['customer-login'] = 'frontend/customer/checkLogin';
 $route['customer-signup'] = 'frontend/customer/register';
 $route['customer-logout'] = 'frontend/customer/logout';
@@ -156,6 +159,7 @@ $route['customer-change-password'] = 'frontend/customer/customerChangePassword';
 $route['customer-update-information'] = 'frontend/customer/customerUpdateInformation';
 $route['forgot-password'] = 'frontend/customer/forgotPassword';
 $route['submit-change-password'] = 'frontend/customer/submitChangePassword';
+$route['submit-update-email'] = 'frontend/customer/submitUpdateEMail';
 $route['customer/verify-email'] = 'frontend/customer/verifyEmail';
 
 //user management
