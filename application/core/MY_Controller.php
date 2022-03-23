@@ -1084,7 +1084,7 @@ abstract class MY_Controller extends CI_Controller
         $this->pdf->render();
 
         //fake tạm
-        $receipe_number = 1;
+        $receipe_number = $businessId;
         $invoice_date = date('Y-m-d');
 
         $invoice_name = $receipe_number."_invoice_adbazar_".str_replace('/', '_', $invoice_date).".pdf";
