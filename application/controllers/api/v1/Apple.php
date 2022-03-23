@@ -206,7 +206,7 @@ class Apple extends MY_Controller {
                         );
                         $this->Memailqueue->createEmail($dataEmail, 13);
 
-                        $this->success200(array('business_id' => $postData['business_id'], 'payment_id' => $flag), $this->lang->line('update_successful'));
+                        $this->success200(array('business_id' => $postData['business_id'], 'payment_id' => $businessPaymentId), $this->lang->line('update_successful'));
                         die;
                     } else {
                         $this->error204($this->lang->line('update_failed'));
