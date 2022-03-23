@@ -191,7 +191,7 @@ class Apple extends MY_Controller {
                        // nếu plan_type_id =1  30 , 2: 365
                         $this->Mbusinessprofiles->save($dataUpdate, $businessProfile['id']);
         
-                        $invoice_url = $this->create_invoice_pdf($businessProfile['id']);
+                        $invoice_url = '';// $this->create_invoice_pdf($businessProfile['id']);
         
                         $customerInfo = $this->Mcustomers->get($customer['customer_id']);
         
