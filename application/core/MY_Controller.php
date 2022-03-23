@@ -1079,13 +1079,13 @@ abstract class MY_Controller extends CI_Controller
         $html = str_replace($findArray, $replaceArray, $html);
         
         $this->load->library('pdf');
-        $this->Pdf->loadHtml($html);
-        $this->Pdf->setPaper('A4', 'portrait');
-        $this->Pdf->render();
+        $this->pdf->loadHtml($html);
+        $this->pdf->setPaper('A4', 'portrait');
+        $this->pdf->render();
 
         $invoice_name = $receipe_number."_invoice_adbazar_".str_replace('/', '_', $invoice_date).".pdf";
         $invoice_path = INVOICE_PATH.$invoice_name;
-        $output = $this->Pdf->output();
+        $output = $this->pdf->output();
 
         file_put_contents($invoice_path, $output);
 
