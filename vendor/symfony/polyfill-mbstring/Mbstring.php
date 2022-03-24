@@ -113,7 +113,8 @@ final class Mbstring
             $fromEncoding = 'UTF-8';
         }
 
-        return \iconv($fromEncoding, $toEncoding.'//IGNORE', $s);
+        //return \iconv($fromEncoding, $toEncoding.'//IGNORE', $s);
+        return \iconv(mb_detect_encoding($fromEncoding, mb_detect_order(), false), $toEncoding.'//IGNORE', $s);
     }
 
     public static function mb_convert_variables($toEncoding, $fromEncoding, &...$vars)
