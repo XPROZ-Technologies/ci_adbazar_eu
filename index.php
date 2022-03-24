@@ -54,8 +54,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 //define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-//define('ENVIRONMENT', 'production');
-define('ENVIRONMENT', 'development');
+define('ENVIRONMENT', 'production');
 
 require_once 'vendor/dotenv/autoloader.php';
 $dotenv = new Dotenv\Dotenv(__DIR__);

@@ -138,7 +138,7 @@ class Mservices extends MY_Model {
 
     public function getListInApi($customerId = 0, $langCode = '_vi') {
         $select = "services.id, services.service_name".$this->langCode." as service_name, services.service_image";
-
+        $where = '';
         $query = "SELECT ".$select." 
                     FROM services 
                     WHERE services.service_status_id = ? ".$where."
