@@ -219,6 +219,7 @@ class Businessmanagement extends MY_Controller {
             } else {
                 $postData['business_status_id'] = STATUS_NUMBER_ONE;
             }
+            $postData['is_trial'] = $isTrial;
             $postData['plan_id'] = $planId;
             $postData['customer_id'] = $customer['customer_id'];
             $postData['created_at'] = getCurentDateTime();
