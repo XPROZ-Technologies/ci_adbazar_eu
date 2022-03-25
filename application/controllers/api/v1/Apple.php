@@ -169,6 +169,7 @@ class Apple extends MY_Controller {
                             'subscription_id' => $businessProfile['subscription_id'],
                             'payment_status_id' => 1,
                             'is_annual_payment' => 1,
+                            'business_status_id' => STATUS_ACTIVED,
                             'updated_at' => getCurentDateTime(),
                         );
                         $paymentPlan = $this->Mpaymentplans->get($businessProfile['plan_id']);
