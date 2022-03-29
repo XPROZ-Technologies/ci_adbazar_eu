@@ -170,6 +170,7 @@ define('FACEBOOK_SECRET', 'abea49b547059b4008edad2f8c2fc0b5');
 define('GRAPH_version', 'v2.5');
 
 // APPLE
-define('APPLE_VERIFY_RECEIPT_PASSWORD', '779a40adef34447ca59b6f71d69292f2');
-define('APPLE_VERIFY_RECEIPT_HOST', 'https://sandbox.itunes.apple.com/verifyReceipt'); // sandbox
-//define('APPLE_VERIFY_RECEIPT_HOST', 'https://buy.itunes.apple.com/verifyReceipt'); // production
+define('APPLE_VERIFY_RECEIPT_PASSWORD_SANDBOX', '779a40adef34447ca59b6f71d69292f2');
+define('APPLE_VERIFY_RECEIPT_PASSWORD_LIVE', '779a40adef34447ca59b6f71d69292f2');
+define('APPLE_VERIFY_RECEIPT_HOST_SANDBOX', 'https://sandbox.itunes.apple.com/verifyReceipt'); // sandbox
+define('APPLE_VERIFY_RECEIPT_HOST_LIVE', 'https://buy.itunes.apple.com/verifyReceipt'); // production

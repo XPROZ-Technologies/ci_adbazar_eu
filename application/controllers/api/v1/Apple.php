@@ -143,15 +143,25 @@ class Apple extends MY_Controller {
             $this->load->helper('slug');
             $body = array(
                 "receipt-data" => $postData['receipt_data'],
-                "password" => APPLE_VERIFY_RECEIPT_PASSWORD
+                "password" => APPLE_VERIFY_RECEIPT_PASSWORD_LIVE
             );
             // $body = json_decode('{
             //     "receipt-data": "receipt",
             //     "password": "779a40adef34447ca59b6f71d69292f2",
             //     "exclude-old-transactions": false
             // }');
-            $verifyReceipt = callApiApple(APPLE_VERIFY_RECEIPT_HOST, $body, 'POST');
-            $verifyReceipt = $this->verifyReceipt();
+            // get to link live
+            $verifyReceipt = callApiApple(APPLE_VERIFY_RECEIPT_HOST_LIVE, $body, 'POST');
+            $verifyReceipt = json_decode($verifyReceipt, true);
+           
+            if($verifyReceipt['status'] && $verifyReceipt['status'] > 0 ) {
+                $body = array(
+                    "receipt-data" => $postData['receipt_data'],
+                    "password" => APPLE_VERIFY_RECEIPT_PASSWORD_SANDBOX
+                );
+                $verifyReceipt = callApiApple(APPLE_VERIFY_RECEIPT_HOST_SANDBOX, $body, 'POST');
+                $verifyReceipt = json_decode($verifyReceipt, true);
+            }
             if(isset($verifyReceipt['status']) && $verifyReceipt['status'] == 0) {
                 $originalTransactionId = isset($verifyReceipt['receipt']['in_app']) && count($verifyReceipt['receipt']['in_app']) > 0 ? $verifyReceipt['receipt']['in_app'][0]['original_transaction_id'] : 0;
                 
