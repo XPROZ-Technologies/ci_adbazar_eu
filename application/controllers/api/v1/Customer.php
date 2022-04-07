@@ -85,14 +85,18 @@ class Customer extends MY_Controller {
                 }
                
                 if(!$customer) {
-                   $customerCheck = $this->Mcustomers->getFieldValue(array('facebook_id' =>  $postData['facebook_id'], 'customer_status_id' => 1), 'customer_status_id', 0);
-                   if($customerCheck == 1) {
-                        $this->error204($this->lang->line('login_please_active_your_account_email_link'));
-                        die;
-                   }
+                    $customerCheck = $this->Mcustomers->getBy(array('facebook_id' =>  $postData['facebook_id'], 'customer_status_id' => 1), true, '', 'id, customer_status_id');
+                    if($customerCheck){
+                       echo json_encode(array(
+                           'code' => 204,
+                           'message' => $this->lang->line('login_please_active_your_account_email_link'),
+                           'data' => $customerCheck['id']
+                       ));
+                       die;
+                    }
                    $customerNewId = 0;
                    $customer['id'] = 0;
-                   $postData['customer_status_id'] = STATUS_WAITING_ACTIVE; 
+                   $postData['customer_status_id'] = STATUS_WAITING_ACTIVE;
                 }
                 $customerNewId = $customer['id'];
             } else if (intval($postData['login_type_id']) == 2) { // google
@@ -135,11 +139,15 @@ class Customer extends MY_Controller {
                 $customer = $this->Mcustomers->login($postData['apple_id'], '', $postData['login_type_id']);
                 
                 if(!$customer) {
-                   $customerCheck = $this->Mcustomers->getFieldValue(array('apple_id' =>  $postData['apple_id'], 'customer_status_id' => STATUS_ACTIVED), 'customer_status_id', 0);
-                   if($customerCheck == 1) {
-                        $this->error204($this->lang->line('login_please_active_your_account_email_link'));
+                    $customerCheck = $this->Mcustomers->getBy(array('apple_id' =>  $postData['apple_id'], 'customer_status_id' => 1), true, '', 'id, customer_status_id');
+                    if($customerCheck){
+                        echo json_encode(array(
+                            'code' => 204,
+                            'message' => $this->lang->line('login_please_active_your_account_email_link'),
+                            'data' => $customerCheck['id']
+                        ));
                         die;
-                   }
+                    }
                    $customerNewId = 0;
                    $customer['id'] = 0;
                    $postData['customer_status_id'] = STATUS_ACTIVED; 
