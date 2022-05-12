@@ -50,7 +50,7 @@
 
                     <div class="card-body plan-card fw-500">
                       <div class="month text-success">
-                        <span class="text-month fw-bold"><span class="main_price">1290 CZK</span><?php echo $this->lang->line('czk_month'); ?></span>
+                        <span class="text-month fw-bold"><span class="main_price">983 CZK</span><?php echo $this->lang->line('czk_month'); ?></span>
                       </div>
                       <ul class="list-text fw-500">
                         <li><?php echo $this->lang->line('create_business_profile'); ?></li>
@@ -61,7 +61,7 @@
                         <div class="wrapper-text">
                           <p class="mb-1 text-bill text-primary"><?php echo $this->lang->line('billed_monthly'); ?>
                           </p>
-                          <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of'); ?> <span class="main_price">1290 CZK</span>
+                          <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of'); ?> <span class="main_price">983 CZK</span>
                           </p>
                         </div>
                         <p class="mb-0 text-warning text-vat"><?php echo $this->lang->line('vat_and_local_taxes_may_apply'); ?></p>
@@ -86,8 +86,8 @@
 
                     <div class="card-body plan-card fw-500">
                       <div class="month text-success">
-                        <span class="text-month fw-bold"><span class="main_price_annual">11990 CZK</span><?php echo $this->lang->line('czk_year'); ?></span>
-                        <small class="page-text-sm fw-500"><?php echo $this->lang->line('bill_save'); ?><span class="bill_save">291 CZK</span><?php echo $this->lang->line('bill_month'); ?></small>
+                        <span class="text-month fw-bold"><span class="main_price_annual">9909 CZK</span><?php echo $this->lang->line('czk_year'); ?></span>
+                        <small class="page-text-sm fw-500"><?php echo $this->lang->line('bill_save'); ?><span class="bill_save">191 CZK</span><?php echo $this->lang->line('bill_month'); ?></small>
                       </div>
                       <ul class="list-text fw-500">
                         <li><?php echo $this->lang->line('create_business_profile'); ?></li>
@@ -98,7 +98,7 @@
                         <div class="wrapper-text">
                           <p class="mb-1 text-bill text-primary"><?php echo $this->lang->line('billed_anually'); ?>
                           </p>
-                          <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of'); ?> <span class="main_price_annual">11990 CZK</span>
+                          <p class="mb-1 text-payment"><?php echo $this->lang->line('as_one_payment_of'); ?> <span class="main_price_annual">9909 CZK</span>
                           </p>
                         </div>
                         <p class="mb-0 text-warning text-vat"><?php echo $this->lang->line('vat_and_local_taxes_may_apply'); ?></p>
@@ -176,10 +176,10 @@
   $("body").on("change", "#checkbox_currency", function() {
       console.log('change');
       if($(this).is(":checked")){
-        //CZK
-        $(".main_price").html("1290 CZK");
-        $(".main_price_annual").html("11990 CZK");
-        $(".bill_save").html('291 CZK');
+        //CZK - 12052022
+        $(".main_price").html("983 CZK");
+        $(".main_price_annual").html("9909 CZK");
+        $(".bill_save").html('191 CZK');
         $(".monthlyPlan").val("1");
         $(".annualPlan").val("2");
       }else{

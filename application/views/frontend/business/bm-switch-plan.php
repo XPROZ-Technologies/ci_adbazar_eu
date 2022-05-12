@@ -151,9 +151,9 @@
   <?php 
     if($planInfo['plan_currency_id'] == 1){
       ?>
-        $(".main_price").html("1290 CZK");
-        $(".main_price_annual").html("11990 CZK");
-        $(".bill_save").html('291 CZK');
+        $(".main_price").html("983ß CZK");
+        $(".main_price_annual").html("9909 CZK");
+        $(".bill_save").html('191 CZK');
         $(".monthlyPlan").val("1");
         $(".annualPlan").val("2");
       <?php
@@ -203,9 +203,9 @@
       if($(this).is(":checked")){
         //CZK
         //console.log('CZK');
-        $(".main_price").html("1290 CZK");
-        $(".main_price_annual").html("11990 CZK");
-        $(".bill_save").html('291 CZK');
+        $(".main_price").html("983 CZK");
+        $(".main_price_annual").html("9909 CZK");
+        $(".bill_save").html('191 CZK');
         $(".monthlyPlan").val("1");
         $(".annualPlan").val("2");
       }else{
