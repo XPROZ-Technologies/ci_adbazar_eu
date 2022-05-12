@@ -184,8 +184,8 @@
         $(".annualPlan").val("2");
       }else{
         //EUR
-        $(".main_price").html("51.99 EUR");
-        $(".main_price_annual").html("499.99 EUR");
+        $(".main_price").html("41 EUR");
+        $(".main_price_annual").html("416 EUR");
         $(".bill_save").html('8 EUR');
         $(".monthlyPlan").val("3");
         $(".annualPlan").val("4");
