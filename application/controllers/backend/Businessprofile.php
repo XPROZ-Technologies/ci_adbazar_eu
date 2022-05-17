@@ -100,6 +100,7 @@ class Businessprofile extends MY_Controller {
                 $postData['business_status_id'] = STATUS_ACTIVED;
                 $postData['created_by'] = $user['id'];
                 $postData['created_at'] = getCurentDateTime();
+                if(empty($postData['business_url'])) $postData['business_url'] = makeSlug($postData['business_name']);
             }
             else{
                 $message = 'Service update successful';

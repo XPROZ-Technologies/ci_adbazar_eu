@@ -14,10 +14,24 @@ class Cron extends MY_Controller {
 
     }
 
+    /*Test*/
     public function testMail(){
         $flag = $this->sendMail('contact@adbazar.eu', 'ADB', 'levanhoanhtt@gmail.com', 'Hoan', 'Test', 'Test');
         echo $flag ? 1 : 0;
     }
+
+    public function updateBusinessSlug(){
+        $this->load->model('Mbusinessprofiles');
+        $bps = $this->Mbusinessprofiles->get();
+        foreach ($bps as $bp){
+            if(empty($bp['business_url'])){
+                $this->Mbusinessprofiles->save(['business_url' => makeSlug($bp['business_name'])], $bp['id']);
+                echo 'update '.$bp['id'].PHP_EOL;
+            }
+        }
+    }
+
+    /*End Test*/
 
     public function cronjob() {
         $this->loadModel(array('Mconfigs', 'Memailqueue'));
