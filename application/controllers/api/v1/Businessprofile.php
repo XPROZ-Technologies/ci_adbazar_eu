@@ -136,8 +136,9 @@ class Businessprofile extends MY_Controller {
                 $this->error204($this->lang->line('incorrect_information'));
                 die;
             }
-        } catch (\Throwable $th) {
-            $this->error500();
+        // } catch (\Throwable $th) {
+        } catch (Exception $e) { // $e->getMessage()
+            $this->error500($e->getMessage());
         }
     }
 
@@ -241,8 +242,9 @@ class Businessprofile extends MY_Controller {
                 die;
             }
             
-        } catch (\Throwable $th) {
-            $this->error500();
+        // } catch (\Throwable $th) {
+        } catch (exception $e) {
+            $this->error500($e->getMessage());
         }
     }
 
