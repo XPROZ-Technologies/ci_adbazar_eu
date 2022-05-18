@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if(!function_exists('callApi22')) {
+if(!function_exists('callApiApple')) {
     function callApiApple($linkApi, $postData = array(), $method = "GET"){
         $curl = curl_init();
 

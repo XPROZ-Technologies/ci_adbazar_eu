@@ -1346,7 +1346,7 @@ class Businessmanagement extends MY_Controller {
             }
             
         // } catch (\Throwable $th) {
-        } catch (exception $e) {
+        } catch (Exception $e) {
             $this->error500($e->getMessage());
         }
     }

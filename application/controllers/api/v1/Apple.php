@@ -112,6 +112,8 @@ class Apple extends MY_Controller {
             $customer = $this->apiCheckLogin(false);
             $postData = $this->arrayFromPostRawJson(array('business_id', 'receipt_data', 'payment_id'));
             $postData['customer_id'] = $customer['customer_id'];
+
+            // echo "<pre>";print_r($postData);die;
             if(!isset($postData['business_id'])) {
                 $this->error204('business_id: '.$this->lang->line('not_transmitted'));
                 die;
@@ -162,6 +164,8 @@ class Apple extends MY_Controller {
                 $verifyReceipt = callApiApple(APPLE_VERIFY_RECEIPT_HOST_SANDBOX, $body, 'POST');
                 $verifyReceipt = json_decode($verifyReceipt, true);
             }
+
+            
             if(isset($verifyReceipt['status']) && $verifyReceipt['status'] == 0) {
                 $originalTransactionId = isset($verifyReceipt['receipt']['in_app']) && count($verifyReceipt['receipt']['in_app']) > 0 ? $verifyReceipt['receipt']['in_app'][0]['original_transaction_id'] : 0;
                 
@@ -176,8 +180,8 @@ class Apple extends MY_Controller {
                     if($businessPaymentId > 0) {
                         $businessProfile = $this->Mbusinessprofiles->get($postData['business_id']);
                         $dataUpdate = array(
-                            'subscription_id' => $businessProfile['subscription_id'],
-                            'payment_status_id' => 1,
+                            'subscription_id' => $originalTransactionId,
+                            'payment_status_id' => STATUS_ACTIVED,
                             'is_annual_payment' => 1,
                             'business_status_id' => STATUS_ACTIVED,
                             'updated_at' => getCurentDateTime(),
@@ -220,16 +224,16 @@ class Apple extends MY_Controller {
                         $this->success200(array('business_id' => $postData['business_id'], 'payment_id' => $businessPaymentId), $this->lang->line('update_successful'));
                         die;
                     } else {
-                        $this->error204($this->lang->line('update_failed'));
+                        $this->error204($this->lang->line('update_failed')."-2");
                         die;
                     }
 
                 } else {
-                    $this->error204($this->lang->line('failed'));
+                    $this->error204($this->lang->line('failed')."-1");
                     die;
                 }
             } else {
-                $this->error204($this->lang->line('failed'));
+                $this->error204($this->lang->line('failed')."-3");
                 die;
             }
         /*}
